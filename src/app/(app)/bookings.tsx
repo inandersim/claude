@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import {
+  Badge,
   Button,
   EmptyState,
   ErrorState,
@@ -10,6 +11,7 @@ import {
   Icon,
   Screen,
   Skeleton,
+  Tappable,
   Text,
 } from '@/components/ui';
 import { useToast } from '@/core/hooks/useToast';
@@ -20,6 +22,8 @@ import { useEarnings } from '@/features/plans/hooks';
 import { useCurrentUser } from '@/features/auth/session.store';
 import { BookingCard } from '@/features/instructors/components/BookingCard';
 import { useMyBookings, useRespondBooking } from '@/features/instructors/hooks';
+import { PAYMENT_STATUS_COLOR, PAYMENT_STATUS_ICON } from '@/features/inventory/components/meta';
+import { useMyBookingsWithPayment } from '@/features/inventory/hooks';
 
 export default function BookingsScreen() {
   const router = useRouter();
@@ -30,6 +34,7 @@ export default function BookingsScreen() {
   const earnings = useEarnings();
   const paidMode = canAcceptPaidBookings(me.plan);
   const bookings = useMyBookings();
+  const stays = useMyBookingsWithPayment();
   const respond = useRespondBooking();
 
   const incoming = bookings.data?.filter((b) => b.instructor.userId === me.id) ?? [];
@@ -155,12 +160,62 @@ export default function BookingsScreen() {
             ) : null}
           </>
         )}
+        {stays.data && stays.data.length > 0 ? (
+          <>
+            <Text variant="label" color="textSubtle" style={{ marginTop: spacing.lg }}>
+              {t('stays.myBookings').toLocaleUpperCase('tr-TR')} · {stays.data.length}
+            </Text>
+            {stays.data.map((b) => (
+              <Tappable
+                key={b.id}
+                onPress={() =>
+                  router.push({ pathname: '/stays/booking/[id]', params: { id: b.id } })
+                }
+                scaleTo={0.985}
+                style={[
+                  styles.stayRow,
+                  { backgroundColor: colors.surface, borderColor: colors.border },
+                ]}
+                accessibilityRole="button"
+                accessibilityLabel={b.business.name}
+              >
+                <View style={{ flex: 1, gap: 2 }}>
+                  <Text variant="title" numberOfLines={1}>
+                    {b.business.name}
+                  </Text>
+                  <Text variant="caption" color="textMuted">
+                    {b.checkIn.slice(0, 10)} → {b.checkOut.slice(0, 10)} · {b.nights}{' '}
+                    {t('stays.nights')} · {formatPriceTry(b.totalTry, locale)}
+                  </Text>
+                </View>
+                {b.payment ? (
+                  <Badge
+                    label={t(`inventory.paymentStatus.${b.payment.status}`)}
+                    color={PAYMENT_STATUS_COLOR[b.payment.status]}
+                    icon={PAYMENT_STATUS_ICON[b.payment.status]}
+                    soft
+                  />
+                ) : (
+                  <Icon name="chevron-right" size={16} color={colors.textSubtle} />
+                )}
+              </Tappable>
+            ))}
+          </>
+        ) : null}
       </View>
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
+  stayRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.md,
+    padding: spacing.md,
+    borderRadius: radius.lg,
+    borderWidth: StyleSheet.hairlineWidth,
+  },
   gate: {
     flexDirection: 'row',
     alignItems: 'center',

@@ -197,7 +197,10 @@ const tr = {
   },
 };
 
-const en: typeof tr = {
+/** Diğer dillerin uyması gereken şekil. */
+export type FunI18nShape = typeof tr;
+
+const en: FunI18nShape = {
   title: 'Fun',
   subtitle: 'Earn XP, unlock badges, stamp your summits',
   xp: 'XP',

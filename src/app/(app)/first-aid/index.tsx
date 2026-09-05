@@ -132,6 +132,19 @@ export default function FirstAidScreen() {
               style={{ flex: 1 }}
             />
           </View>
+          <Tappable
+            onPress={() => router.push('/satellite/sos')}
+            haptic="selection"
+            style={[styles.contactsHint, { backgroundColor: colors.surfaceMuted }]}
+            accessibilityRole="button"
+            accessibilityLabel={t('satellite.sos.title')}
+          >
+            <Icon name="satellite" size={14} color={colors.primary} />
+            <Text variant="caption" color="textMuted" style={{ flex: 1 }}>
+              {t('satellite.sos.title')} — {t('satellite.sos.subtitle')}
+            </Text>
+            <Icon name="chevron-right" size={14} color={colors.textSubtle} />
+          </Tappable>
           {me.emergencyContacts.length === 0 ? (
             <Tappable
               onPress={() => router.push('/first-aid/contacts')}

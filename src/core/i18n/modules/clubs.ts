@@ -150,7 +150,10 @@ const tr = {
   clubEvents: 'Kulüp etkinlikleri',
 };
 
-const en: typeof tr = {
+/** Diğer dillerin uyması gereken şekil. */
+export type ClubsI18nShape = typeof tr;
+
+const en: ClubsI18nShape = {
   title: 'University clubs',
   subtitle: 'From campus to summit — find your club, join events',
   tabs: {

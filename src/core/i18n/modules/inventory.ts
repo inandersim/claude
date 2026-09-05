@@ -249,7 +249,10 @@ const tr = {
   },
 };
 
-const en: typeof tr = {
+/** Diğer dillerin uyması gereken şekil. */
+export type InventoryI18nShape = typeof tr;
+
+const en: InventoryI18nShape = {
   title: 'Reservations',
   units: 'Units',
   unit: 'Unit',

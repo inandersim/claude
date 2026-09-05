@@ -94,7 +94,10 @@ const tr = {
   progress: '%{{percent}}',
 };
 
-const en: typeof tr = {
+/** Diğer dillerin uyması gereken şekil. */
+export type MapsI18nShape = typeof tr;
+
+const en: MapsI18nShape = {
   title: 'Offline maps',
   subtitle: 'Vector map packs and route planning',
   packs: 'Map packs',

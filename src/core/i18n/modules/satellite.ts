@@ -139,7 +139,10 @@ const tr = {
   info: 'Uydu mesajları 160 karakterle sınırlıdır; Türkçe karakterler sadeleştirilir.',
 };
 
-const en: typeof tr = {
+/** Diğer dillerin uyması gereken şekil. */
+export type SatelliteI18nShape = typeof tr;
+
+const en: SatelliteI18nShape = {
   title: 'Satellite link',
   subtitle: 'Messages and SOS even without a network',
   link: {

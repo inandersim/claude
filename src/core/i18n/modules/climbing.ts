@@ -135,7 +135,10 @@ const tr = {
   approachValue: '{{minutes}} dk yürüyüş',
 };
 
-const en: typeof tr = {
+/** Diğer dillerin uyması gereken şekil. */
+export type ClimbingI18nShape = typeof tr;
+
+const en: ClimbingI18nShape = {
   title: 'Climbing',
   subtitle: 'Verified crag, sector and route database',
   search: 'Search crag or area…',

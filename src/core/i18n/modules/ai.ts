@@ -57,7 +57,10 @@ const tr = {
   },
 };
 
-const en: typeof tr = {
+/** Diğer dillerin uyması gereken şekil. */
+export type AiI18nShape = typeof tr;
+
+const en: AiI18nShape = {
   title: 'Zirve AI',
   subtitle: 'Your adventure assistant — works offline too',
   welcomeTitle: 'Where are we heading?',

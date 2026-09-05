@@ -252,7 +252,7 @@ export default function BusinessDetailScreen() {
             icon="calendar-check"
             size="lg"
             onPress={() =>
-              router.push({ pathname: '/stays/reserve', params: { businessId: data.id } })
+              router.push({ pathname: '/stays/book', params: { businessId: data.id } })
             }
           />
         </View>
