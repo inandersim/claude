@@ -1,0 +1,178 @@
+[
+  {
+    "id": "cur:hike:likya",
+    "name": "Likya Yolu",
+    "kind": "hiking_route",
+    "adventureTypes": ["hiking"],
+    "lat": 36.55,
+    "lng": 29.12,
+    "elevationM": 0,
+    "countryCode": "TR",
+    "description": "Fethiye–Antalya arası 540 km işaretli uzun mesafe yürüyüş rotası; Nisan–Mayıs ve Ekim en iyi dönem."
+  },
+  {
+    "id": "cur:hike:kackar",
+    "name": "Kaçkar Zirve Rotası",
+    "kind": "hiking_route",
+    "adventureTypes": ["hiking"],
+    "lat": 40.8608,
+    "lng": 41.1594,
+    "elevationM": 2200,
+    "countryCode": "TR",
+    "description": "Yukarı Kavron–Dilberdüzü–Zirve; 14 km, 1.400 m tırmanış."
+  },
+  {
+    "id": "cur:peak:kackar",
+    "name": "Kaçkar Dağı",
+    "kind": "peak",
+    "adventureTypes": ["hiking", "climbing"],
+    "lat": 40.8356,
+    "lng": 41.1211,
+    "elevationM": 3937,
+    "countryCode": "TR",
+    "description": "Karadeniz'in çatısı; buzul gölleri."
+  },
+  {
+    "id": "cur:shelter:dilberduzu",
+    "name": "Dilberdüzü Kamp Yeri",
+    "kind": "shelter",
+    "adventureTypes": ["hiking"],
+    "lat": 40.846,
+    "lng": 41.14,
+    "elevationM": 3100,
+    "countryCode": "TR",
+    "description": "Kaçkar zirve çıkışının ana kampı."
+  },
+  {
+    "id": "cur:camp:ayder",
+    "name": "Ayder Yaylası Kamp Alanı",
+    "kind": "campsite",
+    "adventureTypes": ["hiking"],
+    "lat": 40.95,
+    "lng": 41.1,
+    "elevationM": 1350,
+    "countryCode": "TR",
+    "description": "Kaçkar çıkışlarının başlangıç noktası. Kaplıca ve yayla evleri yakın."
+  },
+  {
+    "id": "cur:peak:agri",
+    "name": "Ağrı Dağı",
+    "kind": "peak",
+    "adventureTypes": ["hiking", "climbing"],
+    "lat": 39.7019,
+    "lng": 44.2983,
+    "elevationM": 5137,
+    "countryCode": "TR",
+    "description": "Türkiye'nin en yüksek zirvesi; 4 günlük tırmanış, izin gerekli."
+  },
+  {
+    "id": "cur:peak:demirkazik",
+    "name": "Demirkazık",
+    "kind": "peak",
+    "adventureTypes": ["climbing", "hiking"],
+    "lat": 37.82,
+    "lng": 35.15,
+    "elevationM": 3756,
+    "countryCode": "TR",
+    "description": "Aladağlar'ın en yüksek zirvesi; kuzey yüzü klasik kış rotası."
+  },
+  {
+    "id": "cur:climb:geyikbayiri",
+    "name": "Geyikbayırı",
+    "kind": "climbing",
+    "adventureTypes": ["climbing"],
+    "lat": 36.94,
+    "lng": 30.52,
+    "elevationM": 620,
+    "countryCode": "TR",
+    "description": "Antalya; 1.000+ spor tırmanış rotası, kış sezonu."
+  },
+  {
+    "id": "cur:camp:olimpos",
+    "name": "Olimpos Kamp Alanı",
+    "kind": "campsite",
+    "adventureTypes": ["hiking", "climbing"],
+    "lat": 36.397,
+    "lng": 30.474,
+    "elevationM": 20,
+    "countryCode": "TR",
+    "description": "Likya Yolu üzerinde, antik kent ve plaj yanında ağaç evler."
+  },
+  {
+    "id": "cur:dive:kas",
+    "name": "Kaş — Kanyon",
+    "kind": "diving",
+    "adventureTypes": ["diving"],
+    "lat": 36.19,
+    "lng": 29.63,
+    "elevationM": -32,
+    "countryCode": "TR",
+    "description": "Türkiye'nin en iyi dalış noktalarından; duvar ve kanyon dalışı, 18–32 m."
+  },
+  {
+    "id": "cur:ski:erciyes",
+    "name": "Erciyes Kayak Merkezi",
+    "kind": "ski",
+    "adventureTypes": ["skiing"],
+    "lat": 38.53,
+    "lng": 35.45,
+    "elevationM": 2200,
+    "countryCode": "TR",
+    "description": "102 km pist, 3.917 m zirve; freeride alanları, Aralık–Nisan."
+  },
+  {
+    "id": "cur:ski:uludag",
+    "name": "Uludağ",
+    "kind": "ski",
+    "adventureTypes": ["skiing", "hiking"],
+    "lat": 40.1,
+    "lng": 29.12,
+    "elevationM": 1900,
+    "countryCode": "TR",
+    "description": "Bursa; Türkiye'nin ilk kayak merkezi."
+  },
+  {
+    "id": "cur:para:babadag",
+    "name": "Babadağ 1969",
+    "kind": "paragliding",
+    "adventureTypes": ["paragliding"],
+    "lat": 36.55,
+    "lng": 29.19,
+    "elevationM": 1969,
+    "countryCode": "TR",
+    "description": "Ölüdeniz; dünyanın en iyi kalkışlarından, Nisan–Kasım, teleferikle çıkış."
+  },
+  {
+    "id": "cur:raft:coruh",
+    "name": "Çoruh Nehri",
+    "kind": "rafting",
+    "adventureTypes": ["rafting"],
+    "lat": 40.6,
+    "lng": 40.3,
+    "elevationM": 700,
+    "countryCode": "TR",
+    "description": "Dünyanın en hızlı akan nehirlerinden; Yusufeli etapları 3–5 derece."
+  },
+  {
+    "id": "cur:raft:koprulu",
+    "name": "Köprülü Kanyon",
+    "kind": "rafting",
+    "adventureTypes": ["rafting"],
+    "lat": 37.2,
+    "lng": 31.18,
+    "elevationM": 150,
+    "countryCode": "TR",
+    "description": "Antalya; başlangıç seviyesi, 14 km parkur, Nisan–Ekim."
+  },
+  {
+    "id": "cur:cave:dupnisa",
+    "name": "Dupnisa Mağarası",
+    "kind": "cave",
+    "adventureTypes": ["hiking"],
+    "lat": 41.85,
+    "lng": 27.55,
+    "elevationM": 350,
+    "countryCode": "TR",
+    "description": "Kırklareli; kuru ve sulu galeriler, ziyarete açık."
+  }
+]

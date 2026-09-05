@@ -1,0 +1,92 @@
+[
+  {
+    "id": "ec2",
+    "name": "Sarıyer 112 Acil Sağlık İstasyonu",
+    "type": "ambulance",
+    "lat": 41.165,
+    "lng": 29.05,
+    "locationName": "Sarıyer, İstanbul",
+    "phone": "112",
+    "open24h": true
+  },
+  {
+    "id": "ec3",
+    "name": "AKUT İstanbul Ekibi",
+    "type": "mountain_rescue",
+    "lat": 41.06,
+    "lng": 29.0,
+    "locationName": "Şişli, İstanbul",
+    "phone": "+90 212 217 04 10",
+    "open24h": true
+  },
+  {
+    "id": "ec6",
+    "name": "Bursa Uludağ JAK Timi",
+    "type": "mountain_rescue",
+    "lat": 40.1,
+    "lng": 29.12,
+    "locationName": "Uludağ, Bursa",
+    "phone": "112",
+    "open24h": true
+  },
+  {
+    "id": "ec7",
+    "name": "Kaş Devlet Hastanesi",
+    "type": "hospital",
+    "lat": 36.2,
+    "lng": 29.64,
+    "locationName": "Kaş, Antalya",
+    "phone": "+90 242 000 00 40",
+    "open24h": true
+  },
+  {
+    "id": "ec8",
+    "name": "Kaş Sahil Güvenlik",
+    "type": "coast_guard",
+    "lat": 36.198,
+    "lng": 29.638,
+    "locationName": "Kaş, Antalya",
+    "phone": "158",
+    "open24h": true
+  },
+  {
+    "id": "ec9",
+    "name": "Fethiye Devlet Hastanesi",
+    "type": "hospital",
+    "lat": 36.62,
+    "lng": 29.11,
+    "locationName": "Fethiye, Muğla",
+    "phone": "+90 252 000 00 50",
+    "open24h": true
+  },
+  {
+    "id": "ec11",
+    "name": "Ayder Sağlık Ocağı",
+    "type": "hospital",
+    "lat": 40.95,
+    "lng": 41.1,
+    "locationName": "Ayder, Rize",
+    "phone": null,
+    "open24h": false
+  },
+  {
+    "id": "ec12",
+    "name": "Erciyes Kayak Merkezi Sağlık ve Kurtarma",
+    "type": "mountain_rescue",
+    "lat": 38.55,
+    "lng": 35.48,
+    "locationName": "Erciyes, Kayseri",
+    "phone": "112",
+    "open24h": true
+  },
+  {
+    "id": "ec13",
+    "name": "Aladağlar AKUT Niğde",
+    "type": "mountain_rescue",
+    "lat": 37.97,
+    "lng": 34.68,
+    "locationName": "Çamardı, Niğde",
+    "phone": "+90 212 217 04 10",
+    "open24h": true
+  }
+]
