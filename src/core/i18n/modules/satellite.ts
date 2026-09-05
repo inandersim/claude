@@ -1,3 +1,10 @@
+import { satellite_de } from './locales/de/satellite';
+import { satellite_fr } from './locales/fr/satellite';
+import { satellite_es } from './locales/es/satellite';
+import { satellite_it } from './locales/it/satellite';
+import { satellite_ja } from './locales/ja/satellite';
+import { satellite_pt } from './locales/pt/satellite';
+import { satellite_ru } from './locales/ru/satellite';
 import { localeSet } from './shared';
 
 const tr = {
@@ -282,4 +289,12 @@ const en: SatelliteI18nShape = {
 };
 
 /** satellite modülü çevirileri — tr kaynak, en zorunlu; diğer diller aşağıya eklenir. */
-export const satelliteI18n = localeSet(tr, en);
+export const satelliteI18n = localeSet(tr, en, {
+  de: satellite_de,
+  fr: satellite_fr,
+  es: satellite_es,
+  it: satellite_it,
+  ja: satellite_ja,
+  pt: satellite_pt,
+  ru: satellite_ru,
+});

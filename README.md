@@ -46,7 +46,21 @@
 
 **İlk yardım & SOS:** Basılı tutmalı SOS düğmesi (112 arama + acil kişilere konum + SOS modunda canlı konum), en yakın hastane/ambulans/dağ kurtarma/eczane listesi (mesafe, tahmini varış, yol tarifi), 12 çevrimdışı ilk yardım rehberi (CPR, kanama, kırık, hipotermi, sıcak çarpması, irtifa hastalığı, yılan ısırması, anafilaksi, boğulma, yanık, yıldırım, çığ), acil kişi yönetimi.
 
-**Diller:** Türkçe, İngilizce, Almanca, Fransızca, İspanyolca, İtalyanca, Japonca, Portekizce, Rusça.
+**Zirve AI (v1.2):** Macera asistanı — gezi planı, yer önerisi, güvenlik özeti, paketleme listesi, ilk yardım adımları; uygulama içi yerel bilgi tabanı (çevrimdışı) ve isteğe bağlı Claude tabanlı `server/ai-gateway` (araç kullanımı, SSE akışı, prompt önbelleği). Yanıtlar uygulama içi bağlantılar (kütüphane, tehlike, rehber, rota planlayıcı) içerir.
+
+**Çevrimdışı haritalar & rota motoru (v1.2):** PMTiles vektör harita paketleri (indirme yöneticisi, sürüm/güncelleme), trail grafı üzerinde A\* rota planlama (yürüyüş, patika koşusu, dağ bisikleti, gravel, kayak turu profilleri; Tobler süre modeli, yüzey ve teknik kısıtları), yükseklik profili, zorluk, GPX içe/dışa aktarma, kayıtlı rotalar. Demo grafları: Kaçkar, Likya Yolu, Kapadokya, Aladağlar.
+
+**Tırmanış veritabanı (v1.2):** Kaya → sektör → rota hiyerarşisi (Geyikbayırı, Olympos, Ballıkayalar, Kazıklıali, Datça, Kapadokya boulder, Karakaya, Kalymnos, Fontainebleau, Yosemite); Fransız / YDS / UIAA / Fontainebleau / V-scale derece dönüşümü ve tercih; derece histogramı; logbook (onsight/flash/redpoint/toprope) ve derece piramidi; rota gönderme ve **topluluk doğrulama** (3 bağımsız onay → topluluk, moderatör/kulüp → doğrulanmış).
+
+**Uydu bağlantısı & uydu SOS (v1.2):** Cihaz eşleştirme (Garmin inReach, ZOLEO, SPOT, telefon uydu, Starlink Mini), bağlantı katmanı seçimi (hücresel → Wi-Fi → uydu → yok) ve kapsama tahmini, 160 karaktere sıkıştırılmış mesajlar, sakla-ilet kuyruğu ve üstel yeniden deneme, tek dokunuşla check-in şablonları, SOS aşama makinesi (hazır → gönderildi → alındı → ekip yolda → çözüldü) ve en yakın kurtarma merkezi; ilk yardım ekranından bağlantı.
+
+**Rezervasyon envanteri & ödeme güveni (v1.2):** İşletme birimleri (oda, çadır yeri, bungalov, yatakhane, karavan), müsaitlik takvimi ve gece fiyatları (hafta sonu/sezon çarpanı), teklif kırılımı, **emanet (escrow)** ödeme akışı (kart bloke → emanette → girişte işletmeye aktarım / iade), esnek-orta-katı iptal politikaları ve iade önizlemesi, doğrulanmış konaklama yorumları, ev sahibi güven skoru ve doğrulama seviyeleri, host paneli (envanter, tarih bloklama, gelen rezervasyonlar, ödemeler).
+
+**Üniversite kulüpleri (v1.2):** Doğa sporları kulüpleri dizini (ODTÜ, Boğaziçi, İTÜ, Hacettepe, Ege, Bilkent, KTÜ, Akdeniz, Sabancı, Ankara, Dokuz Eylül, YTÜ, ETH Zürich, Edinburgh), üyelik/talep, kulüp etkinlikleri (gezi, eğitim, sosyal, yarışma, söyleşi) ve RSVP, etkinlik oluşturma, `.edu` e-postayla öğrenci doğrulama, dönem XP'sine göre kulüp sıralaması.
+
+**Eğlence & oyunlaştırma (v1.2):** XP/seviye ve unvanlar, 20 rozet (bronz/gümüş/altın/efsane), haftalık/aylık/sezonluk görevler, liderlik tablosu (arkadaşlar/şehir/kulüp/dünya), günün 5 soruluk outdoor yarışması, macera ruleti (dönen çark + kütüphaneden öneri), zirve pasaportu damgaları, seri (streak).
+
+**Diller:** Türkçe, İngilizce, Almanca, Fransızca, İspanyolca, İtalyanca, Japonca, Portekizce, Rusça — v1.2 modülleri dahil (`src/core/i18n/modules/locales/<dil>/`).
 
 **Eğitmenler:** Sertifikalı rehber ve eğitmen profilleri (uzmanlık, sertifikalar, diller, uygun günler, puan ve değerlendirmeler, ders ücreti). Puan / mesafe / fiyata göre sıralama, ders talebi (rezervasyon) akışı, eğitmen tarafında onay / red, rezervasyonlarım ekranı, eğitmenin ilanları ve yaklaşan yayınları.
 
@@ -164,6 +178,18 @@ UI yalnızca `src/data/repositories` altındaki arayüzlere bağımlıdır. Ger�
 3. `src/data/index.ts` içindeki `getDataProvider()` seçim noktasını güncelleyin.
 
 Ekranlar ve hook'lar değişmeden çalışmaya devam eder.
+
+## AI gateway (sunucu)
+
+`server/ai-gateway/` bağımsız bir Node 22 + TypeScript servisidir; API anahtarı uygulamaya gömülmez.
+
+```bash
+cd server/ai-gateway && npm install
+cp .env.example .env   # ANTHROPIC_API_KEY, ZIRVE_GATEWAY_KEY
+npm run build && npm start
+```
+
+Uygulama tarafında `EXPO_PUBLIC_AI_GATEWAY_URL` ve `EXPO_PUBLIC_AI_GATEWAY_KEY` ayarlanırsa Zirve AI yanıtları gateway'den (SSE akışı) gelir; ayarlanmazsa yerel bilgi tabanı çevrimdışı yanıt üretir. Ayrıntı: `server/ai-gateway/README.md`.
 
 ## Canlı yayın altyapısı
 

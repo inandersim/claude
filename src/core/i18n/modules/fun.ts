@@ -1,3 +1,10 @@
+import { fun_de } from './locales/de/fun';
+import { fun_fr } from './locales/fr/fun';
+import { fun_es } from './locales/es/fun';
+import { fun_it } from './locales/it/fun';
+import { fun_ja } from './locales/ja/fun';
+import { fun_pt } from './locales/pt/fun';
+import { fun_ru } from './locales/ru/fun';
 import { localeSet } from './shared';
 
 const tr = {
@@ -398,4 +405,12 @@ const en: FunI18nShape = {
 };
 
 /** fun modülü çevirileri — tr kaynak, en zorunlu; diğer diller aşağıya eklenir. */
-export const funI18n = localeSet(tr, en);
+export const funI18n = localeSet(tr, en, {
+  de: fun_de,
+  fr: fun_fr,
+  es: fun_es,
+  it: fun_it,
+  ja: fun_ja,
+  pt: fun_pt,
+  ru: fun_ru,
+});

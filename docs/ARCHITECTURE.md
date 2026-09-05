@@ -66,6 +66,22 @@ Expo Router ile dosya tabanlı yapı:
 | **Planlar**     | `PLAN_SPECS`, `splitPayment`                      | `BillingRepository`   | Komisyon: ücretsiz %15, Pro Guide %5, Business %10. Üretimde RevenueCat entitlement → `User.plan`.                                                                                                        |
 | **Acil durum**  | `EmergencyCenter`, `nearestCenters`, `sosMessage` | `EmergencyRepository` | SOS: olay kaydı + SOS modunda konum paylaşımı + acil kişilere `sos_alert`; rehber içeriği `data/content/firstAid.ts` (TR/EN, çevrimdışı).                                                                 |
 
+## v1.2 modülleri
+
+Her modül kendi dosyalarında yaşar; ortak dosyalar (`enums.ts`, `types.ts`, `repositories/index.ts`, `database.ts`, `provider.ts`, `keys.ts`, `_layout.tsx`) yalnızca sözleşmeyi taşır. Mock repository'ler `data/mock/repos/<modül>.ts` içinde `create<X>Repository(ctx: MockContext)` fabrikalarıdır; `MockContext` (`data/mock/context.ts`) veritabanı, gecikme, kullanıcı doğrulama ve bildirim yardımcılarını sağlar.
+
+| Modül         | Domain                                                                                 | Repository            | Notlar                                                                                                                                                                                 |
+| ------------- | -------------------------------------------------------------------------------------- | --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Zirve AI**  | `classifyIntent`, `answerLocally`, `buildTripPlan`                                     | `AiRepository`        | Yerel bilgi tabanı (kütüphane, tehlike, acil merkez, rehberler) → çevrimdışı yanıt; `EXPO_PUBLIC_AI_GATEWAY_URL` varsa `RemoteAiClient` (SSE) → `server/ai-gateway` (Claude, araçlar). |
+| **Haritalar** | `planRoute` (A\*), `routeStats` (Tobler), `toGpx`/`fromGpx`, `simplifyPoints`          | `MapsRepository`      | Trail grafı `TrailGraph`; harita paketleri PMTiles (indirme simülasyonu); üretimde MapLibre + Protomaps (`docs/MAPS.md`).                                                              |
+| **Tırmanış**  | `convertGrade`, `verificationOf`, `canConfirm`, `pyramidOf`                            | `ClimbingRepository`  | Ortak zorluk puanı (10–66) ile sistemler arası dönüşüm; doğrulama: 3 bağımsız onay → community, moderatör/kulüp → verified (`docs/CLIMBING.md`).                                       |
+| **Uydu**      | `chooseLink`, `encodeSatMessage`, `queuePolicy`, `advanceSosStage`                     | `SatelliteRepository` | 160 karakter sıkıştırma sözlüğü, sakla-ilet kuyruğu, SOS aşama makinesi; gerçek entegrasyon yolu `docs/SATELLITE.md`.                                                                  |
+| **Envanter**  | `buildQuote`, `availabilityFor`, `refundAmount`, `nextPaymentStatus`, `hostTrustScore` | `InventoryRepository` | Birim/blok takvimi, emanet ödeme makinesi, iptal politikaları, doğrulanmış yorum; iyzico/Stripe planı `docs/PAYMENTS.md`.                                                              |
+| **Kulüpler**  | `filterClubs`, `rankClubs`, `canRsvp`, `isStudentEmail`                                | `ClubRepository`      | Bekleyen üyelik talebi `joinedAt: ''` ile işaretlenir; doğrulanmış kulüpte katılım talep olur.                                                                                         |
+| **Eğlence**   | `levelFor`, `xpFor`, `evaluateBadges`, `buildLeaderboard`, `pickQuiz`, `spinRoulette`  | `FunRepository`       | Günün yarışması deterministik (gün numarası tohumlu); rozet kazanımı quiz/görev sonrası değerlendirilir.                                                                               |
+
+**Modül i18n:** Her modülün çevirileri `core/i18n/modules/<modül>.ts` içinde (`tr` kaynak, `en` zorunlu, `XI18nShape` tipi) ve diğer 7 dil `core/i18n/modules/locales/<dil>/<modül>.ts` dosyalarında; `localeSet()` eksik dili İngilizceye düşürür. `tr.ts`/`en.ts` yalnızca `ai: aiI18n.tr` gibi bağlar.
+
 **i18n notu:** `useT()` dile bağlı bir `t` döndürür; React Compiler modül düzeyindeki saf fonksiyon çağrılarını önbelleğe aldığından, bileşenlerde her zaman `useT()` kullanılmalı, `t` doğrudan import edilmemelidir.
 
 ## Tema

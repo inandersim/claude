@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import Svg, { Circle, G, Line, Polyline, Rect, Text as SvgText } from 'react-native-svg';
 
 import { useT } from '@/core/i18n';
@@ -191,19 +191,10 @@ export function RouteMap({
                 <Circle
                   cx={p.x}
                   cy={p.y}
-                  r={16}
-                  fill={colors.primary}
-                  fillOpacity={0.001}
-                  onPress={onNodePress ? () => onNodePress(n) : undefined}
-                />
-                <Circle
-                  cx={p.x}
-                  cy={p.y}
                   r={r}
                   fill={fill}
                   stroke={isStart || isEnd ? haloFill : colors.borderStrong}
                   strokeWidth={isStart || isEnd ? 3 : 1.5}
-                  onPress={onNodePress ? () => onNodePress(n) : undefined}
                 />
                 {isStart || isEnd ? (
                   <SvgText
@@ -233,11 +224,31 @@ export function RouteMap({
           })}
         </Svg>
       ) : null}
+      {/* Dokunma alanları: SVG üzerinde değil, mutlak konumlu Pressable'lar (web uyumlu) */}
+      {width > 0 && onNodePress
+        ? graph.nodes.map((n) => {
+            const p = projected.get(n.id);
+            if (!p) return null;
+            return (
+              <Pressable
+                key={n.id}
+                onPress={() => onNodePress(n)}
+                style={[styles.hit, { left: p.x - HIT / 2, top: p.y - HIT / 2 }]}
+                accessibilityRole="button"
+                accessibilityLabel={n.name ?? n.id}
+                hitSlop={4}
+              />
+            );
+          })
+        : null}
     </View>
   );
 }
 
+const HIT = 32;
+
 const styles = StyleSheet.create({
+  hit: { position: 'absolute', width: HIT, height: HIT, borderRadius: HIT / 2 },
   root: {
     width: '100%',
     overflow: 'hidden',
