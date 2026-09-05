@@ -1,3 +1,11 @@
+import { aiI18n } from './modules/ai';
+import { mapsI18n } from './modules/maps';
+import { climbingI18n } from './modules/climbing';
+import { satelliteI18n } from './modules/satellite';
+import { inventoryI18n } from './modules/inventory';
+import { clubsI18n } from './modules/clubs';
+import { funI18n } from './modules/fun';
+
 export const tr = {
   common: {
     appName: 'Zirve',
@@ -738,6 +746,13 @@ export const tr = {
     description: 'Aradığın rota haritada yok gibi görünüyor.',
     goHome: 'Ana sayfaya dön',
   },
+  ai: aiI18n.tr,
+  maps: mapsI18n.tr,
+  climbing: climbingI18n.tr,
+  satellite: satelliteI18n.tr,
+  inventory: inventoryI18n.tr,
+  clubs: clubsI18n.tr,
+  fun: funI18n.tr,
 };
 
 export type Translations = typeof tr;

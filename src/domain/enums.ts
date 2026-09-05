@@ -421,3 +421,155 @@ export const EMERGENCY_CENTER_META: Record<
 
 export const FIRST_AID_CATEGORIES = ['critical', 'injury', 'environment', 'animal'] as const;
 export type FirstAidCategory = (typeof FIRST_AID_CATEGORIES)[number];
+
+/* ------------------------------------------------------------------ */
+/* v1.2 — Tırmanış veritabanı                                          */
+/* ------------------------------------------------------------------ */
+
+export const GRADE_SYSTEMS = ['french', 'yds', 'uiaa', 'font', 'v_scale'] as const;
+export type GradeSystem = (typeof GRADE_SYSTEMS)[number];
+
+export const CLIMB_TYPES = ['sport', 'trad', 'boulder', 'multipitch', 'ice', 'alpine'] as const;
+export type ClimbType = (typeof CLIMB_TYPES)[number];
+
+export const ASCENT_STYLES = ['onsight', 'flash', 'redpoint', 'toprope', 'attempt'] as const;
+export type AscentStyle = (typeof ASCENT_STYLES)[number];
+
+/** unverified: kullanıcı girdisi · community: 3+ bağımsız onay · verified: moderatör/kulüp onayı */
+export const VERIFICATION_STATUSES = ['unverified', 'community', 'verified'] as const;
+export type VerificationStatus = (typeof VERIFICATION_STATUSES)[number];
+
+/* ------------------------------------------------------------------ */
+/* v1.2 — Uydu bağlantısı                                              */
+/* ------------------------------------------------------------------ */
+
+export const SAT_DEVICE_TYPES = [
+  'inreach',
+  'zoleo',
+  'spot',
+  'phone_satellite',
+  'starlink_mini',
+] as const;
+export type SatDeviceType = (typeof SAT_DEVICE_TYPES)[number];
+
+export const SAT_MESSAGE_STATUSES = ['queued', 'sending', 'sent', 'delivered', 'failed'] as const;
+export type SatMessageStatus = (typeof SAT_MESSAGE_STATUSES)[number];
+
+export const SAT_MESSAGE_KINDS = ['checkin', 'text', 'sos', 'location'] as const;
+export type SatMessageKind = (typeof SAT_MESSAGE_KINDS)[number];
+
+export const SOS_STAGES = [
+  'idle',
+  'armed',
+  'sent',
+  'acknowledged',
+  'dispatched',
+  'resolved',
+] as const;
+export type SosStage = (typeof SOS_STAGES)[number];
+
+/** Bağlantı katmanı: hücresel → wifi → uydu → yok */
+export const LINK_TYPES = ['cellular', 'wifi', 'satellite', 'none'] as const;
+export type LinkType = (typeof LINK_TYPES)[number];
+
+/* ------------------------------------------------------------------ */
+/* v1.2 — Çevrimdışı haritalar & rota motoru                           */
+/* ------------------------------------------------------------------ */
+
+export const ROUTE_PROFILES = ['hike', 'trail_run', 'mtb', 'gravel', 'ski_tour'] as const;
+export type RouteProfile = (typeof ROUTE_PROFILES)[number];
+
+export const SURFACES = ['trail', 'rock', 'scree', 'snow', 'gravel', 'paved'] as const;
+export type Surface = (typeof SURFACES)[number];
+
+export const MAP_PACK_STATUSES = [
+  'available',
+  'downloading',
+  'downloaded',
+  'update_available',
+] as const;
+export type MapPackStatus = (typeof MAP_PACK_STATUSES)[number];
+
+/* ------------------------------------------------------------------ */
+/* v1.2 — Rezervasyon envanteri & ödeme güveni                         */
+/* ------------------------------------------------------------------ */
+
+export const CANCELLATION_POLICIES = ['flexible', 'moderate', 'strict'] as const;
+export type CancellationPolicy = (typeof CANCELLATION_POLICIES)[number];
+
+/**
+ * authorized: kart bloke · escrow: Zirve emanetinde · released: giriş sonrası
+ * işletmeye aktarıldı · refunded: iade edildi
+ */
+export const PAYMENT_STATUSES = [
+  'pending',
+  'authorized',
+  'escrow',
+  'released',
+  'refunded',
+  'failed',
+] as const;
+export type PaymentStatus = (typeof PAYMENT_STATUSES)[number];
+
+export const HOST_VERIFICATION_LEVELS = ['none', 'id', 'address', 'premium'] as const;
+export type HostVerificationLevel = (typeof HOST_VERIFICATION_LEVELS)[number];
+
+export const UNIT_KINDS = ['room', 'tent_pitch', 'bungalow', 'dorm_bed', 'rv_spot'] as const;
+export type UnitKind = (typeof UNIT_KINDS)[number];
+
+/* ------------------------------------------------------------------ */
+/* v1.2 — Üniversite kulüpleri                                         */
+/* ------------------------------------------------------------------ */
+
+export const CLUB_ROLES = ['member', 'officer', 'president'] as const;
+export type ClubRole = (typeof CLUB_ROLES)[number];
+
+export const MEMBERSHIP_STATUSES = ['none', 'requested', 'member'] as const;
+export type MembershipStatus = (typeof MEMBERSHIP_STATUSES)[number];
+
+export const CLUB_EVENT_KINDS = ['trip', 'training', 'social', 'competition', 'talk'] as const;
+export type ClubEventKind = (typeof CLUB_EVENT_KINDS)[number];
+
+/* ------------------------------------------------------------------ */
+/* v1.2 — Eğlence & oyunlaştırma                                       */
+/* ------------------------------------------------------------------ */
+
+export const BADGE_TIERS = ['bronze', 'silver', 'gold', 'legend'] as const;
+export type BadgeTier = (typeof BADGE_TIERS)[number];
+
+export const CHALLENGE_PERIODS = ['weekly', 'monthly', 'seasonal'] as const;
+export type ChallengePeriod = (typeof CHALLENGE_PERIODS)[number];
+
+export const LEADERBOARD_SCOPES = ['friends', 'city', 'club', 'global'] as const;
+export type LeaderboardScope = (typeof LEADERBOARD_SCOPES)[number];
+
+export const XP_SOURCES = [
+  'post',
+  'route',
+  'ascent',
+  'hazard_report',
+  'challenge',
+  'quiz',
+  'event',
+  'streak',
+] as const;
+export type XpSource = (typeof XP_SOURCES)[number];
+
+/* ------------------------------------------------------------------ */
+/* v1.2 — Yapay zekâ asistanı                                          */
+/* ------------------------------------------------------------------ */
+
+export const AI_INTENTS = [
+  'plan_trip',
+  'safety_brief',
+  'packing_list',
+  'find_place',
+  'gear_advice',
+  'first_aid',
+  'weather',
+  'general',
+] as const;
+export type AiIntent = (typeof AI_INTENTS)[number];
+
+export const AI_ROLES = ['user', 'assistant'] as const;
+export type AiRole = (typeof AI_ROLES)[number];

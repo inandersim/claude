@@ -1,3 +1,10 @@
+import { aiI18n } from './modules/ai';
+import { mapsI18n } from './modules/maps';
+import { climbingI18n } from './modules/climbing';
+import { satelliteI18n } from './modules/satellite';
+import { inventoryI18n } from './modules/inventory';
+import { clubsI18n } from './modules/clubs';
+import { funI18n } from './modules/fun';
 import type { Translations } from './tr';
 
 export const en: Translations = {
@@ -738,4 +745,11 @@ export const en: Translations = {
     description: "The route you're looking for isn't on the map.",
     goHome: 'Go home',
   },
+  ai: aiI18n.en,
+  maps: mapsI18n.en,
+  climbing: climbingI18n.en,
+  satellite: satelliteI18n.en,
+  inventory: inventoryI18n.en,
+  clubs: clubsI18n.en,
+  fun: funI18n.en,
 };

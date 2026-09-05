@@ -19,6 +19,30 @@ import type {
   NotificationType,
   StreamStatus,
   TrailCondition,
+  AiIntent,
+  AiRole,
+  AscentStyle,
+  BadgeTier,
+  CancellationPolicy,
+  ChallengePeriod,
+  ClimbType,
+  ClubEventKind,
+  ClubRole,
+  GradeSystem,
+  HostVerificationLevel,
+  LinkType,
+  MapPackStatus,
+  MembershipStatus,
+  PaymentStatus,
+  RouteProfile,
+  SatDeviceType,
+  SatMessageKind,
+  SatMessageStatus,
+  SosStage,
+  Surface,
+  UnitKind,
+  VerificationStatus,
+  XpSource,
 } from './enums';
 
 export type ID = string;
@@ -678,4 +702,613 @@ export interface SosEvent {
   createdAt: ISODate;
   resolvedAt: ISODate | null;
   notifiedContacts: number;
+}
+
+/* ------------------------------------------------------------------ */
+/* v1.2 — Yapay zekâ asistanı                                          */
+/* ------------------------------------------------------------------ */
+
+export interface AiMessage {
+  id: ID;
+  threadId: ID;
+  role: AiRole;
+  content: string;
+  intent: AiIntent | null;
+  /** Yanıtta önerilen uygulama içi bağlantılar (rota, yer, rehber…) */
+  actions: AiAction[];
+  createdAt: ISODate;
+}
+
+export interface AiAction {
+  label: string;
+  /** Expo Router yolu, örn. "/library/lp_1" */
+  href: string;
+  icon: string;
+}
+
+export interface AiThread {
+  id: ID;
+  userId: ID;
+  title: string;
+  createdAt: ISODate;
+  updatedAt: ISODate;
+}
+
+export interface AiThreadWithMessages extends AiThread {
+  messages: AiMessage[];
+}
+
+export interface AiContext {
+  locale: string;
+  coords: GeoPoint | null;
+  adventureTypes: AdventureType[];
+  plan: Plan;
+}
+
+export interface TripPlanDay {
+  day: number;
+  title: string;
+  distanceKm: number;
+  ascentM: number;
+  notes: string;
+}
+
+export interface TripPlan {
+  title: string;
+  adventureType: AdventureType;
+  days: TripPlanDay[];
+  packing: string[];
+  safety: string[];
+}
+
+/* ------------------------------------------------------------------ */
+/* v1.2 — Çevrimdışı haritalar & rota motoru                           */
+/* ------------------------------------------------------------------ */
+
+export interface TrailNode {
+  id: ID;
+  coords: GeoPoint;
+  elevationM: number;
+  name: string | null;
+}
+
+export interface TrailEdge {
+  id: ID;
+  from: ID;
+  to: ID;
+  distanceKm: number;
+  surface: Surface;
+  /** Hangi profiller bu kenarı kullanabilir */
+  profiles: RouteProfile[];
+  /** 0..1, 1 = teknik */
+  technical: number;
+}
+
+export interface TrailGraph {
+  regionId: ID;
+  nodes: TrailNode[];
+  edges: TrailEdge[];
+}
+
+export interface PlannedRoute {
+  nodeIds: ID[];
+  points: GeoPoint[];
+  distanceKm: number;
+  ascentM: number;
+  descentM: number;
+  durationMin: number;
+  maxElevationM: number;
+  minElevationM: number;
+  /** [mesafeKm, yükseklikM] çiftleri */
+  profile: [number, number][];
+  surfaces: Partial<Record<Surface, number>>;
+}
+
+export interface SavedRoute {
+  id: ID;
+  userId: ID;
+  regionId: ID;
+  name: string;
+  routeProfile: RouteProfile;
+  planned: PlannedRoute;
+  createdAt: ISODate;
+}
+
+export interface MapPack {
+  id: ID;
+  name: string;
+  countryCode: string;
+  bbox: [number, number, number, number];
+  sizeMb: number;
+  version: string;
+  /** Vektör karo formatı (PMTiles) */
+  format: 'pmtiles';
+  status: MapPackStatus;
+  progress: number;
+  updatedAt: ISODate;
+  /** İndirilmişse yerel yol */
+  localPath: string | null;
+}
+
+/* ------------------------------------------------------------------ */
+/* v1.2 — Tırmanış veritabanı                                          */
+/* ------------------------------------------------------------------ */
+
+export interface Crag {
+  id: ID;
+  name: string;
+  locationName: string;
+  countryCode: string;
+  coords: GeoPoint;
+  rockType: string;
+  description: string;
+  imageUrl: string | null;
+  climbTypes: ClimbType[];
+  routeCount: number;
+  verification: VerificationStatus;
+  /** En iyi mevsimler (ay numaraları 1-12) */
+  seasons: number[];
+  approachMin: number;
+  updatedAt: ISODate;
+}
+
+export interface CragWithDistance extends Crag {
+  distanceKm: number | null;
+}
+
+export interface CragSector {
+  id: ID;
+  cragId: ID;
+  name: string;
+  orientation: string;
+  routeCount: number;
+}
+
+export interface ClimbingRoute {
+  id: ID;
+  cragId: ID;
+  sectorId: ID;
+  name: string;
+  type: ClimbType;
+  /** Derece, Fransız (spor/çok uzun) veya Fontainebleau (boulder) sisteminde kaynak */
+  grade: string;
+  gradeSystem: GradeSystem;
+  lengthM: number | null;
+  pitches: number;
+  bolts: number | null;
+  stars: number;
+  firstAscent: string | null;
+  description: string;
+  verification: VerificationStatus;
+  confirmations: number;
+  ascentCount: number;
+  submittedBy: ID | null;
+  createdAt: ISODate;
+}
+
+export interface Ascent {
+  id: ID;
+  routeId: ID;
+  userId: ID;
+  style: AscentStyle;
+  date: ISODate;
+  note: string;
+  /** Kullanıcının hissettiği derece (opsiyonel) */
+  feltGrade: string | null;
+}
+
+export interface AscentWithUser extends Ascent {
+  user: User;
+}
+
+export interface LogAscentInput {
+  routeId: ID;
+  style: AscentStyle;
+  note: string;
+  feltGrade?: string | null;
+}
+
+export interface SubmitRouteInput {
+  cragId: ID;
+  sectorId: ID;
+  name: string;
+  type: ClimbType;
+  grade: string;
+  gradeSystem: GradeSystem;
+  lengthM: number | null;
+  pitches: number;
+  description: string;
+}
+
+export interface ClimbingFilter {
+  query?: string;
+  countryCode?: string | null;
+  climbType?: ClimbType | null;
+  origin?: GeoPoint | null;
+  verifiedOnly?: boolean;
+}
+
+/* ------------------------------------------------------------------ */
+/* v1.2 — Uydu bağlantısı                                              */
+/* ------------------------------------------------------------------ */
+
+export interface SatDevice {
+  id: ID;
+  userId: ID;
+  type: SatDeviceType;
+  name: string;
+  imei: string | null;
+  batteryPct: number | null;
+  pairedAt: ISODate;
+  lastSeenAt: ISODate | null;
+  /** Aylık plan dahil mesaj sayısı */
+  monthlyQuota: number;
+  usedThisMonth: number;
+}
+
+export interface SatMessage {
+  id: ID;
+  userId: ID;
+  deviceId: ID | null;
+  kind: SatMessageKind;
+  /** Kısaltılmış/sıkıştırılmış gövde (≤160 karakter) */
+  body: string;
+  coords: GeoPoint | null;
+  toContacts: string[];
+  status: SatMessageStatus;
+  link: LinkType;
+  createdAt: ISODate;
+  deliveredAt: ISODate | null;
+  attempts: number;
+}
+
+export interface SosSession {
+  id: ID;
+  userId: ID;
+  stage: SosStage;
+  coords: GeoPoint;
+  startedAt: ISODate;
+  updatedAt: ISODate;
+  /** Aşama geçmişi */
+  timeline: { stage: SosStage; at: ISODate; note: string }[];
+  rescueCenterId: ID | null;
+  link: LinkType;
+}
+
+export interface LinkStatus {
+  link: LinkType;
+  /** dBm veya 0..100 normalize sinyal */
+  signal: number;
+  satellitesInView: number;
+  estimatedLatencyS: number;
+}
+
+export interface PairDeviceInput {
+  type: SatDeviceType;
+  name: string;
+  imei: string | null;
+}
+
+export interface SendSatMessageInput {
+  kind: SatMessageKind;
+  body: string;
+  coords: GeoPoint | null;
+  toContacts: string[];
+}
+
+/* ------------------------------------------------------------------ */
+/* v1.2 — Rezervasyon envanteri & ödeme güveni                         */
+/* ------------------------------------------------------------------ */
+
+export interface StayUnit {
+  id: ID;
+  businessId: ID;
+  name: string;
+  kind: UnitKind;
+  capacity: number;
+  quantity: number;
+  basePriceTry: number;
+  /** Hafta sonu çarpanı (1.0 = değişmez) */
+  weekendMultiplier: number;
+  /** Sezon aralıkları */
+  seasons: { from: ISODate; to: ISODate; multiplier: number }[];
+  amenities: string[];
+}
+
+export interface UnitBlock {
+  id: ID;
+  unitId: ID;
+  from: ISODate;
+  to: ISODate;
+  reason: 'booking' | 'maintenance' | 'owner';
+  bookingId: ID | null;
+}
+
+export interface Availability {
+  unitId: ID;
+  date: ISODate;
+  available: number;
+  priceTry: number;
+}
+
+export interface Payment {
+  id: ID;
+  bookingId: ID;
+  payerId: ID;
+  amountTry: number;
+  platformFeeTry: number;
+  status: PaymentStatus;
+  provider: 'iyzico' | 'stripe' | 'mock';
+  createdAt: ISODate;
+  releasedAt: ISODate | null;
+  refundedTry: number;
+  timeline: { status: PaymentStatus; at: ISODate }[];
+}
+
+export interface StayReview {
+  id: ID;
+  businessId: ID;
+  bookingId: ID;
+  authorId: ID;
+  rating: number;
+  text: string;
+  /** Yalnızca tamamlanmış konaklama sonrası yazılabilir */
+  verifiedStay: boolean;
+  createdAt: ISODate;
+}
+
+export interface StayReviewWithAuthor extends StayReview {
+  author: User;
+}
+
+export interface HostProfile {
+  businessId: ID;
+  verification: HostVerificationLevel;
+  cancellationPolicy: CancellationPolicy;
+  responseRatePct: number;
+  responseTimeMin: number;
+  payoutIban: string | null;
+  /** Emanetten çıkmayı bekleyen tutar */
+  pendingPayoutTry: number;
+  paidOutTry: number;
+}
+
+export interface BookingWithPayment extends StayBooking {
+  business: Business;
+  unit: StayUnit | null;
+  payment: Payment | null;
+  policy: CancellationPolicy;
+}
+
+export interface QuoteInput {
+  businessId: ID;
+  unitId: ID;
+  checkIn: ISODate;
+  checkOut: ISODate;
+  guests: number;
+}
+
+export interface Quote {
+  nights: number;
+  nightly: { date: ISODate; priceTry: number }[];
+  subtotalTry: number;
+  platformFeeTry: number;
+  totalTry: number;
+  depositTry: number;
+  policy: CancellationPolicy;
+  available: boolean;
+}
+
+export interface RefundPreview {
+  refundTry: number;
+  keptTry: number;
+  reason: string;
+}
+
+/* ------------------------------------------------------------------ */
+/* v1.2 — Üniversite kulüpleri                                         */
+/* ------------------------------------------------------------------ */
+
+export interface Club {
+  id: ID;
+  name: string;
+  university: string;
+  city: string;
+  countryCode: string;
+  description: string;
+  logoUrl: string | null;
+  coverUrl: string | null;
+  adventureTypes: AdventureType[];
+  memberCount: number;
+  foundedYear: number | null;
+  isVerified: boolean;
+  /** Bu dönem toplam XP (kulüp sıralaması için) */
+  seasonXp: number;
+  contactEmail: string | null;
+  instagram: string | null;
+  createdAt: ISODate;
+}
+
+export interface ClubMember {
+  clubId: ID;
+  userId: ID;
+  role: ClubRole;
+  joinedAt: ISODate;
+}
+
+export interface ClubWithMembership extends Club {
+  membership: MembershipStatus;
+  role: ClubRole | null;
+  upcomingEventCount: number;
+}
+
+export interface ClubEvent {
+  id: ID;
+  clubId: ID;
+  title: string;
+  kind: ClubEventKind;
+  adventureType: AdventureType;
+  description: string;
+  locationName: string;
+  coords: GeoPoint | null;
+  startsAt: ISODate;
+  endsAt: ISODate;
+  capacity: number | null;
+  attendeeCount: number;
+  /** Üye olmayanlar katılabilir mi */
+  openToAll: boolean;
+  priceTry: number;
+}
+
+export interface ClubEventWithClub extends ClubEvent {
+  club: Club;
+  rsvped: boolean;
+}
+
+export interface CreateClubEventInput {
+  clubId: ID;
+  title: string;
+  kind: ClubEventKind;
+  adventureType: AdventureType;
+  description: string;
+  locationName: string;
+  startsAt: ISODate;
+  endsAt: ISODate;
+  capacity: number | null;
+  openToAll: boolean;
+  priceTry: number;
+}
+
+export interface ClubFilter {
+  query?: string;
+  city?: string | null;
+  adventureType?: AdventureType | null;
+  countryCode?: string | null;
+}
+
+export interface StudentVerification {
+  userId: ID;
+  email: string;
+  university: string;
+  verifiedAt: ISODate | null;
+}
+
+/* ------------------------------------------------------------------ */
+/* v1.2 — Eğlence & oyunlaştırma                                       */
+/* ------------------------------------------------------------------ */
+
+export interface XpEvent {
+  id: ID;
+  userId: ID;
+  source: XpSource;
+  amount: number;
+  note: string;
+  createdAt: ISODate;
+}
+
+export interface LevelInfo {
+  level: number;
+  title: string;
+  xp: number;
+  nextLevelXp: number;
+  progress: number;
+}
+
+export interface Badge {
+  id: ID;
+  name: string;
+  description: string;
+  tier: BadgeTier;
+  icon: string;
+  /** Kazanma koşulu (gösterim amaçlı) */
+  criteria: string;
+}
+
+export interface EarnedBadge {
+  badgeId: ID;
+  userId: ID;
+  earnedAt: ISODate;
+}
+
+export interface BadgeWithStatus extends Badge {
+  earnedAt: ISODate | null;
+}
+
+export interface Challenge {
+  id: ID;
+  title: string;
+  description: string;
+  period: ChallengePeriod;
+  adventureType: AdventureType | null;
+  target: number;
+  unit: 'km' | 'm' | 'count';
+  rewardXp: number;
+  badgeId: ID | null;
+  startsAt: ISODate;
+  endsAt: ISODate;
+}
+
+export interface ChallengeProgress {
+  challengeId: ID;
+  userId: ID;
+  value: number;
+  completedAt: ISODate | null;
+  joinedAt: ISODate;
+}
+
+export interface ChallengeWithProgress extends Challenge {
+  progress: ChallengeProgress | null;
+  participants: number;
+}
+
+export interface LeaderboardEntry {
+  rank: number;
+  user: User;
+  xp: number;
+  isMe: boolean;
+}
+
+export interface QuizQuestion {
+  id: ID;
+  question: string;
+  options: string[];
+  answerIndex: number;
+  explanation: string;
+  adventureType: AdventureType | null;
+}
+
+export interface QuizResult {
+  correct: number;
+  total: number;
+  xpEarned: number;
+  streak: number;
+}
+
+export interface PassportStamp {
+  id: ID;
+  userId: ID;
+  placeName: string;
+  countryCode: string;
+  adventureType: AdventureType;
+  elevationM: number | null;
+  stampedAt: ISODate;
+}
+
+export interface FunSummary {
+  level: LevelInfo;
+  streakDays: number;
+  badgesEarned: number;
+  badgesTotal: number;
+  activeChallenges: number;
+  stamps: number;
+  weeklyRank: number | null;
+}
+
+export interface RouletteSuggestion {
+  title: string;
+  adventureType: AdventureType;
+  placeId: ID | null;
+  placeName: string;
+  distanceKm: number | null;
+  reason: string;
 }

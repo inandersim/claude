@@ -26,6 +26,7 @@ import type {
   CreatePostInput,
   FeedPost,
   GeoPoint,
+  ISODate,
   HazardZoneWithReporter,
   ID,
   InstructorFilter,
@@ -46,6 +47,55 @@ import type {
   TrendingLocation,
   User,
   ZMatchWithUsers,
+  AiContext,
+  AiThread,
+  AiThreadWithMessages,
+  AiMessage,
+  TripPlan,
+  TrailGraph,
+  PlannedRoute,
+  SavedRoute,
+  MapPack,
+  RouteProfile,
+  Crag,
+  CragWithDistance,
+  CragSector,
+  ClimbingRoute,
+  AscentWithUser,
+  LogAscentInput,
+  SubmitRouteInput,
+  ClimbingFilter,
+  SatDevice,
+  SatMessage,
+  SosSession,
+  LinkStatus,
+  PairDeviceInput,
+  SendSatMessageInput,
+  StayUnit,
+  Availability,
+  Quote,
+  QuoteInput,
+  BookingWithPayment,
+  RefundPreview,
+  StayReviewWithAuthor,
+  HostProfile,
+  UnitBlock,
+  Club,
+  ClubWithMembership,
+  ClubEventWithClub,
+  ClubFilter,
+  CreateClubEventInput,
+  StudentVerification,
+  FunSummary,
+  BadgeWithStatus,
+  ChallengeWithProgress,
+  LeaderboardEntry,
+  LeaderboardScope,
+  QuizQuestion,
+  QuizResult,
+  PassportStamp,
+  RouletteSuggestion,
+  XpEvent,
 } from '@/domain';
 
 /**
@@ -220,6 +270,112 @@ export interface EmergencyRepository {
   updateContacts(meId: ID, contacts: EmergencyContact[]): Promise<User>;
 }
 
+/* ------------------------------------------------------------------ */
+/* v1.2 — Yeni modüller                                                 */
+/* ------------------------------------------------------------------ */
+
+export interface AiRepository {
+  threads(meId: ID): Promise<AiThread[]>;
+  thread(meId: ID, threadId: ID): Promise<AiThreadWithMessages | null>;
+  /** Yeni ileti gönderir; yanıt (assistant) mesajını döner. threadId null → yeni sohbet */
+  send(meId: ID, threadId: ID | null, content: string, ctx: AiContext): Promise<AiMessage>;
+  planTrip(meId: ID, prompt: string, ctx: AiContext): Promise<TripPlan>;
+  deleteThread(meId: ID, threadId: ID): Promise<void>;
+}
+
+export interface MapsRepository {
+  packs(): Promise<MapPack[]>;
+  download(packId: ID): Promise<MapPack>;
+  remove(packId: ID): Promise<MapPack>;
+  graph(regionId: ID): Promise<TrailGraph>;
+  regions(): Promise<{ id: ID; name: string; countryCode: string; center: GeoPoint }[]>;
+  plan(regionId: ID, fromNodeId: ID, toNodeId: ID, profile: RouteProfile): Promise<PlannedRoute>;
+  savedRoutes(meId: ID): Promise<SavedRoute[]>;
+  saveRoute(
+    meId: ID,
+    input: { regionId: ID; name: string; routeProfile: RouteProfile; planned: PlannedRoute },
+  ): Promise<SavedRoute>;
+  deleteRoute(meId: ID, routeId: ID): Promise<void>;
+}
+
+export interface ClimbingRepository {
+  crags(filter: ClimbingFilter): Promise<CragWithDistance[]>;
+  crag(id: ID, origin: GeoPoint | null): Promise<CragWithDistance | null>;
+  sectors(cragId: ID): Promise<CragSector[]>;
+  routes(cragId: ID, sectorId?: ID | null): Promise<ClimbingRoute[]>;
+  route(id: ID): Promise<(ClimbingRoute & { crag: Crag; sector: CragSector }) | null>;
+  ascents(routeId: ID): Promise<AscentWithUser[]>;
+  myAscents(meId: ID): Promise<(AscentWithUser & { route: ClimbingRoute; crag: Crag })[]>;
+  logAscent(meId: ID, input: LogAscentInput): Promise<AscentWithUser>;
+  submitRoute(meId: ID, input: SubmitRouteInput): Promise<ClimbingRoute>;
+  confirmRoute(meId: ID, routeId: ID): Promise<ClimbingRoute>;
+}
+
+export interface SatelliteRepository {
+  devices(meId: ID): Promise<SatDevice[]>;
+  pair(meId: ID, input: PairDeviceInput): Promise<SatDevice>;
+  unpair(meId: ID, deviceId: ID): Promise<void>;
+  linkStatus(meId: ID): Promise<LinkStatus>;
+  /** Simülasyon: hücresel/uydu/none arasında geçiş */
+  setLink(meId: ID, link: LinkStatus['link']): Promise<LinkStatus>;
+  messages(meId: ID): Promise<SatMessage[]>;
+  send(meId: ID, input: SendSatMessageInput): Promise<SatMessage>;
+  /** Kuyruktaki mesajları göndermeyi dener */
+  flush(meId: ID): Promise<SatMessage[]>;
+  sos(meId: ID): Promise<SosSession | null>;
+  startSos(meId: ID, coords: GeoPoint): Promise<SosSession>;
+  advanceSos(meId: ID): Promise<SosSession>;
+  cancelSos(meId: ID): Promise<void>;
+}
+
+export interface InventoryRepository {
+  units(businessId: ID): Promise<StayUnit[]>;
+  availability(unitId: ID, from: ISODate, to: ISODate): Promise<Availability[]>;
+  quote(input: QuoteInput): Promise<Quote>;
+  book(meId: ID, input: QuoteInput): Promise<BookingWithPayment>;
+  booking(meId: ID, bookingId: ID): Promise<BookingWithPayment | null>;
+  myBookings(meId: ID): Promise<BookingWithPayment[]>;
+  refundPreview(meId: ID, bookingId: ID): Promise<RefundPreview>;
+  cancel(meId: ID, bookingId: ID): Promise<BookingWithPayment>;
+  checkIn(meId: ID, bookingId: ID): Promise<BookingWithPayment>;
+  reviews(businessId: ID): Promise<StayReviewWithAuthor[]>;
+  review(meId: ID, bookingId: ID, rating: number, text: string): Promise<StayReviewWithAuthor>;
+  host(meId: ID, businessId: ID): Promise<HostProfile>;
+  hostBookings(meId: ID, businessId: ID): Promise<BookingWithPayment[]>;
+  blockDates(meId: ID, unitId: ID, from: ISODate, to: ISODate): Promise<UnitBlock>;
+  upsertUnit(meId: ID, unit: Omit<StayUnit, 'id'> & { id?: ID }): Promise<StayUnit>;
+  verifyHost(meId: ID, businessId: ID, level: HostProfile['verification']): Promise<HostProfile>;
+}
+
+export interface ClubRepository {
+  list(meId: ID, filter: ClubFilter): Promise<ClubWithMembership[]>;
+  getById(meId: ID, id: ID): Promise<ClubWithMembership | null>;
+  members(clubId: ID): Promise<(User & { role: ClubWithMembership['role'] })[]>;
+  join(meId: ID, clubId: ID): Promise<ClubWithMembership>;
+  leave(meId: ID, clubId: ID): Promise<ClubWithMembership>;
+  events(meId: ID, clubId?: ID | null): Promise<ClubEventWithClub[]>;
+  event(meId: ID, eventId: ID): Promise<ClubEventWithClub | null>;
+  rsvp(meId: ID, eventId: ID): Promise<ClubEventWithClub>;
+  createEvent(meId: ID, input: CreateClubEventInput): Promise<ClubEventWithClub>;
+  ranking(): Promise<Club[]>;
+  studentVerification(meId: ID): Promise<StudentVerification | null>;
+  verifyStudent(meId: ID, email: string): Promise<StudentVerification>;
+  myClubs(meId: ID): Promise<ClubWithMembership[]>;
+}
+
+export interface FunRepository {
+  summary(meId: ID): Promise<FunSummary>;
+  badges(meId: ID): Promise<BadgeWithStatus[]>;
+  challenges(meId: ID): Promise<ChallengeWithProgress[]>;
+  joinChallenge(meId: ID, challengeId: ID): Promise<ChallengeWithProgress>;
+  leaderboard(meId: ID, scope: LeaderboardScope): Promise<LeaderboardEntry[]>;
+  quiz(meId: ID, count?: number): Promise<QuizQuestion[]>;
+  submitQuiz(meId: ID, answers: { questionId: ID; answerIndex: number }[]): Promise<QuizResult>;
+  stamps(meId: ID): Promise<PassportStamp[]>;
+  roulette(meId: ID, origin: GeoPoint | null): Promise<RouletteSuggestion>;
+  xpHistory(meId: ID): Promise<XpEvent[]>;
+}
+
 export interface DataProvider {
   auth: AuthRepository;
   users: UserRepository;
@@ -238,6 +394,13 @@ export interface DataProvider {
   businesses: BusinessRepository;
   billing: BillingRepository;
   emergency: EmergencyRepository;
+  ai: AiRepository;
+  maps: MapsRepository;
+  climbing: ClimbingRepository;
+  satellite: SatelliteRepository;
+  inventory: InventoryRepository;
+  clubs: ClubRepository;
+  fun: FunRepository;
   /** Demo verilerini sıfırlar (yalnızca mock sağlayıcı için anlamlı) */
   reset(): Promise<void>;
 }

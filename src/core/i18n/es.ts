@@ -1,4 +1,11 @@
 // Traducción al español (fuente: tr.ts)
+import { aiI18n } from './modules/ai';
+import { mapsI18n } from './modules/maps';
+import { climbingI18n } from './modules/climbing';
+import { satelliteI18n } from './modules/satellite';
+import { inventoryI18n } from './modules/inventory';
+import { clubsI18n } from './modules/clubs';
+import { funI18n } from './modules/fun';
 import type { Translations } from './tr';
 
 export const es: Translations = {
@@ -747,4 +754,11 @@ export const es: Translations = {
     description: 'La ruta que buscas no parece estar en el mapa.',
     goHome: 'Ir al inicio',
   },
+  ai: aiI18n.es,
+  maps: mapsI18n.es,
+  climbing: climbingI18n.es,
+  satellite: satelliteI18n.es,
+  inventory: inventoryI18n.es,
+  clubs: clubsI18n.es,
+  fun: funI18n.es,
 };

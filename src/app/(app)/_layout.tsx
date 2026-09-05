@@ -53,6 +53,67 @@ export default function AppLayout() {
         name="instructors/book"
         options={{ presentation: 'modal', animation: 'slide_from_bottom' }}
       />
+      {/* v1.1 */}
+      <Stack.Screen name="library/index" />
+      <Stack.Screen name="library/[id]" />
+      <Stack.Screen name="live-location" />
+      <Stack.Screen
+        name="stories/create"
+        options={{ presentation: 'modal', animation: 'slide_from_bottom' }}
+      />
+      <Stack.Screen
+        name="stories/[authorId]"
+        options={{ presentation: 'fullScreenModal', animation: 'fade' }}
+      />
+      <Stack.Screen name="stays/index" />
+      <Stack.Screen name="stays/[id]" />
+      <Stack.Screen
+        name="stays/reserve"
+        options={{ presentation: 'modal', animation: 'slide_from_bottom' }}
+      />
+      <Stack.Screen
+        name="stays/register"
+        options={{ presentation: 'modal', animation: 'slide_from_bottom' }}
+      />
+      <Stack.Screen name="plans" />
+      <Stack.Screen name="first-aid/index" />
+      <Stack.Screen name="first-aid/[slug]" />
+      <Stack.Screen name="first-aid/contacts" />
+      {/* v1.2 */}
+      <Stack.Screen name="assistant/index" />
+      <Stack.Screen name="assistant/[threadId]" />
+      <Stack.Screen name="maps/index" />
+      <Stack.Screen name="maps/planner" />
+      <Stack.Screen name="maps/route/[id]" />
+      <Stack.Screen name="climbing/index" />
+      <Stack.Screen name="climbing/[cragId]" />
+      <Stack.Screen name="climbing/route/[id]" />
+      <Stack.Screen
+        name="climbing/submit"
+        options={{ presentation: 'modal', animation: 'slide_from_bottom' }}
+      />
+      <Stack.Screen name="climbing/logbook" />
+      <Stack.Screen name="satellite/index" />
+      <Stack.Screen name="satellite/messages" />
+      <Stack.Screen name="satellite/sos" />
+      <Stack.Screen name="stays/booking/[id]" />
+      <Stack.Screen name="stays/host/index" />
+      <Stack.Screen name="stays/host/[businessId]" />
+      <Stack.Screen name="clubs/index" />
+      <Stack.Screen name="clubs/[id]" />
+      <Stack.Screen name="clubs/event/[id]" />
+      <Stack.Screen
+        name="clubs/event/new"
+        options={{ presentation: 'modal', animation: 'slide_from_bottom' }}
+      />
+      <Stack.Screen name="clubs/verify" />
+      <Stack.Screen name="fun/index" />
+      <Stack.Screen name="fun/challenges" />
+      <Stack.Screen name="fun/leaderboard" />
+      <Stack.Screen name="fun/badges" />
+      <Stack.Screen name="fun/quiz" />
+      <Stack.Screen name="fun/roulette" />
+      <Stack.Screen name="fun/passport" />
     </Stack>
   );
 }

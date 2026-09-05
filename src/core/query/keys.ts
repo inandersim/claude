@@ -1,6 +1,11 @@
 import type {
   AdventureType,
   BusinessFilter,
+  ClimbingFilter,
+  ClubFilter,
+  ISODate,
+  LeaderboardScope,
+  RouteProfile,
   GeoPoint,
   ID,
   InstructorFilter,
@@ -130,5 +135,74 @@ export const queryKeys = {
     centers: (origin: GeoPoint) =>
       ['emergency', 'centers', origin.latitude.toFixed(2), origin.longitude.toFixed(2)] as const,
     sos: (meId: ID) => ['emergency', 'sos', meId] as const,
+  },
+  /* v1.2 */
+  ai: {
+    all: ['ai'] as const,
+    threads: (meId: ID) => ['ai', 'threads', meId] as const,
+    thread: (meId: ID, threadId: ID | null) => ['ai', 'thread', meId, threadId] as const,
+  },
+  maps: {
+    all: ['maps'] as const,
+    packs: ['maps', 'packs'] as const,
+    regions: ['maps', 'regions'] as const,
+    graph: (regionId: ID) => ['maps', 'graph', regionId] as const,
+    plan: (regionId: ID, from: ID | null, to: ID | null, profile: RouteProfile) =>
+      ['maps', 'plan', regionId, from, to, profile] as const,
+    saved: (meId: ID) => ['maps', 'saved', meId] as const,
+  },
+  climbing: {
+    all: ['climbing'] as const,
+    crags: (filter: ClimbingFilter) =>
+      ['climbing', 'crags', { ...filter, origin: filter.origin ? 'o' : null }] as const,
+    crag: (id: ID) => ['climbing', 'crag', id] as const,
+    sectors: (cragId: ID) => ['climbing', 'sectors', cragId] as const,
+    routes: (cragId: ID, sectorId: ID | null) => ['climbing', 'routes', cragId, sectorId] as const,
+    route: (id: ID) => ['climbing', 'route', id] as const,
+    ascents: (routeId: ID) => ['climbing', 'ascents', routeId] as const,
+    myAscents: (meId: ID) => ['climbing', 'myAscents', meId] as const,
+  },
+  satellite: {
+    all: ['satellite'] as const,
+    devices: (meId: ID) => ['satellite', 'devices', meId] as const,
+    link: (meId: ID) => ['satellite', 'link', meId] as const,
+    messages: (meId: ID) => ['satellite', 'messages', meId] as const,
+    sos: (meId: ID) => ['satellite', 'sos', meId] as const,
+  },
+  inventory: {
+    all: ['inventory'] as const,
+    units: (businessId: ID) => ['inventory', 'units', businessId] as const,
+    availability: (unitId: ID, from: ISODate, to: ISODate) =>
+      ['inventory', 'availability', unitId, from, to] as const,
+    quote: (unitId: ID, checkIn: ISODate, checkOut: ISODate, guests: number) =>
+      ['inventory', 'quote', unitId, checkIn, checkOut, guests] as const,
+    bookings: (meId: ID) => ['inventory', 'bookings', meId] as const,
+    booking: (meId: ID, id: ID) => ['inventory', 'booking', meId, id] as const,
+    reviews: (businessId: ID) => ['inventory', 'reviews', businessId] as const,
+    host: (meId: ID, businessId: ID) => ['inventory', 'host', meId, businessId] as const,
+    hostBookings: (meId: ID, businessId: ID) =>
+      ['inventory', 'hostBookings', meId, businessId] as const,
+  },
+  clubs: {
+    all: ['clubs'] as const,
+    list: (meId: ID, filter: ClubFilter) => ['clubs', 'list', meId, filter] as const,
+    detail: (meId: ID, id: ID) => ['clubs', 'detail', meId, id] as const,
+    members: (clubId: ID) => ['clubs', 'members', clubId] as const,
+    events: (meId: ID, clubId: ID | null) => ['clubs', 'events', meId, clubId] as const,
+    event: (meId: ID, id: ID) => ['clubs', 'event', meId, id] as const,
+    ranking: ['clubs', 'ranking'] as const,
+    student: (meId: ID) => ['clubs', 'student', meId] as const,
+    mine: (meId: ID) => ['clubs', 'mine', meId] as const,
+  },
+  fun: {
+    all: ['fun'] as const,
+    summary: (meId: ID) => ['fun', 'summary', meId] as const,
+    badges: (meId: ID) => ['fun', 'badges', meId] as const,
+    challenges: (meId: ID) => ['fun', 'challenges', meId] as const,
+    leaderboard: (meId: ID, scope: LeaderboardScope) =>
+      ['fun', 'leaderboard', meId, scope] as const,
+    quiz: (meId: ID) => ['fun', 'quiz', meId] as const,
+    stamps: (meId: ID) => ['fun', 'stamps', meId] as const,
+    xp: (meId: ID) => ['fun', 'xp', meId] as const,
   },
 };

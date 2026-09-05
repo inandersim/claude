@@ -1,3 +1,10 @@
+import { aiI18n } from './modules/ai';
+import { mapsI18n } from './modules/maps';
+import { climbingI18n } from './modules/climbing';
+import { satelliteI18n } from './modules/satellite';
+import { inventoryI18n } from './modules/inventory';
+import { clubsI18n } from './modules/clubs';
+import { funI18n } from './modules/fun';
 import type { Translations } from './tr';
 
 export const ru: Translations = {
@@ -744,4 +751,11 @@ export const ru: Translations = {
     description: 'Похоже, маршрут, который ты ищешь, отсутствует на карте.',
     goHome: 'На главную',
   },
+  ai: aiI18n.ru,
+  maps: mapsI18n.ru,
+  climbing: climbingI18n.ru,
+  satellite: satelliteI18n.ru,
+  inventory: inventoryI18n.ru,
+  clubs: clubsI18n.ru,
+  fun: funI18n.ru,
 };

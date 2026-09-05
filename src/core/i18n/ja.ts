@@ -1,4 +1,11 @@
 // Japanese translations
+import { aiI18n } from './modules/ai';
+import { mapsI18n } from './modules/maps';
+import { climbingI18n } from './modules/climbing';
+import { satelliteI18n } from './modules/satellite';
+import { inventoryI18n } from './modules/inventory';
+import { clubsI18n } from './modules/clubs';
+import { funI18n } from './modules/fun';
 import type { Translations } from './tr';
 
 export const ja: Translations = {
@@ -741,4 +748,11 @@ export const ja: Translations = {
     description: '探しているルートは地図上に見当たりません。',
     goHome: 'ホームに戻る',
   },
+  ai: aiI18n.ja,
+  maps: mapsI18n.ja,
+  climbing: climbingI18n.ja,
+  satellite: satelliteI18n.ja,
+  inventory: inventoryI18n.ja,
+  clubs: clubsI18n.ja,
+  fun: funI18n.ja,
 };

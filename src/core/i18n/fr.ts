@@ -1,3 +1,10 @@
+import { aiI18n } from './modules/ai';
+import { mapsI18n } from './modules/maps';
+import { climbingI18n } from './modules/climbing';
+import { satelliteI18n } from './modules/satellite';
+import { inventoryI18n } from './modules/inventory';
+import { clubsI18n } from './modules/clubs';
+import { funI18n } from './modules/fun';
 import type { Translations } from './tr';
 
 export const fr: Translations = {
@@ -748,4 +755,11 @@ export const fr: Translations = {
     description: "L'itinéraire que tu cherches ne semble pas être sur la carte.",
     goHome: "Retour à l'accueil",
   },
+  ai: aiI18n.fr,
+  maps: mapsI18n.fr,
+  climbing: climbingI18n.fr,
+  satellite: satelliteI18n.fr,
+  inventory: inventoryI18n.fr,
+  clubs: clubsI18n.fr,
+  fun: funI18n.fr,
 };

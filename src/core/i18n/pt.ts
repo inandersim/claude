@@ -1,4 +1,11 @@
 // Brazilian Portuguese translation of tr.ts
+import { aiI18n } from './modules/ai';
+import { mapsI18n } from './modules/maps';
+import { climbingI18n } from './modules/climbing';
+import { satelliteI18n } from './modules/satellite';
+import { inventoryI18n } from './modules/inventory';
+import { clubsI18n } from './modules/clubs';
+import { funI18n } from './modules/fun';
 import type { Translations } from './tr';
 
 export const pt: Translations = {
@@ -746,4 +753,11 @@ export const pt: Translations = {
     description: 'A rota que você procura não parece estar no mapa.',
     goHome: 'Voltar ao início',
   },
+  ai: aiI18n.pt,
+  maps: mapsI18n.pt,
+  climbing: climbingI18n.pt,
+  satellite: satelliteI18n.pt,
+  inventory: inventoryI18n.pt,
+  clubs: clubsI18n.pt,
+  fun: funI18n.pt,
 };

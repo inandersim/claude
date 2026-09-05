@@ -1,3 +1,10 @@
+import { aiI18n } from './modules/ai';
+import { mapsI18n } from './modules/maps';
+import { climbingI18n } from './modules/climbing';
+import { satelliteI18n } from './modules/satellite';
+import { inventoryI18n } from './modules/inventory';
+import { clubsI18n } from './modules/clubs';
+import { funI18n } from './modules/fun';
 import type { Translations } from './tr';
 
 export const it: Translations = {
@@ -748,4 +755,11 @@ export const it: Translations = {
     description: 'Il percorso che stai cercando non sembra essere sulla mappa.',
     goHome: 'Torna alla home',
   },
+  ai: aiI18n.it,
+  maps: mapsI18n.it,
+  climbing: climbingI18n.it,
+  satellite: satelliteI18n.it,
+  inventory: inventoryI18n.it,
+  clubs: clubsI18n.it,
+  fun: funI18n.it,
 };

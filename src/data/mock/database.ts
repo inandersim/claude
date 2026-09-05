@@ -2,6 +2,36 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { deepClone } from '@/core/utils/clone';
 import type {
+  AiMessage,
+  AiThread,
+  Ascent,
+  Badge,
+  Challenge,
+  ChallengeProgress,
+  Club,
+  ClubEvent,
+  ClubMember,
+  ClimbingRoute,
+  Crag,
+  CragSector,
+  EarnedBadge,
+  GeoPoint,
+  HostProfile,
+  ID,
+  MapPack,
+  PassportStamp,
+  Payment,
+  QuizQuestion,
+  SatDevice,
+  SatMessage,
+  SavedRoute,
+  SosSession,
+  StayReview,
+  StayUnit,
+  StudentVerification,
+  TrailGraph,
+  UnitBlock,
+  XpEvent,
   Booking,
   Business,
   Comment,
@@ -59,6 +89,40 @@ import {
   seedStories,
   seedStoryViews,
 } from './seed.extra';
+import { seedAiMessages, seedAiThreads } from './seed.ai';
+import {
+  seedAscents,
+  seedClimbingRoutes,
+  seedCrags,
+  seedRouteConfirmations,
+  seedSectors,
+} from './seed.climbing';
+import {
+  seedClubEvents,
+  seedClubMembers,
+  seedClubs,
+  seedEventRsvps,
+  seedStudentVerifications,
+} from './seed.clubs';
+import {
+  seedBadges,
+  seedChallengeProgress,
+  seedChallenges,
+  seedEarnedBadges,
+  seedPassportStamps,
+  seedQuizAttempts,
+  seedQuizQuestions,
+  seedXpEvents,
+} from './seed.fun';
+import {
+  seedHostProfiles,
+  seedPayments,
+  seedStayReviews,
+  seedStayUnits,
+  seedUnitBlocks,
+} from './seed.inventory';
+import { seedMapPacks, seedMapRegions, seedSavedRoutes, seedTrailGraphs } from './seed.maps';
+import { seedSatDevices, seedSatMessages, seedSosSessions } from './seed.satellite';
 
 export interface Tables {
   users: User[];
@@ -88,11 +152,44 @@ export interface Tables {
   stayBookings: StayBooking[];
   emergencyCenters: EmergencyCenter[];
   sosEvents: SosEvent[];
+  /* v1.2 */
+  aiThreads: AiThread[];
+  aiMessages: AiMessage[];
+  mapRegions: { id: ID; name: string; countryCode: string; center: GeoPoint }[];
+  trailGraphs: TrailGraph[];
+  mapPacks: MapPack[];
+  savedRoutes: SavedRoute[];
+  crags: Crag[];
+  sectors: CragSector[];
+  climbingRoutes: ClimbingRoute[];
+  ascents: Ascent[];
+  routeConfirmations: { userId: string; routeId: string }[];
+  satDevices: SatDevice[];
+  satMessages: SatMessage[];
+  sosSessions: SosSession[];
+  stayUnits: StayUnit[];
+  unitBlocks: UnitBlock[];
+  payments: Payment[];
+  stayReviews: StayReview[];
+  hostProfiles: HostProfile[];
+  clubs: Club[];
+  clubMembers: ClubMember[];
+  clubEvents: ClubEvent[];
+  eventRsvps: { userId: string; eventId: string }[];
+  studentVerifications: StudentVerification[];
+  badges: Badge[];
+  earnedBadges: EarnedBadge[];
+  challenges: Challenge[];
+  challengeProgress: ChallengeProgress[];
+  xpEvents: XpEvent[];
+  quizQuestions: QuizQuestion[];
+  quizAttempts: { userId: string; date: string; correct: number }[];
+  passportStamps: PassportStamp[];
   /** Oturum açmış kullanıcının kimliği (null → çıkış yapılmış) */
   sessionUserId: string | null;
 }
 
-const STORAGE_KEY = 'zirve.mockdb.v3';
+const STORAGE_KEY = 'zirve.mockdb.v4';
 
 function seedTables(): Tables {
   return {
@@ -123,6 +220,38 @@ function seedTables(): Tables {
     stayBookings: deepClone(seedStayBookings),
     emergencyCenters: deepClone(seedEmergencyCenters),
     sosEvents: [],
+    aiThreads: deepClone(seedAiThreads),
+    aiMessages: deepClone(seedAiMessages),
+    mapRegions: deepClone(seedMapRegions),
+    trailGraphs: deepClone(seedTrailGraphs),
+    mapPacks: deepClone(seedMapPacks),
+    savedRoutes: deepClone(seedSavedRoutes),
+    crags: deepClone(seedCrags),
+    sectors: deepClone(seedSectors),
+    climbingRoutes: deepClone(seedClimbingRoutes),
+    ascents: deepClone(seedAscents),
+    routeConfirmations: deepClone(seedRouteConfirmations),
+    satDevices: deepClone(seedSatDevices),
+    satMessages: deepClone(seedSatMessages),
+    sosSessions: deepClone(seedSosSessions),
+    stayUnits: deepClone(seedStayUnits),
+    unitBlocks: deepClone(seedUnitBlocks),
+    payments: deepClone(seedPayments),
+    stayReviews: deepClone(seedStayReviews),
+    hostProfiles: deepClone(seedHostProfiles),
+    clubs: deepClone(seedClubs),
+    clubMembers: deepClone(seedClubMembers),
+    clubEvents: deepClone(seedClubEvents),
+    eventRsvps: deepClone(seedEventRsvps),
+    studentVerifications: deepClone(seedStudentVerifications),
+    badges: deepClone(seedBadges),
+    earnedBadges: deepClone(seedEarnedBadges),
+    challenges: deepClone(seedChallenges),
+    challengeProgress: deepClone(seedChallengeProgress),
+    xpEvents: deepClone(seedXpEvents),
+    quizQuestions: deepClone(seedQuizQuestions),
+    quizAttempts: deepClone(seedQuizAttempts),
+    passportStamps: deepClone(seedPassportStamps),
     sessionUserId: null,
   };
 }
@@ -153,7 +282,9 @@ export class MockDatabase {
               Array.isArray(parsed.users) &&
               parsed.users.length > 0 &&
               Array.isArray(parsed.hazards) &&
-              Array.isArray(parsed.library)
+              Array.isArray(parsed.library) &&
+              Array.isArray(parsed.crags) &&
+              Array.isArray(parsed.clubs)
             ) {
               this.tables = parsed;
               return parsed;

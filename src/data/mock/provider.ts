@@ -77,7 +77,15 @@ import type {
   NotificationRepository,
   UserRepository,
 } from '../repositories';
+import type { MockContext } from './context';
 import { MockDatabase, delay } from './database';
+import { createAiRepository } from './repos/ai';
+import { createClimbingRepository } from './repos/climbing';
+import { createClubRepository } from './repos/clubs';
+import { createFunRepository } from './repos/fun';
+import { createInventoryRepository } from './repos/inventory';
+import { createMapsRepository } from './repos/maps';
+import { createSatelliteRepository } from './repos/satellite';
 import { CURRENT_USER_ID } from './seed';
 
 interface Options {
@@ -143,6 +151,9 @@ export function createMockProvider(options: Options = {}): DataProvider {
     });
     db.markDirty();
   };
+
+  /** Modül repository'leri için ortak bağlam (bkz. ./repos/*) */
+  const ctx: MockContext = { db, wait, latencyMs: latency, requireUser, pushNotification };
 
   const recomputeTrust = async (userId: ID) => {
     const t = await db.load();
@@ -1477,6 +1488,13 @@ export function createMockProvider(options: Options = {}): DataProvider {
     businesses: atBoundary(businesses),
     billing: atBoundary(billing),
     emergency: atBoundary(emergency),
+    ai: atBoundary(createAiRepository(ctx)),
+    maps: atBoundary(createMapsRepository(ctx)),
+    climbing: atBoundary(createClimbingRepository(ctx)),
+    satellite: atBoundary(createSatelliteRepository(ctx)),
+    inventory: atBoundary(createInventoryRepository(ctx)),
+    clubs: atBoundary(createClubRepository(ctx)),
+    fun: atBoundary(createFunRepository(ctx)),
     reset: () => db.reset(),
   };
 }
