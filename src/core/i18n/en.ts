@@ -113,6 +113,8 @@ export const en: Translations = {
     elevationGain: 'Elevation gain',
   },
   explore: {
+    modules: 'New modules',
+    modulesSubtitle: 'AI, offline maps, climbing, satellite, clubs and fun',
     title: 'Explore',
     searchPlaceholder: 'Search locations, routes or adventurers',
     trending: 'Trending locations',

@@ -115,6 +115,8 @@ export const ja: Translations = {
     elevationGain: '獲得標高',
   },
   explore: {
+    modules: '新しいモジュール',
+    modulesSubtitle: 'AI、オフライン地図、クライミング、衛星、クラブ、お楽しみ',
     title: '探す',
     searchPlaceholder: '場所、ルート、アドベンチャラーを検索',
     trending: '人気の場所',

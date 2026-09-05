@@ -113,6 +113,8 @@ export const tr = {
     elevationGain: 'Tırmanış',
   },
   explore: {
+    modules: 'Yeni modüller',
+    modulesSubtitle: 'Yapay zekâ, çevrimdışı harita, tırmanış, uydu, kulüpler ve eğlence',
     title: 'Keşfet',
     searchPlaceholder: 'Lokasyon, rota veya maceraperest ara',
     trending: 'Trend lokasyonlar',

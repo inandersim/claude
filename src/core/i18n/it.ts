@@ -114,6 +114,8 @@ export const it: Translations = {
     elevationGain: 'Dislivello',
   },
   explore: {
+    modules: 'Nuovi moduli',
+    modulesSubtitle: 'IA, mappe offline, arrampicata, satellite, club e divertimento',
     title: 'Esplora',
     searchPlaceholder: 'Cerca luoghi, percorsi o avventurieri',
     trending: 'Luoghi di tendenza',

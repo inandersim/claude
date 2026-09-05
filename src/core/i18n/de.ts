@@ -116,6 +116,8 @@ export const de: Translations = {
     elevationGain: 'Höhenmeter',
   },
   explore: {
+    modules: 'Neue Module',
+    modulesSubtitle: 'KI, Offline-Karten, Klettern, Satellit, Clubs und Spaß',
     title: 'Entdecken',
     searchPlaceholder: 'Suche nach Ort, Route oder Abenteurer',
     trending: 'Angesagte Orte',

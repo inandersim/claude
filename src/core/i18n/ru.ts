@@ -114,6 +114,8 @@ export const ru: Translations = {
     elevationGain: 'Набор высоты',
   },
   explore: {
+    modules: 'Новые модули',
+    modulesSubtitle: 'ИИ, офлайн-карты, скалолазание, спутник, клубы и развлечения',
     title: 'Обзор',
     searchPlaceholder: 'Ищи место, маршрут или искателя приключений',
     trending: 'Популярные места',

@@ -37,6 +37,15 @@ import { useLibrarySearch } from '@/features/library/hooks';
 import { BusinessCard } from '@/features/stays/components/BusinessCard';
 import { useBusinesses } from '@/features/stays/hooks';
 
+const MODULE_LINKS = [
+  { href: '/assistant', icon: 'sparkles', labelKey: 'ai.title', color: '#CE93D8' },
+  { href: '/maps', icon: 'map', labelKey: 'maps.title', color: '#5EE39B' },
+  { href: '/climbing', icon: 'mountain', labelKey: 'climbing.title', color: '#FF8A5B' },
+  { href: '/satellite', icon: 'satellite', labelKey: 'satellite.title', color: '#6CB4FF' },
+  { href: '/clubs', icon: 'school', labelKey: 'clubs.title', color: '#FFD54F' },
+  { href: '/fun', icon: 'gamepad-2', labelKey: 'fun.title', color: '#FF6B9D' },
+] as const;
+
 export default function ExploreScreen() {
   const { t } = useT();
   const { colors } = useTheme();
@@ -243,6 +252,33 @@ export default function ExploreScreen() {
               </View>
               <Icon name="chevron-right" size={18} color={colors.danger} />
             </Tappable>
+          </View>
+
+          {/* v1.2 modülleri */}
+          <View style={styles.section}>
+            <SectionHeader title={t('explore.modules')} subtitle={t('explore.modulesSubtitle')} />
+            <View style={styles.moduleGrid}>
+              {MODULE_LINKS.map((m) => (
+                <Tappable
+                  key={m.href}
+                  onPress={() => router.push(m.href)}
+                  scaleTo={0.97}
+                  style={[
+                    styles.moduleTile,
+                    { backgroundColor: colors.surface, borderColor: colors.border },
+                  ]}
+                  accessibilityRole="button"
+                  accessibilityLabel={t(m.labelKey)}
+                >
+                  <View style={[styles.moduleIcon, { backgroundColor: m.color + '22' }]}>
+                    <Icon name={m.icon} size={20} color={m.color} strokeWidth={2.4} />
+                  </View>
+                  <Text variant="caption" weight="bold" numberOfLines={2}>
+                    {t(m.labelKey)}
+                  </Text>
+                </Tappable>
+              ))}
+            </View>
           </View>
 
           {/* Konaklama & işletmeler */}
@@ -492,6 +528,27 @@ const styles = StyleSheet.create({
   },
   hList: { paddingHorizontal: spacing.lg, gap: spacing.md },
   section: { marginTop: spacing.xxl },
+  moduleGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacing.sm,
+    paddingHorizontal: spacing.lg,
+  },
+  moduleTile: {
+    width: '31%',
+    flexGrow: 1,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderRadius: radius.lg,
+    padding: spacing.md,
+    gap: spacing.sm,
+  },
+  moduleIcon: {
+    width: 40,
+    height: 40,
+    borderRadius: radius.md,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   sosBanner: {
     flexDirection: 'row',
     alignItems: 'center',

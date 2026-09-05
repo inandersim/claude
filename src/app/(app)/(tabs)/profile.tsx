@@ -83,6 +83,13 @@ export default function ProfileScreen() {
               { icon: 'store', label: t('market.myListings'), href: '/market' },
               { icon: 'triangle-alert', label: t('hazards.title'), href: '/hazards' },
               { icon: 'sparkles', label: t('plans.title'), href: '/plans' },
+              { icon: 'bot', label: t('ai.title'), href: '/assistant' },
+              { icon: 'map', label: t('maps.title'), href: '/maps' },
+              { icon: 'mountain', label: t('climbing.title'), href: '/climbing' },
+              { icon: 'satellite', label: t('satellite.title'), href: '/satellite' },
+              { icon: 'school', label: t('clubs.title'), href: '/clubs' },
+              { icon: 'gamepad-2', label: t('fun.title'), href: '/fun' },
+              { icon: 'wallet', label: t('inventory.title'), href: '/stays/host' },
             ] as {
               icon: IconName;
               label: string;
@@ -94,7 +101,14 @@ export default function ProfileScreen() {
                 | '/bookings'
                 | '/market'
                 | '/hazards'
-                | '/plans';
+                | '/plans'
+                | '/assistant'
+                | '/maps'
+                | '/climbing'
+                | '/satellite'
+                | '/clubs'
+                | '/fun'
+                | '/stays/host';
             }[]
           ).map((item) => (
             <Tappable

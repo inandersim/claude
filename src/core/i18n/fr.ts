@@ -116,6 +116,8 @@ export const fr: Translations = {
     elevationGain: 'Dénivelé positif',
   },
   explore: {
+    modules: 'Nouveaux modules',
+    modulesSubtitle: 'IA, cartes hors ligne, escalade, satellite, clubs et fun',
     title: 'Explorer',
     searchPlaceholder: 'Rechercher un lieu, un itinéraire ou un aventurier',
     trending: 'Lieux tendance',

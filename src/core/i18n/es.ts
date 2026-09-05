@@ -115,6 +115,8 @@ export const es: Translations = {
     elevationGain: 'Desnivel positivo',
   },
   explore: {
+    modules: 'Nuevos módulos',
+    modulesSubtitle: 'IA, mapas sin conexión, escalada, satélite, clubes y diversión',
     title: 'Explorar',
     searchPlaceholder: 'Busca ubicación, ruta o aventurero',
     trending: 'Ubicaciones populares',

@@ -115,6 +115,8 @@ export const pt: Translations = {
     elevationGain: 'Ganho de elevação',
   },
   explore: {
+    modules: 'Novos módulos',
+    modulesSubtitle: 'IA, mapas offline, escalada, satélite, clubes e diversão',
     title: 'Explorar',
     searchPlaceholder: 'Busque locais, rotas ou aventureiros',
     trending: 'Locais em alta',

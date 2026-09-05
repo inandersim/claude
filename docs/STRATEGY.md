@@ -21,10 +21,10 @@ Kısa cevap: **parça parça var, bütün olarak yok.** Pazar dikey uygulamalara
 ## 2. Rakiplerin bizden üstün olduğu noktalar (dürüst liste)
 
 1. **Veri derinliği ve ölçek** — AllTrails 450 K+ rota, theCrag 1 M+ tırmanış, Hipcamp 1,2 M+ konaklama. Bizim kütüphanemiz açık veriyle (OSM + Wikidata + Wikimedia Commons) hızla büyüyebilir ama yorum/fotoğraf yoğunluğu yıllar ister.
-2. **Çevrimdışı topografik haritalar ve navigasyon** — Komoot/Gaia'nın en güçlü yanı. Bizde henüz yok (yol haritasında: MapLibre + açık vektör tile'lar).
+2. **Çevrimdışı topografik haritalar ve navigasyon** — Komoot/Gaia'nın en güçlü yanı. v1.2 ile rota motoru (A\*, Tobler süre modeli, yükseklik profili, GPX) ve PMTiles harita paketleri eklendi; üretimde MapLibre ile vektör karo render'ı gerekir.
 3. **Giyilebilir entegrasyonu** — Garmin/Suunto/Apple Watch senkronu (AllTrails Wear OS 1 M+ indirme).
-4. **Uydu SOS** — Garmin donanım + operasyon merkezi. Biz donanımsız çalışıyoruz; inReach entegrasyonu ve 112 yönlendirmesi ile tamamlarız.
-5. **AI rota üretimi ve hava tahmini** — 2026'da Komoot/Outdooractive/AllTrails Peak standardı.
+4. **Uydu SOS** — Garmin donanım + operasyon merkezi. v1.2 ile cihaz eşleştirme (inReach/Zoleo/iPhone uydu/Starlink Mini), dar bant mesaj sıkıştırma, sakla-ilet kuyruğu ve SOS aşama makinesi eklendi; gerçek iletim için Garmin Explore/Zoleo API köprüsü gerekir.
+5. **AI rota üretimi ve hava tahmini** — 2026'da Komoot/Outdooractive/AllTrails Peak standardı. v1.2 ile Zirve AI (uygulama içi yerel asistan + Claude tabanlı `server/ai-gateway`) eklendi.
 6. **Marka ve ağ etkisi** — 10+ yıllık topluluklar.
 
 ## 3. Bize özgü yetenekler ve farklar
@@ -41,6 +41,18 @@ Kısa cevap: **parça parça var, bütün olarak yok.** Pazar dikey uygulamalara
 | **Canlı konum paylaşımı** (arkadaş/eşleşme/SOS modları, süreli)                                                                 | AllTrails Plus'ta var ama sosyal katman yok.                                                                | ✅ Bu sürümde                                      |
 | **Türkiye + yükselen pazarlar öncelikli, çok dilli**                                                                            | ABD merkezli rakipler TR/BR/JP içeriğinde zayıf.                                                            | ✅ TR/EN + DE/FR/ES/IT/JA/PT/RU                    |
 | **Açık veri ile kütüphane** (OSM/Wikidata/Commons, lisans atıflı)                                                               | Kendi kapalı veritabanı yerine açık veri + topluluk = hızlı ölçek.                                          | ✅ Veri hattı bu sürümde                           |
+
+### 3b. v1.2 — rakiplerin güçlü yanlarını kapatan modüller
+
+| Rakip avantajı                          | Zirve v1.2 karşılığı                                                                                                                                 |
+| --------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Komoot: çevrimdışı vektör harita + rota | `maps` modülü: PMTiles harita paketleri (indirme yöneticisi), trail grafı üzerinde A\* rota planlama, Tobler süre modeli, yükseklik profili, GPX     |
+| theCrag: doğrulanmış tırmanış verisi    | `climbing` modülü: kaya → sektör → rota, 5 derece sistemi arası dönüşüm, logbook, topluluk (3 onay) + moderatör doğrulama                            |
+| Garmin: uydu SOS donanımı               | `satellite` modülü: cihaz eşleştirme, bağlantı katmanı seçimi, 160 karakter sıkıştırılmış mesaj, kuyruk, SOS aşama makinesi, en yakın kurtarma       |
+| Hipcamp: envanter + ödeme güveni        | `inventory` modülü: birim envanteri, müsaitlik takvimi, sezon fiyatı, emanet (escrow) ödeme akışı, iptal politikaları, ev sahibi doğrulama, yorumlar |
+| AllTrails/Komoot: AI planlama           | `ai` modülü: Zirve AI sohbet, gezi planı, güvenlik özeti, paketleme listesi; Claude tabanlı gateway (araç kullanımı, akış)                           |
+| Strava: topluluk ve oyunlaştırma        | `fun` modülü: XP/seviye, rozetler, görevler, liderlik tablosu, günlük yarışma, macera ruleti, zirve pasaportu                                        |
+| —                                       | `clubs` modülü: üniversite doğa sporları kulüpleri dizini, üyelik, etkinlik & RSVP, öğrenci doğrulama, kulüp sıralaması (rakiplerde yok)             |
 
 ## 4. Hedef diller (maceraperest yoğunluğuna göre)
 
@@ -81,13 +93,13 @@ Depolama: yerel diskte **SQLite** (tek dosya, telefona da paketlenebilir) ve sun
 
 ## 7. Yol haritası
 
-| Aşama            | Kapsam                                                                                                                            |
-| ---------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| **Şimdi (v1.1)** | Canlı konum, Anlar, Konaklama & işletme pazarı, Pro planlar, drone yayını, ilk yardım & SOS, 9 dil, veri hattı + Kütüphane modülü |
-| **v1.2**         | Gerçek backend (Supabase/PostGIS), kimlik doğrulama, push bildirim, RevenueCat + iyzico ödemeleri, LiveKit canlı yayın            |
-| **v1.3**         | Çevrimdışı vektör haritalar (MapLibre), GPX içe/dışa aktarma, aktivite kaydı, giyilebilir senkron                                 |
-| **v1.4**         | AI rota önerisi, hava & çığ bülteni entegrasyonu, uydu SOS (inReach) köprüsü, grup etkinlikleri                                   |
-| **v2.0**         | Rafting/kano/mağara/kite gibi yeni sporlar, kurumsal veri API'si, çoklu para birimi                                               |
+| Aşama               | Kapsam                                                                                                                                                                                             |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Şimdi (v1.1)**    | Canlı konum, Anlar, Konaklama & işletme pazarı, Pro planlar, drone yayını, ilk yardım & SOS, 9 dil, veri hattı + Kütüphane modülü                                                                  |
+| **v1.2 (bu sürüm)** | Zirve AI + AI gateway, çevrimdışı harita paketleri + rota motoru, doğrulanmış tırmanış veritabanı, uydu bağlantısı & SOS, rezervasyon envanteri & emanet ödeme, üniversite kulüpleri, oyunlaştırma |
+| **v1.3**            | Gerçek backend (Supabase/PostGIS), kimlik doğrulama, push bildirim, RevenueCat + iyzico ödemeleri, LiveKit canlı yayın, MapLibre render                                                            |
+| **v1.4**            | Hava & çığ bülteni entegrasyonu, Garmin/Zoleo API köprüsü, giyilebilir senkron, aktivite kaydı                                                                                                     |
+| **v2.0**            | Rafting/kano/mağara/kite gibi yeni sporlar, kurumsal veri API'si, çoklu para birimi                                                                                                                |
 
 ## Kaynaklar
 
