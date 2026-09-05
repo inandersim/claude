@@ -8,6 +8,8 @@ export const ADVENTURE_TYPES = [
   'skiing',
   'cycling',
   'paragliding',
+  'rafting',
+  'canoe',
 ] as const;
 export type AdventureType = (typeof ADVENTURE_TYPES)[number];
 
@@ -19,7 +21,9 @@ export type IconName =
   | 'snowflake'
   | 'wind'
   | 'droplets'
-  | 'flame';
+  | 'flame'
+  | 'waves-arrow-up'
+  | 'ship';
 
 export interface AdventureTypeMeta {
   labelKey: TranslationKey;
@@ -72,6 +76,20 @@ export const ADVENTURE_TYPE_META: Record<AdventureType, AdventureTypeMeta> = {
     color: '#CE93D8',
     softColor: 'rgba(206, 147, 216, 0.18)',
     gradient: ['#2E1A47', '#5B3A8A'],
+  },
+  rafting: {
+    labelKey: 'adventure.rafting',
+    icon: 'waves-arrow-up',
+    color: '#6CB4FF',
+    softColor: 'rgba(108, 180, 255, 0.18)',
+    gradient: ['#0F2A47', '#1F5A8A'],
+  },
+  canoe: {
+    labelKey: 'adventure.canoe',
+    icon: 'ship',
+    color: '#4DD0E1',
+    softColor: 'rgba(77, 208, 225, 0.18)',
+    gradient: ['#0B3A3F', '#1A6B72'],
   },
 };
 
@@ -134,6 +152,10 @@ export const NOTIFICATION_TYPES = [
   'hazard_alert',
   'hazard_confirmed',
   'stream_live',
+  'sos_alert',
+  'stay_request',
+  'stay_confirmed',
+  'story_posted',
 ] as const;
 export type NotificationType = (typeof NOTIFICATION_TYPES)[number];
 
@@ -267,3 +289,135 @@ export const BOOKING_STATUS_META: Record<
   declined: { labelKey: 'booking.declined', color: '#FF6B6B' },
   completed: { labelKey: 'booking.completed', color: '#6CB4FF' },
 };
+
+/* ------------------------------------------------------------------ */
+/* Kütüphane (dünya lokasyonları)                                      */
+/* ------------------------------------------------------------------ */
+
+export const PLACE_KINDS = [
+  'campsite',
+  'climbing',
+  'diving',
+  'dive_centre',
+  'hiking_route',
+  'rafting',
+  'canoe',
+  'paragliding',
+  'ski',
+  'peak',
+  'cave',
+  'viewpoint',
+  'shelter',
+] as const;
+export type PlaceKind = (typeof PLACE_KINDS)[number];
+
+export type PlaceIconName =
+  | 'tent'
+  | 'mountain'
+  | 'droplets'
+  | 'life-buoy'
+  | 'footprints'
+  | 'waves-arrow-up'
+  | 'ship'
+  | 'wind'
+  | 'snowflake'
+  | 'mountain-snow'
+  | 'landmark'
+  | 'eye'
+  | 'house';
+
+export const PLACE_KIND_META: Record<
+  PlaceKind,
+  { labelKey: TranslationKey; icon: PlaceIconName; color: string }
+> = {
+  campsite: { labelKey: 'placeKind.campsite', icon: 'tent', color: '#5EE39B' },
+  climbing: { labelKey: 'placeKind.climbing', icon: 'mountain', color: '#FF8A5B' },
+  diving: { labelKey: 'placeKind.diving', icon: 'droplets', color: '#4FC3F7' },
+  dive_centre: { labelKey: 'placeKind.dive_centre', icon: 'life-buoy', color: '#4FC3F7' },
+  hiking_route: { labelKey: 'placeKind.hiking_route', icon: 'footprints', color: '#5EE39B' },
+  rafting: { labelKey: 'placeKind.rafting', icon: 'waves-arrow-up', color: '#6CB4FF' },
+  canoe: { labelKey: 'placeKind.canoe', icon: 'ship', color: '#6CB4FF' },
+  paragliding: { labelKey: 'placeKind.paragliding', icon: 'wind', color: '#CE93D8' },
+  ski: { labelKey: 'placeKind.ski', icon: 'snowflake', color: '#B3E5FC' },
+  peak: { labelKey: 'placeKind.peak', icon: 'mountain-snow', color: '#F2F7F4' },
+  cave: { labelKey: 'placeKind.cave', icon: 'landmark', color: '#FFB547' },
+  viewpoint: { labelKey: 'placeKind.viewpoint', icon: 'eye', color: '#FFD54F' },
+  shelter: { labelKey: 'placeKind.shelter', icon: 'house', color: '#A3E635' },
+};
+
+/* ------------------------------------------------------------------ */
+/* Canlı konum, Anlar, işletmeler, planlar, acil durum                 */
+/* ------------------------------------------------------------------ */
+
+export const SHARE_MODES = ['friends', 'matches', 'sos'] as const;
+export type ShareMode = (typeof SHARE_MODES)[number];
+
+export const STREAM_SOURCES = ['camera', 'drone'] as const;
+export type StreamSource = (typeof STREAM_SOURCES)[number];
+
+export const BUSINESS_TYPES = [
+  'hotel',
+  'pension',
+  'campsite',
+  'glamping',
+  'shop',
+  'rental',
+  'tour_operator',
+  'dive_center',
+] as const;
+export type BusinessType = (typeof BUSINESS_TYPES)[number];
+
+export type BusinessIconName =
+  'building-2' | 'house' | 'tent' | 'trees' | 'store' | 'key-round' | 'compass' | 'life-buoy';
+
+export const BUSINESS_TYPE_META: Record<
+  BusinessType,
+  { labelKey: TranslationKey; icon: BusinessIconName; stay: boolean }
+> = {
+  hotel: { labelKey: 'businessType.hotel', icon: 'building-2', stay: true },
+  pension: { labelKey: 'businessType.pension', icon: 'house', stay: true },
+  campsite: { labelKey: 'businessType.campsite', icon: 'tent', stay: true },
+  glamping: { labelKey: 'businessType.glamping', icon: 'trees', stay: true },
+  shop: { labelKey: 'businessType.shop', icon: 'store', stay: false },
+  rental: { labelKey: 'businessType.rental', icon: 'key-round', stay: false },
+  tour_operator: { labelKey: 'businessType.tour_operator', icon: 'compass', stay: false },
+  dive_center: { labelKey: 'businessType.dive_center', icon: 'life-buoy', stay: false },
+};
+
+export const PLANS = ['free', 'pro', 'pro_guide', 'business'] as const;
+export type Plan = (typeof PLANS)[number];
+
+export const STAY_STATUSES = ['pending', 'confirmed', 'cancelled', 'completed'] as const;
+export type StayStatus = (typeof STAY_STATUSES)[number];
+
+export const EMERGENCY_CENTER_TYPES = [
+  'hospital',
+  'ambulance',
+  'mountain_rescue',
+  'pharmacy',
+  'ranger',
+  'coast_guard',
+] as const;
+export type EmergencyCenterType = (typeof EMERGENCY_CENTER_TYPES)[number];
+
+export type EmergencyIconName =
+  'cross' | 'ambulance' | 'mountain-snow' | 'pill' | 'trees' | 'anchor';
+
+export const EMERGENCY_CENTER_META: Record<
+  EmergencyCenterType,
+  { labelKey: TranslationKey; icon: EmergencyIconName; color: string }
+> = {
+  hospital: { labelKey: 'emergencyType.hospital', icon: 'cross', color: '#FF6B6B' },
+  ambulance: { labelKey: 'emergencyType.ambulance', icon: 'ambulance', color: '#FF8A5B' },
+  mountain_rescue: {
+    labelKey: 'emergencyType.mountain_rescue',
+    icon: 'mountain-snow',
+    color: '#6CB4FF',
+  },
+  pharmacy: { labelKey: 'emergencyType.pharmacy', icon: 'pill', color: '#5EE39B' },
+  ranger: { labelKey: 'emergencyType.ranger', icon: 'trees', color: '#A3E635' },
+  coast_guard: { labelKey: 'emergencyType.coast_guard', icon: 'anchor', color: '#4FC3F7' },
+};
+
+export const FIRST_AID_CATEGORIES = ['critical', 'injury', 'environment', 'animal'] as const;
+export type FirstAidCategory = (typeof FIRST_AID_CATEGORIES)[number];

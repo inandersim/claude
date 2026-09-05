@@ -32,6 +32,10 @@ import { useStreams } from '@/features/live/hooks';
 import { ListingCard } from '@/features/market/components/ListingCard';
 import { useListings } from '@/features/market/hooks';
 import { useCurrentUser } from '@/features/auth/session.store';
+import { PlaceCard } from '@/features/library/components/PlaceCard';
+import { useLibrarySearch } from '@/features/library/hooks';
+import { BusinessCard } from '@/features/stays/components/BusinessCard';
+import { useBusinesses } from '@/features/stays/hooks';
 
 export default function ExploreScreen() {
   const { t } = useT();
@@ -50,6 +54,8 @@ export default function ExploreScreen() {
   const hazards = useHazards(me.coords, 250);
   const instructors = useInstructors(me.coords, { sortBy: 'rating' });
   const listings = useListings({});
+  const library = useLibrarySearch({ origin: me.coords });
+  const businesses = useBusinesses({ origin: me.coords });
   const liveNow = streams.data?.filter((s) => s.status === 'live') ?? [];
   const searching = query.trim().length >= 2;
 
@@ -118,6 +124,34 @@ export default function ExploreScreen() {
             </View>
           ) : null}
 
+          {/* Kütüphane */}
+          <View style={styles.section}>
+            <SectionHeader
+              title={t('library.title')}
+              subtitle={t('library.subtitle')}
+              actionLabel={t('common.seeAll')}
+              onAction={() => router.push('/library')}
+            />
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.hList}
+            >
+              {library.isLoading
+                ? [0, 1].map((i) => (
+                    <Skeleton
+                      key={i}
+                      width={180}
+                      height={164}
+                      style={{ borderRadius: radius.lg }}
+                    />
+                  ))
+                : library.data
+                    ?.slice(0, 8)
+                    .map((p) => <PlaceCard key={p.id} place={p} width={180} />)}
+            </ScrollView>
+          </View>
+
           {/* Güvenlik uyarıları */}
           <View style={styles.section}>
             <SectionHeader
@@ -185,6 +219,58 @@ export default function ExploreScreen() {
                 );
               })}
             </View>
+          </View>
+
+          {/* İlk yardım & SOS */}
+          <View style={styles.section}>
+            <Tappable
+              onPress={() => router.push('/first-aid')}
+              scaleTo={0.985}
+              style={[
+                styles.sosBanner,
+                { backgroundColor: colors.dangerSoft, borderColor: colors.danger },
+              ]}
+              accessibilityRole="button"
+            >
+              <View style={[styles.sosIcon, { backgroundColor: colors.danger }]}>
+                <Icon name="siren" size={18} color="#FFFFFF" strokeWidth={2.4} />
+              </View>
+              <View style={{ flex: 1 }}>
+                <Text variant="title">{t('firstAid.title')}</Text>
+                <Text variant="caption" color="textMuted">
+                  {t('firstAid.subtitle')}
+                </Text>
+              </View>
+              <Icon name="chevron-right" size={18} color={colors.danger} />
+            </Tappable>
+          </View>
+
+          {/* Konaklama & işletmeler */}
+          <View style={styles.section}>
+            <SectionHeader
+              title={t('stays.title')}
+              subtitle={t('stays.subtitle')}
+              actionLabel={t('common.seeAll')}
+              onAction={() => router.push('/stays')}
+            />
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.hList}
+            >
+              {businesses.isLoading
+                ? [0, 1].map((i) => (
+                    <Skeleton
+                      key={i}
+                      width={280}
+                      height={240}
+                      style={{ borderRadius: radius.xl }}
+                    />
+                  ))
+                : businesses.data
+                    ?.slice(0, 5)
+                    .map((b) => <BusinessCard key={b.id} business={b} width={280} />)}
+            </ScrollView>
           </View>
 
           {/* Eğitmenler */}
@@ -406,6 +492,22 @@ const styles = StyleSheet.create({
   },
   hList: { paddingHorizontal: spacing.lg, gap: spacing.md },
   section: { marginTop: spacing.xxl },
+  sosBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.md,
+    marginHorizontal: spacing.lg,
+    padding: spacing.md,
+    borderRadius: radius.xl,
+    borderWidth: StyleSheet.hairlineWidth,
+  },
+  sosIcon: {
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   typeGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',

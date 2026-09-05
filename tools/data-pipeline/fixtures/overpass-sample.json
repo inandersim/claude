@@ -1,0 +1,17 @@
+{
+  "version": 0.6,
+  "elements": [
+    { "type": "node", "id": 1001, "lat": 41.185, "lon": 28.99, "tags": { "tourism": "camp_site", "name": "Belgrad Ormanı Kamp Alanı", "name:en": "Belgrade Forest Campsite", "capacity": "40", "fee": "no", "drinking_water": "yes", "website": "https://example.org", "wikimedia_commons": "File:Belgrad Forest.jpg" } },
+    { "type": "way", "id": 2002, "center": { "lat": 36.94, "lon": 30.52 }, "tags": { "sport": "climbing", "climbing:sport": "yes", "climbing:grade:french:min": "4a", "climbing:grade:french:max": "9a", "name": "Geyikbayırı", "ele": "620", "description": "Kireçtaşı sport tırmanış" } },
+    { "type": "node", "id": 3003, "lat": 36.2, "lon": 29.64, "tags": { "sport": "scuba_diving", "name": "Kaş Kanyon", "depth": "32" } },
+    { "type": "node", "id": 3004, "lat": 36.2019, "lon": 29.6414, "tags": { "amenity": "dive_centre", "name": "Kaş Dive Center", "phone": "+90 242 000 0000" } },
+    { "type": "relation", "id": 4004, "center": { "lat": 36.51, "lon": 29.135 }, "tags": { "route": "hiking", "name": "Likya Yolu", "name:en": "Lycian Way", "distance": "540", "osmc:symbol": "red:white:red_stripe", "network": "nwn", "wikidata": "Q1194831" } },
+    { "type": "node", "id": 5005, "lat": 40.8356, "lon": 41.1211, "tags": { "natural": "peak", "name": "Kaçkar Dağı", "ele": "3937", "wikidata": "Q1010215", "image": "File:Kackar summit.jpg" } },
+    { "type": "node", "id": 6006, "lat": 40.6, "lon": 40.3, "tags": { "sport": "rafting", "name": "Çoruh Nehri Rafting Parkuru", "whitewater": "rapid", "whitewater:rapid_grade": "4" } },
+    { "type": "node", "id": 7007, "lat": 36.55, "lon": 29.19, "tags": { "sport": "paragliding", "name": "Babadağ Kalkış 1969", "ele": "1969" } },
+    { "type": "node", "id": 8008, "lat": 41.0, "lon": 29.0, "tags": { "amenity": "hospital", "name": "Acıbadem Kadıköy Hastanesi", "emergency": "yes", "phone": "+90 216 000 0000" } },
+    { "type": "node", "id": 9009, "lat": 41.185, "lon": 28.99, "tags": { "tourism": "camp_site", "name": "Belgrad Ormani Kamp Alani", "toilets": "yes" } },
+    { "type": "node", "id": 9999, "lat": 41.0, "lon": 29.0, "tags": { "shop": "bakery", "name": "Fırın" } },
+    { "type": "node", "id": 9998, "lat": 41.0, "lon": 29.0, "tags": { "natural": "peak" } }
+  ]
+}

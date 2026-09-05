@@ -15,7 +15,7 @@ import {
   Text,
   type IconName,
 } from '@/components/ui';
-import { useT } from '@/core/i18n';
+import { useT, type TranslationKey } from '@/core/i18n';
 import { radius, spacing, useTheme } from '@/core/theme';
 import { useCurrentUser } from '@/features/auth/session.store';
 import { useUserPosts } from '@/features/feed/hooks';
@@ -47,13 +47,26 @@ export default function ProfileScreen() {
       <ProfileHeader
         user={profile}
         actions={
-          <Button
-            label={t('profile.editProfile')}
-            variant="secondary"
-            size="sm"
-            icon="pencil"
-            onPress={() => router.push('/settings')}
-          />
+          <>
+            <Button
+              label={
+                session.plan === 'free'
+                  ? t('plans.upgrade')
+                  : t(`plans.${session.plan}` as TranslationKey)
+              }
+              variant={session.plan === 'free' ? 'accent' : 'secondary'}
+              size="sm"
+              icon="sparkles"
+              onPress={() => router.push('/plans')}
+            />
+            <IconButton
+              icon="pencil"
+              size={36}
+              iconSize={16}
+              onPress={() => router.push('/settings')}
+              accessibilityLabel={t('profile.editProfile')}
+            />
+          </>
         }
       />
 
@@ -62,14 +75,26 @@ export default function ProfileScreen() {
         <View style={styles.shortcuts}>
           {(
             [
+              { icon: 'siren', label: t('firstAid.title'), href: '/first-aid' },
+              { icon: 'locate-fixed', label: t('presence.title'), href: '/live-location' },
+              { icon: 'globe', label: t('library.title'), href: '/library' },
+              { icon: 'building-2', label: t('stays.title'), href: '/stays' },
               { icon: 'calendar-check', label: t('booking.title'), href: '/bookings' },
               { icon: 'store', label: t('market.myListings'), href: '/market' },
               { icon: 'triangle-alert', label: t('hazards.title'), href: '/hazards' },
-              { icon: 'bell', label: t('notifications.title'), href: '/notifications' },
+              { icon: 'sparkles', label: t('plans.title'), href: '/plans' },
             ] as {
               icon: IconName;
               label: string;
-              href: '/bookings' | '/market' | '/hazards' | '/notifications';
+              href:
+                | '/first-aid'
+                | '/live-location'
+                | '/library'
+                | '/stays'
+                | '/bookings'
+                | '/market'
+                | '/hazards'
+                | '/plans';
             }[]
           ).map((item) => (
             <Tappable

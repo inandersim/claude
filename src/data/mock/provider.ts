@@ -2,12 +2,33 @@ import { deepClone } from '@/core/utils/clone';
 import { generateId } from '@/core/utils/format';
 import {
   computeTrustScore,
+  countByCountry,
+  expiresAtFor,
   filterListings,
   findMatchCandidates,
+  nearestCenters,
   nextRating,
+  nightsBetween,
   rankInstructors,
+  searchLibrary,
   selectHazards,
+  splitPayment,
+  stayTotal,
+  visibleShares,
   distanceKm,
+  type Business,
+  type BusinessFilter,
+  type BusinessWithOwner,
+  type CreateStayInput,
+  type CreateStoryInput,
+  type LocationShare,
+  type RegisterBusinessInput,
+  type SosEvent,
+  type StartShareInput,
+  type StayBooking,
+  type StayBookingWithBusiness,
+  type Story,
+  type StoryGroup,
   type Booking,
   type BookingWithParties,
   type CommentWithAuthor,
@@ -37,7 +58,13 @@ import {
 
 import type {
   AuthRepository,
+  BillingRepository,
+  BusinessRepository,
   DataProvider,
+  EmergencyRepository,
+  LibraryRepository,
+  PresenceRepository,
+  StoryRepository,
   ExploreRepository,
   FeedFilter,
   FeedRepository,
@@ -739,6 +766,11 @@ export function createMockProvider(options: Options = {}): DataProvider {
         startedAt: new Date().toISOString(),
         endedAt: null,
         altitudeM: null,
+        source: input.source ?? 'camera',
+        droneTelemetry:
+          input.source === 'drone'
+            ? { altitudeM: 120, speedKmh: 0, batteryPct: 100, headingDeg: 0, distanceFromPilotM: 0 }
+            : null,
       };
       t.streams.unshift(stream);
       db.markDirty();
@@ -1004,6 +1036,426 @@ export function createMockProvider(options: Options = {}): DataProvider {
     },
   };
 
+  /* ---------------------------------------------------------------- */
+  /* Kütüphane                                                         */
+  /* ---------------------------------------------------------------- */
+
+  const library: LibraryRepository = {
+    async search(filter) {
+      await wait();
+      const t = await db.load();
+      return searchLibrary(t.library, filter);
+    },
+    async getById(id, origin) {
+      await wait();
+      const t = await db.load();
+      const found = searchLibrary(t.library, { origin }).find((p) => p.id === id);
+      return found ?? null;
+    },
+    async nearby(origin, radiusKm, kind = null, limit = 20) {
+      await delay(Math.min(latency, 120));
+      const t = await db.load();
+      return searchLibrary(t.library, { origin, radiusKm, kind }).slice(0, limit);
+    },
+    async countries() {
+      const t = await db.load();
+      return countByCountry(t.library);
+    },
+  };
+
+  /* ---------------------------------------------------------------- */
+  /* Canlı konum                                                       */
+  /* ---------------------------------------------------------------- */
+
+  const friendIdsOf = (t: { follows: { followerId: string; followingId: string }[] }, meId: ID) => {
+    const iFollow = new Set(
+      t.follows.filter((f) => f.followerId === meId).map((f) => f.followingId),
+    );
+    return new Set(
+      t.follows
+        .filter((f) => f.followingId === meId && iFollow.has(f.followerId))
+        .map((f) => f.followerId),
+    );
+  };
+  const matchIdsOf = (t: { matches: ZMatch[] }, meId: ID) =>
+    new Set(
+      t.matches
+        .filter((m) => m.status === 'accepted' && (m.requesterId === meId || m.receiverId === meId))
+        .map((m) => (m.requesterId === meId ? m.receiverId : m.requesterId)),
+    );
+
+  const presence: PresenceRepository = {
+    async list(meId, origin) {
+      await delay(Math.min(latency, 150));
+      const t = await db.load();
+      return visibleShares({
+        meId,
+        origin,
+        shares: t.shares,
+        users: t.users,
+        friendIds: friendIdsOf(t, meId),
+        matchIds: matchIdsOf(t, meId),
+      });
+    },
+    async mine(meId) {
+      const t = await db.load();
+      const s = t.shares.find((x) => x.userId === meId);
+      if (!s) return null;
+      if (s.expiresAt && s.expiresAt < new Date().toISOString()) return null;
+      return s;
+    },
+    async start(meId, input: StartShareInput) {
+      await delay(Math.min(latency, 150));
+      const t = await db.load();
+      const nowIso = new Date().toISOString();
+      const share: LocationShare = {
+        userId: meId,
+        coords: input.coords,
+        mode: input.mode,
+        startedAt: nowIso,
+        expiresAt: expiresAtFor(input.durationMin),
+        updatedAt: nowIso,
+        batteryPct: input.batteryPct ?? null,
+        altitudeM: input.altitudeM ?? null,
+        speedKmh: null,
+      };
+      t.shares = t.shares.filter((x) => x.userId !== meId);
+      t.shares.push(share);
+      db.markDirty();
+      return share;
+    },
+    async update(meId, coords, extra = {}) {
+      const t = await db.load();
+      const s = t.shares.find((x) => x.userId === meId);
+      if (!s) return null;
+      s.coords = coords;
+      s.updatedAt = new Date().toISOString();
+      if (extra.batteryPct !== undefined) s.batteryPct = extra.batteryPct;
+      if (extra.altitudeM !== undefined) s.altitudeM = extra.altitudeM;
+      if (extra.speedKmh !== undefined) s.speedKmh = extra.speedKmh;
+      db.markDirty();
+      return s;
+    },
+    async stop(meId) {
+      const t = await db.load();
+      t.shares = t.shares.filter((x) => x.userId !== meId);
+      db.markDirty();
+    },
+  };
+
+  /* ---------------------------------------------------------------- */
+  /* Anlar                                                             */
+  /* ---------------------------------------------------------------- */
+
+  const stories: StoryRepository = {
+    async groups(meId) {
+      await delay(Math.min(latency, 150));
+      const t = await db.load();
+      const nowIso = new Date().toISOString();
+      const active = t.stories.filter((s) => s.expiresAt > nowIso);
+      const seen = new Set(t.storyViews.filter((v) => v.userId === meId).map((v) => v.storyId));
+      const byAuthor = new Map<string, Story[]>();
+      for (const s of active) byAuthor.set(s.authorId, [...(byAuthor.get(s.authorId) ?? []), s]);
+      const groups: StoryGroup[] = [];
+      for (const [authorId, list] of byAuthor) {
+        const sorted = list.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+        groups.push({
+          author: requireUser(t.users, authorId),
+          stories: sorted,
+          allSeen: sorted.every((s) => seen.has(s.id) || s.authorId === meId),
+          latestAt: sorted[sorted.length - 1]?.createdAt ?? nowIso,
+        });
+      }
+      // Kendi anım önce, sonra görülmemişler, sonra en yeni
+      return groups.sort((a, b) => {
+        if (a.author.id === meId) return -1;
+        if (b.author.id === meId) return 1;
+        if (a.allSeen !== b.allSeen) return a.allSeen ? 1 : -1;
+        return b.latestAt.localeCompare(a.latestAt);
+      });
+    },
+    async create(meId, input: CreateStoryInput) {
+      await wait();
+      const t = await db.load();
+      const me = requireUser(t.users, meId);
+      const story: Story = {
+        id: generateId('st'),
+        authorId: meId,
+        mediaUrl: input.mediaUri,
+        mediaType: 'image',
+        caption: input.caption.trim(),
+        adventureType: input.adventureType,
+        locationName: input.locationName.trim() || me.locationName,
+        coords: input.coords ?? me.coords,
+        altitudeM: input.altitudeM ?? null,
+        createdAt: new Date().toISOString(),
+        expiresAt: new Date(Date.now() + 24 * 3_600_000).toISOString(),
+        viewsCount: 0,
+      };
+      t.stories.unshift(story);
+      db.markDirty();
+      for (const f of t.follows) {
+        if (f.followingId === meId) {
+          await pushNotification({
+            type: 'story_posted',
+            senderId: meId,
+            receiverId: f.followerId,
+            message: story.caption,
+            postId: null,
+            matchId: null,
+            targetId: story.id,
+          });
+        }
+      }
+      return story;
+    },
+    async markSeen(meId, storyId) {
+      const t = await db.load();
+      if (t.storyViews.some((v) => v.userId === meId && v.storyId === storyId)) return;
+      const story = t.stories.find((s) => s.id === storyId);
+      if (!story || story.authorId === meId) return;
+      t.storyViews.push({ userId: meId, storyId });
+      story.viewsCount += 1;
+      db.markDirty();
+    },
+  };
+
+  /* ---------------------------------------------------------------- */
+  /* İşletmeler & konaklama                                            */
+  /* ---------------------------------------------------------------- */
+
+  const withOwner = (b: Business, users: User[], origin: GeoPoint | null): BusinessWithOwner => ({
+    ...b,
+    owner: requireUser(users, b.ownerId),
+    distanceKm: origin ? distanceKm(origin, b.coords) : null,
+  });
+
+  const businesses: BusinessRepository = {
+    async list(filter: BusinessFilter = {}) {
+      await wait();
+      const t = await db.load();
+      const q = filter.query?.trim().toLocaleLowerCase('tr-TR') ?? '';
+      return t.businesses
+        .filter((b) => !filter.type || b.type === filter.type)
+        .filter((b) => !filter.staysOnly || b.priceFromTry !== null)
+        .filter(
+          (b) =>
+            !q ||
+            b.name.toLocaleLowerCase('tr-TR').includes(q) ||
+            b.locationName.toLocaleLowerCase('tr-TR').includes(q) ||
+            b.description.toLocaleLowerCase('tr-TR').includes(q),
+        )
+        .map((b) => withOwner(b, t.users, filter.origin ?? null))
+        .sort((a, b) => {
+          if (a.isFeatured !== b.isFeatured) return a.isFeatured ? -1 : 1;
+          if (b.rating !== a.rating) return b.rating - a.rating;
+          return b.reviewCount - a.reviewCount;
+        });
+    },
+    async getById(id, origin) {
+      await wait();
+      const t = await db.load();
+      const b = t.businesses.find((x) => x.id === id);
+      return b ? withOwner(b, t.users, origin) : null;
+    },
+    async register(meId, input: RegisterBusinessInput) {
+      await wait();
+      const t = await db.load();
+      const owner = requireUser(t.users, meId);
+      const business: Business = {
+        id: generateId('biz'),
+        ownerId: meId,
+        name: input.name.trim(),
+        type: input.type,
+        description: input.description.trim(),
+        locationName: input.locationName.trim() || owner.locationName,
+        coords: owner.coords,
+        imageUrl: null,
+        rating: 0,
+        reviewCount: 0,
+        isVerified: false,
+        priceFromTry: input.priceFromTry,
+        amenities: input.amenities,
+        adventureTypes: input.adventureTypes,
+        website: input.website,
+        phone: input.phone,
+        plan: owner.plan === 'business' ? 'business' : 'free',
+        isFeatured: false,
+        createdAt: new Date().toISOString(),
+      };
+      t.businesses.push(business);
+      db.markDirty();
+      return withOwner(business, t.users, null);
+    },
+    async reserve(meId, input: CreateStayInput) {
+      await wait();
+      const t = await db.load();
+      const b = t.businesses.find((x) => x.id === input.businessId);
+      if (!b) throw new NotFoundError('İşletme', input.businessId);
+      if (b.priceFromTry === null) throw new AuthError('Bu işletme konaklama sunmuyor.');
+      const nights = nightsBetween(input.checkIn, input.checkOut);
+      if (nights < 1) throw new AuthError('Çıkış tarihi girişten sonra olmalı.');
+      const totals = stayTotal(b.priceFromTry, nights);
+      const booking: StayBooking = {
+        id: generateId('sb'),
+        businessId: b.id,
+        guestId: meId,
+        checkIn: input.checkIn,
+        checkOut: input.checkOut,
+        guests: input.guests,
+        nights,
+        totalTry: totals.totalTry,
+        platformFeeTry: totals.feeTry,
+        status: 'pending',
+        createdAt: new Date().toISOString(),
+      };
+      t.stayBookings.unshift(booking);
+      db.markDirty();
+      await pushNotification({
+        type: 'stay_request',
+        senderId: meId,
+        receiverId: b.ownerId,
+        message: b.name,
+        postId: null,
+        matchId: null,
+        targetId: booking.id,
+      });
+      return { ...booking, business: b };
+    },
+    async myStays(meId) {
+      await wait();
+      const t = await db.load();
+      return t.stayBookings
+        .filter((s) => s.guestId === meId)
+        .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+        .map<StayBookingWithBusiness>((s) => ({
+          ...s,
+          business: t.businesses.find((b) => b.id === s.businessId)!,
+        }));
+    },
+  };
+
+  /* ---------------------------------------------------------------- */
+  /* Abonelik                                                          */
+  /* ---------------------------------------------------------------- */
+
+  const billing: BillingRepository = {
+    async currentPlan(meId) {
+      const t = await db.load();
+      return requireUser(t.users, meId).plan;
+    },
+    async subscribe(meId, plan) {
+      await wait();
+      const t = await db.load();
+      const user = requireUser(t.users, meId);
+      user.plan = plan;
+      for (const b of t.businesses)
+        if (b.ownerId === meId) b.plan = plan === 'business' ? 'business' : 'free';
+      db.markDirty();
+      return user;
+    },
+    async earnings(meId) {
+      const t = await db.load();
+      const user = requireUser(t.users, meId);
+      const myInstructorIds = t.instructors.filter((i) => i.userId === meId).map((i) => i.id);
+      const myBusinessIds = t.businesses.filter((b) => b.ownerId === meId).map((b) => b.id);
+      const grossBookings = t.bookings.filter(
+        (b) =>
+          myInstructorIds.includes(b.instructorId) &&
+          (b.status === 'confirmed' || b.status === 'completed'),
+      );
+      const grossStays = t.stayBookings.filter(
+        (s) =>
+          myBusinessIds.includes(s.businessId) &&
+          (s.status === 'confirmed' || s.status === 'completed'),
+      );
+      const gross =
+        grossBookings.reduce((a, b) => a + b.priceTry, 0) +
+        grossStays.reduce((a, s) => a + s.totalTry - s.platformFeeTry, 0);
+      const split = splitPayment(gross, user.plan);
+      return {
+        grossTry: split.grossTry,
+        commissionTry: split.commissionTry,
+        netTry: split.netTry,
+        bookings: grossBookings.length + grossStays.length,
+      };
+    },
+  };
+
+  /* ---------------------------------------------------------------- */
+  /* Acil durum                                                        */
+  /* ---------------------------------------------------------------- */
+
+  const emergency: EmergencyRepository = {
+    async centers(origin, limit = 6) {
+      await delay(Math.min(latency, 120));
+      const t = await db.load();
+      return nearestCenters(t.emergencyCenters, origin, { limit });
+    },
+    async triggerSos(meId, coords) {
+      const t = await db.load();
+      const me = requireUser(t.users, meId);
+      const event: SosEvent = {
+        id: generateId('sos'),
+        userId: meId,
+        coords,
+        createdAt: new Date().toISOString(),
+        resolvedAt: null,
+        notifiedContacts: me.emergencyContacts.length,
+      };
+      t.sosEvents.unshift(event);
+      // SOS modunda canlı konum paylaşımı
+      t.shares = t.shares.filter((x) => x.userId !== meId);
+      t.shares.push({
+        userId: meId,
+        coords,
+        mode: 'sos',
+        startedAt: event.createdAt,
+        expiresAt: null,
+        updatedAt: event.createdAt,
+        batteryPct: null,
+        altitudeM: null,
+        speedKmh: null,
+      });
+      db.markDirty();
+      for (const c of me.emergencyContacts) {
+        if (c.userId) {
+          await pushNotification({
+            type: 'sos_alert',
+            senderId: meId,
+            receiverId: c.userId,
+            message: `${coords.latitude.toFixed(4)}, ${coords.longitude.toFixed(4)}`,
+            postId: null,
+            matchId: null,
+            targetId: event.id,
+          });
+        }
+      }
+      return event;
+    },
+    async activeSos(meId) {
+      const t = await db.load();
+      return t.sosEvents.find((e) => e.userId === meId && !e.resolvedAt) ?? null;
+    },
+    async resolveSos(meId) {
+      const t = await db.load();
+      for (const e of t.sosEvents)
+        if (e.userId === meId && !e.resolvedAt) e.resolvedAt = new Date().toISOString();
+      t.shares = t.shares.filter((x) => !(x.userId === meId && x.mode === 'sos'));
+      db.markDirty();
+    },
+    async updateContacts(meId, contacts) {
+      await delay(Math.min(latency, 120));
+      const t = await db.load();
+      const me = requireUser(t.users, meId);
+      me.emergencyContacts = contacts
+        .map((c) => ({ ...c, name: c.name.trim(), phone: c.phone.trim() }))
+        .filter((c) => c.name && c.phone);
+      db.markDirty();
+      return me;
+    },
+  };
+
   // nextRating: yorum ekleme akışı eklendiğinde kullanılacak; şimdilik referans olarak dışa aktarılıyor
   void nextRating;
 
@@ -1019,6 +1471,12 @@ export function createMockProvider(options: Options = {}): DataProvider {
     live: atBoundary(live),
     market: atBoundary(market),
     instructors: atBoundary(instructors),
+    library: atBoundary(library),
+    presence: atBoundary(presence),
+    stories: atBoundary(stories),
+    businesses: atBoundary(businesses),
+    billing: atBoundary(billing),
+    emergency: atBoundary(emergency),
     reset: () => db.reset(),
   };
 }

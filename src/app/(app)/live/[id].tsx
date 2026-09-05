@@ -1,4 +1,5 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
+import { goBack } from '@/core/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 import {
   FlatList,
@@ -31,6 +32,7 @@ import { formatCompact } from '@/core/utils/format';
 import { formatDate, formatDuration } from '@/core/utils/time';
 import { ADVENTURE_TYPE_META, STREAM_STATUS_META, type StreamMessageWithAuthor } from '@/domain';
 import { useCurrentUser } from '@/features/auth/session.store';
+import { LiveBadge } from '@/features/live/components/LiveBadge';
 import { StreamPlayer } from '@/features/live/components/StreamPlayer';
 import {
   useEndStream,
@@ -84,7 +86,7 @@ export default function LiveStreamScreen() {
     end.mutate(id, {
       onSuccess: () => {
         toast(t('live.endedToast'), 'info');
-        router.back();
+        goBack(router);
       },
       onError: () => toast(t('common.error'), 'error'),
     });
@@ -110,14 +112,17 @@ export default function LiveStreamScreen() {
           style={{ flex: 1 }}
         >
           <View style={styles.playerWrap}>
-            <StreamPlayer stream={data} muted={muted} />
+            <StreamPlayer stream={data} muted={muted} showBadges={false} />
             <View style={[styles.playerTop, { top: insets.top + spacing.sm }]}>
-              <IconButton
-                icon="chevron-left"
-                variant="blur"
-                onPress={() => (router.canGoBack() ? router.back() : router.replace('/live'))}
-                accessibilityLabel={t('common.back')}
-              />
+              <View style={styles.playerTopLeft}>
+                <IconButton
+                  icon="chevron-left"
+                  variant="blur"
+                  onPress={() => (router.canGoBack() ? router.back() : router.replace('/live'))}
+                  accessibilityLabel={t('common.back')}
+                />
+                {data.status === 'live' ? <LiveBadge /> : null}
+              </View>
               <View style={styles.playerTopRight}>
                 {data.status === 'live' ? (
                   <View style={styles.viewers}>
@@ -200,6 +205,33 @@ export default function LiveStreamScreen() {
               <Text variant="bodySm" color="textMuted" numberOfLines={3}>
                 {data.description}
               </Text>
+            ) : null}
+            {data.droneTelemetry ? (
+              <View
+                style={[
+                  styles.telemetry,
+                  { backgroundColor: colors.surfaceMuted, borderColor: colors.border },
+                ]}
+              >
+                {[
+                  { label: t('drone.altitude'), value: `${data.droneTelemetry.altitudeM} m` },
+                  { label: t('drone.speed'), value: `${data.droneTelemetry.speedKmh} km/s` },
+                  { label: t('drone.battery'), value: `%${data.droneTelemetry.batteryPct}` },
+                  {
+                    label: t('drone.distance'),
+                    value: `${data.droneTelemetry.distanceFromPilotM} m`,
+                  },
+                ].map((item) => (
+                  <View key={item.label} style={{ flex: 1 }}>
+                    <Text variant="label" color="textSubtle" numberOfLines={1}>
+                      {item.label.toLocaleUpperCase('tr-TR')}
+                    </Text>
+                    <Text variant="title" weight="extrabold">
+                      {item.value}
+                    </Text>
+                  </View>
+                ))}
+              </View>
             ) : null}
             <View style={styles.actionsRow}>
               <Tappable
@@ -333,6 +365,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  playerTopLeft: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
   playerTopRight: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
   viewers: {
     flexDirection: 'row',
@@ -346,6 +379,13 @@ const styles = StyleSheet.create({
   info: { padding: spacing.lg, gap: spacing.sm + 2, borderBottomWidth: StyleSheet.hairlineWidth },
   hostRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm + 2 },
   chips: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm },
+  telemetry: {
+    flexDirection: 'row',
+    gap: spacing.sm,
+    padding: spacing.md,
+    borderRadius: radius.lg,
+    borderWidth: StyleSheet.hairlineWidth,
+  },
   actionsRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
   likeBtn: {
     flexDirection: 'row',

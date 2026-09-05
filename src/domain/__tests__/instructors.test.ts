@@ -18,6 +18,8 @@ const user = (id: string, name: string): User => ({
   trustScore: 80,
   favoriteTypes: ['hiking'],
   joinedAt: '2025-01-01T00:00:00.000Z',
+  plan: 'free',
+  emergencyContacts: [],
 });
 
 const instructor = (o: Partial<Instructor>): Instructor => ({

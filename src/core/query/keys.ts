@@ -1,4 +1,12 @@
-import type { AdventureType, GeoPoint, ID, InstructorFilter, ListingFilter } from '@/domain';
+import type {
+  AdventureType,
+  BusinessFilter,
+  GeoPoint,
+  ID,
+  InstructorFilter,
+  LibraryFilter,
+  ListingFilter,
+} from '@/domain';
 
 /** TanStack Query anahtarları — tek kaynaktan yönetilir, invalidation tutarlı olur. */
 export const queryKeys = {
@@ -82,5 +90,45 @@ export const queryKeys = {
     byUser: (userId: ID) => ['instructors', 'byUser', userId] as const,
     reviews: (id: ID) => ['instructors', 'reviews', id] as const,
     bookings: (meId: ID) => ['instructors', 'bookings', meId] as const,
+  },
+  library: {
+    all: ['library'] as const,
+    search: (filter: LibraryFilter) =>
+      [
+        'library',
+        'search',
+        {
+          ...filter,
+          origin: filter.origin
+            ? `${filter.origin.latitude.toFixed(2)},${filter.origin.longitude.toFixed(2)}`
+            : null,
+        },
+      ] as const,
+    detail: (id: ID) => ['library', 'detail', id] as const,
+    countries: ['library', 'countries'] as const,
+  },
+  presence: {
+    all: ['presence'] as const,
+    list: (meId: ID) => ['presence', 'list', meId] as const,
+    mine: (meId: ID) => ['presence', 'mine', meId] as const,
+  },
+  stories: {
+    all: ['stories'] as const,
+    groups: (meId: ID) => ['stories', 'groups', meId] as const,
+  },
+  businesses: {
+    all: ['businesses'] as const,
+    list: (filter: BusinessFilter) =>
+      ['businesses', 'list', { ...filter, origin: filter.origin ? 'o' : null }] as const,
+    detail: (id: ID) => ['businesses', 'detail', id] as const,
+    stays: (meId: ID) => ['businesses', 'stays', meId] as const,
+  },
+  billing: {
+    earnings: (meId: ID) => ['billing', 'earnings', meId] as const,
+  },
+  emergency: {
+    centers: (origin: GeoPoint) =>
+      ['emergency', 'centers', origin.latitude.toFixed(2), origin.longitude.toFixed(2)] as const,
+    sos: (meId: ID) => ['emergency', 'sos', meId] as const,
   },
 };

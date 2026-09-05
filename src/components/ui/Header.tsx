@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { spacing } from '@/core/theme';
-import { t } from '@/core/i18n';
+import { useT } from '@/core/i18n';
 
 import { IconButton } from './IconButton';
 import { Text } from './Text';
@@ -27,6 +27,7 @@ export function Header({
   onBack,
 }: HeaderProps) {
   const router = useRouter();
+  const { t } = useT();
 
   const handleBack = () => {
     if (onBack) return onBack();

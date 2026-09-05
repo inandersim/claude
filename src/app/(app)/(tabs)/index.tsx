@@ -14,7 +14,7 @@ import { PostCard } from '@/features/feed/components/PostCard';
 import { PostCardSkeleton } from '@/features/feed/components/PostCardSkeleton';
 import { useFeed, useToggleLike } from '@/features/feed/hooks';
 import { HazardBanner } from '@/features/hazards/components/HazardBanner';
-import { LiveStrip } from '@/features/live/components/LiveStrip';
+import { StoriesStrip } from '@/features/stories/components/StoriesStrip';
 import { useUnreadCount } from '@/features/notifications/hooks';
 
 function greetingKey(): 'home.greetingMorning' | 'home.greetingDay' | 'home.greetingEvening' {
@@ -75,7 +75,7 @@ export default function HomeScreen() {
             />
           </View>
         </View>
-        <LiveStrip />
+        <StoriesStrip />
         <HazardBanner origin={me.coords} />
         <AdventureTypeFilter value={type} onChange={setType} />
       </View>

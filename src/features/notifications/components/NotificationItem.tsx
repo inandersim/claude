@@ -21,6 +21,10 @@ const typeMeta: Record<NotificationType, { icon: IconName; color: string }> = {
   hazard_alert: { icon: 'triangle-alert', color: '#FF6B6B' },
   hazard_confirmed: { icon: 'shield-check', color: '#5EE39B' },
   stream_live: { icon: 'radio', color: '#FF6B6B' },
+  sos_alert: { icon: 'siren', color: '#FF6B6B' },
+  stay_request: { icon: 'building-2', color: '#FFB547' },
+  stay_confirmed: { icon: 'calendar-check', color: '#5EE39B' },
+  story_posted: { icon: 'sparkles', color: '#CE93D8' },
 };
 
 export function NotificationItem({

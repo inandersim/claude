@@ -1,6 +1,7 @@
 import Constants from 'expo-constants';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
+import { goBack } from '@/core/navigation';
 import React from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 
@@ -30,6 +31,13 @@ export default function SettingsScreen() {
   const localeOptions: { value: Locale; label: string }[] = [
     { value: 'tr', label: t('settings.turkish') },
     { value: 'en', label: t('settings.english') },
+    { value: 'de', label: t('settings.german') },
+    { value: 'fr', label: t('settings.french') },
+    { value: 'es', label: t('settings.spanish') },
+    { value: 'it', label: t('settings.italian') },
+    { value: 'ja', label: t('settings.japanese') },
+    { value: 'pt', label: t('settings.portuguese') },
+    { value: 'ru', label: t('settings.russian') },
   ];
 
   const confirmSignOut = () => {
@@ -50,7 +58,7 @@ export default function SettingsScreen() {
           await qc.invalidateQueries();
           await refreshUser();
           toast(t('settings.resetDone'), 'success');
-          router.back();
+          goBack(router);
         },
       },
     ]);
@@ -89,6 +97,18 @@ export default function SettingsScreen() {
         </Group>
 
         <Group title={t('settings.account')}>
+          <LinkRow
+            icon="sparkles"
+            label={t('settings.subscription')}
+            description={t('plans.subtitle')}
+            onPress={() => router.push('/plans')}
+          />
+          <LinkRow
+            icon="siren"
+            label={t('settings.emergencyContacts')}
+            description={t('firstAid.sosHint')}
+            onPress={() => router.push('/first-aid/contacts')}
+          />
           <LinkRow icon="bell" label={t('settings.notifications')} />
           <LinkRow icon="lock" label={t('settings.privacy')} />
           <LinkRow

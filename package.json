@@ -15,7 +15,9 @@
     "format": "prettier --write \"src/**/*.{ts,tsx}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx}\"",
     "doctor": "npx expo-doctor",
-    "icons": "node scripts/generate-icons.js"
+    "icons": "node scripts/generate-icons.js",
+    "test:pipeline": "node --test tools/data-pipeline/test/*.test.js",
+    "data": "node tools/data-pipeline/cli.js"
   },
   "dependencies": {
     "@expo-google-fonts/manrope": "^0.4.2",

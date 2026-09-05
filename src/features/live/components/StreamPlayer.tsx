@@ -12,6 +12,8 @@ import { LiveBadge } from './LiveBadge';
 interface Props {
   stream: LiveStreamWithHost;
   muted?: boolean;
+  /** Ekran kendi üst çubuğunu çiziyorsa rozetleri gizle. */
+  showBadges?: boolean;
 }
 
 /**
@@ -19,7 +21,7 @@ interface Props {
  * küçük resim ve geri sayım gösterilir. Gerçek yayın altyapısı bağlanana kadar
  * demo akış kullanılır (bkz. docs/ARCHITECTURE.md).
  */
-export function StreamPlayer({ stream, muted = false }: Props) {
+export function StreamPlayer({ stream, muted = false, showBadges = true }: Props) {
   const { t } = useT();
   const source = stream.playbackUrl ?? null;
   const player = useVideoPlayer(source, (p) => {
@@ -59,7 +61,24 @@ export function StreamPlayer({ stream, muted = false }: Props) {
           </View>
         </AdventureImage>
       )}
-      {stream.status === 'live' ? (
+      {stream.droneTelemetry ? (
+        <View style={styles.telemetry}>
+          {[
+            { icon: 'mountain-snow' as const, value: `${stream.droneTelemetry.altitudeM} m` },
+            { icon: 'gauge' as const, value: `${stream.droneTelemetry.speedKmh} km/s` },
+            { icon: 'zap' as const, value: `%${stream.droneTelemetry.batteryPct}` },
+            { icon: 'navigation' as const, value: `${stream.droneTelemetry.headingDeg}°` },
+          ].map((item) => (
+            <View key={item.icon} style={styles.telemetryItem}>
+              <Icon name={item.icon} size={11} color="#FFFFFF" strokeWidth={2.4} />
+              <Text variant="label" weight="extrabold" color="#FFFFFF">
+                {item.value}
+              </Text>
+            </View>
+          ))}
+        </View>
+      ) : null}
+      {showBadges && stream.status === 'live' ? (
         <View style={styles.badges}>
           <LiveBadge />
           <View style={styles.demo}>
@@ -82,6 +101,25 @@ const styles = StyleSheet.create({
     left: spacing.md,
     flexDirection: 'row',
     gap: spacing.sm,
+  },
+  telemetry: {
+    position: 'absolute',
+    bottom: spacing.md,
+    right: spacing.md,
+    left: spacing.md,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-end',
+    gap: 4,
+  },
+  telemetryItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    paddingHorizontal: spacing.sm,
+    height: 22,
+    borderRadius: radius.full,
+    backgroundColor: 'rgba(8,14,12,0.6)',
   },
   demo: {
     paddingHorizontal: spacing.sm,

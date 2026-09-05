@@ -1,5 +1,6 @@
 import * as ImagePicker from 'expo-image-picker';
 import { useRouter } from 'expo-router';
+import { goBack } from '@/core/navigation';
 import React, { useState } from 'react';
 import {
   KeyboardAvoidingView,
@@ -131,7 +132,7 @@ export default function NewPostScreen() {
       {
         onSuccess: () => {
           toast(t('post.published'), 'success');
-          router.back();
+          goBack(router);
         },
         onError: () => toast(t('common.error'), 'error'),
       },
@@ -145,7 +146,7 @@ export default function NewPostScreen() {
         right={
           <IconButton
             icon="x"
-            onPress={() => router.back()}
+            onPress={() => goBack(router)}
             accessibilityLabel={t('common.close')}
           />
         }

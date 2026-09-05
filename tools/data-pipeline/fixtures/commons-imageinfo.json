@@ -1,0 +1,20 @@
+{
+  "query": {
+    "pages": {
+      "12345": {
+        "title": "File:Kackar summit.jpg",
+        "imageinfo": [
+          {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Kackar_summit.jpg",
+            "thumburl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Kackar_summit.jpg/1024px-Kackar_summit.jpg",
+            "extmetadata": {
+              "LicenseShortName": { "value": "CC BY-SA 4.0" },
+              "Artist": { "value": "<a href=\"//commons.wikimedia.org/wiki/User:Example\">Example User</a>" },
+              "AttributionRequired": { "value": "true" }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

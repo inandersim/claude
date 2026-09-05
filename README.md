@@ -20,17 +20,33 @@
 
 ## Özellikler
 
-| Sekme | Neler var |
-| --- | --- |
-| **Ana Sayfa** | Macera akışı; irtifa, mesafe, sıcaklık, rüzgar, süre gibi teknik verilerle. Çift dokunuşla beğeni, yorum, macera türüne göre filtre. |
-| **Keşfet** | Trend lokasyonlar, türe göre keşif, popüler rotalar (SVG rota önizlemesi), son maceralar ve birleşik arama (lokasyon / kullanıcı / rota). |
-| **ZMatch** | Konuma göre yakındaki **doğrulanmış** maceraperestler; mesafe ve tür filtresi; eşleşme isteği gönder / kabul et / reddet; kabul edilen planlar ve birebir mesajlaşma. |
-| **Canlı** | Şu an canlı yayınlar, yaklaşan yayınlar ve tekrarlar; yayın ekranında video oynatıcı (expo-video), izleyici sayısı, canlı sohbet ve beğeni; kamera önizlemeli **yayın başlatma** akışı. |
-| **Profil** | Takipçi / takip, toplam macera ve km, güven skoru halkası, favori aktiviteler, paylaşım ızgarası, kısayollar (rezervasyonlar, market, tehlike haritası, bildirimler). Ayarlar: tema, dil, demo verilerini sıfırlama. |
+| Sekme         | Neler var                                                                                                                                                                                                            |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Ana Sayfa** | Macera akışı; irtifa, mesafe, sıcaklık, rüzgar, süre gibi teknik verilerle. Çift dokunuşla beğeni, yorum, macera türüne göre filtre.                                                                                 |
+| **Keşfet**    | Trend lokasyonlar, türe göre keşif, popüler rotalar (SVG rota önizlemesi), son maceralar ve birleşik arama (lokasyon / kullanıcı / rota).                                                                            |
+| **ZMatch**    | Konuma göre yakındaki **doğrulanmış** maceraperestler; mesafe ve tür filtresi; eşleşme isteği gönder / kabul et / reddet; kabul edilen planlar ve birebir mesajlaşma.                                                |
+| **Canlı**     | Şu an canlı yayınlar, yaklaşan yayınlar ve tekrarlar; yayın ekranında video oynatıcı (expo-video), izleyici sayısı, canlı sohbet ve beğeni; kamera önizlemeli **yayın başlatma** akışı.                              |
+| **Profil**    | Takipçi / takip, toplam macera ve km, güven skoru halkası, favori aktiviteler, paylaşım ızgarası, kısayollar (rezervasyonlar, market, tehlike haritası, bildirimler). Ayarlar: tema, dil, demo verilerini sıfırlama. |
 
 **Güvenlik — Tehlike haritası:** Topluluk tarafından işaretlenen riskli bölgeler (kaya düşmesi, çığ, sel, vahşi hayvan, şiddetli hava, bozuk patika, kapalı bölge). Şiddet seviyesi, etki yarıçapı ve geçerlilik süresi; harita SDK'sı gerektirmeyen **radar görünümü**; "Ben de gördüm" onayı, bildiren için "çözüldü" işareti; yakındaki kullanıcılara otomatik uyarı bildirimi; Ana Sayfa ve lokasyon detayında yakın tehlike şeridi.
 
 **Market:** Outdoor ekipman al / sat / kirala. Kategori ve durum filtreleri, arama, favoriler, ilan verme (fotoğraf, fiyat, uygun aktiviteler), ilan detayı, satıcıya mesaj, "satıldı" işareti, güvenli alışveriş uyarısı.
+
+**Kütüphane:** Dünyanın outdoor lokasyonları (kamp alanı, tırmanış bölgesi, dalış noktası, yürüyüş rotası, rafting/kano parkuru, yamaç paraşütü kalkışı, kayak merkezi, zirve, mağara, dağ evi). Açık veriyle (OpenStreetMap, Wikidata, Wikimedia Commons) beslenen, lisans atıflı; ülke/tür/yakınlık filtreli arama, detay sayfası, haritada açma. `tools/data-pipeline` ile dünya ölçeğinde genişletilir (bkz. aşağıda).
+
+**Canlı konum:** Konumu takipleştiklerin, eşleşmelerin ya da SOS modunda herkesle süreli paylaşma; pil/irtifa/hız telemetrisi; paylaşanların listesi ve haritada açma.
+
+**Anlar:** 24 saat sonra kaybolan macera anları (Instagram hikâyesi tarzı): ana sayfa şeridi, ilerleme çubuklu tam ekran izleyici, görüntülenme sayısı, yanıt; fotoğraf/kameradan an oluşturma.
+
+**Konaklama & İşletmeler:** Otel, pansiyon, kamp alanı, glamping, ekipman mağazası, kiralama, tur operatörü ve dalış merkezi profilleri; puan, olanaklar, iletişim; konaklama rezervasyonu (gece hesabı + hizmet bedeli); işletme kaydı.
+
+**Zirve Pro (gelir modeli):** Kâşif (ücretsiz), Pro (₺149/ay), Pro Guide (₺399/ay — eğitmen/rehber ücretli modu, %5 komisyon, drone yayını), Business (₺799/ay). Aylık/yıllık paket, kazanç özeti (brüt/komisyon/net). Üretimde RevenueCat + iyzico Marketplace ile bağlanır.
+
+**Drone yayını:** Yayın kaynağı kamera/drone; DJI Fly / Mobile SDK için RTMP adresi; telemetri (irtifa, hız, pil, yön, pilota uzaklık) oynatıcı üstünde; Pro Guide/Business kapısı.
+
+**İlk yardım & SOS:** Basılı tutmalı SOS düğmesi (112 arama + acil kişilere konum + SOS modunda canlı konum), en yakın hastane/ambulans/dağ kurtarma/eczane listesi (mesafe, tahmini varış, yol tarifi), 12 çevrimdışı ilk yardım rehberi (CPR, kanama, kırık, hipotermi, sıcak çarpması, irtifa hastalığı, yılan ısırması, anafilaksi, boğulma, yanık, yıldırım, çığ), acil kişi yönetimi.
+
+**Diller:** Türkçe, İngilizce, Almanca, Fransızca, İspanyolca, İtalyanca, Japonca, Portekizce, Rusça.
 
 **Eğitmenler:** Sertifikalı rehber ve eğitmen profilleri (uzmanlık, sertifikalar, diller, uygun günler, puan ve değerlendirmeler, ders ücreti). Puan / mesafe / fiyata göre sıralama, ders talebi (rezervasyon) akışı, eğitmen tarafında onay / red, rezervasyonlarım ekranı, eğitmenin ilanları ve yaklaşan yayınları.
 
@@ -44,7 +60,7 @@ Ek olarak: karşılama + giriş + kayıt akışı, yeni macera paylaşma (fotoğ
 - **Reanimated 4** + Gesture Handler (mikro animasyonlar, yüzen sekme çubuğu)
 - **expo-image**, **expo-location**, **expo-image-picker**, **expo-haptics**, **expo-blur**, **expo-video**, **expo-camera**, **react-native-svg**
 - **i18n-js** — Türkçe (varsayılan) ve İngilizce
-- **Jest + jest-expo** birim testleri, **ESLint (expo + react-compiler kuralları)**, **Prettier**
+- **Jest + jest-expo** birim testleri (108) + veri hattı için `node:test` (10), **ESLint (expo + react-compiler kuralları)**, **Prettier**
 - **GitHub Actions** CI: lint → typecheck → test
 
 ## Hızlı başlangıç
@@ -74,7 +90,7 @@ node scripts/generate-icons.js   # uygulama ikonlarını yeniden üret
 ### Demo hesabı
 
 Uygulama şu an **yerel mock veri sağlayıcısı** ile çalışır; ağ gerektirmez, veriler cihazda (AsyncStorage) kalıcıdır.
-Giriş için herhangi bir e-posta ve 6+ karakterli şifre yeterlidir. Ayarlar → *Demo verilerini sıfırla* ile örnek veri yeniden yüklenir.
+Giriş için herhangi bir e-posta ve 6+ karakterli şifre yeterlidir. Ayarlar → _Demo verilerini sıfırla_ ile örnek veri yeniden yüklenir.
 
 ## Proje yapısı
 
@@ -109,16 +125,35 @@ src/
 │   ├── matching.ts      # ZMatch aday algoritması
 │   ├── hazards.ts       # Tehlike seçimi / sıralama, yön hesabı (radar)
 │   ├── marketplace.ts   # İlan filtreleme, fiyat biçimi
-│   └── instructors.ts   # Eğitmen sıralama, puan güncelleme
+│   ├── instructors.ts   # Eğitmen sıralama, puan güncelleme
+│   ├── library.ts       # Kütüphane araması, ülke sayımı
+│   ├── presence.ts      # Canlı konum görünürlük kuralları
+│   ├── pricing.ts       # Planlar, komisyon, konaklama toplamı
+│   └── emergency.ts     # Acil numaralar, en yakın merkez, SOS mesajı
 ├── data/
 │   ├── repositories/    # Veri sözleşmeleri (arayüzler)
 │   └── mock/            # Bellek içi + AsyncStorage kalıcı demo sağlayıcı ve tohum veri
 └── features/            # Özellik bazlı hook'lar ve bileşenler
     ├── auth · feed · explore · zmatch · notifications · profile · chat
-    └── hazards · live · market · instructors
+    ├── hazards · live · market · instructors
+    └── library · presence · stories · stays · plans · firstaid
 ```
 
 Ayrıntılar için [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+
+## Dünya lokasyon kütüphanesi (veri hattı)
+
+`tools/data-pipeline` dünyadaki outdoor noktalarını açık veriden toplar ve SQLite / PostGIS'e yazar:
+
+```bash
+npm run data -- import-osm --region TR --kinds campsite,climbing,diving,hiking_route,rafting,paragliding,ski,peak --out data/library
+npm run data -- import-wikidata --country TR --out data/library
+npm run data -- build-sqlite --in data/library
+npm run data -- enrich-images --db data/library/zirve-library.sqlite --limit 500
+npm run data -- export-app-seed --db data/library/zirve-library.sqlite --limit 300
+```
+
+`--region world` ile dünya karo karo çekilir ve kaldığı yerden devam eder; büyük ölçek için planet extract + `osmium tags-filter` önerilir. Ayrıntılar: [tools/data-pipeline/README.md](tools/data-pipeline/README.md). Pazar analizi ve gelir stratejisi: [docs/STRATEGY.md](docs/STRATEGY.md).
 
 ## Gerçek API'ye geçiş
 

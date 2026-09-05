@@ -51,6 +51,11 @@ export const seedUsers: User[] = [
     trustScore: 91,
     favoriteTypes: ['hiking', 'climbing', 'skiing'],
     joinedAt: daysAgo(540),
+    plan: 'pro',
+    emergencyContacts: [
+      { name: 'Ayşe Kaya (anne)', phone: '+90 532 000 00 01', userId: null },
+      { name: 'Elif Doğan', phone: '+90 532 000 00 02', userId: 'u_elif' },
+    ],
   },
   {
     id: 'u_elif',
@@ -69,6 +74,8 @@ export const seedUsers: User[] = [
     trustScore: 95,
     favoriteTypes: ['hiking', 'cycling'],
     joinedAt: daysAgo(800),
+    plan: 'pro_guide',
+    emergencyContacts: [],
   },
   {
     id: 'u_can',
@@ -87,6 +94,8 @@ export const seedUsers: User[] = [
     trustScore: 88,
     favoriteTypes: ['climbing', 'hiking'],
     joinedAt: daysAgo(620),
+    plan: 'pro_guide',
+    emergencyContacts: [],
   },
   {
     id: 'u_zeynep',
@@ -105,6 +114,8 @@ export const seedUsers: User[] = [
     trustScore: 97,
     favoriteTypes: ['diving', 'hiking'],
     joinedAt: daysAgo(900),
+    plan: 'pro_guide',
+    emergencyContacts: [],
   },
   {
     id: 'u_mert',
@@ -123,6 +134,8 @@ export const seedUsers: User[] = [
     trustScore: 84,
     favoriteTypes: ['skiing', 'climbing', 'hiking'],
     joinedAt: daysAgo(410),
+    plan: 'free',
+    emergencyContacts: [],
   },
   {
     id: 'u_selin',
@@ -141,6 +154,8 @@ export const seedUsers: User[] = [
     trustScore: 90,
     favoriteTypes: ['cycling', 'hiking'],
     joinedAt: daysAgo(700),
+    plan: 'free',
+    emergencyContacts: [],
   },
   {
     id: 'u_baris',
@@ -159,6 +174,8 @@ export const seedUsers: User[] = [
     trustScore: 93,
     favoriteTypes: ['paragliding', 'hiking'],
     joinedAt: daysAgo(1000),
+    plan: 'pro_guide',
+    emergencyContacts: [],
   },
   {
     id: 'u_ayse',
@@ -177,6 +194,8 @@ export const seedUsers: User[] = [
     trustScore: 52,
     favoriteTypes: ['hiking'],
     joinedAt: daysAgo(120),
+    plan: 'free',
+    emergencyContacts: [],
   },
   {
     id: 'u_emre',
@@ -195,6 +214,8 @@ export const seedUsers: User[] = [
     trustScore: 86,
     favoriteTypes: ['climbing', 'skiing', 'hiking'],
     joinedAt: daysAgo(560),
+    plan: 'pro_guide',
+    emergencyContacts: [],
   },
   {
     id: 'u_lale',
@@ -213,6 +234,8 @@ export const seedUsers: User[] = [
     trustScore: 79,
     favoriteTypes: ['hiking', 'cycling', 'diving'],
     joinedAt: daysAgo(330),
+    plan: 'free',
+    emergencyContacts: [],
   },
   {
     id: 'u_kerem',
@@ -231,6 +254,8 @@ export const seedUsers: User[] = [
     trustScore: 92,
     favoriteTypes: ['cycling', 'hiking', 'climbing'],
     joinedAt: daysAgo(880),
+    plan: 'free',
+    emergencyContacts: [],
   },
   {
     id: 'u_nil',
@@ -249,6 +274,8 @@ export const seedUsers: User[] = [
     trustScore: 38,
     favoriteTypes: ['hiking', 'paragliding'],
     joinedAt: daysAgo(60),
+    plan: 'free',
+    emergencyContacts: [],
   },
 ];
 
@@ -1259,6 +1286,8 @@ export const seedStreams: LiveStream[] = [
     startedAt: minutesAgo(47),
     endedAt: null,
     altitudeM: 4200,
+    source: 'camera',
+    droneTelemetry: null,
   },
   {
     id: 's2',
@@ -1278,6 +1307,8 @@ export const seedStreams: LiveStream[] = [
     startedAt: minutesAgo(18),
     endedAt: null,
     altitudeM: -18,
+    source: 'camera',
+    droneTelemetry: null,
   },
   {
     id: 's3',
@@ -1297,6 +1328,8 @@ export const seedStreams: LiveStream[] = [
     startedAt: minutesAgo(6),
     endedAt: null,
     altitudeM: 2150,
+    source: 'camera',
+    droneTelemetry: null,
   },
   {
     id: 's4',
@@ -1316,6 +1349,8 @@ export const seedStreams: LiveStream[] = [
     startedAt: null,
     endedAt: null,
     altitudeM: null,
+    source: 'camera',
+    droneTelemetry: null,
   },
   {
     id: 's5',
@@ -1335,6 +1370,8 @@ export const seedStreams: LiveStream[] = [
     startedAt: null,
     endedAt: null,
     altitudeM: null,
+    source: 'camera',
+    droneTelemetry: null,
   },
   {
     id: 's6',
@@ -1354,6 +1391,8 @@ export const seedStreams: LiveStream[] = [
     startedAt: daysAgo(2),
     endedAt: new Date(now - 2 * 86_400_000 + 95 * 60_000).toISOString(),
     altitudeM: 3917,
+    source: 'camera',
+    droneTelemetry: null,
   },
   {
     id: 's7',
@@ -1373,6 +1412,8 @@ export const seedStreams: LiveStream[] = [
     startedAt: daysAgo(4),
     endedAt: new Date(now - 4 * 86_400_000 + 210 * 60_000).toISOString(),
     altitudeM: 1240,
+    source: 'camera',
+    droneTelemetry: null,
   },
 ];
 

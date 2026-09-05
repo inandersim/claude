@@ -1,4 +1,5 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
+import { goBack } from '@/core/navigation';
 import React, { useState } from 'react';
 import {
   KeyboardAvoidingView,
@@ -66,7 +67,7 @@ export default function MatchRequestScreen() {
       {
         onSuccess: () => {
           toast(t('zmatch.requestSuccess'), 'success');
-          router.back();
+          goBack(router);
         },
         onError: () => toast(t('common.error'), 'error'),
       },
@@ -88,7 +89,7 @@ export default function MatchRequestScreen() {
         right={
           <IconButton
             icon="x"
-            onPress={() => router.back()}
+            onPress={() => goBack(router)}
             accessibilityLabel={t('common.close')}
           />
         }

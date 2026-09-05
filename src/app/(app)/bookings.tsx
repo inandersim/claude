@@ -2,19 +2,33 @@ import { useRouter } from 'expo-router';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { EmptyState, ErrorState, Header, Screen, Skeleton, Text } from '@/components/ui';
+import {
+  Button,
+  EmptyState,
+  ErrorState,
+  Header,
+  Icon,
+  Screen,
+  Skeleton,
+  Text,
+} from '@/components/ui';
 import { useToast } from '@/core/hooks/useToast';
 import { useT } from '@/core/i18n';
-import { layout, radius, spacing } from '@/core/theme';
+import { layout, radius, spacing, useTheme } from '@/core/theme';
+import { canAcceptPaidBookings, formatPriceTry } from '@/domain';
+import { useEarnings } from '@/features/plans/hooks';
 import { useCurrentUser } from '@/features/auth/session.store';
 import { BookingCard } from '@/features/instructors/components/BookingCard';
 import { useMyBookings, useRespondBooking } from '@/features/instructors/hooks';
 
 export default function BookingsScreen() {
   const router = useRouter();
-  const { t } = useT();
+  const { t, locale } = useT();
   const toast = useToast();
+  const { colors } = useTheme();
   const me = useCurrentUser();
+  const earnings = useEarnings();
+  const paidMode = canAcceptPaidBookings(me.plan);
   const bookings = useMyBookings();
   const respond = useRespondBooking();
 
@@ -35,8 +49,62 @@ export default function BookingsScreen() {
 
   return (
     <Screen scroll edges={['top', 'bottom']}>
-      <Header title={t('booking.title')} showBack />
+      <Header
+        title={t('booking.title')}
+        showBack
+        right={
+          <Button
+            label={paidMode ? t('plans.earnings') : t('plans.upgrade')}
+            icon="sparkles"
+            size="sm"
+            variant={paidMode ? 'secondary' : 'accent'}
+            onPress={() => router.push('/plans')}
+          />
+        }
+      />
       <View style={styles.content}>
+        {!paidMode && incoming.length > 0 ? (
+          <View
+            style={[
+              styles.gate,
+              { backgroundColor: colors.accentSoft, borderColor: colors.accent },
+            ]}
+          >
+            <Icon name="graduation-cap" size={18} color={colors.accent} />
+            <Text variant="bodySm" style={{ flex: 1 }}>
+              {t('plans.upgradeToAccept')}
+            </Text>
+            <Button
+              label={t('plans.upgrade')}
+              size="sm"
+              variant="accent"
+              onPress={() => router.push('/plans')}
+            />
+          </View>
+        ) : null}
+        {paidMode && earnings.data ? (
+          <View
+            style={[
+              styles.earnings,
+              { backgroundColor: colors.surface, borderColor: colors.border },
+            ]}
+          >
+            <View style={{ flex: 1 }}>
+              <Text variant="label" color="textSubtle">
+                {t('plans.gross').toLocaleUpperCase('tr-TR')}
+              </Text>
+              <Text variant="h3">{formatPriceTry(earnings.data.grossTry, locale, false)}</Text>
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text variant="label" color="textSubtle">
+                {t('plans.net').toLocaleUpperCase('tr-TR')}
+              </Text>
+              <Text variant="h3" color="primary">
+                {formatPriceTry(earnings.data.netTry, locale, false)}
+              </Text>
+            </View>
+          </View>
+        ) : null}
         {bookings.isError ? (
           <ErrorState onRetry={() => bookings.refetch()} />
         ) : bookings.isLoading ? (
@@ -93,6 +161,21 @@ export default function BookingsScreen() {
 }
 
 const styles = StyleSheet.create({
+  gate: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+    padding: spacing.md,
+    borderRadius: radius.xl,
+    borderWidth: StyleSheet.hairlineWidth,
+  },
+  earnings: {
+    flexDirection: 'row',
+    gap: spacing.md,
+    padding: spacing.lg,
+    borderRadius: radius.xl,
+    borderWidth: StyleSheet.hairlineWidth,
+  },
   content: {
     paddingHorizontal: spacing.lg,
     gap: spacing.md,

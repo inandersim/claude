@@ -1,6 +1,24 @@
 import type {
   AdventureType,
   BookingWithParties,
+  BusinessFilter,
+  BusinessWithOwner,
+  CreateStayInput,
+  CreateStoryInput,
+  EmergencyCenterWithDistance,
+  EmergencyContact,
+  LibraryFilter,
+  LibraryPlaceWithDistance,
+  LocationShare,
+  LocationShareWithUser,
+  Plan,
+  PlaceKind,
+  RegisterBusinessInput,
+  SosEvent,
+  StartShareInput,
+  StayBookingWithBusiness,
+  Story,
+  StoryGroup,
   CommentWithAuthor,
   CreateBookingInput,
   CreateListingInput,
@@ -146,6 +164,62 @@ export interface InstructorRepository {
   respondBooking(meId: ID, bookingId: ID, accept: boolean): Promise<BookingWithParties>;
 }
 
+export interface LibraryRepository {
+  search(filter: LibraryFilter): Promise<LibraryPlaceWithDistance[]>;
+  getById(id: ID, origin: GeoPoint | null): Promise<LibraryPlaceWithDistance | null>;
+  nearby(
+    origin: GeoPoint,
+    radiusKm: number,
+    kind?: PlaceKind | null,
+    limit?: number,
+  ): Promise<LibraryPlaceWithDistance[]>;
+  countries(): Promise<{ countryCode: string; count: number }[]>;
+}
+
+export interface PresenceRepository {
+  /** Bana görünür paylaşımlar */
+  list(meId: ID, origin: GeoPoint | null): Promise<LocationShareWithUser[]>;
+  mine(meId: ID): Promise<LocationShare | null>;
+  start(meId: ID, input: StartShareInput): Promise<LocationShare>;
+  update(
+    meId: ID,
+    coords: GeoPoint,
+    extra?: Partial<Pick<LocationShare, 'batteryPct' | 'altitudeM' | 'speedKmh'>>,
+  ): Promise<LocationShare | null>;
+  stop(meId: ID): Promise<void>;
+}
+
+export interface StoryRepository {
+  groups(meId: ID): Promise<StoryGroup[]>;
+  create(meId: ID, input: CreateStoryInput): Promise<Story>;
+  markSeen(meId: ID, storyId: ID): Promise<void>;
+}
+
+export interface BusinessRepository {
+  list(filter: BusinessFilter): Promise<BusinessWithOwner[]>;
+  getById(id: ID, origin: GeoPoint | null): Promise<BusinessWithOwner | null>;
+  register(meId: ID, input: RegisterBusinessInput): Promise<BusinessWithOwner>;
+  reserve(meId: ID, input: CreateStayInput): Promise<StayBookingWithBusiness>;
+  myStays(meId: ID): Promise<StayBookingWithBusiness[]>;
+}
+
+export interface BillingRepository {
+  currentPlan(meId: ID): Promise<Plan>;
+  subscribe(meId: ID, plan: Plan, period: 'monthly' | 'yearly'): Promise<User>;
+  /** Eğitmen/işletme için brüt-net özet */
+  earnings(
+    meId: ID,
+  ): Promise<{ grossTry: number; commissionTry: number; netTry: number; bookings: number }>;
+}
+
+export interface EmergencyRepository {
+  centers(origin: GeoPoint, limit?: number): Promise<EmergencyCenterWithDistance[]>;
+  triggerSos(meId: ID, coords: GeoPoint): Promise<SosEvent>;
+  activeSos(meId: ID): Promise<SosEvent | null>;
+  resolveSos(meId: ID): Promise<void>;
+  updateContacts(meId: ID, contacts: EmergencyContact[]): Promise<User>;
+}
+
 export interface DataProvider {
   auth: AuthRepository;
   users: UserRepository;
@@ -158,6 +232,12 @@ export interface DataProvider {
   live: LiveRepository;
   market: MarketRepository;
   instructors: InstructorRepository;
+  library: LibraryRepository;
+  presence: PresenceRepository;
+  stories: StoryRepository;
+  businesses: BusinessRepository;
+  billing: BillingRepository;
+  emergency: EmergencyRepository;
   /** Demo verilerini sıfırlar (yalnızca mock sağlayıcı için anlamlı) */
   reset(): Promise<void>;
 }

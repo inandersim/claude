@@ -3,7 +3,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { deepClone } from '@/core/utils/clone';
 import type {
   Booking,
+  Business,
   Comment,
+  EmergencyCenter,
+  LibraryPlace,
+  LocationShare,
+  SosEvent,
+  StayBooking,
+  Story,
   Follow,
   HazardZone,
   Instructor,
@@ -42,6 +49,16 @@ import {
   seedStreams,
   seedUsers,
 } from './seed';
+import {
+  seedBusinesses,
+  seedDroneStream,
+  seedEmergencyCenters,
+  seedLibrary,
+  seedShares,
+  seedStayBookings,
+  seedStories,
+  seedStoryViews,
+} from './seed.extra';
 
 export interface Tables {
   users: User[];
@@ -63,11 +80,19 @@ export interface Tables {
   instructors: Instructor[];
   instructorReviews: InstructorReview[];
   bookings: Booking[];
+  library: LibraryPlace[];
+  shares: LocationShare[];
+  stories: Story[];
+  storyViews: { userId: string; storyId: string }[];
+  businesses: Business[];
+  stayBookings: StayBooking[];
+  emergencyCenters: EmergencyCenter[];
+  sosEvents: SosEvent[];
   /** Oturum açmış kullanıcının kimliği (null → çıkış yapılmış) */
   sessionUserId: string | null;
 }
 
-const STORAGE_KEY = 'zirve.mockdb.v2';
+const STORAGE_KEY = 'zirve.mockdb.v3';
 
 function seedTables(): Tables {
   return {
@@ -83,13 +108,21 @@ function seedTables(): Tables {
     locations: deepClone(seedLocations),
     hazards: deepClone(seedHazards),
     hazardConfirmations: deepClone(seedHazardConfirmations),
-    streams: deepClone(seedStreams),
+    streams: deepClone([seedDroneStream, ...seedStreams]),
     streamMessages: deepClone(seedStreamMessages),
     listings: deepClone(seedListings),
     favorites: deepClone(seedFavorites),
     instructors: deepClone(seedInstructors),
     instructorReviews: deepClone(seedInstructorReviews),
     bookings: deepClone(seedBookings),
+    library: deepClone(seedLibrary),
+    shares: deepClone(seedShares),
+    stories: deepClone(seedStories),
+    storyViews: deepClone(seedStoryViews),
+    businesses: deepClone(seedBusinesses),
+    stayBookings: deepClone(seedStayBookings),
+    emergencyCenters: deepClone(seedEmergencyCenters),
+    sosEvents: [],
     sessionUserId: null,
   };
 }
@@ -119,7 +152,8 @@ export class MockDatabase {
               parsed &&
               Array.isArray(parsed.users) &&
               parsed.users.length > 0 &&
-              Array.isArray(parsed.hazards)
+              Array.isArray(parsed.hazards) &&
+              Array.isArray(parsed.library)
             ) {
               this.tables = parsed;
               return parsed;

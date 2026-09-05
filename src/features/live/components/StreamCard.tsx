@@ -84,7 +84,17 @@ export function StreamCard({ stream, width, row = false }: Props) {
         overlay
       >
         <View style={styles.top}>
-          <LiveBadge />
+          <View style={styles.badges}>
+            <LiveBadge />
+            {stream.source === 'drone' ? (
+              <View style={styles.droneBadge}>
+                <Icon name="radio-tower" size={11} color="#06120B" strokeWidth={2.8} />
+                <Text variant="label" weight="extrabold" color="#06120B">
+                  {t('drone.badge')}
+                </Text>
+              </View>
+            ) : null}
+          </View>
           <View style={styles.viewers}>
             <Icon name="eye" size={12} color="#FFFFFF" strokeWidth={2.4} />
             <Text variant="label" weight="extrabold" color="#FFFFFF">
@@ -145,6 +155,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  badges: { flexDirection: 'row', gap: 6 },
+  droneBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    paddingHorizontal: spacing.sm,
+    height: 24,
+    borderRadius: radius.full,
+    backgroundColor: '#6CB4FF',
   },
   viewers: {
     flexDirection: 'row',

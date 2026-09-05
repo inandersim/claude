@@ -1,5 +1,6 @@
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { useRouter } from 'expo-router';
+import { goBack } from '@/core/navigation';
 import React, { useState } from 'react';
 import { Alert, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -9,7 +10,13 @@ import { useLocation } from '@/core/hooks/useLocation';
 import { useToast } from '@/core/hooks/useToast';
 import { useT } from '@/core/i18n';
 import { radius, spacing, useTheme } from '@/core/theme';
-import { ADVENTURE_TYPES, ADVENTURE_TYPE_META, type AdventureType } from '@/domain';
+import {
+  ADVENTURE_TYPES,
+  ADVENTURE_TYPE_META,
+  canUseDrone,
+  type AdventureType,
+  type StreamSource,
+} from '@/domain';
 import { useCurrentUser } from '@/features/auth/session.store';
 import { LiveBadge } from '@/features/live/components/LiveBadge';
 import { useEndStream, useStartStream } from '@/features/live/hooks';
@@ -36,6 +43,8 @@ export default function StartStreamScreen() {
   const [locationName, setLocationName] = useState(me.locationName);
   const [type, setType] = useState<AdventureType>(me.favoriteTypes[0] ?? 'hiking');
   const [facing, setFacing] = useState<'front' | 'back'>('back');
+  const [source, setSource] = useState<StreamSource>('camera');
+  const droneAllowed = canUseDrone(me.plan);
   const [error, setError] = useState<string | null>(null);
   const [liveId, setLiveId] = useState<string | null>(null);
   const [startedAt, setStartedAt] = useState<number | null>(null);
@@ -57,7 +66,7 @@ export default function StartStreamScreen() {
     }
     setError(null);
     start.mutate(
-      { title, description, adventureType: type, locationName, coords: location.coords },
+      { title, description, adventureType: type, locationName, coords: location.coords, source },
       {
         onSuccess: (stream) => {
           setLiveId(stream.id);
@@ -70,7 +79,7 @@ export default function StartStreamScreen() {
   };
 
   const onEnd = () => {
-    if (!liveId) return router.back();
+    if (!liveId) return goBack(router);
     Alert.alert(t('live.endStream'), t('live.endConfirm'), [
       { text: t('common.cancel'), style: 'cancel' },
       {
@@ -80,7 +89,7 @@ export default function StartStreamScreen() {
           end.mutate(liveId, {
             onSuccess: () => {
               toast(t('live.endedToast'), 'info');
-              router.back();
+              goBack(router);
             },
           }),
       },
@@ -132,7 +141,7 @@ export default function StartStreamScreen() {
         <IconButton
           icon="x"
           variant="blur"
-          onPress={liveId ? onEnd : () => router.back()}
+          onPress={liveId ? onEnd : () => goBack(router)}
           accessibilityLabel={t('common.close')}
         />
         {liveId ? (
@@ -172,6 +181,16 @@ export default function StartStreamScreen() {
             <Text variant="caption" color="rgba(255,255,255,0.7)">
               {t(ADVENTURE_TYPE_META[type].labelKey)} · {locationName}
             </Text>
+            {source === 'drone' ? (
+              <View style={styles.rtmp}>
+                <Text variant="label" color="rgba(255,255,255,0.6)">
+                  {t('drone.rtmpUrl')}
+                </Text>
+                <Text variant="caption" weight="bold" color="#FFFFFF" selectable>
+                  rtmp://ingest.zirve.app/live/{liveId}
+                </Text>
+              </View>
+            ) : null}
             <Button
               label={t('live.endStream')}
               variant="danger"
@@ -214,6 +233,31 @@ export default function StartStreamScreen() {
               onChangeText={setLocationName}
               placeholder={t('post.locationPlaceholder')}
             />
+            <Text variant="caption" color={colors.textSubtle}>
+              {t('drone.source')}
+            </Text>
+            <View style={styles.chips}>
+              <Chip
+                label={t('drone.camera')}
+                icon="camera"
+                selected={source === 'camera'}
+                onPress={() => setSource('camera')}
+              />
+              <Chip
+                label={t('drone.drone')}
+                icon="radio-tower"
+                selected={source === 'drone'}
+                onPress={() => {
+                  if (!droneAllowed) return toast(t('drone.proRequired'), 'info');
+                  setSource('drone');
+                }}
+              />
+            </View>
+            {source === 'drone' ? (
+              <Text variant="caption" color={colors.textSubtle}>
+                {t('drone.setupNotice')}
+              </Text>
+            ) : null}
             <View style={styles.chips}>
               {ADVENTURE_TYPES.map((item) => {
                 const meta = ADVENTURE_TYPE_META[item];
@@ -283,4 +327,11 @@ const styles = StyleSheet.create({
     borderTopRightRadius: radius.xxl,
   },
   chips: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm },
+  rtmp: {
+    marginTop: spacing.sm,
+    padding: spacing.sm + 2,
+    borderRadius: radius.md,
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    gap: 2,
+  },
 });

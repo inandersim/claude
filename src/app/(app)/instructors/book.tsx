@@ -1,4 +1,5 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
+import { goBack } from '@/core/navigation';
 import React, { useState } from 'react';
 import {
   KeyboardAvoidingView,
@@ -64,7 +65,7 @@ export default function BookInstructorScreen() {
       {
         onSuccess: () => {
           toast(t('instructors.requestSent'), 'success');
-          router.back();
+          goBack(router);
         },
         onError: (e) => toast(e instanceof Error ? e.message : t('common.error'), 'error'),
       },
@@ -78,7 +79,7 @@ export default function BookInstructorScreen() {
         right={
           <IconButton
             icon="x"
-            onPress={() => router.back()}
+            onPress={() => goBack(router)}
             accessibilityLabel={t('common.close')}
           />
         }

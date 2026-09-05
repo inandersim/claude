@@ -1,6 +1,14 @@
 import type {
   AdventureType,
   BookingStatus,
+  BusinessType,
+  EmergencyCenterType,
+  FirstAidCategory,
+  Plan,
+  PlaceKind,
+  ShareMode,
+  StayStatus,
+  StreamSource,
   DifficultyGrade,
   HazardSeverity,
   HazardStatus,
@@ -40,6 +48,17 @@ export interface User {
   trustScore: number;
   favoriteTypes: AdventureType[];
   joinedAt: ISODate;
+  /** Abonelik planı */
+  plan: Plan;
+  /** Acil durumda canlı konumun paylaşılacağı kişiler */
+  emergencyContacts: EmergencyContact[];
+}
+
+export interface EmergencyContact {
+  name: string;
+  phone: string;
+  /** Uygulama içi kullanıcıysa kimliği */
+  userId: ID | null;
 }
 
 export interface Post {
@@ -268,6 +287,18 @@ export interface LiveStream {
   endedAt: ISODate | null;
   /** Yayın sırasında canlı irtifa (metre) — opsiyonel telemetri */
   altitudeM: number | null;
+  /** Kamera ya da drone */
+  source: StreamSource;
+  /** Drone yayınlarında anlık telemetri */
+  droneTelemetry: DroneTelemetry | null;
+}
+
+export interface DroneTelemetry {
+  altitudeM: number;
+  speedKmh: number;
+  batteryPct: number;
+  headingDeg: number;
+  distanceFromPilotM: number;
 }
 
 export interface LiveStreamWithHost extends LiveStream {
@@ -292,6 +323,7 @@ export interface StartStreamInput {
   adventureType: AdventureType;
   locationName: string;
   coords?: GeoPoint;
+  source?: StreamSource;
 }
 
 /* ------------------------------------------------------------------ */
@@ -409,4 +441,241 @@ export interface InstructorFilter {
   adventureType?: AdventureType | null;
   query?: string;
   sortBy?: 'rating' | 'distance' | 'price';
+}
+
+/* ------------------------------------------------------------------ */
+/* Kütüphane                                                           */
+/* ------------------------------------------------------------------ */
+
+export interface PlaceImage {
+  url: string;
+  thumbUrl: string;
+  license: string;
+  author: string;
+  attribution: string;
+}
+
+/** Veri hattının ürettiği birleşik yer kaydı (tools/data-pipeline ile aynı şema). */
+export interface LibraryPlace {
+  id: ID;
+  source: 'osm' | 'wikidata' | 'curated';
+  kind: PlaceKind;
+  name: string;
+  names: Partial<Record<string, string>>;
+  adventureTypes: AdventureType[];
+  lat: number;
+  lng: number;
+  elevationM: number | null;
+  description: string | null;
+  website: string | null;
+  phone: string | null;
+  openingHours: string | null;
+  countryCode: string | null;
+  tags: Record<string, string>;
+  wikidataId: string | null;
+  image: PlaceImage | null;
+  license: string;
+  attribution: string;
+  updatedAt: ISODate;
+}
+
+export interface LibraryPlaceWithDistance extends LibraryPlace {
+  distanceKm: number | null;
+}
+
+export interface LibraryFilter {
+  query?: string;
+  kind?: PlaceKind | null;
+  countryCode?: string | null;
+  adventureType?: AdventureType | null;
+  /** Yakınlık sıralaması için merkez */
+  origin?: GeoPoint | null;
+  radiusKm?: number | null;
+}
+
+/* ------------------------------------------------------------------ */
+/* Canlı konum                                                         */
+/* ------------------------------------------------------------------ */
+
+export interface LocationShare {
+  userId: ID;
+  coords: GeoPoint;
+  mode: ShareMode;
+  startedAt: ISODate;
+  expiresAt: ISODate | null;
+  updatedAt: ISODate;
+  batteryPct: number | null;
+  altitudeM: number | null;
+  speedKmh: number | null;
+}
+
+export interface LocationShareWithUser extends LocationShare {
+  user: User;
+  distanceKm: number | null;
+  /** Paylaşımın güncelliğini yitirip yitirmediği (>15 dk) */
+  isStale: boolean;
+}
+
+export interface StartShareInput {
+  mode: ShareMode;
+  coords: GeoPoint;
+  /** Dakika; null → kapatana kadar */
+  durationMin: number | null;
+  batteryPct?: number | null;
+  altitudeM?: number | null;
+}
+
+/* ------------------------------------------------------------------ */
+/* Anlar (hikâyeler)                                                   */
+/* ------------------------------------------------------------------ */
+
+export interface Story {
+  id: ID;
+  authorId: ID;
+  mediaUrl: string | null;
+  mediaType: 'image' | 'video';
+  caption: string;
+  adventureType: AdventureType;
+  locationName: string;
+  coords: GeoPoint;
+  altitudeM: number | null;
+  createdAt: ISODate;
+  expiresAt: ISODate;
+  viewsCount: number;
+}
+
+export interface StoryGroup {
+  author: User;
+  stories: Story[];
+  /** Görüntüleyen kullanıcı tüm anları izledi mi */
+  allSeen: boolean;
+  latestAt: ISODate;
+}
+
+export interface CreateStoryInput {
+  mediaUri: string | null;
+  caption: string;
+  adventureType: AdventureType;
+  locationName: string;
+  coords?: GeoPoint;
+  altitudeM?: number | null;
+}
+
+/* ------------------------------------------------------------------ */
+/* İşletmeler & konaklama                                              */
+/* ------------------------------------------------------------------ */
+
+export interface Business {
+  id: ID;
+  ownerId: ID;
+  name: string;
+  type: BusinessType;
+  description: string;
+  locationName: string;
+  coords: GeoPoint;
+  imageUrl: string | null;
+  rating: number;
+  reviewCount: number;
+  isVerified: boolean;
+  /** Konaklama için gecelik başlangıç fiyatı; diğerleri için null */
+  priceFromTry: number | null;
+  amenities: string[];
+  adventureTypes: AdventureType[];
+  website: string | null;
+  phone: string | null;
+  plan: Plan;
+  /** Öne çıkarılmış (ücretli) */
+  isFeatured: boolean;
+  createdAt: ISODate;
+}
+
+export interface BusinessWithOwner extends Business {
+  owner: User;
+  distanceKm: number | null;
+}
+
+export interface StayBooking {
+  id: ID;
+  businessId: ID;
+  guestId: ID;
+  checkIn: ISODate;
+  checkOut: ISODate;
+  guests: number;
+  nights: number;
+  totalTry: number;
+  platformFeeTry: number;
+  status: StayStatus;
+  createdAt: ISODate;
+}
+
+export interface StayBookingWithBusiness extends StayBooking {
+  business: Business;
+}
+
+export interface CreateStayInput {
+  businessId: ID;
+  checkIn: ISODate;
+  checkOut: ISODate;
+  guests: number;
+}
+
+export interface RegisterBusinessInput {
+  name: string;
+  type: BusinessType;
+  description: string;
+  locationName: string;
+  priceFromTry: number | null;
+  amenities: string[];
+  adventureTypes: AdventureType[];
+  phone: string | null;
+  website: string | null;
+}
+
+export interface BusinessFilter {
+  query?: string;
+  type?: BusinessType | null;
+  staysOnly?: boolean;
+  origin?: GeoPoint | null;
+}
+
+/* ------------------------------------------------------------------ */
+/* Acil durum & ilk yardım                                             */
+/* ------------------------------------------------------------------ */
+
+export interface EmergencyCenter {
+  id: ID;
+  name: string;
+  type: EmergencyCenterType;
+  coords: GeoPoint;
+  locationName: string;
+  phone: string | null;
+  open24h: boolean;
+  countryCode: string;
+}
+
+export interface EmergencyCenterWithDistance extends EmergencyCenter {
+  distanceKm: number;
+}
+
+export interface FirstAidGuide {
+  slug: string;
+  category: FirstAidCategory;
+  title: string;
+  summary: string;
+  /** Adım adım talimatlar */
+  steps: string[];
+  /** Yapılmaması gerekenler */
+  donts: string[];
+  /** Ne zaman acil yardım çağrılmalı */
+  callHelpWhen: string;
+  icon: string;
+}
+
+export interface SosEvent {
+  id: ID;
+  userId: ID;
+  coords: GeoPoint;
+  createdAt: ISODate;
+  resolvedAt: ISODate | null;
+  notifiedContacts: number;
 }

@@ -6,3 +6,7 @@ export * from './matching';
 export * from './hazards';
 export * from './marketplace';
 export * from './instructors';
+export * from './library';
+export * from './pricing';
+export * from './presence';
+export * from './emergency';

@@ -1,22 +1,31 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getLocales } from 'expo-localization';
 import { I18n } from 'i18n-js';
+import { useCallback } from 'react';
 import { create } from 'zustand';
 
+import { de } from './de';
 import { en } from './en';
+import { es } from './es';
+import { fr } from './fr';
+import { it } from './it';
+import { ja } from './ja';
+import { pt } from './pt';
+import { ru } from './ru';
 import { tr } from './tr';
 
-export type Locale = 'tr' | 'en';
+export type Locale = 'tr' | 'en' | 'de' | 'fr' | 'es' | 'it' | 'ja' | 'pt' | 'ru';
+export const LOCALES: Locale[] = ['tr', 'en', 'de', 'fr', 'es', 'it', 'ja', 'pt', 'ru'];
 
 const STORAGE_KEY = 'zirve.locale';
 
-export const i18n = new I18n({ tr, en });
+export const i18n = new I18n({ tr, en, de, fr, es, it, ja, pt, ru });
 i18n.enableFallback = true;
 i18n.defaultLocale = 'tr';
 
 function detectLocale(): Locale {
-  const first = getLocales()[0]?.languageCode;
-  return first === 'en' ? 'en' : 'tr';
+  const first = getLocales()[0]?.languageCode ?? 'tr';
+  return (LOCALES as string[]).includes(first) ? (first as Locale) : 'en';
 }
 
 i18n.locale = detectLocale();
@@ -66,8 +75,17 @@ export function t(key: TranslationKey, options?: Record<string, string | number>
   return i18n.t(key, options);
 }
 
-/** Bileşenlerde kullanılır; dil değişince yeniden render tetikler. */
+/**
+ * Bileşenlerde kullanılır; dil değişince yeniden render tetikler.
+ * Dönen `t` dile bağlı yeni bir fonksiyondur — React Compiler'ın
+ * `t('...')` sonuçlarını dil değişse de önbellekte tutmasını engeller.
+ */
 export function useT() {
   const locale = useLocaleStore((s) => s.locale);
-  return { t, locale };
+  const tl = useCallback(
+    (key: TranslationKey, options?: Record<string, string | number>) =>
+      i18n.t(key, { ...options, locale }),
+    [locale],
+  );
+  return { t: tl, locale };
 }

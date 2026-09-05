@@ -18,7 +18,7 @@ export function filterListings(listings: Listing[], filter: ListingFilter = {}):
 }
 
 /** 1250 → "₺1.250", 0 → "Ücretsiz" */
-export function formatPriceTry(value: number, locale = 'tr'): string {
-  if (value === 0) return locale === 'tr' ? 'Ücretsiz' : 'Free';
+export function formatPriceTry(value: number, locale = 'tr', zeroAsFree = true): string {
+  if (value === 0 && zeroAsFree) return locale === 'tr' ? 'Ücretsiz' : 'Free';
   return `₺${new Intl.NumberFormat(locale === 'tr' ? 'tr-TR' : 'en-US', { maximumFractionDigits: 0 }).format(value)}`;
 }
