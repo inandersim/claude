@@ -959,7 +959,7 @@ export function answerLocally(text: string, ctx: AiContext, kb: LocalKnowledge):
       const top = found.slice(0, 3);
       lines.push(
         tr
-          ? `${ADVENTURE_LABEL.tr[req.adventureType]} için kütüphaneden önerilerim:`
+          ? `Kütüphaneden ${ADVENTURE_LABEL.tr[req.adventureType].toLocaleLowerCase('tr-TR')} önerilerim:`
           : `My ${ADVENTURE_LABEL.en[req.adventureType]} picks from the library:`,
         '',
       );

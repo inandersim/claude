@@ -163,7 +163,7 @@ const tr = {
     error: 'Öneri bulunamadı',
   },
   reason: {
-    preference: '{{type}} sevdiğin için {{name}} tam sana göre.',
+    preference: 'Madem {{type}} seviyorsun, {{name}} tam sana göre.',
     nearby: '{{name}} yalnızca {{distance}} uzakta — hafta sonu kaçamağı.',
     altitude: '{{name}} yüksek irtifada; havayı bir de oradan solu.',
     abroad: 'Pasaportuna yeni bir ülke ekle: {{name}}.',
