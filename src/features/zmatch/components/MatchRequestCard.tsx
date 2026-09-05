@@ -31,13 +31,16 @@ export function MatchRequestCard({ match, meId, onAccept, onReject, busy }: Prop
   const status = MATCH_STATUS_META[match.status];
 
   return (
-    <Tappable
-      onPress={() => router.push({ pathname: '/match/[id]', params: { id: match.id } })}
-      scaleTo={0.985}
-      style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.border }]}
-      accessibilityRole="button"
-    >
-      <View style={styles.head}>
+    <View style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+      {/* Yalnızca başlık satırı detaya gider; kartın içinde ayrı aksiyon düğmeleri var. */}
+      <Tappable
+        onPress={() => router.push({ pathname: '/match/[id]', params: { id: match.id } })}
+        haptic="selection"
+        scaleTo={0.99}
+        style={styles.head}
+        accessibilityRole="button"
+        accessibilityLabel={`${other.displayName} · ${t(status.labelKey)}`}
+      >
         <Avatar
           uri={other.avatarUrl}
           name={other.displayName}
@@ -54,7 +57,8 @@ export function MatchRequestCard({ match, meId, onAccept, onReject, busy }: Prop
           </Text>
         </View>
         <Badge label={t(status.labelKey)} color={status.color} />
-      </View>
+        <Icon name="chevron-right" size={16} color={colors.textSubtle} />
+      </Tappable>
 
       {match.message ? (
         <View
@@ -128,7 +132,7 @@ export function MatchRequestCard({ match, meId, onAccept, onReject, busy }: Prop
           }
         />
       ) : null}
-    </Tappable>
+    </View>
   );
 }
 
