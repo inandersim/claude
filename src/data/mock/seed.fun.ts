@@ -6,13 +6,885 @@ import type {
   PassportStamp,
   QuizQuestion,
   XpEvent,
+  XpSource,
 } from '@/domain';
 
-export const seedBadges: Badge[] = [];
-export const seedEarnedBadges: EarnedBadge[] = [];
-export const seedChallenges: Challenge[] = [];
-export const seedChallengeProgress: ChallengeProgress[] = [];
-export const seedXpEvents: XpEvent[] = [];
-export const seedQuizQuestions: QuizQuestion[] = [];
-export const seedPassportStamps: PassportStamp[] = [];
-export const seedQuizAttempts: { userId: string; date: string; correct: number }[] = [];
+/**
+ * Eğlence & oyunlaştırma demo verileri.
+ * Tarihler "şimdi"ye göreli üretilir; görevler her zaman aktif, seri her zaman taze görünür.
+ * Not: Quiz metinleri tek dildir (Türkçe).
+ */
+
+const now = Date.now();
+const hoursAgo = (h: number) => new Date(now - h * 3_600_000).toISOString();
+const daysAgo = (d: number) => hoursAgo(d * 24);
+const daysAhead = (d: number) => new Date(now + d * 86_400_000).toISOString();
+
+const ME = 'u_me';
+
+/* ------------------------------------------------------------------ */
+/* Rozetler                                                            */
+/* ------------------------------------------------------------------ */
+
+export const seedBadges: Badge[] = [
+  {
+    id: 'b_first_post',
+    name: 'İlk Adım',
+    description: 'İlk macera paylaşımını yaptın.',
+    tier: 'bronze',
+    icon: 'star',
+    criteria: '1 paylaşım',
+  },
+  {
+    id: 'b_ten_routes',
+    name: 'Patika Ustası',
+    description: 'On farklı rotada iz bıraktın.',
+    tier: 'silver',
+    icon: 'footprints',
+    criteria: '10 farklı rota',
+  },
+  {
+    id: 'b_ascent_1000',
+    name: 'Bin Metre',
+    description: 'Tek rotada 1000 m tırmanış yaptın.',
+    tier: 'gold',
+    icon: 'mountain-snow',
+    criteria: 'Tek rotada 1000 m tırmanış',
+  },
+  {
+    id: 'b_night_camp',
+    name: 'Yıldızların Altında',
+    description: 'Doğada bir gece kamp yaptın.',
+    tier: 'bronze',
+    icon: 'tent',
+    criteria: '1 gece kampı',
+  },
+  {
+    id: 'b_five_dives',
+    name: 'Derin Mavi',
+    description: 'Beş dalış tamamladın.',
+    tier: 'silver',
+    icon: 'droplets',
+    criteria: '5 dalış',
+  },
+  {
+    id: 'b_three_countries',
+    name: 'Sınır Tanımaz',
+    description: 'Pasaportunda üç farklı ülkenin damgası var.',
+    tier: 'gold',
+    icon: 'stamp',
+    criteria: '3 farklı ülke damgası',
+  },
+  {
+    id: 'b_streak_7',
+    name: 'Ateş Serisi',
+    description: 'Yedi gün üst üste aktif kaldın.',
+    tier: 'silver',
+    icon: 'flame',
+    criteria: '7 günlük seri',
+  },
+  {
+    id: 'b_hazard_hero',
+    name: 'Yol Gözcüsü',
+    description: 'Bildirdiğin tehlike topluluk tarafından onaylandı.',
+    tier: 'silver',
+    icon: 'shield-check',
+    criteria: 'Onaylanmış tehlike raporu',
+  },
+  {
+    id: 'b_quiz_perfect',
+    name: 'Bilge Dağcı',
+    description: 'Günün yarışmasında tam puan aldın.',
+    tier: 'bronze',
+    icon: 'award',
+    criteria: 'Yarışmada tam puan',
+  },
+  {
+    id: 'b_club_event',
+    name: 'Takım Ruhu',
+    description: 'Bir kulüp etkinliğine katıldın.',
+    tier: 'bronze',
+    icon: 'heart',
+    criteria: '1 kulüp etkinliği',
+  },
+  {
+    id: 'b_100km',
+    name: 'Yüz Kilometre',
+    description: 'Toplam 100 km yol kat ettin.',
+    tier: 'silver',
+    icon: 'bike',
+    criteria: '100 km toplam mesafe',
+  },
+  {
+    id: 'b_early_bird',
+    name: 'Erken Kuş',
+    description: 'Üç kez gün doğmadan yola çıktın.',
+    tier: 'bronze',
+    icon: 'sunrise',
+    criteria: '3 şafak çıkışı',
+  },
+  {
+    id: 'b_night_owl',
+    name: 'Gece Kuşu',
+    description: 'Üç gece aktivitesi tamamladın.',
+    tier: 'silver',
+    icon: 'moon',
+    criteria: '3 gece aktivitesi',
+  },
+  {
+    id: 'b_winter',
+    name: 'Kar Tanesi',
+    description: 'Kış mevsiminde üç macera yaptın.',
+    tier: 'silver',
+    icon: 'snowflake',
+    criteria: '3 kış macerası',
+  },
+  {
+    id: 'b_first_flight',
+    name: 'İlk Uçuş',
+    description: 'Yamaç paraşütüyle gökyüzüne çıktın.',
+    tier: 'silver',
+    icon: 'wind',
+    criteria: '1 yamaç paraşütü uçuşu',
+  },
+  {
+    id: 'b_five_summits',
+    name: 'Zirve Koleksiyoncusu',
+    description: 'Beş zirveye ulaştın.',
+    tier: 'gold',
+    icon: 'bird',
+    criteria: '5 zirve',
+  },
+  {
+    id: 'b_five_challenges',
+    name: 'Görev Avcısı',
+    description: 'Beş görevi tamamladın.',
+    tier: 'gold',
+    icon: 'medal',
+    criteria: '5 tamamlanmış görev',
+  },
+  {
+    id: 'b_weekly_champion',
+    name: 'Haftanın Şampiyonu',
+    description: 'Haftalık liderlik tablosunda birinci oldun.',
+    tier: 'legend',
+    icon: 'trophy',
+    criteria: 'Haftalık sıralamada 1.',
+  },
+  {
+    id: 'b_level_15',
+    name: 'Taç',
+    description: '15. seviyeye ulaştın.',
+    tier: 'legend',
+    icon: 'crown',
+    criteria: 'Seviye 15',
+  },
+  {
+    id: 'b_xp_10k',
+    name: 'Dağın Mücevheri',
+    description: 'Toplam 10.000 XP topladın.',
+    tier: 'legend',
+    icon: 'gem',
+    criteria: '10.000 XP',
+  },
+];
+
+export const seedEarnedBadges: EarnedBadge[] = [
+  { badgeId: 'b_first_post', userId: ME, earnedAt: daysAgo(310) },
+  { badgeId: 'b_night_camp', userId: ME, earnedAt: daysAgo(240) },
+  { badgeId: 'b_ten_routes', userId: ME, earnedAt: daysAgo(120) },
+  { badgeId: 'b_three_countries', userId: ME, earnedAt: daysAgo(75) },
+  { badgeId: 'b_hazard_hero', userId: ME, earnedAt: daysAgo(18) },
+  { badgeId: 'b_quiz_perfect', userId: ME, earnedAt: daysAgo(3) },
+  { badgeId: 'b_first_post', userId: 'u_elif', earnedAt: daysAgo(400) },
+  { badgeId: 'b_five_summits', userId: 'u_elif', earnedAt: daysAgo(60) },
+  { badgeId: 'b_streak_7', userId: 'u_elif', earnedAt: daysAgo(9) },
+  { badgeId: 'b_first_post', userId: 'u_can', earnedAt: daysAgo(380) },
+  { badgeId: 'b_five_dives', userId: 'u_can', earnedAt: daysAgo(200) },
+  { badgeId: 'b_first_post', userId: 'u_zeynep', earnedAt: daysAgo(300) },
+  { badgeId: 'b_five_dives', userId: 'u_zeynep', earnedAt: daysAgo(150) },
+  { badgeId: 'b_first_flight', userId: 'u_baris', earnedAt: daysAgo(500) },
+  { badgeId: 'b_weekly_champion', userId: 'u_baris', earnedAt: daysAgo(14) },
+  { badgeId: 'b_first_post', userId: 'u_mert', earnedAt: daysAgo(90) },
+  { badgeId: 'b_winter', userId: 'u_emre', earnedAt: daysAgo(180) },
+  { badgeId: 'b_ascent_1000', userId: 'u_emre', earnedAt: daysAgo(100) },
+];
+
+/* ------------------------------------------------------------------ */
+/* Görevler                                                            */
+/* ------------------------------------------------------------------ */
+
+export const seedChallenges: Challenge[] = [
+  {
+    id: 'c_week_hikes',
+    title: 'Üç Yürüyüş',
+    description: 'Bu hafta üç farklı yürüyüş rotası tamamla.',
+    period: 'weekly',
+    adventureType: 'hiking',
+    target: 3,
+    unit: 'count',
+    rewardXp: 150,
+    badgeId: null,
+    startsAt: daysAgo(2),
+    endsAt: daysAhead(5),
+  },
+  {
+    id: 'c_week_ascent',
+    title: 'Yukarı Doğru',
+    description: 'Bu hafta toplam 1500 m tırmanış yap.',
+    period: 'weekly',
+    adventureType: null,
+    target: 1500,
+    unit: 'm',
+    rewardXp: 200,
+    badgeId: null,
+    startsAt: daysAgo(2),
+    endsAt: daysAhead(5),
+  },
+  {
+    id: 'c_week_hazard',
+    title: 'Gözcü',
+    description: 'Rotanda gördüğün bir tehlikeyi bildir.',
+    period: 'weekly',
+    adventureType: null,
+    target: 1,
+    unit: 'count',
+    rewardXp: 120,
+    badgeId: 'b_hazard_hero',
+    startsAt: daysAgo(2),
+    endsAt: daysAhead(5),
+  },
+  {
+    id: 'c_month_50km',
+    title: 'Elli Kilometre',
+    description: 'Bu ay toplam 50 km mesafe kat et.',
+    period: 'monthly',
+    adventureType: null,
+    target: 50,
+    unit: 'km',
+    rewardXp: 300,
+    badgeId: null,
+    startsAt: daysAgo(11),
+    endsAt: daysAhead(19),
+  },
+  {
+    id: 'c_month_places',
+    title: 'Yeni Ufuklar',
+    description: 'Bu ay daha önce gitmediğin beş yeri keşfet.',
+    period: 'monthly',
+    adventureType: null,
+    target: 5,
+    unit: 'count',
+    rewardXp: 250,
+    badgeId: null,
+    startsAt: daysAgo(11),
+    endsAt: daysAhead(19),
+  },
+  {
+    id: 'c_season_summits',
+    title: 'Sezonun Üç Zirvesi',
+    description: 'Bu sezon üç zirveye ulaş.',
+    period: 'seasonal',
+    adventureType: 'hiking',
+    target: 3,
+    unit: 'count',
+    rewardXp: 600,
+    badgeId: 'b_five_summits',
+    startsAt: daysAgo(40),
+    endsAt: daysAhead(50),
+  },
+];
+
+export const seedChallengeProgress: ChallengeProgress[] = [
+  { challengeId: 'c_week_hikes', userId: ME, value: 2, completedAt: null, joinedAt: daysAgo(2) },
+  {
+    challengeId: 'c_week_ascent',
+    userId: ME,
+    value: 1500,
+    completedAt: daysAgo(1),
+    joinedAt: daysAgo(2),
+  },
+  { challengeId: 'c_month_50km', userId: ME, value: 31, completedAt: null, joinedAt: daysAgo(10) },
+  {
+    challengeId: 'c_week_hikes',
+    userId: 'u_elif',
+    value: 3,
+    completedAt: hoursAgo(5),
+    joinedAt: daysAgo(2),
+  },
+  {
+    challengeId: 'c_week_hikes',
+    userId: 'u_kerem',
+    value: 1,
+    completedAt: null,
+    joinedAt: daysAgo(1),
+  },
+  {
+    challengeId: 'c_week_ascent',
+    userId: 'u_emre',
+    value: 900,
+    completedAt: null,
+    joinedAt: daysAgo(2),
+  },
+  {
+    challengeId: 'c_week_ascent',
+    userId: 'u_elif',
+    value: 1200,
+    completedAt: null,
+    joinedAt: daysAgo(2),
+  },
+  {
+    challengeId: 'c_week_hazard',
+    userId: 'u_mert',
+    value: 0,
+    completedAt: null,
+    joinedAt: daysAgo(1),
+  },
+  {
+    challengeId: 'c_month_50km',
+    userId: 'u_can',
+    value: 44,
+    completedAt: null,
+    joinedAt: daysAgo(11),
+  },
+  {
+    challengeId: 'c_month_50km',
+    userId: 'u_baris',
+    value: 50,
+    completedAt: daysAgo(2),
+    joinedAt: daysAgo(11),
+  },
+  {
+    challengeId: 'c_month_50km',
+    userId: 'u_selin',
+    value: 12,
+    completedAt: null,
+    joinedAt: daysAgo(8),
+  },
+  {
+    challengeId: 'c_month_places',
+    userId: 'u_zeynep',
+    value: 3,
+    completedAt: null,
+    joinedAt: daysAgo(9),
+  },
+  {
+    challengeId: 'c_month_places',
+    userId: 'u_ayse',
+    value: 1,
+    completedAt: null,
+    joinedAt: daysAgo(4),
+  },
+  {
+    challengeId: 'c_season_summits',
+    userId: 'u_elif',
+    value: 2,
+    completedAt: null,
+    joinedAt: daysAgo(38),
+  },
+  {
+    challengeId: 'c_season_summits',
+    userId: 'u_emre',
+    value: 3,
+    completedAt: daysAgo(6),
+    joinedAt: daysAgo(40),
+  },
+  {
+    challengeId: 'c_season_summits',
+    userId: 'u_kerem',
+    value: 1,
+    completedAt: null,
+    joinedAt: daysAgo(20),
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/* XP olayları                                                         */
+/* ------------------------------------------------------------------ */
+
+let xpCounter = 0;
+const ev = (
+  userId: string,
+  source: XpSource,
+  amount: number,
+  hours: number,
+  note: string,
+): XpEvent => {
+  xpCounter += 1;
+  return { id: `xp_${xpCounter}`, userId, source, amount, note, createdAt: hoursAgo(hours) };
+};
+
+export const seedXpEvents: XpEvent[] = [
+  // u_me — son 5 gün ardışık (bugün dahil)
+  ev(ME, 'quiz', 25, 3, 'Günün yarışması: 5/5'),
+  ev(ME, 'post', 10, 6, 'Aydos Ormanı sabah yürüyüşü'),
+  ev(ME, 'streak', 10, 26, '5 günlük seri bonusu'),
+  ev(ME, 'route', 25, 30, 'Polonezköy döngüsü'),
+  ev(ME, 'challenge', 200, 50, 'Yukarı Doğru görevi tamamlandı'),
+  ev(ME, 'quiz', 20, 52, 'Günün yarışması: 4/5'),
+  ev(ME, 'post', 10, 74, 'Belgrad Ormanı akşam koşusu'),
+  ev(ME, 'quiz', 50, 76, 'Günün yarışması: 5/5'),
+  ev(ME, 'ascent', 30, 98, 'Geyikbayırı — Sarkıt 6a'),
+  ev(ME, 'post', 10, 100, 'Geyikbayırı kamp'),
+  ev(ME, 'hazard_report', 40, 200, 'Kaya düşmesi raporu onaylandı'),
+  ev(ME, 'post', 10, 260, 'Kaçkar yaylaları'),
+  ev(ME, 'route', 25, 300, 'Ayder — Huser Yaylası'),
+  ev(ME, 'event', 50, 420, 'Kulüp gezisi: Uludağ'),
+  ev(ME, 'quiz', 15, 500, 'Günün yarışması: 3/5'),
+  ev(ME, 'post', 10, 640, 'Kaş dalış günü'),
+  // u_elif — en aktif
+  ev('u_elif', 'post', 10, 2, 'Sivrikaya sabahı'),
+  ev('u_elif', 'challenge', 150, 5, 'Üç Yürüyüş tamamlandı'),
+  ev('u_elif', 'quiz', 50, 8, 'Günün yarışması: 5/5'),
+  ev('u_elif', 'route', 25, 28, 'Yedigöller döngüsü'),
+  ev('u_elif', 'streak', 14, 30, '7 günlük seri bonusu'),
+  ev('u_elif', 'post', 10, 52, 'Bolu Abant kıyısı'),
+  ev('u_elif', 'ascent', 30, 76, 'Kaçkar zirve'),
+  ev('u_elif', 'post', 10, 120, 'Kaçkar yolu'),
+  ev('u_elif', 'quiz', 20, 170, 'Günün yarışması: 4/5'),
+  ev('u_elif', 'event', 50, 300, 'Kulüp antrenmanı'),
+  ev('u_elif', 'post', 10, 480, 'Uludağ kar yürüyüşü'),
+  ev('u_elif', 'route', 25, 600, 'İğneada longozu'),
+  // u_baris — yamaç paraşütü, haftanın şampiyonu
+  ev('u_baris', 'post', 10, 4, 'Babadağ 1700 pist'),
+  ev('u_baris', 'challenge', 300, 48, 'Elli Kilometre tamamlandı'),
+  ev('u_baris', 'post', 10, 72, 'Ölüdeniz akşam uçuşu'),
+  ev('u_baris', 'quiz', 25, 96, 'Günün yarışması: 5/5'),
+  ev('u_baris', 'route', 25, 150, 'Likya Yolu — Kabak'),
+  ev('u_baris', 'post', 10, 320, 'Kelebekler Vadisi'),
+  ev('u_baris', 'event', 50, 400, 'Ölüdeniz hava oyunları'),
+  // u_can — dalış
+  ev('u_can', 'post', 10, 10, 'Konyaaltı gece dalışı'),
+  ev('u_can', 'quiz', 20, 36, 'Günün yarışması: 4/5'),
+  ev('u_can', 'route', 25, 90, 'Kemer — Üç Adalar'),
+  ev('u_can', 'post', 10, 220, 'Kaş — Flying Fish'),
+  ev('u_can', 'ascent', 30, 380, 'Geyikbayırı — Trebenna'),
+  // u_zeynep
+  ev('u_zeynep', 'post', 10, 20, 'Kaş sabah dalışı'),
+  ev('u_zeynep', 'quiz', 15, 44, 'Günün yarışması: 3/5'),
+  ev('u_zeynep', 'post', 10, 140, 'Kekova batığı'),
+  ev('u_zeynep', 'route', 25, 260, 'Kaputaş — Kalkan kıyı'),
+  // u_emre — Niğde, Aladağlar
+  ev('u_emre', 'challenge', 600, 144, 'Sezonun Üç Zirvesi tamamlandı'),
+  ev('u_emre', 'ascent', 30, 150, 'Demirkazık'),
+  ev('u_emre', 'post', 10, 160, 'Aladağlar Yedigöller'),
+  ev('u_emre', 'route', 25, 400, 'Emli Vadisi'),
+  ev('u_emre', 'quiz', 25, 12, 'Günün yarışması: 5/5'),
+  // u_kerem
+  ev('u_kerem', 'post', 10, 16, 'Ballıkayalar'),
+  ev('u_kerem', 'quiz', 10, 40, 'Günün yarışması: 2/5'),
+  ev('u_kerem', 'route', 25, 200, 'Kartepe zirve'),
+  // u_mert
+  ev('u_mert', 'post', 10, 30, 'Beykoz ormanı bisiklet'),
+  ev('u_mert', 'route', 25, 110, 'Riva sahil turu'),
+  ev('u_mert', 'quiz', 20, 250, 'Günün yarışması: 4/5'),
+  // u_selin
+  ev('u_selin', 'post', 10, 60, 'Şile kıyı yürüyüşü'),
+  ev('u_selin', 'quiz', 15, 130, 'Günün yarışması: 3/5'),
+  // u_ayse
+  ev('u_ayse', 'post', 10, 80, 'Sarıyer — Kilyos'),
+  ev('u_ayse', 'route', 25, 330, 'Belgrad Ormanı Neşetsuyu'),
+  ev('u_ayse', 'quiz', 20, 500, 'Günün yarışması: 4/5'),
+];
+
+/* ------------------------------------------------------------------ */
+/* Bilgi yarışması                                                     */
+/* ------------------------------------------------------------------ */
+
+const q = (
+  id: string,
+  question: string,
+  options: string[],
+  answerIndex: number,
+  explanation: string,
+  adventureType: QuizQuestion['adventureType'] = null,
+): QuizQuestion => ({ id, question, options, answerIndex, explanation, adventureType });
+
+export const seedQuizQuestions: QuizQuestion[] = [
+  q(
+    'q1',
+    'Hipotermi şüphesi olan birine ilk yapılması gereken nedir?',
+    [
+      'Hızla ovalamak',
+      'Rüzgârdan korumak ve ıslak giysileri değiştirmek',
+      'Sıcak duş aldırmak',
+      'Alkol vermek',
+    ],
+    1,
+    'Islak giysiler ısı kaybını hızlandırır; önce yalıtım ve rüzgârdan koruma gelir. Ovalama ve alkol durumu kötüleştirir.',
+    'hiking',
+  ),
+  q(
+    'q2',
+    'Pusulada manyetik kuzey ile harita kuzeyi arasındaki farka ne denir?',
+    ['Eğim', 'Sapma (deklinasyon)', 'Azimut', 'Rota açısı'],
+    1,
+    'Deklinasyon, bölgeye göre değişir ve haritanın kenarında yazar; kerteriz alırken düzeltilmelidir.',
+  ),
+  q(
+    'q3',
+    '"Leave No Trace" ilkesine göre kamp ateşi için en doğru yaklaşım hangisidir?',
+    [
+      'Yeni bir ocak açmak',
+      'Mevcut ateş yerini kullanmak ya da ocak tercih etmek',
+      'Yeşil dal toplamak',
+      'Ateşi sabaha kadar yakmak',
+    ],
+    1,
+    'Mevcut ateş halkalarını kullanmak ya da kamp ocağı tercih etmek doğaya en az iz bırakır.',
+  ),
+  q(
+    'q4',
+    'Çığ tehlikesini artıran en önemli etken hangisidir?',
+    ['Açık ve soğuk hava', 'Yeni yağan yoğun kar ve rüzgâr', 'Düşük irtifa', 'Gece saatleri'],
+    1,
+    'Kısa sürede yağan çok kar ve rüzgârla taşınan kar, zayıf tabakalar üzerinde yük oluşturur.',
+    'skiing',
+  ),
+  q(
+    'q5',
+    'Sekizli düğüm (figure-eight) tırmanışta en çok ne için kullanılır?',
+    ['İpi kısaltmak', 'Emniyet kemerine ip bağlamak', 'İki ipi eklemek', 'Çadır ipi germek'],
+    1,
+    'İzlenen sekizli düğüm güvenli, kontrolü kolay ve tırmanış ipini kemere bağlamanın standart yoludur.',
+    'climbing',
+  ),
+  q(
+    'q6',
+    'Dalışta güvenli çıkış hızı yaklaşık kaç metre/dakikadır?',
+    ['3 m/dk', '9 m/dk', '18 m/dk', '30 m/dk'],
+    1,
+    'Çoğu eğitim kurumu 9 m/dk (ya da daha yavaş) çıkış hızını önerir; hızlı çıkış dekompresyon hastalığı riskini artırır.',
+    'diving',
+  ),
+  q(
+    'q7',
+    'Dalış sonrası uçağa binmek için önerilen en kısa bekleme süresi (tek dalış) nedir?',
+    ['2 saat', '6 saat', '12 saat', '24 saat'],
+    2,
+    'Tek dekompresyonsuz dalış sonrası en az 12 saat, tekrarlı dalışlarda 18 saat beklenmesi önerilir.',
+    'diving',
+  ),
+  q(
+    'q8',
+    'Yamaç paraşütünde kalkış için ideal rüzgâr nasıl olmalıdır?',
+    [
+      'Arkadan ve sert',
+      'Önden, düzenli ve hafif-orta şiddette',
+      'Yandan ve ani',
+      'Hiç rüzgâr olmamalı',
+    ],
+    1,
+    'Kanadı şişirmek ve kontrol etmek için önden gelen düzenli rüzgâr gerekir; arkadan rüzgâr çok tehlikelidir.',
+    'paragliding',
+  ),
+  q(
+    'q9',
+    'Yıldırım riski olan bir fırtınada dağda ne yapmalısın?',
+    [
+      'Zirveye devam etmek',
+      'Ağaç altına sığınmak',
+      'Sırt hattından uzaklaşıp çömelmek',
+      'Metal ekipmanı yanında tutmak',
+    ],
+    2,
+    'Yüksek noktalardan ve yalnız ağaçlardan uzaklaş; ayakları bitişik çömel, metal ekipmanı uzağa bırak.',
+    'hiking',
+  ),
+  q(
+    'q10',
+    'Haritada eşyükselti eğrilerinin birbirine yaklaşması ne anlama gelir?',
+    ['Düz arazi', 'Dik yamaç', 'Su kaynağı', 'Orman sınırı'],
+    1,
+    'Eğriler ne kadar sık ise arazi o kadar diktir; seyrek eğriler düzlük gösterir.',
+  ),
+  q(
+    'q11',
+    'Bileği burkulan birine ilk 48 saatte hangi yaklaşım uygulanır?',
+    ['Sıcak kompres', 'Dinlenme, buz, baskı, yükseltme (RICE)', 'Masaj', 'Yürümeye devam'],
+    1,
+    'RICE yaklaşımı şişliği ve ağrıyı azaltır; sıcak uygulama ilk günlerde şişliği artırır.',
+  ),
+  q(
+    'q12',
+    'Bir günlük yürüyüşte kişi başı önerilen en az su miktarı yaklaşık ne kadardır?',
+    ['0,5 litre', '1 litre', '2 litre', '5 litre'],
+    2,
+    'Sıcak ve eforlu koşullarda 2 litre alt sınırdır; su kaynaklarını önceden planla.',
+    'hiking',
+  ),
+  q(
+    'q13',
+    'Rafting sırasında bottan düşersen doğru pozisyon hangisidir?',
+    [
+      'Yüzükoyun yüzmek',
+      'Sırtüstü, ayaklar akış yönünde ve yukarıda',
+      'Dik durmaya çalışmak',
+      'Kayalara tutunmak',
+    ],
+    1,
+    'Ayaklar ileride ve su yüzeyinde olursa kayalara çarpmayı ve ayak sıkışmasını önlersin.',
+    'rafting',
+  ),
+  q(
+    'q14',
+    'Bisiklet ile uzun bir tırmanışta kadans nasıl olmalıdır?',
+    [
+      'Düşük kadans, ağır vites',
+      'Yüksek kadans, hafif vites',
+      'Fark etmez',
+      'Ayakta pedal çevirmek zorunludur',
+    ],
+    1,
+    'Hafif viteste yüksek kadans (80–90 rpm) kasları daha az yorar ve dizleri korur.',
+    'cycling',
+  ),
+  q(
+    'q15',
+    'Kanoda çift palalı kürek hangi disiplinde kullanılır?',
+    ['Kano (canoe)', 'Kayak', 'Rafting', 'Sup'],
+    1,
+    'Kayakta çift palalı, kanoda tek palalı kürek kullanılır.',
+    'canoe',
+  ),
+  q(
+    'q16',
+    'Kayak pistlerinde "siyah" işaret ne anlama gelir?',
+    ['Başlangıç seviyesi', 'Orta seviye', 'Zor / ileri seviye', 'Kapalı pist'],
+    2,
+    'Avrupa renk sisteminde yeşil-mavi-kırmızı-siyah sırasıyla zorlaşır; siyah en zor pistlerdir.',
+    'skiing',
+  ),
+  q(
+    'q17',
+    'Yükseklik hastalığının erken belirtisi hangisidir?',
+    ['Kaşıntı', 'Baş ağrısı, bulantı ve iştahsızlık', 'Görme netleşmesi', 'Aşırı enerji'],
+    1,
+    'Akut dağ hastalığı baş ağrısıyla başlar; belirtiler geçmeden yükselmeye devam edilmemelidir.',
+    'hiking',
+  ),
+  q(
+    'q18',
+    'Kızıl-turuncu bir gökyüzü akşamları genellikle ne anlama gelir?',
+    ['Yaklaşan fırtına', 'Sakin hava', 'Kar yağışı', 'Sis'],
+    1,
+    'Batıdaki temiz hava batan güneşi kızıla boyar; "akşam kızıllığı" genellikle iyi havanın habercisidir.',
+  ),
+  q(
+    'q19',
+    'Tırmanışta "emniyet" (belay) sırasında fren eli hangi konumda olmalıdır?',
+    ['Serbest', 'Her zaman ipte', 'Sadece düşüşte ipte', 'Ceplerde'],
+    1,
+    'Fren eli asla ipi bırakmaz; emniyet cihazı yalnızca fren eli ipteyken çalışır.',
+    'climbing',
+  ),
+  q(
+    'q20',
+    'Kancalı (prusik) düğüm ne işe yarar?',
+    ['İp ekler', 'İp üzerinde kayar, yük binince kilitlenir', 'Çadır kurar', 'İpi keser'],
+    1,
+    'Prusik, sabit ipte tırmanmak ve kendini emniyete almak için kullanılan sürtünme düğümüdür.',
+    'climbing',
+  ),
+  q(
+    'q21',
+    'Kamp yeri seçerken hangisi doğru değildir?',
+    [
+      'Kuru dere yatağından uzak',
+      'Sudan en az 60 m uzakta',
+      'Yalnız ağacın hemen altında',
+      'Rüzgârdan korunaklı',
+    ],
+    2,
+    'Yalnız ağaçlar yıldırım çeker ve dal düşme riski taşır; açık ama korunaklı bir alan seçilmelidir.',
+  ),
+  q(
+    'q22',
+    'Dalış partnerin dip suda panikledi. İlk ne yaparsın?',
+    [
+      'Yüzeye fırlarım',
+      'Göz teması kurup sakinleştirir, kontrollü çıkış yaparım',
+      'Yalnız bırakırım',
+      'Regülatörünü çıkarırım',
+    ],
+    1,
+    'Sakinlik bulaşıcıdır; göz teması ve el işaretleriyle güven ver, birlikte kontrollü yüksel.',
+    'diving',
+  ),
+  q(
+    'q23',
+    'Acil durumda uluslararası dağ tehlike işareti nasıl verilir?',
+    [
+      'Dakikada 6 sinyal, 1 dakika ara',
+      'Sürekli ıslık',
+      'Dakikada 3 sinyal',
+      'Sadece geceleri ışık',
+    ],
+    0,
+    'Dakikada 6 kez (10 saniyede bir) ışık/ses sinyali, 1 dakika ara; yanıt dakikada 3 sinyaldir.',
+  ),
+  q(
+    'q24',
+    'Yılan ısırmasında hangisi doğrudur?',
+    [
+      'Yarayı kesmek',
+      'Emmek',
+      'Uzvu hareketsiz tutup hızla sağlık kuruluşuna ulaşmak',
+      'Turnike uygulamak',
+    ],
+    2,
+    'Kesmek, emmek ve turnike zarar verir; uzvu kalp seviyesinin altında sabitle ve yardım çağır.',
+  ),
+  q(
+    'q25',
+    'Kar körlüğünü önlemek için ne gerekir?',
+    ['Şapka', 'UV korumalı güneş gözlüğü', 'Bol su', 'Kalın eldiven'],
+    1,
+    'Kardan yansıyan UV ışınları korneayı yakar; UV400 gözlük ya da kar gözlüğü şarttır.',
+    'skiing',
+  ),
+  q(
+    'q26',
+    'Rüzgâr soğuğu etkisi ne demektir?',
+    [
+      'Rüzgârın nemi azaltması',
+      'Rüzgârın hissedilen sıcaklığı düşürmesi',
+      'Rüzgârın basıncı artırması',
+      'Rüzgârın kar yağdırması',
+    ],
+    1,
+    'Rüzgâr vücuttan ısı çekişini hızlandırır; −5°C ve 40 km/sa rüzgârda hissedilen sıcaklık −15°C civarındadır.',
+  ),
+  q(
+    'q27',
+    'Kanyon geçişinde en büyük risk nedir?',
+    ['Güneş yanığı', 'Ani su baskını', 'Böcekler', 'Yükseklik hastalığı'],
+    1,
+    'Kilometrelerce ötedeki yağış dar kanyonda dakikalar içinde seli getirebilir; hava tahminine bak.',
+    'rafting',
+  ),
+  q(
+    'q28',
+    'Yamaç paraşütünde acil paraşüt hangi durumda kullanılır?',
+    ['Her inişte', 'Kanat kontrolü tamamen kaybedildiğinde', 'Rüzgâr hafifleyince', 'Kalkışta'],
+    1,
+    'Kurtarılamayan kapanma ya da dolanma durumunda, yeterli yükseklik varken yedek paraşüt atılır.',
+    'paragliding',
+  ),
+  q(
+    'q29',
+    'Yaban hayvanı izleri gördüğünde "Leave No Trace" ne önerir?',
+    [
+      'Yaklaşıp fotoğraf çekmek',
+      'Yiyecek bırakmak',
+      'Mesafeyi korumak ve beslememek',
+      'Sesle uzaklaştırmak',
+    ],
+    2,
+    'Yaban hayatına uzaktan saygı göster; besleme, yaklaşma ve alışkanlıklarını değiştirme.',
+  ),
+  q(
+    'q30',
+    'Bisiklette gece sürüşü için hangisi zorunludur?',
+    ['Kulaklık', 'Ön beyaz, arka kırmızı ışık ve reflektör', 'Şort', 'Yedek zincir'],
+    1,
+    'Görünür olmak hayat kurtarır: ön beyaz, arka kırmızı ışık ve reflektif giysi kullan.',
+    'cycling',
+  ),
+];
+
+/** Geçmiş yarışma denemeleri (gün anahtarı `YYYY-MM-DD`). */
+export const seedQuizAttempts: { userId: string; date: string; correct: number }[] = [
+  { userId: ME, date: daysAgo(1).slice(0, 10), correct: 4 },
+  { userId: ME, date: daysAgo(3).slice(0, 10), correct: 5 },
+  { userId: 'u_elif', date: daysAgo(1).slice(0, 10), correct: 5 },
+  { userId: 'u_baris', date: daysAgo(4).slice(0, 10), correct: 5 },
+];
+
+/* ------------------------------------------------------------------ */
+/* Zirve pasaportu                                                     */
+/* ------------------------------------------------------------------ */
+
+export const seedPassportStamps: PassportStamp[] = [
+  {
+    id: 'ps_1',
+    userId: ME,
+    placeName: 'Kaçkar Zirvesi',
+    countryCode: 'TR',
+    adventureType: 'hiking',
+    elevationM: 3937,
+    stampedAt: daysAgo(260),
+  },
+  {
+    id: 'ps_2',
+    userId: ME,
+    placeName: 'Ölüdeniz',
+    countryCode: 'TR',
+    adventureType: 'paragliding',
+    elevationM: 1700,
+    stampedAt: daysAgo(210),
+  },
+  {
+    id: 'ps_3',
+    userId: ME,
+    placeName: 'Kaş',
+    countryCode: 'TR',
+    adventureType: 'diving',
+    elevationM: null,
+    stampedAt: daysAgo(180),
+  },
+  {
+    id: 'ps_4',
+    userId: ME,
+    placeName: 'Kapadokya',
+    countryCode: 'TR',
+    adventureType: 'hiking',
+    elevationM: 1200,
+    stampedAt: daysAgo(150),
+  },
+  {
+    id: 'ps_5',
+    userId: ME,
+    placeName: 'Olympos (Mitikas)',
+    countryCode: 'GR',
+    adventureType: 'hiking',
+    elevationM: 2918,
+    stampedAt: daysAgo(120),
+  },
+  {
+    id: 'ps_6',
+    userId: ME,
+    placeName: 'Chamonix',
+    countryCode: 'FR',
+    adventureType: 'climbing',
+    elevationM: 3842,
+    stampedAt: daysAgo(95),
+  },
+  {
+    id: 'ps_7',
+    userId: ME,
+    placeName: 'Dolomitler — Tre Cime',
+    countryCode: 'IT',
+    adventureType: 'hiking',
+    elevationM: 2999,
+    stampedAt: daysAgo(75),
+  },
+  {
+    id: 'ps_8',
+    userId: ME,
+    placeName: 'Bali — Tulamben',
+    countryCode: 'ID',
+    adventureType: 'diving',
+    elevationM: null,
+    stampedAt: daysAgo(45),
+  },
+  {
+    id: 'ps_9',
+    userId: ME,
+    placeName: 'Everest Ana Kampı',
+    countryCode: 'NP',
+    adventureType: 'hiking',
+    elevationM: 5364,
+    stampedAt: daysAgo(20),
+  },
+];
