@@ -28,6 +28,31 @@ export default function AppLayout() {
       <Stack.Screen name="chat/[id]" />
       <Stack.Screen name="location/[id]" />
       <Stack.Screen name="settings" />
+      <Stack.Screen name="notifications" />
+      <Stack.Screen name="bookings" />
+      <Stack.Screen name="live/[id]" />
+      <Stack.Screen
+        name="live/start"
+        options={{ presentation: 'fullScreenModal', animation: 'slide_from_bottom' }}
+      />
+      <Stack.Screen name="hazards/index" />
+      <Stack.Screen name="hazards/[id]" />
+      <Stack.Screen
+        name="hazards/report"
+        options={{ presentation: 'modal', animation: 'slide_from_bottom' }}
+      />
+      <Stack.Screen name="market/index" />
+      <Stack.Screen name="market/[id]" />
+      <Stack.Screen
+        name="market/new"
+        options={{ presentation: 'modal', animation: 'slide_from_bottom' }}
+      />
+      <Stack.Screen name="instructors/index" />
+      <Stack.Screen name="instructors/[id]" />
+      <Stack.Screen
+        name="instructors/book"
+        options={{ presentation: 'modal', animation: 'slide_from_bottom' }}
+      />
     </Stack>
   );
 }

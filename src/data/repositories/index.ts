@@ -1,17 +1,30 @@
 import type {
   AdventureType,
+  BookingWithParties,
   CommentWithAuthor,
+  CreateBookingInput,
+  CreateListingInput,
   CreateMatchInput,
   CreatePostInput,
   FeedPost,
   GeoPoint,
+  HazardZoneWithReporter,
   ID,
+  InstructorFilter,
+  InstructorReviewWithAuthor,
+  InstructorWithUser,
+  ListingFilter,
+  ListingWithSeller,
+  LiveStreamWithHost,
   MatchCandidate,
   Message,
   NotificationWithSender,
+  ReportHazardInput,
   Route,
   SignInInput,
   SignUpInput,
+  StartStreamInput,
+  StreamMessageWithAuthor,
   TrendingLocation,
   User,
   ZMatchWithUsers,
@@ -88,6 +101,51 @@ export interface MessageRepository {
   send(meId: ID, otherId: ID, content: string, matchId?: ID | null): Promise<Message>;
 }
 
+export interface HazardRepository {
+  /** Aktif tehlikeler; origin verilirse mesafe hesaplanır ve radiusKm ile süzülür */
+  list(
+    meId: ID,
+    origin: GeoPoint | null,
+    radiusKm?: number,
+    includeResolved?: boolean,
+  ): Promise<HazardZoneWithReporter[]>;
+  getById(meId: ID, id: ID, origin: GeoPoint | null): Promise<HazardZoneWithReporter | null>;
+  report(meId: ID, input: ReportHazardInput): Promise<HazardZoneWithReporter>;
+  confirm(meId: ID, id: ID): Promise<HazardZoneWithReporter>;
+  resolve(meId: ID, id: ID): Promise<HazardZoneWithReporter>;
+}
+
+export interface LiveRepository {
+  list(): Promise<LiveStreamWithHost[]>;
+  getById(id: ID): Promise<LiveStreamWithHost | null>;
+  messages(streamId: ID): Promise<StreamMessageWithAuthor[]>;
+  sendMessage(meId: ID, streamId: ID, content: string): Promise<StreamMessageWithAuthor>;
+  start(meId: ID, input: StartStreamInput): Promise<LiveStreamWithHost>;
+  end(meId: ID, streamId: ID): Promise<LiveStreamWithHost>;
+  like(streamId: ID): Promise<{ likesCount: number }>;
+  /** İzleyici katıldı/ayrıldı sayacı (demo) */
+  join(streamId: ID): Promise<void>;
+  leave(streamId: ID): Promise<void>;
+}
+
+export interface MarketRepository {
+  list(viewerId: ID, filter?: ListingFilter): Promise<ListingWithSeller[]>;
+  getById(viewerId: ID, id: ID): Promise<ListingWithSeller | null>;
+  create(sellerId: ID, input: CreateListingInput): Promise<ListingWithSeller>;
+  toggleFavorite(viewerId: ID, id: ID): Promise<{ favorited: boolean; favoritesCount: number }>;
+  markSold(sellerId: ID, id: ID): Promise<ListingWithSeller>;
+}
+
+export interface InstructorRepository {
+  list(origin: GeoPoint | null, filter?: InstructorFilter): Promise<InstructorWithUser[]>;
+  getById(id: ID, origin: GeoPoint | null): Promise<InstructorWithUser | null>;
+  getByUserId(userId: ID): Promise<InstructorWithUser | null>;
+  reviews(instructorId: ID): Promise<InstructorReviewWithAuthor[]>;
+  book(meId: ID, input: CreateBookingInput): Promise<BookingWithParties>;
+  myBookings(meId: ID): Promise<BookingWithParties[]>;
+  respondBooking(meId: ID, bookingId: ID, accept: boolean): Promise<BookingWithParties>;
+}
+
 export interface DataProvider {
   auth: AuthRepository;
   users: UserRepository;
@@ -96,6 +154,10 @@ export interface DataProvider {
   matches: MatchRepository;
   notifications: NotificationRepository;
   messages: MessageRepository;
+  hazards: HazardRepository;
+  live: LiveRepository;
+  market: MarketRepository;
+  instructors: InstructorRepository;
   /** Demo verilerini sıfırlar (yalnızca mock sağlayıcı için anlamlı) */
   reset(): Promise<void>;
 }

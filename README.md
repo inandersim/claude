@@ -25,10 +25,16 @@
 | **Ana Sayfa** | Macera akışı; irtifa, mesafe, sıcaklık, rüzgar, süre gibi teknik verilerle. Çift dokunuşla beğeni, yorum, macera türüne göre filtre. |
 | **Keşfet** | Trend lokasyonlar, türe göre keşif, popüler rotalar (SVG rota önizlemesi), son maceralar ve birleşik arama (lokasyon / kullanıcı / rota). |
 | **ZMatch** | Konuma göre yakındaki **doğrulanmış** maceraperestler; mesafe ve tür filtresi; eşleşme isteği gönder / kabul et / reddet; kabul edilen planlar ve birebir mesajlaşma. |
-| **Bildirimler** | Eşleşme istekleri, mesajlar, beğeni, yorum ve takip bildirimleri; güne göre gruplama, okundu yönetimi, derin bağlantı ile ilgili ekrana gidiş. |
-| **Profil** | Takipçi / takip, toplam macera ve km, güven skoru halkası, favori aktiviteler, paylaşım ızgarası. Ayarlar: tema (sistem / açık / koyu), dil (TR / EN), demo verilerini sıfırlama. |
+| **Canlı** | Şu an canlı yayınlar, yaklaşan yayınlar ve tekrarlar; yayın ekranında video oynatıcı (expo-video), izleyici sayısı, canlı sohbet ve beğeni; kamera önizlemeli **yayın başlatma** akışı. |
+| **Profil** | Takipçi / takip, toplam macera ve km, güven skoru halkası, favori aktiviteler, paylaşım ızgarası, kısayollar (rezervasyonlar, market, tehlike haritası, bildirimler). Ayarlar: tema, dil, demo verilerini sıfırlama. |
 
-Ek olarak: karşılama + giriş + kayıt akışı, yeni macera paylaşma (fotoğraf seçici, teknik veri formu), kullanıcı profili, lokasyon detayı, eşleşme detayı, sohbet ekranı, 404 ekranı.
+**Güvenlik — Tehlike haritası:** Topluluk tarafından işaretlenen riskli bölgeler (kaya düşmesi, çığ, sel, vahşi hayvan, şiddetli hava, bozuk patika, kapalı bölge). Şiddet seviyesi, etki yarıçapı ve geçerlilik süresi; harita SDK'sı gerektirmeyen **radar görünümü**; "Ben de gördüm" onayı, bildiren için "çözüldü" işareti; yakındaki kullanıcılara otomatik uyarı bildirimi; Ana Sayfa ve lokasyon detayında yakın tehlike şeridi.
+
+**Market:** Outdoor ekipman al / sat / kirala. Kategori ve durum filtreleri, arama, favoriler, ilan verme (fotoğraf, fiyat, uygun aktiviteler), ilan detayı, satıcıya mesaj, "satıldı" işareti, güvenli alışveriş uyarısı.
+
+**Eğitmenler:** Sertifikalı rehber ve eğitmen profilleri (uzmanlık, sertifikalar, diller, uygun günler, puan ve değerlendirmeler, ders ücreti). Puan / mesafe / fiyata göre sıralama, ders talebi (rezervasyon) akışı, eğitmen tarafında onay / red, rezervasyonlarım ekranı, eğitmenin ilanları ve yaklaşan yayınları.
+
+Ek olarak: karşılama + giriş + kayıt akışı, yeni macera paylaşma (fotoğraf seçici, teknik veri formu), kullanıcı profili, lokasyon detayı, eşleşme detayı, sohbet, bildirimler (13 bildirim türü, derin bağlantı ile ilgili ekrana gidiş), 404 ekranı.
 
 ## Teknoloji
 
@@ -36,7 +42,7 @@ Ek olarak: karşılama + giriş + kayıt akışı, yeni macera paylaşma (fotoğ
 - **Expo Router** — dosya tabanlı navigasyon, tip güvenli rotalar, derin bağlantı (`zirve://`, `https://zirve.app`), korumalı rota grupları (`Stack.Protected`)
 - **TanStack Query** (sunucu durumu, iyimser güncellemeler) + **Zustand** (oturum, dil, toast)
 - **Reanimated 4** + Gesture Handler (mikro animasyonlar, yüzen sekme çubuğu)
-- **expo-image**, **expo-location**, **expo-image-picker**, **expo-haptics**, **expo-blur**, **react-native-svg**
+- **expo-image**, **expo-location**, **expo-image-picker**, **expo-haptics**, **expo-blur**, **expo-video**, **expo-camera**, **react-native-svg**
 - **i18n-js** — Türkçe (varsayılan) ve İngilizce
 - **Jest + jest-expo** birim testleri, **ESLint (expo + react-compiler kuralları)**, **Prettier**
 - **GitHub Actions** CI: lint → typecheck → test
@@ -78,10 +84,14 @@ src/
 │   ├── _layout.tsx      # Sağlayıcılar, fontlar, splash, oturum koruması
 │   ├── (auth)/          # welcome · sign-in · sign-up
 │   └── (app)/           # oturum gerektiren ekranlar
-│       ├── (tabs)/      # index · explore · zmatch · notifications · profile
+│       ├── (tabs)/      # index · explore · zmatch · live · profile
 │       ├── post/        # [id] · new (modal)
 │       ├── match/       # [id] · request (modal)
-│       ├── user/[id]  chat/[id]  location/[id]  settings
+│       ├── live/        # [id] · start (tam ekran modal)
+│       ├── hazards/     # index (radar + liste) · [id] · report (modal)
+│       ├── market/      # index · [id] · new (modal)
+│       ├── instructors/ # index · [id] · book (modal)
+│       ├── user/[id]  chat/[id]  location/[id]  notifications  bookings  settings
 ├── components/
 │   ├── ui/              # Tasarım sistemi: Text, Button, Chip, Avatar, Skeleton, …
 │   └── AppTabBar.tsx    # Yüzen, animasyonlu özel sekme çubuğu
@@ -96,12 +106,16 @@ src/
 │   ├── types.ts         # User, Post, Comment, Route, ZMatch, Message, Notification, …
 │   ├── geo.ts           # Haversine mesafe
 │   ├── trust.ts         # Güven skoru
-│   └── matching.ts      # ZMatch aday algoritması
+│   ├── matching.ts      # ZMatch aday algoritması
+│   ├── hazards.ts       # Tehlike seçimi / sıralama, yön hesabı (radar)
+│   ├── marketplace.ts   # İlan filtreleme, fiyat biçimi
+│   └── instructors.ts   # Eğitmen sıralama, puan güncelleme
 ├── data/
 │   ├── repositories/    # Veri sözleşmeleri (arayüzler)
 │   └── mock/            # Bellek içi + AsyncStorage kalıcı demo sağlayıcı ve tohum veri
 └── features/            # Özellik bazlı hook'lar ve bileşenler
     ├── auth · feed · explore · zmatch · notifications · profile · chat
+    └── hazards · live · market · instructors
 ```
 
 Ayrıntılar için [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
@@ -115,6 +129,10 @@ UI yalnızca `src/data/repositories` altındaki arayüzlere bağımlıdır. Ger�
 3. `src/data/index.ts` içindeki `getDataProvider()` seçim noktasını güncelleyin.
 
 Ekranlar ve hook'lar değişmeden çalışmaya devam eder.
+
+## Canlı yayın altyapısı
+
+Uygulama yayın **ürün katmanını** (liste, yayın ekranı, sohbet, izleyici sayacı, başlatma / bitirme akışı, kamera önizlemesi) tamamen içerir. Gerçek video iletimi için bir sağlayıcı bağlanmalıdır — önerilen seçenekler **LiveKit** (WebRTC, açık kaynak) veya **Mux Live**. Entegrasyon noktası `LiveRepository.start()` (yayın anahtarı / oda oluşturma) ve `LiveStream.playbackUrl` (HLS adresi) alanıdır; demo modunda örnek bir HLS akışı oynatılır.
 
 ## Derleme (EAS)
 

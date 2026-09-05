@@ -3,9 +3,9 @@ import React, { useCallback, useMemo } from 'react';
 import { SectionList, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { EmptyState, ErrorState, Screen, Skeleton, Tappable, Text } from '@/components/ui';
+import { EmptyState, ErrorState, Header, Screen, Skeleton, Tappable, Text } from '@/components/ui';
 import { useT } from '@/core/i18n';
-import { layout, radius, spacing } from '@/core/theme';
+import { radius, spacing } from '@/core/theme';
 import { dateGroup, type DateGroup } from '@/core/utils/time';
 import type { NotificationWithSender } from '@/domain';
 import { NotificationItem } from '@/features/notifications/components/NotificationItem';
@@ -61,6 +61,18 @@ export default function NotificationsScreen() {
         case 'follow':
           router.push({ pathname: '/user/[id]', params: { id: n.senderId } });
           break;
+        case 'booking_request':
+        case 'booking_confirmed':
+        case 'booking_declined':
+          router.push('/bookings');
+          break;
+        case 'hazard_alert':
+        case 'hazard_confirmed':
+          if (n.targetId) router.push({ pathname: '/hazards/[id]', params: { id: n.targetId } });
+          break;
+        case 'stream_live':
+          if (n.targetId) router.push({ pathname: '/live/[id]', params: { id: n.targetId } });
+          break;
       }
     },
     [markRead, router],
@@ -68,23 +80,25 @@ export default function NotificationsScreen() {
 
   return (
     <Screen edges={['top']}>
-      <View style={styles.header}>
-        <View>
-          <Text variant="h1">{t('notifications.title')}</Text>
-          {unread > 0 ? (
-            <Text variant="caption" color="primary" weight="bold">
-              {unread} {t('notifications.unread')}
-            </Text>
-          ) : null}
-        </View>
-        {unread > 0 ? (
-          <Tappable onPress={() => markAll.mutate()} haptic="selection" accessibilityRole="button">
-            <Text variant="caption" weight="bold" color="primary">
-              {t('notifications.markAllRead')}
-            </Text>
-          </Tappable>
-        ) : null}
-      </View>
+      <Header
+        title={t('notifications.title')}
+        subtitle={unread > 0 ? `${unread} ${t('notifications.unread')}` : undefined}
+        showBack
+        right={
+          unread > 0 ? (
+            <Tappable
+              onPress={() => markAll.mutate()}
+              haptic="selection"
+              accessibilityRole="button"
+              accessibilityLabel={t('notifications.markAllRead')}
+            >
+              <Text variant="caption" weight="bold" color="primary">
+                {t('notifications.markAllRead')}
+              </Text>
+            </Tappable>
+          ) : null
+        }
+      />
 
       {notifications.isError ? (
         <ErrorState onRetry={() => notifications.refetch()} />
@@ -112,7 +126,7 @@ export default function NotificationsScreen() {
           )}
           stickySectionHeadersEnabled={false}
           contentContainerStyle={{
-            paddingBottom: layout.tabBarHeight + insets.bottom + spacing.xl,
+            paddingBottom: insets.bottom + spacing.xl,
             gap: 2,
           }}
           showsVerticalScrollIndicator={false}

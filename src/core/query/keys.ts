@@ -1,4 +1,4 @@
-import type { AdventureType, GeoPoint, ID } from '@/domain';
+import type { AdventureType, GeoPoint, ID, InstructorFilter, ListingFilter } from '@/domain';
 
 /** TanStack Query anahtarları — tek kaynaktan yönetilir, invalidation tutarlı olur. */
 export const queryKeys = {
@@ -44,5 +44,43 @@ export const queryKeys = {
   },
   messages: {
     thread: (meId: ID, otherId: ID) => ['messages', 'thread', meId, otherId] as const,
+  },
+  hazards: {
+    all: ['hazards'] as const,
+    list: (meId: ID, origin: GeoPoint | null, radiusKm: number | null, includeResolved: boolean) =>
+      [
+        'hazards',
+        'list',
+        meId,
+        origin ? `${origin.latitude.toFixed(3)},${origin.longitude.toFixed(3)}` : '-',
+        radiusKm,
+        includeResolved,
+      ] as const,
+    detail: (meId: ID, id: ID) => ['hazards', 'detail', meId, id] as const,
+  },
+  live: {
+    all: ['live'] as const,
+    list: ['live', 'list'] as const,
+    detail: (id: ID) => ['live', 'detail', id] as const,
+    messages: (id: ID) => ['live', 'messages', id] as const,
+  },
+  market: {
+    all: ['market'] as const,
+    list: (viewerId: ID, filter: ListingFilter) => ['market', 'list', viewerId, filter] as const,
+    detail: (viewerId: ID, id: ID) => ['market', 'detail', viewerId, id] as const,
+  },
+  instructors: {
+    all: ['instructors'] as const,
+    list: (origin: GeoPoint | null, filter: InstructorFilter) =>
+      [
+        'instructors',
+        'list',
+        origin ? `${origin.latitude.toFixed(2)},${origin.longitude.toFixed(2)}` : '-',
+        filter,
+      ] as const,
+    detail: (id: ID) => ['instructors', 'detail', id] as const,
+    byUser: (userId: ID) => ['instructors', 'byUser', userId] as const,
+    reviews: (id: ID) => ['instructors', 'reviews', id] as const,
+    bookings: (meId: ID) => ['instructors', 'bookings', meId] as const,
   },
 };

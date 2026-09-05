@@ -13,6 +13,9 @@ import { AdventureTypeFilter } from '@/features/feed/components/AdventureTypeFil
 import { PostCard } from '@/features/feed/components/PostCard';
 import { PostCardSkeleton } from '@/features/feed/components/PostCardSkeleton';
 import { useFeed, useToggleLike } from '@/features/feed/hooks';
+import { HazardBanner } from '@/features/hazards/components/HazardBanner';
+import { LiveStrip } from '@/features/live/components/LiveStrip';
+import { useUnreadCount } from '@/features/notifications/hooks';
 
 function greetingKey(): 'home.greetingMorning' | 'home.greetingDay' | 'home.greetingEvening' {
   const hour = new Date().getHours();
@@ -30,6 +33,7 @@ export default function HomeScreen() {
   const [type, setType] = useState<AdventureType | null>(null);
   const feed = useFeed(type);
   const toggleLike = useToggleLike();
+  const { data: unread = 0 } = useUnreadCount();
 
   const onToggleLike = useCallback((postId: string) => toggleLike.mutate(postId), [toggleLike]);
 
@@ -57,9 +61,10 @@ export default function HomeScreen() {
           </View>
           <View style={styles.headerActions}>
             <IconButton
-              icon="search"
-              onPress={() => router.push('/explore')}
-              accessibilityLabel={t('common.search')}
+              icon="bell"
+              badge={unread}
+              onPress={() => router.push('/notifications')}
+              accessibilityLabel={t('tabs.notifications')}
             />
             <IconButton
               icon="plus"
@@ -70,10 +75,12 @@ export default function HomeScreen() {
             />
           </View>
         </View>
+        <LiveStrip />
+        <HazardBanner origin={me.coords} />
         <AdventureTypeFilter value={type} onChange={setType} />
       </View>
     ),
-    [colors.onPrimary, colors.primary, me, router, t, type],
+    [colors.onPrimary, colors.primary, me, router, t, type, unread],
   );
 
   const bottomPadding = layout.tabBarHeight + insets.bottom + spacing.xl;

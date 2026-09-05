@@ -40,6 +40,15 @@ Expo Router ile dosya tabanlı yapı:
 - `experiments.typedRoutes` açık: `router.push({ pathname: '/post/[id]', params: { id } })` çağrıları derleme zamanında doğrulanır.
 - Derin bağlantı: `zirve://post/p1`, `https://zirve.app/user/u_elif` gibi adresler doğrudan ilgili ekrana açılır.
 
+## Yeni özellik modülleri
+
+| Modül | Domain | Repository | Öne çıkanlar |
+| --- | --- | --- | --- |
+| **Tehlikeli yerler** | `HazardZone`, `selectHazards`, `bearingDeg` | `HazardRepository` | Şiddet → mesafe → tarih sıralaması, süre dolumu, onay tekilliği, yalnızca bildirenin çözüm yetkisi, 25 km içindeki kullanıcılara otomatik `hazard_alert` bildirimi. Radar görünümü SVG ile çizilir; `react-native-maps` eklenirse aynı veri doğrudan kullanılabilir. |
+| **Canlı yayın** | `LiveStream`, `StreamMessage` | `LiveRepository` | Canlı → planlı → tekrar sıralaması, yayın başlatınca takipçilere `stream_live`, izleyici katıl/ayrıl sayacı, yayın bitince tekrar adresi. Oynatıcı `expo-video`, önizleme `expo-camera`. |
+| **Market** | `Listing`, `filterListings`, `formatPriceTry` | `MarketRepository` | Satılmış gizleme, kategori / satıcı / metin filtresi, favori tekilliği, yalnızca satıcının "satıldı" yetkisi. |
+| **Eğitmenler** | `Instructor`, `Booking`, `rankInstructors`, `nextRating` | `InstructorRepository` | Puan / mesafe / fiyat sıralaması, rezervasyon yaşam döngüsü (`pending → confirmed | declined`) ve iki yönlü bildirimler, eğitmenin ilanları ve yayınlarıyla çapraz bağlantı. |
+
 ## Tema
 `core/theme/tokens.ts` açık ve koyu paletleri, tipografi ölçeğini (Manrope) ve boşluk/yarıçap ölçeğini tanımlar. `ThemeProvider` kullanıcı tercihini (sistem/açık/koyu) kalıcı tutar. Bileşenler renkleri yalnızca `useTheme().colors` üzerinden alır.
 

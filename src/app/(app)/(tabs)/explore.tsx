@@ -23,6 +23,15 @@ import { SearchBar } from '@/features/explore/components/SearchBar';
 import { TrendingLocationCard } from '@/features/explore/components/TrendingLocationCard';
 import { useExploreSearch, usePopularRoutes, useTrendingLocations } from '@/features/explore/hooks';
 import { useFeed } from '@/features/feed/hooks';
+import { HazardCard } from '@/features/hazards/components/HazardCard';
+import { useHazards } from '@/features/hazards/hooks';
+import { InstructorCard } from '@/features/instructors/components/InstructorCard';
+import { useInstructors } from '@/features/instructors/hooks';
+import { StreamCard } from '@/features/live/components/StreamCard';
+import { useStreams } from '@/features/live/hooks';
+import { ListingCard } from '@/features/market/components/ListingCard';
+import { useListings } from '@/features/market/hooks';
+import { useCurrentUser } from '@/features/auth/session.store';
 
 export default function ExploreScreen() {
   const { t } = useT();
@@ -36,6 +45,12 @@ export default function ExploreScreen() {
   const routes = usePopularRoutes();
   const recent = useFeed(type);
   const search = useExploreSearch(query);
+  const me = useCurrentUser();
+  const streams = useStreams();
+  const hazards = useHazards(me.coords, 250);
+  const instructors = useInstructors(me.coords, { sortBy: 'rating' });
+  const listings = useListings({});
+  const liveNow = streams.data?.filter((s) => s.status === 'live') ?? [];
   const searching = query.trim().length >= 2;
 
   const cardWidth = Math.min(240, width * 0.62);
@@ -82,6 +97,45 @@ export default function ExploreScreen() {
                   ))}
             </ScrollView>
           )}
+
+          {/* Canlı yayınlar */}
+          {liveNow.length > 0 ? (
+            <View style={styles.section}>
+              <SectionHeader
+                title={t('live.liveNowSection')}
+                actionLabel={t('common.seeAll')}
+                onAction={() => router.push('/live')}
+              />
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.hList}
+              >
+                {liveNow.map((s) => (
+                  <StreamCard key={s.id} stream={s} width={Math.min(200, width * 0.5)} />
+                ))}
+              </ScrollView>
+            </View>
+          ) : null}
+
+          {/* Güvenlik uyarıları */}
+          <View style={styles.section}>
+            <SectionHeader
+              title={t('hazards.title')}
+              subtitle={t('hazards.subtitle')}
+              actionLabel={t('common.seeAll')}
+              onAction={() => router.push('/hazards')}
+            />
+            <View style={styles.recentList}>
+              {hazards.isLoading ? (
+                <Skeleton height={96} style={{ borderRadius: radius.lg }} />
+              ) : hazards.data && hazards.data.length > 0 ? (
+                hazards.data.slice(0, 3).map((h) => <HazardCard key={h.id} hazard={h} compact />)
+              ) : (
+                <EmptyState compact icon="shield-check" title={t('hazards.empty')} />
+              )}
+            </View>
+          </View>
 
           {/* Türe göre keşfet */}
           <View style={styles.section}>
@@ -131,6 +185,62 @@ export default function ExploreScreen() {
                 );
               })}
             </View>
+          </View>
+
+          {/* Eğitmenler */}
+          <View style={styles.section}>
+            <SectionHeader
+              title={t('instructors.title')}
+              subtitle={t('instructors.subtitle')}
+              actionLabel={t('common.seeAll')}
+              onAction={() => router.push('/instructors')}
+            />
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.hList}
+            >
+              {instructors.isLoading
+                ? [0, 1].map((i) => (
+                    <Skeleton
+                      key={i}
+                      width={260}
+                      height={170}
+                      style={{ borderRadius: radius.xl }}
+                    />
+                  ))
+                : instructors.data
+                    ?.slice(0, 5)
+                    .map((i) => <InstructorCard key={i.id} instructor={i} width={260} />)}
+            </ScrollView>
+          </View>
+
+          {/* Market */}
+          <View style={styles.section}>
+            <SectionHeader
+              title={t('market.title')}
+              subtitle={t('market.subtitle')}
+              actionLabel={t('common.seeAll')}
+              onAction={() => router.push('/market')}
+            />
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.hList}
+            >
+              {listings.isLoading
+                ? [0, 1].map((i) => (
+                    <Skeleton
+                      key={i}
+                      width={160}
+                      height={230}
+                      style={{ borderRadius: radius.lg }}
+                    />
+                  ))
+                : listings.data
+                    ?.slice(0, 6)
+                    .map((l) => <ListingCard key={l.id} listing={l} width={160} />)}
+            </ScrollView>
           </View>
 
           {/* Popüler rotalar */}

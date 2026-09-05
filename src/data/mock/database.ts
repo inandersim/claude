@@ -2,12 +2,19 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { deepClone } from '@/core/utils/clone';
 import type {
+  Booking,
   Comment,
   Follow,
+  HazardZone,
+  Instructor,
+  InstructorReview,
+  Listing,
+  LiveStream,
   Message,
   Notification,
   Post,
   Route,
+  StreamMessage,
   TrendingLocation,
   User,
   ZMatch,
@@ -15,15 +22,24 @@ import type {
 
 import {
   CURRENT_USER_ID,
+  seedBookings,
   seedComments,
+  seedFavorites,
   seedFollows,
+  seedHazardConfirmations,
+  seedHazards,
+  seedInstructorReviews,
+  seedInstructors,
   seedLikes,
+  seedListings,
   seedLocations,
   seedMatches,
   seedMessages,
   seedNotifications,
   seedPosts,
   seedRoutes,
+  seedStreamMessages,
+  seedStreams,
   seedUsers,
 } from './seed';
 
@@ -38,11 +54,20 @@ export interface Tables {
   messages: Message[];
   notifications: Notification[];
   locations: TrendingLocation[];
+  hazards: HazardZone[];
+  hazardConfirmations: { userId: string; hazardId: string }[];
+  streams: LiveStream[];
+  streamMessages: StreamMessage[];
+  listings: Listing[];
+  favorites: { userId: string; listingId: string }[];
+  instructors: Instructor[];
+  instructorReviews: InstructorReview[];
+  bookings: Booking[];
   /** Oturum açmış kullanıcının kimliği (null → çıkış yapılmış) */
   sessionUserId: string | null;
 }
 
-const STORAGE_KEY = 'zirve.mockdb.v1';
+const STORAGE_KEY = 'zirve.mockdb.v2';
 
 function seedTables(): Tables {
   return {
@@ -56,6 +81,15 @@ function seedTables(): Tables {
     messages: deepClone(seedMessages),
     notifications: deepClone(seedNotifications),
     locations: deepClone(seedLocations),
+    hazards: deepClone(seedHazards),
+    hazardConfirmations: deepClone(seedHazardConfirmations),
+    streams: deepClone(seedStreams),
+    streamMessages: deepClone(seedStreamMessages),
+    listings: deepClone(seedListings),
+    favorites: deepClone(seedFavorites),
+    instructors: deepClone(seedInstructors),
+    instructorReviews: deepClone(seedInstructorReviews),
+    bookings: deepClone(seedBookings),
     sessionUserId: null,
   };
 }
@@ -81,7 +115,12 @@ export class MockDatabase {
           const raw = await AsyncStorage.getItem(STORAGE_KEY);
           if (raw) {
             const parsed = JSON.parse(raw) as Tables;
-            if (parsed && Array.isArray(parsed.users) && parsed.users.length > 0) {
+            if (
+              parsed &&
+              Array.isArray(parsed.users) &&
+              parsed.users.length > 0 &&
+              Array.isArray(parsed.hazards)
+            ) {
               this.tables = parsed;
               return parsed;
             }

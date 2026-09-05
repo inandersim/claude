@@ -23,6 +23,8 @@ import { RecentAdventureRow } from '@/features/explore/components/RecentAdventur
 import { useLocationDetail } from '@/features/explore/hooks';
 import { DifficultyBadge } from '@/features/feed/components/DifficultyBadge';
 import { usePostsByLocation } from '@/features/feed/hooks';
+import { HazardCard } from '@/features/hazards/components/HazardCard';
+import { useHazards } from '@/features/hazards/hooks';
 
 export default function LocationDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -32,6 +34,7 @@ export default function LocationDetailScreen() {
   const { colors } = useTheme();
   const location = useLocationDetail(id);
   const posts = usePostsByLocation(location.data?.name.split(' ')[0] ?? '');
+  const hazards = useHazards(location.data?.coords ?? null, 30);
 
   return (
     <Screen scroll edges={[]}>
@@ -121,6 +124,21 @@ export default function LocationDetailScreen() {
               </Text>
             </View>
           </View>
+
+          {hazards.data && hazards.data.length > 0 ? (
+            <View style={styles.section}>
+              <SectionHeader
+                title={t('hazards.title')}
+                actionLabel={t('common.seeAll')}
+                onAction={() => router.push('/hazards')}
+              />
+              <View style={styles.list}>
+                {hazards.data.slice(0, 3).map((h) => (
+                  <HazardCard key={h.id} hazard={h} compact />
+                ))}
+              </View>
+            </View>
+          ) : null}
 
           <View style={styles.section}>
             <SectionHeader title={t('explore.adventuresHere')} />

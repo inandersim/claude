@@ -1,8 +1,15 @@
 import type {
   AdventureType,
+  BookingStatus,
   DifficultyGrade,
+  HazardSeverity,
+  HazardStatus,
+  HazardType,
+  ListingCategory,
+  ListingCondition,
   MatchStatus,
   NotificationType,
+  StreamStatus,
   TrailCondition,
 } from './enums';
 
@@ -129,6 +136,8 @@ export interface Notification {
   isRead: boolean;
   postId: ID | null;
   matchId: ID | null;
+  /** Tehlike, yayın, ilan veya rezervasyon gibi ek hedef kimliği */
+  targetId: ID | null;
   createdAt: ISODate;
 }
 
@@ -191,4 +200,213 @@ export interface SignInInput {
 export interface SignUpInput extends SignInInput {
   username: string;
   displayName: string;
+}
+
+/* ------------------------------------------------------------------ */
+/* Tehlikeli yerler                                                    */
+/* ------------------------------------------------------------------ */
+
+export interface HazardZone {
+  id: ID;
+  type: HazardType;
+  severity: HazardSeverity;
+  status: HazardStatus;
+  title: string;
+  description: string;
+  locationName: string;
+  coords: GeoPoint;
+  /** Etki yarıçapı (metre) */
+  radiusM: number;
+  reporterId: ID;
+  confirmations: number;
+  createdAt: ISODate;
+  /** Null ise süresiz; aksi halde bu tarihten sonra listelenmez */
+  expiresAt: ISODate | null;
+  resolvedAt: ISODate | null;
+}
+
+export interface HazardZoneWithReporter extends HazardZone {
+  reporter: User;
+  confirmedByMe: boolean;
+  /** Arama merkezine uzaklık (km); merkez verilmediyse null */
+  distanceKm: number | null;
+}
+
+export interface ReportHazardInput {
+  type: HazardType;
+  severity: HazardSeverity;
+  title: string;
+  description: string;
+  locationName: string;
+  coords: GeoPoint;
+  radiusM: number;
+  /** Kaç saat sonra otomatik düşsün; null → süresiz */
+  expiresInHours: number | null;
+}
+
+/* ------------------------------------------------------------------ */
+/* Canlı yayın                                                         */
+/* ------------------------------------------------------------------ */
+
+export interface LiveStream {
+  id: ID;
+  hostId: ID;
+  title: string;
+  description: string;
+  adventureType: AdventureType;
+  status: StreamStatus;
+  locationName: string;
+  coords: GeoPoint;
+  viewerCount: number;
+  peakViewers: number;
+  likesCount: number;
+  thumbnailUrl: string | null;
+  /** HLS / MP4 oynatma adresi (canlı veya tekrar) */
+  playbackUrl: string | null;
+  scheduledAt: ISODate | null;
+  startedAt: ISODate | null;
+  endedAt: ISODate | null;
+  /** Yayın sırasında canlı irtifa (metre) — opsiyonel telemetri */
+  altitudeM: number | null;
+}
+
+export interface LiveStreamWithHost extends LiveStream {
+  host: User;
+}
+
+export interface StreamMessage {
+  id: ID;
+  streamId: ID;
+  authorId: ID;
+  content: string;
+  createdAt: ISODate;
+}
+
+export interface StreamMessageWithAuthor extends StreamMessage {
+  author: User;
+}
+
+export interface StartStreamInput {
+  title: string;
+  description: string;
+  adventureType: AdventureType;
+  locationName: string;
+  coords?: GeoPoint;
+}
+
+/* ------------------------------------------------------------------ */
+/* Market                                                              */
+/* ------------------------------------------------------------------ */
+
+export interface Listing {
+  id: ID;
+  sellerId: ID;
+  title: string;
+  description: string;
+  priceTry: number;
+  category: ListingCategory;
+  condition: ListingCondition;
+  imageUrls: string[];
+  locationName: string;
+  coords: GeoPoint;
+  adventureTypes: AdventureType[];
+  isSold: boolean;
+  favoritesCount: number;
+  createdAt: ISODate;
+}
+
+export interface ListingWithSeller extends Listing {
+  seller: User;
+  favoritedByMe: boolean;
+}
+
+export interface CreateListingInput {
+  title: string;
+  description: string;
+  priceTry: number;
+  category: ListingCategory;
+  condition: ListingCondition;
+  imageUri: string | null;
+  locationName: string;
+  adventureTypes: AdventureType[];
+}
+
+export interface ListingFilter {
+  query?: string;
+  category?: ListingCategory | null;
+  sellerId?: ID;
+  includeSold?: boolean;
+}
+
+/* ------------------------------------------------------------------ */
+/* Eğitmenler                                                          */
+/* ------------------------------------------------------------------ */
+
+export interface Instructor {
+  id: ID;
+  userId: ID;
+  headline: string;
+  bio: string;
+  specialties: AdventureType[];
+  certifications: string[];
+  rating: number;
+  reviewCount: number;
+  pricePerSessionTry: number;
+  sessionDurationMin: number;
+  languages: string[];
+  yearsExperience: number;
+  locationName: string;
+  coords: GeoPoint;
+  /** 0 = Pazar … 6 = Cumartesi */
+  availableDays: number[];
+  studentsCount: number;
+}
+
+export interface InstructorWithUser extends Instructor {
+  user: User;
+  distanceKm: number | null;
+}
+
+export interface InstructorReview {
+  id: ID;
+  instructorId: ID;
+  authorId: ID;
+  rating: number;
+  content: string;
+  createdAt: ISODate;
+}
+
+export interface InstructorReviewWithAuthor extends InstructorReview {
+  author: User;
+}
+
+export interface Booking {
+  id: ID;
+  instructorId: ID;
+  studentId: ID;
+  adventureType: AdventureType;
+  date: ISODate;
+  message: string;
+  status: BookingStatus;
+  priceTry: number;
+  createdAt: ISODate;
+  respondedAt: ISODate | null;
+}
+
+export interface BookingWithParties extends Booking {
+  instructor: InstructorWithUser;
+  student: User;
+}
+
+export interface CreateBookingInput {
+  instructorId: ID;
+  adventureType: AdventureType;
+  date: ISODate;
+  message: string;
+}
+
+export interface InstructorFilter {
+  adventureType?: AdventureType | null;
+  query?: string;
+  sortBy?: 'rating' | 'distance' | 'price';
 }

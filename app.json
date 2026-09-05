@@ -17,7 +17,8 @@
         "NSLocationWhenInUseUsageDescription": "Yakınındaki maceraperestleri bulmak ve rota önerileri sunmak için konumuna ihtiyacımız var.",
         "NSPhotoLibraryUsageDescription": "Macera fotoğraflarını paylaşabilmen için galerine erişmemiz gerekiyor.",
         "NSCameraUsageDescription": "Macera anlarını doğrudan fotoğraflayabilmen için kameraya erişmemiz gerekiyor.",
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSMicrophoneUsageDescription": "Canlı yayında sesini iletebilmek için mikrofona erişmemiz gerekiyor."
       }
     },
     "android": {
@@ -32,14 +33,25 @@
       "predictiveBackGestureEnabled": true,
       "permissions": [
         "android.permission.ACCESS_COARSE_LOCATION",
-        "android.permission.ACCESS_FINE_LOCATION"
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
       ],
       "intentFilters": [
         {
           "action": "VIEW",
           "autoVerify": true,
-          "data": [{ "scheme": "https", "host": "zirve.app", "pathPrefix": "/" }],
-          "category": ["BROWSABLE", "DEFAULT"]
+          "data": [
+            {
+              "scheme": "https",
+              "host": "zirve.app",
+              "pathPrefix": "/"
+            }
+          ],
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
         }
       ]
     },
@@ -74,7 +86,16 @@
           "photosPermission": "Macera fotoğraflarını paylaşabilmen için galerine erişmemiz gerekiyor.",
           "cameraPermission": "Macera anlarını fotoğraflayabilmen için kameraya erişmemiz gerekiyor."
         }
-      ]
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Canlı yayın yapabilmen için kameraya erişmemiz gerekiyor.",
+          "microphonePermission": "Canlı yayında sesini iletebilmek için mikrofona erişmemiz gerekiyor.",
+          "recordAudioAndroid": true
+        }
+      ],
+      "expo-video"
     ],
     "experiments": {
       "typedRoutes": true,

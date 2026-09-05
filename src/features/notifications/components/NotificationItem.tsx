@@ -15,6 +15,12 @@ const typeMeta: Record<NotificationType, { icon: IconName; color: string }> = {
   like: { icon: 'heart', color: '#FF6B6B' },
   comment: { icon: 'message-circle', color: '#CE93D8' },
   follow: { icon: 'user-plus', color: '#5EE39B' },
+  booking_request: { icon: 'graduation-cap', color: '#FFB547' },
+  booking_confirmed: { icon: 'calendar-check', color: '#5EE39B' },
+  booking_declined: { icon: 'circle-x', color: '#FF6B6B' },
+  hazard_alert: { icon: 'triangle-alert', color: '#FF6B6B' },
+  hazard_confirmed: { icon: 'shield-check', color: '#5EE39B' },
+  stream_live: { icon: 'radio', color: '#FF6B6B' },
 };
 
 export function NotificationItem({

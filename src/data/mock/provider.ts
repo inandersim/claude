@@ -2,14 +2,34 @@ import { deepClone } from '@/core/utils/clone';
 import { generateId } from '@/core/utils/format';
 import {
   computeTrustScore,
+  filterListings,
   findMatchCandidates,
+  nextRating,
+  rankInstructors,
+  selectHazards,
+  distanceKm,
+  type Booking,
+  type BookingWithParties,
   type CommentWithAuthor,
+  type CreateBookingInput,
+  type CreateListingInput,
   type CreateMatchInput,
   type CreatePostInput,
   type FeedPost,
+  type GeoPoint,
+  type HazardZone,
+  type HazardZoneWithReporter,
   type ID,
+  type Instructor,
+  type InstructorWithUser,
+  type Listing,
+  type ListingWithSeller,
+  type LiveStream,
+  type LiveStreamWithHost,
   type NotificationWithSender,
   type Post,
+  type ReportHazardInput,
+  type StartStreamInput,
   type User,
   type ZMatch,
   type ZMatchWithUsers,
@@ -21,6 +41,10 @@ import type {
   ExploreRepository,
   FeedFilter,
   FeedRepository,
+  HazardRepository,
+  InstructorRepository,
+  LiveRepository,
+  MarketRepository,
   MatchRepository,
   MessageRepository,
   NotificationRepository,
@@ -77,12 +101,15 @@ export function createMockProvider(options: Options = {}): DataProvider {
   });
 
   const pushNotification = async (
-    input: Omit<NotificationWithSender, 'id' | 'createdAt' | 'isRead' | 'sender'>,
+    input: Omit<NotificationWithSender, 'id' | 'createdAt' | 'isRead' | 'sender' | 'targetId'> & {
+      targetId?: ID | null;
+    },
   ) => {
     const t = await db.load();
     if (input.senderId === input.receiverId) return;
     t.notifications.unshift({
       ...input,
+      targetId: input.targetId ?? null,
       id: generateId('n'),
       isRead: false,
       createdAt: new Date().toISOString(),
@@ -522,6 +549,464 @@ export function createMockProvider(options: Options = {}): DataProvider {
     },
   };
 
+  /* ---------------------------------------------------------------- */
+  /* Tehlikeli yerler                                                  */
+  /* ---------------------------------------------------------------- */
+
+  const toHazard = (
+    h: HazardZone,
+    meId: ID,
+    origin: GeoPoint | null,
+    users: User[],
+    confirmations: { userId: string; hazardId: string }[],
+  ): HazardZoneWithReporter => ({
+    ...h,
+    reporter: requireUser(users, h.reporterId),
+    confirmedByMe: confirmations.some((c) => c.userId === meId && c.hazardId === h.id),
+    distanceKm: origin ? distanceKm(origin, h.coords) : null,
+  });
+
+  const hazards: HazardRepository = {
+    async list(meId, origin, radiusKm, includeResolved = false) {
+      await wait();
+      const t = await db.load();
+      return selectHazards({ hazards: t.hazards, origin, radiusKm, includeResolved }).map(
+        ({ hazard }) => toHazard(hazard, meId, origin, t.users, t.hazardConfirmations),
+      );
+    },
+    async getById(meId, id, origin) {
+      await wait();
+      const t = await db.load();
+      const h = t.hazards.find((x) => x.id === id);
+      return h ? toHazard(h, meId, origin, t.users, t.hazardConfirmations) : null;
+    },
+    async report(meId, input: ReportHazardInput) {
+      await wait();
+      const t = await db.load();
+      const hazard: HazardZone = {
+        id: generateId('h'),
+        type: input.type,
+        severity: input.severity,
+        status: 'active',
+        title: input.title.trim(),
+        description: input.description.trim(),
+        locationName: input.locationName.trim(),
+        coords: input.coords,
+        radiusM: input.radiusM,
+        reporterId: meId,
+        confirmations: 0,
+        createdAt: new Date().toISOString(),
+        expiresAt: input.expiresInHours
+          ? new Date(Date.now() + input.expiresInHours * 3_600_000).toISOString()
+          : null,
+        resolvedAt: null,
+      };
+      t.hazards.unshift(hazard);
+      db.markDirty();
+      // Etki alanına 25 km'den yakın kullanıcıları bilgilendir (demo: takipçiler yerine yakınlık)
+      for (const user of t.users) {
+        if (user.id === meId) continue;
+        if (distanceKm(user.coords, hazard.coords) <= 25) {
+          await pushNotification({
+            type: 'hazard_alert',
+            senderId: meId,
+            receiverId: user.id,
+            message: hazard.title,
+            postId: null,
+            matchId: null,
+            targetId: hazard.id,
+          });
+        }
+      }
+      return toHazard(hazard, meId, input.coords, t.users, t.hazardConfirmations);
+    },
+    async confirm(meId, id) {
+      await delay(Math.min(latency, 120));
+      const t = await db.load();
+      const h = t.hazards.find((x) => x.id === id);
+      if (!h) throw new NotFoundError('Tehlike', id);
+      if (h.reporterId === meId) throw new AuthError('Kendi bildirdiğin tehlikeyi onaylayamazsın.');
+      const exists = t.hazardConfirmations.some((c) => c.userId === meId && c.hazardId === id);
+      if (!exists) {
+        t.hazardConfirmations.push({ userId: meId, hazardId: id });
+        h.confirmations += 1;
+        db.markDirty();
+        await pushNotification({
+          type: 'hazard_confirmed',
+          senderId: meId,
+          receiverId: h.reporterId,
+          message: h.title,
+          postId: null,
+          matchId: null,
+          targetId: h.id,
+        });
+      }
+      return toHazard(h, meId, null, t.users, t.hazardConfirmations);
+    },
+    async resolve(meId, id) {
+      await wait();
+      const t = await db.load();
+      const h = t.hazards.find((x) => x.id === id);
+      if (!h) throw new NotFoundError('Tehlike', id);
+      if (h.reporterId !== meId)
+        throw new AuthError('Yalnızca bildiren kişi çözüldü olarak işaretleyebilir.');
+      h.status = 'resolved';
+      h.resolvedAt = new Date().toISOString();
+      db.markDirty();
+      return toHazard(h, meId, null, t.users, t.hazardConfirmations);
+    },
+  };
+
+  /* ---------------------------------------------------------------- */
+  /* Canlı yayın                                                       */
+  /* ---------------------------------------------------------------- */
+
+  const withHost = (s: LiveStream, users: User[]): LiveStreamWithHost => ({
+    ...s,
+    host: requireUser(users, s.hostId),
+  });
+  const streamOrder: Record<LiveStream['status'], number> = { live: 0, scheduled: 1, ended: 2 };
+
+  const live: LiveRepository = {
+    async list() {
+      await wait();
+      const t = await db.load();
+      return [...t.streams]
+        .sort((a, b) => {
+          if (streamOrder[a.status] !== streamOrder[b.status])
+            return streamOrder[a.status] - streamOrder[b.status];
+          if (a.status === 'live') return b.viewerCount - a.viewerCount;
+          if (a.status === 'scheduled')
+            return (a.scheduledAt ?? '').localeCompare(b.scheduledAt ?? '');
+          return (b.endedAt ?? '').localeCompare(a.endedAt ?? '');
+        })
+        .map((s) => withHost(s, t.users));
+    },
+    async getById(id) {
+      await wait();
+      const t = await db.load();
+      const s = t.streams.find((x) => x.id === id);
+      return s ? withHost(s, t.users) : null;
+    },
+    async messages(streamId) {
+      await delay(Math.min(latency, 100));
+      const t = await db.load();
+      return t.streamMessages
+        .filter((m) => m.streamId === streamId)
+        .sort((a, b) => a.createdAt.localeCompare(b.createdAt))
+        .map((m) => ({ ...m, author: requireUser(t.users, m.authorId) }));
+    },
+    async sendMessage(meId, streamId, content) {
+      await delay(Math.min(latency, 100));
+      const t = await db.load();
+      const message = {
+        id: generateId('sm'),
+        streamId,
+        authorId: meId,
+        content: content.trim(),
+        createdAt: new Date().toISOString(),
+      };
+      t.streamMessages.push(message);
+      db.markDirty();
+      return { ...message, author: requireUser(t.users, meId) };
+    },
+    async start(meId, input: StartStreamInput) {
+      await wait();
+      const t = await db.load();
+      const host = requireUser(t.users, meId);
+      // Aynı kullanıcının açık yayını varsa kapat
+      for (const s of t.streams) {
+        if (s.hostId === meId && s.status === 'live') {
+          s.status = 'ended';
+          s.endedAt = new Date().toISOString();
+        }
+      }
+      const stream: LiveStream = {
+        id: generateId('s'),
+        hostId: meId,
+        title: input.title.trim(),
+        description: input.description.trim(),
+        adventureType: input.adventureType,
+        status: 'live',
+        locationName: input.locationName.trim() || host.locationName,
+        coords: input.coords ?? host.coords,
+        viewerCount: 1,
+        peakViewers: 1,
+        likesCount: 0,
+        thumbnailUrl: null,
+        playbackUrl: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8',
+        scheduledAt: null,
+        startedAt: new Date().toISOString(),
+        endedAt: null,
+        altitudeM: null,
+      };
+      t.streams.unshift(stream);
+      db.markDirty();
+      // Takipçilere bildir
+      for (const f of t.follows) {
+        if (f.followingId === meId) {
+          await pushNotification({
+            type: 'stream_live',
+            senderId: meId,
+            receiverId: f.followerId,
+            message: stream.title,
+            postId: null,
+            matchId: null,
+            targetId: stream.id,
+          });
+        }
+      }
+      return withHost(stream, t.users);
+    },
+    async end(meId, streamId) {
+      await wait();
+      const t = await db.load();
+      const s = t.streams.find((x) => x.id === streamId);
+      if (!s) throw new NotFoundError('Yayın', streamId);
+      if (s.hostId !== meId) throw new AuthError('Yalnızca yayıncı yayını bitirebilir.');
+      s.status = 'ended';
+      s.endedAt = new Date().toISOString();
+      s.viewerCount = 0;
+      s.playbackUrl =
+        'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
+      db.markDirty();
+      return withHost(s, t.users);
+    },
+    async like(streamId) {
+      const t = await db.load();
+      const s = t.streams.find((x) => x.id === streamId);
+      if (!s) throw new NotFoundError('Yayın', streamId);
+      s.likesCount += 1;
+      db.markDirty();
+      return { likesCount: s.likesCount };
+    },
+    async join(streamId) {
+      const t = await db.load();
+      const s = t.streams.find((x) => x.id === streamId);
+      if (s && s.status === 'live') {
+        s.viewerCount += 1;
+        s.peakViewers = Math.max(s.peakViewers, s.viewerCount);
+        db.markDirty();
+      }
+    },
+    async leave(streamId) {
+      const t = await db.load();
+      const s = t.streams.find((x) => x.id === streamId);
+      if (s && s.status === 'live' && s.viewerCount > 0) {
+        s.viewerCount -= 1;
+        db.markDirty();
+      }
+    },
+  };
+
+  /* ---------------------------------------------------------------- */
+  /* Market                                                            */
+  /* ---------------------------------------------------------------- */
+
+  const toListing = (
+    l: Listing,
+    viewerId: ID,
+    users: User[],
+    favorites: { userId: string; listingId: string }[],
+  ): ListingWithSeller => ({
+    ...l,
+    seller: requireUser(users, l.sellerId),
+    favoritedByMe: favorites.some((f) => f.userId === viewerId && f.listingId === l.id),
+  });
+
+  const market: MarketRepository = {
+    async list(viewerId, filter = {}) {
+      await wait();
+      const t = await db.load();
+      return filterListings(t.listings, filter).map((l) =>
+        toListing(l, viewerId, t.users, t.favorites),
+      );
+    },
+    async getById(viewerId, id) {
+      await wait();
+      const t = await db.load();
+      const l = t.listings.find((x) => x.id === id);
+      return l ? toListing(l, viewerId, t.users, t.favorites) : null;
+    },
+    async create(sellerId, input: CreateListingInput) {
+      await wait();
+      const t = await db.load();
+      const seller = requireUser(t.users, sellerId);
+      const listing: Listing = {
+        id: generateId('l'),
+        sellerId,
+        title: input.title.trim(),
+        description: input.description.trim(),
+        priceTry: Math.max(0, Math.round(input.priceTry)),
+        category: input.category,
+        condition: input.condition,
+        imageUrls: input.imageUri ? [input.imageUri] : [],
+        locationName: input.locationName.trim() || seller.locationName,
+        coords: seller.coords,
+        adventureTypes: input.adventureTypes,
+        isSold: false,
+        favoritesCount: 0,
+        createdAt: new Date().toISOString(),
+      };
+      t.listings.unshift(listing);
+      db.markDirty();
+      return toListing(listing, sellerId, t.users, t.favorites);
+    },
+    async toggleFavorite(viewerId, id) {
+      await delay(Math.min(latency, 100));
+      const t = await db.load();
+      const l = t.listings.find((x) => x.id === id);
+      if (!l) throw new NotFoundError('İlan', id);
+      const idx = t.favorites.findIndex((f) => f.userId === viewerId && f.listingId === id);
+      if (idx >= 0) {
+        t.favorites.splice(idx, 1);
+        l.favoritesCount = Math.max(0, l.favoritesCount - 1);
+        db.markDirty();
+        return { favorited: false, favoritesCount: l.favoritesCount };
+      }
+      t.favorites.push({ userId: viewerId, listingId: id });
+      l.favoritesCount += 1;
+      db.markDirty();
+      return { favorited: true, favoritesCount: l.favoritesCount };
+    },
+    async markSold(sellerId, id) {
+      await wait();
+      const t = await db.load();
+      const l = t.listings.find((x) => x.id === id);
+      if (!l) throw new NotFoundError('İlan', id);
+      if (l.sellerId !== sellerId) throw new AuthError('Yalnızca satıcı ilanı kapatabilir.');
+      l.isSold = true;
+      db.markDirty();
+      return toListing(l, sellerId, t.users, t.favorites);
+    },
+  };
+
+  /* ---------------------------------------------------------------- */
+  /* Eğitmenler                                                        */
+  /* ---------------------------------------------------------------- */
+
+  const toInstructor = (
+    i: Instructor,
+    users: User[],
+    origin: GeoPoint | null,
+  ): InstructorWithUser => ({
+    ...i,
+    user: requireUser(users, i.userId),
+    distanceKm: origin ? distanceKm(origin, i.coords) : null,
+  });
+
+  const toBooking = (
+    b: Booking,
+    t: { instructors: Instructor[]; users: User[] },
+  ): BookingWithParties => {
+    const instructor = t.instructors.find((i) => i.id === b.instructorId);
+    if (!instructor) throw new NotFoundError('Eğitmen', b.instructorId);
+    return {
+      ...b,
+      instructor: toInstructor(instructor, t.users, null),
+      student: requireUser(t.users, b.studentId),
+    };
+  };
+
+  const instructors: InstructorRepository = {
+    async list(origin, filter = {}) {
+      await wait();
+      const t = await db.load();
+      return rankInstructors({ instructors: t.instructors, users: t.users, origin, filter }).map(
+        (r) => ({
+          ...r.instructor,
+          user: r.user,
+          distanceKm: r.distanceKm,
+        }),
+      );
+    },
+    async getById(id, origin) {
+      await wait();
+      const t = await db.load();
+      const i = t.instructors.find((x) => x.id === id);
+      return i ? toInstructor(i, t.users, origin) : null;
+    },
+    async getByUserId(userId) {
+      const t = await db.load();
+      const i = t.instructors.find((x) => x.userId === userId);
+      return i ? toInstructor(i, t.users, null) : null;
+    },
+    async reviews(instructorId) {
+      await wait();
+      const t = await db.load();
+      return t.instructorReviews
+        .filter((r) => r.instructorId === instructorId)
+        .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+        .map((r) => ({ ...r, author: requireUser(t.users, r.authorId) }));
+    },
+    async book(meId, input: CreateBookingInput) {
+      await wait();
+      const t = await db.load();
+      const instructor = t.instructors.find((i) => i.id === input.instructorId);
+      if (!instructor) throw new NotFoundError('Eğitmen', input.instructorId);
+      if (instructor.userId === meId) throw new AuthError('Kendinden ders talep edemezsin.');
+      const booking: Booking = {
+        id: generateId('b'),
+        instructorId: input.instructorId,
+        studentId: meId,
+        adventureType: input.adventureType,
+        date: input.date,
+        message: input.message.trim(),
+        status: 'pending',
+        priceTry: instructor.pricePerSessionTry,
+        createdAt: new Date().toISOString(),
+        respondedAt: null,
+      };
+      t.bookings.unshift(booking);
+      db.markDirty();
+      await pushNotification({
+        type: 'booking_request',
+        senderId: meId,
+        receiverId: instructor.userId,
+        message: instructor.headline,
+        postId: null,
+        matchId: null,
+        targetId: booking.id,
+      });
+      return toBooking(booking, t);
+    },
+    async myBookings(meId) {
+      await wait();
+      const t = await db.load();
+      const mine = t.instructors.filter((i) => i.userId === meId).map((i) => i.id);
+      return t.bookings
+        .filter((b) => b.studentId === meId || mine.includes(b.instructorId))
+        .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+        .map((b) => toBooking(b, t));
+    },
+    async respondBooking(meId, bookingId, accept) {
+      await wait();
+      const t = await db.load();
+      const b = t.bookings.find((x) => x.id === bookingId);
+      if (!b) throw new NotFoundError('Rezervasyon', bookingId);
+      const instructor = t.instructors.find((i) => i.id === b.instructorId);
+      if (!instructor || instructor.userId !== meId)
+        throw new AuthError('Bu talebe yalnızca eğitmen yanıt verebilir.');
+      b.status = accept ? 'confirmed' : 'declined';
+      b.respondedAt = new Date().toISOString();
+      if (accept) instructor.studentsCount += 1;
+      db.markDirty();
+      await pushNotification({
+        type: accept ? 'booking_confirmed' : 'booking_declined',
+        senderId: meId,
+        receiverId: b.studentId,
+        message: instructor.headline,
+        postId: null,
+        matchId: null,
+        targetId: b.id,
+      });
+      return toBooking(b, t);
+    },
+  };
+
+  // nextRating: yorum ekleme akışı eklendiğinde kullanılacak; şimdilik referans olarak dışa aktarılıyor
+  void nextRating;
+
   return {
     auth: atBoundary(auth),
     users: atBoundary(users),
@@ -530,6 +1015,10 @@ export function createMockProvider(options: Options = {}): DataProvider {
     matches: atBoundary(matches),
     notifications: atBoundary(notifications),
     messages: atBoundary(messages),
+    hazards: atBoundary(hazards),
+    live: atBoundary(live),
+    market: atBoundary(market),
+    instructors: atBoundary(instructors),
     reset: () => db.reset(),
   };
 }

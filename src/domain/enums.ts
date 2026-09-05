@@ -128,5 +128,142 @@ export const NOTIFICATION_TYPES = [
   'like',
   'comment',
   'follow',
+  'booking_request',
+  'booking_confirmed',
+  'booking_declined',
+  'hazard_alert',
+  'hazard_confirmed',
+  'stream_live',
 ] as const;
 export type NotificationType = (typeof NOTIFICATION_TYPES)[number];
+
+/* ------------------------------------------------------------------ */
+/* Tehlikeli yerler                                                    */
+/* ------------------------------------------------------------------ */
+
+export const HAZARD_TYPES = [
+  'rockfall',
+  'avalanche',
+  'flood',
+  'wildlife',
+  'weather',
+  'trail_damage',
+  'closure',
+  'other',
+] as const;
+export type HazardType = (typeof HAZARD_TYPES)[number];
+
+export type HazardIconName =
+  | 'mountain'
+  | 'snowflake'
+  | 'waves-arrow-up'
+  | 'paw-print'
+  | 'cloud-lightning'
+  | 'construction'
+  | 'ban'
+  | 'triangle-alert';
+
+export const HAZARD_TYPE_META: Record<
+  HazardType,
+  { labelKey: TranslationKey; icon: HazardIconName }
+> = {
+  rockfall: { labelKey: 'hazardType.rockfall', icon: 'mountain' },
+  avalanche: { labelKey: 'hazardType.avalanche', icon: 'snowflake' },
+  flood: { labelKey: 'hazardType.flood', icon: 'waves-arrow-up' },
+  wildlife: { labelKey: 'hazardType.wildlife', icon: 'paw-print' },
+  weather: { labelKey: 'hazardType.weather', icon: 'cloud-lightning' },
+  trail_damage: { labelKey: 'hazardType.trail_damage', icon: 'construction' },
+  closure: { labelKey: 'hazardType.closure', icon: 'ban' },
+  other: { labelKey: 'hazardType.other', icon: 'triangle-alert' },
+};
+
+export const HAZARD_SEVERITIES = ['low', 'medium', 'high', 'critical'] as const;
+export type HazardSeverity = (typeof HAZARD_SEVERITIES)[number];
+
+export const HAZARD_SEVERITY_META: Record<
+  HazardSeverity,
+  { labelKey: TranslationKey; color: string; level: 1 | 2 | 3 | 4 }
+> = {
+  low: { labelKey: 'hazardSeverity.low', color: '#FFD54F', level: 1 },
+  medium: { labelKey: 'hazardSeverity.medium', color: '#FFB547', level: 2 },
+  high: { labelKey: 'hazardSeverity.high', color: '#FF8A5B', level: 3 },
+  critical: { labelKey: 'hazardSeverity.critical', color: '#FF6B6B', level: 4 },
+};
+
+export const HAZARD_STATUSES = ['active', 'resolved'] as const;
+export type HazardStatus = (typeof HAZARD_STATUSES)[number];
+
+/* ------------------------------------------------------------------ */
+/* Canlı yayın                                                         */
+/* ------------------------------------------------------------------ */
+
+export const STREAM_STATUSES = ['scheduled', 'live', 'ended'] as const;
+export type StreamStatus = (typeof STREAM_STATUSES)[number];
+
+export const STREAM_STATUS_META: Record<StreamStatus, { labelKey: TranslationKey; color: string }> =
+  {
+    scheduled: { labelKey: 'live.scheduled', color: '#6CB4FF' },
+    live: { labelKey: 'live.liveNow', color: '#FF6B6B' },
+    ended: { labelKey: 'live.replay', color: '#9AAEA3' },
+  };
+
+/* ------------------------------------------------------------------ */
+/* Market                                                              */
+/* ------------------------------------------------------------------ */
+
+export const LISTING_CATEGORIES = [
+  'equipment',
+  'clothing',
+  'footwear',
+  'camping',
+  'electronics',
+  'rental',
+  'other',
+] as const;
+export type ListingCategory = (typeof LISTING_CATEGORIES)[number];
+
+export type ListingIconName =
+  'backpack' | 'shirt' | 'footprints' | 'tent' | 'watch' | 'key-round' | 'package';
+
+export const LISTING_CATEGORY_META: Record<
+  ListingCategory,
+  { labelKey: TranslationKey; icon: ListingIconName }
+> = {
+  equipment: { labelKey: 'listingCategory.equipment', icon: 'backpack' },
+  clothing: { labelKey: 'listingCategory.clothing', icon: 'shirt' },
+  footwear: { labelKey: 'listingCategory.footwear', icon: 'footprints' },
+  camping: { labelKey: 'listingCategory.camping', icon: 'tent' },
+  electronics: { labelKey: 'listingCategory.electronics', icon: 'watch' },
+  rental: { labelKey: 'listingCategory.rental', icon: 'key-round' },
+  other: { labelKey: 'listingCategory.other', icon: 'package' },
+};
+
+export const LISTING_CONDITIONS = ['new', 'like_new', 'good', 'fair'] as const;
+export type ListingCondition = (typeof LISTING_CONDITIONS)[number];
+
+export const LISTING_CONDITION_META: Record<
+  ListingCondition,
+  { labelKey: TranslationKey; color: string }
+> = {
+  new: { labelKey: 'listingCondition.new', color: '#5EE39B' },
+  like_new: { labelKey: 'listingCondition.like_new', color: '#A3E635' },
+  good: { labelKey: 'listingCondition.good', color: '#FFB547' },
+  fair: { labelKey: 'listingCondition.fair', color: '#FF8A5B' },
+};
+
+/* ------------------------------------------------------------------ */
+/* Eğitmen rezervasyonu                                                */
+/* ------------------------------------------------------------------ */
+
+export const BOOKING_STATUSES = ['pending', 'confirmed', 'declined', 'completed'] as const;
+export type BookingStatus = (typeof BOOKING_STATUSES)[number];
+
+export const BOOKING_STATUS_META: Record<
+  BookingStatus,
+  { labelKey: TranslationKey; color: string }
+> = {
+  pending: { labelKey: 'booking.pending', color: '#FFB547' },
+  confirmed: { labelKey: 'booking.confirmed', color: '#5EE39B' },
+  declined: { labelKey: 'booking.declined', color: '#FF6B6B' },
+  completed: { labelKey: 'booking.completed', color: '#6CB4FF' },
+};

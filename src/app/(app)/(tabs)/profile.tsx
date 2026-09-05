@@ -3,9 +3,20 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { Button, EmptyState, IconButton, Screen, SectionHeader, Skeleton } from '@/components/ui';
+import {
+  Button,
+  EmptyState,
+  Icon,
+  IconButton,
+  Screen,
+  SectionHeader,
+  Skeleton,
+  Tappable,
+  Text,
+  type IconName,
+} from '@/components/ui';
 import { useT } from '@/core/i18n';
-import { radius, spacing } from '@/core/theme';
+import { radius, spacing, useTheme } from '@/core/theme';
 import { useCurrentUser } from '@/features/auth/session.store';
 import { useUserPosts } from '@/features/feed/hooks';
 import { PostGrid } from '@/features/profile/components/PostGrid';
@@ -16,6 +27,7 @@ export default function ProfileScreen() {
   const { t } = useT();
   const router = useRouter();
   const insets = useSafeAreaInsets();
+  const { colors } = useTheme();
   const session = useCurrentUser();
   const user = useUser(session.id);
   const posts = useUserPosts(session.id);
@@ -44,6 +56,43 @@ export default function ProfileScreen() {
           />
         }
       />
+
+      <View style={styles.section}>
+        <SectionHeader title={t('profile.shortcuts')} />
+        <View style={styles.shortcuts}>
+          {(
+            [
+              { icon: 'calendar-check', label: t('booking.title'), href: '/bookings' },
+              { icon: 'store', label: t('market.myListings'), href: '/market' },
+              { icon: 'triangle-alert', label: t('hazards.title'), href: '/hazards' },
+              { icon: 'bell', label: t('notifications.title'), href: '/notifications' },
+            ] as {
+              icon: IconName;
+              label: string;
+              href: '/bookings' | '/market' | '/hazards' | '/notifications';
+            }[]
+          ).map((item) => (
+            <Tappable
+              key={item.href}
+              onPress={() => router.push(item.href)}
+              haptic="selection"
+              scaleTo={0.95}
+              style={[
+                styles.shortcut,
+                { backgroundColor: colors.surface, borderColor: colors.border },
+              ]}
+              accessibilityRole="button"
+            >
+              <View style={[styles.shortcutIcon, { backgroundColor: colors.primarySoft }]}>
+                <Icon name={item.icon} size={18} color={colors.primary} strokeWidth={2.2} />
+              </View>
+              <Text variant="caption" weight="bold" numberOfLines={1}>
+                {item.label}
+              </Text>
+            </Tappable>
+          ))}
+        </View>
+      </View>
 
       <View style={styles.section}>
         <SectionHeader
@@ -85,6 +134,29 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
   },
   section: { marginTop: spacing.xxl },
+  shortcuts: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacing.sm,
+    paddingHorizontal: spacing.lg,
+  },
+  shortcut: {
+    flexBasis: '47%',
+    flexGrow: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+    padding: spacing.sm + 2,
+    borderRadius: radius.lg,
+    borderWidth: StyleSheet.hairlineWidth,
+  },
+  shortcutIcon: {
+    width: 34,
+    height: 34,
+    borderRadius: radius.sm,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   skeletonGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
