@@ -12,6 +12,8 @@ import { rescueI18n } from './modules/rescue';
 import { socialI18n } from './modules/social';
 import { groupsI18n } from './modules/groups';
 import { coursesI18n } from './modules/courses';
+import { tracksI18n } from './modules/tracks';
+import { weatherI18n } from './modules/weather';
 import type { Translations } from './tr';
 
 export const ja: Translations = {
@@ -219,6 +221,10 @@ export const ja: Translations = {
     themeSystem: 'システム',
     themeLight: 'ライト',
     themeDark: 'ダーク',
+    themeAuto: '自動',
+    themeSun: 'サンモード',
+    themeAutoSensor: '環境光センサーに基づく：現在 {{scheme}}',
+    themeAutoClock: '日照時間に基づく：現在 {{scheme}}',
     language: '言語',
     turkish: 'Türkçe',
     english: 'English',
@@ -777,4 +783,6 @@ export const ja: Translations = {
   social: socialI18n.ja,
   groups: groupsI18n.ja,
   courses: coursesI18n.ja,
+  tracks: tracksI18n.ja,
+  weather: weatherI18n.ja,
 };

@@ -11,6 +11,8 @@ import { rescueI18n } from './modules/rescue';
 import { socialI18n } from './modules/social';
 import { groupsI18n } from './modules/groups';
 import { coursesI18n } from './modules/courses';
+import { tracksI18n } from './modules/tracks';
+import { weatherI18n } from './modules/weather';
 import type { Translations } from './tr';
 
 export const ru: Translations = {
@@ -218,6 +220,10 @@ export const ru: Translations = {
     themeSystem: 'Системная',
     themeLight: 'Светлая',
     themeDark: 'Тёмная',
+    themeAuto: 'Авто',
+    themeSun: 'Солнце',
+    themeAutoSensor: 'По датчику освещённости: сейчас {{scheme}}',
+    themeAutoClock: 'По светлому времени суток: сейчас {{scheme}}',
     language: 'Язык',
     turkish: 'Türkçe',
     english: 'English',
@@ -780,4 +786,6 @@ export const ru: Translations = {
   social: socialI18n.ru,
   groups: groupsI18n.ru,
   courses: coursesI18n.ru,
+  tracks: tracksI18n.ru,
+  weather: weatherI18n.ru,
 };

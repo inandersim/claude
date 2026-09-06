@@ -2,6 +2,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { deepClone } from '@/core/utils/clone';
 import type {
+  CommunityTrail,
+  Track,
+  TrackPoi,
   AmsCheck,
   Certificate,
   Collection,
@@ -159,6 +162,12 @@ import {
 import { seedGroupMembers, seedGroupMessages, seedGroups, seedPollVotes } from './seed.groups';
 import { seedCollections, seedReactions, seedSavedPosts, seedStatusPosts } from './seed.social';
 import { seedVisionHistory } from './seed.vision';
+import {
+  seedCommunityTrails,
+  seedPoiConfirmations,
+  seedTrackPois,
+  seedTracks,
+} from './seed.tracks';
 
 export interface Tables {
   users: User[];
@@ -241,11 +250,17 @@ export interface Tables {
   enrollments: Enrollment[];
   certificates: Certificate[];
   courseReviews: CourseReview[];
+  /* v1.4 */
+  tracks: Track[];
+  trackPois: TrackPoi[];
+  communityTrails: CommunityTrail[];
+  poiConfirmations: { userId: string; poiId: string }[];
+  trailVerifications: { userId: string; trailId: string }[];
   /** Oturum açmış kullanıcının kimliği (null → çıkış yapılmış) */
   sessionUserId: string | null;
 }
 
-const STORAGE_KEY = 'zirve.mockdb.v5';
+const STORAGE_KEY = 'zirve.mockdb.v6';
 
 function seedTables(): Tables {
   return {
@@ -327,6 +342,11 @@ function seedTables(): Tables {
     enrollments: deepClone(seedEnrollments),
     certificates: deepClone(seedCertificates),
     courseReviews: deepClone(seedCourseReviews),
+    tracks: deepClone(seedTracks),
+    trackPois: deepClone(seedTrackPois),
+    communityTrails: deepClone(seedCommunityTrails),
+    poiConfirmations: deepClone(seedPoiConfirmations),
+    trailVerifications: [],
     sessionUserId: null,
   };
 }
@@ -361,7 +381,8 @@ export class MockDatabase {
               Array.isArray(parsed.crags) &&
               Array.isArray(parsed.clubs) &&
               Array.isArray(parsed.destinations) &&
-              Array.isArray(parsed.groups)
+              Array.isArray(parsed.groups) &&
+              Array.isArray(parsed.tracks)
             ) {
               this.tables = parsed;
               return parsed;

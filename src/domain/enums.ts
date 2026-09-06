@@ -709,3 +709,58 @@ export type LessonType = (typeof LESSON_TYPES)[number];
 
 export const ENROLLMENT_STATUSES = ['active', 'completed', 'expired'] as const;
 export type EnrollmentStatus = (typeof ENROLLMENT_STATUSES)[number];
+
+/* ------------------------------------------------------------------ */
+/* v1.4 — Topluluk rotaları, navigasyon, açık veri                     */
+/* ------------------------------------------------------------------ */
+
+export const TRACK_SOURCES = [
+  'recorded',
+  'gpx',
+  'strava',
+  'komoot',
+  'alltrails',
+  'wikiloc',
+  'garmin',
+  'media',
+] as const;
+export type TrackSource = (typeof TRACK_SOURCES)[number];
+
+export const TRACK_STATUSES = ['draft', 'published', 'verified'] as const;
+export type TrackStatus = (typeof TRACK_STATUSES)[number];
+
+export const POI_KINDS = [
+  'campsite',
+  'water',
+  'viewpoint',
+  'shelter',
+  'danger',
+  'junction',
+  'summit',
+  'parking',
+  'food',
+  'trailhead',
+  'other',
+] as const;
+export type PoiKind = (typeof POI_KINDS)[number];
+
+export const POI_SOURCES = ['user', 'story', 'stream', 'post', 'track', 'osm'] as const;
+export type PoiSource = (typeof POI_SOURCES)[number];
+
+export const NAV_MANEUVERS = [
+  'start',
+  'continue',
+  'slight_left',
+  'left',
+  'sharp_left',
+  'slight_right',
+  'right',
+  'sharp_right',
+  'uturn',
+  'waypoint',
+  'arrive',
+] as const;
+export type NavManeuver = (typeof NAV_MANEUVERS)[number];
+
+export const AVALANCHE_LEVELS = [1, 2, 3, 4, 5] as const;
+export type AvalancheLevel = (typeof AVALANCHE_LEVELS)[number];

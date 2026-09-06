@@ -14,7 +14,7 @@ import { useSessionStore } from '@/features/auth/session.store';
 
 export default function SettingsScreen() {
   const { t } = useT();
-  const { preference, setPreference } = useTheme();
+  const { preference, setPreference, ambientSource, scheme } = useTheme();
   const locale = useLocaleStore((s) => s.locale);
   const setLocale = useLocaleStore((s) => s.setLocale);
   const signOut = useSessionStore((s) => s.signOut);
@@ -24,9 +24,11 @@ export default function SettingsScreen() {
   const router = useRouter();
 
   const themeOptions: { value: ThemePreference; label: string; icon: IconName }[] = [
-    { value: 'system', label: t('settings.themeSystem'), icon: 'sparkles' },
+    { value: 'auto', label: t('settings.themeAuto'), icon: 'cloud-sun' },
     { value: 'light', label: t('settings.themeLight'), icon: 'sun' },
     { value: 'dark', label: t('settings.themeDark'), icon: 'moon' },
+    { value: 'sun', label: t('settings.themeSun'), icon: 'sunrise' },
+    { value: 'system', label: t('settings.themeSystem'), icon: 'sparkles' },
   ];
   const localeOptions: { value: Locale; label: string }[] = [
     { value: 'tr', label: t('settings.turkish') },
@@ -81,6 +83,24 @@ export default function SettingsScreen() {
                 />
               ))}
             </View>
+            {preference === 'auto' ? (
+              <Text variant="caption" color="textMuted" style={{ marginTop: spacing.sm }}>
+                {t(
+                  ambientSource === 'sensor'
+                    ? 'settings.themeAutoSensor'
+                    : 'settings.themeAutoClock',
+                  {
+                    scheme: t(
+                      scheme === 'sun'
+                        ? 'settings.themeSun'
+                        : scheme === 'dark'
+                          ? 'settings.themeDark'
+                          : 'settings.themeLight',
+                    ),
+                  },
+                )}
+              </Text>
+            ) : null}
           </Row>
           <Row icon="languages" label={t('settings.language')} last>
             <View style={styles.options}>

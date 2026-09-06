@@ -60,6 +60,12 @@ import type {
   TransportMode,
   TripPlanStatus,
   VisionSituation,
+  AvalancheLevel,
+  NavManeuver,
+  PoiKind,
+  PoiSource,
+  TrackSource,
+  TrackStatus,
 } from './enums';
 
 export type ID = string;
@@ -1762,4 +1768,206 @@ export interface CourseFilter {
   format?: CourseFormat | null;
   level?: CourseLevel | null;
   adventureType?: AdventureType | null;
+}
+
+/* ------------------------------------------------------------------ */
+/* v1.4 — Topluluk rotaları & navigasyon                               */
+/* ------------------------------------------------------------------ */
+
+export interface TrackPoint {
+  latitude: number;
+  longitude: number;
+  elevationM: number | null;
+  /** ms since epoch; içe aktarılan parçalarda null olabilir */
+  t: number | null;
+}
+
+export interface Track {
+  id: ID;
+  userId: ID;
+  name: string;
+  adventureType: AdventureType;
+  source: TrackSource;
+  status: TrackStatus;
+  /** Sadeleştirilmiş (Douglas–Peucker) nokta dizisi */
+  points: TrackPoint[];
+  distanceKm: number;
+  ascentM: number;
+  descentM: number;
+  durationMin: number;
+  maxElevationM: number | null;
+  startedAt: ISODate;
+  regionName: string;
+  countryCode: string | null;
+  isPublic: boolean;
+  likesCount: number;
+  /** Bu parçadan türetilmiş topluluk rotası */
+  communityTrailId: ID | null;
+  createdAt: ISODate;
+}
+
+export interface TrackWithUser extends Track {
+  user: User;
+  distanceFromMeKm: number | null;
+  poiCount: number;
+}
+
+export interface TrackPoi {
+  id: ID;
+  trackId: ID | null;
+  communityTrailId: ID | null;
+  userId: ID;
+  kind: PoiKind;
+  coords: GeoPoint;
+  elevationM: number | null;
+  name: string;
+  note: string;
+  photoUrl: string | null;
+  source: PoiSource;
+  /** Kaynak medya (an/yayın/gönderi) id'si */
+  mediaId: ID | null;
+  confirmations: number;
+  createdAt: ISODate;
+}
+
+export interface TrackPoiWithDistance extends TrackPoi {
+  distanceKm: number | null;
+  confirmedByMe: boolean;
+}
+
+/** Birden çok kullanıcı parçasının birleştirilmesiyle oluşan "sanal yol" */
+export interface CommunityTrail {
+  id: ID;
+  name: string;
+  adventureType: AdventureType;
+  points: TrackPoint[];
+  distanceKm: number;
+  ascentM: number;
+  descentM: number;
+  /** Katkıda bulunan parça sayısı */
+  trackCount: number;
+  /** Doğrulayan (yürüyüp onaylayan) kullanıcı sayısı */
+  verifiedCount: number;
+  popularity: number;
+  regionName: string;
+  countryCode: string | null;
+  bbox: [number, number, number, number];
+  createdAt: ISODate;
+  updatedAt: ISODate;
+}
+
+export interface CommunityTrailWithDetails extends CommunityTrail {
+  pois: TrackPoi[];
+  distanceFromMeKm: number | null;
+  contributors: User[];
+}
+
+export interface NavigationStep {
+  index: number;
+  coords: GeoPoint;
+  maneuver: NavManeuver;
+  /** Bu adımdan sonraki adıma mesafe */
+  distanceM: number;
+  bearingDeg: number;
+  /** Yakındaki POI adı (kamp, su…) */
+  poiName: string | null;
+  /** Rota başından kümülatif mesafe */
+  cumulativeM: number;
+}
+
+export interface NavigationProgress {
+  stepIndex: number;
+  distanceToNextM: number;
+  remainingM: number;
+  offRouteM: number;
+  isOffRoute: boolean;
+  etaMin: number;
+}
+
+export interface SaveTrackInput {
+  name: string;
+  adventureType: AdventureType;
+  points: TrackPoint[];
+  source: TrackSource;
+  isPublic: boolean;
+  regionName: string;
+  pois: Omit<
+    TrackPoi,
+    'id' | 'trackId' | 'communityTrailId' | 'userId' | 'confirmations' | 'createdAt'
+  >[];
+}
+
+export interface TrackFilter {
+  query?: string;
+  adventureType?: AdventureType | null;
+  origin?: GeoPoint | null;
+  radiusKm?: number | null;
+  mineOnly?: boolean;
+}
+
+/* ------------------------------------------------------------------ */
+/* v1.4 — Açık veri: hava, yükseklik, çığ                              */
+/* ------------------------------------------------------------------ */
+
+export interface WeatherHour {
+  time: ISODate;
+  temperatureC: number;
+  apparentC: number;
+  precipitationMm: number;
+  precipitationProbability: number;
+  windKmh: number;
+  windGustKmh: number;
+  windDirectionDeg: number;
+  cloudCoverPct: number;
+  /** WMO hava kodu */
+  weatherCode: number;
+  snowfallCm: number;
+  freezingLevelM: number | null;
+}
+
+export interface WeatherDay {
+  date: ISODate;
+  minC: number;
+  maxC: number;
+  precipitationMm: number;
+  precipitationProbability: number;
+  windMaxKmh: number;
+  weatherCode: number;
+  sunrise: ISODate;
+  sunset: ISODate;
+  uvIndex: number;
+}
+
+export interface WeatherForecast {
+  coords: GeoPoint;
+  elevationM: number | null;
+  timezone: string;
+  fetchedAt: ISODate;
+  source: 'open-meteo' | 'mock';
+  hourly: WeatherHour[];
+  daily: WeatherDay[];
+  /** Domain tarafından hesaplanan uyarılar (i18n anahtarları) */
+  alerts: WeatherAlert[];
+}
+
+export interface WeatherAlert {
+  kind: 'wind' | 'storm' | 'cold' | 'heat' | 'snow' | 'rain' | 'uv' | 'lightning';
+  level: 'info' | 'warning' | 'danger';
+  from: ISODate;
+  to: ISODate;
+  value: number;
+}
+
+export interface AvalancheBulletin {
+  regionCode: string;
+  regionName: string;
+  validFrom: ISODate;
+  validTo: ISODate;
+  dangerLevel: AvalancheLevel;
+  /** Yükseklik bandına göre (örn. 2200 m üstü 3) */
+  dangerAbove: { elevationM: number; level: AvalancheLevel } | null;
+  problems: string[];
+  summary: string;
+  source: 'eaws' | 'mock';
+  url: string | null;
 }

@@ -126,6 +126,17 @@ import type {
   Enrollment,
   Certificate,
   CourseReview,
+  Track,
+  TrackWithUser,
+  TrackPoi,
+  TrackPoiWithDistance,
+  CommunityTrail,
+  CommunityTrailWithDetails,
+  NavigationStep,
+  SaveTrackInput,
+  TrackFilter,
+  WeatherForecast,
+  AvalancheBulletin,
 } from '@/domain';
 
 /**
@@ -501,6 +512,56 @@ export interface CourseRepository {
   ): Promise<CourseWithInstructor>;
 }
 
+/* ------------------------------------------------------------------ */
+/* v1.4 — Topluluk rotaları, navigasyon, açık veri                     */
+/* ------------------------------------------------------------------ */
+
+export interface TrackRepository {
+  list(meId: ID, filter: TrackFilter): Promise<TrackWithUser[]>;
+  getById(meId: ID, id: ID): Promise<(TrackWithUser & { pois: TrackPoi[] }) | null>;
+  save(meId: ID, input: SaveTrackInput): Promise<TrackWithUser>;
+  importGpx(
+    meId: ID,
+    gpxXml: string,
+    source: Track['source'],
+    name?: string | null,
+  ): Promise<TrackWithUser>;
+  publish(meId: ID, trackId: ID): Promise<TrackWithUser>;
+  remove(meId: ID, trackId: ID): Promise<void>;
+  communityTrails(
+    meId: ID,
+    origin: GeoPoint | null,
+    radiusKm?: number | null,
+  ): Promise<CommunityTrailWithDetails[]>;
+  communityTrail(meId: ID, id: ID): Promise<CommunityTrailWithDetails | null>;
+  /** Kullanıcı bu rotayı yürüyüp doğruladı */
+  verifyTrail(meId: ID, id: ID): Promise<CommunityTrailWithDetails>;
+  /** Yayınlanan parçalardan topluluk rotalarını (yeniden) türetir */
+  rebuildCommunityTrails(): Promise<CommunityTrail[]>;
+  poisNear(
+    meId: ID,
+    origin: GeoPoint,
+    radiusKm: number,
+    kind?: TrackPoi['kind'] | null,
+  ): Promise<TrackPoiWithDistance[]>;
+  addPoi(
+    meId: ID,
+    input: Omit<TrackPoi, 'id' | 'userId' | 'confirmations' | 'createdAt'>,
+  ): Promise<TrackPoi>;
+  confirmPoi(meId: ID, poiId: ID): Promise<TrackPoiWithDistance>;
+  /** An/yayın/gönderi konumlarından önerilen POI'ler (henüz kaydedilmemiş) */
+  suggestedPoisFromMedia(meId: ID, origin: GeoPoint | null): Promise<TrackPoi[]>;
+  navigation(id: ID, kind: 'track' | 'community'): Promise<NavigationStep[]>;
+  /** Topluluk rotasını planlayıcının kullandığı graf biçimine çevirir */
+  toGraph(id: ID): Promise<TrailGraph>;
+}
+
+export interface WeatherRepository {
+  forecast(coords: GeoPoint, elevationM?: number | null): Promise<WeatherForecast>;
+  elevation(points: GeoPoint[]): Promise<(number | null)[]>;
+  avalanche(coords: GeoPoint): Promise<AvalancheBulletin | null>;
+}
+
 export interface DataProvider {
   auth: AuthRepository;
   users: UserRepository;
@@ -531,6 +592,8 @@ export interface DataProvider {
   social: SocialRepository;
   groups: GroupRepository;
   courses: CourseRepository;
+  tracks: TrackRepository;
+  weather: WeatherRepository;
   /** Demo verilerini sıfırlar (yalnızca mock sağlayıcı için anlamlı) */
   reset(): Promise<void>;
 }

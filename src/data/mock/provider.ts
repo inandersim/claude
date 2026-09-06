@@ -91,6 +91,8 @@ import { createDestinationRepository } from './repos/destinations';
 import { createGroupRepository } from './repos/groups';
 import { createSocialRepository } from './repos/social';
 import { createVisionRepository } from './repos/vision';
+import { createTrackRepository } from './repos/tracks';
+import { createWeatherRepository } from './repos/weather';
 import { CURRENT_USER_ID } from './seed';
 
 interface Options {
@@ -1505,6 +1507,8 @@ export function createMockProvider(options: Options = {}): DataProvider {
     social: atBoundary(createSocialRepository(ctx)),
     groups: atBoundary(createGroupRepository(ctx)),
     courses: atBoundary(createCourseRepository(ctx)),
+    tracks: atBoundary(createTrackRepository(ctx)),
+    weather: atBoundary(createWeatherRepository(ctx)),
     reset: () => db.reset(),
   };
 }

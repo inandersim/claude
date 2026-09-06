@@ -153,6 +153,24 @@ export default function AppLayout() {
         name="courses/create"
         options={{ presentation: 'modal', animation: 'slide_from_bottom' }}
       />
+      {/* v1.4 */}
+      <Stack.Screen name="tracks/index" />
+      <Stack.Screen name="tracks/[id]" />
+      <Stack.Screen
+        name="tracks/record"
+        options={{ presentation: 'fullScreenModal', animation: 'slide_from_bottom' }}
+      />
+      <Stack.Screen
+        name="tracks/import"
+        options={{ presentation: 'modal', animation: 'slide_from_bottom' }}
+      />
+      <Stack.Screen name="tracks/community/[id]" />
+      <Stack.Screen name="tracks/pois" />
+      <Stack.Screen
+        name="navigate/[id]"
+        options={{ presentation: 'fullScreenModal', animation: 'fade' }}
+      />
+      <Stack.Screen name="weather/index" />
     </Stack>
   );
 }

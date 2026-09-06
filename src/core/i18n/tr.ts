@@ -11,6 +11,8 @@ import { rescueI18n } from './modules/rescue';
 import { socialI18n } from './modules/social';
 import { groupsI18n } from './modules/groups';
 import { coursesI18n } from './modules/courses';
+import { tracksI18n } from './modules/tracks';
+import { weatherI18n } from './modules/weather';
 
 export const tr = {
   common: {
@@ -217,6 +219,10 @@ export const tr = {
     themeSystem: 'Sistem',
     themeLight: 'Açık',
     themeDark: 'Koyu',
+    themeAuto: 'Otomatik',
+    themeSun: 'Güneş',
+    themeAutoSensor: 'Ortam ışığı sensörüne göre: şu an {{scheme}}',
+    themeAutoClock: 'Gün ışığı saatine göre: şu an {{scheme}}',
     language: 'Dil',
     turkish: 'Türkçe',
     english: 'English',
@@ -775,6 +781,8 @@ export const tr = {
   social: socialI18n.tr,
   groups: groupsI18n.tr,
   courses: coursesI18n.tr,
+  tracks: tracksI18n.tr,
+  weather: weatherI18n.tr,
 };
 
 export type Translations = typeof tr;

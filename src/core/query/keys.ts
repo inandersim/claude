@@ -6,6 +6,7 @@ import type {
   DestinationFilter,
   GroupFilter,
   SocialFilter,
+  TrackFilter,
   ClubFilter,
   ISODate,
   LeaderboardScope,
@@ -249,5 +250,36 @@ export const queryKeys = {
     mine: (meId: ID) => ['courses', 'mine', meId] as const,
     certificates: (meId: ID) => ['courses', 'certificates', meId] as const,
     reviews: (id: ID) => ['courses', 'reviews', id] as const,
+  },
+  /* v1.4 */
+  tracks: {
+    all: ['tracks'] as const,
+    list: (meId: ID, filter: TrackFilter) =>
+      ['tracks', 'list', meId, { ...filter, origin: filter.origin ? 'o' : null }] as const,
+    detail: (meId: ID, id: ID) => ['tracks', 'detail', meId, id] as const,
+    community: (meId: ID, origin: GeoPoint | null) =>
+      [
+        'tracks',
+        'community',
+        meId,
+        origin ? `${origin.latitude.toFixed(1)},${origin.longitude.toFixed(1)}` : null,
+      ] as const,
+    communityDetail: (meId: ID, id: ID) => ['tracks', 'communityDetail', meId, id] as const,
+    pois: (origin: GeoPoint, radiusKm: number) =>
+      [
+        'tracks',
+        'pois',
+        origin.latitude.toFixed(2),
+        origin.longitude.toFixed(2),
+        radiusKm,
+      ] as const,
+    suggested: (meId: ID) => ['tracks', 'suggested', meId] as const,
+    navigation: (id: ID, kind: string) => ['tracks', 'navigation', id, kind] as const,
+  },
+  weather: {
+    forecast: (coords: GeoPoint) =>
+      ['weather', 'forecast', coords.latitude.toFixed(2), coords.longitude.toFixed(2)] as const,
+    avalanche: (coords: GeoPoint) =>
+      ['weather', 'avalanche', coords.latitude.toFixed(1), coords.longitude.toFixed(1)] as const,
   },
 };
