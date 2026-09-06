@@ -114,8 +114,10 @@ describe('RemoteVisionClient', () => {
       status: 502,
     });
 
-    const { createVisionRepository } = await import('../mock/repos/vision');
-    const { MockDatabase } = await import('../mock/database');
+    const { createVisionRepository } =
+      jest.requireActual<typeof import('../mock/repos/vision')>('../mock/repos/vision');
+    const { MockDatabase } =
+      jest.requireActual<typeof import('../mock/database')>('../mock/database');
     const db = new MockDatabase(false);
     const repo = createVisionRepository(
       {
