@@ -73,7 +73,7 @@ export function RouteStats({ planned, showSurfaces = true }: Props) {
       {showSurfaces && surfaces.length > 0 ? (
         <View style={styles.surfaces}>
           <Text variant="label" color="textSubtle">
-            {t('maps.surfaceBreakdown').toLocaleUpperCase('tr-TR')}
+            {t('maps.surfaceBreakdown').toLocaleUpperCase(locale)}
           </Text>
           <View style={[styles.bar, { backgroundColor: colors.surfaceMuted }]}>
             {surfaces.map(([surface, km]) => (

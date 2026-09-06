@@ -4,7 +4,14 @@
   "metadata": {
     "zirtan:version": 1,
     "zirtan:doc": "Doğa temalı vektör stil. Renkler '@token' göstergeleriyle yazılır ve çalışma anında (src/features/maps/vector/style.ts → resolveMapStyle) tema varyantından çözülür. Kaynak adı '@source', karo katmanları OSM etiketlerini olduğu gibi taşır (highway, sac_scale, surface, natural, landuse, waterway, tourism, amenity).",
-    "zirtan:sourceLayers": ["trails", "roads", "water", "landuse", "poi", "contours"],
+    "zirtan:sourceLayers": [
+      "trails",
+      "roads",
+      "water",
+      "landuse",
+      "poi",
+      "contours"
+    ],
     "zirtan:variants": {
       "light": {
         "land": "#F1EEE2",
@@ -26,7 +33,13 @@
         "poiShelter": "#2F7D4F",
         "poiCamp": "#E8722A",
         "poiView": "#8A5AB8",
-        "poiStroke": "#FFFFFF"
+        "poiStroke": "#FFFFFF",
+        "surfTrail": "#8A5A2B",
+        "surfGravel": "#B08A4A",
+        "surfPaved": "#8C9AA6",
+        "surfRock": "#A8654A",
+        "surfScree": "#967B69",
+        "surfSnow": "#63A8CE"
       },
       "dark": {
         "land": "#101B17",
@@ -48,7 +61,13 @@
         "poiShelter": "#6FD59A",
         "poiCamp": "#F5A05A",
         "poiView": "#C79BF0",
-        "poiStroke": "#0B1210"
+        "poiStroke": "#0B1210",
+        "surfTrail": "#C79A63",
+        "surfGravel": "#B99155",
+        "surfPaved": "#8FA3AE",
+        "surfRock": "#E09A78",
+        "surfScree": "#C0A491",
+        "surfSnow": "#9FD1F0"
       },
       "sun": {
         "land": "#FFFFFF",
@@ -70,7 +89,13 @@
         "poiShelter": "#0F6B36",
         "poiCamp": "#C24E00",
         "poiView": "#5B2A9B",
-        "poiStroke": "#FFFFFF"
+        "poiStroke": "#FFFFFF",
+        "surfTrail": "#6B3B12",
+        "surfGravel": "#8A5F1E",
+        "surfPaved": "#3C4A54",
+        "surfRock": "#8E2F10",
+        "surfScree": "#6B4A38",
+        "surfSnow": "#0B4FA8"
       }
     }
   },
@@ -79,7 +104,9 @@
     {
       "id": "background",
       "type": "background",
-      "paint": { "background-color": "@land" }
+      "paint": {
+        "background-color": "@land"
+      }
     },
     {
       "id": "landuse-forest",
@@ -89,10 +116,27 @@
       "minzoom": 8,
       "filter": [
         "any",
-        ["==", ["get", "landuse"], "forest"],
-        ["==", ["get", "natural"], "wood"]
+        [
+          "==",
+          [
+            "get",
+            "landuse"
+          ],
+          "forest"
+        ],
+        [
+          "==",
+          [
+            "get",
+            "natural"
+          ],
+          "wood"
+        ]
       ],
-      "paint": { "fill-color": "@forest", "fill-opacity": 0.85 }
+      "paint": {
+        "fill-color": "@forest",
+        "fill-opacity": 0.85
+      }
     },
     {
       "id": "landuse-scrub",
@@ -100,8 +144,24 @@
       "source": "@source",
       "source-layer": "landuse",
       "minzoom": 9,
-      "filter": ["in", ["get", "natural"], ["literal", ["scrub", "grassland"]]],
-      "paint": { "fill-color": "@scrub", "fill-opacity": 0.7 }
+      "filter": [
+        "in",
+        [
+          "get",
+          "natural"
+        ],
+        [
+          "literal",
+          [
+            "scrub",
+            "grassland"
+          ]
+        ]
+      ],
+      "paint": {
+        "fill-color": "@scrub",
+        "fill-opacity": 0.7
+      }
     },
     {
       "id": "landuse-rock",
@@ -109,8 +169,24 @@
       "source": "@source",
       "source-layer": "landuse",
       "minzoom": 9,
-      "filter": ["in", ["get", "natural"], ["literal", ["bare_rock", "scree"]]],
-      "paint": { "fill-color": "@rock", "fill-opacity": 0.9 }
+      "filter": [
+        "in",
+        [
+          "get",
+          "natural"
+        ],
+        [
+          "literal",
+          [
+            "bare_rock",
+            "scree"
+          ]
+        ]
+      ],
+      "paint": {
+        "fill-color": "@rock",
+        "fill-opacity": 0.9
+      }
     },
     {
       "id": "landuse-glacier",
@@ -118,8 +194,17 @@
       "source": "@source",
       "source-layer": "landuse",
       "minzoom": 8,
-      "filter": ["==", ["get", "natural"], "glacier"],
-      "paint": { "fill-color": "@glacier" }
+      "filter": [
+        "==",
+        [
+          "get",
+          "natural"
+        ],
+        "glacier"
+      ],
+      "paint": {
+        "fill-color": "@glacier"
+      }
     },
     {
       "id": "water-fill",
@@ -127,8 +212,16 @@
       "source": "@source",
       "source-layer": "water",
       "minzoom": 7,
-      "filter": ["==", ["geometry-type"], "Polygon"],
-      "paint": { "fill-color": "@water" }
+      "filter": [
+        "==",
+        [
+          "geometry-type"
+        ],
+        "Polygon"
+      ],
+      "paint": {
+        "fill-color": "@water"
+      }
     },
     {
       "id": "water-line",
@@ -136,14 +229,27 @@
       "source": "@source",
       "source-layer": "water",
       "minzoom": 9,
-      "filter": ["==", ["geometry-type"], "LineString"],
-      "layout": { "line-cap": "round", "line-join": "round" },
+      "filter": [
+        "==",
+        [
+          "geometry-type"
+        ],
+        "LineString"
+      ],
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
       "paint": {
         "line-color": "@waterLine",
         "line-width": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           9,
           0.6,
           12,
@@ -163,7 +269,22 @@
         "line-color": "@contour",
         "line-width": [
           "case",
-          ["==", ["%", ["to-number", ["get", "ele"], 0], 100], 0],
+          [
+            "==",
+            [
+              "%",
+              [
+                "to-number",
+                [
+                  "get",
+                  "ele"
+                ],
+                0
+              ],
+              100
+            ],
+            0
+          ],
           0.9,
           0.45
         ]
@@ -175,13 +296,21 @@
       "source": "@source",
       "source-layer": "roads",
       "minzoom": 8,
-      "layout": { "line-cap": "round", "line-join": "round" },
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
       "paint": {
         "line-color": "@roadCasing",
         "line-width": [
           "interpolate",
-          ["exponential", 1.4],
-          ["zoom"],
+          [
+            "exponential",
+            1.4
+          ],
+          [
+            "zoom"
+          ],
           8,
           1.6,
           12,
@@ -197,13 +326,21 @@
       "source": "@source",
       "source-layer": "roads",
       "minzoom": 9,
-      "layout": { "line-cap": "round", "line-join": "round" },
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
       "paint": {
         "line-color": "@road",
         "line-width": [
           "interpolate",
-          ["exponential", 1.4],
-          ["zoom"],
+          [
+            "exponential",
+            1.4
+          ],
+          [
+            "zoom"
+          ],
           9,
           0.7,
           12,
@@ -219,15 +356,51 @@
       "source": "@source",
       "source-layer": "trails",
       "minzoom": 9,
-      "filter": ["==", ["get", "highway"], "track"],
-      "layout": { "line-cap": "butt", "line-join": "round" },
+      "filter": [
+        "==",
+        [
+          "get",
+          "highway"
+        ],
+        "track"
+      ],
+      "layout": {
+        "line-cap": "butt",
+        "line-join": "round"
+      },
       "paint": {
-        "line-color": "@trailTrack",
-        "line-dasharray": [4, 1.5],
+        "line-color": [
+          "match",
+          [
+            "get",
+            "surface"
+          ],
+          [
+            "asphalt",
+            "paved",
+            "concrete"
+          ],
+          "@surfPaved",
+          [
+            "rock",
+            "bare_rock"
+          ],
+          "@surfRock",
+          "@trailTrack"
+        ],
+        "line-dasharray": [
+          4,
+          1.5
+        ],
         "line-width": [
           "interpolate",
-          ["exponential", 1.4],
-          ["zoom"],
+          [
+            "exponential",
+            1.4
+          ],
+          [
+            "zoom"
+          ],
           9,
           0.9,
           13,
@@ -245,17 +418,96 @@
       "minzoom": 9,
       "filter": [
         "all",
-        ["in", ["get", "highway"], ["literal", ["path", "footway", "bridleway", "cycleway"]]],
-        ["!", ["in", ["get", "sac_scale"], ["literal", ["demanding_mountain_hiking", "alpine_hiking", "demanding_alpine_hiking", "difficult_alpine_hiking"]]]]
+        [
+          "in",
+          [
+            "get",
+            "highway"
+          ],
+          [
+            "literal",
+            [
+              "path",
+              "footway",
+              "bridleway",
+              "cycleway"
+            ]
+          ]
+        ],
+        [
+          "!",
+          [
+            "in",
+            [
+              "get",
+              "sac_scale"
+            ],
+            [
+              "literal",
+              [
+                "demanding_mountain_hiking",
+                "alpine_hiking",
+                "demanding_alpine_hiking",
+                "difficult_alpine_hiking"
+              ]
+            ]
+          ]
+        ]
       ],
-      "layout": { "line-cap": "round", "line-join": "round" },
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
       "paint": {
-        "line-color": "@trail",
-        "line-dasharray": [3, 1.2],
+        "line-color": [
+          "match",
+          [
+            "get",
+            "surface"
+          ],
+          [
+            "gravel",
+            "fine_gravel",
+            "compacted",
+            "pebblestone"
+          ],
+          "@surfGravel",
+          [
+            "asphalt",
+            "paved",
+            "concrete"
+          ],
+          "@surfPaved",
+          [
+            "rock",
+            "bare_rock"
+          ],
+          "@surfRock",
+          [
+            "scree",
+            "shingle"
+          ],
+          "@surfScree",
+          [
+            "snow",
+            "ice"
+          ],
+          "@surfSnow",
+          "@surfTrail"
+        ],
+        "line-dasharray": [
+          3,
+          1.2
+        ],
         "line-width": [
           "interpolate",
-          ["exponential", 1.4],
-          ["zoom"],
+          [
+            "exponential",
+            1.4
+          ],
+          [
+            "zoom"
+          ],
           9,
           0.8,
           13,
@@ -273,18 +525,54 @@
       "minzoom": 10,
       "filter": [
         "any",
-        ["in", ["get", "sac_scale"], ["literal", ["demanding_mountain_hiking", "alpine_hiking", "demanding_alpine_hiking", "difficult_alpine_hiking"]]],
-        ["==", ["get", "highway"], "via_ferrata"],
-        ["has", "via_ferrata_scale"]
+        [
+          "in",
+          [
+            "get",
+            "sac_scale"
+          ],
+          [
+            "literal",
+            [
+              "demanding_mountain_hiking",
+              "alpine_hiking",
+              "demanding_alpine_hiking",
+              "difficult_alpine_hiking"
+            ]
+          ]
+        ],
+        [
+          "==",
+          [
+            "get",
+            "highway"
+          ],
+          "via_ferrata"
+        ],
+        [
+          "has",
+          "via_ferrata_scale"
+        ]
       ],
-      "layout": { "line-cap": "butt", "line-join": "round" },
+      "layout": {
+        "line-cap": "butt",
+        "line-join": "round"
+      },
       "paint": {
         "line-color": "@trailTechnical",
-        "line-dasharray": [1.6, 1.1],
+        "line-dasharray": [
+          1.6,
+          1.1
+        ],
         "line-width": [
           "interpolate",
-          ["exponential", 1.4],
-          ["zoom"],
+          [
+            "exponential",
+            1.4
+          ],
+          [
+            "zoom"
+          ],
           10,
           1.1,
           13,
@@ -300,15 +588,31 @@
       "source": "@source",
       "source-layer": "trails",
       "minzoom": 12,
-      "filter": ["==", ["get", "highway"], "steps"],
-      "layout": { "line-cap": "butt" },
+      "filter": [
+        "==",
+        [
+          "get",
+          "highway"
+        ],
+        "steps"
+      ],
+      "layout": {
+        "line-cap": "butt"
+      },
       "paint": {
         "line-color": "@trailSteps",
-        "line-dasharray": [0.6, 0.6],
+        "line-dasharray": [
+          0.6,
+          0.6
+        ],
         "line-width": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           12,
           2,
           16,
@@ -322,9 +626,28 @@
       "source": "@source",
       "source-layer": "poi",
       "minzoom": 10,
-      "filter": ["==", ["get", "natural"], "peak"],
+      "filter": [
+        "==",
+        [
+          "get",
+          "natural"
+        ],
+        "peak"
+      ],
       "paint": {
-        "circle-radius": ["interpolate", ["linear"], ["zoom"], 10, 3.5, 15, 7],
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          10,
+          3.5,
+          15,
+          7
+        ],
         "circle-color": "@poiPeak",
         "circle-stroke-color": "@poiStroke",
         "circle-stroke-width": 1.5
@@ -338,11 +661,43 @@
       "minzoom": 11,
       "filter": [
         "any",
-        ["==", ["get", "amenity"], "shelter"],
-        ["in", ["get", "tourism"], ["literal", ["alpine_hut", "wilderness_hut"]]]
+        [
+          "==",
+          [
+            "get",
+            "amenity"
+          ],
+          "shelter"
+        ],
+        [
+          "in",
+          [
+            "get",
+            "tourism"
+          ],
+          [
+            "literal",
+            [
+              "alpine_hut",
+              "wilderness_hut"
+            ]
+          ]
+        ]
       ],
       "paint": {
-        "circle-radius": ["interpolate", ["linear"], ["zoom"], 11, 3.5, 15, 7],
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          11,
+          3.5,
+          15,
+          7
+        ],
         "circle-color": "@poiShelter",
         "circle-stroke-color": "@poiStroke",
         "circle-stroke-width": 1.5
@@ -354,9 +709,28 @@
       "source": "@source",
       "source-layer": "poi",
       "minzoom": 11,
-      "filter": ["==", ["get", "tourism"], "camp_site"],
+      "filter": [
+        "==",
+        [
+          "get",
+          "tourism"
+        ],
+        "camp_site"
+      ],
       "paint": {
-        "circle-radius": ["interpolate", ["linear"], ["zoom"], 11, 3.5, 15, 6.5],
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          11,
+          3.5,
+          15,
+          6.5
+        ],
         "circle-color": "@poiCamp",
         "circle-stroke-color": "@poiStroke",
         "circle-stroke-width": 1.5
@@ -368,9 +742,28 @@
       "source": "@source",
       "source-layer": "poi",
       "minzoom": 12,
-      "filter": ["==", ["get", "natural"], "spring"],
+      "filter": [
+        "==",
+        [
+          "get",
+          "natural"
+        ],
+        "spring"
+      ],
       "paint": {
-        "circle-radius": ["interpolate", ["linear"], ["zoom"], 12, 3, 15, 6],
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          12,
+          3,
+          15,
+          6
+        ],
         "circle-color": "@poiWater",
         "circle-stroke-color": "@poiStroke",
         "circle-stroke-width": 1.5
@@ -384,11 +777,37 @@
       "minzoom": 12,
       "filter": [
         "any",
-        ["==", ["get", "tourism"], "viewpoint"],
-        ["==", ["get", "mountain_pass"], "yes"]
+        [
+          "==",
+          [
+            "get",
+            "tourism"
+          ],
+          "viewpoint"
+        ],
+        [
+          "==",
+          [
+            "get",
+            "mountain_pass"
+          ],
+          "yes"
+        ]
       ],
       "paint": {
-        "circle-radius": ["interpolate", ["linear"], ["zoom"], 12, 3, 15, 6],
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          12,
+          3,
+          15,
+          6
+        ],
         "circle-color": "@poiView",
         "circle-stroke-color": "@poiStroke",
         "circle-stroke-width": 1.5

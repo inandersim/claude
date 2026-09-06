@@ -49,7 +49,7 @@ export function ElevationProfile({ planned, height = 140 }: Props) {
     >
       <View style={styles.header}>
         <Text variant="label" color="textSubtle">
-          {t('maps.elevationProfile').toLocaleUpperCase('tr-TR')}
+          {t('maps.elevationProfile').toLocaleUpperCase(locale)}
         </Text>
         <Text variant="caption" color="textMuted">
           {formatAltitude(planned.minElevationM, locale)} →{' '}

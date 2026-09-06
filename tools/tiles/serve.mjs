@@ -16,7 +16,7 @@
  *   GET /graphs/<bölge>.json        → yönlendirme grafı (TrailGraph)
  */
 
-import { createReadStream, existsSync, readdirSync, statSync } from 'node:fs';
+import { createReadStream, existsSync, openSync, readSync, closeSync, readdirSync, statSync } from 'node:fs';
 import { createServer } from 'node:http';
 import { extname, resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -31,18 +31,55 @@ const MIME = {
   '.geojson': 'application/geo+json; charset=utf-8',
 };
 
+/**
+ * PMTiles başlığından (ilk 127 bayt) sınır kutusu ve zum aralığını okur.
+ * İstemci böylece hangi paketin hangi bölgeyi kapsadığını sunucudan öğrenir.
+ * Biçim: https://github.com/protomaps/PMTiles/blob/main/spec/v3/spec.md
+ */
+export function readPmtilesHeader(path) {
+  const fd = openSync(path, 'r');
+  try {
+    const buf = Buffer.alloc(127);
+    if (readSync(fd, buf, 0, 127, 0) < 127) return null;
+    if (buf.toString('ascii', 0, 7) !== 'PMTiles') return null;
+    return {
+      minzoom: buf.readUInt8(100),
+      maxzoom: buf.readUInt8(101),
+      // [minLon, minLat, maxLon, maxLat]
+      bbox: [
+        buf.readInt32LE(102) / 1e7,
+        buf.readInt32LE(106) / 1e7,
+        buf.readInt32LE(110) / 1e7,
+        buf.readInt32LE(114) / 1e7,
+      ],
+    };
+  } catch {
+    return null;
+  } finally {
+    closeSync(fd);
+  }
+};
+
 const listPacks = () => {
   if (!existsSync(TILES_DIR)) return [];
   return readdirSync(TILES_DIR)
     .filter((f) => f.endsWith('.pmtiles'))
     .map((f) => {
-      const { size, mtime } = statSync(resolve(TILES_DIR, f));
+      const path = resolve(TILES_DIR, f);
+      const { size, mtime } = statSync(path);
       const id = f.replace(/\.pmtiles$/, '');
+      const header = readPmtilesHeader(path);
       return {
         id,
         format: 'pmtiles',
-        sizeMb: Number((size / 1024 / 1024).toFixed(1)),
+        sizeMb: Number((size / 1024 / 1024).toFixed(2)),
+        sizeBytes: size,
         updatedAt: mtime.toISOString(),
+        // Sürüm: dosya değişince istemci farkı görsün diye değişiklik zamanından türetilir.
+        version: `${mtime.getUTCFullYear()}.${String(mtime.getUTCMonth() + 1).padStart(2, '0')}`,
+        bbox: header?.bbox ?? null,
+        minzoom: header?.minzoom ?? null,
+        maxzoom: header?.maxzoom ?? null,
         url: `/tiles/${f}`,
         graphUrl: existsSync(resolve(GRAPHS_DIR, `${id}.json`)) ? `/graphs/${id}.json` : null,
       };

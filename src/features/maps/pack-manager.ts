@@ -1,0 +1,415 @@
+import { Directory, File, Paths } from 'expo-file-system';
+
+import type { ID, MapPack, MapPackStatus } from '@/domain';
+
+/* ------------------------------------------------------------------ */
+/* Yapılandırma                                                        */
+/* ------------------------------------------------------------------ */
+
+/** Karo sunucusu kökü; `.env` içinde `EXPO_PUBLIC_TILES_URL` ile verilir. */
+export function tilesBaseUrl(): string | null {
+  const url = process.env.EXPO_PUBLIC_TILES_URL?.trim();
+  return url ? url.replace(/\/+$/, '') : null;
+}
+
+/** Paketlerin indirileceği dizin adı (belge dizini altında). */
+export const PACK_DIR = 'map-packs';
+
+/** `<paket>.pmtiles` dosya adı — yol geçişine kapalı. */
+export function packFileName(packId: ID): string {
+  const safe = packId.replace(/[^a-zA-Z0-9_-]/g, '');
+  if (!safe) throw new Error('Geçersiz paket kimliği');
+  return `${safe}.pmtiles`;
+}
+
+/** Künye dosyası: sürüm ve boyut çevrimdışı da bilinsin diye yanına yazılır. */
+export function packMetaName(packId: ID): string {
+  return `${packFileName(packId)}.json`;
+}
+
+/** Uzak karo adresi. `baseUrl` yoksa paket indirilemez. */
+export function packRemoteUrl(packId: ID, baseUrl = tilesBaseUrl()): string | null {
+  return baseUrl ? `${baseUrl}/tiles/${packFileName(packId)}` : null;
+}
+
+/* ------------------------------------------------------------------ */
+/* Sürüm karşılaştırma                                                 */
+/* ------------------------------------------------------------------ */
+
+/**
+ * `2026.09`, `1.4.2` gibi noktalı sürümleri sayısal olarak karşılaştırır.
+ * Dönüş: a<b → -1, a==b → 0, a>b → 1.
+ */
+export function compareVersions(a: string, b: string): -1 | 0 | 1 {
+  const pa = a.split(/[.\-+]/).map((s) => parseInt(s, 10));
+  const pb = b.split(/[.\-+]/).map((s) => parseInt(s, 10));
+  const len = Math.max(pa.length, pb.length);
+  for (let i = 0; i < len; i += 1) {
+    const x = Number.isFinite(pa[i]) ? (pa[i] as number) : 0;
+    const y = Number.isFinite(pb[i]) ? (pb[i] as number) : 0;
+    if (x < y) return -1;
+    if (x > y) return 1;
+  }
+  return 0;
+}
+
+/** Cihazdaki sürüm sunucudakinden eskiyse `true`. */
+export function isOutdated(localVersion: string | null, remoteVersion: string): boolean {
+  if (!localVersion) return false;
+  return compareVersions(localVersion, remoteVersion) < 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Durum makinesi                                                      */
+/* ------------------------------------------------------------------ */
+
+export type PackEvent =
+  | { type: 'download' }
+  | { type: 'progress'; progress: number }
+  | { type: 'complete'; version: string; sizeMb: number; localPath: string; at: string }
+  | { type: 'cancel' }
+  | { type: 'fail' }
+  | { type: 'remove' }
+  | { type: 'remote-version'; version: string };
+
+/**
+ * Paket durum makinesi — saf fonksiyon, dosya sistemi bilmez.
+ *
+ * ```
+ * available ──download──▶ downloading ──complete──▶ downloaded
+ *      ▲                      │  ▲                      │
+ *      └── cancel/fail ───────┘  └──── download ────────┤ (yeni sürüm)
+ *      └────────────── remove ───────────────────────────┘
+ * downloaded ──remote-version (daha yeni)──▶ update_available
+ * ```
+ */
+export function packReducer(pack: MapPack, event: PackEvent): MapPack {
+  switch (event.type) {
+    case 'download':
+      if (pack.status === 'downloading') return pack;
+      return { ...pack, status: 'downloading', progress: 0, localPath: null };
+    case 'progress': {
+      if (pack.status !== 'downloading') return pack;
+      const progress = Math.min(1, Math.max(0, event.progress));
+      if (Math.abs(progress - pack.progress) < 0.005) return pack;
+      return { ...pack, progress };
+    }
+    case 'complete':
+      return {
+        ...pack,
+        status: 'downloaded',
+        progress: 1,
+        version: event.version,
+        sizeMb: event.sizeMb,
+        localPath: event.localPath,
+        updatedAt: event.at,
+      };
+    case 'cancel':
+    case 'fail':
+      if (pack.status !== 'downloading') return pack;
+      return { ...pack, status: 'available', progress: 0, localPath: null };
+    case 'remove':
+      return { ...pack, status: 'available', progress: 0, localPath: null };
+    case 'remote-version':
+      if (pack.status !== 'downloaded') return pack;
+      return isOutdated(pack.version, event.version)
+        ? { ...pack, status: 'update_available' }
+        : pack;
+    default:
+      return pack;
+  }
+}
+
+/** Yalnızca durum adı gereken yerler için kısayol. */
+export function nextStatus(pack: MapPack, event: PackEvent): MapPackStatus {
+  return packReducer(pack, event).status;
+}
+
+/* ------------------------------------------------------------------ */
+/* Depolama katmanı (test edilebilir olsun diye arayüz)                */
+/* ------------------------------------------------------------------ */
+
+export interface PackMeta {
+  version: string;
+  sizeMb: number;
+  updatedAt: string;
+}
+
+export interface PackStorage {
+  /** Paket dizinini oluşturur (varsa dokunmaz). */
+  ensure(): void;
+  exists(fileName: string): boolean;
+  /** Bayt cinsinden dosya boyutu; yoksa 0. */
+  size(fileName: string): number;
+  uri(fileName: string): string;
+  remove(fileName: string): void;
+  list(): string[];
+  readMeta(fileName: string): PackMeta | null;
+  writeMeta(fileName: string, meta: PackMeta): void;
+  download(
+    url: string,
+    fileName: string,
+    options: { onProgress?: (received: number, total: number) => void; signal?: AbortSignal },
+  ): Promise<number>;
+}
+
+/** `expo-file-system` tabanlı gerçek depolama. */
+export function createFileSystemStorage(dirName = PACK_DIR): PackStorage {
+  const dir = () => new Directory(Paths.document, dirName);
+  const file = (name: string) => new File(dir(), name);
+  return {
+    ensure() {
+      const d = dir();
+      if (!d.exists) d.create({ intermediates: true });
+    },
+    exists: (name) => file(name).exists,
+    size: (name) => {
+      const f = file(name);
+      return f.exists ? f.size : 0;
+    },
+    uri: (name) => file(name).uri,
+    remove(name) {
+      const f = file(name);
+      if (f.exists) f.delete();
+    },
+    list() {
+      const d = dir();
+      if (!d.exists) return [];
+      return d
+        .list()
+        .filter((entry): entry is File => entry instanceof File)
+        .map((entry) => entry.name);
+    },
+    readMeta(name) {
+      const f = file(name);
+      if (!f.exists) return null;
+      try {
+        return JSON.parse(f.textSync()) as PackMeta;
+      } catch {
+        return null;
+      }
+    },
+    writeMeta(name, meta) {
+      const f = file(name);
+      f.write(JSON.stringify(meta));
+    },
+    async download(url, name, options) {
+      this.ensure();
+      const target = file(name);
+      await File.downloadFileAsync(url, target, {
+        idempotent: true,
+        signal: options.signal,
+        onProgress: ({ bytesWritten, totalBytes }) =>
+          options.onProgress?.(bytesWritten, totalBytes),
+      });
+      return target.exists ? target.size : 0;
+    },
+  };
+}
+
+/** Bellek içi depolama — testler ve dosya sistemi olmayan ortamlar için. */
+export function createMemoryStorage(
+  fetchImpl: typeof fetch = fetch,
+  chunkSize = 4,
+): PackStorage & { files: Map<string, number> } {
+  const files = new Map<string, number>();
+  const metas = new Map<string, PackMeta>();
+  return {
+    files,
+    ensure() {},
+    exists: (name) => files.has(name),
+    size: (name) => files.get(name) ?? 0,
+    uri: (name) => `memory://${name}`,
+    remove(name) {
+      files.delete(name);
+      metas.delete(name);
+    },
+    list: () => [...files.keys()],
+    readMeta: (name) => metas.get(name) ?? null,
+    writeMeta(name, meta) {
+      metas.set(name, meta);
+    },
+    async download(url, name, options) {
+      const response = await fetchImpl(url);
+      if (!response.ok) throw new Error(`İndirme başarısız (${response.status})`);
+      const buffer = await response.arrayBuffer();
+      const total = buffer.byteLength;
+      for (let sent = 0; sent < total; sent += Math.ceil(total / chunkSize)) {
+        if (options.signal?.aborted) throw new DOMExceptionLike('Aborted');
+        options.onProgress?.(Math.min(total, sent + Math.ceil(total / chunkSize)), total);
+      }
+      if (options.signal?.aborted) throw new DOMExceptionLike('Aborted');
+      files.set(name, total);
+      return total;
+    },
+  };
+}
+
+/** `DOMException` her ortamda yok; iptal hatası için taşınabilir eşdeğeri. */
+class DOMExceptionLike extends Error {
+  override name = 'AbortError';
+}
+
+/* ------------------------------------------------------------------ */
+/* Yönetici                                                            */
+/* ------------------------------------------------------------------ */
+
+export interface DownloadHandle {
+  packId: ID;
+  cancel: () => void;
+}
+
+export interface PackManagerOptions {
+  storage?: PackStorage;
+  baseUrl?: string | null;
+  /** İlerleme bildirimi (0..1) */
+  onProgress?: (packId: ID, progress: number) => void;
+}
+
+/**
+ * Çevrimdışı harita paketi yöneticisi: indir (ilerleme bildirimli), iptal et,
+ * sürüm karşılaştır, sil, disk kullanımını ölç. `MapPack` sözleşmesini korur;
+ * durum geçişleri `packReducer` üzerinden yapılır.
+ */
+export class MapPackManager {
+  private readonly storage: PackStorage;
+  private readonly baseUrl: string | null;
+  private readonly onProgress?: (packId: ID, progress: number) => void;
+  private readonly running = new Map<ID, AbortController>();
+
+  constructor(options: PackManagerOptions = {}) {
+    this.storage = options.storage ?? createFileSystemStorage();
+    this.baseUrl = options.baseUrl ?? tilesBaseUrl();
+    this.onProgress = options.onProgress;
+  }
+
+  /** Paket cihazda mı? */
+  isInstalled(packId: ID): boolean {
+    return this.storage.exists(packFileName(packId));
+  }
+
+  /** İndirilmiş paketin yerel dosya adresi; yoksa null. */
+  localPath(packId: ID): string | null {
+    const name = packFileName(packId);
+    return this.storage.exists(name) ? this.storage.uri(name) : null;
+  }
+
+  /** Cihazdaki sürüm (künye dosyasından); yoksa null. */
+  installedVersion(packId: ID): string | null {
+    return this.storage.readMeta(packMetaName(packId))?.version ?? null;
+  }
+
+  /** Cihazdaki paketlerin toplam boyutu (bayt). */
+  diskUsageBytes(): number {
+    return this.storage
+      .list()
+      .filter((name) => name.endsWith('.pmtiles'))
+      .reduce((total, name) => total + this.storage.size(name), 0);
+  }
+
+  /** Cihazdaki paketlerin toplam boyutu (MB, tek ondalık). */
+  diskUsageMb(): number {
+    return Math.round((this.diskUsageBytes() / 1024 / 1024) * 10) / 10;
+  }
+
+  /** Sunucudaki sürümle karşılaştırıp güncel durumu döndürür. */
+  reconcile(pack: MapPack, remoteVersion = pack.version): MapPack {
+    if (!this.isInstalled(pack.id)) {
+      return pack.status === 'downloading' ? pack : packReducer(pack, { type: 'remove' });
+    }
+    const local = this.installedVersion(pack.id) ?? pack.version;
+    const meta = this.storage.readMeta(packMetaName(pack.id));
+    const installed: MapPack = {
+      ...pack,
+      status: 'downloaded',
+      progress: 1,
+      version: local,
+      sizeMb: meta?.sizeMb ?? pack.sizeMb,
+      localPath: this.localPath(pack.id),
+      updatedAt: meta?.updatedAt ?? pack.updatedAt,
+    };
+    return packReducer(installed, { type: 'remote-version', version: remoteVersion });
+  }
+
+  /**
+   * Paketi indirir; her ilerleme adımında `onProgress` çağrılır.
+   * Aynı paket zaten iniyorsa mevcut indirme korunur.
+   */
+  async download(pack: MapPack, remoteVersion = pack.version): Promise<MapPack> {
+    const url = packRemoteUrl(pack.id, this.baseUrl);
+    if (!url) throw new Error('Karo sunucusu adresi tanımlı değil (EXPO_PUBLIC_TILES_URL)');
+    if (this.running.has(pack.id)) return packReducer(pack, { type: 'download' });
+
+    const controller = new AbortController();
+    this.running.set(pack.id, controller);
+    const fileName = packFileName(pack.id);
+    try {
+      const bytes = await this.storage.download(url, fileName, {
+        signal: controller.signal,
+        onProgress: (received, total) => {
+          const ratio = total > 0 ? received / total : 0;
+          this.onProgress?.(pack.id, Math.min(1, Math.max(0, ratio)));
+        },
+      });
+      const sizeMb = Math.round((bytes / 1024 / 1024) * 10) / 10;
+      const at = new Date().toISOString();
+      this.storage.writeMeta(packMetaName(pack.id), {
+        version: remoteVersion,
+        sizeMb,
+        updatedAt: at,
+      });
+      this.onProgress?.(pack.id, 1);
+      return packReducer(pack, {
+        type: 'complete',
+        version: remoteVersion,
+        sizeMb,
+        localPath: this.storage.uri(fileName),
+        at,
+      });
+    } catch (error) {
+      const aborted = (error as Error)?.name === 'AbortError';
+      this.storage.remove(fileName);
+      return packReducer({ ...pack, status: 'downloading' }, { type: aborted ? 'cancel' : 'fail' });
+    } finally {
+      this.running.delete(pack.id);
+    }
+  }
+
+  /** Süren indirmeyi iptal eder; indirme yoksa `false`. */
+  cancel(packId: ID): boolean {
+    const controller = this.running.get(packId);
+    if (!controller) return false;
+    controller.abort();
+    this.running.delete(packId);
+    return true;
+  }
+
+  /** Paketi ve künyesini siler; sürerken çağrılırsa önce iptal eder. */
+  async remove(pack: MapPack): Promise<MapPack> {
+    this.cancel(pack.id);
+    this.storage.remove(packFileName(pack.id));
+    this.storage.remove(packMetaName(pack.id));
+    return packReducer(pack, { type: 'remove' });
+  }
+
+  /** Süren indirme var mı? */
+  isDownloading(packId: ID): boolean {
+    return this.running.has(packId);
+  }
+}
+
+/** Uygulama genelinde tek yönetici (ekranlar ve depo bunu kullanır). */
+let shared: MapPackManager | null = null;
+export function getPackManager(options?: PackManagerOptions): MapPackManager {
+  if (options) {
+    shared = new MapPackManager(options);
+    return shared;
+  }
+  if (!shared) shared = new MapPackManager();
+  return shared;
+}
+
+/** Testler için tekil yöneticiyi sıfırlar. */
+export function resetPackManager() {
+  shared = null;
+}
