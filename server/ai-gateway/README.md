@@ -82,6 +82,59 @@ curl -N http://localhost:8787/v1/chat \
 { "title": "...", "adventureType": "hiking", "days": [{ "day": 1, "title": "...", "distanceKm": 12, "ascentM": 700, "notes": "..." }], "packing": ["..."], "safety": ["..."] }
 ```
 
+### `POST /v1/vision` → JSON
+
+Kamera ile AI tavsiye: fotoğraf + durum + kısa soru gönderilir, model görüntüyü `image` içerik bloğu (base64) ile alır ve
+`output_config.format = { type: "json_schema", schema: VISION_SCHEMA }` (structured output) ile **gözlem / risk / tavsiye** JSON'u döner.
+
+İstek (`imageBase64` ham base64 ya da `data:image/jpeg;base64,…`; ham görüntü en fazla **5 MB**, gövde sınırı 8 MB):
+
+```json
+{
+  "imageBase64": "/9j/4AAQ…",
+  "mediaType": "image/jpeg",
+  "situation": "terrain",
+  "question": "Buradan geçebilir miyim?",
+  "coords": { "latitude": 40.83, "longitude": 41.15 },
+  "altitudeM": 2900,
+  "locale": "tr"
+}
+```
+
+| Alan | Zorunlu | Açıklama |
+| --- | --- | --- |
+| `imageBase64` | evet | `image/jpeg`, `image/png`, `image/gif`, `image/webp` |
+| `mediaType` | hayır | Verilmezse `data:` önekinden, o da yoksa `image/jpeg` |
+| `situation` | hayır | `terrain` \| `weather` \| `gear` \| `injury` \| `wildlife` \| `plant` \| `map` \| `water` \| `camp` \| `other` (varsayılan `other`) |
+| `question` | hayır | En fazla 1000 karakter |
+| `coords`, `altitudeM`, `locale` | hayır | Bağlam bloğuna yazılır (varsayılan locale `tr`) |
+
+Yanıt:
+
+```json
+{
+  "situation": "terrain",
+  "observations": ["Yaklaşık 35–40° kar yamacı, üstte karniş"],
+  "risk": "high",
+  "advice": ["Yamacı tek tek ve hızlı geç", "Kaskı tak"],
+  "avoid": ["Yamaç altında mola verme"],
+  "actions": [{ "label": "Tehlike bölgeleri", "href": "/hazards", "icon": "triangle-alert" }],
+  "confidence": 0.72,
+  "model": "…",
+  "usage": { "input_tokens": 1500, "output_tokens": 400 }
+}
+```
+
+- `risk`: `low` \| `moderate` \| `high` \| `extreme`; `actions.href` yalnızca `/first-aid/<slug>`, `/hazards`, `/hazards/<id>`, `/satellite/sos`, `/destinations/ams`, `/maps/planner` öneklerinden biri (gateway süzer).
+- `thinking: adaptive`, `max_tokens: 4096`; hata eşlemesi diğer uç noktalarla aynı (413 görüntü çok büyük, 422 model değerlendirmeyi reddetti, 502 geçersiz JSON).
+- Uygulama tarafı: `src/data/ai/remoteVision.ts` (`RemoteVisionClient.analyze`) — gateway yoksa ya da hata verirse `localVisionAdvice` (çevrimdışı kontrol listesi) kullanılır.
+
+```bash
+curl http://localhost:8787/v1/vision \
+  -H 'content-type: application/json' -H 'x-zirve-key: dev-key' \
+  -d "{\"imageBase64\":\"$(base64 -w0 photo.jpg)\",\"mediaType\":\"image/jpeg\",\"situation\":\"weather\",\"question\":\"Fırtına yaklaşıyor mu?\",\"locale\":\"tr\"}"
+```
+
 ## Model çağrısı
 
 - `client.messages.stream(...)` + `finalMessage()` ile **manuel araç döngüsü** (`stop_reason === "tool_use"` → araçlar çalışır → tüm `tool_result` blokları **tek bir user mesajında** geri gönderilir; `pause_turn` yeniden gönderilir; en fazla 6 tur).
@@ -114,5 +167,5 @@ EXPO_PUBLIC_AI_GATEWAY_URL=http://localhost:8787 EXPO_PUBLIC_AI_GATEWAY_KEY=dev-
 
 - API anahtarı yalnızca bu servisin ortamında bulunur; istemciye asla verilmez.
 - `x-zirve-key` anahtarları uygulama sürümüne gömülü olsa da yalnızca bu servise erişim sağlar; sızarsa döndürülür (`ZIRVE_GATEWAY_KEYS`).
-- İstek gövdesi 256 KB, sohbet geçmişi 40 mesaj / 8000 karakter ile sınırlıdır.
+- İstek gövdesi 256 KB (`/v1/vision` için 8 MB, görüntü 5 MB), sohbet geçmişi 40 mesaj / 8000 karakter ile sınırlıdır.
 - Modelin ürettiği `actions.href` değerleri izin verilen rota önekleriyle süzülür.

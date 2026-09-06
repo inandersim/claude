@@ -9,6 +9,7 @@ import {
   type GatewayContext,
 } from './prompt.js';
 import { executeTool, tools } from './tools.js';
+import { handleVision } from './vision.js';
 
 /* ------------------------------------------------------------------ */
 /* Yapılandırma                                                         */
@@ -361,11 +362,21 @@ const server = createServer(async (req, res) => {
     }
     if (
       req.method === 'POST' &&
-      (url.pathname === '/v1/chat' || url.pathname === '/v1/plan-trip')
+      (url.pathname === '/v1/chat' ||
+        url.pathname === '/v1/plan-trip' ||
+        url.pathname === '/v1/vision')
     ) {
       const subject = authenticate(req);
       rateLimit(subject);
       if (url.pathname === '/v1/chat') await handleChat(req, res);
+      else if (url.pathname === '/v1/vision')
+        // Görüntü analizi: kendi gövde sınırı (8 MB) ve JSON şeması vision.ts içinde.
+        await handleVision(req, res, {
+          client,
+          model: MODEL,
+          fail: (status, message) => new HttpError(status, message),
+          sendJson,
+        });
       else await handlePlanTrip(req, res);
       return;
     }
