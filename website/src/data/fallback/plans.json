@@ -1,0 +1,45 @@
+[
+  {
+    "id": "free",
+    "monthlyTry": 0,
+    "yearlyTry": 0,
+    "commissionRate": 0.15,
+    "features": ["basic", "match", "hazards"],
+    "forProviders": false,
+    "yearlySavings": 0
+  },
+  {
+    "id": "pro",
+    "monthlyTry": 149,
+    "yearlyTry": 1190,
+    "commissionRate": 0.15,
+    "features": ["offlineMaps", "unlimitedShare", "advancedAlerts", "noAds", "badge"],
+    "forProviders": false,
+    "yearlySavings": 0.33
+  },
+  {
+    "id": "pro_guide",
+    "monthlyTry": 399,
+    "yearlyTry": 3190,
+    "commissionRate": 0.05,
+    "features": [
+      "paidBookings",
+      "lowCommission",
+      "featuredProfile",
+      "drone",
+      "analytics",
+      "allPro"
+    ],
+    "forProviders": true,
+    "yearlySavings": 0.33
+  },
+  {
+    "id": "business",
+    "monthlyTry": 799,
+    "yearlyTry": 6390,
+    "commissionRate": 0.1,
+    "features": ["stayBookings", "featuredListing", "multiStaff", "analytics", "allPro"],
+    "forProviders": true,
+    "yearlySavings": 0.33
+  }
+]

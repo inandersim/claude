@@ -1,0 +1,17 @@
+{
+  "name": "zirve-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Zirtan — statik tanıtım ve keşif sitesi (TR/EN)",
+  "type": "module",
+  "engines": {
+    "node": ">=22.6"
+  },
+  "scripts": {
+    "export": "node scripts/export-data.mjs",
+    "build": "npm run export && node build.mjs",
+    "dev": "node serve.mjs",
+    "check": "node scripts/check-links.mjs",
+    "shots": "node scripts/screenshots.mjs"
+  }
+}

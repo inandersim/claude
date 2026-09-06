@@ -1,0 +1,857 @@
+{
+  "lang": "tr",
+  "locale": "tr-TR",
+  "langName": "Türkçe",
+  "site": {
+    "name": "Zirtan",
+    "tagline": "Maceranı planla, paylaş, güvende kal",
+    "description": "Zirtan; yürüyüş, tırmanış, dalış, kayak ve bisiklet için rota planlama, topluluk tehlike haritası, ZMatch partner eşleştirme, canlı yayın ve uydu SOS'u tek uygulamada birleştiren outdoor macera sosyal ağıdır.",
+    "draft": "Taslak metin — yayın öncesi hukuk ekibi tarafından gözden geçirilecektir."
+  },
+  "nav": {
+    "routes": "Rotalar",
+    "destinations": "Destinasyonlar",
+    "places": "Yerler",
+    "climbing": "Tırmanış",
+    "courses": "Eğitimler",
+    "pro": "Zirtan Pro",
+    "community": "Topluluk",
+    "safety": "Güvenlik",
+    "about": "Hakkımızda",
+    "press": "Basın",
+    "privacy": "Gizlilik",
+    "kvkk": "KVKK",
+    "download": "İndir",
+    "home": "Ana sayfa",
+    "menu": "Menü",
+    "close": "Kapat",
+    "language": "Dil",
+    "theme": "Tema",
+    "themeSystem": "Sistem",
+    "themeLight": "Açık",
+    "themeDark": "Koyu",
+    "skip": "İçeriğe atla",
+    "explore": "Keşfet",
+    "product": "Ürün",
+    "company": "Şirket",
+    "legal": "Yasal"
+  },
+  "common": {
+    "km": "km",
+    "m": "m",
+    "min": "dk",
+    "hour": "sa",
+    "day": "gün",
+    "days": "gün",
+    "distance": "Mesafe",
+    "ascent": "Tırmanış",
+    "descent": "İniş",
+    "duration": "Süre",
+    "maxElevation": "En yüksek nokta",
+    "minElevation": "En alçak nokta",
+    "difficulty": "Zorluk",
+    "type": "Tür",
+    "country": "Ülke",
+    "all": "Tümü",
+    "search": "Ara",
+    "searchPlaceholder": "İsim, bölge ya da ülke…",
+    "noResults": "Sonuç bulunamadı. Filtreleri gevşetmeyi deneyin.",
+    "results": "{n} sonuç",
+    "openInApp": "Uygulamada aç",
+    "downloadGpx": "GPX indir",
+    "viewAll": "Tümünü gör",
+    "readMore": "Devamını oku",
+    "back": "Geri",
+    "share": "Paylaş",
+    "rating": "Puan",
+    "reviews": "değerlendirme",
+    "members": "üye",
+    "verified": "Doğrulanmış",
+    "community": "Topluluk onaylı",
+    "unverified": "Doğrulanmamış",
+    "bestMonths": "En iyi aylar",
+    "sources": "Kaynaklar",
+    "lastUpdated": "Son güncelleme",
+    "mapAttribution": "© OpenStreetMap katkıcıları",
+    "mapNoJs": "Etkileşimli harita için JavaScript gerekir.",
+    "openOsm": "OpenStreetMap'te aç",
+    "stages": "Etaplar",
+    "stage": "Etap",
+    "sleeping": "Konaklama",
+    "water": "Su",
+    "yes": "Evet",
+    "no": "Hayır",
+    "connectivity": "Bağlantı",
+    "facilities": "Olanaklar",
+    "approach": "Yaklaşım",
+    "rock": "Kaya",
+    "routes": "rota",
+    "sectors": "sektör",
+    "grade": "Derece",
+    "length": "Uzunluk",
+    "pitches": "Uzunluk sayısı",
+    "stars": "Yıldız",
+    "firstAscent": "İlk çıkış",
+    "ascents": "çıkış",
+    "elevationProfile": "Yükseklik profili",
+    "profileSynthetic": "Profil, toplam tırmanış verisinden tahmini olarak çizilmiştir.",
+    "profileReal": "Profil rota noktalarından hesaplanmıştır.",
+    "tryMonth": "₺/ay",
+    "tryYear": "₺/yıl",
+    "free": "Ücretsiz",
+    "perSession": "seans",
+    "learnMore": "Daha fazla bilgi",
+    "comingSoon": "Yakında",
+    "breadcrumbHome": "Ana sayfa",
+    "attributionNote": "Yer verileri OpenStreetMap ve Wikidata katkıcılarından, lisans atıflarıyla derlenmiştir.",
+    "dataNote": "Bu sayfadaki veriler Zirtan uygulamasının demo veri setinden üretilmiştir; sahada doğrulayın.",
+    "language": "Dil",
+    "email": "E-posta",
+    "guideTrOnly": "Rehber metni şu an yalnızca Türkçe.",
+    "onThisPage": "Bu sayfada",
+    "restDay": "Aklimatizasyon günü önerilir"
+  },
+  "adventure": {
+    "hiking": "Yürüyüş",
+    "climbing": "Tırmanış",
+    "diving": "Dalış",
+    "skiing": "Kayak",
+    "cycling": "Bisiklet",
+    "paragliding": "Yamaç paraşütü",
+    "rafting": "Rafting",
+    "canoe": "Kano"
+  },
+  "activity": {
+    "hike": "Yürüyüş",
+    "trail_run": "Patika koşusu",
+    "mtb": "Dağ bisikleti",
+    "gravel": "Gravel",
+    "ski_tour": "Tur kayağı"
+  },
+  "difficulty": {
+    "beginner": "Başlangıç",
+    "easy": "Kolay",
+    "moderate": "Orta",
+    "hard": "Zor",
+    "extreme": "Çok zor"
+  },
+  "routeKind": {
+    "community": "Topluluk rotası",
+    "planned": "Planlayıcı rotası",
+    "destination": "Destinasyon treki"
+  },
+  "placeKind": {
+    "campsite": "Kamp alanı",
+    "climbing": "Tırmanış bölgesi",
+    "diving": "Dalış noktası",
+    "dive_centre": "Dalış merkezi",
+    "hiking_route": "Yürüyüş rotası",
+    "rafting": "Rafting parkuru",
+    "canoe": "Kano parkuru",
+    "paragliding": "Yamaç paraşütü kalkışı",
+    "ski": "Kayak merkezi",
+    "peak": "Zirtan",
+    "cave": "Mağara",
+    "viewpoint": "Seyir noktası",
+    "shelter": "Dağ evi / sığınak",
+    "hut": "Dağ evi"
+  },
+  "destType": {
+    "trek": "Trek",
+    "expedition": "Ekspedisyon",
+    "climbing_area": "Tırmanış bölgesi",
+    "dive_region": "Dalış bölgesi",
+    "ski_region": "Kayak bölgesi",
+    "multi_sport": "Çok sporlu"
+  },
+  "stageKind": {
+    "trailhead": "Başlangıç",
+    "village": "Köy",
+    "teahouse": "Teahouse",
+    "camp": "Kamp",
+    "hut": "Dağ evi",
+    "base_camp": "Ana kamp",
+    "pass": "Geçit",
+    "summit": "Zirtan",
+    "viewpoint": "Seyir noktası"
+  },
+  "transport": {
+    "flight": "Uçuş",
+    "bus": "Otobüs",
+    "jeep": "Jeep",
+    "train": "Tren",
+    "ferry": "Feribot",
+    "trek": "Yürüyüş",
+    "taxi": "Taksi"
+  },
+  "climbType": {
+    "sport": "Spor",
+    "trad": "Geleneksel",
+    "boulder": "Boulder",
+    "multipitch": "Çok uzunluklu",
+    "ice": "Buz",
+    "alpine": "Alpin"
+  },
+  "months": [
+    "Ocak",
+    "Şubat",
+    "Mart",
+    "Nisan",
+    "Mayıs",
+    "Haziran",
+    "Temmuz",
+    "Ağustos",
+    "Eylül",
+    "Ekim",
+    "Kasım",
+    "Aralık"
+  ],
+  "monthsShort": [
+    "Oca",
+    "Şub",
+    "Mar",
+    "Nis",
+    "May",
+    "Haz",
+    "Tem",
+    "Ağu",
+    "Eyl",
+    "Eki",
+    "Kas",
+    "Ara"
+  ],
+  "home": {
+    "title": "Zirtan — maceranı planla, paylaş, güvende kal",
+    "metaDescription": "Rota planlama, topluluk tehlike haritası, ZMatch partner eşleştirme, canlı yayın, uydu SOS ve dünya destinasyon arşivi. Türkiye'den dünyaya outdoor macera sosyal ağı.",
+    "heroKicker": "Outdoor macera sosyal ağı",
+    "heroTitle": "Zirtan — maceranı planla, paylaş, güvende kal",
+    "heroLead": "Yürüyüş, tırmanış, dalış, kayak ve bisiklet için tek uygulama: rota planlayıcı, çevrimdışı haritalar, topluluk tehlike haritası, doğrulanmış partner eşleştirme ve uydu SOS. Türkiye'de doğdu, 9 dilde konuşuyor.",
+    "heroCtaPrimary": "Rotaları keşfet",
+    "heroCtaSecondary": "Nasıl çalışır?",
+    "storeIos": "App Store",
+    "storeAndroid": "Google Play",
+    "storeSoon": "Mağaza bağlantıları yakında; şimdilik bekleme listesine katılın.",
+    "statsRoutes": "rota ve trek",
+    "statsDestinations": "destinasyon rehberi",
+    "statsPlaces": "kütüphane yeri",
+    "statsCountries": "ülkede SOS dizini",
+    "statsLanguages": "dil",
+    "featuresKicker": "Neden Zirtan?",
+    "featuresTitle": "Bir sırt çantasında taşıyacağınız her şey",
+    "featuresLead": "Rakiplerin ayrı ayrı sattığı rota, güvenlik, sosyal ve pazar katmanları tek üründe; tamamı açık veriyle beslenir.",
+    "features": {
+      "zmatch": {
+        "title": "ZMatch",
+        "text": "Konum, doğrulama ve güven skoruna göre yakınındaki maceraperestlerle eşleş; birlikte plan yap."
+      },
+      "hazards": {
+        "title": "Tehlike haritası",
+        "text": "Kaya düşmesi, çığ, sel, vahşi hayvan: toplulukça işaretlenen, onaylanan ve yakındakileri uyaran canlı katman."
+      },
+      "live": {
+        "title": "Canlı yayın & drone",
+        "text": "Dağdan ya da sualtından canlı yayın; DJI drone telemetrisi (irtifa, hız, pil) oynatıcı üstünde."
+      },
+      "satellite": {
+        "title": "Uydu SOS",
+        "text": "inReach, ZOLEO, iPhone uydu ve Starlink Mini ile 160 karakterlik sıkıştırılmış mesaj, sakla-ilet kuyruğu ve SOS aşama makinesi."
+      },
+      "sosCountry": {
+        "title": "Ülkeye göre SOS",
+        "text": "58 ülkede acil numaralar, dağ kurtarma örgütleri ve konsolosluk hattı; SIM'siz 112 notlarıyla."
+      },
+      "offline": {
+        "title": "Çevrimdışı haritalar",
+        "text": "PMTiles vektör harita paketleri ve A* rota planlayıcı; Tobler süre modeli ve yükseklik profili çevrimdışı çalışır."
+      },
+      "climbing": {
+        "title": "Tırmanış veritabanı",
+        "text": "Kaya → sektör → rota hiyerarşisi, 5 derece sistemi arasında dönüşüm, logbook ve topluluk doğrulama."
+      },
+      "ai": {
+        "title": "Zirtan AI",
+        "text": "Gezi planı, paketleme listesi, güvenlik özeti ve ilk yardım adımları; çevrimdışı bilgi tabanıyla da yanıt verir."
+      },
+      "vision": {
+        "title": "Kamera ile sor",
+        "text": "Bir kaya, iz ya da yara fotoğrafla; Zirtan AI tanımlar ve doğru rehbere yönlendirir."
+      },
+      "destinations": {
+        "title": "Destinasyon arşivi",
+        "text": "Everest Base Camp'tan Likya Yolu'na etap etap rehberler: ulaşım, izinler, konaklama, bütçe ve riskler."
+      },
+      "routes": {
+        "title": "Topluluk rotaları",
+        "text": "GPX içe/dışa aktarma, kayıtlı rotalar, zorluk ve yüzey analizi; rotayı uygulamada tek dokunuşla aç."
+      },
+      "courses": {
+        "title": "Eğitimler",
+        "text": "Temel dağcılık, çığ, ilk yardım, dalış: sertifikalı eğitmenlerden çevrimiçi ve yüz yüze kurslar."
+      },
+      "groups": {
+        "title": "Gruplar & kulüpler",
+        "text": "Üniversite doğa sporları kulüpleri, etkinlik RSVP'si, ekip sohbetleri ve anketler."
+      },
+      "stays": {
+        "title": "Konaklama pazarı",
+        "text": "Kamp alanı, pansiyon ve dağ evi rezervasyonu; emanet (escrow) ödeme ve doğrulanmış yorumlar."
+      }
+    },
+    "howKicker": "Nasıl çalışır",
+    "howTitle": "Üç adımda dağa",
+    "how": [
+      {
+        "title": "Planla",
+        "text": "Destinasyon rehberini oku, rotayı planlayıcıda çiz, harita paketini indir, dönüş planını acil kişilerinle paylaş."
+      },
+      {
+        "title": "Paylaş",
+        "text": "ZMatch ile partner bul, grubunu kur, canlı konum ve yayınla ekibin seni takip etsin."
+      },
+      {
+        "title": "Güvende kal",
+        "text": "Tehlike uyarılarını al, tek dokunuşla check-in gönder, gerekirse uydu üzerinden SOS başlat."
+      }
+    ],
+    "destinationsKicker": "Destinasyon arşivi",
+    "destinationsTitle": "Popüler destinasyonlar",
+    "destinationsLead": "Etap etap rehberler: ulaşım, izinler, aklimatizasyon, bütçe ve kurtarma notları.",
+    "routesKicker": "Topluluk rotaları",
+    "routesTitle": "Haritada keşfet",
+    "routesLead": "Rota noktaları, yükseklik profili ve GPX ile paylaşılan rotalar. Uygulamada açıp planlayıcıda düzenleyebilirsiniz.",
+    "proKicker": "Zirtan Pro",
+    "proTitle": "Daha güvenli, daha geniş, reklamsız",
+    "proLead": "Bireysel kâşifler için Pro; rehber, eğitmen ve işletmeler için Pro Guide ve Business.",
+    "clubsKicker": "Üniversite kulüpleri",
+    "clubsTitle": "Kampüsten zirveye",
+    "clubsLead": "Doğa sporları kulüpleri dizini, .edu doğrulama, etkinlikler ve dönem sıralaması.",
+    "faqKicker": "SSS",
+    "faqTitle": "Sık sorulan sorular",
+    "faq": [
+      {
+        "q": "Zirtan ücretsiz mi?",
+        "a": "Evet. Kâşif planı ücretsizdir: akış, keşif, kütüphane, ZMatch, tehlike haritası ve SOS. Çevrimdışı harita paketleri, sınırsız canlı konum ve gelişmiş uyarılar Zirtan Pro'da (₺149/ay ya da ₺1.190/yıl)."
+      },
+      {
+        "q": "Hangi sporları kapsıyor?",
+        "a": "Yürüyüş ve trekking, spor/geleneksel/boulder tırmanış, dalış, kayak ve tur kayağı, dağ bisikleti ve gravel, yamaç paraşütü, rafting ve kano. Yeni sporlar yol haritasında."
+      },
+      {
+        "q": "Uydu SOS gerçekten çalışıyor mu?",
+        "a": "Uygulama; Garmin inReach, ZOLEO, SPOT, telefon uydu bağlantısı ve Starlink Mini ile eşleşir, mesajları sıkıştırır ve sakla-ilet kuyruğuyla iletir. Gerçek iletim için cihazın kendi aboneliği ve servis köprüsü gerekir; ayrıntılar Güvenlik sayfasında."
+      },
+      {
+        "q": "Verileriniz nereden geliyor?",
+        "a": "Kütüphane; OpenStreetMap, Wikidata ve Wikimedia Commons'tan lisans atıflarıyla derlenir. Destinasyon rehberleri resmi kaynaklardan (park idareleri, turizm kurulları, Wikivoyage) derlenip topluluk tarafından güncellenir."
+      },
+      {
+        "q": "Rotalarımı dışa aktarabilir miyim?",
+        "a": "Evet. Her rota GPX olarak indirilebilir ve Garmin, Suunto ya da başka bir uygulamaya aktarılabilir; GPX içe aktarma da desteklenir."
+      },
+      {
+        "q": "Hangi dillerde?",
+        "a": "Türkçe, İngilizce, Almanca, Fransızca, İspanyolca, İtalyanca, Japonca, Portekizce ve Rusça. Bu web sitesi şimdilik Türkçe ve İngilizce."
+      }
+    ],
+    "waitlistKicker": "Bekleme listesi",
+    "waitlistTitle": "Lansmanı ilk siz duyun",
+    "waitlistLead": "Erken erişim davetleri, beta sürümleri ve yeni destinasyon rehberleri; ayda en fazla bir e-posta.",
+    "waitlistPlaceholder": "E-posta adresiniz",
+    "waitlistButton": "Katıl",
+    "waitlistThanks": "Teşekkürler! Listeye eklendiniz.",
+    "waitlistError": "Bir şeyler ters gitti; lütfen tekrar deneyin.",
+    "waitlistPrivacy": "E-postanız yalnızca lansman duyuruları için kullanılır. Bkz. Gizlilik.",
+    "screensKicker": "Uygulamadan",
+    "screensTitle": "Uygulama ekranları",
+    "screens": [
+      "Ana akış",
+      "Keşfet",
+      "Harita paketleri",
+      "Rota planlayıcı",
+      "Tırmanış veritabanı",
+      "Uydu SOS",
+      "Zirtan AI",
+      "Üniversite kulüpleri"
+    ]
+  },
+  "routes": {
+    "title": "Rotalar ve trekler",
+    "metaDescription": "Kaçkar, Likya Yolu, Kapadokya, Everest Base Camp, Tour du Mont Blanc ve daha fazlası: yükseklik profili, GPX ve etap bilgileriyle topluluk rotaları.",
+    "kicker": "Keşif",
+    "lead": "Topluluk rotaları, planlayıcı rotaları ve destinasyon trekleri tek listede. Arayın, türe göre süzün, GPX indirin ya da uygulamada açın.",
+    "filterType": "Tür",
+    "filterDifficulty": "Zorluk",
+    "filterKind": "Kaynak",
+    "sortBy": "Sırala",
+    "sortName": "İsim",
+    "sortDistance": "Mesafe",
+    "sortAscent": "Tırmanış",
+    "mapTitle": "Tüm rotalar haritada",
+    "detailKicker": "Rota",
+    "stats": "İstatistikler",
+    "stagesTitle": "Etaplar",
+    "surfaces": "Yüzeyler",
+    "openInAppLead": "Rotayı uygulamada açın: planlayıcıda düzenleyin, çevrimdışı harita paketiyle takip edin, dönüş planına ekleyin.",
+    "noApp": "Uygulama yüklü değil mi?",
+    "gpxNote": "GPX dosyası rota noktalarından üretilmiştir; cihazınıza ya da Garmin/Suunto uygulamasına aktarabilirsiniz.",
+    "relatedDestination": "Destinasyon rehberi",
+    "relatedDestinationLead": "Bu trekin ulaşım, izin, konaklama ve güvenlik rehberini okuyun.",
+    "moreRoutes": "Benzer rotalar",
+    "regionsTitle": "Planlayıcı bölgeleri",
+    "regionsLead": "A* rota planlayıcının demo trail grafları: düğüm ve kenar sayısıyla.",
+    "nodes": "düğüm",
+    "edges": "kenar",
+    "packsTitle": "Çevrimdışı harita paketleri",
+    "packsLead": "PMTiles vektör karo paketleri; sürüm ve boyut bilgisiyle.",
+    "loop": "Döngü",
+    "pointToPoint": "Noktadan noktaya"
+  },
+  "destinations": {
+    "title": "Destinasyon rehberleri",
+    "metaDescription": "Everest Base Camp, Annapurna, Kilimanjaro, Torres del Paine, Tour du Mont Blanc, Ağrı, Kaçkar, Likya Yolu: ulaşım, izin, konaklama, aklimatizasyon, bütçe ve güvenlik rehberleri.",
+    "kicker": "Destinasyon arşivi",
+    "lead": "Her destinasyon için nasıl gidilir, ne zaman, izinler, konaklama, aklimatizasyon, bütçe ve kurtarma notları — etap etap.",
+    "detailKicker": "Destinasyon rehberi",
+    "atAGlance": "Bir bakışta",
+    "days": "Tipik süre",
+    "maxAlt": "En yüksek nokta",
+    "distance": "Toplam mesafe",
+    "budget": "Bütçe (kişi başı)",
+    "insurance": "Sigorta",
+    "insuranceRequired": "Zorunlu",
+    "insuranceOptional": "Önerilir",
+    "guide": "Rehber",
+    "howToGet": "Nasıl gidilir",
+    "transports": "Ulaşım",
+    "permits": "İzinler ve ücretler",
+    "permitWhere": "Nereden",
+    "risks": "Riskler",
+    "gear": "Ekipman listesi",
+    "rescue": "Kurtarma ve acil durum",
+    "stagesLead": "Duraklar, irtifalar, mesafeler ve olanaklar; aklimatizasyon önerileri işaretli.",
+    "route": "Rota ve yükseklik profili",
+    "routeLead": "Etaplardan üretilen yükseklik profili ve GPX.",
+    "nearby": "Yakın kütüphane yerleri",
+    "filterCountry": "Ülke",
+    "filterType": "Tür",
+    "filterMonth": "Ay",
+    "otherDestinations": "Diğer destinasyonlar",
+    "cost": "Ücret",
+    "freeOfCharge": "Ücretsiz",
+    "from": "Nereden",
+    "to": "Nereye"
+  },
+  "places": {
+    "title": "Kütüphane: kamp, tırmanış, dalış ve daha fazlası",
+    "metaDescription": "Kamp alanları, tırmanış bölgeleri, dalış noktaları, zirveler, mağaralar ve kayak merkezleri: OpenStreetMap ve Wikidata ile beslenen, lisans atıflı outdoor kütüphanesi.",
+    "kicker": "Kütüphane",
+    "lead": "Dünyanın outdoor noktaları: kamp alanı, tırmanış bölgesi, dalış noktası, zirve, mağara, kayak merkezi. Açık veriyle beslenir, toplulukla büyür.",
+    "filterKind": "Yer türü",
+    "mapTitle": "Haritada",
+    "detailKicker": "Kütüphane yeri",
+    "elevation": "Rakım",
+    "website": "Web sitesi",
+    "tags": "Özellikler",
+    "source": "Kaynak",
+    "nearbyRoutes": "Yakın rotalar",
+    "nearbyPlaces": "Yakın yerler",
+    "coordinates": "Koordinatlar"
+  },
+  "climbing": {
+    "title": "Tırmanış veritabanı",
+    "metaDescription": "Geyikbayırı, Olympos, Ballıkayalar, Kazıklıali, Datça, Kapadokya boulder, Kalymnos, Fontainebleau, Yosemite: sektörler, rotalar, dereceler ve topluluk doğrulama.",
+    "kicker": "Tırmanış",
+    "lead": "Kaya → sektör → rota hiyerarşisi; Fransız, YDS, UIAA, Fontainebleau ve V-scale dereceleri; 3 bağımsız onayla topluluk doğrulaması.",
+    "detailKicker": "Kaya",
+    "sectors": "Sektörler",
+    "orientation": "Yön",
+    "routesTable": "Rotalar",
+    "gradeHistogram": "Derece dağılımı",
+    "seasons": "Sezon",
+    "approach": "Yaklaşım",
+    "rockType": "Kaya türü",
+    "climbTypes": "Tırmanış türleri",
+    "verification": "Doğrulama",
+    "verificationLead": "Rota gönderimi → 3 bağımsız onay → topluluk onaylı; moderatör ya da kulüp onayıyla doğrulanmış.",
+    "logbook": "Logbook",
+    "logbookLead": "Onsight, flash, redpoint ve top-rope kayıtları; derece piramidi ve dönüşüm tercihi uygulamada.",
+    "otherCrags": "Diğer kayalar"
+  },
+  "courses": {
+    "title": "Eğitimler ve eğitmenler",
+    "metaDescription": "Temel dağcılık, kaya tırmanışı, çığ, ilk yardım, navigasyon, dalış ve drone: sertifikalı eğitmenlerden çevrimiçi, yüz yüze ve hibrit kurslar.",
+    "kicker": "Zirtan Akademi",
+    "lead": "Sertifikalı kurumların müfredatıyla kurslar; tamamlayınca dijital sertifika. Eğitmenler puan, mesafe ve fiyata göre sıralanır.",
+    "coursesTitle": "Kurslar",
+    "instructorsTitle": "Eğitmenler",
+    "instructorsLead": "Sertifikalı rehber ve eğitmenler; ders talebi uygulamadan.",
+    "level": {
+      "beginner": "Başlangıç",
+      "intermediate": "Orta",
+      "advanced": "İleri",
+      "all": "Tüm seviyeler"
+    },
+    "format": { "online": "Çevrimiçi", "in_person": "Yüz yüze", "hybrid": "Hibrit" },
+    "category": {
+      "mountaineering": "Dağcılık",
+      "climbing": "Tırmanış",
+      "avalanche": "Çığ",
+      "first_aid": "İlk yardım",
+      "navigation": "Navigasyon",
+      "diving": "Dalış",
+      "paragliding": "Yamaç paraşütü",
+      "paddling": "Kürek",
+      "winter": "Kış",
+      "drone": "Drone",
+      "ethics": "Etik",
+      "photography": "Fotoğraf"
+    },
+    "hours": "saat",
+    "lessons": "ders",
+    "certificate": "Sertifika",
+    "provider": "Kurum",
+    "outcomes": "Kazanımlar",
+    "enrollInApp": "Uygulamada kaydol",
+    "years": "yıl deneyim",
+    "students": "öğrenci",
+    "bookInApp": "Ders talebi gönder",
+    "certifications": "Sertifikalar"
+  },
+  "pro": {
+    "title": "Zirtan Pro — planlar ve fiyatlar",
+    "metaDescription": "Kâşif (ücretsiz), Pro ₺149/ay, Pro Guide ₺399/ay ve Business ₺799/ay. Çevrimdışı haritalar, sınırsız canlı konum, düşük komisyon, drone yayını ve işletme araçları.",
+    "kicker": "Planlar",
+    "lead": "Bireysel kâşifler için Pro; eğitmen ve rehberler için Pro Guide; otel, kamp alanı, mağaza ve tur operatörleri için Business.",
+    "monthly": "Aylık",
+    "yearly": "Yıllık",
+    "save": "%{percent} kazan",
+    "popular": "En popüler",
+    "commission": "Komisyon",
+    "choose": "Uygulamada seç",
+    "plan": {
+      "free": { "name": "Kâşif", "description": "Temel özellikler, sınırlı canlı konum" },
+      "pro": { "name": "Pro", "description": "Bireysel maceraperestler için" },
+      "pro_guide": { "name": "Pro Guide", "description": "Eğitmen ve rehberler için ücretli mod" },
+      "business": {
+        "name": "Business",
+        "description": "Otel, kamp alanı, mağaza ve tur operatörleri için"
+      }
+    },
+    "features": {
+      "basic": "Akış, keşif, kütüphane, market",
+      "match": "ZMatch eşleştirme",
+      "hazards": "Tehlike haritası ve SOS",
+      "offlineMaps": "Çevrimdışı harita paketleri",
+      "unlimitedShare": "Sınırsız canlı konum paylaşımı",
+      "advancedAlerts": "Gelişmiş tehlike ve hava uyarıları",
+      "noAds": "Reklamsız deneyim",
+      "badge": "Pro rozeti",
+      "paidBookings": "Ücretli rezervasyon alma",
+      "lowCommission": "Düşük komisyon (%5)",
+      "featuredProfile": "Öne çıkan profil",
+      "drone": "Drone canlı yayını",
+      "analytics": "Takvim ve kazanç analitiği",
+      "allPro": "Tüm Pro özellikleri",
+      "stayBookings": "Konaklama rezervasyon yönetimi",
+      "featuredListing": "Öne çıkan ilan ve işletme",
+      "multiStaff": "Çoklu personel hesabı"
+    },
+    "compareTitle": "Karşılaştır",
+    "legal": "Abonelikler App Store / Google Play hesabınızdan ücretlendirilir ve iptal edilene kadar yenilenir. Fiyatlara KDV dahildir; üretimde RevenueCat ve iyzico ile bağlanır.",
+    "faqTitle": "Plan soruları",
+    "faq": [
+      {
+        "q": "Yıllık plana geçince ne olur?",
+        "a": "Kalan ay farkı oranlanır; yıllık planlar aylığa göre %33'e varan tasarruf sağlar."
+      },
+      {
+        "q": "Pro Guide komisyonu nasıl çalışır?",
+        "a": "Ücretli rezervasyonlarda platform komisyonu Kâşif ve Pro'da %15, Pro Guide'da %5, Business'ta %10'dur. Kazanç özeti brüt/komisyon/net olarak gösterilir."
+      },
+      {
+        "q": "Öğrenci indirimi var mı?",
+        "a": "Doğrulanmış .edu hesapları için Pro planında %50 indirim planlanıyor; kulüpler sayfasından doğrulama akışını inceleyin."
+      }
+    ]
+  },
+  "community": {
+    "title": "Topluluk: kulüpler, gruplar ve etkinlikler",
+    "metaDescription": "Üniversite doğa sporları kulüpleri dizini, .edu doğrulama, grup sohbetleri, anketler ve etkinlik RSVP'si. Zirtan topluluğuna nasıl katılınır?",
+    "kicker": "Topluluk",
+    "lead": "Kulüpler, gruplar ve etkinlikler; doğrulanmış profiller ve güven skoruyla güvenli bir topluluk.",
+    "clubsTitle": "Üniversite kulüpleri",
+    "clubsLead": "Dizin; üyelik talebi, etkinlik takvimi ve dönem XP sıralaması uygulamada.",
+    "groupsTitle": "Açık gruplar",
+    "groupsLead": "Herkese açık gruplara davet kodu olmadan katılabilirsiniz; özel gruplar davetle.",
+    "joinTitle": "Nasıl katılınır?",
+    "join": [
+      {
+        "title": "Hesap aç, profilini doğrula",
+        "text": "E-posta ile kayıt; kimlik ve .edu doğrulaması güven skorunu yükseltir, ZMatch'te öne çıkarsınız."
+      },
+      {
+        "title": "Kulübünü ya da grubunu bul",
+        "text": "Dizinden üniversiteni seç, üyelik talebi gönder; ya da şehrindeki açık gruplara katıl."
+      },
+      {
+        "title": "Etkinliğe RSVP ver",
+        "text": "Gezi, eğitim, söyleşi ve yarışma etkinlikleri; kapasite dolunca bekleme listesi."
+      },
+      {
+        "title": "Rota ve anlarını paylaş",
+        "text": "XP kazan, rozet topla, kulübünü dönem sıralamasında yukarı taşı."
+      }
+    ],
+    "guidelinesTitle": "Topluluk kuralları",
+    "guidelines": [
+      "İz bırakma: kamp yerini bulduğundan temiz bırak, patikadan çıkma.",
+      "Tehlike bildirimlerini yalnızca gördüğün şey için yap; başkasının bildirimini onaylamak için sahada olmalısın.",
+      "Rota gönderimlerinde kaynak ve tarih ver; telif gerektiren topoları kopyalama.",
+      "Taciz, ayrımcılık ve tehlikeli meydan okuma içerikleri kalıcı yasak."
+    ],
+    "founded": "Kuruluş",
+    "seasonXp": "Dönem XP",
+    "verifiedClub": "Doğrulanmış kulüp",
+    "public": "Herkese açık",
+    "leaderboard": "Dönem sıralaması"
+  },
+  "safety": {
+    "title": "Güvenlik: SOS, ülke dizini ve ilk yardım",
+    "metaDescription": "Basılı tutmalı SOS, uydu SOS aşama makinesi, 58 ülkede acil numara ve dağ kurtarma dizini, 12 çevrimdışı ilk yardım rehberi ve dönüş planı.",
+    "kicker": "Güvenlik",
+    "lead": "Zirtan'ın güvenlik katmanı: tehlike haritasından uydu SOS'a, ülke dizininden çevrimdışı ilk yardım rehberlerine.",
+    "sosTitle": "SOS nasıl çalışır?",
+    "sos": [
+      {
+        "title": "Basılı tut",
+        "text": "SOS düğmesini 3 saniye basılı tut: 112 (ya da ülkenin numarası) aranır, acil kişilere konum gider, canlı konum SOS moduna geçer."
+      },
+      {
+        "title": "Uydu üzerinden",
+        "text": "Şebeke yoksa eşleşmiş cihaz (inReach, ZOLEO, SPOT, iPhone uydu, Starlink Mini) üzerinden 160 karakterlik sıkıştırılmış SOS mesajı kuyruğa alınır."
+      },
+      {
+        "title": "Aşama makinesi",
+        "text": "Hazır → gönderildi → alındı → ekip yolda → çözüldü. Her aşama acil kişilerine bildirilir; en yakın kurtarma merkezi gösterilir."
+      }
+    ],
+    "layersTitle": "Bağlantı katmanı",
+    "layersLead": "Hücresel → Wi-Fi → uydu → yok. Uygulama en iyi katmanı seçer; kapsama tahmini harita paketiyle çevrimdışı çalışır.",
+    "countriesTitle": "Ülke dizini",
+    "countriesLead": "Acil numaralar ve kurtarma örgütleri; uygulamada tam dizin ve konsolosluk notları.",
+    "general": "Genel",
+    "police": "Polis",
+    "ambulance": "Ambulans",
+    "fire": "İtfaiye",
+    "mountain": "Dağ",
+    "sea": "Deniz",
+    "organizations": "Örgütler",
+    "firstAidTitle": "Çevrimdışı ilk yardım rehberleri",
+    "firstAidLead": "12 rehber internet olmadan da açılır; Zirtan AI adımları sesli okur.",
+    "firstAid": [
+      "CPR",
+      "Kanama kontrolü",
+      "Kırık ve çıkık",
+      "Hipotermi",
+      "Sıcak çarpması",
+      "İrtifa hastalığı (AMS/HAPE/HACE)",
+      "Yılan ısırması",
+      "Anafilaksi",
+      "Boğulma",
+      "Yanık",
+      "Yıldırım",
+      "Çığ"
+    ],
+    "returnTitle": "Dönüş planı",
+    "returnLead": "Başlangıç, beklenen dönüş saati ve tolerans süresi; dönmezsen acil kişilerine rota ve son konumunla uyarı gider.",
+    "hazardsTitle": "Topluluk tehlike haritası",
+    "hazardsLead": "Kaya düşmesi, çığ, sel, vahşi hayvan, şiddetli hava, bozuk patika, kapalı bölge. Şiddet, etki yarıçapı, geçerlilik süresi; 'Ben de gördüm' onayı ve bildiren için 'çözüldü' işareti.",
+    "disclaimer": "Bu sayfa tıbbi tavsiye değildir. Acil durumda önce yerel acil numarayı arayın."
+  },
+  "about": {
+    "title": "Hakkımızda",
+    "metaDescription": "Zirtan; Türkiye'den doğan, 9 dilde konuşan outdoor macera sosyal ağı. Misyon, ekip, açık veri ve yol haritası.",
+    "kicker": "Hakkımızda",
+    "lead": "Zirtan, dağa çıkan herkesin aynı uygulamada plan yapmasını, partner bulmasını ve güvende kalmasını istiyor.",
+    "missionTitle": "Misyon",
+    "mission": "Outdoor dünyası dikey uygulamalara bölünmüş: rota için biri, tırmanış için başka, kamp rezervasyonu ve SOS için başkaları. Zirtan bunları tek üründe birleştirir; açık veriyle beslenir, toplulukla doğrulanır ve önce Türkiye, sonra yükselen pazarlar için tasarlanır.",
+    "valuesTitle": "Değerler",
+    "values": [
+      {
+        "title": "Güvenlik önce",
+        "text": "Tehlike haritası, dönüş planı, uydu SOS ve ilk yardım rehberleri ücretsiz katmanda."
+      },
+      {
+        "title": "Açık veri",
+        "text": "OpenStreetMap, Wikidata ve Commons; her kayıtta kaynak, lisans ve atıf."
+      },
+      {
+        "title": "Topluluk doğrulaması",
+        "text": "Rota, tehlike ve tırmanış verisi 3 bağımsız onayla topluluk statüsü kazanır."
+      },
+      { "title": "Çok dilli", "text": "9 dil, ülke bazlı acil dizini ve yerel kurtarma örgütleri." }
+    ],
+    "roadmapTitle": "Yol haritası",
+    "roadmap": [
+      {
+        "v": "v1.1",
+        "text": "Canlı konum, Anlar, konaklama pazarı, Pro planlar, drone yayını, ilk yardım & SOS, 9 dil, veri hattı"
+      },
+      {
+        "v": "v1.2",
+        "text": "Zirtan AI, çevrimdışı harita paketleri + rota motoru, tırmanış veritabanı, uydu SOS, emanet ödeme, üniversite kulüpleri, oyunlaştırma"
+      },
+      {
+        "v": "v1.3",
+        "text": "Gerçek backend (Supabase/PostGIS), push bildirim, RevenueCat + iyzico, LiveKit canlı yayın, MapLibre"
+      },
+      {
+        "v": "v1.4",
+        "text": "Hava & çığ bülteni, Garmin/Zoleo köprüsü, giyilebilir senkron, aktivite kaydı"
+      },
+      { "v": "v2.0", "text": "Yeni sporlar, kurumsal veri API'si, çoklu para birimi" }
+    ],
+    "techTitle": "Teknoloji",
+    "tech": "Expo SDK 57 · React Native 0.86 · TypeScript strict · Expo Router · TanStack Query · Reanimated 4 · PMTiles · A* rota motoru · Claude tabanlı AI gateway. Kaynak kodu MIT lisansıyla GitHub'da.",
+    "contactTitle": "İletişim",
+    "contact": "Basın ve iş birliği: hello@zirtan.app · Güvenlik açığı bildirimi: security@zirtan.app",
+    "openSource": "GitHub'da incele"
+  },
+  "press": {
+    "title": "Basın kiti",
+    "metaDescription": "Zirtan basın kiti: logo, ekran görüntüleri, boilerplate metin, rakamlar ve iletişim.",
+    "kicker": "Basın",
+    "lead": "Logo, ekran görüntüleri ve hazır metinler. Kullanım için ayrı izin gerekmez; logoyu deforme etmeyin.",
+    "boilerplateTitle": "Boilerplate",
+    "boilerplate": "Zirtan, Türkiye'den doğan çok sporlu outdoor macera sosyal ağıdır. Rota planlama ve çevrimdışı haritalar, topluluk tehlike haritası, doğrulanmış partner eşleştirme (ZMatch), canlı yayın ve drone telemetrisi, uydu SOS ve 58 ülkelik acil dizini, tırmanış veritabanı, destinasyon rehberleri, eğitmen ve konaklama pazarını tek uygulamada birleştirir. Türkçe, İngilizce, Almanca, Fransızca, İspanyolca, İtalyanca, Japonca, Portekizce ve Rusça sunulur.",
+    "factsTitle": "Rakamlar",
+    "facts": [
+      { "k": "Kuruluş", "v": "2026, Türkiye" },
+      { "k": "Platformlar", "v": "iOS, Android (Expo / React Native)" },
+      { "k": "Diller", "v": "9" },
+      { "k": "SOS dizini", "v": "58 ülke" },
+      { "k": "Lisans", "v": "MIT (uygulama kodu)" }
+    ],
+    "logosTitle": "Logo",
+    "logosLead": "SVG; açık ve koyu zemin için. Minimum boşluk: işaret yüksekliğinin yarısı.",
+    "logoMark": "İşaret",
+    "logoWordmark": "Yazı işareti",
+    "logoDark": "Koyu zemin",
+    "screensTitle": "Ekran görüntüleri",
+    "screensLead": "1170×2532 PNG, karanlık tema. Sağ tık → farklı kaydet.",
+    "colorsTitle": "Renkler",
+    "colors": [
+      { "name": "Orman yeşili", "hex": "#2F7D4F" },
+      { "name": "Gökyüzü", "hex": "#3A8DDE" },
+      { "name": "Gün batımı", "hex": "#E8722A" },
+      { "name": "Kum", "hex": "#F5F1E8" },
+      { "name": "Gece", "hex": "#10201B" }
+    ],
+    "contactTitle": "Basın iletişimi",
+    "contact": "press@zirtan.app — 24 saat içinde dönüş.",
+    "download": "İndir"
+  },
+  "privacy": {
+    "title": "Gizlilik politikası",
+    "metaDescription": "Zirtan gizlilik politikası taslağı: hangi verileri topluyoruz, neden, ne kadar saklıyoruz ve haklarınız.",
+    "kicker": "Yasal",
+    "updated": "Son güncelleme: 6 Eylül 2026",
+    "sections": [
+      {
+        "h": "1. Kapsam",
+        "p": "Bu politika Zirtan mobil uygulaması ve zirtan.app web sitesi için geçerlidir. Uygulama şu an demo veri sağlayıcısıyla çalışır; kişisel veriler cihazınızda (AsyncStorage) saklanır ve sunucuya gönderilmez. Gerçek backend devreye girdiğinde bu politika güncellenecektir."
+      },
+      {
+        "h": "2. Topladığımız veriler",
+        "p": "Hesap bilgileri (e-posta, görünen ad), profil içerikleri (macera paylaşımları, fotoğraflar, rotalar), konum verisi (yalnızca izin verdiğinizde; canlı konum paylaşımı süreli ve iptal edilebilir), acil kişi bilgileri (yalnızca SOS için), cihaz ve kullanım verileri (çökme raporları, performans)."
+      },
+      {
+        "h": "3. Kullanım amaçları",
+        "p": "Hizmeti sunmak (rota, harita, eşleştirme), güvenlik (tehlike uyarıları, SOS, dönüş planı), topluluk doğrulaması, ödeme işlemleri (RevenueCat / iyzico üzerinden; kart bilgisi bizde tutulmaz) ve yasal yükümlülükler."
+      },
+      {
+        "h": "4. Paylaşım",
+        "p": "Konumunuz yalnızca sizin seçtiğiniz kişilerle (takipçiler, eşleşmeler) ya da SOS modunda acil kişiler ve kurtarma ekipleriyle paylaşılır. Verilerinizi reklam amacıyla üçüncü taraflara satmayız. Altyapı sağlayıcıları (barındırma, ödeme, harita karoları) yalnızca hizmet için gerekli veriyi işler."
+      },
+      {
+        "h": "5. Saklama",
+        "p": "Hesap silindiğinde kişisel veriler 30 gün içinde silinir; yasal saklama zorunluluğu olan ödeme kayıtları hariç. Canlı konum geçmişi 24 saat sonra silinir."
+      },
+      {
+        "h": "6. Haklarınız",
+        "p": "Erişim, düzeltme, silme, taşınabilirlik ve itiraz haklarınız için privacy@zirtan.app adresine yazın. Avrupa Birliği'nde GDPR, Türkiye'de KVKK hükümleri uygulanır."
+      },
+      {
+        "h": "7. Çerezler",
+        "p": "Bu web sitesi analitik çerez kullanmaz; tema tercihiniz tarayıcınızın yerel depolamasında saklanır. Harita karoları OpenStreetMap sunucularından yüklenir (IP adresiniz OSM'ye iletilir)."
+      },
+      { "h": "8. Çocuklar", "p": "Zirtan 16 yaş altı kullanıcılar için tasarlanmamıştır." },
+      { "h": "9. İletişim", "p": "privacy@zirtan.app" }
+    ]
+  },
+  "kvkk": {
+    "title": "KVKK aydınlatma metni",
+    "metaDescription": "6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında Zirtan aydınlatma metni taslağı.",
+    "kicker": "Yasal",
+    "updated": "Son güncelleme: 6 Eylül 2026",
+    "sections": [
+      {
+        "h": "Veri sorumlusu",
+        "p": "Zirtan Teknoloji (kuruluş aşamasında), İstanbul. E-posta: kvkk@zirtan.app. Bu metin 6698 sayılı Kişisel Verilerin Korunması Kanunu'nun 10. maddesi uyarınca hazırlanmıştır."
+      },
+      {
+        "h": "İşlenen kişisel veriler",
+        "p": "Kimlik (ad, kullanıcı adı), iletişim (e-posta), konum (izin verdiğinizde), görsel ve işitsel kayıtlar (paylaştığınız fotoğraf ve videolar), işlem güvenliği (IP, cihaz kimliği, oturum), sağlık verisi niteliğinde olabilecek ilk yardım kullanım kayıtları (yalnızca cihazınızda), acil kişi bilgileri (yalnızca SOS için)."
+      },
+      {
+        "h": "İşleme amaçları ve hukuki sebepler",
+        "p": "Sözleşmenin ifası (hizmet sunumu), meşru menfaat (güvenlik, dolandırıcılık önleme), açık rıza (konum paylaşımı, canlı yayın, pazarlama e-postaları) ve hukuki yükümlülük (ödeme kayıtları, yetkili makam talepleri)."
+      },
+      {
+        "h": "Aktarım",
+        "p": "Barındırma, ödeme (iyzico, RevenueCat), harita karoları (OpenStreetMap) ve canlı yayın altyapısı sağlayıcılarına; SOS modunda acil kişilerinize ve kurtarma ekiplerine; yasal zorunluluk hâlinde yetkili kurumlara. Yurt dışına aktarımlar Kurul kararlarına ve açık rızanıza uygun yapılır."
+      },
+      {
+        "h": "Toplama yöntemi",
+        "p": "Mobil uygulama, web sitesi formları ve destek yazışmaları üzerinden; otomatik ya da kısmen otomatik yollarla."
+      },
+      {
+        "h": "Haklarınız (KVKK m. 11)",
+        "p": "Kişisel verilerinizin işlenip işlenmediğini öğrenme, bilgi talep etme, amacına uygun kullanılıp kullanılmadığını öğrenme, aktarıldığı üçüncü kişileri bilme, düzeltme, silme/yok etme, itiraz ve zarar hâlinde tazminat talep etme. Başvurular kvkk@zirtan.app adresine ya da Veri Sorumlusuna Başvuru Usul ve Esasları Hakkında Tebliğ'e uygun yazılı yolla yapılır; en geç 30 gün içinde yanıtlanır."
+      }
+    ]
+  },
+  "download": {
+    "title": "Zirtan'ı indir",
+    "metaDescription": "Zirtan iOS ve Android uygulamasını indirin; QR kodu okutun ya da bekleme listesine katılın.",
+    "kicker": "İndir",
+    "lead": "iOS ve Android için ücretsiz. Mağaza bağlantıları lansmanda aktif olacak; şimdilik bekleme listesine katılın.",
+    "qrTitle": "QR ile indir",
+    "qrLead": "Telefon kamerasıyla okutun.",
+    "qrPlaceholder": "QR kodu lansmanda eklenecek",
+    "requirements": "Gereksinimler",
+    "reqList": [
+      "iOS 16+ ya da Android 10+",
+      "Konum izni (rota ve ZMatch için, isteğe bağlı)",
+      "Çevrimdışı harita paketleri için 70–1.250 MB boş alan"
+    ],
+    "deepLink": "Uygulama şeması",
+    "deepLinkLead": "Uygulama zirtan:// derin bağlantılarını ve https://zirtan.app evrensel bağlantılarını destekler."
+  },
+  "notFound": {
+    "title": "Sayfa bulunamadı",
+    "lead": "Bu patika haritada yok. Rota adı değişmiş ya da sayfa taşınmış olabilir.",
+    "cta": "Ana sayfaya dön"
+  },
+  "footer": {
+    "tagline": "Doğayı birlikte keşfet.",
+    "rights": "© {year} Zirtan. Uygulama kodu MIT lisanslıdır.",
+    "osm": "Harita verisi © OpenStreetMap katkıcıları (ODbL).",
+    "madeIn": "Türkiye'de tasarlandı.",
+    "social": "Sosyal",
+    "github": "GitHub",
+    "instagram": "Instagram",
+    "x": "X",
+    "youtube": "YouTube"
+  }
+}

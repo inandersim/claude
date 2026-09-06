@@ -1,0 +1,860 @@
+{
+  "lang": "en",
+  "locale": "en-US",
+  "langName": "English",
+  "site": {
+    "name": "Zirtan",
+    "tagline": "Plan your adventure, share it, stay safe",
+    "description": "Zirtan is the outdoor adventure social network that combines route planning, a community hazard map, ZMatch partner matching, live streaming and satellite SOS for hiking, climbing, diving, skiing and cycling in one app.",
+    "draft": "Draft text — to be reviewed by legal counsel before publication."
+  },
+  "nav": {
+    "routes": "Routes",
+    "destinations": "Destinations",
+    "places": "Places",
+    "climbing": "Climbing",
+    "courses": "Courses",
+    "pro": "Zirtan Pro",
+    "community": "Community",
+    "safety": "Safety",
+    "about": "About",
+    "press": "Press",
+    "privacy": "Privacy",
+    "kvkk": "KVKK",
+    "download": "Download",
+    "home": "Home",
+    "menu": "Menu",
+    "close": "Close",
+    "language": "Language",
+    "theme": "Theme",
+    "themeSystem": "System",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "skip": "Skip to content",
+    "explore": "Explore",
+    "product": "Product",
+    "company": "Company",
+    "legal": "Legal"
+  },
+  "common": {
+    "km": "km",
+    "m": "m",
+    "min": "min",
+    "hour": "h",
+    "day": "day",
+    "days": "days",
+    "distance": "Distance",
+    "ascent": "Ascent",
+    "descent": "Descent",
+    "duration": "Duration",
+    "maxElevation": "Highest point",
+    "minElevation": "Lowest point",
+    "difficulty": "Difficulty",
+    "type": "Type",
+    "country": "Country",
+    "all": "All",
+    "search": "Search",
+    "searchPlaceholder": "Name, region or country…",
+    "noResults": "No results. Try loosening the filters.",
+    "results": "{n} results",
+    "openInApp": "Open in app",
+    "downloadGpx": "Download GPX",
+    "viewAll": "View all",
+    "readMore": "Read more",
+    "back": "Back",
+    "share": "Share",
+    "rating": "Rating",
+    "reviews": "reviews",
+    "members": "members",
+    "verified": "Verified",
+    "community": "Community verified",
+    "unverified": "Unverified",
+    "bestMonths": "Best months",
+    "sources": "Sources",
+    "lastUpdated": "Last updated",
+    "mapAttribution": "© OpenStreetMap contributors",
+    "mapNoJs": "The interactive map needs JavaScript.",
+    "openOsm": "Open in OpenStreetMap",
+    "stages": "Stages",
+    "stage": "Stage",
+    "sleeping": "Overnight",
+    "water": "Water",
+    "yes": "Yes",
+    "no": "No",
+    "connectivity": "Connectivity",
+    "facilities": "Facilities",
+    "approach": "Approach",
+    "rock": "Rock",
+    "routes": "routes",
+    "sectors": "sectors",
+    "grade": "Grade",
+    "length": "Length",
+    "pitches": "Pitches",
+    "stars": "Stars",
+    "firstAscent": "First ascent",
+    "ascents": "ascents",
+    "elevationProfile": "Elevation profile",
+    "profileSynthetic": "Profile is estimated from the total ascent figure.",
+    "profileReal": "Profile is computed from the route points.",
+    "tryMonth": "₺/mo",
+    "tryYear": "₺/yr",
+    "free": "Free",
+    "perSession": "session",
+    "learnMore": "Learn more",
+    "comingSoon": "Coming soon",
+    "breadcrumbHome": "Home",
+    "attributionNote": "Place data is compiled from OpenStreetMap and Wikidata contributors with licence attribution.",
+    "dataNote": "Data on this page comes from the Zirtan app's demo dataset; verify in the field.",
+    "language": "Language",
+    "email": "Email",
+    "guideTrOnly": "The guide text is currently available in Turkish only.",
+    "onThisPage": "On this page",
+    "restDay": "Acclimatisation day recommended"
+  },
+  "adventure": {
+    "hiking": "Hiking",
+    "climbing": "Climbing",
+    "diving": "Diving",
+    "skiing": "Skiing",
+    "cycling": "Cycling",
+    "paragliding": "Paragliding",
+    "rafting": "Rafting",
+    "canoe": "Canoe"
+  },
+  "activity": {
+    "hike": "Hiking",
+    "trail_run": "Trail running",
+    "mtb": "Mountain biking",
+    "gravel": "Gravel",
+    "ski_tour": "Ski touring"
+  },
+  "difficulty": {
+    "beginner": "Beginner",
+    "easy": "Easy",
+    "moderate": "Moderate",
+    "hard": "Hard",
+    "extreme": "Extreme"
+  },
+  "routeKind": {
+    "community": "Community route",
+    "planned": "Planner route",
+    "destination": "Destination trek"
+  },
+  "placeKind": {
+    "campsite": "Campsite",
+    "climbing": "Climbing area",
+    "diving": "Dive site",
+    "dive_centre": "Dive centre",
+    "hiking_route": "Hiking route",
+    "rafting": "Rafting run",
+    "canoe": "Canoe run",
+    "paragliding": "Paragliding launch",
+    "ski": "Ski resort",
+    "peak": "Peak",
+    "cave": "Cave",
+    "viewpoint": "Viewpoint",
+    "shelter": "Mountain hut / shelter",
+    "hut": "Mountain hut"
+  },
+  "destType": {
+    "trek": "Trek",
+    "expedition": "Expedition",
+    "climbing_area": "Climbing area",
+    "dive_region": "Dive region",
+    "ski_region": "Ski region",
+    "multi_sport": "Multi-sport"
+  },
+  "stageKind": {
+    "trailhead": "Trailhead",
+    "village": "Village",
+    "teahouse": "Teahouse",
+    "camp": "Camp",
+    "hut": "Hut",
+    "base_camp": "Base camp",
+    "pass": "Pass",
+    "summit": "Summit",
+    "viewpoint": "Viewpoint"
+  },
+  "transport": {
+    "flight": "Flight",
+    "bus": "Bus",
+    "jeep": "Jeep",
+    "train": "Train",
+    "ferry": "Ferry",
+    "trek": "Trek",
+    "taxi": "Taxi"
+  },
+  "climbType": {
+    "sport": "Sport",
+    "trad": "Trad",
+    "boulder": "Boulder",
+    "multipitch": "Multi-pitch",
+    "ice": "Ice",
+    "alpine": "Alpine"
+  },
+  "months": [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ],
+  "monthsShort": [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec"
+  ],
+  "home": {
+    "title": "Zirtan — plan your adventure, share it, stay safe",
+    "metaDescription": "Route planning, community hazard map, ZMatch partner matching, live streaming, satellite SOS and a world destination archive. The outdoor adventure social network from Türkiye to the world.",
+    "heroKicker": "Outdoor adventure social network",
+    "heroTitle": "Zirtan — plan your adventure, share it, stay safe",
+    "heroLead": "One app for hiking, climbing, diving, skiing and cycling: route planner, offline maps, community hazard map, verified partner matching and satellite SOS. Born in Türkiye, speaks nine languages.",
+    "heroCtaPrimary": "Explore routes",
+    "heroCtaSecondary": "How it works",
+    "storeIos": "App Store",
+    "storeAndroid": "Google Play",
+    "storeSoon": "Store links coming soon — join the waitlist for now.",
+    "statsRoutes": "routes and treks",
+    "statsDestinations": "destination guides",
+    "statsPlaces": "library places",
+    "statsCountries": "countries in the SOS directory",
+    "statsLanguages": "languages",
+    "featuresKicker": "Why Zirtan?",
+    "featuresTitle": "Everything you would carry in one backpack",
+    "featuresLead": "The route, safety, social and marketplace layers competitors sell separately — in one product, all fed by open data.",
+    "features": {
+      "zmatch": {
+        "title": "ZMatch",
+        "text": "Match with nearby adventurers by location, verification and trust score; plan together."
+      },
+      "hazards": {
+        "title": "Hazard map",
+        "text": "Rockfall, avalanche, flood, wildlife: a live layer marked and confirmed by the community that alerts people nearby."
+      },
+      "live": {
+        "title": "Live & drone streaming",
+        "text": "Stream live from the mountain or underwater; DJI drone telemetry (altitude, speed, battery) on the player."
+      },
+      "satellite": {
+        "title": "Satellite SOS",
+        "text": "160-character compressed messages, store-and-forward queue and an SOS state machine over inReach, ZOLEO, iPhone satellite and Starlink Mini."
+      },
+      "sosCountry": {
+        "title": "SOS by country",
+        "text": "Emergency numbers, mountain rescue organisations and consular lines in 58 countries, with SIM-free 112 notes."
+      },
+      "offline": {
+        "title": "Offline maps",
+        "text": "PMTiles vector map packs and an A* route planner; Tobler time model and elevation profiles work offline."
+      },
+      "climbing": {
+        "title": "Climbing database",
+        "text": "Crag → sector → route hierarchy, conversion between 5 grade systems, logbook and community verification."
+      },
+      "ai": {
+        "title": "Zirtan AI",
+        "text": "Trip plans, packing lists, safety briefs and first-aid steps; answers offline from a local knowledge base too."
+      },
+      "vision": {
+        "title": "Ask with the camera",
+        "text": "Photograph a rock, a track or a wound; Zirtan AI identifies it and points you to the right guide."
+      },
+      "destinations": {
+        "title": "Destination archive",
+        "text": "Stage-by-stage guides from Everest Base Camp to the Lycian Way: transport, permits, lodging, budget and risks."
+      },
+      "routes": {
+        "title": "Community routes",
+        "text": "GPX import/export, saved routes, difficulty and surface analysis; open any route in the app with one tap."
+      },
+      "courses": {
+        "title": "Courses",
+        "text": "Basic mountaineering, avalanche, first aid, diving: online and in-person courses from certified instructors."
+      },
+      "groups": {
+        "title": "Groups & clubs",
+        "text": "University outdoor clubs, event RSVPs, team chats and polls."
+      },
+      "stays": {
+        "title": "Stays marketplace",
+        "text": "Campsite, guesthouse and hut bookings with escrow payments and verified reviews."
+      }
+    },
+    "howKicker": "How it works",
+    "howTitle": "To the mountain in three steps",
+    "how": [
+      {
+        "title": "Plan",
+        "text": "Read the destination guide, draw the route in the planner, download the map pack, share your return plan with emergency contacts."
+      },
+      {
+        "title": "Share",
+        "text": "Find a partner with ZMatch, create your group, let your team follow you with live location and streams."
+      },
+      {
+        "title": "Stay safe",
+        "text": "Get hazard alerts, send one-tap check-ins and, if needed, start an SOS over satellite."
+      }
+    ],
+    "destinationsKicker": "Destination archive",
+    "destinationsTitle": "Popular destinations",
+    "destinationsLead": "Stage-by-stage guides: transport, permits, acclimatisation, budget and rescue notes.",
+    "routesKicker": "Community routes",
+    "routesTitle": "Explore on the map",
+    "routesLead": "Routes shared with track points, elevation profiles and GPX. Open them in the app and edit in the planner.",
+    "proKicker": "Zirtan Pro",
+    "proTitle": "Safer, wider, ad-free",
+    "proLead": "Pro for individual explorers; Pro Guide and Business for guides, instructors and businesses.",
+    "clubsKicker": "University clubs",
+    "clubsTitle": "From campus to summit",
+    "clubsLead": "Outdoor club directory, .edu verification, events and seasonal rankings.",
+    "faqKicker": "FAQ",
+    "faqTitle": "Frequently asked questions",
+    "faq": [
+      {
+        "q": "Is Zirtan free?",
+        "a": "Yes. The Explorer plan is free: feed, explore, library, ZMatch, hazard map and SOS. Offline map packs, unlimited live location and advanced alerts are part of Zirtan Pro (₺149/month or ₺1,190/year)."
+      },
+      {
+        "q": "Which sports are covered?",
+        "a": "Hiking and trekking, sport/trad/boulder climbing, diving, skiing and ski touring, mountain biking and gravel, paragliding, rafting and canoeing. More sports are on the roadmap."
+      },
+      {
+        "q": "Does satellite SOS really work?",
+        "a": "The app pairs with Garmin inReach, ZOLEO, SPOT, phone satellite links and Starlink Mini, compresses messages and delivers them through a store-and-forward queue. Real transmission needs the device's own subscription and a service bridge; see the Safety page."
+      },
+      {
+        "q": "Where does the data come from?",
+        "a": "The library is compiled from OpenStreetMap, Wikidata and Wikimedia Commons with licence attribution. Destination guides are compiled from official sources (park authorities, tourism boards, Wikivoyage) and updated by the community."
+      },
+      {
+        "q": "Can I export my routes?",
+        "a": "Yes. Every route can be downloaded as GPX and imported into Garmin, Suunto or any other app; GPX import is supported too."
+      },
+      {
+        "q": "Which languages?",
+        "a": "Turkish, English, German, French, Spanish, Italian, Japanese, Portuguese and Russian. This website is in Turkish and English for now."
+      }
+    ],
+    "waitlistKicker": "Waitlist",
+    "waitlistTitle": "Hear about the launch first",
+    "waitlistLead": "Early-access invites, betas and new destination guides; at most one email a month.",
+    "waitlistPlaceholder": "Your email address",
+    "waitlistButton": "Join",
+    "waitlistThanks": "Thank you! You are on the list.",
+    "waitlistError": "Something went wrong; please try again.",
+    "waitlistPrivacy": "Your email is used only for launch announcements. See Privacy.",
+    "screensKicker": "From the app",
+    "screensTitle": "App screens",
+    "screens": [
+      "Home feed",
+      "Explore",
+      "Map packs",
+      "Route planner",
+      "Climbing database",
+      "Satellite SOS",
+      "Zirtan AI",
+      "University clubs"
+    ]
+  },
+  "routes": {
+    "title": "Routes and treks",
+    "metaDescription": "Kaçkar, Lycian Way, Cappadocia, Everest Base Camp, Tour du Mont Blanc and more: community routes with elevation profiles, GPX and stage details.",
+    "kicker": "Explore",
+    "lead": "Community routes, planner routes and destination treks in one list. Search, filter by type, download GPX or open in the app.",
+    "filterType": "Type",
+    "filterDifficulty": "Difficulty",
+    "filterKind": "Source",
+    "sortBy": "Sort",
+    "sortName": "Name",
+    "sortDistance": "Distance",
+    "sortAscent": "Ascent",
+    "mapTitle": "All routes on the map",
+    "detailKicker": "Route",
+    "stats": "Statistics",
+    "stagesTitle": "Stages",
+    "surfaces": "Surfaces",
+    "openInAppLead": "Open the route in the app: edit it in the planner, follow it with an offline map pack, add it to your return plan.",
+    "noApp": "Don't have the app?",
+    "gpxNote": "The GPX file is generated from the route points; transfer it to your device or the Garmin/Suunto app.",
+    "relatedDestination": "Destination guide",
+    "relatedDestinationLead": "Read the transport, permit, lodging and safety guide for this trek.",
+    "moreRoutes": "Similar routes",
+    "regionsTitle": "Planner regions",
+    "regionsLead": "Demo trail graphs of the A* route planner, with node and edge counts.",
+    "nodes": "nodes",
+    "edges": "edges",
+    "packsTitle": "Offline map packs",
+    "packsLead": "PMTiles vector tile packs with version and size.",
+    "loop": "Loop",
+    "pointToPoint": "Point to point"
+  },
+  "destinations": {
+    "title": "Destination guides",
+    "metaDescription": "Everest Base Camp, Annapurna, Kilimanjaro, Torres del Paine, Tour du Mont Blanc, Ararat, Kaçkar, Lycian Way: transport, permit, lodging, acclimatisation, budget and safety guides.",
+    "kicker": "Destination archive",
+    "lead": "For every destination: how to get there, when to go, permits, lodging, acclimatisation, budget and rescue notes — stage by stage.",
+    "detailKicker": "Destination guide",
+    "atAGlance": "At a glance",
+    "days": "Typical duration",
+    "maxAlt": "Highest point",
+    "distance": "Total distance",
+    "budget": "Budget (per person)",
+    "insurance": "Insurance",
+    "insuranceRequired": "Required",
+    "insuranceOptional": "Recommended",
+    "guide": "Guide",
+    "howToGet": "How to get there",
+    "transports": "Transport",
+    "permits": "Permits and fees",
+    "permitWhere": "Where",
+    "risks": "Risks",
+    "gear": "Gear list",
+    "rescue": "Rescue and emergencies",
+    "stagesLead": "Stops, altitudes, distances and facilities; acclimatisation recommendations are marked.",
+    "route": "Route and elevation profile",
+    "routeLead": "Elevation profile and GPX generated from the stages.",
+    "nearby": "Nearby library places",
+    "filterCountry": "Country",
+    "filterType": "Type",
+    "filterMonth": "Month",
+    "otherDestinations": "Other destinations",
+    "cost": "Fee",
+    "freeOfCharge": "Free",
+    "from": "From",
+    "to": "To"
+  },
+  "places": {
+    "title": "Library: camping, climbing, diving and more",
+    "metaDescription": "Campsites, climbing areas, dive sites, peaks, caves and ski resorts: an outdoor library fed by OpenStreetMap and Wikidata with licence attribution.",
+    "kicker": "Library",
+    "lead": "The world's outdoor spots: campsites, climbing areas, dive sites, peaks, caves, ski resorts. Fed by open data, grown by the community.",
+    "filterKind": "Place type",
+    "mapTitle": "On the map",
+    "detailKicker": "Library place",
+    "elevation": "Elevation",
+    "website": "Website",
+    "tags": "Features",
+    "source": "Source",
+    "nearbyRoutes": "Nearby routes",
+    "nearbyPlaces": "Nearby places",
+    "coordinates": "Coordinates"
+  },
+  "climbing": {
+    "title": "Climbing database",
+    "metaDescription": "Geyikbayırı, Olympos, Ballıkayalar, Kazıklıali, Datça, Cappadocia boulders, Kalymnos, Fontainebleau, Yosemite: sectors, routes, grades and community verification.",
+    "kicker": "Climbing",
+    "lead": "Crag → sector → route hierarchy; French, YDS, UIAA, Fontainebleau and V-scale grades; community verification with 3 independent confirmations.",
+    "detailKicker": "Crag",
+    "sectors": "Sectors",
+    "orientation": "Aspect",
+    "routesTable": "Routes",
+    "gradeHistogram": "Grade distribution",
+    "seasons": "Season",
+    "approach": "Approach",
+    "rockType": "Rock type",
+    "climbTypes": "Climbing types",
+    "verification": "Verification",
+    "verificationLead": "Route submission → 3 independent confirmations → community verified; verified by a moderator or club.",
+    "logbook": "Logbook",
+    "logbookLead": "Onsight, flash, redpoint and top-rope entries; grade pyramid and conversion preference in the app.",
+    "otherCrags": "Other crags"
+  },
+  "courses": {
+    "title": "Courses and instructors",
+    "metaDescription": "Basic mountaineering, rock climbing, avalanche, first aid, navigation, diving and drone: online, in-person and hybrid courses from certified instructors.",
+    "kicker": "Zirtan Academy",
+    "lead": "Courses built on certified curricula with a digital certificate on completion. Instructors are ranked by rating, distance and price.",
+    "coursesTitle": "Courses",
+    "instructorsTitle": "Instructors",
+    "instructorsLead": "Certified guides and instructors; lesson requests in the app.",
+    "level": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced",
+      "all": "All levels"
+    },
+    "format": { "online": "Online", "in_person": "In person", "hybrid": "Hybrid" },
+    "category": {
+      "mountaineering": "Mountaineering",
+      "climbing": "Climbing",
+      "avalanche": "Avalanche",
+      "first_aid": "First aid",
+      "navigation": "Navigation",
+      "diving": "Diving",
+      "paragliding": "Paragliding",
+      "paddling": "Paddling",
+      "winter": "Winter",
+      "drone": "Drone",
+      "ethics": "Ethics",
+      "photography": "Photography"
+    },
+    "hours": "hours",
+    "lessons": "lessons",
+    "certificate": "Certificate",
+    "provider": "Provider",
+    "outcomes": "Outcomes",
+    "enrollInApp": "Enrol in the app",
+    "years": "years of experience",
+    "students": "students",
+    "bookInApp": "Request a lesson",
+    "certifications": "Certifications"
+  },
+  "pro": {
+    "title": "Zirtan Pro — plans and pricing",
+    "metaDescription": "Explorer (free), Pro ₺149/mo, Pro Guide ₺399/mo and Business ₺799/mo. Offline maps, unlimited live location, low commission, drone streaming and business tools.",
+    "kicker": "Plans",
+    "lead": "Pro for individual explorers; Pro Guide for instructors and guides; Business for hotels, campsites, shops and tour operators.",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "save": "Save {percent}%",
+    "popular": "Most popular",
+    "commission": "Commission",
+    "choose": "Choose in the app",
+    "plan": {
+      "free": { "name": "Explorer", "description": "Core features, limited live location" },
+      "pro": { "name": "Pro", "description": "For individual adventurers" },
+      "pro_guide": { "name": "Pro Guide", "description": "Paid mode for instructors and guides" },
+      "business": {
+        "name": "Business",
+        "description": "For hotels, campsites, shops and tour operators"
+      }
+    },
+    "features": {
+      "basic": "Feed, explore, library, marketplace",
+      "match": "ZMatch matching",
+      "hazards": "Hazard map and SOS",
+      "offlineMaps": "Offline map packs",
+      "unlimitedShare": "Unlimited live location sharing",
+      "advancedAlerts": "Advanced hazard and weather alerts",
+      "noAds": "Ad-free experience",
+      "badge": "Pro badge",
+      "paidBookings": "Accept paid bookings",
+      "lowCommission": "Low commission (5%)",
+      "featuredProfile": "Featured profile",
+      "drone": "Drone live streaming",
+      "analytics": "Calendar and earnings analytics",
+      "allPro": "All Pro features",
+      "stayBookings": "Stay booking management",
+      "featuredListing": "Featured listing and business",
+      "multiStaff": "Multiple staff accounts"
+    },
+    "compareTitle": "Compare",
+    "legal": "Subscriptions are billed to your App Store / Google Play account and renew until cancelled. Prices include VAT; connected via RevenueCat and iyzico in production.",
+    "faqTitle": "Plan questions",
+    "faq": [
+      {
+        "q": "What happens when I switch to yearly?",
+        "a": "The remaining months are prorated; yearly plans save up to 33% compared to monthly."
+      },
+      {
+        "q": "How does the Pro Guide commission work?",
+        "a": "The platform commission on paid bookings is 15% on Explorer and Pro, 5% on Pro Guide and 10% on Business. Earnings are shown as gross / commission / net."
+      },
+      {
+        "q": "Is there a student discount?",
+        "a": "A 50% Pro discount for verified .edu accounts is planned; see the verification flow on the community page."
+      }
+    ]
+  },
+  "community": {
+    "title": "Community: clubs, groups and events",
+    "metaDescription": "University outdoor club directory, .edu verification, group chats, polls and event RSVPs. How to join the Zirtan community.",
+    "kicker": "Community",
+    "lead": "Clubs, groups and events; a safe community with verified profiles and trust scores.",
+    "clubsTitle": "University clubs",
+    "clubsLead": "Directory; membership requests, event calendar and seasonal XP ranking in the app.",
+    "groupsTitle": "Open groups",
+    "groupsLead": "Public groups can be joined without an invite code; private groups by invitation.",
+    "joinTitle": "How to join",
+    "join": [
+      {
+        "title": "Create an account, verify your profile",
+        "text": "Sign up with email; ID and .edu verification raise your trust score and feature you in ZMatch."
+      },
+      {
+        "title": "Find your club or group",
+        "text": "Pick your university from the directory and request membership, or join open groups in your city."
+      },
+      {
+        "title": "RSVP to an event",
+        "text": "Trips, trainings, talks and competitions; a waitlist opens when capacity is full."
+      },
+      {
+        "title": "Share your routes and moments",
+        "text": "Earn XP, collect badges, move your club up the seasonal ranking."
+      }
+    ],
+    "guidelinesTitle": "Community guidelines",
+    "guidelines": [
+      "Leave no trace: leave the campsite as you found it, stay on the trail.",
+      "Report hazards only for what you have seen; you must be on site to confirm someone else's report.",
+      "Give sources and dates for route submissions; do not copy copyrighted topos.",
+      "Harassment, discrimination and dangerous challenge content are permanently banned."
+    ],
+    "founded": "Founded",
+    "seasonXp": "Season XP",
+    "verifiedClub": "Verified club",
+    "public": "Public",
+    "leaderboard": "Season ranking"
+  },
+  "safety": {
+    "title": "Safety: SOS, country directory and first aid",
+    "metaDescription": "Press-and-hold SOS, satellite SOS state machine, emergency numbers and mountain rescue directory for 58 countries, 12 offline first-aid guides and return plans.",
+    "kicker": "Safety",
+    "lead": "Zirtan's safety layer: from the hazard map to satellite SOS, from the country directory to offline first-aid guides.",
+    "sosTitle": "How SOS works",
+    "sos": [
+      {
+        "title": "Press and hold",
+        "text": "Hold the SOS button for 3 seconds: 112 (or the local number) is dialled, your location goes to emergency contacts and live location switches to SOS mode."
+      },
+      {
+        "title": "Over satellite",
+        "text": "With no network, a 160-character compressed SOS is queued through a paired device (inReach, ZOLEO, SPOT, iPhone satellite, Starlink Mini)."
+      },
+      {
+        "title": "State machine",
+        "text": "Ready → sent → received → team en route → resolved. Every stage notifies your emergency contacts; the nearest rescue centre is shown."
+      }
+    ],
+    "layersTitle": "Connectivity layer",
+    "layersLead": "Cellular → Wi-Fi → satellite → none. The app picks the best layer; coverage estimates work offline with the map pack.",
+    "countriesTitle": "Country directory",
+    "countriesLead": "Emergency numbers and rescue organisations; the full directory and consular notes are in the app.",
+    "general": "General",
+    "police": "Police",
+    "ambulance": "Ambulance",
+    "fire": "Fire",
+    "mountain": "Mountain",
+    "sea": "Sea",
+    "organizations": "Organisations",
+    "firstAidTitle": "Offline first-aid guides",
+    "firstAidLead": "12 guides open without internet; Zirtan AI reads the steps aloud.",
+    "firstAid": [
+      "CPR",
+      "Bleeding control",
+      "Fractures and dislocations",
+      "Hypothermia",
+      "Heat stroke",
+      "Altitude sickness (AMS/HAPE/HACE)",
+      "Snake bite",
+      "Anaphylaxis",
+      "Drowning",
+      "Burns",
+      "Lightning",
+      "Avalanche"
+    ],
+    "returnTitle": "Return plan",
+    "returnLead": "Start, expected return time and grace period; if you do not return, your emergency contacts receive your route and last location.",
+    "hazardsTitle": "Community hazard map",
+    "hazardsLead": "Rockfall, avalanche, flood, wildlife, severe weather, damaged trail, closed area. Severity, radius, validity period; 'I saw it too' confirmations and a 'resolved' mark for the reporter.",
+    "disclaimer": "This page is not medical advice. In an emergency call the local emergency number first."
+  },
+  "about": {
+    "title": "About",
+    "metaDescription": "Zirtan is the outdoor adventure social network born in Türkiye and speaking nine languages. Mission, team, open data and roadmap.",
+    "kicker": "About",
+    "lead": "Zirtan wants everyone who goes to the mountains to plan, find partners and stay safe in the same app.",
+    "missionTitle": "Mission",
+    "mission": "The outdoor world is split into vertical apps: one for routes, another for climbing, others for campsite bookings and SOS. Zirtan combines them in one product, fed by open data, verified by the community, designed first for Türkiye and then for emerging markets.",
+    "valuesTitle": "Values",
+    "values": [
+      {
+        "title": "Safety first",
+        "text": "Hazard map, return plan, satellite SOS and first-aid guides on the free tier."
+      },
+      {
+        "title": "Open data",
+        "text": "OpenStreetMap, Wikidata and Commons; source, licence and attribution on every record."
+      },
+      {
+        "title": "Community verification",
+        "text": "Route, hazard and climbing data earn community status with 3 independent confirmations."
+      },
+      {
+        "title": "Multilingual",
+        "text": "9 languages, country-based emergency directory and local rescue organisations."
+      }
+    ],
+    "roadmapTitle": "Roadmap",
+    "roadmap": [
+      {
+        "v": "v1.1",
+        "text": "Live location, Moments, stays marketplace, Pro plans, drone streaming, first aid & SOS, 9 languages, data pipeline"
+      },
+      {
+        "v": "v1.2",
+        "text": "Zirtan AI, offline map packs + route engine, climbing database, satellite SOS, escrow payments, university clubs, gamification"
+      },
+      {
+        "v": "v1.3",
+        "text": "Real backend (Supabase/PostGIS), push notifications, RevenueCat + iyzico, LiveKit streaming, MapLibre"
+      },
+      {
+        "v": "v1.4",
+        "text": "Weather & avalanche bulletins, Garmin/Zoleo bridge, wearable sync, activity recording"
+      },
+      { "v": "v2.0", "text": "New sports, enterprise data API, multi-currency" }
+    ],
+    "techTitle": "Technology",
+    "tech": "Expo SDK 57 · React Native 0.86 · TypeScript strict · Expo Router · TanStack Query · Reanimated 4 · PMTiles · A* route engine · Claude-based AI gateway. Source code on GitHub under the MIT licence.",
+    "contactTitle": "Contact",
+    "contact": "Press and partnerships: hello@zirtan.app · Security disclosures: security@zirtan.app",
+    "openSource": "View on GitHub"
+  },
+  "press": {
+    "title": "Press kit",
+    "metaDescription": "Zirtan press kit: logo, screenshots, boilerplate, facts and contact.",
+    "kicker": "Press",
+    "lead": "Logo, screenshots and ready-made copy. No separate permission needed; please do not distort the logo.",
+    "boilerplateTitle": "Boilerplate",
+    "boilerplate": "Zirtan is a multi-sport outdoor adventure social network born in Türkiye. It combines route planning and offline maps, a community hazard map, verified partner matching (ZMatch), live streaming with drone telemetry, satellite SOS and a 58-country emergency directory, a climbing database, destination guides, and an instructor and stays marketplace in one app. Available in Turkish, English, German, French, Spanish, Italian, Japanese, Portuguese and Russian.",
+    "factsTitle": "Facts",
+    "facts": [
+      { "k": "Founded", "v": "2026, Türkiye" },
+      { "k": "Platforms", "v": "iOS, Android (Expo / React Native)" },
+      { "k": "Languages", "v": "9" },
+      { "k": "SOS directory", "v": "58 countries" },
+      { "k": "Licence", "v": "MIT (app code)" }
+    ],
+    "logosTitle": "Logo",
+    "logosLead": "SVG, for light and dark backgrounds. Minimum clear space: half the mark's height.",
+    "logoMark": "Mark",
+    "logoWordmark": "Wordmark",
+    "logoDark": "Dark background",
+    "screensTitle": "Screenshots",
+    "screensLead": "1170×2532 PNG, dark theme. Right click → save as.",
+    "colorsTitle": "Colours",
+    "colors": [
+      { "name": "Forest green", "hex": "#2F7D4F" },
+      { "name": "Sky", "hex": "#3A8DDE" },
+      { "name": "Sunset", "hex": "#E8722A" },
+      { "name": "Sand", "hex": "#F5F1E8" },
+      { "name": "Night", "hex": "#10201B" }
+    ],
+    "contactTitle": "Press contact",
+    "contact": "press@zirtan.app — reply within 24 hours.",
+    "download": "Download"
+  },
+  "privacy": {
+    "title": "Privacy policy",
+    "metaDescription": "Zirtan privacy policy draft: what we collect, why, how long we keep it and your rights.",
+    "kicker": "Legal",
+    "updated": "Last updated: 6 September 2026",
+    "sections": [
+      {
+        "h": "1. Scope",
+        "p": "This policy applies to the Zirtan mobile app and the zirtan.app website. The app currently runs on a demo data provider; personal data is stored on your device (AsyncStorage) and is not sent to a server. This policy will be updated when the real backend goes live."
+      },
+      {
+        "h": "2. Data we collect",
+        "p": "Account details (email, display name), profile content (adventure posts, photos, routes), location data (only with your permission; live location sharing is time-limited and cancellable), emergency contact details (only for SOS), device and usage data (crash reports, performance)."
+      },
+      {
+        "h": "3. Purposes",
+        "p": "Providing the service (routes, maps, matching), safety (hazard alerts, SOS, return plans), community verification, payment processing (via RevenueCat / iyzico; we never store card details) and legal obligations."
+      },
+      {
+        "h": "4. Sharing",
+        "p": "Your location is shared only with people you choose (followers, matches) or, in SOS mode, with emergency contacts and rescue teams. We do not sell your data to third parties for advertising. Infrastructure providers (hosting, payments, map tiles) process only the data needed for the service."
+      },
+      {
+        "h": "5. Retention",
+        "p": "Personal data is deleted within 30 days of account deletion, except payment records subject to legal retention. Live location history is deleted after 24 hours."
+      },
+      {
+        "h": "6. Your rights",
+        "p": "For access, rectification, erasure, portability and objection write to privacy@zirtan.app. GDPR applies in the European Union and KVKK in Türkiye."
+      },
+      {
+        "h": "7. Cookies",
+        "p": "This website uses no analytics cookies; your theme preference is kept in your browser's local storage. Map tiles are loaded from OpenStreetMap servers (your IP address is sent to OSM)."
+      },
+      { "h": "8. Children", "p": "Zirtan is not designed for users under 16." },
+      { "h": "9. Contact", "p": "privacy@zirtan.app" }
+    ]
+  },
+  "kvkk": {
+    "title": "KVKK disclosure notice",
+    "metaDescription": "Draft disclosure notice under Türkiye's Personal Data Protection Law No. 6698 (KVKK).",
+    "kicker": "Legal",
+    "updated": "Last updated: 6 September 2026",
+    "sections": [
+      {
+        "h": "Data controller",
+        "p": "Zirtan Teknoloji (in formation), Istanbul. Email: kvkk@zirtan.app. This notice is prepared under Article 10 of the Personal Data Protection Law No. 6698."
+      },
+      {
+        "h": "Personal data processed",
+        "p": "Identity (name, username), contact (email), location (with your permission), visual and audio records (photos and videos you share), transaction security (IP, device ID, session), first-aid usage records that may qualify as health data (on your device only), emergency contact details (only for SOS)."
+      },
+      {
+        "h": "Purposes and legal bases",
+        "p": "Performance of the contract (service delivery), legitimate interest (safety, fraud prevention), explicit consent (location sharing, live streaming, marketing emails) and legal obligation (payment records, requests from authorities)."
+      },
+      {
+        "h": "Transfers",
+        "p": "To hosting, payment (iyzico, RevenueCat), map tile (OpenStreetMap) and live streaming providers; in SOS mode to your emergency contacts and rescue teams; to authorities where legally required. International transfers follow Board decisions and your explicit consent."
+      },
+      {
+        "h": "Collection method",
+        "p": "Through the mobile app, website forms and support correspondence; by automatic or partly automatic means."
+      },
+      {
+        "h": "Your rights (KVKK art. 11)",
+        "p": "To learn whether your data is processed, request information, learn whether it is used for its purpose, know the third parties it is transferred to, request rectification, erasure/destruction, object and claim compensation for damages. Applications go to kvkk@zirtan.app or in writing under the Communiqué on Application Procedures to the Data Controller; they are answered within 30 days."
+      }
+    ]
+  },
+  "download": {
+    "title": "Download Zirtan",
+    "metaDescription": "Download the Zirtan iOS and Android app; scan the QR code or join the waitlist.",
+    "kicker": "Download",
+    "lead": "Free for iOS and Android. Store links go live at launch; join the waitlist for now.",
+    "qrTitle": "Download via QR",
+    "qrLead": "Scan with your phone camera.",
+    "qrPlaceholder": "QR code will be added at launch",
+    "requirements": "Requirements",
+    "reqList": [
+      "iOS 16+ or Android 10+",
+      "Location permission (optional, for routes and ZMatch)",
+      "70–1,250 MB free space for offline map packs"
+    ],
+    "deepLink": "App scheme",
+    "deepLinkLead": "The app supports zirtan:// deep links and https://zirtan.app universal links."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "lead": "This trail is not on the map. The route name may have changed or the page moved.",
+    "cta": "Back to home"
+  },
+  "footer": {
+    "tagline": "Explore nature together.",
+    "rights": "© {year} Zirtan. App code is MIT licensed.",
+    "osm": "Map data © OpenStreetMap contributors (ODbL).",
+    "madeIn": "Designed in Türkiye.",
+    "social": "Social",
+    "github": "GitHub",
+    "instagram": "Instagram",
+    "x": "X",
+    "youtube": "YouTube"
+  }
+}
