@@ -1,23 +1,34 @@
 import { distanceKm } from './geo';
+import { RESCUE_DIRECTORY } from './rescue';
 import type { EmergencyCenter, EmergencyCenterWithDistance, GeoPoint } from './types';
 
-/** Ülke koduna göre acil numaralar (varsayılan: 112). */
-export const EMERGENCY_NUMBERS: Record<string, { general: string; label: string }> = {
-  TR: { general: '112', label: 'Acil Çağrı Merkezi (112)' },
-  US: { general: '911', label: 'Emergency (911)' },
-  CA: { general: '911', label: 'Emergency (911)' },
-  GB: { general: '999', label: 'Emergency (999 / 112)' },
-  AU: { general: '000', label: 'Emergency (000)' },
-  NZ: { general: '111', label: 'Emergency (111)' },
-  JP: { general: '119', label: '救急 (119)' },
-  BR: { general: '192', label: 'SAMU (192)' },
-  NP: { general: '102', label: 'Ambulance (102)' },
-  EG: { general: '123', label: 'Ambulance (123)' },
-  TH: { general: '1669', label: 'Ambulance (1669)' },
-  ID: { general: '118', label: 'Ambulance (118)' },
-  MA: { general: '150', label: 'Ambulance (150)' },
-  RU: { general: '112', label: 'Экстренная служба (112)' },
-};
+/** Genel acil numara için okunabilir etiket (çoğunlukla "Emergency (112)"). */
+function emergencyLabel(countryCode: string, general: string): string {
+  switch (countryCode) {
+    case 'TR':
+      return `Acil Çağrı Merkezi (${general})`;
+    case 'JP':
+      return `救急 (${general})`;
+    case 'RU':
+      return `Экстренная служба (${general})`;
+    case 'BR':
+      return `SAMU (${general})`;
+    default:
+      return `Emergency (${general})`;
+  }
+}
+
+/**
+ * Ülke koduna göre acil numaralar (varsayılan: 112). `RESCUE_DIRECTORY`'den
+ * türetilir; ayrıntılı dizin için `rescueProfileFor` kullan.
+ */
+export const EMERGENCY_NUMBERS: Record<string, { general: string; label: string }> =
+  Object.fromEntries(
+    Object.values(RESCUE_DIRECTORY).map((p) => [
+      p.countryCode,
+      { general: p.emergency.general, label: emergencyLabel(p.countryCode, p.emergency.general) },
+    ]),
+  );
 
 export function emergencyNumber(countryCode: string | null | undefined): {
   general: string;

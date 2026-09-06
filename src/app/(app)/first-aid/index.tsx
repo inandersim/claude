@@ -20,12 +20,16 @@ import { useT, type TranslationKey } from '@/core/i18n';
 import { layout, radius, spacing, useTheme } from '@/core/theme';
 import { getFirstAidGuides } from '@/data/content/firstAid';
 import {
+  rescueCountryFlag,
+  countryName,
+  dialUrl,
   EMERGENCY_CENTER_META,
-  emergencyNumber,
   estimateEtaMin,
   FIRST_AID_CATEGORIES,
   formatDistance,
   mapsUrl,
+  mountainNumber,
+  primaryNumber,
   sosMessage,
 } from '@/domain';
 import { useCurrentUser } from '@/features/auth/session.store';
@@ -36,6 +40,7 @@ import {
   useResolveSos,
   useTriggerSos,
 } from '@/features/firstaid/hooks';
+import { useCountry } from '@/features/rescue/hooks';
 
 export default function FirstAidScreen() {
   const router = useRouter();
@@ -49,13 +54,16 @@ export default function FirstAidScreen() {
   const trigger = useTriggerSos();
   const resolve = useResolveSos();
   const guides = getFirstAidGuides(locale);
-  const number = emergencyNumber('TR');
+  const country = useCountry(location.coords);
+  const general = primaryNumber(country.profile, 'general');
+  const mountain = mountainNumber(country.profile);
+  const countryLabel = countryName(country.countryCode, locale);
   const active = Boolean(activeSos.data);
 
   const onTrigger = () => {
     Alert.alert(
       t('firstAid.sosConfirm'),
-      t('firstAid.sosConfirmDescription', { number: number.general }),
+      t('rescue.sosConfirmDescription', { number: general, country: countryLabel }),
       [
         { text: t('common.cancel'), style: 'cancel' },
         {
@@ -65,8 +73,7 @@ export default function FirstAidScreen() {
             trigger.mutate(location.coords, {
               onSuccess: async (event) => {
                 toast(t('firstAid.sosSent', { count: event.notifiedContacts }), 'success');
-                if (Platform.OS !== 'web')
-                  Linking.openURL(`tel:${number.general}`).catch(() => undefined);
+                if (Platform.OS !== 'web') Linking.openURL(dialUrl(general)).catch(() => undefined);
                 const message = sosMessage(me.displayName, location.coords, locale);
                 Share.share({ message }).catch(() => undefined);
               },
@@ -104,6 +111,7 @@ export default function FirstAidScreen() {
         >
           <SosButton
             active={active}
+            number={general}
             onTrigger={onTrigger}
             onResolve={() =>
               resolve.mutate(undefined, {
@@ -112,16 +120,45 @@ export default function FirstAidScreen() {
             }
           />
           <Text variant="caption" color="textMuted" align="center">
-            {active ? t('firstAid.sosResolve') : t('firstAid.sosHint')}
+            {active ? t('firstAid.sosResolve') : t('rescue.sosHint', { number: general })}
           </Text>
+          <Tappable
+            onPress={() => router.push('/first-aid/country')}
+            haptic="selection"
+            style={[styles.contactsHint, { backgroundColor: colors.surfaceMuted }]}
+            accessibilityRole="button"
+            accessibilityLabel={t('rescue.title')}
+          >
+            <Text variant="body">{rescueCountryFlag(country.countryCode)}</Text>
+            <Text variant="caption" color="textMuted" style={{ flex: 1 }} numberOfLines={2}>
+              {t('rescue.countryLine', { country: countryLabel, number: general })}
+              {country.profile.emergency.tourist
+                ? ` · ${t('rescue.numbers.tourist')} ${country.profile.emergency.tourist}`
+                : ''}
+            </Text>
+            <Text variant="caption" weight="bold" color="primary">
+              {t('rescue.directory')}
+            </Text>
+            <Icon name="chevron-right" size={14} color={colors.textSubtle} />
+          </Tappable>
           <View style={styles.quickRow}>
             <Button
-              label={`${t('firstAid.call')} ${number.general}`}
+              label={`${t('firstAid.call')} ${general}`}
               icon="siren"
               variant="danger"
-              onPress={() => Linking.openURL(`tel:${number.general}`)}
+              onPress={() => Linking.openURL(dialUrl(general)).catch(() => undefined)}
               style={{ flex: 1 }}
             />
+            {mountain ? (
+              <Button
+                label={t('rescue.callMountain')}
+                icon="mountain"
+                variant="secondary"
+                onPress={() => Linking.openURL(dialUrl(mountain)).catch(() => undefined)}
+                style={{ flex: 1 }}
+                accessibilityLabel={`${t('rescue.callMountain')} ${mountain}`}
+              />
+            ) : null}
             <Button
               label={t('firstAid.shareLocation')}
               icon="locate-fixed"

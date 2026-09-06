@@ -19,10 +19,12 @@ interface Props {
   onTrigger: () => void;
   onResolve: () => void;
   size?: number;
+  /** Basılı tutunca aranacak ülke numarası; erişilebilirlik ipucunda gösterilir. */
+  number?: string;
 }
 
 /** Yanlışlıkla tetiklemeyi önlemek için basılı tutma gerektiren SOS düğmesi. */
-export function SosButton({ active, onTrigger, onResolve, size = 140 }: Props) {
+export function SosButton({ active, onTrigger, onResolve, size = 140, number }: Props) {
   const { t } = useT();
   const { colors } = useTheme();
   const [holding, setHolding] = useState(false);
@@ -92,7 +94,7 @@ export function SosButton({ active, onTrigger, onResolve, size = 140 }: Props) {
         ]}
         accessibilityRole="button"
         accessibilityLabel={active ? t('firstAid.sosResolve') : t('firstAid.sos')}
-        accessibilityHint={t('firstAid.sosHint')}
+        accessibilityHint={number ? t('rescue.sosHint', { number }) : t('firstAid.sosHint')}
       >
         <Animated.View
           style={[styles.fill, { width: size, height: size, borderRadius: size / 2 }, fillStyle]}

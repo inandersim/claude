@@ -32,6 +32,8 @@ import {
 } from '@/domain';
 import { useCurrentUser } from '@/features/auth/session.store';
 import { useEmergencyCenters } from '@/features/firstaid/hooks';
+import { CountryRescueCard } from '@/features/rescue/components/CountryRescueCard';
+import { useCountry } from '@/features/rescue/hooks';
 import { HoldSosButton } from '@/features/satellite/components/HoldSosButton';
 import { SosStageStepper } from '@/features/satellite/components/SosStageStepper';
 import {
@@ -76,6 +78,7 @@ export default function SatelliteSosScreen() {
   const session = sos.data ?? null;
   const origin = session?.coords ?? location.coords;
   const centers = useEmergencyCenters(origin);
+  const country = useCountry(origin);
 
   const rescue: EmergencyCenterWithDistance | null =
     centers.data?.find((c) => c.id === session?.rescueCenterId) ??
@@ -204,6 +207,11 @@ export default function SatelliteSosScreen() {
         ) : null}
 
         <SectionHeader title={t('satellite.sos.nearestRescue')} />
+        <CountryRescueCard
+          profile={country.profile}
+          compact
+          onPress={() => router.push('/first-aid/country')}
+        />
         {centers.isError ? (
           <ErrorState onRetry={() => centers.refetch()} />
         ) : centers.isLoading ? (
