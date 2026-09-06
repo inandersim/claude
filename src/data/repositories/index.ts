@@ -167,7 +167,6 @@ import type {
   TvSchedule,
   NewsItem,
   TvFilter,
-  HeritageSite,
   HeritageSiteWithDistance,
   AudioGuideStop,
   HeritageTour,

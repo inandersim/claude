@@ -44,6 +44,19 @@ const MODULE_LINKS = [
   { href: '/satellite', icon: 'satellite', labelKey: 'satellite.title', color: '#6CB4FF' },
   { href: '/clubs', icon: 'school', labelKey: 'clubs.title', color: '#FFD54F' },
   { href: '/fun', icon: 'gamepad-2', labelKey: 'fun.title', color: '#FF6B9D' },
+  { href: '/destinations', icon: 'compass', labelKey: 'destinations.title', color: '#5EE39B' },
+  { href: '/countries', icon: 'globe', labelKey: 'countries.title', color: '#6CB4FF' },
+  { href: '/tracks', icon: 'route', labelKey: 'tracks.title', color: '#A3E635' },
+  { href: '/weather', icon: 'cloud-sun', labelKey: 'weather.title', color: '#4FC3F7' },
+  { href: '/wildlife', icon: 'paw-print', labelKey: 'wildlife.title', color: '#FFB547' },
+  { href: '/telemed', icon: 'heart-pulse', labelKey: 'telemed.title', color: '#FF6B6B' },
+  { href: '/courses', icon: 'graduation-cap', labelKey: 'courses.title', color: '#CE93D8' },
+  { href: '/groups', icon: 'message-square', labelKey: 'groups.title', color: '#6CB4FF' },
+  { href: '/articles', icon: 'book-open', labelKey: 'articles.title', color: '#FFD54F' },
+  { href: '/tv', icon: 'play', labelKey: 'tv.title', color: '#FF8A5B' },
+  { href: '/heritage', icon: 'landmark', labelKey: 'heritage.title', color: '#D7A86E' },
+  { href: '/kids', icon: 'party-popper', labelKey: 'kids.title', color: '#FF6B9D' },
+  { href: '/assistant/vision', icon: 'camera', labelKey: 'vision.title', color: '#5EE39B' },
 ] as const;
 
 export default function ExploreScreen() {

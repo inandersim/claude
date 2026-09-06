@@ -90,6 +90,14 @@ export default function ProfileScreen() {
               { icon: 'school', label: t('clubs.title'), href: '/clubs' },
               { icon: 'gamepad-2', label: t('fun.title'), href: '/fun' },
               { icon: 'wallet', label: t('inventory.title'), href: '/stays/host' },
+              { icon: 'compass', label: t('destinations.title'), href: '/destinations' },
+              { icon: 'route', label: t('tracks.title'), href: '/tracks' },
+              { icon: 'book-open', label: t('articles.title'), href: '/articles' },
+              { icon: 'graduation-cap', label: t('courses.title'), href: '/courses/my' },
+              { icon: 'message-square', label: t('groups.title'), href: '/groups' },
+              { icon: 'heart-pulse', label: t('telemed.title'), href: '/telemed' },
+              { icon: 'play', label: t('tv.title'), href: '/tv' },
+              { icon: 'party-popper', label: t('kids.title'), href: '/kids' },
             ] as {
               icon: IconName;
               label: string;
@@ -108,7 +116,15 @@ export default function ProfileScreen() {
                 | '/satellite'
                 | '/clubs'
                 | '/fun'
-                | '/stays/host';
+                | '/stays/host'
+                | '/destinations'
+                | '/tracks'
+                | '/articles'
+                | '/courses/my'
+                | '/groups'
+                | '/telemed'
+                | '/tv'
+                | '/kids';
             }[]
           ).map((item) => (
             <Tappable

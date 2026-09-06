@@ -16,8 +16,7 @@ import {
   trendingHashtags,
   validateStatusInput,
 } from '../social';
-import type { FeedPost } from '../types';
-import type { Follow, Post, Reaction } from '../types';
+import type { FeedPost, Follow, Post, Reaction } from '../types';
 
 const DAY = 86_400_000;
 const NOW = Date.parse('2026-09-06T12:00:00.000Z');
