@@ -65,58 +65,6 @@ export function useGradeSystem() {
 }
 
 /* ------------------------------------------------------------------ */
-/* Onaylanan rotalar (cihaz kaydı)                                     */
-/* ------------------------------------------------------------------ */
-
-const CONFIRMED_ROUTES_KEY = 'zirtan.climbing.confirmedRoutes';
-
-interface ConfirmedRoutesState {
-  ids: ID[];
-  hydrated: boolean;
-  markConfirmed: (routeId: ID) => void;
-  hydrate: () => Promise<void>;
-}
-
-/**
- * Kullanıcının onayladığı rota id'leri. Repository bu bilgiyi geri döndürmediği için
- * cihazda tutulur; yeniden yüklemede düğmenin "Doğruladın" kalmasını sağlar.
- */
-export const useConfirmedRoutesStore = create<ConfirmedRoutesState>((set, get) => ({
-  ids: [],
-  hydrated: false,
-  markConfirmed: (routeId) => {
-    if (get().ids.includes(routeId)) return;
-    const next = [...get().ids, routeId];
-    set({ ids: next });
-    AsyncStorage.setItem(CONFIRMED_ROUTES_KEY, JSON.stringify(next)).catch(() => undefined);
-  },
-  hydrate: async () => {
-    if (get().hydrated) return;
-    try {
-      const stored = await AsyncStorage.getItem(CONFIRMED_ROUTES_KEY);
-      const parsed: unknown = stored ? JSON.parse(stored) : null;
-      if (Array.isArray(parsed)) {
-        set({ ids: parsed.filter((x): x is ID => typeof x === 'string'), hydrated: true });
-        return;
-      }
-    } catch {
-      // yoksay: boş listeyle devam
-    }
-    set({ hydrated: true });
-  },
-}));
-
-useConfirmedRoutesStore
-  .getState()
-  .hydrate()
-  .catch(() => undefined);
-
-/** Rota bu cihazda daha önce onaylandı mı? */
-export function useHasConfirmedRoute(routeId: ID): boolean {
-  return useConfirmedRoutesStore((s) => s.ids.includes(routeId));
-}
-
-/* ------------------------------------------------------------------ */
 /* Sorgular                                                            */
 /* ------------------------------------------------------------------ */
 
@@ -154,9 +102,10 @@ export function useClimbingRoutes(cragId: ID, sectorId: ID | null = null) {
 }
 
 export function useClimbingRoute(id: ID) {
+  const me = useCurrentUser();
   return useQuery({
-    queryKey: queryKeys.climbing.route(id),
-    queryFn: () => getDataProvider().climbing.route(id),
+    queryKey: queryKeys.climbing.route(id, me.id),
+    queryFn: () => getDataProvider().climbing.route(id, me.id),
     enabled: Boolean(id),
   });
 }
@@ -206,12 +155,9 @@ export function useSubmitRoute() {
 export function useConfirmRoute() {
   const me = useCurrentUser();
   const qc = useQueryClient();
-  const markConfirmed = useConfirmedRoutesStore((s) => s.markConfirmed);
   return useMutation({
     mutationFn: (routeId: ID) => getDataProvider().climbing.confirmRoute(me.id, routeId),
-    onSuccess: (_route, routeId) => {
-      markConfirmed(routeId);
-      qc.invalidateQueries({ queryKey: queryKeys.climbing.all });
-    },
+    // Onay durumu artık veri katmanından (`confirmedByMe`) gelir; cihazda kopya tutulmaz.
+    onSuccess: () => qc.invalidateQueries({ queryKey: queryKeys.climbing.all }),
   });
 }

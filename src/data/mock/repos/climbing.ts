@@ -79,7 +79,7 @@ export function createClimbingRepository(ctx: MockContext): ClimbingRepository {
         .sort((a, b) => compareGrades(a.grade, a.gradeSystem, b.grade, b.gradeSystem));
     },
 
-    async route(id) {
+    async route(id, meId) {
       await wait();
       const t = await db.load();
       const route = t.climbingRoutes.find((r) => r.id === id);
@@ -88,6 +88,9 @@ export function createClimbingRepository(ctx: MockContext): ClimbingRepository {
         ...route,
         crag: requireCrag(t.crags, route.cragId),
         sector: requireSector(t.sectors, route.sectorId),
+        confirmedByMe: meId
+          ? t.routeConfirmations.some((c) => c.userId === meId && c.routeId === id)
+          : false,
       };
     },
 

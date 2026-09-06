@@ -12,5 +12,5 @@
     }
   },
   "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"],
-  "exclude": ["node_modules", "dist", "web-build", "admin", "website/dist", "out"]
+  "exclude": ["node_modules", "dist", "web-build", "admin", "website/dist", "out", "supabase"]
 }

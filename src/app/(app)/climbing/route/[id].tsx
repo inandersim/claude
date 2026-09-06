@@ -54,7 +54,6 @@ import {
   useClimbingRoute,
   useConfirmRoute,
   useGradeSystem,
-  useHasConfirmedRoute,
   useLogAscent,
 } from '@/features/climbing/hooks';
 import {
@@ -84,7 +83,7 @@ export default function RouteDetailScreen() {
     [data],
   );
   // Repo onay listesini geri döndürmediği için kendi onayımız cihazda tutulur
-  const confirmedByMe = useHasConfirmedRoute(id ?? '');
+  const confirmedByMe = data?.confirmedByMe ?? false;
   const myConfirmations = confirmedByMe && id ? [{ userId: me.id, routeId: id }] : [];
   const mayConfirm = data ? canConfirm(data, me.id, myConfirmations) : false;
   const alreadyConfirmed = confirmedByMe || confirm.isSuccess;

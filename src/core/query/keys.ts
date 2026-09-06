@@ -169,7 +169,7 @@ export const queryKeys = {
     crag: (id: ID) => ['climbing', 'crag', id] as const,
     sectors: (cragId: ID) => ['climbing', 'sectors', cragId] as const,
     routes: (cragId: ID, sectorId: ID | null) => ['climbing', 'routes', cragId, sectorId] as const,
-    route: (id: ID) => ['climbing', 'route', id] as const,
+    route: (id: ID, meId?: ID) => ['climbing', 'route', id, meId ?? null] as const,
     ascents: (routeId: ID) => ['climbing', 'ascents', routeId] as const,
     myAscents: (meId: ID) => ['climbing', 'myAscents', meId] as const,
   },

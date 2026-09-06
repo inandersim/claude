@@ -385,7 +385,11 @@ export interface ClimbingRepository {
   crag(id: ID, origin: GeoPoint | null): Promise<CragWithDistance | null>;
   sectors(cragId: ID): Promise<CragSector[]>;
   routes(cragId: ID, sectorId?: ID | null): Promise<ClimbingRoute[]>;
-  route(id: ID): Promise<(ClimbingRoute & { crag: Crag; sector: CragSector }) | null>;
+  /** `meId` verilirse `confirmedByMe` doldurulur (onay durumu sunucuda tutulur). */
+  route(
+    id: ID,
+    meId?: ID,
+  ): Promise<(ClimbingRoute & { crag: Crag; sector: CragSector; confirmedByMe: boolean }) | null>;
   ascents(routeId: ID): Promise<AscentWithUser[]>;
   myAscents(meId: ID): Promise<(AscentWithUser & { route: ClimbingRoute; crag: Crag })[]>;
   logAscent(meId: ID, input: LogAscentInput): Promise<AscentWithUser>;
