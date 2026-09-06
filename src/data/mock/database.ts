@@ -211,7 +211,12 @@ import {
   seedWildlifeAnswers,
   seedWildlifeQuestions,
 } from './seed.wildlife';
-import { seedAudioGuides, seedHeritageSites, seedHeritageTours } from './seed.heritage';
+import {
+  seedAudioGuides,
+  seedHeritageSites,
+  seedHeritageTours,
+  seedHeritageVisits,
+} from './seed.heritage';
 import { seedChildren, seedHuntProgress, seedHuntTasks, seedKidPlaces } from './seed.kids';
 import {
   seedNews,
@@ -448,7 +453,7 @@ function seedTables(): Tables {
     audioGuides: deepClone(seedAudioGuides),
     heritageTours: deepClone(seedHeritageTours),
     heritageSaves: [],
-    heritageVisits: [],
+    heritageVisits: deepClone(seedHeritageVisits),
     kidPlaces: deepClone(seedKidPlaces),
     kidPlaceSaves: [],
     children: deepClone(seedChildren),
