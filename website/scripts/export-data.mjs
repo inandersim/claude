@@ -6,7 +6,7 @@
  * ve `scripts/ts-loader.mjs` takma ad çözücüsüyle içe aktarılır; ek paket gerekmez.
  * Bir tohum yüklenemezse `src/data/fallback/*.json` kullanılır.
  */
-import { spawnSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import { mkdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -590,6 +590,20 @@ const files = {
 };
 for (const [name, data] of Object.entries(files)) {
   writeFileSync(path.join(OUT, `${name}.json`), JSON.stringify(data, null, 2) + '\n');
+}
+// Üretilen JSON'u (varsa) Prettier ile biçimlendir; böylece kök `prettier --check` kararlı kalır.
+for (const bin of [path.join(ROOT, 'node_modules/.bin/prettier'), 'prettier']) {
+  try {
+    // cwd = depo kökü: website/.gitignore generated/ dizinini yok sayar, kökten çalışınca sayılmaz.
+    execFileSync(bin, ['--log-level', 'silent', '--write', `${OUT}/*.json`], {
+      stdio: 'ignore',
+      shell: true,
+      cwd: ROOT,
+    });
+    break;
+  } catch {
+    /* prettier yoksa atla */
+  }
 }
 console.log('✔ veri dışa aktarıldı:');
 for (const r of report)

@@ -689,7 +689,10 @@
         "title": "Topluluk doğrulaması",
         "text": "Rota, tehlike ve tırmanış verisi 3 bağımsız onayla topluluk statüsü kazanır."
       },
-      { "title": "Çok dilli", "text": "23 dil, ülke bazlı acil dizini ve yerel kurtarma örgütleri." }
+      {
+        "title": "Çok dilli",
+        "text": "23 dil, ülke bazlı acil dizini ve yerel kurtarma örgütleri."
+      }
     ],
     "roadmapTitle": "Yol haritası",
     "roadmap": [

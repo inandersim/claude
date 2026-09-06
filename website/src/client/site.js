@@ -208,74 +208,78 @@
     var data = dataEl ? JSON.parse(dataEl.textContent) : null;
     var c = (el.getAttribute('data-center') || '39,35').split(',').map(Number);
     var zoom = Number(el.getAttribute('data-zoom') || 7);
-    loadLeaflet().then(function (L) {
-      var map = L.map(el, { scrollWheelZoom: false, zoomControl: true });
-      L.tileLayer(TILES, { attribution: ATTRIBUTION, maxZoom: 18 }).addTo(map);
-      map.setView([c[0], c[1]], zoom);
-      var bounds = [];
+    loadLeaflet()
+      .then(function (L) {
+        var map = L.map(el, { scrollWheelZoom: false, zoomControl: true });
+        L.tileLayer(TILES, { attribution: ATTRIBUTION, maxZoom: 18 }).addTo(map);
+        map.setView([c[0], c[1]], zoom);
+        var bounds = [];
 
-      function addLine(r, weightBoost) {
-        var color = TYPE_COLORS[r.type] || '#2F7D4F';
-        var line = L.polyline(r.pts, {
-          color: color,
-          weight: 4 + (weightBoost || 0),
-          opacity: 0.9,
-        }).addTo(map);
-        line.bindPopup(popupHtml(r));
-        r.pts.forEach(function (p) {
-          bounds.push(p);
-        });
-        if (r.pts.length) {
-          L.circleMarker(r.pts[0], {
-            radius: 5,
-            color: '#fff',
-            fillColor: color,
-            fillOpacity: 1,
-            weight: 2,
+        function addLine(r, weightBoost) {
+          var color = TYPE_COLORS[r.type] || '#2F7D4F';
+          var line = L.polyline(r.pts, {
+            color: color,
+            weight: 4 + (weightBoost || 0),
+            opacity: 0.9,
           }).addTo(map);
-          L.circleMarker(r.pts[r.pts.length - 1], {
-            radius: 5,
-            color: '#fff',
-            fillColor: '#10201B',
-            fillOpacity: 1,
-            weight: 2,
-          }).addTo(map);
+          line.bindPopup(popupHtml(r));
+          r.pts.forEach(function (p) {
+            bounds.push(p);
+          });
+          if (r.pts.length) {
+            L.circleMarker(r.pts[0], {
+              radius: 5,
+              color: '#fff',
+              fillColor: color,
+              fillOpacity: 1,
+              weight: 2,
+            }).addTo(map);
+            L.circleMarker(r.pts[r.pts.length - 1], {
+              radius: 5,
+              color: '#fff',
+              fillColor: '#10201B',
+              fillOpacity: 1,
+              weight: 2,
+            }).addTo(map);
+          }
         }
-      }
-      function addPoint(p) {
-        var m = L.marker([p.lat, p.lng], {
-          icon: markerIcon(L, p.kind === 'climbing' ? 'climbing' : p.type),
-        }).addTo(map);
-        m.bindPopup(popupHtml(p));
-        bounds.push([p.lat, p.lng]);
-      }
+        function addPoint(p) {
+          var m = L.marker([p.lat, p.lng], {
+            icon: markerIcon(L, p.kind === 'climbing' ? 'climbing' : p.type),
+          }).addTo(map);
+          m.bindPopup(popupHtml(p));
+          bounds.push([p.lat, p.lng]);
+        }
 
-      if (kind === 'routes' && Array.isArray(data)) {
-        data.forEach(function (r) {
-          addLine(r, 0);
+        if (kind === 'routes' && Array.isArray(data)) {
+          data.forEach(function (r) {
+            addLine(r, 0);
+          });
+        } else if (kind === 'route' && data) {
+          addLine(data, 1);
+          (data.markers || []).forEach(function (p) {
+            L.circleMarker([p.lat, p.lng], {
+              radius: 6,
+              color: '#fff',
+              fillColor: '#E8722A',
+              fillOpacity: 1,
+              weight: 2,
+            })
+              .addTo(map)
+              .bindPopup(popupHtml(p));
+          });
+        } else if (kind === 'points' && Array.isArray(data)) {
+          data.forEach(addPoint);
+        }
+        if (bounds.length > 1) map.fitBounds(bounds, { padding: [30, 30], maxZoom: 13 });
+        el.classList.add('is-ready');
+        map.once('focus', function () {
+          map.scrollWheelZoom.enable();
         });
-      } else if (kind === 'route' && data) {
-        addLine(data, 1);
-        (data.markers || []).forEach(function (p) {
-          L.circleMarker([p.lat, p.lng], {
-            radius: 6,
-            color: '#fff',
-            fillColor: '#E8722A',
-            fillOpacity: 1,
-            weight: 2,
-          })
-            .addTo(map)
-            .bindPopup(popupHtml(p));
-        });
-      } else if (kind === 'points' && Array.isArray(data)) {
-        data.forEach(addPoint);
-      }
-      if (bounds.length > 1) map.fitBounds(bounds, { padding: [30, 30], maxZoom: 13 });
-      el.classList.add('is-ready');
-      map.once('focus', function () {
-        map.scrollWheelZoom.enable();
+      })
+      .catch(function () {
+        /* CDN engellenmişse statik yedek (OSM bağlantısı) görünür kalır */
       });
-    });
   }
 
   if ('IntersectionObserver' in window) {

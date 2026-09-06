@@ -1,5 +1,4 @@
 import {
-  type FeedPost,
   activeToken,
   applyFeedFilter,
   applyReactionChange,
@@ -17,6 +16,7 @@ import {
   trendingHashtags,
   validateStatusInput,
 } from '../social';
+import type { FeedPost } from '../types';
 import type { Follow, Post, Reaction } from '../types';
 
 const DAY = 86_400_000;
