@@ -62,6 +62,24 @@
 
 **Diller:** Türkçe, İngilizce, Almanca, Fransızca, İspanyolca, İtalyanca, Japonca, Portekizce, Rusça — v1.2 modülleri dahil (`src/core/i18n/modules/locales/<dil>/`).
 
+**Destinasyon arşivi (v1.3):** Everest Base Camp, Annapurna, Langtang, Manaslu, Kilimanjaro, Torres del Paine, Inca Trail, Tour du Mont Blanc, Aconcagua, Elbrus, Ağrı, Kaçkar, Likya Yolu, Kapadokya ve daha fazlası için gün gün etaplar (irtifa, konaklama, bağlantı), ulaşım, izinler, bütçe, riskler, kurtarma notu; Lake Louise AMS öz-değerlendirme; "Dönüş Sözü" yol planı (beklenen dönüş saati geçince acil kişilere uyarı). Veri hattı Wikivoyage rehberlerini taslak olarak içe aktarır.
+
+**Kamera ile sor (v1.3):** Kamerayı aç, arazi/hava/ekipman/yara/hayvan/bitki/harita/su/kamp durumunu seç, yapay zekâdan gözlem, risk ve tavsiye al; çevrimdışı kontrol listeleri; gateway `/v1/vision`.
+
+**Ülkeye göre SOS (v1.3):** Konumdan ülke tespiti; 58 ülke için acil numaralar, dağ/deniz kurtarma örgütleri, helikopter kurtarma politikası, Türk temsilcilikleri; SOS düğmesi bulunulan ülkenin numarasını arar.
+
+**Topluluk (v1.3):** Durum/fotoğraf gönderileri (çoklu fotoğraf), 5 tepki türü, hashtag ve mention, koleksiyonlar, yeniden paylaşım, akış sekmeleri; **Gruplar & kanallar:** herkese açık/özel gruplar, davet kodu, metin/görsel/konum/rota/anket mesajları, sabitleme, yöneticiler; **Eğitimler:** 26 kurs (dağcılık, çığ, WFA/WFR, navigasyon, PADI, yamaç paraşütü, kürek, kış, buz, yüksek irtifa, drone, LNT…), 110 ders, quiz, sertifika, yüz yüze oturumlar.
+
+**Topluluk rotaları & navigasyon (v1.4):** GPS kaydı, GPX/Strava/Komoot/AllTrails/Wikiloc içe aktarma, aynı güzergâhtaki parçaların kümelenmesiyle "sanal yol" üretimi, konumlu medyadan kamp/su/manzara noktası türetme, adım adım yön bulma ve rotadan çıkış uyarısı. **Hava & çığ:** Open-Meteo saatlik/günlük tahmin, uyarılar, en uygun pencere, EAWS çığ bülteni; kaynaklar ve lisanslar `docs/OPEN_DATA.md`.
+
+**Ülke rehberi, yazarlar, canlı tanıma, tele-tıp (v1.5):** Ülke başına görgü kuralları, kimlere/nelere dikkat, vize ve evrak yol haritası (Türk pasaportu), kontrol listesi; yazar profilleri ve uzun makaleler; 40 türlük canlı veritabanı, fotoğraftan tanıma, çevrimiçi topluluğa/uzmanlara soru sorma, hayvan kaçırma sesi veritabanı ve **acil canlı tepkisi** düğmesi (ses + titreşim + fener); çevrimiçi doktor danışması (ön triyaj, sohbet, talimatlar).
+
+**Zirtan TV, tarihi alanlar, çocuk (v1.6):** Belgesel/haber/canlı kanalları, yayın akışı, haber şeridi, izlemeye devam; 30 arkeolojik/tarihi alan (Göbeklitepe'den Machu Picchu'ya) sesli rehber ve tur planıyla; çocuk dostu yerler, çocuk profilleri, "Küçük Kâşif" doğa avı ve aile kontrol listesi.
+
+**Diller (23):** Türkçe, İngilizce, Almanca, Fransızca, İspanyolca, İtalyanca, Portekizce, Rusça, Japonca, Çince, Korece, Hintçe, Nepalce, Arapça (RTL), Gürcüce, Yunanca, Lehçe, Çekçe, Felemenkçe, İsveççe, Norveççe, Endonezce, Tayca. **Tema:** doğa tonlarında açık, sıcak koyu, güneş altı yüksek kontrast ve ortam ışığına göre otomatik geçiş.
+
+**Web sitesi:** `website/` — 302 sayfalık statik site (rotalar, destinasyonlar, yerler, tırmanış, eğitimler, güvenlik dizini; TR/EN; GitHub Pages). **Ajanlar:** `.claude/agents` (bakıcı, altyapı doktoru, test yazıcı, çevirmen, modül kurucu, UX denetçisi, güvenlik nöbetçisi) ve `agents/marketing` (içerik planı, üretim, yanıt, analiz, paylaşım); bkz. `docs/AGENTS.md`, `docs/SECURITY.md`, `docs/GROWTH.md`.
+
 **Eğitmenler:** Sertifikalı rehber ve eğitmen profilleri (uzmanlık, sertifikalar, diller, uygun günler, puan ve değerlendirmeler, ders ücreti). Puan / mesafe / fiyata göre sıralama, ders talebi (rezervasyon) akışı, eğitmen tarafında onay / red, rezervasyonlarım ekranı, eğitmenin ilanları ve yaklaşan yayınları.
 
 Ek olarak: karşılama + giriş + kayıt akışı, yeni macera paylaşma (fotoğraf seçici, teknik veri formu), kullanıcı profili, lokasyon detayı, eşleşme detayı, sohbet, bildirimler (13 bildirim türü, derin bağlantı ile ilgili ekrana gidiş), 404 ekranı.
