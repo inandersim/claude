@@ -93,4 +93,13 @@ export const maps_it: MapsI18nShape = {
   createdAt: 'Salvato: {{date}}',
   packForRegion: 'Pacchetto regione',
   progress: '{{percent}}%',
+  cancelDownload: 'Interrompi il download',
+  downloadCancelled: 'Download di {{name}} interrotto',
+  downloadFailed: 'Impossibile scaricare {{name}}',
+  mapSource: {
+    pack: 'Pacchetto offline',
+    server: 'Server di tile',
+    graph: 'Rete di sentieri',
+    none: 'Vista semplice',
+  },
 };

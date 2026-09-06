@@ -93,4 +93,13 @@ export const maps_hi: MapsI18nShape = {
   createdAt: 'सहेजा गया: {{date}}',
   packForRegion: 'क्षेत्र पैक',
   progress: '{{percent}}%',
+  cancelDownload: 'डाउनलोड रोकें',
+  downloadCancelled: '{{name}} का डाउनलोड रोका गया',
+  downloadFailed: '{{name}} डाउनलोड नहीं हो सका',
+  mapSource: {
+    pack: 'ऑफ़लाइन पैक',
+    server: 'टाइल सर्वर',
+    graph: 'पगडंडी नेटवर्क',
+    none: 'सरल दृश्य',
+  },
 };

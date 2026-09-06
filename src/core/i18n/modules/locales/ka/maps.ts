@@ -93,4 +93,13 @@ export const maps_ka: MapsI18nShape = {
   createdAt: 'შენახულია: {{date}}',
   packForRegion: 'რეგიონის პაკეტი',
   progress: '{{percent}} %',
+  cancelDownload: 'ჩამოტვირთვის შეჩერება',
+  downloadCancelled: '{{name}}-ის ჩამოტვირთვა შეჩერდა',
+  downloadFailed: '{{name}} ვერ ჩამოიტვირთა',
+  mapSource: {
+    pack: 'ოფლაინ პაკეტი',
+    server: 'ფილების სერვერი',
+    graph: 'ბილიკების ქსელი',
+    none: 'მარტივი ხედი',
+  },
 };

@@ -1,10 +1,13 @@
 import React, { useMemo } from 'react';
+import { Platform } from 'react-native';
 
 import { useT } from '@/core/i18n';
 import { useTheme } from '@/core/theme';
 import type { GeoPoint, TrackPoi, TrackPoint } from '@/domain';
+import { distanceKm } from '@/domain/geo';
 import { MapView } from '@/features/maps/components/MapView';
 import { useMapPacks } from '@/features/maps/hooks';
+import { getPackManager } from '@/features/maps/pack-manager';
 import { resolveSource, useTileServerPacks } from '@/features/maps/vector/source';
 import type { MapMarker } from '@/features/maps/vector/types';
 
@@ -18,8 +21,8 @@ interface Props {
   position?: GeoPoint | null;
   /** Ek vurgulu nokta (ör. sonraki adım) */
   highlight?: GeoPoint | null;
-  /** Katedilmiş bölüm — navigasyonda soluk çizilir */
-  progressPoints?: TrackPoint[];
+  /** Konuma kadar katedilmiş bölümü soluk çizer (navigasyon) */
+  showProgress?: boolean;
   onPoiPress?: (poi: TrackPoi) => void;
   height?: number;
   name?: string;
@@ -27,7 +30,28 @@ interface Props {
   offRoute?: boolean;
 }
 
+
+/** Web'de kalıcı dosya sistemi yok; paket kaynağı yalnızca yerel platformlarda geçerli. */
+const packInstalled = (packId: string) =>
+  Platform.OS !== 'web' && getPackManager().isInstalled(packId);
+
 const toGeo = (p: TrackPoint): GeoPoint => ({ latitude: p.latitude, longitude: p.longitude });
+
+/** Konuma en yakın parça noktasının sırası — katedilen bölümü bulmak için. */
+function nearestIndex(points: GeoPoint[], position: GeoPoint): number {
+  let best = 0;
+  let bestKm = Infinity;
+  for (let i = 0; i < points.length; i += 1) {
+    const p = points[i];
+    if (!p) continue;
+    const km = distanceKm(p, position);
+    if (km < bestKm) {
+      bestKm = km;
+      best = i;
+    }
+  }
+  return best;
+}
 
 /**
  * Parça/rota için gerçek vektör harita; karo paketi yoksa mevcut SVG görünümüne düşer.
@@ -38,7 +62,7 @@ export function TrackMapView({
   pois = [],
   position = null,
   highlight = null,
-  progressPoints,
+  showProgress = false,
   onPoiPress,
   height = 280,
   name,
@@ -61,12 +85,17 @@ export function TrackMapView({
         center,
         localPacks: packs.data ?? [],
         serverPacks: server.data ?? [],
+        isInstalled: packInstalled,
       }),
     [center, packs.data, server.data],
   );
 
   const track = useMemo(() => points.map(toGeo), [points]);
-  const done = useMemo(() => progressPoints?.map(toGeo) ?? [], [progressPoints]);
+  const done = useMemo(() => {
+    if (!showProgress || !position || track.length < 2) return [];
+    const index = nearestIndex(track, position);
+    return track.slice(0, index + 1);
+  }, [showProgress, position, track]);
 
   const markers = useMemo<MapMarker[]>(() => {
     const list: MapMarker[] = [];
@@ -112,6 +141,7 @@ export function TrackMapView({
       markers={markers}
       userLocation={position}
       offRoute={offRoute}
+      sourceLabel={t(`maps.mapSource.${resolved.kind}`)}
       accessibilityLabel={t('tracks.mapOf', { name: name ?? '' })}
       testID="track-map"
       onMarkerPress={

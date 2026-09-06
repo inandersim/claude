@@ -92,4 +92,13 @@ export const maps_pl: MapsI18nShape = {
   createdAt: 'Zapisano: {{date}}',
   packForRegion: 'Pakiet regionu',
   progress: '{{percent}}%',
+  cancelDownload: 'Zatrzymaj pobieranie',
+  downloadCancelled: 'Pobieranie {{name}} zatrzymane',
+  downloadFailed: 'Nie udało się pobrać {{name}}',
+  mapSource: {
+    pack: 'Pakiet offline',
+    server: 'Serwer kafelków',
+    graph: 'Sieć szlaków',
+    none: 'Widok uproszczony',
+  },
 };

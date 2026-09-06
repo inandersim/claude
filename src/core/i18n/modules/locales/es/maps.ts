@@ -93,4 +93,13 @@ export const maps_es: MapsI18nShape = {
   createdAt: 'Guardada: {{date}}',
   packForRegion: 'Paquete de región',
   progress: '{{percent}} %',
+  cancelDownload: 'Detener la descarga',
+  downloadCancelled: 'Descarga de {{name}} detenida',
+  downloadFailed: 'No se pudo descargar {{name}}',
+  mapSource: {
+    pack: 'Paquete sin conexión',
+    server: 'Servidor de teselas',
+    graph: 'Red de senderos',
+    none: 'Vista simple',
+  },
 };

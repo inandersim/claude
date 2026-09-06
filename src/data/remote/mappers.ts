@@ -785,10 +785,10 @@ export function toMapPack(row: Row): MapPack {
     sizeMb: num(row.size_mb),
     version: str(row.version),
     format: 'pmtiles',
-    status: str(state?.status, 'idle') as MapPack['status'],
+    status: str(state?.status, 'available') as MapPack['status'],
     progress: num(state?.progress),
     updatedAt: iso(row.updated_at),
-    localPath: state && str(state.status) === 'ready' ? `/packs/${str(row.id)}.pmtiles` : null,
+    localPath: state && str(state.status) === 'downloaded' ? `/packs/${str(row.id)}.pmtiles` : null,
   };
 }
 

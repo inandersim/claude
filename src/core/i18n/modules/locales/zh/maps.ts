@@ -92,4 +92,13 @@ export const maps_zh: MapsI18nShape = {
   createdAt: '保存于：{{date}}',
   packForRegion: '区域地图包',
   progress: '{{percent}}%',
+  cancelDownload: '停止下载',
+  downloadCancelled: '已停止下载 {{name}}',
+  downloadFailed: '无法下载 {{name}}',
+  mapSource: {
+    pack: '离线包',
+    server: '瓦片服务器',
+    graph: '步道网络',
+    none: '简易视图',
+  },
 };

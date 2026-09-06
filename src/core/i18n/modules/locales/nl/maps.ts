@@ -92,4 +92,13 @@ export const maps_nl: MapsI18nShape = {
   createdAt: 'Opgeslagen: {{date}}',
   packForRegion: 'Regiopakket',
   progress: '{{percent}}%',
+  cancelDownload: 'Download stoppen',
+  downloadCancelled: 'Download van {{name}} gestopt',
+  downloadFailed: '{{name}} kon niet worden gedownload',
+  mapSource: {
+    pack: 'Offlinepakket',
+    server: 'Tegelserver',
+    graph: 'Padennetwerk',
+    none: 'Eenvoudige weergave',
+  },
 };

@@ -92,4 +92,13 @@ export const maps_ru: MapsI18nShape = {
   createdAt: 'Сохранено: {{date}}',
   packForRegion: 'Пакет региона',
   progress: '{{percent}}%',
+  cancelDownload: 'Остановить загрузку',
+  downloadCancelled: 'Загрузка «{{name}}» остановлена',
+  downloadFailed: 'Не удалось загрузить {{name}}',
+  mapSource: {
+    pack: 'Офлайн-пакет',
+    server: 'Сервер тайлов',
+    graph: 'Сеть троп',
+    none: 'Простой вид',
+  },
 };

@@ -35,6 +35,8 @@ export interface MapMarker {
   id: ID;
   coords: GeoPoint;
   color: string;
+  /** Çerçeve rengi; verilmezse tema halesi kullanılır */
+  stroke?: string;
   /** Erişilebilirlik metni ve yedek SVG çiziminde görünen etiket */
   label?: string;
   kind?: 'start' | 'end' | 'poi' | 'step' | 'hazard';
@@ -75,6 +77,8 @@ export interface MapViewProps {
   interactive?: boolean;
   height?: number;
   attribution?: string;
+  /** Harita kaynağını (paket / sunucu / graf / basit görünüm) gösteren küçük etiket */
+  sourceLabel?: string;
   onPress?: (coords: GeoPoint) => void;
   onRegionChange?: (region: MapRegion) => void;
   onMarkerPress?: (id: ID) => void;

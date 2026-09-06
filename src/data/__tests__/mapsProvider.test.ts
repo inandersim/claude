@@ -10,7 +10,7 @@ describe('Maps provider', () => {
     const regions = await p.maps.regions();
     expect(regions).toHaveLength(4);
     const packs = await p.maps.packs();
-    expect(packs).toHaveLength(8);
+    expect(packs).toHaveLength(9);
     expect(packs.filter((x) => x.status === 'downloaded')).toHaveLength(1);
     expect(packs.filter((x) => x.status === 'update_available')).toHaveLength(1);
     for (const r of regions) {

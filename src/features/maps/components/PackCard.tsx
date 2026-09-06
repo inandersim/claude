@@ -12,11 +12,13 @@ interface Props {
   pack: MapPack;
   onDownload: (pack: MapPack) => void;
   onRemove: (pack: MapPack) => void;
+  /** Süren indirmeyi durdurur (verilmezse durdurma butonu çıkmaz) */
+  onCancel?: (pack: MapPack) => void;
   busy?: boolean;
 }
 
 /** Harita paketi kartı — kart dokunulabilir DEĞİL; satır içi butonlar ayrı. */
-export function PackCard({ pack, onDownload, onRemove, busy = false }: Props) {
+export function PackCard({ pack, onDownload, onRemove, onCancel, busy = false }: Props) {
   const { t, locale } = useT();
   const { colors } = useTheme();
   const downloading = pack.status === 'downloading';
@@ -87,6 +89,15 @@ export function PackCard({ pack, onDownload, onRemove, busy = false }: Props) {
             variant="secondary"
             loading={busy}
             onPress={() => onDownload(pack)}
+          />
+        ) : null}
+        {downloading && onCancel ? (
+          <Button
+            label={t('maps.cancelDownload')}
+            icon="x"
+            size="sm"
+            variant="ghost"
+            onPress={() => onCancel(pack)}
           />
         ) : null}
         {downloaded || downloading ? (

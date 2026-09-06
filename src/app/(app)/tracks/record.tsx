@@ -15,7 +15,7 @@ import {
   type TrackPoint,
 } from '@/domain';
 import { RecorderPanel } from '@/features/tracks/components/RecorderPanel';
-import { TrackMap } from '@/features/tracks/components/TrackMap';
+import { TrackMapView } from '@/features/tracks/components/TrackMapView';
 import { useSaveTrack, useTrackRecorder, useTracks } from '@/features/tracks/hooks';
 
 export default function RecordTrackScreen() {
@@ -88,7 +88,7 @@ export default function RecordTrackScreen() {
     <Screen edges={['top', 'bottom']}>
       <Header title={t('tracks.recorder.title')} showBack onBack={() => goBack(router, '/')} />
       <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
-        <TrackMap
+        <TrackMapView
           points={recorder.points}
           pois={previewPois}
           position={recorder.current}

@@ -92,4 +92,13 @@ export const maps_ja: MapsI18nShape = {
   createdAt: '保存日：{{date}}',
   packForRegion: '地域パック',
   progress: '{{percent}}%',
+  cancelDownload: 'ダウンロードを停止',
+  downloadCancelled: '{{name}} のダウンロードを停止しました',
+  downloadFailed: '{{name}} をダウンロードできませんでした',
+  mapSource: {
+    pack: 'オフラインパック',
+    server: 'タイルサーバー',
+    graph: 'トレイル網',
+    none: '簡易表示',
+  },
 };

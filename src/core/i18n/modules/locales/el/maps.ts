@@ -93,4 +93,13 @@ export const maps_el: MapsI18nShape = {
   createdAt: 'Αποθηκεύτηκε: {{date}}',
   packForRegion: 'Πακέτο περιοχής',
   progress: '{{percent}}%',
+  cancelDownload: 'Διακοπή λήψης',
+  downloadCancelled: 'Η λήψη του {{name}} διακόπηκε',
+  downloadFailed: 'Δεν ήταν δυνατή η λήψη του {{name}}',
+  mapSource: {
+    pack: 'Πακέτο εκτός σύνδεσης',
+    server: 'Διακομιστής πλακιδίων',
+    graph: 'Δίκτυο μονοπατιών',
+    none: 'Απλή προβολή',
+  },
 };

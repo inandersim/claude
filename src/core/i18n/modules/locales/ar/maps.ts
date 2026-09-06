@@ -92,4 +92,13 @@ export const maps_ar: MapsI18nShape = {
   createdAt: 'حُفظ: {{date}}',
   packForRegion: 'حزمة المنطقة',
   progress: '{{percent}}%',
+  cancelDownload: 'إيقاف التنزيل',
+  downloadCancelled: 'تم إيقاف تنزيل {{name}}',
+  downloadFailed: 'تعذّر تنزيل {{name}}',
+  mapSource: {
+    pack: 'حزمة دون اتصال',
+    server: 'خادم البلاطات',
+    graph: 'شبكة المسارات',
+    none: 'عرض مبسّط',
+  },
 };

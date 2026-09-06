@@ -23,7 +23,13 @@ import { formatDuration } from '@/core/utils/time';
 import { difficultyOf, formatDistance, type MapPack, type SavedRoute } from '@/domain';
 import { PackCard } from '@/features/maps/components/PackCard';
 import { DIFFICULTY_COLOR, PROFILE_ICON, formatMb } from '@/features/maps/components/meta';
-import { useDownloadPack, useMapPacks, useRemovePack, useSavedRoutes } from '@/features/maps/hooks';
+import {
+  useCancelDownload,
+  useDownloadPack,
+  useMapPacks,
+  useRemovePack,
+  useSavedRoutes,
+} from '@/features/maps/hooks';
 
 export default function MapsScreen() {
   const router = useRouter();
@@ -34,6 +40,7 @@ export default function MapsScreen() {
   const saved = useSavedRoutes();
   const download = useDownloadPack();
   const remove = useRemovePack();
+  const cancel = useCancelDownload();
 
   const list = packs.data ?? [];
   const downloadedPacks = list.filter((p) => p.status !== 'available');
@@ -50,6 +57,11 @@ export default function MapsScreen() {
   const onRemove = (pack: MapPack) =>
     remove.mutate(pack.id, {
       onSuccess: () => toast(t('maps.removed', { name: pack.name }), 'success'),
+      onError: () => toast(t('common.error'), 'error'),
+    });
+  const onCancel = (pack: MapPack) =>
+    cancel.mutate(pack.id, {
+      onSuccess: () => toast(t('maps.downloadCancelled', { name: pack.name }), 'info'),
       onError: () => toast(t('common.error'), 'error'),
     });
 
@@ -99,6 +111,7 @@ export default function MapsScreen() {
               pack={p}
               onDownload={onDownload}
               onRemove={onRemove}
+              onCancel={onCancel}
               busy={download.isPending && download.variables === p.id}
             />
           ))
@@ -120,6 +133,7 @@ export default function MapsScreen() {
                 pack={p}
                 onDownload={onDownload}
                 onRemove={onRemove}
+                onCancel={onCancel}
                 busy={download.isPending && download.variables === p.id}
               />
             ))}

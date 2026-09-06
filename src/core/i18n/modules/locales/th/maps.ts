@@ -92,4 +92,13 @@ export const maps_th: MapsI18nShape = {
   createdAt: 'บันทึกเมื่อ: {{date}}',
   packForRegion: 'แพ็กภูมิภาค',
   progress: '{{percent}}%',
+  cancelDownload: 'หยุดการดาวน์โหลด',
+  downloadCancelled: 'หยุดดาวน์โหลด {{name}} แล้ว',
+  downloadFailed: 'ดาวน์โหลด {{name}} ไม่สำเร็จ',
+  mapSource: {
+    pack: 'แพ็กออฟไลน์',
+    server: 'เซิร์ฟเวอร์ไทล์',
+    graph: 'โครงข่ายเส้นทาง',
+    none: 'มุมมองอย่างง่าย',
+  },
 };

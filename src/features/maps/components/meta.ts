@@ -34,5 +34,7 @@ export function formatMb(sizeMb: number, locale = 'tr'): string {
     const gb = (sizeMb / 1024).toFixed(1);
     return `${locale === 'tr' ? gb.replace('.', ',') : gb} GB`;
   }
+  // Çok küçük paketler (ör. tek bölge testi) "0 MB" görünmesin
+  if (sizeMb > 0 && sizeMb < 1) return '< 1 MB';
   return `${Math.round(sizeMb)} MB`;
 }

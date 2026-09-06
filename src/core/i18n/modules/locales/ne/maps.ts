@@ -93,4 +93,13 @@ export const maps_ne: MapsI18nShape = {
   createdAt: 'सेभ गरिएको: {{date}}',
   packForRegion: 'क्षेत्रीय प्याक',
   progress: '{{percent}}%',
+  cancelDownload: 'डाउनलोड रोक्नुहोस्',
+  downloadCancelled: '{{name}} को डाउनलोड रोकियो',
+  downloadFailed: '{{name}} डाउनलोड गर्न सकिएन',
+  mapSource: {
+    pack: 'अफलाइन प्याक',
+    server: 'टायल सर्भर',
+    graph: 'गोरेटो सञ्जाल',
+    none: 'सरल दृश्य',
+  },
 };

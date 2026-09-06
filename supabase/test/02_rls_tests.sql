@@ -301,6 +301,48 @@ BEGIN
   DELETE FROM unit_blocks WHERE id = blk;
 END $$;
 
+
+-- ------------------------------------------------------------------
+-- Kompozit anahtarlı tablolarda tetikleyiciler
+-- `award_xp_trigger` ve `bump_counter` bir zamanlar hedefin birincil
+-- anahtarının `id` olduğunu varsayıyordu; event_rsvps (event_id,user_id)
+-- ve writer_profiles (user_id) bu yüzden çalışma zamanında patlıyordu.
+-- ------------------------------------------------------------------
+DO $$
+DECLARE ev uuid; usr uuid; wr uuid; n integer; before_c integer;
+BEGIN
+  SELECT id INTO ev FROM club_events LIMIT 1;
+  SELECT id INTO usr FROM profiles
+    WHERE id NOT IN (SELECT user_id FROM event_rsvps WHERE event_id = ev) LIMIT 1;
+
+  INSERT INTO event_rsvps (event_id, user_id) VALUES (ev, usr);
+  SELECT count(*) INTO n FROM xp_events
+   WHERE user_id = usr AND ref_table = 'event_rsvps' AND ref_id = ev::text;
+  PERFORM _assert(n = 1, 'event_rsvps: katılım XP kazandırdı');
+
+  DELETE FROM event_rsvps WHERE event_id = ev AND user_id = usr;
+  SELECT count(*) INTO n FROM xp_events
+   WHERE user_id = usr AND ref_table = 'event_rsvps' AND ref_id = ev::text;
+  PERFORM _assert(n = 0, 'event_rsvps: vazgeçince XP geri alındı');
+
+  SELECT user_id INTO wr FROM writer_profiles LIMIT 1;
+  SELECT id INTO usr FROM profiles WHERE id <> wr
+    AND id NOT IN (SELECT follower_id FROM writer_follows WHERE writer_user_id = wr) LIMIT 1;
+  SELECT follower_count INTO before_c FROM writer_profiles WHERE user_id = wr;
+  INSERT INTO writer_follows (writer_user_id, follower_id) VALUES (wr, usr);
+  SELECT follower_count INTO n FROM writer_profiles WHERE user_id = wr;
+  PERFORM _assert(n = before_c + 1, 'writer_follows: takipçi sayacı arttı');
+  DELETE FROM writer_follows WHERE writer_user_id = wr AND follower_id = usr;
+  SELECT follower_count INTO n FROM writer_profiles WHERE user_id = wr;
+  PERFORM _assert(n = before_c, 'writer_follows: takipten çıkınca sayaç düştü');
+
+  -- İlk yardım kataloğu tohumlanmalı; yoksa danışma/tür bağları düşer.
+  SELECT count(*) INTO n FROM first_aid_guides;
+  PERFORM _assert(n >= 10, 'first_aid_guides: rehber kataloğu tohumlandı');
+  SELECT count(*) INTO n FROM species WHERE first_aid_slug IS NOT NULL;
+  PERFORM _assert(n > 0, 'species: ilk yardım bağı korundu');
+END $$;
+
 DROP FUNCTION _assert(boolean, text);
 DROP FUNCTION _uid(integer);
 

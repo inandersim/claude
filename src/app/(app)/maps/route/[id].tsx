@@ -20,7 +20,7 @@ import { layout, radius, spacing, useTheme } from '@/core/theme';
 import { formatDate } from '@/core/utils/time';
 import { countryFlag, difficultyOf, offlinePackFor } from '@/domain';
 import { ElevationProfile } from '@/features/maps/components/ElevationProfile';
-import { RouteMap } from '@/features/maps/components/RouteMap';
+import { TrailMapView } from '@/features/maps/components/TrailMapView';
 import { RouteStats } from '@/features/maps/components/RouteStats';
 import { DIFFICULTY_COLOR, PROFILE_ICON } from '@/features/maps/components/meta';
 import { shareGpx } from '@/features/maps/gpx';
@@ -140,9 +140,11 @@ export default function SavedRouteScreen() {
             {graph.isError ? (
               <ErrorState onRetry={() => graph.refetch()} />
             ) : graph.data ? (
-              <RouteMap
+              <TrailMapView
                 graph={graph.data}
+                center={region?.center ?? null}
                 routeNodeIds={route.planned.nodeIds}
+                routePoints={route.planned.points}
                 startId={route.planned.nodeIds[0] ?? null}
                 endId={route.planned.nodeIds[route.planned.nodeIds.length - 1] ?? null}
                 height={300}

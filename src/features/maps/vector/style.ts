@@ -109,8 +109,11 @@ export function resolveMapStyle(options: ResolveOptions): MapStyleSpec {
   } = options;
   const base = deepClone(baseStyle as unknown as MapStyleSpec);
   const meta = base.metadata as unknown as StyleMetadata;
-  const tokens = meta['zirtan:variants'][variant];
-  if (!tokens) throw new Error(`Bilinmeyen stil varyantı: ${variant}`);
+  const palette = meta['zirtan:variants'][variant];
+  if (!palette) throw new Error(`Bilinmeyen stil varyantı: ${variant}`);
+  // `@source` gerçek kaynak adıyla katman katman değiştirilir; burada yalnızca
+  // yer tutucu olarak çözülür ki gösterge taraması tek geçişte kalsın.
+  const tokens = { ...palette, source: SOURCE_ID };
 
   const { sources, sourceOf } = sourcesFor(source, attribution);
   const layers: Record<string, unknown>[] = [];
@@ -136,7 +139,7 @@ export function resolveMapStyle(options: ResolveOptions): MapStyleSpec {
     sources,
     layers,
   };
-  if (overlay) applyOverlay(style, overlay, tokens, variant);
+  if (overlay) applyOverlay(style, overlay, palette, variant);
   return style;
 }
 
@@ -184,7 +187,7 @@ const line = (points: GeoPoint[]): GeoJsonCollection => ({
       : [],
 });
 
-const points = (markers: MapMarker[]): GeoJsonCollection => ({
+const points = (markers: MapMarker[], defaultStroke = '#FFFFFF'): GeoJsonCollection => ({
   type: 'FeatureCollection',
   features: markers.map((m): GeoJsonFeature => ({
     type: 'Feature',
@@ -249,12 +252,12 @@ export function applyOverlay(
   }
 
   if (overlay.markers?.length) {
-    add('markers', points(overlay.markers), {
+    add('markers', points(overlay.markers, tokens.poiStroke ?? colors.halo), {
       type: 'circle',
       paint: {
         'circle-radius': ['get', 'size'],
         'circle-color': ['get', 'color'],
-        'circle-stroke-color': tokens.poiStroke ?? colors.halo,
+        'circle-stroke-color': ['get', 'stroke'],
         'circle-stroke-width': 2,
       },
     });
@@ -262,9 +265,10 @@ export function applyOverlay(
 
   if (overlay.userLocation) {
     const userColor = overlay.offRoute ? colors.danger : colors.user;
-    const data = points([
-      { id: 'me', coords: overlay.userLocation, color: userColor, kind: 'step' },
-    ]);
+    const data = points(
+      [{ id: 'me', coords: overlay.userLocation, color: userColor, kind: 'step' }],
+      colors.halo,
+    );
     add('user-halo', data, {
       type: 'circle',
       paint: { 'circle-radius': 16, 'circle-color': userColor, 'circle-opacity': 0.2 },

@@ -22,7 +22,7 @@ import { formatDistance, type TrackPoint } from '@/domain';
 import { roundedDistanceLabel } from '@/domain/tracks';
 import { NavigationBanner } from '@/features/tracks/components/NavigationBanner';
 import { StepList } from '@/features/tracks/components/StepList';
-import { TrackMap } from '@/features/tracks/components/TrackMap';
+import { TrackMapView } from '@/features/tracks/components/TrackMapView';
 import { useCommunityTrail, useNavigation, useNavigator, useTrack } from '@/features/tracks/hooks';
 
 const EMPTY_POINTS: TrackPoint[] = [];
@@ -117,11 +117,12 @@ export default function NavigateScreen() {
               </View>
             ) : null}
 
-            <TrackMap
+            <TrackMapView
               points={points}
               pois={pois}
               position={navigator.position}
               highlight={nextStep?.coords ?? null}
+              showProgress
               offRoute={progress?.isOffRoute ?? false}
               name={name}
               height={300}

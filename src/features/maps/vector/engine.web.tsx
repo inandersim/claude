@@ -81,8 +81,12 @@ function WebMap(props: MapEngineProps) {
   const lastCamera = useRef('');
 
   // Olay geri çağrıları her renderda değişebilir; haritayı yeniden kurmamak için ref'te tutulur.
+  // Bu efekt bilinçli olarak kurulum efektinden önce tanımlanır: bağlanma sırasında
+  // önce güncel geri çağrılar yazılır, sonra harita kurulur.
   const handlers = useRef({ onPress, onRegionChange, onMarkerPress, onError });
-  handlers.current = { onPress, onRegionChange, onMarkerPress, onError };
+  useEffect(() => {
+    handlers.current = { onPress, onRegionChange, onMarkerPress, onError };
+  }, [onPress, onRegionChange, onMarkerPress, onError]);
 
   // Kurulum ilk stil ile bir kez; sonraki değişiklikler setStyle ile uygulanır.
   const initialStyle = useRef(style);
@@ -107,9 +111,24 @@ function WebMap(props: MapEngineProps) {
     }
     mapRef.current = map;
 
+    // Geliştirme derlemesinde harita örneğini dışarı açar: uçtan uca testler
+    // (tools/ux-audit) haritanın gerçekten çizildiğini buradan doğrular.
+    if (__DEV__ && typeof window !== 'undefined') {
+      const win = window as unknown as { __ZIRTAN_MAPS__?: MapLibreMap[] };
+      win.__ZIRTAN_MAPS__ = [...(win.__ZIRTAN_MAPS__ ?? []), map];
+    }
+
     // Kendi dinleyicimiz MapLibre'nin varsayılan console.error'unu devre dışı bırakır.
     // Eksik karo (kaynak hatası) beklenen bir durumdur; yalnızca stil hatası düşüş sebebidir.
     map.on('error', (event) => {
+      if (__DEV__ && typeof window !== 'undefined') {
+        // Geliştirmede hatalar yutulmasın: uçtan uca testler buradan okur.
+        const win = window as unknown as { __ZIRTAN_MAP_ERRORS__?: string[] };
+        win.__ZIRTAN_MAP_ERRORS__ = [
+          ...(win.__ZIRTAN_MAP_ERRORS__ ?? []),
+          String(event?.error?.message ?? event),
+        ];
+      }
       const sourceId = (event as unknown as { sourceId?: string }).sourceId;
       if (sourceId) return;
       const message = event?.error?.message ?? '';
@@ -131,6 +150,10 @@ function WebMap(props: MapEngineProps) {
     map.on('moveend', () => handlers.current.onRegionChange?.(regionOf(map)));
 
     return () => {
+      if (__DEV__ && typeof window !== 'undefined') {
+        const win = window as unknown as { __ZIRTAN_MAPS__?: MapLibreMap[] };
+        win.__ZIRTAN_MAPS__ = (win.__ZIRTAN_MAPS__ ?? []).filter((m) => m !== map);
+      }
       map.remove();
       mapRef.current = null;
     };

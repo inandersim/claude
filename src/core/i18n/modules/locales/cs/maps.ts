@@ -92,4 +92,13 @@ export const maps_cs: MapsI18nShape = {
   createdAt: 'Uloženo: {{date}}',
   packForRegion: 'Balíček regionu',
   progress: '{{percent}} %',
+  cancelDownload: 'Zastavit stahování',
+  downloadCancelled: 'Stahování {{name}} zastaveno',
+  downloadFailed: '{{name}} se nepodařilo stáhnout',
+  mapSource: {
+    pack: 'Offline balíček',
+    server: 'Server dlaždic',
+    graph: 'Síť stezek',
+    none: 'Zjednodušený pohled',
+  },
 };

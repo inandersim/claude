@@ -145,14 +145,6 @@ export class RemoteError extends Error {
   }
 }
 
-/** Henüz uzak sağlayıcıda karşılığı yazılmamış metotlar için. */
-export class NotImplementedRemotelyError extends Error {
-  constructor(method: string, reason: string) {
-    super(`${method} uzak sağlayıcıda henüz uygulanmadı: ${reason}`);
-    this.name = 'NotImplementedRemotelyError';
-  }
-}
-
 /** `{ data, error }` sonucunu açar; hata varsa `RemoteError` fırlatır. */
 export async function unwrap<T>(
   promise: PromiseLike<PostgrestResponse<T>>,

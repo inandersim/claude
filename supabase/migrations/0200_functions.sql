@@ -29,6 +29,9 @@ DECLARE
   target_table constant text := TG_ARGV[0];
   target_col   constant text := TG_ARGV[1];
   source_col   constant text := TG_ARGV[2];
+  -- Hedef tablonun anahtar kolonu; her tabloda `id` değildir
+  -- (ör. writer_profiles → user_id, kompozit anahtarlı tablolar).
+  target_key   constant text := COALESCE(TG_ARGV[3], 'id');
   key_value    text;
   delta        integer;
 BEGIN
@@ -42,15 +45,15 @@ BEGIN
 
   IF key_value IS NOT NULL THEN
     EXECUTE format(
-      'UPDATE %I SET %I = GREATEST(0, %I + $1) WHERE id::text = $2',
-      target_table, target_col, target_col)
+      'UPDATE %I SET %I = GREATEST(0, %I + $1) WHERE %I::text = $2',
+      target_table, target_col, target_col, target_key)
     USING delta, key_value;
   END IF;
   RETURN NULL;
 END $$;
 
 COMMENT ON FUNCTION bump_counter IS
-  'AFTER INSERT/DELETE tetikleyicisi; TG_ARGV = (hedef tablo, sayaç kolonu, kaynak FK kolonu).';
+  'AFTER INSERT/DELETE tetikleyicisi; TG_ARGV = (hedef tablo, sayaç kolonu, kaynak FK kolonu, [hedef anahtar kolonu = id]).';
 
 CREATE TRIGGER post_likes_count AFTER INSERT OR DELETE ON post_likes
   FOR EACH ROW EXECUTE FUNCTION bump_counter('posts', 'likes_count', 'post_id');
@@ -111,7 +114,8 @@ CREATE TRIGGER follows_counts AFTER INSERT OR DELETE ON follows
   FOR EACH ROW EXECUTE FUNCTION sync_follow_counts();
 
 CREATE TRIGGER writer_follows_count AFTER INSERT OR DELETE ON writer_follows
-  FOR EACH ROW EXECUTE FUNCTION bump_counter('writer_profiles', 'follower_count', 'writer_user_id');
+  FOR EACH ROW EXECUTE FUNCTION bump_counter(
+    'writer_profiles', 'follower_count', 'writer_user_id', 'user_id');
 
 -- Grup/kulüp üye sayısı
 CREATE OR REPLACE FUNCTION sync_member_count() RETURNS trigger
@@ -285,10 +289,15 @@ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public, extensions AS $$
 DECLARE
   src        constant xp_source := TG_ARGV[0]::xp_source;
   owner_col  constant text      := TG_ARGV[1];
+  -- Referans kimliği kolonu; kompozit anahtarlı tablolarda `id` yoktur
+  -- (ör. event_rsvps → event_id).
+  ref_col    constant text      := COALESCE(TG_ARGV[2], 'id');
   owner      uuid;
+  ref        text;
 BEGIN
   EXECUTE format('SELECT ($1).%I', owner_col) INTO owner USING NEW;
-  PERFORM award_xp(owner, src, TG_TABLE_NAME, NEW.id::text, '');
+  EXECUTE format('SELECT ($1).%I::text', ref_col) INTO ref USING NEW;
+  PERFORM award_xp(owner, src, TG_TABLE_NAME, ref, '');
   RETURN NULL;
 END $$;
 
@@ -298,12 +307,15 @@ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public, extensions AS $$
 DECLARE
   src       constant xp_source := TG_ARGV[0]::xp_source;
   owner_col constant text      := TG_ARGV[1];
+  ref_col   constant text      := COALESCE(TG_ARGV[2], 'id');
   owner     uuid;
+  ref       text;
 BEGIN
   EXECUTE format('SELECT ($1).%I', owner_col) INTO owner USING OLD;
+  EXECUTE format('SELECT ($1).%I::text', ref_col) INTO ref USING OLD;
   DELETE FROM xp_events
    WHERE user_id = owner AND source = src
-     AND ref_table = TG_TABLE_NAME AND ref_id = OLD.id::text;
+     AND ref_table = TG_TABLE_NAME AND ref_id = ref;
   RETURN NULL;
 END $$;
 
@@ -314,7 +326,7 @@ CREATE TRIGGER hazards_award_xp AFTER INSERT ON hazards
 CREATE TRIGGER ascents_award_xp AFTER INSERT ON ascents
   FOR EACH ROW EXECUTE FUNCTION award_xp_trigger('ascent', 'user_id');
 CREATE TRIGGER event_rsvps_award_xp AFTER INSERT ON event_rsvps
-  FOR EACH ROW EXECUTE FUNCTION award_xp_trigger('event', 'user_id');
+  FOR EACH ROW EXECUTE FUNCTION award_xp_trigger('event', 'user_id', 'event_id');
 
 CREATE TRIGGER posts_revoke_xp AFTER DELETE ON posts
   FOR EACH ROW EXECUTE FUNCTION revoke_xp_trigger('post', 'author_id');
@@ -324,6 +336,10 @@ CREATE TRIGGER ascents_revoke_xp AFTER DELETE ON ascents
   FOR EACH ROW EXECUTE FUNCTION revoke_xp_trigger('ascent', 'user_id');
 CREATE TRIGGER tracks_revoke_xp AFTER DELETE ON tracks
   FOR EACH ROW EXECUTE FUNCTION revoke_xp_trigger('route', 'user_id');
+-- Katılım geri alınınca etkinlik XP'si de geri alınır (katıl–vazgeç döngüsüyle
+-- puan biriktirmeyi önler; diğer XP kaynaklarıyla aynı davranış).
+CREATE TRIGGER event_rsvps_revoke_xp AFTER DELETE ON event_rsvps
+  FOR EACH ROW EXECUTE FUNCTION revoke_xp_trigger('event', 'user_id', 'event_id');
 
 -- Parça yalnızca YAYINLANDIĞINDA rota XP'si verir.
 CREATE OR REPLACE FUNCTION award_track_xp() RETURNS trigger

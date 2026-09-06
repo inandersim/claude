@@ -25,7 +25,7 @@ import { formatDate } from '@/core/utils/time';
 import { ADVENTURE_TYPE_META, formatDistance } from '@/domain';
 import { VERIFY_THRESHOLD, verifyThreshold } from '@/domain/tracks';
 import { PoiRow } from '@/features/tracks/components/PoiRow';
-import { TrackMap } from '@/features/tracks/components/TrackMap';
+import { TrackMapView } from '@/features/tracks/components/TrackMapView';
 import { useCommunityTrail, useConfirmPoi, useVerifyTrail } from '@/features/tracks/hooks';
 
 export default function CommunityTrailScreen() {
@@ -83,7 +83,7 @@ export default function CommunityTrailScreen() {
           <EmptyState icon="map-pin-off" title={t('tracks.trailNotFound')} />
         ) : (
           <>
-            <TrackMap
+            <TrackMapView
               points={data.points}
               pois={data.pois}
               name={data.name}

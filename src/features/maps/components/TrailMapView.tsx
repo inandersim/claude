@@ -1,12 +1,15 @@
 import React, { useMemo } from 'react';
+import { Platform } from 'react-native';
 
 import { useT } from '@/core/i18n';
 import { useTheme } from '@/core/theme';
 import type { GeoPoint, ID, TrailGraph, TrailNode } from '@/domain';
 
 import { useMapPacks } from '../hooks';
+import { getPackManager } from '../pack-manager';
 import { graphBounds, nearestNode } from '../vector/graph-source';
 import { resolveSource, useTileServerPacks } from '../vector/source';
+import { boundsOfPoints } from '../vector/style';
 import type { MapMarker } from '../vector/types';
 
 import { MapView } from './MapView';
@@ -26,6 +29,11 @@ interface Props {
   height?: number;
   showLabels?: boolean;
 }
+
+
+/** Web'de kalıcı dosya sistemi yok; paket kaynağı yalnızca yerel platformlarda geçerli. */
+const packInstalled = (packId: string) =>
+  Platform.OS !== 'web' && getPackManager().isInstalled(packId);
 
 /** Düğüm sayısı bunun altındaysa hepsi işaretlenir; üstündeyse yalnızca anlamlı olanlar. */
 const MARKER_LIMIT = 80;
@@ -64,6 +72,7 @@ export function TrailMapView({
         center: graphCenter,
         localPacks: packs.data ?? [],
         serverPacks: server.data ?? [],
+        isInstalled: packInstalled,
         graph,
       }),
     [graphCenter, packs.data, server.data, graph],
@@ -98,13 +107,19 @@ export function TrailMapView({
               ? colors.danger
               : onRoute.has(n.id)
                 ? colors.primary
-                : colors.surfaceElevated,
+                : colors.surface,
+        // Seçilmemiş düğümler zeminle karışmasın diye belirgin çerçeve alır
+        stroke:
+          n.id === startId || n.id === endId || onRoute.has(n.id)
+            ? colors.textInverse
+            : colors.borderStrong,
       }));
   }, [graph, routeNodeIds, startId, endId, colors]);
 
+  // Rota varsa kamera rotayı çerçeveler; yoksa tüm patika ağı görünür.
   const bounds = useMemo(
-    () => (route.length >= 2 ? null : graphBounds(graph)),
-    [route.length, graph],
+    () => (route.length >= 2 ? boundsOfPoints(route) : graphBounds(graph)),
+    [route, graph],
   );
 
   return (
@@ -117,6 +132,7 @@ export function TrailMapView({
       bounds={bounds}
       route={route}
       markers={markers}
+      sourceLabel={t(`maps.mapSource.${resolved.kind}`)}
       accessibilityLabel={t('maps.mapOf', { name: graph.regionId })}
       testID="trail-map"
       onMarkerPress={

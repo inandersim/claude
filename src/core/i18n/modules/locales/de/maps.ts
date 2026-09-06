@@ -93,4 +93,13 @@ export const maps_de: MapsI18nShape = {
   createdAt: 'Gespeichert: {{date}}',
   packForRegion: 'Regionspaket',
   progress: '{{percent}} %',
+  cancelDownload: 'Download stoppen',
+  downloadCancelled: 'Download von {{name}} gestoppt',
+  downloadFailed: '{{name}} konnte nicht geladen werden',
+  mapSource: {
+    pack: 'Offline-Paket',
+    server: 'Kachel-Server',
+    graph: 'Wegenetz',
+    none: 'Einfache Ansicht',
+  },
 };

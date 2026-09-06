@@ -92,4 +92,13 @@ export const maps_id: MapsI18nShape = {
   createdAt: 'Disimpan: {{date}}',
   packForRegion: 'Paket wilayah',
   progress: '{{percent}}%',
+  cancelDownload: 'Hentikan unduhan',
+  downloadCancelled: 'Unduhan {{name}} dihentikan',
+  downloadFailed: 'Tidak dapat mengunduh {{name}}',
+  mapSource: {
+    pack: 'Paket luring',
+    server: 'Server tile',
+    graph: 'Jaringan jalur',
+    none: 'Tampilan sederhana',
+  },
 };

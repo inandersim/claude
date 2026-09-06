@@ -809,6 +809,21 @@ export const seedMapPacks: MapPack[] = [
     localPath: 'file:///maps/pack_likya.pmtiles',
   },
   {
+    // Uludağ: `tools/tiles` hattıyla üretilen gerçek PMTiles paketinin karşılığı.
+    // Karo sunucusu (EXPO_PUBLIC_TILES_URL) tanımlıysa bu paket gerçekten indirilir.
+    id: 'pack_uludag',
+    name: 'Uludağ & Bursa',
+    countryCode: 'TR',
+    bbox: [29.0, 40.02, 29.45, 40.35],
+    sizeMb: 24,
+    version: '2026.09',
+    format: 'pmtiles',
+    status: 'available',
+    progress: 0,
+    updatedAt: '2026-09-01T08:00:00.000Z',
+    localPath: null,
+  },
+  {
     id: 'pack_kapadokya',
     name: 'Kapadokya',
     countryCode: 'TR',

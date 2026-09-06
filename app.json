@@ -95,7 +95,13 @@
           "recordAudioAndroid": true
         }
       ],
-      "expo-video"
+      "expo-video",
+      [
+        "@maplibre/maplibre-react-native",
+        {
+          "android": { "nativeVariant": "opengl" }
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,

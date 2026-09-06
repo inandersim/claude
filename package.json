@@ -25,7 +25,8 @@
     "ux-audit": "node tools/ux-audit/drive.js",
     "sounds": "node tools/sounds/generate.mjs",
     "test:sounds": "node --test tools/sounds/generate.test.mjs",
-    "test:selfheal": "node --test agents/selfheal/*.test.mjs"
+    "test:selfheal": "node --test agents/selfheal/*.test.mjs",
+    "test:tiles": "node --test tools/tiles/test/*.test.mjs"
   },
   "dependencies": {
     "@expo-google-fonts/manrope": "^0.4.2",
@@ -58,7 +59,7 @@
     "expo-web-browser": "~57.0.2",
     "i18n-js": "^4.5.3",
     "lucide-react-native": "^1.41.0",
-    "maplibre-gl": "^6.7.0",
+    "maplibre-gl": "^5.24.0",
     "pmtiles": "^4.5.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",

@@ -5,6 +5,7 @@ import { Text } from '@/components/ui';
 import { radius, spacing, useTheme } from '@/core/theme';
 
 import { useMapEngine } from '../vector/engine';
+import { fallbackReason } from '../vector/fallback';
 import { resolveMapStyle, type MapOverlay } from '../vector/style';
 import type {
   MapFallbackReason,
@@ -41,6 +42,7 @@ export function MapView(props: MapViewProps) {
     offRoute,
     height = 300,
     attribution = ATTRIBUTION,
+    sourceLabel,
     fallback,
     onFallback,
     accessibilityLabel,
@@ -95,13 +97,13 @@ export function MapView(props: MapViewProps) {
     [onFallback],
   );
 
-  const reason: MapFallbackReason | null = !source
-    ? 'no-source'
-    : !style
-      ? 'style-error'
-      : engine.status === 'unavailable' || !engine.Component
-        ? 'engine-unavailable'
-        : failure;
+  const reason = fallbackReason({
+    hasSource: Boolean(source),
+    hasStyle: Boolean(style),
+    engineStatus: engine.status,
+    hasEngineComponent: Boolean(engine.Component),
+    failure,
+  });
 
   if (reason) {
     return (
@@ -110,11 +112,7 @@ export function MapView(props: MapViewProps) {
         testID={testID ? `${testID}-fallback` : undefined}
       >
         {fallback}
-        <View style={[styles.attribution, { backgroundColor: colors.overlay }]}>
-          <Text variant="caption" style={{ color: '#FFFFFF' }} numberOfLines={1}>
-            {attribution}
-          </Text>
-        </View>
+        <Chrome attribution={attribution} sourceLabel={sourceLabel} />
       </View>
     );
   }
@@ -130,7 +128,31 @@ export function MapView(props: MapViewProps) {
       testID={testID}
     >
       {Engine && style ? <Engine {...props} style={style} onError={onError} /> : null}
+      {sourceLabel ? <Chrome sourceLabel={sourceLabel} /> : null}
     </View>
+  );
+}
+
+/** Harita üstü künye: kaynak etiketi (sol alt) ve atıf (sağ alt). */
+function Chrome({ attribution, sourceLabel }: { attribution?: string; sourceLabel?: string }) {
+  const { colors } = useTheme();
+  return (
+    <>
+      {sourceLabel ? (
+        <View style={[styles.pill, styles.sourcePill, { backgroundColor: colors.overlay }]}>
+          <Text variant="caption" style={styles.pillText} numberOfLines={1}>
+            {sourceLabel}
+          </Text>
+        </View>
+      ) : null}
+      {attribution ? (
+        <View style={[styles.pill, styles.attribution, { backgroundColor: colors.overlay }]}>
+          <Text variant="caption" style={styles.pillText} numberOfLines={1}>
+            {attribution}
+          </Text>
+        </View>
+      ) : null}
+    </>
   );
 }
 
@@ -142,12 +164,15 @@ const styles = StyleSheet.create({
     borderWidth: StyleSheet.hairlineWidth,
     position: 'relative',
   },
-  attribution: {
+  pill: {
     position: 'absolute',
-    right: spacing.xs,
     bottom: spacing.xs,
     paddingHorizontal: spacing.sm,
     paddingVertical: 2,
     borderRadius: radius.full,
+    maxWidth: '60%',
   },
+  pillText: { color: '#FFFFFF' },
+  attribution: { right: spacing.xs },
+  sourcePill: { left: spacing.xs },
 });

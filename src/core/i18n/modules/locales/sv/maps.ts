@@ -93,4 +93,13 @@ export const maps_sv: MapsI18nShape = {
   createdAt: 'Sparad: {{date}}',
   packForRegion: 'Regionpaket',
   progress: '{{percent}} %',
+  cancelDownload: 'Stoppa nedladdningen',
+  downloadCancelled: 'Nedladdningen av {{name}} stoppades',
+  downloadFailed: 'Kunde inte ladda ner {{name}}',
+  mapSource: {
+    pack: 'Offlinepaket',
+    server: 'Rutserver',
+    graph: 'Ledsnätverk',
+    none: 'Enkel vy',
+  },
 };

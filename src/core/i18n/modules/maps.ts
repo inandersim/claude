@@ -113,6 +113,15 @@ const tr = {
   createdAt: 'Kaydedildi: {{date}}',
   packForRegion: 'Bölge paketi',
   progress: '% {{percent}}',
+  cancelDownload: 'İndirmeyi durdur',
+  downloadCancelled: '{{name}} indirmesi durduruldu',
+  downloadFailed: '{{name}} indirilemedi',
+  mapSource: {
+    pack: 'Çevrimdışı paket',
+    server: 'Karo sunucusu',
+    graph: 'Patika grafı',
+    none: 'Basit görünüm',
+  },
 };
 
 /** Diğer dillerin uyması gereken şekil. */
@@ -210,6 +219,15 @@ const en: MapsI18nShape = {
   createdAt: 'Saved: {{date}}',
   packForRegion: 'Region pack',
   progress: '{{percent}}%',
+  cancelDownload: 'Stop download',
+  downloadCancelled: 'Download of {{name}} stopped',
+  downloadFailed: 'Could not download {{name}}',
+  mapSource: {
+    pack: 'Offline pack',
+    server: 'Tile server',
+    graph: 'Trail graph',
+    none: 'Simple view',
+  },
 };
 
 /** maps modülü çevirileri — tr kaynak, en zorunlu; diğer diller aşağıya eklenir. */

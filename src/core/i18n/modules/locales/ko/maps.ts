@@ -92,4 +92,13 @@ export const maps_ko: MapsI18nShape = {
   createdAt: '저장: {{date}}',
   packForRegion: '지역 팩',
   progress: '{{percent}}%',
+  cancelDownload: '다운로드 중지',
+  downloadCancelled: '{{name}} 다운로드를 중지했습니다',
+  downloadFailed: '{{name}}을(를) 내려받지 못했습니다',
+  mapSource: {
+    pack: '오프라인 팩',
+    server: '타일 서버',
+    graph: '등산로 네트워크',
+    none: '간단 보기',
+  },
 };

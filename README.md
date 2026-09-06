@@ -173,6 +173,12 @@ src/
 
 Ayrıntılar için [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
+Veri katmanı iki sağlayıcı sunar: `src/data/mock` (çevrimdışı demo verisi) ve
+`src/data/remote` (Supabase/PostgREST). Aynı 38 repository sözleşmesini uygularlar;
+`.env` içine `EXPO_PUBLIC_SUPABASE_URL` + `EXPO_PUBLIC_SUPABASE_ANON_KEY` yazıldığında
+uygulama gerçek sağlayıcıya geçer. Kurulum, realtime/depolama/çevrimdışı kuyruk ve
+sözleşme testleri: [docs/REMOTE_PROVIDER.md](docs/REMOTE_PROVIDER.md).
+
 ## Dünya lokasyon kütüphanesi (veri hattı)
 
 `tools/data-pipeline` dünyadaki outdoor noktalarını açık veriden toplar ve SQLite / PostGIS'e yazar:

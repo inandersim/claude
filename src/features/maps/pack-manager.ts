@@ -1,4 +1,5 @@
 import { Directory, File, Paths } from 'expo-file-system';
+import { Platform } from 'react-native';
 
 import type { ID, MapPack, MapPackStatus } from '@/domain';
 
@@ -207,22 +208,28 @@ export function createFileSystemStorage(dirName = PACK_DIR): PackStorage {
   };
 }
 
-/** Bellek içi depolama — testler ve dosya sistemi olmayan ortamlar için. */
+/**
+ * Bellek içi depolama — testler ve dosya sistemi olmayan ortamlar (web) için.
+ * `expo-file-system` web'de boş bir gölge uygulamadır; web'de paketler kalıcı olmaz,
+ * harita karoları doğrudan sunucudan (HTTP Range) okunur.
+ */
 export function createMemoryStorage(
   fetchImpl: typeof fetch = fetch,
   chunkSize = 4,
 ): PackStorage & { files: Map<string, number> } {
   const files = new Map<string, number>();
   const metas = new Map<string, PackMeta>();
+  const urls = new Map<string, string>();
   return {
     files,
     ensure() {},
     exists: (name) => files.has(name),
     size: (name) => files.get(name) ?? 0,
-    uri: (name) => `memory://${name}`,
+    uri: (name) => urls.get(name) ?? `memory://${name}`,
     remove(name) {
       files.delete(name);
       metas.delete(name);
+      urls.delete(name);
     },
     list: () => [...files.keys()],
     readMeta: (name) => metas.get(name) ?? null,
@@ -232,21 +239,30 @@ export function createMemoryStorage(
     async download(url, name, options) {
       const response = await fetchImpl(url);
       if (!response.ok) throw new Error(`İndirme başarısız (${response.status})`);
+      const declared = Number(response.headers?.get?.('content-length') ?? 0);
       const buffer = await response.arrayBuffer();
-      const total = buffer.byteLength;
-      for (let sent = 0; sent < total; sent += Math.ceil(total / chunkSize)) {
-        if (options.signal?.aborted) throw new DOMExceptionLike('Aborted');
-        options.onProgress?.(Math.min(total, sent + Math.ceil(total / chunkSize)), total);
+      const total = buffer.byteLength || declared;
+      const step = Math.max(1, Math.ceil(total / chunkSize));
+      for (let sent = step; sent < total; sent += step) {
+        if (options.signal?.aborted) throw new AbortErrorLike();
+        options.onProgress?.(sent, total);
       }
-      if (options.signal?.aborted) throw new DOMExceptionLike('Aborted');
+      if (options.signal?.aborted) throw new AbortErrorLike();
+      options.onProgress?.(total, total);
       files.set(name, total);
+      urls.set(name, url);
       return total;
     },
   };
 }
 
+/** Platforma göre varsayılan depolama (yerelde dosya sistemi, web'de bellek). */
+export function createDefaultStorage(): PackStorage {
+  return Platform.OS === 'web' ? createMemoryStorage() : createFileSystemStorage();
+}
+
 /** `DOMException` her ortamda yok; iptal hatası için taşınabilir eşdeğeri. */
-class DOMExceptionLike extends Error {
+class AbortErrorLike extends Error {
   override name = 'AbortError';
 }
 
@@ -276,11 +292,23 @@ export class MapPackManager {
   private readonly baseUrl: string | null;
   private readonly onProgress?: (packId: ID, progress: number) => void;
   private readonly running = new Map<ID, AbortController>();
+  private readonly listeners = new Set<(packId: ID, progress: number) => void>();
 
   constructor(options: PackManagerOptions = {}) {
-    this.storage = options.storage ?? createFileSystemStorage();
+    this.storage = options.storage ?? createDefaultStorage();
     this.baseUrl = options.baseUrl ?? tilesBaseUrl();
     this.onProgress = options.onProgress;
+  }
+
+  /** İlerleme dinleyicisi ekler; dönüş değeri aboneliği kaldırır. */
+  addProgressListener(listener: (packId: ID, progress: number) => void): () => void {
+    this.listeners.add(listener);
+    return () => this.listeners.delete(listener);
+  }
+
+  private emit(packId: ID, progress: number) {
+    this.onProgress?.(packId, progress);
+    for (const listener of this.listeners) listener(packId, progress);
   }
 
   /** Paket cihazda mı? */
@@ -334,9 +362,16 @@ export class MapPackManager {
   /**
    * Paketi indirir; her ilerleme adımında `onProgress` çağrılır.
    * Aynı paket zaten iniyorsa mevcut indirme korunur.
+   *
+   * Dosya her zaman **uygulamadaki paket kimliğiyle** saklanır; sunucudaki dosya
+   * adı farklı olabileceği için adres `options.url` ile verilebilir.
    */
-  async download(pack: MapPack, remoteVersion = pack.version): Promise<MapPack> {
-    const url = packRemoteUrl(pack.id, this.baseUrl);
+  async download(
+    pack: MapPack,
+    options: { version?: string; url?: string } = {},
+  ): Promise<MapPack> {
+    const remoteVersion = options.version ?? pack.version;
+    const url = options.url ?? packRemoteUrl(pack.id, this.baseUrl);
     if (!url) throw new Error('Karo sunucusu adresi tanımlı değil (EXPO_PUBLIC_TILES_URL)');
     if (this.running.has(pack.id)) return packReducer(pack, { type: 'download' });
 
@@ -348,7 +383,7 @@ export class MapPackManager {
         signal: controller.signal,
         onProgress: (received, total) => {
           const ratio = total > 0 ? received / total : 0;
-          this.onProgress?.(pack.id, Math.min(1, Math.max(0, ratio)));
+          this.emit(pack.id, Math.min(1, Math.max(0, ratio)));
         },
       });
       const sizeMb = Math.round((bytes / 1024 / 1024) * 10) / 10;
@@ -358,7 +393,7 @@ export class MapPackManager {
         sizeMb,
         updatedAt: at,
       });
-      this.onProgress?.(pack.id, 1);
+      this.emit(pack.id, 1);
       return packReducer(pack, {
         type: 'complete',
         version: remoteVersion,

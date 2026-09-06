@@ -28,7 +28,7 @@ import {
   type TrailNode,
 } from '@/domain';
 import { ElevationProfile } from '@/features/maps/components/ElevationProfile';
-import { RouteMap } from '@/features/maps/components/RouteMap';
+import { TrailMapView } from '@/features/maps/components/TrailMapView';
 import { RouteStats } from '@/features/maps/components/RouteStats';
 import { DIFFICULTY_COLOR, PROFILE_ICON, SURFACE_COLOR } from '@/features/maps/components/meta';
 import { shareGpx } from '@/features/maps/gpx';
@@ -172,9 +172,11 @@ export default function RoutePlannerScreen() {
           <Skeleton height={320} style={{ borderRadius: radius.xl }} />
         ) : (
           <>
-            <RouteMap
+            <TrailMapView
               graph={graph.data}
+              center={activeRegion?.center ?? null}
               routeNodeIds={planned?.nodeIds ?? []}
+              routePoints={planned?.points}
               startId={startId}
               endId={endId}
               onNodePress={onNodePress}

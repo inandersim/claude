@@ -42,6 +42,7 @@ import * as wildlife from '@/data/mock/seed.wildlife';
 import * as heritage from '@/data/mock/seed.heritage';
 import * as kids from '@/data/mock/seed.kids';
 import * as tv from '@/data/mock/seed.tv';
+import { getFirstAidGuides } from '@/data/content/firstAid';
 
 /* ------------------------------------------------------------------ */
 /* Kimlik ve değer dönüşümleri                                         */
@@ -316,6 +317,17 @@ const TABLES = [
   { table: 'article_comments', rows: articles.seedArticleComments },
   { table: 'article_likes', rows: articles.seedArticleLikes, noId: true },
   { table: 'article_saves', rows: articles.seedArticleSaves, noId: true },
+
+  // İlk yardım rehberleri koda gömülüdür (dağda şebeke yok, çevrimdışı çalışmalı).
+  // Tablo kanonik slug kataloğudur: consultations.first_aid_slug ve
+  // species.first_aid_slug buna FK verir. `slug` birincil anahtar olduğu için
+  // yalnızca kaynak dil (tr) satırları yazılır; çeviriler uygulamada durur.
+  {
+    table: 'first_aid_guides',
+    rows: getFirstAidGuides('tr').map((g) => ({ ...g, locale: 'tr' })),
+    noId: true,
+    text: ['slug'],
+  },
 
   { table: 'species', rows: wildlife.seedSpecies, text: ['firstAidSlug'] },
   { table: 'species_identifications', rows: wildlife.seedIdentifications, json: ['candidates'],

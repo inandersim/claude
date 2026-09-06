@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { queryKeys } from '@/core/query/keys';
-import type { GeoPoint, MapPack, TrailGraph } from '@/domain';
+import { packCoversPoint, type GeoPoint, type MapPack, type TrailGraph } from '@/domain';
 
 import { tilesBaseUrl } from '../pack-manager';
 import { graphToGeoJson } from './graph-source';
@@ -53,18 +53,48 @@ export function pickServerPack(packs: ServerPack[], point: GeoPoint): ServerPack
   return covering.sort((a, b) => area(a) - area(b))[0] ?? null;
 }
 
-/** Cihazda gerçekten duran (localPath dolu) ve noktayı kapsayan paket. */
-export function pickLocalPack(packs: MapPack[], point: GeoPoint): MapPack | null {
+/**
+ * Cihazda gerçekten duran ve noktayı kapsayan paket.
+ * `isInstalled` verilirse dosyanın varlığı da doğrulanır — demo verisindeki
+ * `localPath` alanı tek başına yeterli değildir, yoksa MapLibre olmayan bir
+ * dosyayı okumaya çalışır ve harita boş kalır.
+ */
+export function pickLocalPack(
+  packs: MapPack[],
+  point: GeoPoint,
+  isInstalled?: (packId: string) => boolean,
+): MapPack | null {
   return (
     packs.find(
       (p) =>
-        p.status === 'downloaded' &&
-        p.localPath &&
-        point.longitude >= p.bbox[0] &&
-        point.longitude <= p.bbox[2] &&
-        point.latitude >= p.bbox[1] &&
-        point.latitude <= p.bbox[3],
+        p.status !== 'available' &&
+        Boolean(p.localPath) &&
+        packCoversPoint(p, point) &&
+        (isInstalled ? isInstalled(p.id) : true),
     ) ?? null
+  );
+}
+
+/**
+ * Bir uygulama paketine (MapPack) karşılık gelen sunucu paketi.
+ * Önce kimlik, sonra sınır kutusu merkezine göre eşleşir; böylece sunucudaki
+ * dosya adı uygulamadaki paket kimliğiyle birebir aynı olmak zorunda değildir.
+ */
+export function matchServerPack(
+  serverPacks: ServerPack[],
+  pack: Pick<MapPack, 'id' | 'bbox'>,
+): ServerPack | null {
+  const byId = serverPacks.find((s) => s.id === pack.id || pack.id.endsWith(`_${s.id}`));
+  if (byId) return byId;
+  return (
+    serverPacks.find((s) => {
+      if (!s.bbox) return false;
+      const center = {
+        longitude: (s.bbox[0] + s.bbox[2]) / 2,
+        latitude: (s.bbox[1] + s.bbox[3]) / 2,
+      };
+      return packCoversPoint(pack, center);
+    }) ?? null
   );
 }
 
@@ -92,12 +122,14 @@ export function resolveSource(options: {
   serverPacks?: ServerPack[];
   graph?: TrailGraph | null;
   baseUrl?: string | null;
+  /** Paket dosyasının cihazda gerçekten olup olmadığını söyler */
+  isInstalled?: (packId: string) => boolean;
 }): ResolvedSource {
-  const { center, localPacks = [], serverPacks = [], graph = null } = options;
+  const { center, localPacks = [], serverPacks = [], graph = null, isInstalled } = options;
   const baseUrl = options.baseUrl ?? tilesBaseUrl();
 
   if (center) {
-    const local = pickLocalPack(localPacks, center);
+    const local = pickLocalPack(localPacks, center, isInstalled);
     if (local?.localPath) {
       return { source: { kind: 'pmtiles', url: local.localPath }, kind: 'pack' };
     }

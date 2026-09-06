@@ -26,7 +26,7 @@ import { ADVENTURE_TYPE_META, formatDistance } from '@/domain';
 import { useCurrentUser } from '@/features/auth/session.store';
 import { PoiRow } from '@/features/tracks/components/PoiRow';
 import { SourceBadge } from '@/features/tracks/components/SourceBadge';
-import { TrackMap } from '@/features/tracks/components/TrackMap';
+import { TrackMapView } from '@/features/tracks/components/TrackMapView';
 import { shareTrackGpx } from '@/features/tracks/gpx';
 import { useConfirmPoi, usePublishTrack, useRemoveTrack, useTrack } from '@/features/tracks/hooks';
 
@@ -118,7 +118,7 @@ export default function TrackDetailScreen() {
           <EmptyState icon="map-pin-off" title={t('tracks.notFound')} />
         ) : (
           <>
-            <TrackMap
+            <TrackMapView
               points={data.points}
               pois={data.pois}
               name={data.name}

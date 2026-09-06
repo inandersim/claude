@@ -92,4 +92,13 @@ export const maps_nb: MapsI18nShape = {
   createdAt: 'Lagret: {{date}}',
   packForRegion: 'Regionpakke',
   progress: '{{percent}} %',
+  cancelDownload: 'Stopp nedlastingen',
+  downloadCancelled: 'Nedlastingen av {{name}} ble stoppet',
+  downloadFailed: 'Kunne ikke laste ned {{name}}',
+  mapSource: {
+    pack: 'Frakoblet pakke',
+    server: 'Flisserver',
+    graph: 'Stinettverk',
+    none: 'Enkel visning',
+  },
 };
