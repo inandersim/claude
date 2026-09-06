@@ -10,6 +10,7 @@ import { fetchTile } from './lib/overpass.js';
 import { regionTiles } from './lib/regions.js';
 import { appendNdjson, LibraryDb, readNdjson } from './lib/store.js';
 import { fetchWikidata, WIKIDATA_CLASSES } from './lib/wikidata.js';
+import { fetchWikivoyagePage, listCategoryPages, toDestinationDraft } from './lib/wikivoyage.js';
 
 const args = parseArgs(process.argv.slice(2));
 const command = args._[0];
@@ -42,6 +43,38 @@ const commands = {
       await new Promise((r) => setTimeout(r, Number(args.delay ?? 3000)));
     }
     console.log(`✔ Bitti: ${total} yer → ${out}/osm-${region}.ndjson`);
+  },
+
+  async 'import-wikivoyage'() {
+    // Wikivoyage seyahat rehberlerini destinasyon taslağı olarak içe aktarır (CC BY-SA 3.0 atıf zorunlu).
+    const lang = args.lang ?? 'en';
+    const out = args.out ?? 'data/destinations';
+    let titles = args.titles
+      ? String(args.titles)
+          .split(',')
+          .map((t) => t.trim())
+      : [];
+    if (args.category) titles = titles.concat(await listCategoryPages(String(args.category), lang));
+    if (titles.length === 0) throw new Error('--titles "A,B" ya da --category gerekli');
+    fs.mkdirSync(out, { recursive: true });
+    const drafts = [];
+    for (const [i, title] of titles.entries()) {
+      console.log(`[${i + 1}/${titles.length}] ${title}`);
+      try {
+        const page = await fetchWikivoyagePage(title, lang);
+        const draft = toDestinationDraft(page);
+        drafts.push(draft);
+        console.log(
+          `  ✓ ${Object.keys(draft.sections).length} bölüm, ${draft.guide.length} karakter`,
+        );
+      } catch (error) {
+        console.warn(`  ✗ ${error.message}`);
+      }
+      await new Promise((r) => setTimeout(r, Number(args.delay ?? 1000)));
+    }
+    const file = path.join(out, `wikivoyage-${lang}.ndjson`);
+    appendNdjson(file, drafts);
+    console.log(`✔ ${drafts.length} taslak → ${file} (editör onayından sonra uygulamaya alınır)`);
   },
 
   async 'import-osm-geojson'() {

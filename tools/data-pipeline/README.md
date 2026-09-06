@@ -8,15 +8,15 @@ Bağımlılık gerektirmez: Node 22+ (`fetch`, `node:sqlite`, `node:test`).
 
 ## Kaynaklar ve lisanslar
 
-| Kaynak | Lisans | Kullanım |
-| --- | --- | --- |
-| OpenStreetMap — Overpass API | ODbL 1.0 | Nokta/alan verisi, etiketler, telefon, web, açılış saatleri |
-| Wikidata — SPARQL | CC0 | Zirveler (yükseklik), millî parklar, çok dilli adlar, Commons görsel adı |
-| Wikimedia Commons — Action API | dosya bazında CC BY / CC BY-SA / CC0 / PD | Fotoğraf + `extmetadata` lisans, yazar, atıf |
-| Wikipedia REST | CC BY-SA 4.0 | Özet açıklama |
+| Kaynak                         | Lisans                                    | Kullanım                                                                 |
+| ------------------------------ | ----------------------------------------- | ------------------------------------------------------------------------ |
+| OpenStreetMap — Overpass API   | ODbL 1.0                                  | Nokta/alan verisi, etiketler, telefon, web, açılış saatleri              |
+| Wikidata — SPARQL              | CC0                                       | Zirveler (yükseklik), millî parklar, çok dilli adlar, Commons görsel adı |
+| Wikimedia Commons — Action API | dosya bazında CC BY / CC BY-SA / CC0 / PD | Fotoğraf + `extmetadata` lisans, yazar, atıf                             |
+| Wikipedia REST                 | CC BY-SA 4.0                              | Özet açıklama                                                            |
 
 Her kayıtta `source`, `license`, `attribution` alanları saklanır. Uygulama bu satırları görüntüler
-(örn. *"© OpenStreetMap katkıcıları — ODbL"*). Fotoğraflarda yazar + lisans zorunludur.
+(örn. _"© OpenStreetMap katkıcıları — ODbL"_). Fotoğraflarda yazar + lisans zorunludur.
 
 ## Hızlı başlangıç
 
@@ -36,6 +36,15 @@ node tools/data-pipeline/cli.js build-sqlite --in data/library --db data/library
 # 5) Uygulama için örnek tohum (src/data/library/seed.json)
 node tools/data-pipeline/cli.js export-app-seed --db data/library/zirve-library.sqlite --limit 200
 ```
+
+```bash
+# 6) Wikivoyage seyahat rehberlerini destinasyon taslağı olarak al (CC BY-SA 3.0 — atıf zorunlu)
+node tools/data-pipeline/cli.js import-wikivoyage --titles "Everest Base Camp trek,Annapurna Circuit,Kilimanjaro" --lang en --out data/destinations
+node tools/data-pipeline/cli.js import-wikivoyage --category "Hiking trails" --lang en --out data/destinations
+```
+
+Taslaklar (`wikivoyage-<dil>.ndjson`) "Nasıl gidilir / İzinler / Konaklama / Güvenlik" bölümlerine ayrılmış düz metin içerir;
+editör onayından sonra `Destination` kaydına dönüştürülür (bkz. `docs/DESTINATIONS.md`).
 
 `--region world` verildiğinde dünya 10°×10° karolara bölünür, her karo ayrı sorgulanır ve
 `data/library/state.json` ile kaldığı yerden devam eder. Overpass hız sınırı (429) için üstel bekleme uygulanır.

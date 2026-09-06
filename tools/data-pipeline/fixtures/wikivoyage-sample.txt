@@ -1,0 +1,28 @@
+{{pagebanner|Everest_Base_Camp_banner.jpg}}
+{{geo|27.98|86.83}}
+The '''Everest Base Camp trek''' is one of the most popular treks in [[Nepal]], leading to the foot of the world's highest mountain.<ref>Nepal Tourism Board</ref>
+
+==Understand==
+The trek follows the Dudh Kosi valley through the Khumbu region. Most trekkers take 12–14 days.
+
+===History===
+The route was first used by the 1953 expedition.
+
+==Get in==
+* Fly from [[Kathmandu]] to [[Lukla]] (30 min). During peak season flights leave from Ramechhap.
+* Alternatively take a jeep to Salleri and walk two extra days.
+
+==Fees and permits==
+{{listing|name=Sagarmatha National Park permit|price=NPR 3000|content=Bought in Kathmandu or Monjo.}}
+* Khumbu Pasang Lhamu Rural Municipality permit: NPR 2000.
+
+==Sleep==
+{{sleep|name=Namche teahouses|content=Dozens of lodges, hot showers and wifi for a fee.}}
+{{sleep|name=Gorak Shep|alt=5164 m|content=Last lodges before base camp; very basic.}}
+
+==Stay safe==
+Altitude sickness is the main danger. Ascend slowly and take rest days at Namche and Dingboche.
+Helicopter evacuation requires insurance.
+
+==Go next==
+* [[Gokyo Lakes]]

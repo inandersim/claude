@@ -10,6 +10,12 @@ import { buildQuery, detectKind, fetchTile } from '../lib/overpass.js';
 import { regionTiles, tileBbox, worldTiles } from '../lib/regions.js';
 import { LibraryDb } from '../lib/store.js';
 import { buildSparql } from '../lib/wikidata.js';
+import {
+  parseCoords,
+  parseGuideSections,
+  stripWikitext,
+  toDestinationDraft,
+} from '../lib/wikivoyage.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const sample = JSON.parse(
@@ -164,4 +170,37 @@ test('LibraryDb: upsert, tekilleştirme, FTS arama, yakınlık ve görsel günce
   assert.equal(db.countsByKind()[0].kind, 'campsite');
   assert.equal(db.countsByKind()[0].c, 2);
   db.close();
+});
+
+test('wikivoyage: bölümler destinasyon alanlarına eşlenir', () => {
+  const wikitext = fs.readFileSync(path.join(here, '../fixtures/wikivoyage-sample.txt'), 'utf8');
+  const sections = parseGuideSections(wikitext);
+  assert.ok(sections.summary.includes('Dudh Kosi'));
+  assert.ok(sections.summary.includes('History'), 'alt bölüm üst bölüme katılır');
+  assert.ok(sections.transport.includes('Lukla'));
+  assert.ok(sections.permits.includes('Sagarmatha National Park permit · NPR 3000'));
+  assert.ok(sections.sleep.includes('Gorak Shep · 5164 m'));
+  assert.ok(sections.safety.includes('Helicopter'));
+  assert.ok(sections.nearby.includes('Gokyo Lakes'));
+  assert.ok(!sections.summary.includes('<ref>'), 'ref etiketleri temizlenir');
+  assert.deepEqual(parseCoords(wikitext), { latitude: 27.98, longitude: 86.83 });
+});
+
+test('wikivoyage: taslak lisans ve kaynak taşır', () => {
+  const wikitext = fs.readFileSync(path.join(here, '../fixtures/wikivoyage-sample.txt'), 'utf8');
+  const draft = toDestinationDraft({
+    title: 'Everest Base Camp trek',
+    lang: 'en',
+    wikitext,
+    revision: 42,
+  });
+  assert.equal(draft.slug, 'everest-base-camp-trek');
+  assert.equal(draft.license, 'CC BY-SA 3.0');
+  assert.equal(draft.status, 'draft');
+  assert.ok(draft.sourceUrl.endsWith('Everest_Base_Camp_trek'));
+  assert.ok(draft.guide.startsWith('Nasıl gidilir'));
+  assert.equal(
+    stripWikitext("'''bold''' [[Nepal|Nepal ülkesi]] [https://x.y site]"),
+    'bold Nepal ülkesi site',
+  );
 });
