@@ -1,0 +1,2236 @@
+[
+  {
+    "id": "sp_vipera_ammodytes",
+    "commonName": "Boynuzlu engerek",
+    "scientificName": "Vipera ammodytes",
+    "group": "snake",
+    "danger": "dangerous",
+    "countryCodes": [
+      "TR",
+      "GR",
+      "BG",
+      "IT",
+      "GE"
+    ],
+    "habitats": [
+      "kayalık yamaç",
+      "taş duvar",
+      "maki",
+      "orman kenarı"
+    ],
+    "description": "Avrupa’nın en zehirli engereği. Burnunun ucundaki yumuşak boynuz ve sırtındaki koyu zigzag deseniyle tanınır. Kışın uyur, ilkbaharda güneşlenirken sık görülür.",
+    "identification": [
+      "Burun ucunda yukarı kalkık yumuşak \"boynuz\"",
+      "Sırtta koyu kahverengi/siyah zigzag şerit",
+      "Üçgen kafa, dikey (kedi gibi) pupil",
+      "Kalın gövde, kısa kuyruk; 60–90 cm",
+      "Gri, bej ya da kızıl-kahve zemin rengi"
+    ],
+    "encounterDo": [
+      "Dur, en az 2 m mesafe bırak, yavaşça geri çekil.",
+      "Yere ayakla vur; titreşimle uzaklaşır.",
+      "Kayalık ve odun yığınına elini sokmadan önce bak.",
+      "Sakin kal; ısırılan uzvu hareketsiz ve kalp seviyesinde tut.",
+      "Yüzük, saat gibi sıkacak eşyaları hemen çıkar.",
+      "Isırık saatini not et, şişliğin sınırını kalemle işaretle.",
+      "112 / en yakın hastane; antivenom yalnızca hastanede."
+    ],
+    "encounterDont": [
+      "Yarayı kesme, emme, turnike uygulama, buz koyma.",
+      "Yılanı yakalamaya ya da öldürmeye çalışma.",
+      "Alkol, kafein ya da ağrı kesici (aspirin/ibuprofen) alma."
+    ],
+    "firstAidSlug": "snakebite",
+    "venomNote": "Hemotoksik + nörotoksik karışım; şiddetli ağrı, hızlı şişlik, bulantı. Ölüm nadir ama antivenom gerektirebilir.",
+    "lookalikes": [
+      "Şeytan engereği",
+      "Kara yılan (gençleri)",
+      "Yılan çukur"
+    ],
+    "activeMonths": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "activeHours": "both",
+    "sources": [
+      "Türkiye Herpetoloji Derneği",
+      "WHO Snakebite Information Platform"
+    ]
+  },
+  {
+    "id": "sp_montivipera_xanthina",
+    "commonName": "Şeytan engereği (Osmanlı engereği)",
+    "scientificName": "Montivipera xanthina",
+    "group": "snake",
+    "danger": "dangerous",
+    "countryCodes": [
+      "TR",
+      "GR"
+    ],
+    "habitats": [
+      "dağ yamacı",
+      "kayalık",
+      "orman kenarı",
+      "tarla kenarı"
+    ],
+    "description": "Batı ve Güney Anadolu’da yaygın, iri yapılı engerek. Boynuzu yoktur; sırttaki koyu zikzak kısa çizgilere bölünmüş olabilir. Sıcak yaz gecelerinde yola çıkar.",
+    "identification": [
+      "Boynuzsuz, geniş üçgen kafa",
+      "Gri zeminde koyu dalgalı/zigzag sırt deseni",
+      "Kalın gövde; 90–120 cm’ye ulaşabilir",
+      "Dikey pupil, tıslayarak uyarır"
+    ],
+    "encounterDo": [
+      "Gece yürüyüşünde fener ile adım yerini gör.",
+      "Yolunu kes(me); geçmesini bekle.",
+      "Sakin kal; ısırılan uzvu hareketsiz ve kalp seviyesinde tut.",
+      "Yüzük, saat gibi sıkacak eşyaları hemen çıkar.",
+      "Isırık saatini not et, şişliğin sınırını kalemle işaretle.",
+      "112 / en yakın hastane; antivenom yalnızca hastanede."
+    ],
+    "encounterDont": [
+      "Yarayı kesme, emme, turnike uygulama, buz koyma.",
+      "Yılanı yakalamaya ya da öldürmeye çalışma.",
+      "Alkol, kafein ya da ağrı kesici (aspirin/ibuprofen) alma."
+    ],
+    "firstAidSlug": "snakebite",
+    "venomNote": "Hemotoksik; yerel doku hasarı, şişlik, pıhtılaşma bozukluğu. Türkiye’de en çok ısırık vakasına neden olan tür.",
+    "lookalikes": [
+      "Boynuzlu engerek",
+      "Koca engerek"
+    ],
+    "activeMonths": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "activeHours": "both",
+    "sources": [
+      "Türkiye Herpetoloji Derneği",
+      "Ulusal Zehir Danışma Merkezi (114)"
+    ]
+  },
+  {
+    "id": "sp_macrovipera_lebetinus",
+    "commonName": "Koca engerek",
+    "scientificName": "Macrovipera lebetinus",
+    "group": "snake",
+    "danger": "deadly",
+    "countryCodes": [
+      "TR",
+      "GE",
+      "CY"
+    ],
+    "habitats": [
+      "kurak vadi",
+      "bağ",
+      "taş duvar",
+      "yarı çöl"
+    ],
+    "description": "Doğu ve Güneydoğu Anadolu’nun en tehlikeli yılanı; 1,5 m’yi geçebilir. Ağır hareket eder ama saldırısı ani ve hızlıdır. Zehri büyük miktarda salınır.",
+    "identification": [
+      "Çok kalın gövde, künt burun, geniş kafa",
+      "Gri-kahve zeminde belirsiz koyu lekeler",
+      "Kısa kuyruk, dikey pupil",
+      "120–180 cm; ağır, yavaş sürünür"
+    ],
+    "encounterDo": [
+      "Hemen geri çekil; asla yaklaşma.",
+      "Bağ ve taş duvar kenarında ayak yerini gör.",
+      "Sakin kal; ısırılan uzvu hareketsiz ve kalp seviyesinde tut.",
+      "Yüzük, saat gibi sıkacak eşyaları hemen çıkar.",
+      "Isırık saatini not et, şişliğin sınırını kalemle işaretle.",
+      "112 / en yakın hastane; antivenom yalnızca hastanede."
+    ],
+    "encounterDont": [
+      "Yarayı kesme, emme, turnike uygulama, buz koyma.",
+      "Yılanı yakalamaya ya da öldürmeye çalışma.",
+      "Alkol, kafein ya da ağrı kesici (aspirin/ibuprofen) alma."
+    ],
+    "firstAidSlug": "snakebite",
+    "venomNote": "Güçlü hemotoksin; hızlı şişlik, doku nekrozu, iç kanama. Antivenom acildir; ölüm bildirilmiştir.",
+    "lookalikes": [
+      "Şeytan engereği",
+      "Kum boası (uzaktan)"
+    ],
+    "activeMonths": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "activeHours": "both",
+    "sources": [
+      "WHO Snakebite Information Platform",
+      "Türkiye Herpetoloji Derneği"
+    ]
+  },
+  {
+    "id": "sp_dolichophis_caspius",
+    "commonName": "Kara yılan (Hazar yılanı)",
+    "scientificName": "Dolichophis caspius",
+    "group": "snake",
+    "danger": "harmless",
+    "countryCodes": [
+      "TR",
+      "BG",
+      "GR",
+      "GE"
+    ],
+    "habitats": [
+      "çayır",
+      "tarla",
+      "kayalık",
+      "köy kenarı"
+    ],
+    "description": "Türkiye’nin en uzun yılanlarından; 2 m’ye ulaşır. Zehirsizdir, çok hızlıdır; sıkıştırılınca ısırabilir ama tehlikesizdir. Kemirgen avcısı olarak faydalıdır.",
+    "identification": [
+      "Düzgün, ince, çok uzun gövde (150–200 cm)",
+      "Sırt koyu kahve/siyah, karın sarımsı",
+      "Yuvarlak pupil, oval kafa (üçgen değil)",
+      "Çok hızlı kaçar; sık sık dik durur"
+    ],
+    "encounterDo": [
+      "Geçmesine izin ver; çok hızlı kaçar.",
+      "Sıkıştırma; ısırık acı verir ama zehirsizdir."
+    ],
+    "encounterDont": [
+      "Kuyruğundan tutma.",
+      "Engerek sanıp öldürme; korunan türdür."
+    ],
+    "firstAidSlug": null,
+    "venomNote": null,
+    "lookalikes": [
+      "Koca engerek (uzaktan)",
+      "Sarı yılan"
+    ],
+    "activeMonths": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "activeHours": "day",
+    "sources": [
+      "Türkiye Herpetoloji Derneği"
+    ]
+  },
+  {
+    "id": "sp_natrix_natrix",
+    "commonName": "Su yılanı (Yarı sucul yılan)",
+    "scientificName": "Natrix natrix",
+    "group": "snake",
+    "danger": "harmless",
+    "countryCodes": [
+      "TR",
+      "GR",
+      "BG",
+      "IT",
+      "ES",
+      "FR",
+      "DE",
+      "GB",
+      "GE"
+    ],
+    "habitats": [
+      "dere",
+      "göl kenarı",
+      "sazlık",
+      "bataklık"
+    ],
+    "description": "Su kenarlarında en sık görülen yılan. Ensesindeki sarı-beyaz \"yaka\" ile tanınır. Tehdit edilince kötü koku salar ya da ölü taklidi yapar; zehirsizdir.",
+    "identification": [
+      "Ense arkasında sarı/beyaz hilal biçimli yaka",
+      "Zeytin-gri gövde, yanlarda siyah çizgiler",
+      "Yuvarlak pupil; 70–120 cm",
+      "İyi yüzer; suya dalıp saklanır"
+    ],
+    "encounterDo": [
+      "Sudan çıkmasına izin ver.",
+      "Dokunma; koku salar."
+    ],
+    "encounterDont": [
+      "Engerek sanıp zarar verme."
+    ],
+    "firstAidSlug": null,
+    "venomNote": null,
+    "lookalikes": [
+      "Damalı su yılanı",
+      "Kara yılan (gençleri)"
+    ],
+    "activeMonths": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "activeHours": "day",
+    "sources": [
+      "Türkiye Herpetoloji Derneği"
+    ]
+  },
+  {
+    "id": "sp_eryx_jaculus",
+    "commonName": "Kum boası (Mahmuzlu yılan)",
+    "scientificName": "Eryx jaculus",
+    "group": "snake",
+    "danger": "harmless",
+    "countryCodes": [
+      "TR",
+      "GR",
+      "BG"
+    ],
+    "habitats": [
+      "kumul",
+      "bozkır",
+      "gevşek toprak",
+      "tarla"
+    ],
+    "description": "Küçük, kalın ve kısa kuyruklu; toprağa gömülü yaşar. Engerekle karıştırılır ama ısırığı zehirsizdir; avını sararak öldürür.",
+    "identification": [
+      "Kısa, silindirik gövde; 40–60 cm",
+      "Kafa ile boyun ayrımı belirsiz; kuyruk künt",
+      "Kum rengi zeminde koyu lekeler",
+      "Gözler küçük, üste yakın"
+    ],
+    "encounterDo": [
+      "Yerinde bırak; nadir ve korunan tür."
+    ],
+    "encounterDont": [
+      "Engerek sanıp öldürme."
+    ],
+    "firstAidSlug": null,
+    "venomNote": null,
+    "lookalikes": [
+      "Koca engerek (yavru)",
+      "Boynuzlu engerek"
+    ],
+    "activeMonths": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "activeHours": "night",
+    "sources": [
+      "Türkiye Herpetoloji Derneği"
+    ]
+  },
+  {
+    "id": "sp_naja_naja",
+    "commonName": "Hint kobrası",
+    "scientificName": "Naja naja",
+    "group": "snake",
+    "danger": "deadly",
+    "countryCodes": [
+      "IN",
+      "NP"
+    ],
+    "habitats": [
+      "pirinç tarlası",
+      "köy çevresi",
+      "orman",
+      "nehir kıyısı"
+    ],
+    "description": "Güney Asya’nın \"Büyük Dörtlü\" yılanlarından. Tehdit edilince boynunu başlık gibi açar ve dik durur. Nörotoksik zehri solunum felcine yol açar.",
+    "identification": [
+      "Açılan başlık (kukuleta) ve arkasında gözlük deseni",
+      "Kahverengi/siyah, 1–1,5 m",
+      "Dik durup tıslama",
+      "Yuvarlak pupil"
+    ],
+    "encounterDo": [
+      "Hareketsiz kal, sonra yavaşça geri çekil; kobra dikilince menzili ~1 m.",
+      "Gece köy çevresinde fener ve bot kullan.",
+      "Sakin kal; ısırılan uzvu hareketsiz ve kalp seviyesinde tut.",
+      "Yüzük, saat gibi sıkacak eşyaları hemen çıkar.",
+      "Isırık saatini not et, şişliğin sınırını kalemle işaretle.",
+      "112 / en yakın hastane; antivenom yalnızca hastanede."
+    ],
+    "encounterDont": [
+      "Yarayı kesme, emme, turnike uygulama, buz koyma.",
+      "Yılanı yakalamaya ya da öldürmeye çalışma.",
+      "Alkol, kafein ya da ağrı kesici (aspirin/ibuprofen) alma."
+    ],
+    "firstAidSlug": "snakebite",
+    "venomNote": "Nörotoksik; göz kapağı düşmesi, yutma güçlüğü, solunum durması. Basınçlı bandaj + hareketsizlik, hastanede antivenom.",
+    "lookalikes": [
+      "Sıçan yılanı (Ptyas)",
+      "Kral kobra"
+    ],
+    "activeMonths": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "activeHours": "both",
+    "sources": [
+      "WHO Snakebite Information Platform",
+      "Indian Snakebite Initiative"
+    ]
+  },
+  {
+    "id": "sp_bungarus_caeruleus",
+    "commonName": "Krait (Mavi krait)",
+    "scientificName": "Bungarus caeruleus",
+    "group": "snake",
+    "danger": "deadly",
+    "countryCodes": [
+      "IN",
+      "NP"
+    ],
+    "habitats": [
+      "köy evi",
+      "tarla",
+      "nehir kıyısı",
+      "yer çadırı"
+    ],
+    "description": "Gece aktif; uyuyan insanları ısırmasıyla bilinir. Isırık neredeyse acısızdır, belirtiler saatler sonra başlar. Nepal ve Hindistan’da ölümcül vakaların önemli kısmından sorumludur.",
+    "identification": [
+      "Parlak siyah/mavi-siyah gövde, ince beyaz çift halkalar",
+      "Sırtta belirgin altıgen omurga pulları",
+      "1–1,5 m; gündüz uyuşuk, gece hızlı",
+      "Yuvarlak pupil"
+    ],
+    "encounterDo": [
+      "Yerde uyuma; cibinlikli ve yerden yüksek yatak kullan.",
+      "Gece \"karınca ısırığı\" gibi acısız bir ısırık hissedersen hemen hastaneye git.",
+      "Sakin kal; ısırılan uzvu hareketsiz ve kalp seviyesinde tut.",
+      "Yüzük, saat gibi sıkacak eşyaları hemen çıkar.",
+      "Isırık saatini not et, şişliğin sınırını kalemle işaretle.",
+      "112 / en yakın hastane; antivenom yalnızca hastanede."
+    ],
+    "encounterDont": [
+      "Yarayı kesme, emme, turnike uygulama, buz koyma.",
+      "Yılanı yakalamaya ya da öldürmeye çalışma.",
+      "Alkol, kafein ya da ağrı kesici (aspirin/ibuprofen) alma.",
+      "Belirti yok diye bekleme; zehir gecikmeli etkir."
+    ],
+    "firstAidSlug": "snakebite",
+    "venomNote": "Presinaptik nörotoksin; karın ağrısı, kas felci, solunum yetmezliği. Mekanik ventilasyon gerekebilir.",
+    "lookalikes": [
+      "Kurt yılanı (Lycodon, zehirsiz)"
+    ],
+    "activeMonths": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "activeHours": "night",
+    "sources": [
+      "WHO Snakebite Information Platform"
+    ]
+  },
+  {
+    "id": "sp_daboia_russelii",
+    "commonName": "Russell engereği",
+    "scientificName": "Daboia russelii",
+    "group": "snake",
+    "danger": "deadly",
+    "countryCodes": [
+      "IN",
+      "NP",
+      "TH"
+    ],
+    "habitats": [
+      "tarla",
+      "çalılık",
+      "ova",
+      "köy kenarı"
+    ],
+    "description": "Asya’da en çok ölüme neden olan yılan. Çok yüksek sesle tıslar, hızlı ve uzağa saldırır. Böbrek yetmezliği ve kanama yapar.",
+    "identification": [
+      "Sırtta üç sıra halinde koyu kahverengi zincir/oval lekeler",
+      "Kalın gövde, üçgen kafa, 1–1,5 m",
+      "Çok yüksek, uzun tıslama",
+      "Dikey pupil"
+    ],
+    "encounterDo": [
+      "Tıslama duyarsan olduğun yerde dur, kaynağı bul, uzaklaş.",
+      "Sakin kal; ısırılan uzvu hareketsiz ve kalp seviyesinde tut.",
+      "Yüzük, saat gibi sıkacak eşyaları hemen çıkar.",
+      "Isırık saatini not et, şişliğin sınırını kalemle işaretle.",
+      "112 / en yakın hastane; antivenom yalnızca hastanede."
+    ],
+    "encounterDont": [
+      "Yarayı kesme, emme, turnike uygulama, buz koyma.",
+      "Yılanı yakalamaya ya da öldürmeye çalışma.",
+      "Alkol, kafein ya da ağrı kesici (aspirin/ibuprofen) alma."
+    ],
+    "firstAidSlug": "snakebite",
+    "venomNote": "Hemotoksik + nefrotoksik; kanama, böbrek yetmezliği, hipofiz hasarı. Antivenom erken verilmeli.",
+    "lookalikes": [
+      "Testere pullu engerek (Echis)",
+      "Piton yavrusu"
+    ],
+    "activeMonths": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "activeHours": "night",
+    "sources": [
+      "WHO Snakebite Information Platform"
+    ]
+  },
+  {
+    "id": "sp_crotalus_atrox",
+    "commonName": "Batı elmas sırtlı çıngıraklı yılan",
+    "scientificName": "Crotalus atrox",
+    "group": "snake",
+    "danger": "dangerous",
+    "countryCodes": [
+      "US",
+      "MX"
+    ],
+    "habitats": [
+      "çöl",
+      "kaya yığını",
+      "kanyon",
+      "çalılık"
+    ],
+    "description": "ABD’nin güneybatısında en çok ısırık vakasına neden olan tür. Kuyruk ucundaki çıngırağı sallayarak uyarır; uyarısız da saldırabilir.",
+    "identification": [
+      "Kuyruk ucunda çıngırak, kuyrukta siyah-beyaz halkalar",
+      "Sırtta elmas biçimli koyu lekeler",
+      "Üçgen kafa, ısı çukurları, dikey pupil",
+      "90–150 cm"
+    ],
+    "encounterDo": [
+      "Çıngırak duyarsan dur, kaynağı bul, ters yöne yavaşça uzaklaş.",
+      "Kaya ve kütüklerin üstüne değil ötesine adım at.",
+      "Sakin kal; ısırılan uzvu hareketsiz ve kalp seviyesinde tut.",
+      "Yüzük, saat gibi sıkacak eşyaları hemen çıkar.",
+      "Isırık saatini not et, şişliğin sınırını kalemle işaretle.",
+      "112 / en yakın hastane; antivenom yalnızca hastanede."
+    ],
+    "encounterDont": [
+      "Yarayı kesme, emme, turnike uygulama, buz koyma.",
+      "Yılanı yakalamaya ya da öldürmeye çalışma.",
+      "Alkol, kafein ya da ağrı kesici (aspirin/ibuprofen) alma."
+    ],
+    "firstAidSlug": "snakebite",
+    "venomNote": "Hemotoksik; hızlı şişlik, morarma, doku nekrozu. CroFab antivenom ile ölüm çok nadirdir.",
+    "lookalikes": [
+      "Gopher yılanı (zehirsiz, çıngıraksız)",
+      "Boğa yılanı"
+    ],
+    "activeMonths": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "activeHours": "both",
+    "sources": [
+      "CDC Venomous Snakes",
+      "Arizona Poison Center"
+    ]
+  },
+  {
+    "id": "sp_pseudonaja_textilis",
+    "commonName": "Doğu kahverengi yılanı",
+    "scientificName": "Pseudonaja textilis",
+    "group": "snake",
+    "danger": "deadly",
+    "countryCodes": [
+      "AU"
+    ],
+    "habitats": [
+      "çayır",
+      "tarım alanı",
+      "banliyö",
+      "çalılık"
+    ],
+    "description": "Dünyanın en zehirli ikinci kara yılanı; Avustralya’daki yılan ölümlerinin çoğundan sorumlu. Hızlı, sinirli ve gündüz aktif.",
+    "identification": [
+      "Tek düze açık kahveden koyu kahveye, ince gövde",
+      "Küçük kafa, yuvarlak pupil",
+      "1,5–2 m; tehdit edilince S biçiminde yükselir"
+    ],
+    "encounterDo": [
+      "Dur ve tamamen hareketsiz kal; yılan geçince uzaklaş.",
+      "Basınçlı immobilizasyon bandajı uygula (Avustralya protokolü).",
+      "Sakin kal; ısırılan uzvu hareketsiz ve kalp seviyesinde tut.",
+      "Yüzük, saat gibi sıkacak eşyaları hemen çıkar.",
+      "Isırık saatini not et, şişliğin sınırını kalemle işaretle.",
+      "112 / en yakın hastane; antivenom yalnızca hastanede."
+    ],
+    "encounterDont": [
+      "Yarayı kesme, emme, turnike uygulama, buz koyma.",
+      "Yılanı yakalamaya ya da öldürmeye çalışma.",
+      "Alkol, kafein ya da ağrı kesici (aspirin/ibuprofen) alma."
+    ],
+    "firstAidSlug": "snakebite",
+    "venomNote": "Prokoagülan + nörotoksin; ani kollaps, pıhtılaşma bozukluğu. Basınçlı bandaj + hareketsizlik hayat kurtarır.",
+    "lookalikes": [
+      "Ağaç yılanı",
+      "Kırmızı karınlı kara yılan"
+    ],
+    "activeMonths": [
+      9,
+      10,
+      11,
+      12,
+      1,
+      2,
+      3,
+      4
+    ],
+    "activeHours": "day",
+    "sources": [
+      "Australian Venom Research Unit"
+    ]
+  },
+  {
+    "id": "sp_bothrops_jararaca",
+    "commonName": "Jararaca (Mızrak başlı engerek)",
+    "scientificName": "Bothrops jararaca",
+    "group": "snake",
+    "danger": "deadly",
+    "countryCodes": [
+      "BR"
+    ],
+    "habitats": [
+      "Atlantik ormanı",
+      "tarım alanı",
+      "nehir kıyısı"
+    ],
+    "description": "Brezilya’daki yılan ısırıklarının büyük çoğunluğundan sorumlu. Yaprak döküntüsünde kamufle olur; gece aktif.",
+    "identification": [
+      "Üçgen \"mızrak\" biçimli kafa, ısı çukurları",
+      "Kahverengi zeminde koyu üçgen/trapez lekeler",
+      "60–120 cm; dikey pupil"
+    ],
+    "encounterDo": [
+      "Orman patikasında bot ve tozluk giy.",
+      "Ölü yaprak yığınına basmadan önce bak.",
+      "Sakin kal; ısırılan uzvu hareketsiz ve kalp seviyesinde tut.",
+      "Yüzük, saat gibi sıkacak eşyaları hemen çıkar.",
+      "Isırık saatini not et, şişliğin sınırını kalemle işaretle.",
+      "112 / en yakın hastane; antivenom yalnızca hastanede."
+    ],
+    "encounterDont": [
+      "Yarayı kesme, emme, turnike uygulama, buz koyma.",
+      "Yılanı yakalamaya ya da öldürmeye çalışma.",
+      "Alkol, kafein ya da ağrı kesici (aspirin/ibuprofen) alma."
+    ],
+    "firstAidSlug": "snakebite",
+    "venomNote": "Hemotoksik; kanama, doku hasarı, böbrek hasarı. Butantan Enstitüsü antivenomu yaygındır.",
+    "lookalikes": [
+      "Jararacuçu",
+      "Boa (gençleri)"
+    ],
+    "activeMonths": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "activeHours": "night",
+    "sources": [
+      "Instituto Butantan"
+    ]
+  },
+  {
+    "id": "sp_ursus_arctos",
+    "commonName": "Boz ayı",
+    "scientificName": "Ursus arctos",
+    "group": "mammal",
+    "danger": "dangerous",
+    "countryCodes": [
+      "TR",
+      "GE",
+      "US",
+      "CA",
+      "IT",
+      "NP"
+    ],
+    "habitats": [
+      "orman",
+      "yayla",
+      "alpin çayır",
+      "dere vadisi"
+    ],
+    "description": "Türkiye’de Karadeniz dağları ve Doğu Anadolu’da; Kuzey Amerika’da grizzly olarak bilinir. Genelde insandan kaçınır; sürpriz karşılaşma, yavru ve yiyecek en riskli durumlardır.",
+    "identification": [
+      "Omuzda belirgin kambur, içbükey yüz profili",
+      "Kahverengi tonları, uzun pençeler",
+      "150–300 kg; iz genişliği 12–15 cm",
+      "Dışkı ve devrilmiş kütükler sinyaldir"
+    ],
+    "encounterDo": [
+      "Sakin konuş, kollarını kaldırıp büyük görün.",
+      "Yan yan yavaşça geri çekil, kaçış yolu bırak.",
+      "Ayı spreyi 8–10 m’de; saldırıda yüzüstü yat, enseni koru.",
+      "Yiyeceği çadırdan 100 m uzakta asılı tut."
+    ],
+    "encounterDont": [
+      "Asla koşma; 50 km/s hıza ulaşır.",
+      "Ağaca tırmanma.",
+      "Yavruya yaklaşma, göz teması ile meydan okuma."
+    ],
+    "firstAidSlug": "bleeding",
+    "venomNote": null,
+    "lookalikes": [
+      "Kara ayı",
+      "Büyük köpek (uzaktan)"
+    ],
+    "activeMonths": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "activeHours": "both",
+    "sources": [
+      "Doğa Koruma ve Milli Parklar GM",
+      "US National Park Service"
+    ]
+  },
+  {
+    "id": "sp_ursus_americanus",
+    "commonName": "Kara ayı",
+    "scientificName": "Ursus americanus",
+    "group": "mammal",
+    "danger": "dangerous",
+    "countryCodes": [
+      "US",
+      "CA",
+      "MX"
+    ],
+    "habitats": [
+      "orman",
+      "kamp alanı",
+      "dağ yamacı"
+    ],
+    "description": "Kuzey Amerika’nın en yaygın ayısı; grizzly’den küçük ve daha ürkektir. Kamp alanlarında yiyeceğe alışmış bireyler cesur davranır.",
+    "identification": [
+      "Omuz kamburu yok, düz yüz profili",
+      "Siyah, kahve ya da tarçın rengi",
+      "60–250 kg; iyi tırmanır",
+      "Kısa pençeler"
+    ],
+    "encounterDo": [
+      "Büyük görün, bağır, geri çekil.",
+      "Saldırırsa KARŞI KOY: yüz ve buruna vur (ölü taklidi yapma).",
+      "Yiyeceği ayı kutusuna koy."
+    ],
+    "encounterDont": [
+      "Koşma.",
+      "Ölü taklidi yapma.",
+      "Besleme."
+    ],
+    "firstAidSlug": "bleeding",
+    "venomNote": null,
+    "lookalikes": [
+      "Boz ayı (tarçın renkli kara ayı ile karışır)"
+    ],
+    "activeMonths": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "activeHours": "both",
+    "sources": [
+      "US National Park Service"
+    ]
+  },
+  {
+    "id": "sp_canis_lupus",
+    "commonName": "Kurt",
+    "scientificName": "Canis lupus",
+    "group": "mammal",
+    "danger": "dangerous",
+    "countryCodes": [
+      "TR",
+      "GE",
+      "US",
+      "CA",
+      "IT",
+      "ES",
+      "BG",
+      "GR"
+    ],
+    "habitats": [
+      "orman",
+      "bozkır",
+      "yayla",
+      "dağ"
+    ],
+    "description": "Sağlıklı kurt insandan kaçınır; saldırılar çok nadir, çoğu kuduz ya da alışmış bireylerden. Kış aylarında sürü halinde köy yakınlarına iner.",
+    "identification": [
+      "Uzun bacak, geniş göğüs, düz kuyruk (aşağı sarkık)",
+      "Gri-sarı-kahve tüy, siyah kuyruk ucu",
+      "Çoban köpeğinden ince burun, daha küçük kulak",
+      "İz 10–12 cm, düz çizgide yürür"
+    ],
+    "encounterDo": [
+      "Büyük görün, bağır, taş at.",
+      "Sürüyse sırtını kayaya ver, geri çekil.",
+      "Grupta bir arada kal."
+    ],
+    "encounterDont": [
+      "Koşma ya da sırtını dönme.",
+      "Köşeye sıkıştırma.",
+      "Yavruya yaklaşma."
+    ],
+    "firstAidSlug": "bleeding",
+    "venomNote": null,
+    "lookalikes": [
+      "Kangal / çoban köpeği",
+      "Çakal"
+    ],
+    "activeMonths": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "activeHours": "both",
+    "sources": [
+      "Doğa Koruma ve Milli Parklar GM"
+    ]
+  },
+  {
+    "id": "sp_sus_scrofa",
+    "commonName": "Yaban domuzu",
+    "scientificName": "Sus scrofa",
+    "group": "mammal",
+    "danger": "dangerous",
+    "countryCodes": [
+      "TR",
+      "GR",
+      "BG",
+      "IT",
+      "DE",
+      "FR",
+      "ES",
+      "GE"
+    ],
+    "habitats": [
+      "orman",
+      "sazlık",
+      "tarla kenarı",
+      "maki"
+    ],
+    "description": "Türkiye ormanlarında en sık karşılaşılan iri memeli. Genelde kaçar; yavrulu dişi, yaralı ya da köşeye sıkışan birey saldırır. Dişleri derin yara açar.",
+    "identification": [
+      "Koyu kıllı, yüksek omuzlu, kama biçimli kafa",
+      "Erkekte kıvrık dişler; 60–150 kg",
+      "Eşelenmiş toprak, çamur banyosu izleri",
+      "Yavrular çizgili"
+    ],
+    "encounterDo": [
+      "Ağaç/kaya arkasına geç; yol ver.",
+      "Yavaşça geri çekil, alkışla uzaklaştır."
+    ],
+    "encounterDont": [
+      "Yavrularla dişinin arasına girme.",
+      "Köşeye sıkıştırma.",
+      "Yaralı domuza yaklaşma."
+    ],
+    "firstAidSlug": "bleeding",
+    "venomNote": null,
+    "lookalikes": [
+      "Evcil domuz"
+    ],
+    "activeMonths": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "activeHours": "night",
+    "sources": [
+      "Doğa Koruma ve Milli Parklar GM"
+    ]
+  },
+  {
+    "id": "sp_canis_aureus",
+    "commonName": "Çakal",
+    "scientificName": "Canis aureus",
+    "group": "mammal",
+    "danger": "caution",
+    "countryCodes": [
+      "TR",
+      "GR",
+      "BG",
+      "IN",
+      "NP",
+      "GE"
+    ],
+    "habitats": [
+      "sazlık",
+      "tarla",
+      "sahil ormanı",
+      "köy kenarı"
+    ],
+    "description": "Küçük, ürkek bir köpekgil. Gece kamp çevresinde ulumasıyla korkutur; insana saldırması çok nadirdir. Kuduz taşıyabilir.",
+    "identification": [
+      "Tilkiden büyük, kurttan küçük; 8–12 kg",
+      "Sarı-gri tüy, kısa kuyruk, sivri kulak",
+      "Gece grup halinde uluma"
+    ],
+    "encounterDo": [
+      "Yiyeceği kapalı tut.",
+      "Bağır, alkışla."
+    ],
+    "encounterDont": [
+      "Besleme.",
+      "İn yakınına yaklaşma."
+    ],
+    "firstAidSlug": "bleeding",
+    "venomNote": null,
+    "lookalikes": [
+      "Tilki",
+      "Küçük kurt"
+    ],
+    "activeMonths": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "activeHours": "night",
+    "sources": [
+      "Doğa Koruma ve Milli Parklar GM"
+    ]
+  },
+  {
+    "id": "sp_lynx_lynx",
+    "commonName": "Vaşak",
+    "scientificName": "Lynx lynx",
+    "group": "mammal",
+    "danger": "caution",
+    "countryCodes": [
+      "TR",
+      "GE",
+      "DE",
+      "FR",
+      "IT"
+    ],
+    "habitats": [
+      "yoğun orman",
+      "kayalık",
+      "dağ"
+    ],
+    "description": "Çok gizli yaşayan yaban kedisi; insandan kaçınır. Görmek şanstır. Yavrulu dişi ya da köşeye sıkışmış birey tırmalayabilir.",
+    "identification": [
+      "Kulak ucunda siyah püskül",
+      "Kısa kuyruk, uzun bacak; 15–25 kg",
+      "Benekli sarımsı tüy"
+    ],
+    "encounterDo": [
+      "Mesafeni koru, fotoğrafla, uzaklaş."
+    ],
+    "encounterDont": [
+      "Yavruya dokunma.",
+      "Köşeye sıkıştırma."
+    ],
+    "firstAidSlug": "bleeding",
+    "venomNote": null,
+    "lookalikes": [
+      "Yaban kedisi",
+      "Karakulak"
+    ],
+    "activeMonths": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "activeHours": "night",
+    "sources": [
+      "WWF Türkiye"
+    ]
+  },
+  {
+    "id": "sp_vulpes_vulpes",
+    "commonName": "Kızıl tilki",
+    "scientificName": "Vulpes vulpes",
+    "group": "mammal",
+    "danger": "caution",
+    "countryCodes": [
+      "TR",
+      "GR",
+      "BG",
+      "IT",
+      "ES",
+      "FR",
+      "DE",
+      "GB",
+      "GE",
+      "US",
+      "CA"
+    ],
+    "habitats": [
+      "her yer",
+      "köy kenarı",
+      "kamp alanı",
+      "orman"
+    ],
+    "description": "Fırsatçı ve meraklı; kamp alanlarında yiyecek çalar. Genelde zararsızdır ama KUDUZ taşıyıcısı olabilir: gündüz sersem ya da saldırgan tilkiden uzak dur.",
+    "identification": [
+      "Kızıl tüy, beyaz uçlu kabarık kuyruk",
+      "Siyah bacaklar; 4–8 kg",
+      "Sivri burun ve kulak"
+    ],
+    "encounterDo": [
+      "Yiyeceği kapalı tut.",
+      "Isırıkta yarayı 15 dk yıka, kuduz aşısı için sağlık kuruluşu."
+    ],
+    "encounterDont": [
+      "Besleme.",
+      "Gündüz garip davranan tilkiye yaklaşma."
+    ],
+    "firstAidSlug": "bleeding",
+    "venomNote": "Kuduz riski: her ısırık ve tırmık tıbbi değerlendirme gerektirir.",
+    "lookalikes": [
+      "Çakal"
+    ],
+    "activeMonths": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "activeHours": "both",
+    "sources": [
+      "Halk Sağlığı GM Kuduz Rehberi"
+    ]
+  },
+  {
+    "id": "sp_androctonus_crassicauda",
+    "commonName": "Kara akrep (Kalın kuyruklu akrep)",
+    "scientificName": "Androctonus crassicauda",
+    "group": "arachnid",
+    "danger": "deadly",
+    "countryCodes": [
+      "TR",
+      "IR",
+      "IQ"
+    ],
+    "habitats": [
+      "çöl",
+      "taş altı",
+      "kerpiç duvar",
+      "çadır"
+    ],
+    "description": "Güneydoğu Anadolu’nun en tehlikeli akrebi. Kalın kuyruğu ve siyah rengiyle tanınır; sokması özellikle çocuklarda ölümcül olabilir.",
+    "identification": [
+      "Siyah/koyu kahve, çok kalın kuyruk",
+      "8–10 cm",
+      "Küçük kıskaçlar (kalın kıskaç = daha az zehirli kuralı)"
+    ],
+    "encounterDo": [
+      "Bot ve uyku tulumunu silkele.",
+      "Sokmada: sakin kal, soğuk uygula, 112; antivenom hastanede."
+    ],
+    "encounterDont": [
+      "Taşları çıplak elle kaldırma.",
+      "Yarayı kesme/emme."
+    ],
+    "firstAidSlug": "anaphylaxis",
+    "venomNote": "Nörotoksik; şiddetli ağrı, terleme, kalp ritmi bozukluğu, çocuklarda solunum yetmezliği.",
+    "lookalikes": [
+      "Mesobuthus (sarı akrep)"
+    ],
+    "activeMonths": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "activeHours": "night",
+    "sources": [
+      "Ulusal Zehir Danışma Merkezi (114)"
+    ]
+  },
+  {
+    "id": "sp_mesobuthus_gibbosus",
+    "commonName": "Sarı akrep",
+    "scientificName": "Mesobuthus gibbosus",
+    "group": "arachnid",
+    "danger": "dangerous",
+    "countryCodes": [
+      "TR",
+      "GR"
+    ],
+    "habitats": [
+      "taş altı",
+      "kaya çatlağı",
+      "bahçe duvarı",
+      "kamp"
+    ],
+    "description": "Ege ve Akdeniz’de en sık akrep sokması nedeni. Sokma çok ağrılıdır; sağlıklı yetişkinde nadiren tehlikeli, çocuk ve alerjiklerde dikkat.",
+    "identification": [
+      "Sarı-kahve, 5–7 cm",
+      "Orta kalınlıkta kuyruk",
+      "Gece UV ışıkta floresan parlar"
+    ],
+    "encounterDo": [
+      "Ayakkabıyı giymeden ters çevirip vur.",
+      "Sokmada soğuk uygula, ağrı için parasetamol, çocukta hastane."
+    ],
+    "encounterDont": [
+      "Çıplak elle taş kaldırma."
+    ],
+    "firstAidSlug": "anaphylaxis",
+    "venomNote": "Yerel şiddetli ağrı, uyuşma; sistemik belirti nadir.",
+    "lookalikes": [
+      "Kara akrep"
+    ],
+    "activeMonths": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "activeHours": "night",
+    "sources": [
+      "Ulusal Zehir Danışma Merkezi (114)"
+    ]
+  },
+  {
+    "id": "sp_latrodectus_tredecimguttatus",
+    "commonName": "Karadul",
+    "scientificName": "Latrodectus tredecimguttatus",
+    "group": "arachnid",
+    "danger": "dangerous",
+    "countryCodes": [
+      "TR",
+      "IT",
+      "ES",
+      "GR",
+      "BG"
+    ],
+    "habitats": [
+      "tarla",
+      "taş yığını",
+      "tuvalet/baraka",
+      "çalı dibi"
+    ],
+    "description": "Akdeniz karadulu; siyah gövdesinde 13 kırmızı benek. Isırık başta hafiftir, 1–3 saat içinde şiddetli kas krampları ve karın ağrısı başlar.",
+    "identification": [
+      "Parlak siyah küresel karın, kırmızı/turuncu benekler",
+      "Dişi 1–1,5 cm",
+      "Düzensiz, yapışkan ağ"
+    ],
+    "encounterDo": [
+      "Isırıkta yıka, soğuk uygula, hastaneye git (antivenom var).",
+      "Ağ gördüğün yere elini sokma."
+    ],
+    "encounterDont": [
+      "Ezerek öldürmeye çalışma."
+    ],
+    "firstAidSlug": "anaphylaxis",
+    "venomNote": "Latrotoksin; kas krampı, terleme, hipertansiyon. Ölüm çok nadir.",
+    "lookalikes": [
+      "Yanlış dul örümceği (Steatoda)"
+    ],
+    "activeMonths": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "activeHours": "night",
+    "sources": [
+      "Ulusal Zehir Danışma Merkezi (114)"
+    ]
+  },
+  {
+    "id": "sp_scolopendra_cingulata",
+    "commonName": "Sarıkız (Akdeniz çıyanı)",
+    "scientificName": "Scolopendra cingulata",
+    "group": "arachnid",
+    "danger": "caution",
+    "countryCodes": [
+      "TR",
+      "GR",
+      "IT",
+      "ES"
+    ],
+    "habitats": [
+      "taş altı",
+      "nemli toprak",
+      "çadır",
+      "odun yığını"
+    ],
+    "description": "Büyük, hızlı çıyan; ısırığı çok acıtır ama nadiren tehlikelidir. Nemli gecelerde çadıra girebilir.",
+    "identification": [
+      "Sarı-turuncu gövde, koyu halkalı segmentler",
+      "10–15 cm, 21 çift bacak",
+      "Çok hızlı"
+    ],
+    "encounterDo": [
+      "Isırıkta yıka, soğuk uygula; alerji belirtisinde hastane."
+    ],
+    "encounterDont": [
+      "Çıplak elle tutma."
+    ],
+    "firstAidSlug": "anaphylaxis",
+    "venomNote": "Yerel ağrı ve şişlik 24–48 saat; alerjik tepki nadir.",
+    "lookalikes": [
+      "Kırkayak (zararsız)"
+    ],
+    "activeMonths": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "activeHours": "night",
+    "sources": [
+      "Ulusal Zehir Danışma Merkezi (114)"
+    ]
+  },
+  {
+    "id": "sp_hyalomma_marginatum",
+    "commonName": "Kene (Hyalomma)",
+    "scientificName": "Hyalomma marginatum",
+    "group": "arachnid",
+    "danger": "dangerous",
+    "countryCodes": [
+      "TR",
+      "BG",
+      "GR",
+      "GE"
+    ],
+    "habitats": [
+      "çayır",
+      "tarla",
+      "çalılık",
+      "hayvan otlağı"
+    ],
+    "description": "Kırım-Kongo Kanamalı Ateşi (KKKA) taşıyıcısı. İç Anadolu, Karadeniz ve Tokat–Sivas hattında ilkbahar-yaz aylarında risk yüksektir. Avcı kene; sana doğru yürür.",
+    "identification": [
+      "Uzun, çizgili bacaklar",
+      "Koyu kahve kalkan; 5–8 mm (kanla 2 cm)",
+      "Hızlı hareket eder"
+    ],
+    "encounterDo": [
+      "Açık renk uzun giysi, pantolonu çorabın içine sok, DEET kovucu.",
+      "Yürüyüş sonrası tüm vücudu kontrol et.",
+      "Keneyi cımbızla deriye en yakın yerden düz çek; 10 gün ateş/halsizlik takibi."
+    ],
+    "encounterDont": [
+      "Keneye alkol, sigara, yağ uygulama.",
+      "Çıplak elle ezme."
+    ],
+    "firstAidSlug": "bleeding",
+    "venomNote": "KKKA: ateş, kas ağrısı, kanama; 3–7 gün kuluçka. Belirtide hemen hastane.",
+    "lookalikes": [
+      "Diğer keneler (Ixodes, Rhipicephalus)"
+    ],
+    "activeMonths": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "activeHours": "day",
+    "sources": [
+      "Halk Sağlığı GM KKKA Rehberi"
+    ]
+  },
+  {
+    "id": "sp_apis_mellifera",
+    "commonName": "Bal arısı",
+    "scientificName": "Apis mellifera",
+    "group": "insect",
+    "danger": "caution",
+    "countryCodes": [
+      "TR",
+      "GR",
+      "BG",
+      "IT",
+      "ES",
+      "FR",
+      "DE",
+      "GB",
+      "GE",
+      "US",
+      "CA",
+      "AU",
+      "IN",
+      "NP",
+      "BR"
+    ],
+    "habitats": [
+      "çiçekli alan",
+      "kovan",
+      "ağaç kovuğu"
+    ],
+    "description": "Sokması tek seferliktir (iğneyi bırakır). Alerjisi olanlarda anafilaksi yapabilir; çok sayıda sokma herkes için tehlikelidir.",
+    "identification": [
+      "Kahverengi-sarı tüylü gövde, 1–1,5 cm",
+      "Sokunca iğneyi ve zehir kesesini bırakır"
+    ],
+    "encounterDo": [
+      "İğneyi tırnak/kart ile sıyır (sıkma).",
+      "Soğuk uygula; nefes darlığı, yüz şişmesinde 112 / adrenalin."
+    ],
+    "encounterDont": [
+      "Kovan çevresinde kol sallama.",
+      "Parfüm ve parlak renkli giysi."
+    ],
+    "firstAidSlug": "anaphylaxis",
+    "venomNote": "Melittin; yerel ağrı. Alerjikte anafilaksi (dakikalar içinde).",
+    "lookalikes": [
+      "Sinek (Eristalis)",
+      "Yaban arısı"
+    ],
+    "activeMonths": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "activeHours": "day",
+    "sources": [
+      "Türkiye Alerji ve Klinik İmmünoloji Derneği"
+    ]
+  },
+  {
+    "id": "sp_vespa_crabro",
+    "commonName": "Eşek arısı (Avrupa)",
+    "scientificName": "Vespa crabro",
+    "group": "insect",
+    "danger": "caution",
+    "countryCodes": [
+      "TR",
+      "GR",
+      "BG",
+      "IT",
+      "ES",
+      "FR",
+      "DE",
+      "GB",
+      "GE"
+    ],
+    "habitats": [
+      "ağaç kovuğu",
+      "çatı",
+      "orman kenarı"
+    ],
+    "description": "İri, gürültülü ama nispeten sakin. Yuvası tehdit edilince toplu saldırır; sokma tekrarlanabilir. Sarıcalardan daha az saldırgandır.",
+    "identification": [
+      "2,5–3,5 cm; kızıl-kahve göğüs, sarı-siyah karın",
+      "Alçak, yüksek sesli uçuş",
+      "Gece ışığa gelir"
+    ],
+    "encounterDo": [
+      "Yuvadan sessizce uzaklaş.",
+      "Sokmada soğuk uygula; boğaz/ağız sokmasında hemen 112."
+    ],
+    "encounterDont": [
+      "Yuvaya vurma.",
+      "Ezerek öldürme (alarm feromonu salar)."
+    ],
+    "firstAidSlug": "anaphylaxis",
+    "venomNote": "Tekrarlı sokma; alerjikte anafilaksi.",
+    "lookalikes": [
+      "Asya eşek arısı (Vespa velutina)",
+      "Sarıca"
+    ],
+    "activeMonths": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "activeHours": "both",
+    "sources": [
+      "Türkiye Alerji ve Klinik İmmünoloji Derneği"
+    ]
+  },
+  {
+    "id": "sp_anopheles",
+    "commonName": "Sıtma sivrisineği",
+    "scientificName": "Anopheles gambiae",
+    "group": "insect",
+    "danger": "dangerous",
+    "countryCodes": [
+      "IN",
+      "NP",
+      "KE",
+      "TZ",
+      "TH",
+      "ID",
+      "BR"
+    ],
+    "habitats": [
+      "durgun su",
+      "pirinç tarlası",
+      "orman",
+      "köy"
+    ],
+    "description": "Sıtma taşıyıcısı; alacakaranlıktan şafağa kadar sokar. Tropik seyahatte kimyasal profilaksi ve cibinlik zorunludur.",
+    "identification": [
+      "Dinlenirken gövde 45° açıyla yüzeye dik",
+      "Benekli kanatlar",
+      "Akşam-gece aktif"
+    ],
+    "encounterDo": [
+      "Cibinlik, DEET %30+, uzun giysi.",
+      "Seyahat sonrası 1 ay içinde ateşte sıtma testi."
+    ],
+    "encounterDont": [
+      "Akşam açık tenle dışarıda durma."
+    ],
+    "firstAidSlug": null,
+    "venomNote": "Sıtma (Plasmodium falciparum) ölümcül olabilir; dang ve chikungunya için Aedes türleri gündüz sokar.",
+    "lookalikes": [
+      "Culex (ev sivrisineği)",
+      "Aedes (kaplan sivrisineği)"
+    ],
+    "activeMonths": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "activeHours": "night",
+    "sources": [
+      "WHO Malaria",
+      "Seyahat Sağlığı (seyahatsagligi.gov.tr)"
+    ]
+  },
+  {
+    "id": "sp_pelagia_noctiluca",
+    "commonName": "Mor denizanası",
+    "scientificName": "Pelagia noctiluca",
+    "group": "marine",
+    "danger": "caution",
+    "countryCodes": [
+      "TR",
+      "GR",
+      "IT",
+      "ES",
+      "FR"
+    ],
+    "habitats": [
+      "açık deniz",
+      "plaj",
+      "koy"
+    ],
+    "description": "Akdeniz’de yaz sonunda sürüler halinde kıyıya vurur. Yakıcı hücreleri şiddetli ağrı, kızarıklık ve kabartı yapar; ölmüş denizanası da yakar.",
+    "identification": [
+      "Pembe-mor, 3–12 cm şemsiye, uzun ince kollar",
+      "Gece ışıldar",
+      "Kıyıda kümeler halinde"
+    ],
+    "encounterDo": [
+      "Bölgeyi deniz suyuyla yıka (tatlı su değil).",
+      "Kollarını cımbız/kartla sıyır, sonra 40–45 °C sıcak su 20 dk.",
+      "Nefes darlığında 112."
+    ],
+    "encounterDont": [
+      "Tatlı su, alkol, idrar, ovalama."
+    ],
+    "firstAidSlug": "anaphylaxis",
+    "venomNote": "Yerel yanık ve kabartı; nadir sistemik alerji.",
+    "lookalikes": [
+      "Aurelia (ay denizanası, zararsız)"
+    ],
+    "activeMonths": [
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "activeHours": "both",
+    "sources": [
+      "TÜDAV"
+    ]
+  },
+  {
+    "id": "sp_trachinus_draco",
+    "commonName": "Trakonya",
+    "scientificName": "Trachinus draco",
+    "group": "marine",
+    "danger": "dangerous",
+    "countryCodes": [
+      "TR",
+      "GR",
+      "IT",
+      "ES",
+      "FR",
+      "GB"
+    ],
+    "habitats": [
+      "kumlu sığ dip",
+      "plaj",
+      "balıkçı ağı"
+    ],
+    "description": "Kuma gömülü yaşar; sırt dikeni basanın ayağına saplanır. Ağrı dayanılmazdır; ısı ile parçalanan zehir sıcak su ile hafifler.",
+    "identification": [
+      "Kuma gömülü, yalnız gözleri ve siyah sırt yüzgeci görünür",
+      "20–40 cm, sarımsı gövde",
+      "Solungaç kapağında diken"
+    ],
+    "encounterDo": [
+      "Dikeni çıkar, yarayı deniz suyuyla yıka.",
+      "Ayağı dayanılabilecek en sıcak suya (40–45 °C) 30–90 dk sok.",
+      "Şişlik ve uyuşma sürerse sağlık kuruluşu."
+    ],
+    "encounterDont": [
+      "Sığ kumda çıplak ayakla koşma; sürüyerek yürü."
+    ],
+    "firstAidSlug": "bleeding",
+    "venomNote": "Isıyla bozunan protein zehir; şiddetli ağrı, şişlik, nadiren senkop.",
+    "lookalikes": [
+      "Kaya balığı",
+      "Dil balığı"
+    ],
+    "activeMonths": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "activeHours": "both",
+    "sources": [
+      "TÜDAV",
+      "Ulusal Zehir Danışma Merkezi (114)"
+    ]
+  },
+  {
+    "id": "sp_dasyatis_pastinaca",
+    "commonName": "Vatoz (Dikenli vatoz)",
+    "scientificName": "Dasyatis pastinaca",
+    "group": "marine",
+    "danger": "dangerous",
+    "countryCodes": [
+      "TR",
+      "GR",
+      "IT",
+      "ES"
+    ],
+    "habitats": [
+      "kumlu sığ",
+      "lagün",
+      "koy"
+    ],
+    "description": "Kuma gömülü dinlenir; üzerine basılınca kuyruğundaki tırtıklı dikeni saplar. Yara derin ve enfeksiyona açıktır.",
+    "identification": [
+      "Yassı, eşkenar dörtgen gövde; 60–140 cm",
+      "Kuyrukta tırtıklı diken",
+      "Kuma gömülü"
+    ],
+    "encounterDo": [
+      "Sığda ayağını sürüyerek yürü.",
+      "Yarayı yıka, sıcak su, kanamayı kontrol et, mutlaka sağlık kuruluşu (diken parçası kalabilir)."
+    ],
+    "encounterDont": [
+      "Dikeni kırıp yerinde bırakma.",
+      "Vatozu kuyruğundan tutma."
+    ],
+    "firstAidSlug": "bleeding",
+    "venomNote": "Isıyla bozunan zehir + derin kesi; göğüs/karın yarası hayati.",
+    "lookalikes": [
+      "Elektrik balığı (Torpedo)"
+    ],
+    "activeMonths": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "activeHours": "both",
+    "sources": [
+      "TÜDAV"
+    ]
+  },
+  {
+    "id": "sp_hapalochlaena",
+    "commonName": "Mavi halkalı ahtapot",
+    "scientificName": "Hapalochlaena lunulata",
+    "group": "marine",
+    "danger": "deadly",
+    "countryCodes": [
+      "AU",
+      "ID",
+      "TH",
+      "JP"
+    ],
+    "habitats": [
+      "gelgit havuzu",
+      "mercan",
+      "kaya çatlağı"
+    ],
+    "description": "Avuç içi büyüklüğünde ama tetrodotoksin taşır; ısırık acısızdır, dakikalar içinde felç ve solunum durması. Antidot yok; suni solunum hayat kurtarır.",
+    "identification": [
+      "Sarımsı gövde, tehdit edilince parlayan mavi halkalar",
+      "10–20 cm",
+      "Gelgit havuzlarında"
+    ],
+    "encounterDo": [
+      "Asla dokunma; şişe/kabukları kontrol etmeden alma.",
+      "Isırıkta basınçlı bandaj, solunum durursa suni solunum, 112 / acil."
+    ],
+    "encounterDont": [
+      "Elle tutma, fotoğraf için yaklaşma."
+    ],
+    "firstAidSlug": "cpr",
+    "venomNote": "Tetrodotoksin; hızlı felç. Hasta bilinçli ama nefes alamaz — solunum desteği ile hayatta kalır.",
+    "lookalikes": [
+      "Küçük yavru ahtapotlar"
+    ],
+    "activeMonths": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "activeHours": "both",
+    "sources": [
+      "Australian Venom Research Unit"
+    ]
+  },
+  {
+    "id": "sp_synanceia_verrucosa",
+    "commonName": "Taşbalığı",
+    "scientificName": "Synanceia verrucosa",
+    "group": "marine",
+    "danger": "deadly",
+    "countryCodes": [
+      "AU",
+      "ID",
+      "TH",
+      "KE",
+      "TZ"
+    ],
+    "habitats": [
+      "mercan resifi",
+      "sığ kaya",
+      "lagün"
+    ],
+    "description": "Dünyanın en zehirli balığı; taşa benzer, üstüne basılınca 13 sırt dikeni zehri enjekte eder. Ağrı dayanılmaz, ölüm bildirilmiştir.",
+    "identification": [
+      "Taş/kaya görünümlü, yosunlu doku",
+      "30–40 cm",
+      "Hareketsiz durur"
+    ],
+    "encounterDo": [
+      "Resifte kalın tabanlı ayakkabı.",
+      "Sıcak su (45 °C) 30–90 dk, hastanede antivenom."
+    ],
+    "encounterDont": [
+      "Resifte çıplak ayak.",
+      "Kaya sandığın şeye elle tutunma."
+    ],
+    "firstAidSlug": "cpr",
+    "venomNote": "Şiddetli ağrı, doku nekrozu, kalp yetmezliği; antivenom mevcut.",
+    "lookalikes": [
+      "Akrep balığı",
+      "Yosunlu kaya"
+    ],
+    "activeMonths": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "activeHours": "both",
+    "sources": [
+      "Australian Venom Research Unit"
+    ]
+  },
+  {
+    "id": "sp_carcharodon_carcharias",
+    "commonName": "Büyük beyaz köpekbalığı",
+    "scientificName": "Carcharodon carcharias",
+    "group": "marine",
+    "danger": "dangerous",
+    "countryCodes": [
+      "AU",
+      "ZA",
+      "US",
+      "MX"
+    ],
+    "habitats": [
+      "açık deniz",
+      "fok kolonisi çevresi",
+      "sörf noktası"
+    ],
+    "description": "Saldırılar çok nadir ama ciddidir. Fok kolonisi, bulanık su, şafak/alacakaranlık risk arttırır. Türkiye kıyılarında saldırı kaydı yok denecek kadar azdır.",
+    "identification": [
+      "Gri sırt, beyaz karın; 4–6 m",
+      "Üçgen sırt yüzgeci",
+      "Koni burun"
+    ],
+    "encounterDo": [
+      "Grup halinde yüz; kıyıya sakin dön.",
+      "Saldırıda göz ve solungaçlara vur.",
+      "Kanamayı hemen kontrol et (turnike gerekebilir)."
+    ],
+    "encounterDont": [
+      "Şafak/alacakaranlıkta tek başına yüzme.",
+      "Kanama ile suya girme.",
+      "Fok kolonisi yakınında sörf."
+    ],
+    "firstAidSlug": "bleeding",
+    "venomNote": null,
+    "lookalikes": [
+      "Mako",
+      "Boğa köpekbalığı"
+    ],
+    "activeMonths": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "activeHours": "both",
+    "sources": [
+      "International Shark Attack File"
+    ]
+  },
+  {
+    "id": "sp_aquila_chrysaetos",
+    "commonName": "Kaya kartalı",
+    "scientificName": "Aquila chrysaetos",
+    "group": "bird",
+    "danger": "harmless",
+    "countryCodes": [
+      "TR",
+      "GE",
+      "US",
+      "CA",
+      "ES",
+      "IT"
+    ],
+    "habitats": [
+      "dağ",
+      "kayalık",
+      "açık arazi"
+    ],
+    "description": "İnsana zarar vermez; yuva yakınında alçaktan uçarak uyarır. Yuvaya yaklaşmak yasal olarak da yasaktır. Kanat açıklığı 2 m’yi geçer.",
+    "identification": [
+      "Koyu kahve, ense altın sarısı",
+      "Kanat açıklığı 180–230 cm",
+      "Süzülürken kanatlar hafif V"
+    ],
+    "encounterDo": [
+      "Yuva kayalığından uzak dur.",
+      "Dürbünle izle."
+    ],
+    "encounterDont": [
+      "Yuvaya tırmanma.",
+      "Yavruya dokunma."
+    ],
+    "firstAidSlug": null,
+    "venomNote": null,
+    "lookalikes": [
+      "Şah kartal",
+      "Kızıl şahin"
+    ],
+    "activeMonths": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "activeHours": "day",
+    "sources": [
+      "Doğa Derneği"
+    ]
+  },
+  {
+    "id": "sp_urtica_dioica",
+    "commonName": "Isırgan otu",
+    "scientificName": "Urtica dioica",
+    "group": "plant",
+    "danger": "harmless",
+    "countryCodes": [
+      "TR",
+      "GR",
+      "BG",
+      "IT",
+      "ES",
+      "FR",
+      "DE",
+      "GB",
+      "GE",
+      "US",
+      "CA",
+      "NP",
+      "IN"
+    ],
+    "habitats": [
+      "dere kenarı",
+      "patika",
+      "köy kenarı",
+      "nemli toprak"
+    ],
+    "description": "Temasla yakıcı kaşıntı ve kabartı yapar; birkaç saatte geçer. Tehlikesizdir ama patikada bacakları kapatmak konforu artırır.",
+    "identification": [
+      "Tırtıklı, kalp biçimli yaprak; yakıcı tüyler",
+      "50–150 cm",
+      "Yeşil salkım çiçekler"
+    ],
+    "encounterDo": [
+      "Bölgeyi soğuk suyla yıka; kaşıma.",
+      "Yaprağı ovalamadan bırak."
+    ],
+    "encounterDont": [
+      "Çıplak elle toplama."
+    ],
+    "firstAidSlug": null,
+    "venomNote": "Histamin/formik asit; yerel yanma.",
+    "lookalikes": [
+      "Ballıbaba (yakmaz)"
+    ],
+    "activeMonths": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "activeHours": "both",
+    "sources": [
+      "Türkiye Bitkileri Veri Servisi"
+    ]
+  },
+  {
+    "id": "sp_toxicodendron_radicans",
+    "commonName": "Zehirli sarmaşık",
+    "scientificName": "Toxicodendron radicans",
+    "group": "plant",
+    "danger": "caution",
+    "countryCodes": [
+      "US",
+      "CA"
+    ],
+    "habitats": [
+      "orman kenarı",
+      "patika",
+      "çit",
+      "nehir kıyısı"
+    ],
+    "description": "\"Üç yaprak, dokunma\" — uruşiol yağı 12–72 saat sonra şiddetli kaşıntılı döküntü yapar. Yakılan dumanı solumak tehlikelidir.",
+    "identification": [
+      "Üçlü yaprak grubu, ortadaki daha uzun saplı",
+      "Sarmaşık ya da çalı formu",
+      "Sonbaharda kızarır"
+    ],
+    "encounterDo": [
+      "Temasta 10 dk içinde sabunlu suyla yıka; giysileri ayrı yıka.",
+      "Kaşıntı için kalamin, şiddetlide doktor."
+    ],
+    "encounterDont": [
+      "Yakma.",
+      "Köpeğinin tüyüne bulaşmışsa çıplak elle okşama."
+    ],
+    "firstAidSlug": "burns",
+    "venomNote": "Uruşiol kontakt dermatiti; döküntü bulaşıcı değildir.",
+    "lookalikes": [
+      "Virginia sarmaşığı (5 yaprak)",
+      "Böğürtlen"
+    ],
+    "activeMonths": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "activeHours": "both",
+    "sources": [
+      "CDC / NIOSH"
+    ]
+  },
+  {
+    "id": "sp_conium_maculatum",
+    "commonName": "Baldıran",
+    "scientificName": "Conium maculatum",
+    "group": "plant",
+    "danger": "deadly",
+    "countryCodes": [
+      "TR",
+      "GR",
+      "BG",
+      "IT",
+      "ES",
+      "FR",
+      "DE",
+      "GB",
+      "GE",
+      "US",
+      "CA"
+    ],
+    "habitats": [
+      "yol kenarı",
+      "dere kenarı",
+      "boş arazi"
+    ],
+    "description": "Sokrates’in zehri. Yabani havuç ya da maydanozla karıştırılıp yenirse birkaç saatte solunum felci. Gövdesi mor lekelidir ve fare kokusu yayar.",
+    "identification": [
+      "Mor lekeli, tüysüz içi boş gövde; 1–2,5 m",
+      "Beyaz şemsiye çiçekler",
+      "Ezilince nahoş fare kokusu"
+    ],
+    "encounterDo": [
+      "Yabani \"havuç/maydanoz\" toplama.",
+      "Yenildiyse hemen 112 / 114; kusmayı beklemeden hastane."
+    ],
+    "encounterDont": [
+      "Tatma.",
+      "Yaprağını gövdeye sürtüp koklama (deri emilimi)."
+    ],
+    "firstAidSlug": "cpr",
+    "venomNote": "Koniin (nikotin benzeri alkaloid); yükselen felç, solunum durması. Antidot yok; solunum desteği.",
+    "lookalikes": [
+      "Yabani havuç",
+      "Maydanoz",
+      "Rezene"
+    ],
+    "activeMonths": [
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "activeHours": "both",
+    "sources": [
+      "Ulusal Zehir Danışma Merkezi (114)"
+    ]
+  },
+  {
+    "id": "sp_rhododendron_ponticum",
+    "commonName": "Ormangülü (deli bal kaynağı)",
+    "scientificName": "Rhododendron ponticum",
+    "group": "plant",
+    "danger": "dangerous",
+    "countryCodes": [
+      "TR",
+      "GE"
+    ],
+    "habitats": [
+      "Karadeniz ormanı",
+      "yayla",
+      "dere vadisi"
+    ],
+    "description": "Karadeniz’de arıların bu çiçekten yaptığı \"deli bal\" grayanotoksin içerir; bir kaşık bile baş dönmesi, kalp ritmi düşmesi ve bayılma yapar. Bitkinin kendisi de yenmez.",
+    "identification": [
+      "Mor-pembe çiçek kümeleri, kalın deri gibi yaprak",
+      "2–5 m çalı",
+      "Mayıs–Haziran çiçek"
+    ],
+    "encounterDo": [
+      "Yerel balı küçük miktarda ve şüpheyle tat; belirtide 112.",
+      "Bitkiye dokunmak sorun değildir; yeme."
+    ],
+    "encounterDont": [
+      "Kaynağı belirsiz \"deli bal\" yeme.",
+      "Odununu ateşte ekmek pişirmek için kullanma."
+    ],
+    "firstAidSlug": "cpr",
+    "venomNote": "Grayanotoksin; bradikardi, hipotansiyon, kusma. Genelde 24 saatte düzelir; atropin gerekebilir.",
+    "lookalikes": [
+      "Sarı ormangülü (R. luteum) — aynı toksin"
+    ],
+    "activeMonths": [
+      5,
+      6,
+      7
+    ],
+    "activeHours": "both",
+    "sources": [
+      "Ulusal Zehir Danışma Merkezi (114)"
+    ]
+  },
+  {
+    "id": "sp_amanita_phalloides",
+    "commonName": "Köse mantarı (Ölüm meleği)",
+    "scientificName": "Amanita phalloides",
+    "group": "fungus",
+    "danger": "deadly",
+    "countryCodes": [
+      "TR",
+      "GR",
+      "BG",
+      "IT",
+      "ES",
+      "FR",
+      "DE",
+      "GB",
+      "GE",
+      "US",
+      "CA"
+    ],
+    "habitats": [
+      "meşe/kayın ormanı",
+      "orman kenarı",
+      "park"
+    ],
+    "description": "Dünyadaki mantar ölümlerinin %90’ından sorumlu. Yenilebilir mantarlara benzer, lezzetlidir; belirtiler 6–24 saat sonra başlar, karaciğer yetmezliğine gider.",
+    "identification": [
+      "Yeşilimsi-zeytin şapka, beyaz lameller",
+      "Sapta halka ve dipte kese (volva)",
+      "Spor izi beyaz"
+    ],
+    "encounterDo": [
+      "Yabani mantarı asla yeme.",
+      "Yenildiyse belirti beklemeden 112 / 114; kalan örneği hastaneye götür."
+    ],
+    "encounterDont": [
+      "\"Hayvan yemiş, güvenli\" demek.",
+      "Pişirmenin zehri giderdiğini sanmak."
+    ],
+    "firstAidSlug": "cpr",
+    "venomNote": "Amatoksin; gecikmeli hepatotoksik. Karaciğer nakli gerekebilir.",
+    "lookalikes": [
+      "Yenilebilir Volvariella",
+      "Yeşil Russula",
+      "Genç puffball"
+    ],
+    "activeMonths": [
+      8,
+      9,
+      10,
+      11
+    ],
+    "activeHours": "both",
+    "sources": [
+      "Ulusal Zehir Danışma Merkezi (114)",
+      "Türkiye Mikoloji Derneği"
+    ]
+  },
+  {
+    "id": "sp_amanita_muscaria",
+    "commonName": "Sinek mantarı",
+    "scientificName": "Amanita muscaria",
+    "group": "fungus",
+    "danger": "dangerous",
+    "countryCodes": [
+      "TR",
+      "GR",
+      "BG",
+      "IT",
+      "ES",
+      "FR",
+      "DE",
+      "GB",
+      "GE",
+      "US",
+      "CA",
+      "JP"
+    ],
+    "habitats": [
+      "çam/huş ormanı",
+      "yayla",
+      "orman kenarı"
+    ],
+    "description": "Masal mantarı: kırmızı şapka, beyaz benekler. Nöro-toksik; kusma, halüsinasyon, koma. Ölüm nadir ama çocuklar için tehlikelidir.",
+    "identification": [
+      "Parlak kırmızı/turuncu şapka, beyaz beneklerle",
+      "Beyaz lamel, sapta halka, dipte kese",
+      "8–20 cm"
+    ],
+    "encounterDo": [
+      "Fotoğrafla, dokunma, yeme.",
+      "Yenildiyse 112 / 114."
+    ],
+    "encounterDont": [
+      "Çocukları yaklaştırma."
+    ],
+    "firstAidSlug": "cpr",
+    "venomNote": "Muskimol/ibotenik asit; 30 dk–2 saat içinde bulantı, deliryum. Destek tedavi.",
+    "lookalikes": [
+      "Caesar mantarı (turuncu, benekleri yok)"
+    ],
+    "activeMonths": [
+      8,
+      9,
+      10,
+      11
+    ],
+    "activeHours": "both",
+    "sources": [
+      "Türkiye Mikoloji Derneği"
+    ]
+  }
+]

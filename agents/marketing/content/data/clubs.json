@@ -1,0 +1,223 @@
+[
+  {
+    "id": "c_metu",
+    "name": "ODTÜ Dağcılık ve Kış Sporları Topluluğu",
+    "university": "ODTÜ",
+    "city": "Ankara",
+    "countryCode": "TR",
+    "description": "Türkiye’nin en köklü üniversite dağcılık topluluklarından biri. Her dönem temel dağcılık ve kaya tırmanışı eğitimleri, kış kampları ve Aladağlar, Kaçkar, Erciyes tırmanışları düzenliyoruz. Yeni başlayanlar için Eymir kayalıklarında hafta sonu eğitimleri.",
+    "adventureTypes": [
+      "climbing",
+      "hiking",
+      "skiing"
+    ],
+    "memberCount": 412,
+    "foundedYear": 1965,
+    "instagram": "odtudagcilik"
+  },
+  {
+    "id": "c_boun",
+    "name": "Boğaziçi Üniversitesi Dağcılık Kulübü (BÜDAK)",
+    "university": "Boğaziçi Üniversitesi",
+    "city": "İstanbul",
+    "countryCode": "TR",
+    "description": "BÜDAK, 1970’ten beri Boğaziçi öğrencilerini dağlarla buluşturuyor. Kaya tırmanışı, alpinizm, kanyon geçişleri ve uzun mesafe yürüyüşleri. Her güz dönemi 100+ kişilik “Dağcılığa Giriş” programı.",
+    "adventureTypes": [
+      "climbing",
+      "hiking"
+    ],
+    "memberCount": 386,
+    "foundedYear": 1970,
+    "instagram": "budakboun"
+  },
+  {
+    "id": "c_itu",
+    "name": "İTÜ Dağcılık Kulübü",
+    "university": "İTÜ",
+    "city": "İstanbul",
+    "countryCode": "TR",
+    "description": "Ayazağa kampüsünde 1978’den beri. Kaya, buz ve karışık tırmanış; Uludağ ve Kaçkar kış kampları; Ballıkayalar ve Datça tırmanış kampları. Teknik ekipman kütüphanemiz üyelere açık.",
+    "adventureTypes": [
+      "climbing",
+      "hiking",
+      "skiing"
+    ],
+    "memberCount": 298,
+    "foundedYear": 1978,
+    "instagram": "itudagcilik"
+  },
+  {
+    "id": "c_hacettepe",
+    "name": "Hacettepe Üniversitesi Doğa Sporları Topluluğu (HÜDOST)",
+    "university": "Hacettepe Üniversitesi",
+    "city": "Ankara",
+    "countryCode": "TR",
+    "description": "Yürüyüş, kamp, kaya tırmanışı ve bisiklet turları. Beytepe kampüsünden başlayan hafta içi akşam yürüyüşleri ve Köroğlu Dağları’na hafta sonu gezileri. Doğa fotoğrafçılığı atölyeleri.",
+    "adventureTypes": [
+      "hiking",
+      "climbing",
+      "cycling"
+    ],
+    "memberCount": 241,
+    "foundedYear": 1988,
+    "instagram": "hudost"
+  },
+  {
+    "id": "c_ege",
+    "name": "Ege Üniversitesi Sualtı Topluluği (EÜSAT)",
+    "university": "Ege Üniversitesi",
+    "city": "İzmir",
+    "countryCode": "TR",
+    "description": "Ege’nin berrak sularında dalış eğitimi ve deniz koruma çalışmaları. CMAS 1 ve 2 yıldız kursları, Foça ve Karaburun dalış kampları, deniz çayırı sayımı gönüllülüğü.",
+    "adventureTypes": [
+      "diving",
+      "canoe"
+    ],
+    "memberCount": 173,
+    "foundedYear": 1994,
+    "instagram": "eusat_dalis"
+  },
+  {
+    "id": "c_bilkent",
+    "name": "Bilkent Dağcılık ve Doğa Sporları Topluluğu",
+    "university": "Bilkent Üniversitesi",
+    "city": "Ankara",
+    "countryCode": "TR",
+    "description": "Bilkent kampüsünden Aladağlar’a. Boulder salonu antrenmanları, spor tırmanış yarışmaları ve dönem sonu büyük kamp. İngilizce eğitim seçeneği ile uluslararası öğrencilere açık.",
+    "adventureTypes": [
+      "climbing",
+      "hiking"
+    ],
+    "memberCount": 205,
+    "foundedYear": 1990,
+    "instagram": "bilkentdagcilik"
+  },
+  {
+    "id": "c_ktu",
+    "name": "KTÜ Dağcılık ve Doğa Sporları Kulübü",
+    "university": "Karadeniz Teknik Üniversitesi",
+    "city": "Trabzon",
+    "countryCode": "TR",
+    "description": "Kaçkarlar’ın kapısında bir kulüp. Yayla yürüyüşleri, Kaçkar zirve tırmanışları, Fırtına Vadisi rafting ve kış aylarında Zigana kayak günleri. Yerel rehberlerle ortak eğitimler.",
+    "adventureTypes": [
+      "hiking",
+      "climbing",
+      "rafting",
+      "skiing"
+    ],
+    "memberCount": 158,
+    "foundedYear": 1996,
+    "instagram": "ktudagcilik"
+  },
+  {
+    "id": "c_akdeniz",
+    "name": "Akdeniz Üniversitesi Dağcılık ve Tırmanış Topluluğu",
+    "university": "Akdeniz Üniversitesi",
+    "city": "Antalya",
+    "countryCode": "TR",
+    "description": "Geyikbayırı’na 30 dakika! Türkiye’nin en büyük spor tırmanış bölgesinde her hafta sonu tırmanış, Likya Yolu etapları ve Saklıkent kanyon geçişleri. Dalış şubemiz Kaş’ta.",
+    "adventureTypes": [
+      "climbing",
+      "hiking",
+      "diving"
+    ],
+    "memberCount": 227,
+    "foundedYear": 1999,
+    "instagram": "akdenizdagcilik"
+  },
+  {
+    "id": "c_sabanci",
+    "name": "Sabancı Üniversitesi Outdoor Kulübü (SUOUT)",
+    "university": "Sabancı Üniversitesi",
+    "city": "İstanbul",
+    "countryCode": "TR",
+    "description": "Tuzla kampüsünden doğaya: yamaç paraşütü tanıtım günleri, Kartepe kayak, Polonezköy bisiklet turları ve Ballıkayalar tırmanışları. Sürdürülebilir kamp ilkeleriyle çalışıyoruz.",
+    "adventureTypes": [
+      "hiking",
+      "paragliding",
+      "cycling",
+      "skiing"
+    ],
+    "memberCount": 134,
+    "foundedYear": 2004,
+    "instagram": "suoutdoor"
+  },
+  {
+    "id": "c_ankara",
+    "name": "Ankara Üniversitesi Dağcılık Kulübü (ANDAK)",
+    "university": "Ankara Üniversitesi",
+    "city": "Ankara",
+    "countryCode": "TR",
+    "description": "Tandoğan’dan Erciyes’e. Kış dağcılığı ve kar bilimi eğitimleri, çığ farkındalık atölyeleri, Hasandağı ve Erciyes kış tırmanışları. Her ay bir “kampüsten zirveye” söyleşisi.",
+    "adventureTypes": [
+      "climbing",
+      "skiing",
+      "hiking"
+    ],
+    "memberCount": 189,
+    "foundedYear": 1984,
+    "instagram": "andak_ankara"
+  },
+  {
+    "id": "c_deu",
+    "name": "Dokuz Eylül Üniversitesi Doğa Sporları Kulübü",
+    "university": "Dokuz Eylül Üniversitesi",
+    "city": "İzmir",
+    "countryCode": "TR",
+    "description": "İzmir çevresinde bisiklet, yürüyüş ve kano. Bozdağ tırmanışları, Karagöl kampı, Urla bisiklet turu ve Gediz Deltası kano günleri. Şehir içi haftalık bisiklet buluşmaları.",
+    "adventureTypes": [
+      "cycling",
+      "hiking",
+      "canoe"
+    ],
+    "memberCount": 146,
+    "foundedYear": 2001,
+    "instagram": "deudogasporlari"
+  },
+  {
+    "id": "c_ytu",
+    "name": "Yıldız Teknik Üniversitesi Dağcılık Kulübü (YTÜDAK)",
+    "university": "Yıldız Teknik Üniversitesi",
+    "city": "İstanbul",
+    "countryCode": "TR",
+    "description": "Davutpaşa ve Beşiktaş kampüslerinde iki şube. Temel dağcılık eğitimi, Uludağ kış kampı, Belgrad Ormanı akşam koşuları ve öğrenci yarışmaları. İTÜ ve BÜDAK ile ortak etkinlikler.",
+    "adventureTypes": [
+      "climbing",
+      "hiking"
+    ],
+    "memberCount": 212,
+    "foundedYear": 1982,
+    "instagram": "ytudak"
+  },
+  {
+    "id": "c_ethz",
+    "name": "Akademischer Alpenclub Zürich (AACZ)",
+    "university": "ETH Zürich",
+    "city": "Zürich",
+    "countryCode": "CH",
+    "description": "Seit 1896 — ETH ve Zürih Üniversitesi öğrencilerinin alpinizm kulübü. Alpler’de haftalık tur programı, buzul kursları, kayak turu (skitour) sezonu ve kulübe ait Mischabel kulübesi.",
+    "adventureTypes": [
+      "climbing",
+      "skiing",
+      "hiking"
+    ],
+    "memberCount": 520,
+    "foundedYear": 1896,
+    "instagram": "aacz_zuerich"
+  },
+  {
+    "id": "c_edin",
+    "name": "Edinburgh University Mountaineering Club (EUMC)",
+    "university": "University of Edinburgh",
+    "city": "Edinburgh",
+    "countryCode": "GB",
+    "description": "İskoç Highlands’ın kapısında. Hafta sonu Glencoe ve Cairngorms minibüs gezileri, kış becerileri kursları, kulüp kulübesi ve her Çarşamba pub gecesi. Her seviyeye açık.",
+    "adventureTypes": [
+      "hiking",
+      "climbing"
+    ],
+    "memberCount": 340,
+    "foundedYear": 1944,
+    "instagram": "edinburghmountaineering"
+  }
+]

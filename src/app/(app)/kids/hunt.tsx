@@ -59,11 +59,11 @@ function HuntBoard({ child, size }: { child: ChildProfile; size: 3 | 4 }) {
     const before = progress.data?.points ?? 0;
     const beforeStickers = earnedStickers(before);
     haptics.success();
-    toast(t('kids.hunt.celebrate', { name: child.name, points: task.points }), 'success');
     complete.mutate(
       { taskId: task.id, points: task.points },
       {
         onSuccess: (p) => {
+          toast(t('kids.hunt.celebrate', { name: child.name, points: task.points }), 'success');
           const fresh = p.stickers.filter((s) => !(beforeStickers as string[]).includes(s));
           const last = fresh[fresh.length - 1];
           if (last && last in KID_STICKER_META) {

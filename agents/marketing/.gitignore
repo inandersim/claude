@@ -8,3 +8,9 @@ content/*
 !content/example-posts.json
 !content/example-mentions.json
 !content/example-insights.csv
+!content/example-growth.csv
+# İçerik motorunun kaynak kodu ve veri anlık görüntüsü depoya girer.
+!content/*.mjs
+!content/data/
+# Betiklerin ürettiği paketler (kuru çalışma çıktısı) depoya girmez.
+out/

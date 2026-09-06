@@ -1,5 +1,6 @@
 /** Dosya sistemi yardımcıları: çıktı klasörü çözümü, yazma günlüğü, JSON okuma. */
 
+import { Buffer } from 'node:buffer';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';

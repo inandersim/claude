@@ -1,0 +1,1328 @@
+[
+  {
+    "id": "her_gobeklitepe",
+    "slug": "gobeklitepe",
+    "name": "Göbeklitepe",
+    "kind": "temple",
+    "eras": [
+      "prehistoric"
+    ],
+    "countryCode": "TR",
+    "region": "Şanlıurfa · Örencik",
+    "elevationM": 760,
+    "summary": "Dünyanın bilinen en eski anıtsal tapınak alanı: 12.000 yıl önce avcı-toplayıcıların diktiği T biçimli sütunlar.",
+    "history": "Göbeklitepe, Şanlıurfa’nın 15 km kuzeydoğusunda, Germuş dağlarının en yüksek tepesinde yer alır. 1963’te yüzey araştırmasında fark edilen alan, 1995’te Klaus Schmidt başkanlığındaki kazılarla dünya gündemine oturdu. Çanak Çömleksiz Neolitik döneme (MÖ 9600–8200) tarihlenen dairesel yapılar, üzerlerinde tilki, yaban domuzu, yılan, akrep ve turna kabartmaları bulunan 5,5 metreye ulaşan T biçimli kireçtaşı sütunlarla çevrilidir.\n\nAlan, tarımın ve yerleşik hayatın başlamasından önce, avcı-toplayıcı toplulukların büyük ölçekli anıtlar inşa edebildiğini kanıtlayarak “önce tapınak, sonra kent” tezini doğurdu. Jeofizik taramalar tepede en az 20 dairesel yapı olduğunu gösteriyor; bugüne kadar yalnızca dördü açığa çıkarıldı. Yapıların bilinçli olarak toprakla doldurulup gömülmesi, kalıntıların şaşırtıcı biçimde korunmasını sağladı.\n\n2018’de UNESCO Dünya Mirası Listesi’ne giren Göbeklitepe, Karahantepe ile birlikte “Taş Tepeler” projesinin merkezindedir. Alan, kazı bölgesini koruyan devasa membran çatı altında yürüyüş yollarıyla gezilir; ziyaretçi merkezinden kazı alanına ring araçları çalışır.",
+    "isUnesco": true,
+    "unescoYear": 2018,
+    "openingHours": "08:30–19:00",
+    "entryFeeTry": 750,
+    "visitDurationMin": 120,
+    "accessibility": "easy",
+    "nearestTrailhead": "Göbeklitepe Ziyaretçi Merkezi (ring servisi)",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "rules": [
+      "Drone uçuşu yasaktır",
+      "Sütunlara dokunmak ve platformdan inmek yasaktır",
+      "Kazı alanına giriş yalnızca belirlenmiş yürüyüş yolundan yapılır",
+      "Flaşlı fotoğraf çekimi kısıtlıdır"
+    ],
+    "bestMonths": [
+      3,
+      4,
+      5,
+      9,
+      10,
+      11
+    ],
+    "sources": [
+      "https://whc.unesco.org/en/list/1572",
+      "https://kvmgm.ktb.gov.tr",
+      "https://muze.gov.tr"
+    ]
+  },
+  {
+    "id": "her_karahantepe",
+    "slug": "karahantepe",
+    "name": "Karahantepe",
+    "kind": "temple",
+    "eras": [
+      "prehistoric"
+    ],
+    "countryCode": "TR",
+    "region": "Şanlıurfa · Tek Tek Dağları",
+    "elevationM": 705,
+    "summary": "Göbeklitepe’nin “kardeşi”: 250’den fazla T sütun, kayaya oyulmuş insan başları ve dev insan heykeli.",
+    "history": "Karahantepe, Şanlıurfa’nın 46 km doğusunda, Tek Tek Dağları Millî Parkı sınırlarında yer alır. 1997’de tespit edilen alanda kazılar 2019’da başladı ve kısa sürede Göbeklitepe’yi tamamlayan bir tablo ortaya koydu: kayaya oyulmuş çukur yapı içinde bir araya toplanmış 11 fallik sütun, duvardan çıkan insan başı kabartması ve 2,3 metrelik, oturur pozisyonda bir erkek heykeli.\n\nAlan, Göbeklitepe’den farklı olarak konut niteliğinde yapılar da barındırıyor; bu, tapınak-yerleşim ilişkisini yeniden düşündürüyor. Yüzeyde sayılan 250’den fazla sütun, alanın Göbeklitepe’den daha büyük olabileceğini gösteriyor. Yapıların bir kısmı ana kayaya doğrudan oyulmuş; bu nedenle burada “inşa etmek” yerine “kayadan çıkarmak” anlayışı hâkim.\n\nKarahantepe, Taş Tepeler kapsamında UNESCO geçici listesindedir. Alan çevresindeki bazalt platoda kısa yürüyüşler yapılabilir; sabah erken saatler ışık ve sıcaklık açısından en uygunudur.",
+    "isUnesco": false,
+    "unescoYear": null,
+    "openingHours": "08:30–19:00",
+    "entryFeeTry": 300,
+    "visitDurationMin": 90,
+    "accessibility": "moderate",
+    "nearestTrailhead": "Karahantepe kazı evi otoparkı",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "rules": [
+      "Drone uçuşu yasaktır",
+      "Kazı alanına yalnızca görevli eşliğinde girilir",
+      "Kaya yüzeylerine dokunmayın"
+    ],
+    "bestMonths": [
+      3,
+      4,
+      5,
+      10,
+      11
+    ],
+    "sources": [
+      "https://kvmgm.ktb.gov.tr",
+      "https://tastepeler.org"
+    ]
+  },
+  {
+    "id": "her_efes",
+    "slug": "efes",
+    "name": "Efes Antik Kenti",
+    "kind": "ancient_city",
+    "eras": [
+      "greek",
+      "roman",
+      "byzantine"
+    ],
+    "countryCode": "TR",
+    "region": "İzmir · Selçuk",
+    "elevationM": 30,
+    "summary": "Roma Asya eyaletinin başkenti; Celsus Kütüphanesi, Büyük Tiyatro ve Yamaç Evler ile Akdeniz’in en iyi korunmuş antik kenti.",
+    "history": "Efes, MÖ 10. yüzyılda İon kolonisi olarak kuruldu; Lidya, Pers ve Hellenistik dönemlerden geçerek Roma İmparatorluğu’nun Asya eyaletinin başkenti oldu. MS 1.–2. yüzyılda 200.000’i aşan nüfusuyla dünyanın en büyük kentlerinden biriydi. Dünyanın Yedi Harikası’ndan Artemis Tapınağı bugün tek sütunla temsil edilse de, kentin mermer caddeleri, Celsus Kütüphanesi (MS 117), 24.000 kişilik Büyük Tiyatro ve Hadrian Tapınağı ayaktadır.\n\nYamaç Evler’de zengin Efeslilerin mozaik ve fresklerle bezeli konutları koruma çatısı altında gezilir. Kayster (Küçük Menderes) Nehri’nin limanı alüvyonla doldurması kentin gerilemesine yol açtı; Bizans döneminde Meryem Kilisesi ve Ayasuluk Tepesi’ndeki Aziz Yuhanna Bazilikası ile hac merkezi olarak yaşamaya devam etti.\n\n2015’te UNESCO listesine giren alan, Selçuk’tan bisiklet ya da yürüyüşle ulaşılan alt ve üst kapılarla gezilir. Yaz sıcağında üst kapıdan başlayıp aşağı inmek önerilir; alan gölgesizdir.",
+    "isUnesco": true,
+    "unescoYear": 2015,
+    "openingHours": "08:00–20:00",
+    "entryFeeTry": 1000,
+    "visitDurationMin": 180,
+    "accessibility": "moderate",
+    "nearestTrailhead": "Efes Üst Kapı (Magnesia Kapısı)",
+    "adventureTypes": [
+      "hiking",
+      "cycling"
+    ],
+    "rules": [
+      "Drone uçuşu yasaktır",
+      "Yamaç Evler ayrı biletlidir",
+      "Mermer yüzeyler kaygandır; sağlam ayakkabı giyin",
+      "Profesyonel çekim için izin gerekir"
+    ],
+    "bestMonths": [
+      3,
+      4,
+      5,
+      10,
+      11
+    ],
+    "sources": [
+      "https://whc.unesco.org/en/list/1018",
+      "https://muze.gov.tr",
+      "https://kvmgm.ktb.gov.tr"
+    ]
+  },
+  {
+    "id": "her_aphrodisias",
+    "slug": "aphrodisias",
+    "name": "Aphrodisias",
+    "kind": "ancient_city",
+    "eras": [
+      "greek",
+      "roman"
+    ],
+    "countryCode": "TR",
+    "region": "Aydın · Karacasu",
+    "elevationM": 520,
+    "summary": "Heykeltıraşlık okulu ve 30.000 kişilik stadyumuyla ünlü, Aphrodite’ye adanmış mermer kent.",
+    "history": "Aphrodisias, Karya bölgesinde Babadağ eteklerinde, kaliteli mermer ocaklarının hemen yanında kuruldu. Kent adını koruyucu tanrıçası Aphrodite’den alır; tapınak MÖ 1. yüzyılda inşa edilmiş, Bizans döneminde bazilikaya dönüştürülmüştür. Roma İmparatorluğu’nun himayesinde vergiden muaf serbest kent statüsü kazanan Aphrodisias, mermer atölyeleriyle Akdeniz’in her yerine heykel ihraç etti.\n\nSebasteion, imparator kültü için yapılmış üç katlı kabartmalı bir yapı olarak dünyada eşsizdir; 80’den fazla kabartma panosu müzede sergilenir. Kentin 270 metrelik stadyumu antik dünyanın en iyi korunmuş stadyumlarından biridir. Tetrapylon, Hadrian Hamamları ve odeon da ayaktadır.\n\n1961’den itibaren Kenan Erim ve ardından New York Üniversitesi ekibi tarafından kazılan alan 2017’de UNESCO listesine alındı. Geyre köyünden alana kısa bir yürüyüşle ulaşılır; müze ve ören yeri aynı bilete dâhildir.",
+    "isUnesco": true,
+    "unescoYear": 2017,
+    "openingHours": "08:30–19:00",
+    "entryFeeTry": 400,
+    "visitDurationMin": 150,
+    "accessibility": "easy",
+    "nearestTrailhead": "Geyre köy meydanı otoparkı",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "rules": [
+      "Drone uçuşu yasaktır",
+      "Heykellere dokunmayın",
+      "Stadyum basamaklarına çıkmayın"
+    ],
+    "bestMonths": [
+      4,
+      5,
+      6,
+      9,
+      10
+    ],
+    "sources": [
+      "https://whc.unesco.org/en/list/1519",
+      "https://muze.gov.tr"
+    ]
+  },
+  {
+    "id": "her_hierapolis",
+    "slug": "hierapolis-pamukkale",
+    "name": "Hierapolis – Pamukkale",
+    "kind": "ancient_city",
+    "eras": [
+      "roman",
+      "byzantine"
+    ],
+    "countryCode": "TR",
+    "region": "Denizli · Pamukkale",
+    "elevationM": 350,
+    "summary": "Beyaz travertenlerin tepesindeki kaplıca kenti; antik havuz, nekropol ve Aziz Philippus Martyrionu.",
+    "history": "Hierapolis, MÖ 2. yüzyılda Pergamon kralı II. Eumenes tarafından kuruldu ve sıcak su kaynakları sayesinde Roma döneminde şifa merkezi olarak gelişti. MS 60’taki büyük depremden sonra yeniden inşa edilen kent, 15.000 kişilik tiyatrosu, Apollon Tapınağı ve ölülerin ruhlarının geçtiğine inanılan Plutonion (cehennem kapısı) ile ünlüdür. 2 km uzunluğundaki nekropol, Anadolu’nun en büyük antik mezarlığıdır.\n\nErken Hristiyanlık döneminde Havari Philippus’un burada şehit edildiğine inanılır; 5. yüzyılda anısına sekizgen martyrion yapıldı. Kalsiyum karbonat yüklü termal suların yüzyıllar boyunca biriktirdiği travertenler, kentin batı yamacını bembeyaz teraslara dönüştürdü.\n\n1988’de UNESCO listesine hem doğal hem kültürel miras olarak giren alan, travertenlerde çıplak ayak yürünerek gezilir. Kleopatra Havuzu antik sütunların arasında yüzme imkânı sunar (ayrı ücret).",
+    "isUnesco": true,
+    "unescoYear": 1988,
+    "openingHours": "06:30–22:00",
+    "entryFeeTry": 900,
+    "visitDurationMin": 180,
+    "accessibility": "moderate",
+    "nearestTrailhead": "Pamukkale Güney Kapı",
+    "adventureTypes": [
+      "hiking",
+      "paragliding"
+    ],
+    "rules": [
+      "Travertenlerde ayakkabı yasaktır",
+      "Drone uçuşu izne tabidir",
+      "Traverten havuzlarına sabun/krem ile girilmez"
+    ],
+    "bestMonths": [
+      4,
+      5,
+      6,
+      9,
+      10
+    ],
+    "sources": [
+      "https://whc.unesco.org/en/list/485",
+      "https://muze.gov.tr"
+    ]
+  },
+  {
+    "id": "her_latmos",
+    "slug": "latmos-kaya-resimleri",
+    "name": "Latmos Kaya Resimleri",
+    "kind": "rock_art",
+    "eras": [
+      "prehistoric",
+      "byzantine"
+    ],
+    "countryCode": "TR",
+    "region": "Muğla · Beşparmak Dağları",
+    "elevationM": 900,
+    "summary": "8.000 yıllık kaya resimleri ve Bizans manastırlarıyla dolu granit labirent; Bafa Gölü üzerinde yürüyüş cenneti.",
+    "history": "Beşparmak (Latmos) Dağları, Bafa Gölü’nün kuzeyinde, dev granit bloklardan oluşan olağanüstü bir kütle. 1994’te Anneliese Peschlow tarafından keşfedilen kaya resimleri, MÖ 6.–5. binyıla tarihlenir ve Anadolu’nun bilinen en zengin prehistorik resim topluluğudur: el ele tutuşmuş insan figürleri, düğün sahneleri ve geometrik motifler kırmızı aşı boyasıyla kaya sığınaklarının tavanlarına işlenmiştir.\n\nDağ, Bizans döneminde keşişlerin sığınağı oldu; Yediler Manastırı, Stylos ve İkizada üzerindeki manastır kalıntılarında freskler hâlâ görülebilir. Latmos Herakleiası’nın surları ve Endymion Tapınağı, Kapıkırı köyünün içine karışmıştır. Efsaneye göre ay tanrıçası Selene, çoban Endymion’a burada âşık olmuştur.\n\nAlan, işaretli patikalarla Kapıkırı’ndan gezilir; kaya resimlerinin bir kısmı yalnızca yerel rehberle bulunabilir. Feldspat madenciliği ve taş ocakları alanı tehdit ettiğinden kısmi koruma statüsündedir.",
+    "isUnesco": false,
+    "unescoYear": null,
+    "openingHours": "24 saat",
+    "entryFeeTry": null,
+    "visitDurationMin": 300,
+    "accessibility": "hard",
+    "nearestTrailhead": "Kapıkırı köyü (Herakleia)",
+    "adventureTypes": [
+      "hiking",
+      "climbing"
+    ],
+    "rules": [
+      "Kaya resimlerine dokunmak, ıslatmak ve flaş kullanmak yasaktır",
+      "Kaya sığınaklarında ateş yakılmaz",
+      "Patika dışına çıkmayın; granit labirentte kaybolmak kolaydır"
+    ],
+    "bestMonths": [
+      3,
+      4,
+      5,
+      10,
+      11
+    ],
+    "sources": [
+      "https://www.latmos.org",
+      "https://kvmgm.ktb.gov.tr"
+    ]
+  },
+  {
+    "id": "her_termessos",
+    "slug": "termessos",
+    "name": "Termessos",
+    "kind": "ancient_city",
+    "eras": [
+      "greek",
+      "roman"
+    ],
+    "countryCode": "TR",
+    "region": "Antalya · Güllük Dağı",
+    "elevationM": 1050,
+    "summary": "Büyük İskender’in bile alamadığı kartal yuvası: 1.000 metrede, çam ormanı içine saklanmış dağ kenti.",
+    "history": "Termessos, Pisidyalı Solymler tarafından Güllük (Solymos) Dağı’nın 1.050 metre yüksekliğindeki bir yamacına kuruldu. MÖ 333’te Büyük İskender kenti kuşattı ancak alamadı; ordusunu geri çekerken vadideki zeytinlikleri yaktırdığı anlatılır. Roma döneminde “dost ve müttefik” statüsüyle özerkliğini koruyan Termessos, hiçbir zaman bir garnizon kenti olmadı.\n\nKentin en etkileyici yapısı, uçurumun kenarına oturtulmuş 4.200 kişilik tiyatrodur; sahne arkasında Antalya ovası ve Akdeniz uzanır. Agora, gymnasium, Zeus Solymeus Tapınağı, sarnıçlar ve yüzlerce kaya mezarı çam ormanına dağılmış hâldedir. Alcetas’ın mezarı, İskender’in generallerinden birinin son sığınağıdır. Kent, MS 5. yüzyılda depremle su yollarının çökmesi üzerine terk edildi.\n\nTermessos, Güllük Dağı Millî Parkı içindedir; otoparktan tiyatroya 1 km dik tırmanış vardır. Alan asla tam kazılmadı; bu nedenle “keşfedilmemiş” hissi verir. Yazın erken saatte gelin, su taşıyın.",
+    "isUnesco": false,
+    "unescoYear": null,
+    "openingHours": "08:30–19:00",
+    "entryFeeTry": 200,
+    "visitDurationMin": 180,
+    "accessibility": "hard",
+    "nearestTrailhead": "Termessos otoparkı (Millî Park giriş kapısından 9 km)",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "rules": [
+      "Drone uçuşu yasaktır (Millî Park)",
+      "Kaya mezarlarına tırmanmayın",
+      "Ormanda ateş yakmak yasaktır",
+      "Yürüyüş ayakkabısı ve en az 1,5 L su zorunlu"
+    ],
+    "bestMonths": [
+      3,
+      4,
+      5,
+      10,
+      11
+    ],
+    "sources": [
+      "https://muze.gov.tr",
+      "https://www.tarimorman.gov.tr"
+    ]
+  },
+  {
+    "id": "her_sagalassos",
+    "slug": "sagalassos",
+    "name": "Sagalassos",
+    "kind": "ancient_city",
+    "eras": [
+      "greek",
+      "roman",
+      "byzantine"
+    ],
+    "countryCode": "TR",
+    "region": "Burdur · Ağlasun",
+    "elevationM": 1500,
+    "summary": "1.500 metrede, Toroslar’ın eteğine kurulmuş Pisidya başkenti; restore edilmiş Antoninler Çeşmesi hâlâ akıyor.",
+    "history": "Sagalassos, Batı Toroslar’da Akdağ’ın güney yamacına 1.450–1.700 metre arasında kuruldu. MÖ 333’te İskender’e direnen kent, Roma döneminde Pisidya’nın “ilk kenti” unvanını aldı; İmparator Hadrian kente imparatorluk kültü merkezi statüsü verdi. Seramik üretimiyle Akdeniz’in her yanına ihracat yapan Sagalassos, MS 6.–7. yüzyıllardaki depremler ve vebayla terk edildi.\n\nYüksek konumu ve uzaklığı sayesinde neredeyse hiç yağmalanmayan kent, Leuven Üniversitesi’nin 1990’dan beri süren kazılarıyla ortaya çıkarıldı. Antoninler Çeşmesi (nymphaeum) orijinal taşlarıyla yeniden ayağa kaldırıldı ve dağ suyu bugün yine mermer havuza dökülüyor. Üst agora, 9.000 kişilik tiyatro, Roma hamamı ve Hadrian ile Marcus Aurelius’un dev heykel parçaları (Burdur Müzesi) öne çıkar.\n\nAlan, Ağlasun’dan 7 km’lik virajlı yolla ulaşılan yüksek platodadır; yazın serin, kışın karla kaplıdır. Ören yeri çevresinde Toros yürüyüş patikaları başlar.",
+    "isUnesco": false,
+    "unescoYear": null,
+    "openingHours": "08:30–19:00",
+    "entryFeeTry": 150,
+    "visitDurationMin": 150,
+    "accessibility": "moderate",
+    "nearestTrailhead": "Sagalassos ören yeri otoparkı",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "rules": [
+      "Drone uçuşu yasaktır",
+      "Çeşme havuzuna girilmez",
+      "Kazı alanı şeritleri aşılmaz"
+    ],
+    "bestMonths": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "sources": [
+      "https://muze.gov.tr",
+      "https://www.sagalassos.be"
+    ]
+  },
+  {
+    "id": "her_aspendos",
+    "slug": "aspendos",
+    "name": "Aspendos",
+    "kind": "ancient_city",
+    "eras": [
+      "roman"
+    ],
+    "countryCode": "TR",
+    "region": "Antalya · Serik",
+    "elevationM": 40,
+    "summary": "Antik dünyanın en iyi korunmuş Roma tiyatrosu; 15.000 kişilik sahne bugün hâlâ konser ve bale ağırlıyor.",
+    "history": "Aspendos, Köprüçay (Eurymedon) Nehri kıyısında, Pamfilya ovasında MÖ 10. yüzyıla dayanan bir yerleşimdir. Kent, MÖ 5. yüzyılda kendi gümüş sikkesini basacak kadar zengindi; ünü ise MS 155–160 arasında mimar Zenon’un inşa ettiği tiyatroya dayanır. Sahne binası orijinal yüksekliğiyle ayakta olan tek Roma tiyatrosudur; Selçuklular tiyatroyu saray olarak kullanmış, tuğla onarımlar ve çini izleri bu döneme aittir.\n\nTepedeki akropolde bazilika, agora ve nymphaeum kalıntıları bulunur. Kentin kuzeyinde 15 km’lik su kemeri sistemi, iki basınç kulesiyle Roma su mühendisliğinin en gösterişli örneklerindendir. Efsaneye göre kral, kızını kente en yararlı eseri yapan mimara verecekti; tiyatro ile su kemeri arasında karar veremeyince kızı ikiye bölmeyi teklif etti, tiyatronun mimarı vazgeçerek kazandı.\n\nAspendos, Antalya’dan 45 km doğudadır; yakınındaki Perge ve Side ile günübirlik “Pamfilya üçlüsü” yapılır. Köprüçay üzerinde rafting parkurları alanın hemen kuzeyinden başlar.",
+    "isUnesco": false,
+    "unescoYear": null,
+    "openingHours": "08:00–19:00",
+    "entryFeeTry": 500,
+    "visitDurationMin": 90,
+    "accessibility": "easy",
+    "nearestTrailhead": "Aspendos otoparkı",
+    "adventureTypes": [
+      "rafting",
+      "cycling"
+    ],
+    "rules": [
+      "Drone uçuşu yasaktır",
+      "Tiyatro üst galerisine tırmanmayın",
+      "Sahne yapısına dokunmayın"
+    ],
+    "bestMonths": [
+      3,
+      4,
+      5,
+      10,
+      11
+    ],
+    "sources": [
+      "https://muze.gov.tr",
+      "https://kvmgm.ktb.gov.tr"
+    ]
+  },
+  {
+    "id": "her_perge",
+    "slug": "perge",
+    "name": "Perge",
+    "kind": "ancient_city",
+    "eras": [
+      "greek",
+      "roman",
+      "byzantine"
+    ],
+    "countryCode": "TR",
+    "region": "Antalya · Aksu",
+    "elevationM": 25,
+    "summary": "Sütunlu caddesi, stadyumu ve Hellenistik kuleleriyle Pamfilya’nın başkenti; Havari Pavlus’un vaaz verdiği kent.",
+    "history": "Perge’nin tarihi Hitit metinlerinde geçen “Parha” kentine (MÖ 13. yüzyıl) kadar uzanır. Truva Savaşı sonrası Yunan göçmenlerinin yerleştiği kent, Hellenistik dönemde iki yuvarlak kuleyle korunan kapısıyla tanınır. Roma döneminde 20 metre genişliğinde, ortasından su kanalı akan sütunlu cadde, 12.000 kişilik stadyum ve dev hamamlarla donatıldı. Matematikçi Apollonius Pergeli’dir; Havari Pavlus ilk misyon yolculuğunda Perge’de vaaz verdi.\n\nPlancia Magna adlı zengin bir kadın, MS 2. yüzyılda kentin kapısını heykellerle donatarak antik dünyada nadir görülen bir kadın hamiliğine imza attı. Bu heykeller Antalya Müzesi’nin ana salonunu doldurur. Kent, 7. yüzyıl Arap akınlarıyla küçüldü ve Selçuklu döneminde terk edildi.\n\nAlan düz ve geniştir; yaz aylarında gölge yoktur. Antalya merkezden tramvay-otobüs bağlantısıyla ulaşılabilir; bisikletle Aksu Çayı vadisinden Aspendos’a devam edilebilir.",
+    "isUnesco": false,
+    "unescoYear": null,
+    "openingHours": "08:30–19:00",
+    "entryFeeTry": 400,
+    "visitDurationMin": 120,
+    "accessibility": "easy",
+    "nearestTrailhead": "Perge ören yeri otoparkı",
+    "adventureTypes": [
+      "cycling",
+      "hiking"
+    ],
+    "rules": [
+      "Drone uçuşu yasaktır",
+      "Mozaik alanlarına basmayın",
+      "Kazı alanı şeritleri aşılmaz"
+    ],
+    "bestMonths": [
+      3,
+      4,
+      5,
+      10,
+      11
+    ],
+    "sources": [
+      "https://muze.gov.tr",
+      "https://kvmgm.ktb.gov.tr"
+    ]
+  },
+  {
+    "id": "her_olympos",
+    "slug": "olympos-cirali-yanartas",
+    "name": "Olympos & Çıralı (Yanartaş)",
+    "kind": "ancient_city",
+    "eras": [
+      "lycian",
+      "roman",
+      "byzantine"
+    ],
+    "countryCode": "TR",
+    "region": "Antalya · Kumluca",
+    "elevationM": 5,
+    "summary": "Dere kenarında ormana gömülmüş Likya kenti ve binlerce yıldır sönmeyen Yanartaş alevleri; Likya Yolu’nun kalbi.",
+    "history": "Olympos, MÖ 2. yüzyılda Likya Birliği’nin üç oy hakkına sahip altı kentinden biriydi. Kent, bir derenin denize kavuştuğu dar vadinin iki yakasında kurulmuş; Roma döneminde korsan Zeniketes’in üssü olduktan sonra Romalı komutan Servilius Vatia tarafından ele geçirildi. Hadrian Tapınağı kapısı, nehir kıyısındaki lahitler (Marcus Aurelius Archepolis’in mezarı), tiyatro ve Bizans bazilikası defne ve incir ağaçlarının arasına saklanmıştır.\n\nKentin 7 km kuzeyinde, Çıralı yamacında Yanartaş (Chimaira) yer alır: yer altından sızan doğal gazın binlerce yıldır yanan alevleri. Homeros’un ateş püskürten Chimaira canavarını Bellerophon’un burada yendiğine inanılır; alevlerin yanındaki Hephaistos Tapınağı kalıntısı bu inancın izidir. Antik denizciler alevleri deniz feneri olarak kullandı.\n\nOlympos, Likya Yolu’nun ana duraklarındandır; Tekirova’dan gelen ve Adrasan’a devam eden etaplar buradan geçer. Çıralı plajı caretta caretta yuvalama alanıdır; gece ışık kullanımı kısıtlıdır.",
+    "isUnesco": false,
+    "unescoYear": null,
+    "openingHours": "08:30–19:00",
+    "entryFeeTry": 200,
+    "visitDurationMin": 150,
+    "accessibility": "moderate",
+    "nearestTrailhead": "Çıralı – Yanartaş patikası girişi",
+    "adventureTypes": [
+      "hiking",
+      "climbing",
+      "canoe"
+    ],
+    "rules": [
+      "Yanartaş alevlerinde pişirme yapmak yasaktır",
+      "Plajda gece ışık ve ateş yasaktır (caretta caretta)",
+      "Drone uçuşu yasaktır",
+      "Lahitlere tırmanmayın"
+    ],
+    "bestMonths": [
+      3,
+      4,
+      5,
+      6,
+      9,
+      10,
+      11
+    ],
+    "sources": [
+      "https://muze.gov.tr",
+      "https://cultureroutesinturkey.com/tr/likya-yolu"
+    ]
+  },
+  {
+    "id": "her_patara",
+    "slug": "patara",
+    "name": "Patara",
+    "kind": "ancient_city",
+    "eras": [
+      "lycian",
+      "roman",
+      "byzantine"
+    ],
+    "countryCode": "TR",
+    "region": "Antalya · Kaş",
+    "elevationM": 10,
+    "summary": "Likya Birliği’nin başkenti ve limanı; dünyanın en eski deniz feneri, meclis binası ve 18 km’lik kumsal.",
+    "history": "Patara, Likya’nın en önemli limanı ve Likya Birliği’nin başkentiydi. Apollon kehanet merkezi olarak Delphi ile rekabet etti; Aziz Nikolaos (Noel Baba) MS 270’te burada doğdu. Kent, MÖ 4. yüzyılda İskender’e teslim olmuş, Roma döneminde Likya eyaletinin merkezi olarak İmparator Claudius’un anıt yol kılavuzunu (Stadiasmus Patarensis) dikmiştir.\n\nBouleuterion (Likya Birliği meclis binası), dünyanın bilinen ilk demokratik federasyonunun toplandığı yapı olarak restore edildi. MS 64–65 tarihli deniz feneri, adını ve tarihini taşıyan en eski fenerdir. Tiyatro, sütunlu cadde, hamamlar ve tahıl ambarı (Hadrian Granarium) kum tepelerinin arasına yayılmıştır. Liman alüvyonla kapanınca kent 15. yüzyılda terk edildi.\n\nPatara plajı, Akdeniz’in en uzun kumsalıdır ve caretta caretta yuvalama alanıdır. Likya Yolu Patara–Kalkan etabı buradan geçer; bilet plajı da kapsar.",
+    "isUnesco": false,
+    "unescoYear": null,
+    "openingHours": "08:00–20:00",
+    "entryFeeTry": 300,
+    "visitDurationMin": 150,
+    "accessibility": "easy",
+    "nearestTrailhead": "Patara ören yeri girişi (Gelemiş)",
+    "adventureTypes": [
+      "hiking",
+      "canoe"
+    ],
+    "rules": [
+      "Plaj 20:00’den sonra kapalıdır (caretta caretta)",
+      "Kum tepelerinde araç yasaktır",
+      "Drone uçuşu yasaktır"
+    ],
+    "bestMonths": [
+      4,
+      5,
+      6,
+      9,
+      10
+    ],
+    "sources": [
+      "https://muze.gov.tr",
+      "https://kvmgm.ktb.gov.tr"
+    ]
+  },
+  {
+    "id": "her_xanthos",
+    "slug": "xanthos-letoon",
+    "name": "Xanthos – Letoon",
+    "kind": "ancient_city",
+    "eras": [
+      "lycian",
+      "greek",
+      "roman"
+    ],
+    "countryCode": "TR",
+    "region": "Antalya · Kaş / Muğla · Seydikemer",
+    "elevationM": 90,
+    "summary": "Likya’nın başkenti ve kutsal merkezi; kaya mezarları, Harpyler Anıtı ve üç dilli yazıt ile UNESCO mirası.",
+    "history": "Xanthos, Eşen Çayı’na bakan bir kayalık üzerinde Likya’nın siyasi başkentiydi. Herodot, MÖ 540’ta Pers komutanı Harpagos kenti kuşattığında Xanthosluların kadınlarını, çocuklarını ve mallarını yakıp son ferdine kadar savaştığını anlatır; aynı trajedi MÖ 42’de Brutus’un kuşatmasında tekrarlandı. Kentte Likya dilinde yazılmış en uzun yazıt (Xanthos Yazılı Dikmesi), Harpyler Anıtı ve Nereidler Anıtı’nın (British Museum) temeli bulunur.\n\n4 km güneydeki Letoon, tanrıça Leto ile çocukları Apollon ve Artemis’e adanmış Likya Birliği’nin dinî merkeziydi. Üç tapınak, kutsal havuz ve Likya-Yunan-Aramca üç dilli yazıt (Likya dilinin çözülmesini sağlayan anahtar) burada bulundu. Birlik toplantıları ve festivaller Letoon’da yapılırdı.\n\nİki alan tek UNESCO kaydıyla 1988’de listeye girdi. Xanthos tepesinden Letoon’a Likya Yolu üzerinden 1,5 saatlik bir yürüyüşle inilebilir.",
+    "isUnesco": true,
+    "unescoYear": 1988,
+    "openingHours": "08:30–19:00",
+    "entryFeeTry": 200,
+    "visitDurationMin": 180,
+    "accessibility": "moderate",
+    "nearestTrailhead": "Kınık – Xanthos girişi",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "rules": [
+      "Drone uçuşu yasaktır",
+      "Kaya mezarlarına tırmanmayın",
+      "Letoon havuzuna girilmez"
+    ],
+    "bestMonths": [
+      3,
+      4,
+      5,
+      10,
+      11
+    ],
+    "sources": [
+      "https://whc.unesco.org/en/list/484",
+      "https://muze.gov.tr"
+    ]
+  },
+  {
+    "id": "her_myra",
+    "slug": "myra-demre",
+    "name": "Myra (Demre)",
+    "kind": "tomb",
+    "eras": [
+      "lycian",
+      "roman",
+      "byzantine"
+    ],
+    "countryCode": "TR",
+    "region": "Antalya · Demre",
+    "elevationM": 30,
+    "summary": "Kayaya oyulmuş ev biçimli Likya mezarları, dev Roma tiyatrosu ve Noel Baba’nın piskoposluk yaptığı kent.",
+    "history": "Myra, Likya Birliği’nin üç oylu büyük kentlerinden biriydi ve Demre Çayı’nın ovaya açıldığı noktada kuruldu. Kentin sembolü, akropol yamacına petek gibi oyulmuş kaya mezarlarıdır: Likya ahşap evlerini taklit eden cepheleri, kirişleri ve kapılarıyla MÖ 4. yüzyıla tarihlenirler; bazıları renkli boya izleri taşır. Mezarların altındaki 11.000 kişilik tiyatro MS 141 depreminden sonra yeniden yapıldı ve maskeli friz kabartmalarıyla ünlüdür.\n\nMS 4. yüzyılda Myra piskoposu olan Aziz Nikolaos, ölümünden sonra Demre’deki kilisede gömüldü; 1087’de İtalyan denizciler kemiklerini Bari’ye kaçırdı. Kilise, Bizans fresk ve mozaikleriyle ayrı bir ören yeri olarak gezilir. Kentin limanı Andriake, Hadrian’ın tahıl ambarıyla birlikte Likya Uygarlıkları Müzesi’ne dönüştürüldü.\n\nAlanın büyük bölümü hâlâ seraların ve alüvyonun altındadır. Kekova teknelerinin çoğu Andriake (Çayağzı) limanından kalkar.",
+    "isUnesco": false,
+    "unescoYear": null,
+    "openingHours": "08:30–19:00",
+    "entryFeeTry": 400,
+    "visitDurationMin": 90,
+    "accessibility": "easy",
+    "nearestTrailhead": "Myra ören yeri otoparkı (Demre merkez)",
+    "adventureTypes": [
+      "hiking",
+      "canoe"
+    ],
+    "rules": [
+      "Kaya mezarlarına tırmanmayın",
+      "Drone uçuşu yasaktır",
+      "Tiyatro üst sıralarına çıkılmaz"
+    ],
+    "bestMonths": [
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+    ],
+    "sources": [
+      "https://muze.gov.tr",
+      "https://kvmgm.ktb.gov.tr"
+    ]
+  },
+  {
+    "id": "her_kekova",
+    "slug": "kekova-batik-kent",
+    "name": "Kekova Batık Kent (Simena)",
+    "kind": "sunken_city",
+    "eras": [
+      "lycian",
+      "roman",
+      "byzantine"
+    ],
+    "countryCode": "TR",
+    "region": "Antalya · Kaş / Üçağız",
+    "elevationM": 0,
+    "summary": "Depremle denize gömülmüş antik kent: kanoyla üzerinde süzülün, Simena Kalesi’nden lahitlerin arasına bakın.",
+    "history": "Kekova Adası’nın kuzey kıyısındaki Dolchiste (Batık Kent), MS 2. yüzyıldaki depremlerle kısmen denize gömüldü. Bizans döneminde bir süre yeniden iskân edilen kent, Arap akınlarıyla terk edildi. Bugün su altında merdivenler, ev temelleri, iskele ve amfora parçaları, su üstünde ise duvar kalıntıları görülür; berrak suda 2–5 metre derinlikte kalıntılar tekneden veya kanodan izlenir.\n\nKarşı kıyıdaki Kaleköy (Simena), Likya Birliği’nin küçük üyelerinden biriydi. Orta Çağ kalesi Rodos şövalyeleri tarafından yeniden yapıldı; içinde Likya’nın en küçük tiyatrosu (300 kişilik) bulunur. Kıyıdaki suya yarı gömülü lahit, Kekova’nın en çok fotoğraflanan görüntüsüdür. Üçağız (Teimiussa) nekropolündeki lahitler köy evlerinin arasına dağılmıştır.\n\nAlan 1990’dan beri Özel Çevre Koruma Bölgesi’dir; Batık Kent üzerinde dalış ve yüzme yasaktır, yalnızca cam tabanlı tekne ve kano ile geçilebilir. Kaş’tan deniz kanosu turları en popüler yoldur.",
+    "isUnesco": false,
+    "unescoYear": null,
+    "openingHours": "24 saat",
+    "entryFeeTry": null,
+    "visitDurationMin": 240,
+    "accessibility": "moderate",
+    "nearestTrailhead": "Üçağız iskelesi (kano/tekne)",
+    "adventureTypes": [
+      "canoe",
+      "diving",
+      "hiking"
+    ],
+    "rules": [
+      "Batık Kent üzerinde dalış ve yüzme yasaktır (ÖÇK)",
+      "Su altından obje çıkarmak suçtur",
+      "Kano ile kalıntılara temas etmeyin",
+      "Drone uçuşu izne tabidir"
+    ],
+    "bestMonths": [
+      4,
+      5,
+      6,
+      9,
+      10
+    ],
+    "sources": [
+      "https://ockb.csb.gov.tr",
+      "https://muze.gov.tr"
+    ]
+  },
+  {
+    "id": "her_phaselis",
+    "slug": "phaselis",
+    "name": "Phaselis",
+    "kind": "ancient_city",
+    "eras": [
+      "lycian",
+      "greek",
+      "roman"
+    ],
+    "countryCode": "TR",
+    "region": "Antalya · Kemer",
+    "elevationM": 5,
+    "summary": "Üç koylu liman kenti: sütunlu caddenin sonunda denize girin, Tahtalı Dağı’nın gölgesinde su kemerlerini gezin.",
+    "history": "Phaselis, MÖ 7. yüzyılda Rodoslu kolonistler tarafından Likya ile Pamfilya sınırında kuruldu; efsaneye göre yerli çobandan toprak karşılığında kurutulmuş balık verilerek alındı. Üç doğal limanı sayesinde kereste ve gül yağı ticaretiyle zenginleşen kent, İskender’i kışın ağırladı; İskender’in sarhoş hâlde agoradaki heykellerden birine çelenk taktığı anlatılır.\n\nRoma döneminde Hadrian’ın ziyareti şerefine kapı ve yeni agora yapıldı. Su kemeri, hamamlar, tiyatro ve 24 metre genişliğindeki sütunlu cadde çam ormanı içinde denize kadar iner. Kent, Bizans döneminde piskoposluk merkezi olarak sürdü; 11. yüzyıl Arap ve Selçuklu akınlarından sonra terk edildi.\n\nPhaselis, Olimpos-Beydağları Millî Parkı içindedir; Likya Yolu’nun Tekirova etabı kentin hemen yanından geçer. Bilet plajları da kapsar, yazın öğle sıcağında koylar dolar.",
+    "isUnesco": false,
+    "unescoYear": null,
+    "openingHours": "08:00–19:00",
+    "entryFeeTry": 300,
+    "visitDurationMin": 120,
+    "accessibility": "easy",
+    "nearestTrailhead": "Phaselis ören yeri girişi (D400)",
+    "adventureTypes": [
+      "hiking",
+      "diving",
+      "canoe"
+    ],
+    "rules": [
+      "Ören yerinde mangal ve ateş yasaktır",
+      "Su kemeri üzerine tırmanmayın",
+      "Drone uçuşu yasaktır (Millî Park)"
+    ],
+    "bestMonths": [
+      4,
+      5,
+      6,
+      9,
+      10
+    ],
+    "sources": [
+      "https://muze.gov.tr",
+      "https://kvmgm.ktb.gov.tr"
+    ]
+  },
+  {
+    "id": "her_nemrut",
+    "slug": "nemrut-dagi",
+    "name": "Nemrut Dağı",
+    "kind": "tomb",
+    "eras": [
+      "greek",
+      "other"
+    ],
+    "countryCode": "TR",
+    "region": "Adıyaman · Kâhta",
+    "elevationM": 2134,
+    "summary": "2.134 metredeki tümülüs ve Kommagene Kralı Antiochos’un tanrılarla oturduğu dev heykel terasları; gün doğumu ritüeli.",
+    "history": "Nemrut, Kommagene Krallığı’nın hükümdarı I. Antiochos Theos (MÖ 69–36) tarafından kendi mezar-tapınağı olarak yaptırıldı. Kral, Pers ve Makedon soyundan geldiğini ilan ederek Yunan ve Pers tanrılarını birleştiren bir kült oluşturdu: Zeus-Oromasdes, Apollon-Mithras, Herakles-Artagnes ve Kommagene tanrıçası, kralın kendisiyle birlikte 8–9 metrelik tahtlarda oturur. Depremlerle düşen başlar teraslara dizilmiş hâldedir.\n\n50 metre yüksekliğindeki tümülüs, kırılmış kireçtaşı parçalarından oluşur; mezar odası hiçbir zaman bulunamadı. Doğu terasındaki “Aslanlı Horoskop” kabartması, MÖ 7 Temmuz 62 tarihini gösteren en eski Yunan yıldız haritalarından biridir. 1881’de Karl Sester tarafından yeniden keşfedilen alan 1987’de UNESCO listesine girdi.\n\nZiyaret gün doğumu ya da batımında yapılır; otoparktan zirveye 600 metrelik taş yol 20 dakika tırmanıştır. Zirvede rüzgâr serttir, yazın bile mont gerekir. Kâhta’dan Arsameia, Karakuş Tümülüsü ve Cendere Köprüsü ile birlikte gezilir.",
+    "isUnesco": true,
+    "unescoYear": 1987,
+    "openingHours": "05:00–20:00",
+    "entryFeeTry": 300,
+    "visitDurationMin": 120,
+    "accessibility": "hard",
+    "nearestTrailhead": "Nemrut zirve otoparkı",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "rules": [
+      "Tümülüse tırmanmak kesinlikle yasaktır",
+      "Heykel başlarına dokunmayın",
+      "Drone uçuşu yasaktır",
+      "Kış aylarında yol kapalıdır (Kasım–Nisan)"
+    ],
+    "bestMonths": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "sources": [
+      "https://whc.unesco.org/en/list/448",
+      "https://muze.gov.tr"
+    ]
+  },
+  {
+    "id": "her_hattusa",
+    "slug": "hattusa",
+    "name": "Hattuşa",
+    "kind": "ancient_city",
+    "eras": [
+      "hittite",
+      "phrygian"
+    ],
+    "countryCode": "TR",
+    "region": "Çorum · Boğazkale",
+    "elevationM": 1100,
+    "summary": "Hitit İmparatorluğu’nun başkenti: 6 km sur, Aslanlı Kapı, Yerkapı tüneli ve Yazılıkaya açık hava tapınağı.",
+    "history": "Hattuşa, MÖ 17. yüzyılda Hitit Krallığı’nın başkenti oldu ve MÖ 1200 civarındaki çöküşe kadar Yakın Doğu’nun en büyük güçlerinden birinin merkezi olarak kaldı. Kent, Kızılırmak kavsinde 1.000 metre yükseklikteki kayalık bir yamaca kuruldu; 6 km’lik surlar Aslanlı Kapı, Kral Kapı ve Sfenksli Kapı ile delinir. Sfenksli Kapı’nın altındaki 70 metrelik Yerkapı poterni, 3.200 yıldır ayakta duran bir kirişsiz tonozdur.\n\nBüyük Tapınak, Fırtına Tanrısı ve Arinna Güneş Tanrıçası’na adanmıştı. Kazılarda bulunan 30.000’den fazla çivi yazılı tablet arasında Kadeş Antlaşması (MÖ 1259), tarihin bilinen ilk yazılı barış anlaşmasıdır; kopyası BM binasında asılıdır. Kentin 2 km kuzeydoğusundaki Yazılıkaya, kaya duvarlarına oyulmuş 60’tan fazla tanrı kabartmasıyla Hitit panteonunun taş kataloğudur.\n\n1986’da UNESCO listesine giren alan, 5 km’lik araç yoluyla ya da yürüyerek gezilir. Alanın girişinde deneysel arkeolojiyle yeniden yapılmış kerpiç sur bölümü bulunur. Kış aylarında kar yağar; ilkbahar en uygun mevsimdir.",
+    "isUnesco": true,
+    "unescoYear": 1986,
+    "openingHours": "08:30–19:00",
+    "entryFeeTry": 200,
+    "visitDurationMin": 240,
+    "accessibility": "moderate",
+    "nearestTrailhead": "Boğazkale – Hattuşa alt kapı",
+    "adventureTypes": [
+      "hiking",
+      "cycling"
+    ],
+    "rules": [
+      "Kabartmalara dokunmayın (Yazılıkaya)",
+      "Yerkapı tünelinde koşmayın; zemin kaygandır",
+      "Drone uçuşu yasaktır"
+    ],
+    "bestMonths": [
+      4,
+      5,
+      6,
+      9,
+      10
+    ],
+    "sources": [
+      "https://whc.unesco.org/en/list/377",
+      "https://muze.gov.tr",
+      "https://www.hattuscha.de"
+    ]
+  },
+  {
+    "id": "her_ani",
+    "slug": "ani",
+    "name": "Ani Ören Yeri",
+    "kind": "ancient_city",
+    "eras": [
+      "byzantine",
+      "seljuk",
+      "other"
+    ],
+    "countryCode": "TR",
+    "region": "Kars · Ocaklı",
+    "elevationM": 1460,
+    "summary": "“1001 kiliseli şehir”: Arpaçay kanyonunun kıyısında Bagratlı, Bizans, Selçuklu ve Gürcü izleri taşıyan hayalet kent.",
+    "history": "Ani, 961’de Bagratlı Ermeni Krallığı’nın başkenti oldu ve İpek Yolu üzerinde 100.000’i aşan nüfusuyla Konstantinopolis ve Bağdat ile anılan bir metropole dönüştü. 1045’te Bizans’a, 1064’te Selçuklu Sultanı Alparslan’a geçti; Alparslan’ın zaferi için yaptırdığı Ebul Menuçehr Camii, Anadolu’daki en eski Türk camisi kabul edilir. Gürcü Krallığı, Moğollar ve Karakoyunlular kenti sırayla ele geçirdi; 1319 depremi ve ticaret yollarının değişmesiyle Ani boşaldı.\n\nArpaçay kanyonunun kıyısında 78 hektarlık alanda 1001 yapılı Katedral (mimar Trdat, 1001), yuvarlak Aziz Gregor Kilisesi (Tigran Honents, freskli), Kurtarıcı Kilisesi, Selçuklu sarayı ve dünyanın en eski köprü kalıntılarından biri yer alır. Çift sıralı surlar ve Aslanlı Kapı Bagratlı savunma mimarisinin örneğidir.\n\n2016’da UNESCO listesine giren Ani, Kars’tan 45 km uzaktadır. Alan geniş ve rüzgârlıdır; sınır hattında bulunduğundan bazı bölümlere yaklaşmak yasaktır.",
+    "isUnesco": true,
+    "unescoYear": 2016,
+    "openingHours": "08:00–19:00",
+    "entryFeeTry": 200,
+    "visitDurationMin": 180,
+    "accessibility": "moderate",
+    "nearestTrailhead": "Ani Aslanlı Kapı otoparkı",
+    "adventureTypes": [
+      "hiking",
+      "cycling"
+    ],
+    "rules": [
+      "Sınır hattı şeritlerini geçmeyin",
+      "Kanyon kenarına yaklaşmayın; korkuluk yoktur",
+      "Drone uçuşu yasaktır (sınır bölgesi)",
+      "Freskli yapılarda flaş yasaktır"
+    ],
+    "bestMonths": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "sources": [
+      "https://whc.unesco.org/en/list/1518",
+      "https://muze.gov.tr"
+    ]
+  },
+  {
+    "id": "her_ahlat",
+    "slug": "ahlat-selcuklu-mezarligi",
+    "name": "Ahlat Selçuklu Mezarlığı",
+    "kind": "tomb",
+    "eras": [
+      "seljuk",
+      "other"
+    ],
+    "countryCode": "TR",
+    "region": "Bitlis · Ahlat",
+    "elevationM": 1700,
+    "summary": "Van Gölü kıyısında 8.000’den fazla oymalı mezar taşı ve kümbetlerle dünyanın en büyük Türk-İslam mezarlığı.",
+    "history": "Ahlat, Van Gölü’nün kuzeybatı kıyısında Urartu’dan Osmanlı’ya kesintisiz iskân görmüş bir kenttir. 12.–15. yüzyıllar arasında Ahlatşahlar, Eyyubiler, Selçuklular ve İlhanlılar döneminde “Kubbetü’l-İslam” unvanıyla anılan kent, taş ustalarının merkeziydi; Ahlatlı ustalar Divriği ve Konya’dan Kahire’ye kadar eser verdi.\n\n210 dönümlük Meydanlık Mezarlığı’ndaki 4 metreye ulaşan volkanik tüf mezar taşları, geometrik örgüler, palmet ve kûfî yazılarla bezelidir; her biri bir ustanın imzasını taşır. Ulu Kümbet (1273), Bayındır Kümbeti (1492) ve Çifte Kümbetler, Selçuklu anıt mezar mimarisinin Anadolu’daki en etkileyici örnekleridir. Osmanlı Kalesi, Kanuni Sultan Süleyman döneminde gölün kıyısına yapıldı.\n\nAlan 2000’den beri UNESCO geçici listesindedir. Nemrut Kalderası’nın (Bitlis) eteklerinde bulunan mezarlık, krater gölü ve Süphan Dağı tırmanışlarıyla birleştirilebilir. Kış uzun ve karlıdır.",
+    "isUnesco": false,
+    "unescoYear": null,
+    "openingHours": "24 saat",
+    "entryFeeTry": null,
+    "visitDurationMin": 90,
+    "accessibility": "easy",
+    "nearestTrailhead": "Ahlat Müzesi",
+    "adventureTypes": [
+      "hiking",
+      "cycling"
+    ],
+    "rules": [
+      "Mezar taşlarına yaslanmayın ve tırmanmayın",
+      "Kümbetlerin içine izinsiz girilmez"
+    ],
+    "bestMonths": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "sources": [
+      "https://kvmgm.ktb.gov.tr",
+      "https://muze.gov.tr"
+    ]
+  },
+  {
+    "id": "her_derinkuyu",
+    "slug": "derinkuyu-kaymakli",
+    "name": "Derinkuyu & Kaymaklı Yeraltı Şehirleri",
+    "kind": "underground_city",
+    "eras": [
+      "phrygian",
+      "byzantine"
+    ],
+    "countryCode": "TR",
+    "region": "Nevşehir · Derinkuyu",
+    "elevationM": 1300,
+    "summary": "20.000 kişiyi barındırabilen 8 katlı yeraltı kenti; havalandırma bacaları, taş kapılar ve 8 km’lik tünel bağlantısı.",
+    "history": "Kapadokya’nın yumuşak volkanik tüfü, binlerce yıl boyunca yeraltına oyulmuş kentler için ideal bir zemin sağladı. Derinkuyu’nun ilk katlarının Frig döneminde (MÖ 8.–7. yüzyıl) açıldığı, Bizans döneminde Arap akınlarına karşı 85 metre derinliğe ve 8 kata genişletildiği düşünülür. Ahır, şarap mahzeni, kilise, okul, mezar ve 55 havalandırma bacasıyla 20.000 kişi ve hayvanları aylarca yaşayabilirdi. Yarım ton ağırlığındaki değirmen taşı biçimli kapılar yalnızca içeriden kapatılabiliyordu.\n\n9 km kuzeydeki Kaymaklı, 8 kattan dördü açık, daha geniş ve alçak tünelleriyle Kapadokya’nın en büyük yeraltı kentidir; iki kentin 8 km’lik tünelle bağlı olduğu söylenir. Derinkuyu 1963’te bir ev tadilatında kaybolan tavuklar sayesinde yeniden keşfedildi.\n\nGöreme Millî Parkı ve Kapadokya Kaya Alanları kaydıyla 1985’te UNESCO listesine giren kentler, dar ve alçak tünellerden geçildiği için klostrofobisi olanlar için zorlayıcıdır. İçerisi yıl boyu 13°C’dir.",
+    "isUnesco": true,
+    "unescoYear": 1985,
+    "openingHours": "08:00–19:00",
+    "entryFeeTry": 450,
+    "visitDurationMin": 90,
+    "accessibility": "hard",
+    "nearestTrailhead": "Derinkuyu Yeraltı Şehri girişi",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "rules": [
+      "Okları takip edin; tek yönlü geçiş",
+      "Kalp/tansiyon rahatsızlığı ve klostrofobisi olanlara önerilmez",
+      "Bacalara obje atmak yasaktır",
+      "Büyük sırt çantasıyla girilmez"
+    ],
+    "bestMonths": [
+      3,
+      4,
+      5,
+      6,
+      9,
+      10,
+      11
+    ],
+    "sources": [
+      "https://whc.unesco.org/en/list/357",
+      "https://muze.gov.tr"
+    ]
+  },
+  {
+    "id": "her_goreme",
+    "slug": "goreme-acik-hava-muzesi",
+    "name": "Göreme Açık Hava Müzesi",
+    "kind": "monastery",
+    "eras": [
+      "byzantine"
+    ],
+    "countryCode": "TR",
+    "region": "Nevşehir · Göreme",
+    "elevationM": 1100,
+    "summary": "Peribacalarına oyulmuş 10.–12. yüzyıl manastırları ve fresk dolu Karanlık Kilise; Kapadokya’nın kalbi.",
+    "history": "Göreme vadisi, 4. yüzyıldan itibaren Kayserili Aziz Basil’in öğretisiyle Kapadokya’da gelişen keşiş yaşamının merkeziydi. 10.–12. yüzyıllar arasında tüf kayalara oyulan kiliseler, yemekhaneler ve hücrelerden oluşan manastır kompleksi bugün açık hava müzesi olarak gezilir. Elmalı Kilise, Yılanlı Kilise, Çarıklı Kilise ve Tokalı Kilise Bizans resim sanatının taşra ekolünün en iyi korunmuş örneklerini taşır.\n\nKaranlık Kilise (11. yüzyıl), az ışık aldığı için freskleri neredeyse orijinal canlılığında kalan yapıdır; İsa’nın yaşamından sahneler lacivert zemin üzerine işlenmiştir ve ayrı biletle ziyaret edilir. Kızlar Manastırı altı katlı bir kaya kütlesine oyulmuştur. Bazı fresklerdeki tahribat, İkonoklazm dönemi ve sonraki yüzyılların izidir.\n\nMüze, Göreme kasabasına 1,5 km’dir ve Kızılçukur, Meskendir ve Güvercinlik vadilerine giden yürüyüş patikalarının kesişme noktasındadır. Balon uçuşları gün doğumunda vadinin üzerinden geçer.",
+    "isUnesco": true,
+    "unescoYear": 1985,
+    "openingHours": "08:00–19:00",
+    "entryFeeTry": 900,
+    "visitDurationMin": 120,
+    "accessibility": "moderate",
+    "nearestTrailhead": "Göreme Açık Hava Müzesi otoparkı",
+    "adventureTypes": [
+      "hiking",
+      "cycling"
+    ],
+    "rules": [
+      "Kiliselerde fotoğraf çekmek yasaktır",
+      "Fresklere dokunmayın",
+      "Karanlık Kilise ayrı biletlidir",
+      "Drone uçuşu izne tabidir (balon sahası)"
+    ],
+    "bestMonths": [
+      4,
+      5,
+      6,
+      9,
+      10,
+      11
+    ],
+    "sources": [
+      "https://whc.unesco.org/en/list/357",
+      "https://muze.gov.tr"
+    ]
+  },
+  {
+    "id": "her_sumela",
+    "slug": "sumela-manastiri",
+    "name": "Sümela Manastırı",
+    "kind": "monastery",
+    "eras": [
+      "byzantine",
+      "ottoman"
+    ],
+    "countryCode": "TR",
+    "region": "Trabzon · Maçka",
+    "elevationM": 1200,
+    "summary": "Altındere Vadisi’nin 300 metre üzerindeki sarp kayaya asılmış Meryem Ana manastırı; freskli kaya kilisesi ve sis.",
+    "history": "Sümela (Panagia Sumela), geleneğe göre 386’da Atinalı iki keşiş tarafından, Aziz Luka’nın yaptığına inanılan bir Meryem ikonasını bulmalarıyla kuruldu. Manastır, Trabzon Komnenos İmparatorluğu döneminde (13.–15. yüzyıl) zirveye ulaştı; III. Aleksios 1360’ta manastırı yeniden yaptırdı ve geniş araziler bağışladı. Fatih Sultan Mehmet 1461’de Trabzon’u alınca manastırın haklarını korudu; Osmanlı padişahları fermanlarla ayrıcalıklarını sürdürdü.\n\nKaya kilisesinin iç ve dış duvarları 18. yüzyıla kadar kat kat fresklerle bezendi; Yaratılış, İsa’nın yaşamı ve Meryem sahneleri görülür. 72 odalı manastır, kütüphane, kutsal su kaynağı ve öğrenci hücreleriyle vadi kayalığına tırmanır. 1923 mübadelesinde terk edildi; ikona bugün Yunanistan’daki Yeni Sümela’dadır.\n\n2015–2020 arasında kaya düşmesine karşı çelik ağlarla güçlendirilen manastır, Altındere Vadisi Millî Parkı içindedir. Otoparktan 40 dakikalık dik orman patikası ya da servisle ulaşılır; sis ve yağış yıl boyu olağandır.",
+    "isUnesco": false,
+    "unescoYear": null,
+    "openingHours": "08:00–19:00",
+    "entryFeeTry": 450,
+    "visitDurationMin": 150,
+    "accessibility": "hard",
+    "nearestTrailhead": "Altındere Millî Parkı alt otopark",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "rules": [
+      "Fresklere dokunmak ve flaş kullanmak yasaktır",
+      "Kaya düşmesi uyarı tabelalarına uyun",
+      "Drone uçuşu yasaktır (Millî Park)"
+    ],
+    "bestMonths": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "sources": [
+      "https://muze.gov.tr",
+      "https://kvmgm.ktb.gov.tr"
+    ]
+  },
+  {
+    "id": "her_ayasofya",
+    "slug": "ayasofya",
+    "name": "Ayasofya",
+    "kind": "temple",
+    "eras": [
+      "byzantine",
+      "ottoman"
+    ],
+    "countryCode": "TR",
+    "region": "İstanbul · Sultanahmet",
+    "elevationM": 30,
+    "summary": "1.500 yıllık kubbe: Bizans katedrali, Osmanlı camisi ve dünya mimarlık tarihinin dönüm noktası.",
+    "history": "Ayasofya, İmparator Justinianus tarafından 532–537 arasında, Nika İsyanı’nda yanan kilisenin yerine yalnızca beş yılda inşa ettirildi. Mimarlar Tralles’li Anthemius ve Milet’li İsidoros’un tasarladığı 31 metre çapındaki kubbe, 40 pencereden giren ışıkla havada asılı görünür ve bin yıl boyunca dünyanın en büyük kilisesi olarak kaldı. 558 depreminde çöken kubbe daha yüksek bir formda yeniden yapıldı.\n\n1453’te Fatih Sultan Mehmet kenti alınca yapıyı camiye çevirdi; Mimar Sinan 16. yüzyılda payandalarla güçlendirdi, minareler ve türbeler eklendi. Deesis mozaiği, Komnenos ve Zoe panoları ile Osmanlı hat levhaları aynı mekânda görülür. 1934’te müzeye, 2020’de yeniden camiye dönüştürüldü; 2024’ten itibaren turistler üst galeri girişini ayrı biletle kullanır.\n\n1985’te İstanbul’un Tarihi Alanları kapsamında UNESCO listesine giren Ayasofya, Sultanahmet’te Yerebatan Sarnıcı, Topkapı ve Hipodrom’la birlikte yürüyerek gezilir. Namaz vakitlerinde ziyaret kısıtlanır.",
+    "isUnesco": true,
+    "unescoYear": 1985,
+    "openingHours": "09:00–19:00",
+    "entryFeeTry": 1200,
+    "visitDurationMin": 90,
+    "accessibility": "easy",
+    "nearestTrailhead": "Sultanahmet Meydanı",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "rules": [
+      "Kıyafet kuralı: omuz ve diz kapalı, kadınlar için başörtüsü",
+      "Namaz vakitlerinde turist girişi durur",
+      "Ayakkabılar ana mekânda çıkarılır",
+      "Drone uçuşu yasaktır"
+    ],
+    "bestMonths": [
+      3,
+      4,
+      5,
+      9,
+      10,
+      11
+    ],
+    "sources": [
+      "https://whc.unesco.org/en/list/356",
+      "https://ayasofyacamii.gov.tr"
+    ]
+  },
+  {
+    "id": "her_machu_picchu",
+    "slug": "machu-picchu",
+    "name": "Machu Picchu",
+    "kind": "ancient_city",
+    "eras": [
+      "inca"
+    ],
+    "countryCode": "PE",
+    "region": "Cusco · Urubamba Vadisi",
+    "elevationM": 2430,
+    "summary": "Bulutların üzerindeki İnka kenti; Inca Trail’in 4. gününde Güneş Kapısı’ndan ilk bakış.",
+    "history": "Machu Picchu, İnka İmparatoru Pachacuti tarafından 1450 civarında Urubamba Nehri’nin 400 metre üzerindeki bir sırtta kraliyet malikânesi ve kutsal merkez olarak yaptırıldı. Yaklaşık 750 kişinin yaşadığı kent, harç kullanılmadan birbirine kusursuz oturtulmuş granit bloklardan yapılmış 200 yapıdan oluşur; Intihuatana taşı, Güneş Tapınağı ve Üç Pencereli Tapınak astronomik hizalamalarla dikkat çeker. Tarım terasları ve 16 çeşmeyi besleyen kanal sistemi, And mühendisliğinin zirvesidir.\n\nİspanyol istilası sırasında (1530’lar) terk edilen kent, işgalciler tarafından hiç bulunmadı ve 1911’de Hiram Bingham’ın yerel çiftçilerin rehberliğinde ulaşmasıyla dünya gündemine girdi. 1983’te UNESCO listesine alındı.\n\nZiyaret için önceden alınmış saatli bilet ve rehber zorunludur; günlük ziyaretçi sayısı sınırlıdır. Klasik Inca Trail 4 günde 43 km yürünerek Inti Punku’dan (Güneş Kapısı) kente girer ve Şubat’ta kapalıdır. Huayna Picchu tırmanışı ayrı izinlidir.",
+    "isUnesco": true,
+    "unescoYear": 1983,
+    "openingHours": "06:00–17:30",
+    "entryFeeTry": 2200,
+    "visitDurationMin": 240,
+    "accessibility": "hard",
+    "nearestTrailhead": "Km 82 (Piscacucho) – Inca Trail başlangıcı",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "rules": [
+      "Rehber ve saatli bilet zorunludur",
+      "Drone, baston ucu (lastiksiz) ve büyük çanta yasaktır",
+      "Belirlenen devre dışına çıkılmaz; geri dönüş yoktur",
+      "Duvarlara tırmanmak ve oturmak yasaktır"
+    ],
+    "bestMonths": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "sources": [
+      "https://whc.unesco.org/en/list/274",
+      "https://www.machupicchu.gob.pe"
+    ]
+  },
+  {
+    "id": "her_petra",
+    "slug": "petra",
+    "name": "Petra",
+    "kind": "ancient_city",
+    "eras": [
+      "nabataean",
+      "roman",
+      "byzantine"
+    ],
+    "countryCode": "JO",
+    "region": "Ma‘an · Wadi Musa",
+    "elevationM": 950,
+    "summary": "Siq kanyonunun sonunda beliren Hazine: pembe kumtaşına oyulmuş Nebati başkenti ve Manastır’a 800 basamak.",
+    "history": "Petra, MÖ 4. yüzyıldan itibaren Nebatiler’in başkenti olarak Arabistan, Mısır ve Akdeniz arasındaki tütsü ve baharat ticaretini denetledi. Kumtaşı kanyonlarına oyulmuş 800’den fazla anıt arasında El Hazne (Hazine), Kral Mezarları, 8.500 kişilik tiyatro ve Ed-Deir (Manastır) öne çıkar. Nebatiler, çöl ortasında barajlar, sarnıçlar ve seramik borularla suyu yöneterek 20.000 kişilik bir kent yaşattı.\n\nMS 106’da Roma’ya bağlanan Petra, sütunlu cadde ve Büyük Tapınak ile Romalılaştı; 363 depremi ve ticaret yollarının denize kaymasıyla geriledi. Bizans döneminde piskoposluk merkezi olarak sürdü, Haçlılar 12. yüzyılda kale yaptı. Batı dünyası için 1812’de İsviçreli gezgin Burckhardt tarafından “yeniden keşfedildi”. 1985’te UNESCO listesine, 2007’de Yeni Yedi Harika’ya girdi.\n\nAna giriş 1,2 km’lik Siq kanyonundan geçer; Manastır’a 800 basamak, Yüksek Kurban Yeri’ne 45 dakikalık tırmanış vardır. Wadi Musa’dan ya da Küçük Petra’dan (Siq al-Barid) alternatif “arka kapı” yürüyüş rotası Manastır’a çıkar.",
+    "isUnesco": true,
+    "unescoYear": 1985,
+    "openingHours": "06:00–18:00",
+    "entryFeeTry": 2400,
+    "visitDurationMin": 420,
+    "accessibility": "hard",
+    "nearestTrailhead": "Petra Ziyaretçi Merkezi (Wadi Musa)",
+    "adventureTypes": [
+      "hiking",
+      "climbing"
+    ],
+    "rules": [
+      "Anıtların içine girmek ve tırmanmak yasaktır",
+      "Drone uçuşu yasaktır",
+      "Hayvanla taşıma hizmetleri için resmî tarifeyi kullanın",
+      "Günde en az 3 L su taşıyın; gölge sınırlıdır"
+    ],
+    "bestMonths": [
+      3,
+      4,
+      5,
+      10,
+      11
+    ],
+    "sources": [
+      "https://whc.unesco.org/en/list/326",
+      "https://www.visitpetra.jo"
+    ]
+  },
+  {
+    "id": "her_angkor",
+    "slug": "angkor",
+    "name": "Angkor",
+    "kind": "temple",
+    "eras": [
+      "khmer"
+    ],
+    "countryCode": "KH",
+    "region": "Siem Reap",
+    "elevationM": 65,
+    "summary": "Dünyanın en büyük dinî yapısı Angkor Wat, Bayon’un gülümseyen yüzleri ve Ta Prohm’u yutan ağaçlar; bisikletle gezilir.",
+    "history": "Angkor, 9.–15. yüzyıllar arasında Khmer İmparatorluğu’nun başkentiydi ve 1.000 km²’lik alanıyla sanayi öncesi dünyanın en geniş kentsel yerleşimiydi. II. Suryavarman’ın 1113–1150 arasında Vişnu’ya adadığı Angkor Wat, 162 hektarlık hendekle çevrili beş kuleli bir Meru Dağı tasviridir; 800 metrelik kabartma galerileri Mahabharata sahnelerini ve “Süt Okyanusunun Çalkalanması”nı anlatır.\n\nVII. Jayavarman, 12. yüzyıl sonunda başkent Angkor Thom’u ve merkezinde 216 dev gülümseyen yüzle Bayon Tapınağı’nı yaptırdı. Ta Prohm, kapok ve incir ağaçlarının yuttuğu hâliyle bilinçli olarak “bulunduğu gibi” bırakıldı. Baray adı verilen dev su rezervuarları pirinç tarımını ve nüfusu besledi; iklim değişimi ve Siyam saldırılarıyla 1431’de başkent güneye taşındı.\n\n1992’de UNESCO listesine giren park, 1, 3 ve 7 günlük geçiş kartlarıyla gezilir; küçük tur (17 km) ve büyük tur (26 km) bisiklet ya da tuk-tuk ile yapılır. Gün doğumu Angkor Wat’ın kuzey havuzundan izlenir.",
+    "isUnesco": true,
+    "unescoYear": 1992,
+    "openingHours": "05:00–17:30",
+    "entryFeeTry": 1300,
+    "visitDurationMin": 480,
+    "accessibility": "moderate",
+    "nearestTrailhead": "Angkor bilet merkezi (Siem Reap)",
+    "adventureTypes": [
+      "cycling",
+      "hiking"
+    ],
+    "rules": [
+      "Omuz ve diz kapalı kıyafet zorunludur",
+      "Drone uçuşu izne tabidir",
+      "Kabartmalara dokunmayın",
+      "Keşişlere kadınların dokunması yasaktır"
+    ],
+    "bestMonths": [
+      11,
+      12,
+      1,
+      2,
+      3
+    ],
+    "sources": [
+      "https://whc.unesco.org/en/list/668",
+      "https://www.angkorenterprise.gov.kh"
+    ]
+  },
+  {
+    "id": "her_chichen_itza",
+    "slug": "chichen-itza",
+    "name": "Chichén Itzá",
+    "kind": "ancient_city",
+    "eras": [
+      "maya"
+    ],
+    "countryCode": "MX",
+    "region": "Yucatán",
+    "elevationM": 30,
+    "summary": "El Castillo piramidinde ekinoks yılanı, Büyük Top Sahası ve Kutsal Cenote; Maya-Toltek sentezinin başkenti.",
+    "history": "Chichén Itzá, MS 600 civarında kurulmuş, 10.–13. yüzyıllar arasında kuzey Yucatán’ın en güçlü Maya kenti olmuştur. Adı “Itzáların kuyusunun ağzında” anlamına gelir; kent, kireçtaşı platformun altındaki cenote adlı doğal kuyulardan su alıyordu. Kutsal Cenote’ye yağmur tanrısı Chaac için altın, yeşim ve insan kurban ediliyordu.\n\nKukulkán Tapınağı (El Castillo), dört yüzünde 91’er basamak ve tepe platformuyla 365 günü temsil eder; ekinoks günbatımında merdiven korkuluğunda ışık-gölge oyunuyla tüylü yılan iner. Mezoamerika’nın en büyük top sahası (168 m), Savaşçılar Tapınağı’nın bin sütunu ve gözlemevi El Caracol, Toltek etkisiyle harmanlanmış Maya mimarisini sergiler. Kent 13. yüzyılda Mayapán’a üstünlüğü kaptırdı.\n\n1988’de UNESCO listesine giren alan, 2008’den beri piramide tırmanışa kapalıdır. Valladolid ya da Mérida’dan erken saatte gelin; öğleden sonra grupların yoğunluğu ve sıcak artar. Yakındaki Ik Kil cenote’sinde yüzülebilir.",
+    "isUnesco": true,
+    "unescoYear": 1988,
+    "openingHours": "08:00–17:00",
+    "entryFeeTry": 1400,
+    "visitDurationMin": 180,
+    "accessibility": "easy",
+    "nearestTrailhead": "Chichén Itzá ana giriş (Pisté)",
+    "adventureTypes": [
+      "hiking",
+      "diving"
+    ],
+    "rules": [
+      "Piramide tırmanmak yasaktır",
+      "Drone ve tripod yasaktır",
+      "Yapılara dokunmayın"
+    ],
+    "bestMonths": [
+      11,
+      12,
+      1,
+      2,
+      3
+    ],
+    "sources": [
+      "https://whc.unesco.org/en/list/483",
+      "https://www.inah.gob.mx"
+    ]
+  },
+  {
+    "id": "her_skellig",
+    "slug": "skellig-michael",
+    "name": "Skellig Michael",
+    "kind": "monastery",
+    "eras": [
+      "other"
+    ],
+    "countryCode": "IE",
+    "region": "Kerry · Atlantik",
+    "elevationM": 218,
+    "summary": "Atlantik’in 12 km açığında, 600 basamakla çıkılan 6. yüzyıl keşiş adası; arı kovanı hücreler ve puffin kolonisi.",
+    "history": "Skellig Michael (Sceilg Mhichíl), İrlanda’nın güneybatı ucundan 12 km açıkta, denizden 218 metre yükselen bir kaya adasıdır. 6.–8. yüzyıllar arasında Kelt Hristiyan keşişleri adanın kuzeydoğu terasına kuru taş duvarla altı “arı kovanı” hücre (clochán), iki dua evi ve bahçe kurdu; 12–13 keşiş yüzyıllarca burada balık, kuş yumurtası ve küçük bahçelerle yaşadı. Viking baskınları (823) kaydedilmiş, manastır 12.–13. yüzyılda ana karaya taşınmıştır.\n\n1826’da iki deniz feneri yapılan adaya bugün Portmagee’den küçük teknelerle, yalnızca Mayıs–Eylül arasında ve hava izin verdiğinde çıkılır; korkuluksuz 600 taş basamak deniz seviyesinden manastıra tırmanır. 1996’da UNESCO listesine giren ada, Star Wars filmlerinde Luke Skywalker’ın sığınağı olarak da tanındı.\n\nAda aynı zamanda puffin, fırtına kuşu ve sümsük kolonileriyle önemli bir kuş alanıdır; günde 180 ziyaretçi sınırı vardır ve tekneler haftalar öncesinden dolar.",
+    "isUnesco": true,
+    "unescoYear": 1996,
+    "openingHours": "09:30–16:30",
+    "entryFeeTry": 4500,
+    "visitDurationMin": 150,
+    "accessibility": "hard",
+    "nearestTrailhead": "Portmagee iskelesi",
+    "adventureTypes": [
+      "hiking",
+      "canoe"
+    ],
+    "rules": [
+      "Korkuluksuz basamaklar: çocuklar ve yükseklik korkusu olanlar için uygun değildir",
+      "Kuş yuvalarına yaklaşmayın (puffin)",
+      "Drone uçuşu yasaktır",
+      "Manastır alanında yeme-içme yasaktır"
+    ],
+    "bestMonths": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "sources": [
+      "https://whc.unesco.org/en/list/757",
+      "https://heritageireland.ie"
+    ]
+  },
+  {
+    "id": "her_mesa_verde",
+    "slug": "mesa-verde",
+    "name": "Mesa Verde",
+    "kind": "ancient_city",
+    "eras": [
+      "other"
+    ],
+    "countryCode": "US",
+    "region": "Colorado",
+    "elevationM": 2130,
+    "summary": "Uçurum kovuklarına yapılmış 600 Pueblo yerleşimi; Cliff Palace’a merdiven ve tünellerle korucu eşliğinde inilir.",
+    "history": "Mesa Verde, MS 550–1300 arasında Atalar Puebloları’nın (Anasazi) yaşadığı, Colorado’nun güneybatısında 2.000 metrelik bir platodur. İlk yüzyıllarda çukur evlerde yaşayan topluluk, 1190’dan sonra kanyon duvarlarındaki doğal kovuklara kumtaşı ve kerpiçten çok katlı köyler inşa etti. 150 odalı ve 23 kivalı Cliff Palace, Kuzey Amerika’nın en büyük uçurum yerleşimidir; Balcony House, Long House ve Spruce Tree House diğer önemli yerleşimlerdir.\n\nKivalar, yer altına gömülü yuvarlak tören odalarıdır ve bugünkü Pueblo halklarının (Hopi, Zuni, Acoma) törenlerinde yaşamaya devam eder. 1276–1299 arasındaki uzun kuraklık, kaynakların tükenmesi ve göç, 1300’e kadar tüm yerleşimlerin terk edilmesine yol açtı. 1888’de çiftçiler tarafından bulunan alan 1906’da ABD’nin ilk kültürel millî parkı, 1978’de UNESCO Dünya Mirası oldu.\n\nCliff Palace ve Balcony House yalnızca korucu eşliğinde, 10 metrelik ahşap merdivenler ve dar tünellerden geçerek ziyaret edilir; biletler önceden alınır. Park kışın kısmen kapanır.",
+    "isUnesco": true,
+    "unescoYear": 1978,
+    "openingHours": "08:00–18:30",
+    "entryFeeTry": 1100,
+    "visitDurationMin": 300,
+    "accessibility": "hard",
+    "nearestTrailhead": "Mesa Verde Visitor Center",
+    "adventureTypes": [
+      "hiking",
+      "cycling"
+    ],
+    "rules": [
+      "Uçurum evlerine yalnızca korucu turuyla girilir",
+      "Duvarlara yaslanmak ve oturmak yasaktır",
+      "Drone uçuşu yasaktır (Millî Park)",
+      "Kaya sanatı ve çanak parçaları toplanmaz"
+    ],
+    "bestMonths": [
+      5,
+      6,
+      9,
+      10
+    ],
+    "sources": [
+      "https://whc.unesco.org/en/list/27",
+      "https://www.nps.gov/meve"
+    ]
+  },
+  {
+    "id": "her_giza",
+    "slug": "giza",
+    "name": "Giza Piramitleri",
+    "kind": "tomb",
+    "eras": [
+      "egyptian"
+    ],
+    "countryCode": "EG",
+    "region": "Kahire · Giza Platosu",
+    "elevationM": 60,
+    "summary": "Antik dünyanın ayakta kalan tek harikası: Keops, Kefren ve Mikerinos piramitleri ile Büyük Sfenks.",
+    "history": "Giza Platosu, Eski Krallık’ın 4. Hanedanı’nda (MÖ 2600–2500) üç firavunun mezar kompleksi olarak inşa edildi. Keops’un Büyük Piramidi, 2,3 milyon kireçtaşı bloğuyla 146,6 metre yüksekliğe ulaşarak 3.800 yıl boyunca dünyanın en yüksek yapısı kaldı; iç koridorları Kral ve Kraliçe odalarına, 2017’de müon taramasıyla bulunan “Büyük Boşluk”a uzanır. Kefren’in piramidi tepesinde orijinal kaplama taşlarını korur; Mikerinos’unki en küçük olanıdır.\n\n73 metre uzunluğundaki Büyük Sfenks, Kefren döneminde tek bir kireçtaşı çıkıntısından yontuldu. Piramitleri köleler değil, ekmek, bira ve etle beslenen ücretli işçi ekipleri yaptı; Heit el-Ghurab işçi kasabası ve mezarlığı bunu kanıtlar. Güneş tekneleri, kraliçe piramitleri ve mastaba mezarlıkları platoyu tamamlar.\n\n1979’da Memphis nekropolü kapsamında UNESCO listesine giren alan, Kahire’nin banliyösünün hemen kıyısındadır. 2023’te açılan Büyük Mısır Müzesi (GEM) platonun bitişiğindedir. Erken sabah ziyareti hem sıcaktan hem de kalabalıktan kaçmak için şarttır.",
+    "isUnesco": true,
+    "unescoYear": 1979,
+    "openingHours": "08:00–17:00",
+    "entryFeeTry": 1000,
+    "visitDurationMin": 240,
+    "accessibility": "moderate",
+    "nearestTrailhead": "Giza Platosu ana giriş (Mena House)",
+    "adventureTypes": [
+      "hiking",
+      "cycling"
+    ],
+    "rules": [
+      "Piramitlere tırmanmak yasaktır ve cezalıdır",
+      "Büyük Piramit içi ayrı biletlidir; kamera yasaktır",
+      "Drone uçuşu yasaktır",
+      "Deve/at hizmetleri için resmî tarifeyi kullanın"
+    ],
+    "bestMonths": [
+      10,
+      11,
+      12,
+      1,
+      2,
+      3
+    ],
+    "sources": [
+      "https://whc.unesco.org/en/list/86",
+      "https://egymonuments.gov.eg"
+    ]
+  }
+]

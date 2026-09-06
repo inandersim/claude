@@ -1,0 +1,1503 @@
+[
+  {
+    "id": "cur:camp:olimpos",
+    "slug": "olimpos-kamp-alani",
+    "kind": "campsite",
+    "name": "Olimpos Kamp Alanı",
+    "adventureTypes": [
+      "hiking",
+      "climbing"
+    ],
+    "elevationM": 20,
+    "description": "Likya Yolu üzerinde, antik kent ve plaja yürüme mesafesinde ağaç evler ve çadır alanı.",
+    "countryCode": "TR",
+    "tags": {
+      "fee": "yes",
+      "drinking_water": "yes",
+      "shower": "yes"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:camp:kabak",
+    "slug": "kabak-koyu-kamp",
+    "kind": "campsite",
+    "name": "Kabak Koyu Kamp",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "elevationM": 60,
+    "description": "Faralya inişinin sonunda, Likya Yolu yürüyüşçülerinin uğrak noktası; deniz manzaralı platformlar.",
+    "countryCode": "TR",
+    "tags": {
+      "fee": "yes",
+      "tents": "yes"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:camp:ayder",
+    "slug": "ayder-yaylasi-kamp-alani",
+    "kind": "campsite",
+    "name": "Ayder Yaylası Kamp Alanı",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "elevationM": 1350,
+    "description": "Kaçkar çıkışlarının başlangıç noktası. Kaplıca ve yayla evleri yakın.",
+    "countryCode": "TR",
+    "tags": {
+      "drinking_water": "yes"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:camp:yosemite",
+    "slug": "upper-pines-campground",
+    "kind": "campsite",
+    "name": "Upper Pines Campground",
+    "adventureTypes": [
+      "hiking",
+      "climbing"
+    ],
+    "elevationM": 1220,
+    "description": "Yosemite Vadisi içinde, Half Dome ve El Capitan yürüyüşlerine en yakın kamp alanı. Rezervasyon şart.",
+    "countryCode": "US",
+    "tags": {
+      "fee": "yes",
+      "capacity": "238",
+      "reservation": "required"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:camp:lakelouise",
+    "slug": "lake-louise-campground",
+    "kind": "campsite",
+    "name": "Lake Louise Campground",
+    "adventureTypes": [
+      "hiking",
+      "climbing",
+      "skiing"
+    ],
+    "elevationM": 1540,
+    "description": "Banff Millî Parkı; Lake Louise ve Moraine Lake yürüyüşleri için üs.",
+    "countryCode": "CA",
+    "tags": {
+      "fee": "yes",
+      "power_supply": "yes"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:camp:lauterbrunnen",
+    "slug": "camping-jungfrau",
+    "kind": "campsite",
+    "name": "Camping Jungfrau",
+    "adventureTypes": [
+      "hiking",
+      "paragliding",
+      "skiing"
+    ],
+    "elevationM": 800,
+    "description": "Lauterbrunnen vadisinde şelalelerin altında; Eiger–Mönch–Jungfrau yürüyüşleri ve yamaç paraşütü inişleri.",
+    "countryCode": "CH",
+    "tags": {
+      "fee": "yes",
+      "internet_access": "wlan"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:camp:zion",
+    "slug": "watchman-campground",
+    "kind": "campsite",
+    "name": "Watchman Campground",
+    "adventureTypes": [
+      "hiking",
+      "climbing"
+    ],
+    "elevationM": 1200,
+    "description": "Zion Millî Parkı girişi; Angels Landing ve The Narrows için ideal.",
+    "countryCode": "US",
+    "tags": {
+      "fee": "yes"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:climb:geyikbayiri",
+    "slug": "geyikbayiri",
+    "kind": "climbing",
+    "name": "Geyikbayırı",
+    "adventureTypes": [
+      "climbing"
+    ],
+    "elevationM": 620,
+    "description": "1.000+ kireçtaşı sport rotası, 4a–9a. Ekim–Nisan sezonu; Avrupa'nın en iyi kış tırmanış alanlarından.",
+    "countryCode": "TR",
+    "tags": {
+      "climbing:sport": "yes",
+      "climbing:grade:french:min": "4a",
+      "climbing:grade:french:max": "9a",
+      "climbing:routes": "1000"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:climb:kalymnos",
+    "slug": "kalymnos",
+    "kind": "climbing",
+    "name": "Kalymnos",
+    "adventureTypes": [
+      "climbing",
+      "diving"
+    ],
+    "elevationM": 150,
+    "description": "Ege'de 3.400+ sport rota, tüfa ve sarkıtlar; Massouri merkez.",
+    "countryCode": "GR",
+    "tags": {
+      "climbing:sport": "yes",
+      "climbing:routes": "3400"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:climb:fontainebleau",
+    "slug": "fontainebleau",
+    "kind": "climbing",
+    "name": "Fontainebleau",
+    "adventureTypes": [
+      "climbing"
+    ],
+    "elevationM": 100,
+    "description": "Dünyanın en ünlü boulder alanı; kumtaşı bloklar, renk kodlu devreler.",
+    "countryCode": "FR",
+    "tags": {
+      "climbing:boulder": "yes"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:climb:elchorro",
+    "slug": "el-chorro",
+    "kind": "climbing",
+    "name": "El Chorro",
+    "adventureTypes": [
+      "climbing",
+      "hiking"
+    ],
+    "elevationM": 300,
+    "description": "Endülüs; Caminito del Rey boğazı, çok uzunluklu ve sport rotalar, kış güneşi.",
+    "countryCode": "ES",
+    "tags": {
+      "climbing:sport": "yes",
+      "climbing:multipitch": "yes"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:climb:railay",
+    "slug": "railay-tonsai",
+    "kind": "climbing",
+    "name": "Railay / Tonsai",
+    "adventureTypes": [
+      "climbing",
+      "diving"
+    ],
+    "elevationM": 5,
+    "description": "Krabi; plajdan başlayan kireçtaşı kuleler, deep water solo.",
+    "countryCode": "TH",
+    "tags": {
+      "climbing:sport": "yes",
+      "climbing:deepwater": "yes"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:climb:yosemite",
+    "slug": "yosemite-valley",
+    "kind": "climbing",
+    "name": "Yosemite Valley",
+    "adventureTypes": [
+      "climbing",
+      "hiking"
+    ],
+    "elevationM": 1200,
+    "description": "El Capitan, Half Dome; big wall tırmanışının doğduğu yer.",
+    "countryCode": "US",
+    "tags": {
+      "climbing:trad": "yes",
+      "climbing:multipitch": "yes"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:climb:arco",
+    "slug": "arco",
+    "kind": "climbing",
+    "name": "Arco",
+    "adventureTypes": [
+      "climbing",
+      "cycling"
+    ],
+    "elevationM": 90,
+    "description": "Garda Gölü kuzeyi; Rock Master festivali, yüzlerce sport rota.",
+    "countryCode": "IT",
+    "tags": {
+      "climbing:sport": "yes"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:climb:frankenjura",
+    "slug": "frankenjura",
+    "kind": "climbing",
+    "name": "Frankenjura",
+    "adventureTypes": [
+      "climbing"
+    ],
+    "elevationM": 450,
+    "description": "Almanya'nın en büyük tırmanış bölgesi; 10.000+ rota, Action Directe.",
+    "countryCode": "DE",
+    "tags": {
+      "climbing:sport": "yes",
+      "climbing:routes": "10000"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:climb:rocklands",
+    "slug": "rocklands",
+    "kind": "climbing",
+    "name": "Rocklands",
+    "adventureTypes": [
+      "climbing"
+    ],
+    "elevationM": 900,
+    "description": "Cederberg; dünyanın en iyi boulder alanlarından, Haziran–Ağustos.",
+    "countryCode": "ZA",
+    "tags": {
+      "climbing:boulder": "yes"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:climb:squamish",
+    "slug": "squamish",
+    "kind": "climbing",
+    "name": "Squamish",
+    "adventureTypes": [
+      "climbing",
+      "hiking"
+    ],
+    "elevationM": 20,
+    "description": "The Chief granit kütlesi; trad, sport ve boulder.",
+    "countryCode": "CA",
+    "tags": {
+      "climbing:trad": "yes",
+      "climbing:boulder": "yes"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:dive:kas",
+    "slug": "kas-kanyon",
+    "kind": "diving",
+    "name": "Kaş — Kanyon",
+    "adventureTypes": [
+      "diving"
+    ],
+    "elevationM": -32,
+    "description": "Akdeniz'in en iyi dalış noktalarından; 25 m+ görüş, kaplumbağalar, uçak batığı yakın.",
+    "countryCode": "TR",
+    "tags": {
+      "depth": "32",
+      "scuba:visibility": "25"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:dive:dahab",
+    "slug": "blue-hole-dahab",
+    "kind": "diving",
+    "name": "Blue Hole, Dahab",
+    "adventureTypes": [
+      "diving"
+    ],
+    "elevationM": -100,
+    "description": "Kızıldeniz; 100 m derinlikte ünlü kemer. Yalnızca teknik dalgıçlar için derinler.",
+    "countryCode": "EG",
+    "tags": {
+      "depth": "100"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:dive:rasmohammed",
+    "slug": "ras-mohammed",
+    "kind": "diving",
+    "name": "Ras Mohammed",
+    "adventureTypes": [
+      "diving"
+    ],
+    "elevationM": -40,
+    "description": "Sina'nın ucunda millî park; Shark & Yolanda resifleri.",
+    "countryCode": "EG",
+    "tags": {
+      "depth": "40"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:dive:sipadan",
+    "slug": "sipadan",
+    "kind": "diving",
+    "name": "Sipadan",
+    "adventureTypes": [
+      "diving"
+    ],
+    "elevationM": -600,
+    "description": "Borneo; barracuda girdapları, kaplumbağa mağarası. Günlük izin kotası var.",
+    "countryCode": "MY",
+    "tags": {
+      "permit": "required"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:dive:gbr",
+    "slug": "great-barrier-reef-cod-hole",
+    "kind": "diving",
+    "name": "Great Barrier Reef — Cod Hole",
+    "adventureTypes": [
+      "diving"
+    ],
+    "elevationM": -30,
+    "description": "Cairns/Lizard Island; dev potato cod balıkları.",
+    "countryCode": "AU",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:dive:silfra",
+    "slug": "silfra",
+    "kind": "diving",
+    "name": "Silfra",
+    "adventureTypes": [
+      "diving"
+    ],
+    "elevationM": 100,
+    "description": "İki tektonik levha arasında 2 °C buzul suyunda 100 m görüş. Kuru elbise zorunlu.",
+    "countryCode": "IS",
+    "tags": {
+      "scuba:visibility": "100"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:dive:komodo",
+    "slug": "komodo-batu-bolong",
+    "kind": "diving",
+    "name": "Komodo — Batu Bolong",
+    "adventureTypes": [
+      "diving"
+    ],
+    "elevationM": -30,
+    "description": "Manta noktaları, güçlü akıntılar; ileri seviye.",
+    "countryCode": "ID",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:dive:rajaampat",
+    "slug": "raja-ampat-cape-kri",
+    "kind": "diving",
+    "name": "Raja Ampat — Cape Kri",
+    "adventureTypes": [
+      "diving"
+    ],
+    "elevationM": -35,
+    "description": "Dünyanın en yüksek tür çeşitliliği; tek dalışta 374 tür rekoru.",
+    "countryCode": "ID",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:dive:dosojos",
+    "slug": "cenote-dos-ojos",
+    "kind": "diving",
+    "name": "Cenote Dos Ojos",
+    "adventureTypes": [
+      "diving"
+    ],
+    "elevationM": 10,
+    "description": "Yucatán; tatlı su mağara/cenote dalışı, kristal görüş.",
+    "countryCode": "MX",
+    "tags": {
+      "cave": "yes"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:dive:similan",
+    "slug": "similan-islands",
+    "kind": "diving",
+    "name": "Similan Islands",
+    "adventureTypes": [
+      "diving"
+    ],
+    "elevationM": -30,
+    "description": "Andaman; granit kayalıklar, balina köpekbalığı. Kasım–Nisan açık.",
+    "countryCode": "TH",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:divecentre:kas",
+    "slug": "kas-dalis-merkezleri-liman",
+    "kind": "dive_centre",
+    "name": "Kaş Dalış Merkezleri (Liman)",
+    "adventureTypes": [
+      "diving"
+    ],
+    "elevationM": 3,
+    "description": "Limandaki PADI/SSI merkezleri; günlük 2 dalış, ekipman kiralama.",
+    "countryCode": "TR",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:hike:likya",
+    "slug": "likya-yolu",
+    "kind": "hiking_route",
+    "name": "Likya Yolu",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "elevationM": 0,
+    "description": "Fethiye–Antalya arası 540 km; Türkiye'nin ilk uzun mesafe rotası. Mart–Mayıs, Ekim–Kasım.",
+    "countryCode": "TR",
+    "tags": {
+      "distance": "540",
+      "network": "nwn",
+      "osmc:symbol": "red:white:red_stripe"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:hike:kackar",
+    "slug": "kackar-zirtan-rotasi",
+    "kind": "hiking_route",
+    "name": "Kaçkar Zirve Rotası",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "elevationM": 2200,
+    "description": "Yukarı Kavron–Dilberdüzü–Zirve; 14 km, 1.400 m tırmanış.",
+    "countryCode": "TR",
+    "tags": {
+      "distance": "14",
+      "ascent": "1420"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:hike:tmb",
+    "slug": "tour-du-mont-blanc",
+    "kind": "hiking_route",
+    "name": "Tour du Mont Blanc",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "elevationM": 1000,
+    "description": "170 km, 10.000 m tırmanış; Fransa–İtalya–İsviçre. Dağ evi rezervasyonu şart.",
+    "countryCode": "FR",
+    "tags": {
+      "distance": "170",
+      "ascent": "10000"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:hike:ebc",
+    "slug": "everest-base-camp-trek",
+    "kind": "hiking_route",
+    "name": "Everest Base Camp Trek",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "elevationM": 5364,
+    "description": "Lukla–EBC 130 km gidiş-dönüş, 12–14 gün; irtifa hastalığına dikkat.",
+    "countryCode": "NP",
+    "tags": {
+      "distance": "130"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:hike:annapurna",
+    "slug": "annapurna-circuit",
+    "kind": "hiking_route",
+    "name": "Annapurna Circuit",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "elevationM": 5416,
+    "description": "Thorong La geçidi 5.416 m; 160–230 km.",
+    "countryCode": "NP",
+    "tags": {
+      "distance": "200"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:hike:inca",
+    "slug": "inca-trail",
+    "kind": "hiking_route",
+    "name": "Inca Trail",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "elevationM": 4215,
+    "description": "Machu Picchu'ya 43 km klasik rota; izin aylar önce alınır.",
+    "countryCode": "PE",
+    "tags": {
+      "distance": "43",
+      "permit": "required"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:hike:milford",
+    "slug": "milford-track",
+    "kind": "hiking_route",
+    "name": "Milford Track",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "elevationM": 1154,
+    "description": "53,5 km, 4 gün; Fiordland.",
+    "countryCode": "NZ",
+    "tags": {
+      "distance": "53.5"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:hike:whw",
+    "slug": "west-highland-way",
+    "kind": "hiking_route",
+    "name": "West Highland Way",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "elevationM": 300,
+    "description": "154 km; Milngavie–Fort William, Ben Nevis eteğinde biter.",
+    "countryCode": "GB",
+    "tags": {
+      "distance": "154"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:hike:kumano",
+    "slug": "kumano-kodo-nakahechi",
+    "kind": "hiking_route",
+    "name": "Kumano Kodo — Nakahechi",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "elevationM": 600,
+    "description": "UNESCO hac yolu; Takijiri–Hongu 38 km.",
+    "countryCode": "JP",
+    "tags": {
+      "distance": "38"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:hike:camino",
+    "slug": "camino-de-santiago-frances",
+    "kind": "hiking_route",
+    "name": "Camino de Santiago — Francés",
+    "adventureTypes": [
+      "hiking",
+      "cycling"
+    ],
+    "elevationM": 260,
+    "description": "780 km; Saint-Jean-Pied-de-Port–Santiago.",
+    "countryCode": "ES",
+    "tags": {
+      "distance": "780"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:hike:torres",
+    "slug": "torres-del-paine-w-trek",
+    "kind": "hiking_route",
+    "name": "Torres del Paine — W Trek",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "elevationM": 900,
+    "description": "80 km, 4–5 gün; Patagonya rüzgârlarına hazır olun.",
+    "countryCode": "CL",
+    "tags": {
+      "distance": "80"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:hike:laugavegur",
+    "slug": "laugavegur",
+    "kind": "hiking_route",
+    "name": "Laugavegur",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "elevationM": 1050,
+    "description": "55 km; Landmannalaugar–Þórsmörk, renkli riyolit dağlar.",
+    "countryCode": "IS",
+    "tags": {
+      "distance": "55"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:hike:gr20",
+    "slug": "gr20",
+    "kind": "hiking_route",
+    "name": "GR20",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "elevationM": 2000,
+    "description": "Korsika; Avrupa'nın en zor uzun rotası, 180 km.",
+    "countryCode": "FR",
+    "tags": {
+      "distance": "180"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:hike:jmt",
+    "slug": "john-muir-trail",
+    "kind": "hiking_route",
+    "name": "John Muir Trail",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "elevationM": 3000,
+    "description": "340 km; Yosemite–Mount Whitney.",
+    "countryCode": "US",
+    "tags": {
+      "distance": "340"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:hike:overland",
+    "slug": "overland-track",
+    "kind": "hiking_route",
+    "name": "Overland Track",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "elevationM": 1100,
+    "description": "Tazmanya; 65 km, Cradle Mountain–Lake St Clair.",
+    "countryCode": "AU",
+    "tags": {
+      "distance": "65"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:hike:fitzroy",
+    "slug": "laguna-de-los-tres-fitz-roy",
+    "kind": "hiking_route",
+    "name": "Laguna de los Tres (Fitz Roy)",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "elevationM": 1200,
+    "description": "El Chaltén; 20 km gidiş-dönüş, Patagonya'nın simgesi.",
+    "countryCode": "AR",
+    "tags": {
+      "distance": "20"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:raft:coruh",
+    "slug": "coruh-nehri",
+    "kind": "rafting",
+    "name": "Çoruh Nehri",
+    "adventureTypes": [
+      "rafting"
+    ],
+    "elevationM": 700,
+    "description": "Dünyanın en hızlı akan nehirlerinden; Yusufeli etapları 3–5 derece.",
+    "countryCode": "TR",
+    "tags": {
+      "whitewater:rapid_grade": "4"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:raft:koprulu",
+    "slug": "koprulu-kanyon",
+    "kind": "rafting",
+    "name": "Köprülü Kanyon",
+    "adventureTypes": [
+      "rafting",
+      "canoe"
+    ],
+    "elevationM": 150,
+    "description": "Antalya; başlangıç seviyesi, 14 km parkur, Nisan–Ekim.",
+    "countryCode": "TR",
+    "tags": {
+      "whitewater:rapid_grade": "2"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:raft:zambezi",
+    "slug": "zambezi-batoka-gorge",
+    "kind": "rafting",
+    "name": "Zambezi — Batoka Gorge",
+    "adventureTypes": [
+      "rafting"
+    ],
+    "elevationM": 800,
+    "description": "Victoria Şelaleleri altı; 5. derece, dünyanın en vahşi bir günlük parkuru.",
+    "countryCode": "ZM",
+    "tags": {
+      "whitewater:rapid_grade": "5"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:raft:futaleufu",
+    "slug": "futaleufu",
+    "kind": "rafting",
+    "name": "Futaleufú",
+    "adventureTypes": [
+      "rafting",
+      "canoe"
+    ],
+    "elevationM": 350,
+    "description": "Patagonya; turkuaz su, 4–5 derece.",
+    "countryCode": "CL",
+    "tags": {
+      "whitewater:rapid_grade": "5"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:raft:sunkosi",
+    "slug": "sun-kosi",
+    "kind": "rafting",
+    "name": "Sun Kosi",
+    "adventureTypes": [
+      "rafting"
+    ],
+    "elevationM": 600,
+    "description": "Nepal; 270 km, 8–10 günlük ekspedisyon.",
+    "countryCode": "NP",
+    "tags": {
+      "whitewater:rapid_grade": "4"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:raft:grandcanyon",
+    "slug": "colorado-grand-canyon",
+    "kind": "rafting",
+    "name": "Colorado — Grand Canyon",
+    "adventureTypes": [
+      "rafting"
+    ],
+    "elevationM": 700,
+    "description": "365 km, 1–3 hafta; izin kurası.",
+    "countryCode": "US",
+    "tags": {
+      "permit": "required"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:raft:soca",
+    "slug": "soca-nehri",
+    "kind": "rafting",
+    "name": "Soča Nehri",
+    "adventureTypes": [
+      "rafting",
+      "canoe"
+    ],
+    "elevationM": 400,
+    "description": "Slovenya; zümrüt yeşili su, 2–4 derece, Bovec.",
+    "countryCode": "SI",
+    "tags": {
+      "whitewater:rapid_grade": "3"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:canoe:milford",
+    "slug": "milford-sound-deniz-kayagi",
+    "kind": "canoe",
+    "name": "Milford Sound Deniz Kayağı",
+    "adventureTypes": [
+      "canoe"
+    ],
+    "elevationM": 0,
+    "description": "Fiyort içinde fok ve penguen gözlemi.",
+    "countryCode": "NZ",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:para:babadag",
+    "slug": "babadag-1969",
+    "kind": "paragliding",
+    "name": "Babadağ 1969",
+    "adventureTypes": [
+      "paragliding"
+    ],
+    "elevationM": 1969,
+    "description": "Ölüdeniz; dünyanın en iyi kalkışlarından, Nisan–Kasım, teleferikle çıkış.",
+    "countryCode": "TR",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:para:interlaken",
+    "slug": "interlaken-beatenberg",
+    "kind": "paragliding",
+    "name": "Interlaken — Beatenberg",
+    "adventureTypes": [
+      "paragliding"
+    ],
+    "elevationM": 1200,
+    "description": "İki göl arasına iniş; tandem merkezi.",
+    "countryCode": "CH",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:para:pokhara",
+    "slug": "sarangkot-pokhara",
+    "kind": "paragliding",
+    "name": "Sarangkot, Pokhara",
+    "adventureTypes": [
+      "paragliding"
+    ],
+    "elevationM": 1600,
+    "description": "Annapurna manzaralı; Ekim–Nisan termikleri.",
+    "countryCode": "NP",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:para:queenstown",
+    "slug": "coronet-peak-queenstown",
+    "kind": "paragliding",
+    "name": "Coronet Peak, Queenstown",
+    "adventureTypes": [
+      "paragliding",
+      "skiing"
+    ],
+    "elevationM": 1650,
+    "description": "Yılın her günü uçuş; kışın kayak merkezi.",
+    "countryCode": "NZ",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:para:annecy",
+    "slug": "col-de-la-forclaz-annecy",
+    "kind": "paragliding",
+    "name": "Col de la Forclaz, Annecy",
+    "adventureTypes": [
+      "paragliding"
+    ],
+    "elevationM": 1250,
+    "description": "Annecy Gölü üstünde Avrupa'nın en yoğun uçuş alanı.",
+    "countryCode": "FR",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:ski:erciyes",
+    "slug": "erciyes-kayak-merkezi",
+    "kind": "ski",
+    "name": "Erciyes Kayak Merkezi",
+    "adventureTypes": [
+      "skiing"
+    ],
+    "elevationM": 2200,
+    "description": "102 km pist, 3.917 m zirve; freeride alanları, Aralık–Nisan.",
+    "countryCode": "TR",
+    "tags": {
+      "piste:type": "downhill"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:ski:palandoken",
+    "slug": "palandoken",
+    "kind": "ski",
+    "name": "Palandöken",
+    "adventureTypes": [
+      "skiing"
+    ],
+    "elevationM": 2200,
+    "description": "Erzurum; uzun sezon, gece kayağı, toz kar.",
+    "countryCode": "TR",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:ski:uludag",
+    "slug": "uludag",
+    "kind": "ski",
+    "name": "Uludağ",
+    "adventureTypes": [
+      "skiing",
+      "hiking"
+    ],
+    "elevationM": 1900,
+    "description": "Bursa; Türkiye'nin ilk kayak merkezi.",
+    "countryCode": "TR",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:ski:zermatt",
+    "slug": "zermatt",
+    "kind": "ski",
+    "name": "Zermatt",
+    "adventureTypes": [
+      "skiing",
+      "climbing",
+      "hiking"
+    ],
+    "elevationM": 1600,
+    "description": "Matterhorn eteği; 360 km pist, yaz kayağı.",
+    "countryCode": "CH",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:ski:chamonix",
+    "slug": "chamonix",
+    "kind": "ski",
+    "name": "Chamonix",
+    "adventureTypes": [
+      "skiing",
+      "climbing",
+      "paragliding"
+    ],
+    "elevationM": 1035,
+    "description": "Vallée Blanche; dağcılığın başkenti.",
+    "countryCode": "FR",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:ski:niseko",
+    "slug": "niseko",
+    "kind": "ski",
+    "name": "Niseko",
+    "adventureTypes": [
+      "skiing"
+    ],
+    "elevationM": 300,
+    "description": "Hokkaido; dünyanın en kuru toz karı, 15 m/yıl.",
+    "countryCode": "JP",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:ski:whistler",
+    "slug": "whistler-blackcomb",
+    "kind": "ski",
+    "name": "Whistler Blackcomb",
+    "adventureTypes": [
+      "skiing",
+      "cycling"
+    ],
+    "elevationM": 675,
+    "description": "Kuzey Amerika'nın en büyük kayak alanı; yazın bisiklet parkı.",
+    "countryCode": "CA",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:ski:stanton",
+    "slug": "st-anton-am-arlberg",
+    "kind": "ski",
+    "name": "St. Anton am Arlberg",
+    "adventureTypes": [
+      "skiing"
+    ],
+    "elevationM": 1300,
+    "description": "Alp kayağının beşiği; 305 km pist.",
+    "countryCode": "AT",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:ski:valgardena",
+    "slug": "val-gardena",
+    "kind": "ski",
+    "name": "Val Gardena",
+    "adventureTypes": [
+      "skiing",
+      "hiking",
+      "climbing"
+    ],
+    "elevationM": 1560,
+    "description": "Dolomitler; Sella Ronda turu.",
+    "countryCode": "IT",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:peak:agri",
+    "slug": "agri-dagi",
+    "kind": "peak",
+    "name": "Ağrı Dağı",
+    "adventureTypes": [
+      "climbing",
+      "hiking"
+    ],
+    "elevationM": 5137,
+    "description": "Türkiye'nin en yüksek zirvesi; 4 günlük tırmanış, izin gerekli.",
+    "countryCode": "TR",
+    "tags": {
+      "permit": "required"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:peak:kackar",
+    "slug": "kackar-dagi",
+    "kind": "peak",
+    "name": "Kaçkar Dağı",
+    "adventureTypes": [
+      "hiking",
+      "climbing"
+    ],
+    "elevationM": 3937,
+    "description": "Karadeniz'in çatısı; buzul gölleri.",
+    "countryCode": "TR",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:peak:demirkazik",
+    "slug": "demirkazik",
+    "kind": "peak",
+    "name": "Demirkazık",
+    "adventureTypes": [
+      "climbing"
+    ],
+    "elevationM": 3756,
+    "description": "Aladağlar'ın en yüksek zirvesi; kuzey yüzü klasik kış rotası.",
+    "countryCode": "TR",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:peak:montblanc",
+    "slug": "mont-blanc",
+    "kind": "peak",
+    "name": "Mont Blanc",
+    "adventureTypes": [
+      "climbing",
+      "skiing"
+    ],
+    "elevationM": 4808,
+    "description": "Alplerin çatısı; Goûter rotası.",
+    "countryCode": "FR",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:peak:matterhorn",
+    "slug": "matterhorn",
+    "kind": "peak",
+    "name": "Matterhorn",
+    "adventureTypes": [
+      "climbing"
+    ],
+    "elevationM": 4478,
+    "description": "Hörnli sırtı; rehberli tırmanış önerilir.",
+    "countryCode": "CH",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:peak:everest",
+    "slug": "everest",
+    "kind": "peak",
+    "name": "Everest",
+    "adventureTypes": [
+      "climbing"
+    ],
+    "elevationM": 8849,
+    "description": "Dünyanın çatısı; Nisan–Mayıs penceresi.",
+    "countryCode": "NP",
+    "tags": {
+      "permit": "required"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:peak:kilimanjaro",
+    "slug": "kilimanjaro",
+    "kind": "peak",
+    "name": "Kilimanjaro",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "elevationM": 5895,
+    "description": "Afrika'nın en yüksek noktası; teknik olmayan 6–8 günlük çıkış.",
+    "countryCode": "TZ",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:peak:aconcagua",
+    "slug": "aconcagua",
+    "kind": "peak",
+    "name": "Aconcagua",
+    "adventureTypes": [
+      "climbing"
+    ],
+    "elevationM": 6961,
+    "description": "Amerika kıtasının en yüksek zirvesi.",
+    "countryCode": "AR",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:peak:elbrus",
+    "slug": "elbrus",
+    "kind": "peak",
+    "name": "Elbrus",
+    "adventureTypes": [
+      "climbing",
+      "skiing"
+    ],
+    "elevationM": 5642,
+    "description": "Avrupa'nın en yüksek zirvesi; Kafkaslar.",
+    "countryCode": "RU",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:peak:fuji",
+    "slug": "fuji",
+    "kind": "peak",
+    "name": "Fuji",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "elevationM": 3776,
+    "description": "Temmuz–Eylül resmi sezon; gece çıkışı, gün doğumu.",
+    "countryCode": "JP",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:peak:olympus",
+    "slug": "olympos-mytikas",
+    "kind": "peak",
+    "name": "Olympos — Mytikas",
+    "adventureTypes": [
+      "hiking",
+      "climbing"
+    ],
+    "elevationM": 2918,
+    "description": "Yunanistan'ın en yüksek zirvesi; 2 günlük çıkış.",
+    "countryCode": "GR",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:peak:denali",
+    "slug": "denali",
+    "kind": "peak",
+    "name": "Denali",
+    "adventureTypes": [
+      "climbing"
+    ],
+    "elevationM": 6190,
+    "description": "Kuzey Amerika'nın en yüksek zirvesi; 2–3 haftalık ekspedisyon.",
+    "countryCode": "US",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:cave:dupnisa",
+    "slug": "dupnisa-magarasi",
+    "kind": "cave",
+    "name": "Dupnisa Mağarası",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "elevationM": 350,
+    "description": "Kırklareli; kuru ve sulu galeriler, ziyarete açık.",
+    "countryCode": "TR",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:cave:postojna",
+    "slug": "postojna",
+    "kind": "cave",
+    "name": "Postojna",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "elevationM": 530,
+    "description": "Slovenya; 24 km, mağara treni, olm semenderi.",
+    "countryCode": "SI",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:cave:waitomo",
+    "slug": "waitomo",
+    "kind": "cave",
+    "name": "Waitomo",
+    "adventureTypes": [
+      "canoe",
+      "hiking"
+    ],
+    "elevationM": 100,
+    "description": "Ateşböcekli mağaralar; black water rafting.",
+    "countryCode": "NZ",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:shelter:gouter",
+    "slug": "refuge-du-gouter",
+    "kind": "shelter",
+    "name": "Refuge du Goûter",
+    "adventureTypes": [
+      "climbing"
+    ],
+    "elevationM": 3835,
+    "description": "Mont Blanc normal rotası; rezervasyon zorunlu.",
+    "countryCode": "FR",
+    "tags": {
+      "capacity": "120"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:shelter:hornli",
+    "slug": "hornlihutte",
+    "kind": "shelter",
+    "name": "Hörnlihütte",
+    "adventureTypes": [
+      "climbing"
+    ],
+    "elevationM": 3260,
+    "description": "Matterhorn çıkış noktası.",
+    "countryCode": "CH",
+    "tags": {
+      "capacity": "130"
+    },
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  },
+  {
+    "id": "cur:shelter:dilberduzu",
+    "slug": "dilberduzu-kamp-yeri",
+    "kind": "shelter",
+    "name": "Dilberdüzü Kamp Yeri",
+    "adventureTypes": [
+      "hiking",
+      "climbing"
+    ],
+    "elevationM": 3100,
+    "description": "Kaçkar zirve çıkışının ana kampı.",
+    "countryCode": "TR",
+    "tags": {},
+    "license": "ODbL-1.0 / CC0",
+    "attribution": "© OpenStreetMap katkıcıları · Wikidata",
+    "source": "curated"
+  }
+]

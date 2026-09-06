@@ -1,0 +1,1053 @@
+[
+  {
+    "id": "c_geyik",
+    "slug": "geyikbayiri",
+    "name": "Geyikbayırı",
+    "locationName": "Antalya, Türkiye",
+    "countryCode": "TR",
+    "rockType": "Kireçtaşı",
+    "description": "Türkiye'nin en büyük spor tırmanış bölgesi. Sarkıtlı mağara duvarları, tüf kolonlar ve 1200'den fazla bolt'lu rota. Kış güneşi, kamp alanları ve uluslararası topluluk.",
+    "climbTypes": [
+      "sport",
+      "multipitch"
+    ],
+    "routeCount": 12,
+    "seasons": [
+      10,
+      11,
+      12,
+      1,
+      2,
+      3,
+      4
+    ],
+    "approachMin": 10,
+    "sectors": [
+      {
+        "name": "Trebenna",
+        "orientation": "G",
+        "routes": [
+          {
+            "name": "Trebenna Klasiği",
+            "type": "sport",
+            "grade": "6a",
+            "gradeSystem": "french",
+            "lengthM": 25,
+            "pitches": 1,
+            "stars": 4
+          },
+          {
+            "name": "Kırmızı Şafak",
+            "type": "sport",
+            "grade": "6c+",
+            "gradeSystem": "french",
+            "lengthM": 28,
+            "pitches": 1,
+            "stars": 4
+          },
+          {
+            "name": "Sunset Boulevard",
+            "type": "sport",
+            "grade": "7a+",
+            "gradeSystem": "french",
+            "lengthM": 30,
+            "pitches": 1,
+            "stars": 5
+          }
+        ]
+      },
+      {
+        "name": "Sarkıt",
+        "orientation": "GB",
+        "routes": [
+          {
+            "name": "Sarkıt Kralı",
+            "type": "sport",
+            "grade": "7c",
+            "gradeSystem": "french",
+            "lengthM": 24,
+            "pitches": 1,
+            "stars": 5
+          },
+          {
+            "name": "Damla",
+            "type": "sport",
+            "grade": "6b",
+            "gradeSystem": "french",
+            "lengthM": 20,
+            "pitches": 1,
+            "stars": 3
+          },
+          {
+            "name": "Zeytin Dalı",
+            "type": "sport",
+            "grade": "8a",
+            "gradeSystem": "french",
+            "lengthM": 26,
+            "pitches": 1,
+            "stars": 4
+          }
+        ]
+      },
+      {
+        "name": "Mevlana",
+        "orientation": "B",
+        "routes": [
+          {
+            "name": "Mevlana",
+            "type": "sport",
+            "grade": "6a+",
+            "gradeSystem": "french",
+            "lengthM": 32,
+            "pitches": 1,
+            "stars": 4
+          },
+          {
+            "name": "Semazen",
+            "type": "sport",
+            "grade": "7b",
+            "gradeSystem": "french",
+            "lengthM": 35,
+            "pitches": 1,
+            "stars": 5
+          },
+          {
+            "name": "İki Kule",
+            "type": "multipitch",
+            "grade": "6c",
+            "gradeSystem": "french",
+            "lengthM": 95,
+            "pitches": 3,
+            "stars": 4
+          }
+        ]
+      },
+      {
+        "name": "Sol Mağara",
+        "orientation": "GD",
+        "routes": [
+          {
+            "name": "Sol Mağara Girişi",
+            "type": "sport",
+            "grade": "5c",
+            "gradeSystem": "french",
+            "lengthM": 18,
+            "pitches": 1,
+            "stars": 2
+          },
+          {
+            "name": "Kara Kedi",
+            "type": "sport",
+            "grade": "7a",
+            "gradeSystem": "french",
+            "lengthM": 22,
+            "pitches": 1,
+            "stars": 3
+          },
+          {
+            "name": "Nar Çiçeği",
+            "type": "sport",
+            "grade": "6b+",
+            "gradeSystem": "french",
+            "lengthM": 24,
+            "pitches": 1,
+            "stars": 3
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_olympos",
+    "slug": "olympos-cirali",
+    "name": "Olympos / Çıralı",
+    "locationName": "Kemer, Antalya",
+    "countryCode": "TR",
+    "rockType": "Kireçtaşı",
+    "description": "Antik kentin hemen üzerinde deniz manzaralı spor tırmanış. Sabah gölge, öğleden sonra plaj. Kısa ve dik rotalarda teknik tutuş.",
+    "climbTypes": [
+      "sport"
+    ],
+    "routeCount": 6,
+    "seasons": [
+      10,
+      11,
+      12,
+      1,
+      2,
+      3,
+      4
+    ],
+    "approachMin": 15,
+    "sectors": [
+      {
+        "name": "Cennet",
+        "orientation": "D",
+        "routes": [
+          {
+            "name": "Cennet Kapısı",
+            "type": "sport",
+            "grade": "6a",
+            "gradeSystem": "french",
+            "lengthM": 20,
+            "pitches": 1,
+            "stars": 4
+          },
+          {
+            "name": "Likya Yolu",
+            "type": "sport",
+            "grade": "6c",
+            "gradeSystem": "french",
+            "lengthM": 24,
+            "pitches": 1,
+            "stars": 4
+          }
+        ]
+      },
+      {
+        "name": "Plaj Duvarı",
+        "orientation": "K",
+        "routes": [
+          {
+            "name": "Plaj Voleybolu",
+            "type": "sport",
+            "grade": "5b",
+            "gradeSystem": "french",
+            "lengthM": 15,
+            "pitches": 1,
+            "stars": 2
+          },
+          {
+            "name": "Yanartaş",
+            "type": "sport",
+            "grade": "7a",
+            "gradeSystem": "french",
+            "lengthM": 22,
+            "pitches": 1,
+            "stars": 4
+          }
+        ]
+      },
+      {
+        "name": "Kilise",
+        "orientation": "KD",
+        "routes": [
+          {
+            "name": "Bizans",
+            "type": "sport",
+            "grade": "6b",
+            "gradeSystem": "french",
+            "lengthM": 26,
+            "pitches": 1,
+            "stars": 3
+          },
+          {
+            "name": "Mozaik",
+            "type": "sport",
+            "grade": "7b+",
+            "gradeSystem": "french",
+            "lengthM": 24,
+            "pitches": 1,
+            "stars": 4
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ballik",
+    "slug": "ballikayalar",
+    "name": "Ballıkayalar",
+    "locationName": "Gebze, Kocaeli",
+    "countryCode": "TR",
+    "rockType": "Kireçtaşı",
+    "description": "İstanbul'a en yakın kanyon tırmanışı. Kısa yaklaşım, gölgeli dar vadi, 5a–8a arası 200'e yakın rota. Hafta sonu kalabalık olabilir.",
+    "climbTypes": [
+      "sport",
+      "trad"
+    ],
+    "routeCount": 7,
+    "seasons": [
+      3,
+      4,
+      5,
+      9,
+      10,
+      11
+    ],
+    "approachMin": 20,
+    "sectors": [
+      {
+        "name": "Ana Duvar",
+        "orientation": "GB",
+        "routes": [
+          {
+            "name": "Ballı",
+            "type": "sport",
+            "grade": "5c",
+            "gradeSystem": "french",
+            "lengthM": 18,
+            "pitches": 1,
+            "stars": 3
+          },
+          {
+            "name": "Gebze Ekspresi",
+            "type": "sport",
+            "grade": "6c+",
+            "gradeSystem": "french",
+            "lengthM": 22,
+            "pitches": 1,
+            "stars": 4
+          },
+          {
+            "name": "Kırlangıç",
+            "type": "sport",
+            "grade": "7b",
+            "gradeSystem": "french",
+            "lengthM": 24,
+            "pitches": 1,
+            "stars": 4
+          }
+        ]
+      },
+      {
+        "name": "Kanyon Sol",
+        "orientation": "K",
+        "routes": [
+          {
+            "name": "Kanyon Çatlağı",
+            "type": "trad",
+            "grade": "5b",
+            "gradeSystem": "french",
+            "lengthM": 30,
+            "pitches": 1,
+            "stars": 4
+          },
+          {
+            "name": "Gölge Oyunu",
+            "type": "sport",
+            "grade": "6a+",
+            "gradeSystem": "french",
+            "lengthM": 20,
+            "pitches": 1,
+            "stars": 3
+          }
+        ]
+      },
+      {
+        "name": "Şelale",
+        "orientation": "D",
+        "routes": [
+          {
+            "name": "Şelale Sağı",
+            "type": "sport",
+            "grade": "6b+",
+            "gradeSystem": "french",
+            "lengthM": 22,
+            "pitches": 1,
+            "stars": 3
+          },
+          {
+            "name": "Serin Nefes",
+            "type": "sport",
+            "grade": "7a+",
+            "gradeSystem": "french",
+            "lengthM": 21,
+            "pitches": 1,
+            "stars": 3
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_kazikli",
+    "slug": "kazikliali",
+    "name": "Kazıklıali",
+    "locationName": "Aladağlar, Niğde",
+    "countryCode": "TR",
+    "rockType": "Kireçtaşı (alpin)",
+    "description": "Aladağlar'ın 400 metrelik büyük duvarları. Çok uzun geleneksel ve karışık rotalar, alpin yaklaşım, ani hava değişimi. Deneyim ve tam donanım gerektirir.",
+    "climbTypes": [
+      "multipitch",
+      "trad",
+      "alpine"
+    ],
+    "routeCount": 6,
+    "seasons": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "approachMin": 180,
+    "sectors": [
+      {
+        "name": "Kuzey Duvarı",
+        "orientation": "K",
+        "routes": [
+          {
+            "name": "Kuzey Duvarı Direkt",
+            "type": "multipitch",
+            "grade": "6b",
+            "gradeSystem": "french",
+            "lengthM": 420,
+            "pitches": 11,
+            "stars": 5
+          },
+          {
+            "name": "Gündoğumu Sırtı",
+            "type": "alpine",
+            "grade": "5a",
+            "gradeSystem": "french",
+            "lengthM": 600,
+            "pitches": 8,
+            "stars": 4
+          }
+        ]
+      },
+      {
+        "name": "Direktaş",
+        "orientation": "G",
+        "routes": [
+          {
+            "name": "Direktaş Güney Yüzü",
+            "type": "trad",
+            "grade": "6a",
+            "gradeSystem": "french",
+            "lengthM": 280,
+            "pitches": 7,
+            "stars": 4
+          },
+          {
+            "name": "Buzul Hattı",
+            "type": "ice",
+            "grade": "V",
+            "gradeSystem": "uiaa",
+            "lengthM": 200,
+            "pitches": 4,
+            "stars": 3
+          }
+        ]
+      },
+      {
+        "name": "Parmakkaya",
+        "orientation": "B",
+        "routes": [
+          {
+            "name": "Parmakkaya Klasiği",
+            "type": "multipitch",
+            "grade": "5c",
+            "gradeSystem": "french",
+            "lengthM": 180,
+            "pitches": 5,
+            "stars": 5
+          },
+          {
+            "name": "Yalnız Kule",
+            "type": "multipitch",
+            "grade": "7a",
+            "gradeSystem": "french",
+            "lengthM": 210,
+            "pitches": 6,
+            "stars": 4
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_datca",
+    "slug": "datca",
+    "name": "Datça",
+    "locationName": "Datça, Muğla",
+    "countryCode": "TR",
+    "rockType": "Kireçtaşı",
+    "description": "Yarımadanın koylarına bakan yeni geliştirilmiş sektörler. Rüzgârlı, deniz kokulu, sakin. Rotaların çoğu son iki yılda boltlandı.",
+    "climbTypes": [
+      "sport"
+    ],
+    "routeCount": 4,
+    "seasons": [
+      10,
+      11,
+      12,
+      1,
+      2,
+      3,
+      4
+    ],
+    "approachMin": 25,
+    "sectors": [
+      {
+        "name": "Kargı Koyu",
+        "orientation": "G",
+        "routes": [
+          {
+            "name": "Kargı Rüzgârı",
+            "type": "sport",
+            "grade": "6a",
+            "gradeSystem": "french",
+            "lengthM": 18,
+            "pitches": 1,
+            "stars": 3
+          },
+          {
+            "name": "Badem Çiçeği",
+            "type": "sport",
+            "grade": "6c",
+            "gradeSystem": "french",
+            "lengthM": 22,
+            "pitches": 1,
+            "stars": 4
+          }
+        ]
+      },
+      {
+        "name": "Hızırşah",
+        "orientation": "B",
+        "routes": [
+          {
+            "name": "Hızırşah",
+            "type": "sport",
+            "grade": "7a+",
+            "gradeSystem": "french",
+            "lengthM": 25,
+            "pitches": 1,
+            "stars": 4
+          },
+          {
+            "name": "Knidos",
+            "type": "sport",
+            "grade": "5c",
+            "gradeSystem": "french",
+            "lengthM": 16,
+            "pitches": 1,
+            "stars": 2
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_kapadokya",
+    "slug": "kapadokya-boulder",
+    "name": "Kapadokya Boulder",
+    "locationName": "Ürgüp, Nevşehir",
+    "countryCode": "TR",
+    "rockType": "Tüf (volkanik)",
+    "description": "Peri bacaları arasında yumuşak volkanik tüf blokları. Tutuşlar kırılgan olabilir; kuru havada tırman, kalın pad taşı.",
+    "climbTypes": [
+      "boulder"
+    ],
+    "routeCount": 5,
+    "seasons": [
+      4,
+      5,
+      6,
+      9,
+      10
+    ],
+    "approachMin": 5,
+    "sectors": [
+      {
+        "name": "Zelve Blokları",
+        "orientation": "—",
+        "routes": [
+          {
+            "name": "Peri Bacası",
+            "type": "boulder",
+            "grade": "6A",
+            "gradeSystem": "font",
+            "lengthM": 4,
+            "pitches": 1,
+            "stars": 4
+          },
+          {
+            "name": "Güvercinlik",
+            "type": "boulder",
+            "grade": "6C+",
+            "gradeSystem": "font",
+            "lengthM": 4,
+            "pitches": 1,
+            "stars": 4
+          },
+          {
+            "name": "Kül Rengi",
+            "type": "boulder",
+            "grade": "7B",
+            "gradeSystem": "font",
+            "lengthM": 4,
+            "pitches": 1,
+            "stars": 5
+          }
+        ]
+      },
+      {
+        "name": "Kızılçukur",
+        "orientation": "—",
+        "routes": [
+          {
+            "name": "Kızıl Traverse",
+            "type": "boulder",
+            "grade": "5+",
+            "gradeSystem": "font",
+            "lengthM": 9,
+            "pitches": 1,
+            "stars": 3
+          },
+          {
+            "name": "Şarap Mahzeni",
+            "type": "boulder",
+            "grade": "7A",
+            "gradeSystem": "font",
+            "lengthM": 4,
+            "pitches": 1,
+            "stars": 4
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_karakaya",
+    "slug": "karakaya",
+    "name": "Karakaya",
+    "locationName": "Çubuk, Ankara",
+    "countryCode": "TR",
+    "rockType": "Andezit",
+    "description": "Ankara'nın hafta içi akşam kayası. Kısa andezit duvarlar ve blok bahçesi; kentten 40 dakika. Topluluk tarafından yeni belgeleniyor.",
+    "climbTypes": [
+      "sport",
+      "boulder"
+    ],
+    "routeCount": 4,
+    "seasons": [
+      3,
+      4,
+      5,
+      6,
+      9,
+      10,
+      11
+    ],
+    "approachMin": 10,
+    "sectors": [
+      {
+        "name": "Ana Kaya",
+        "orientation": "G",
+        "routes": [
+          {
+            "name": "Akşam Seansı",
+            "type": "sport",
+            "grade": "6a",
+            "gradeSystem": "french",
+            "lengthM": 14,
+            "pitches": 1,
+            "stars": 3
+          },
+          {
+            "name": "Andezit",
+            "type": "sport",
+            "grade": "6c+",
+            "gradeSystem": "french",
+            "lengthM": 16,
+            "pitches": 1,
+            "stars": 3
+          }
+        ]
+      },
+      {
+        "name": "Blok Bahçesi",
+        "orientation": "—",
+        "routes": [
+          {
+            "name": "Başkent",
+            "type": "boulder",
+            "grade": "6B",
+            "gradeSystem": "font",
+            "lengthM": 4,
+            "pitches": 1,
+            "stars": 3
+          },
+          {
+            "name": "Çubuk Şekeri",
+            "type": "boulder",
+            "grade": "7A+",
+            "gradeSystem": "font",
+            "lengthM": 4,
+            "pitches": 1,
+            "stars": 4
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_kalymnos",
+    "slug": "kalymnos",
+    "name": "Kalymnos",
+    "locationName": "Dodecanese, Yunanistan",
+    "countryCode": "GR",
+    "rockType": "Kireçtaşı",
+    "description": "Akdeniz'in spor tırmanış başkenti. Grande Grotta'nın sarkıtları, 3000'den fazla rota, mükemmel bolt kalitesi ve Bodrum'dan feribotla ulaşım.",
+    "climbTypes": [
+      "sport",
+      "multipitch"
+    ],
+    "routeCount": 9,
+    "seasons": [
+      3,
+      4,
+      5,
+      9,
+      10,
+      11
+    ],
+    "approachMin": 20,
+    "sectors": [
+      {
+        "name": "Grande Grotta",
+        "orientation": "B",
+        "routes": [
+          {
+            "name": "DNA",
+            "type": "sport",
+            "grade": "7a",
+            "gradeSystem": "french",
+            "lengthM": 30,
+            "pitches": 1,
+            "stars": 5
+          },
+          {
+            "name": "Priapos",
+            "type": "sport",
+            "grade": "7b+",
+            "gradeSystem": "french",
+            "lengthM": 35,
+            "pitches": 1,
+            "stars": 5
+          },
+          {
+            "name": "Aegialis",
+            "type": "sport",
+            "grade": "8a",
+            "gradeSystem": "french",
+            "lengthM": 32,
+            "pitches": 1,
+            "stars": 5
+          }
+        ]
+      },
+      {
+        "name": "Odyssey",
+        "orientation": "GB",
+        "routes": [
+          {
+            "name": "Ivi",
+            "type": "sport",
+            "grade": "6b+",
+            "gradeSystem": "french",
+            "lengthM": 28,
+            "pitches": 1,
+            "stars": 4
+          },
+          {
+            "name": "Kalydna",
+            "type": "sport",
+            "grade": "6a",
+            "gradeSystem": "french",
+            "lengthM": 25,
+            "pitches": 1,
+            "stars": 4
+          }
+        ]
+      },
+      {
+        "name": "Arhi",
+        "orientation": "D",
+        "routes": [
+          {
+            "name": "Arhi Klasiği",
+            "type": "sport",
+            "grade": "5c",
+            "gradeSystem": "french",
+            "lengthM": 22,
+            "pitches": 1,
+            "stars": 3
+          },
+          {
+            "name": "Gerakios",
+            "type": "multipitch",
+            "grade": "6c",
+            "gradeSystem": "french",
+            "lengthM": 110,
+            "pitches": 4,
+            "stars": 4
+          }
+        ]
+      },
+      {
+        "name": "Sikati Cave",
+        "orientation": "—",
+        "routes": [
+          {
+            "name": "Sikati Sarkıtı",
+            "type": "sport",
+            "grade": "7c+",
+            "gradeSystem": "french",
+            "lengthM": 40,
+            "pitches": 1,
+            "stars": 5
+          },
+          {
+            "name": "Deep Blue",
+            "type": "sport",
+            "grade": "6b",
+            "gradeSystem": "french",
+            "lengthM": 24,
+            "pitches": 1,
+            "stars": 3
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_font",
+    "slug": "fontainebleau",
+    "name": "Fontainebleau",
+    "locationName": "Île-de-France, Fransa",
+    "countryCode": "FR",
+    "rockType": "Kumtaşı",
+    "description": "Boulder'ın doğduğu orman. Renkli devreler, sürtünme tırmanışı ve on binlerce problem. Yağmurdan sonra en az bir gün bekle — kumtaşı ıslakken kırılır.",
+    "climbTypes": [
+      "boulder"
+    ],
+    "routeCount": 8,
+    "seasons": [
+      10,
+      11,
+      12,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "approachMin": 5,
+    "sectors": [
+      {
+        "name": "Bas Cuvier",
+        "orientation": "—",
+        "routes": [
+          {
+            "name": "La Marie-Rose",
+            "type": "boulder",
+            "grade": "6A",
+            "gradeSystem": "font",
+            "lengthM": 4,
+            "pitches": 1,
+            "stars": 5
+          },
+          {
+            "name": "Carnage",
+            "type": "boulder",
+            "grade": "7B+",
+            "gradeSystem": "font",
+            "lengthM": 4,
+            "pitches": 1,
+            "stars": 5
+          },
+          {
+            "name": "Abattoir",
+            "type": "boulder",
+            "grade": "7A",
+            "gradeSystem": "font",
+            "lengthM": 4,
+            "pitches": 1,
+            "stars": 4
+          }
+        ]
+      },
+      {
+        "name": "Franchard Isatis",
+        "orientation": "—",
+        "routes": [
+          {
+            "name": "La Boucherie",
+            "type": "boulder",
+            "grade": "6C",
+            "gradeSystem": "font",
+            "lengthM": 4,
+            "pitches": 1,
+            "stars": 4
+          },
+          {
+            "name": "Mur des Lamentations",
+            "type": "boulder",
+            "grade": "5+",
+            "gradeSystem": "font",
+            "lengthM": 4,
+            "pitches": 1,
+            "stars": 3
+          },
+          {
+            "name": "Big Boss",
+            "type": "boulder",
+            "grade": "8A",
+            "gradeSystem": "font",
+            "lengthM": 4,
+            "pitches": 1,
+            "stars": 5
+          }
+        ]
+      },
+      {
+        "name": "Apremont",
+        "orientation": "—",
+        "routes": [
+          {
+            "name": "La Joker",
+            "type": "boulder",
+            "grade": "8A+",
+            "gradeSystem": "font",
+            "lengthM": 4,
+            "pitches": 1,
+            "stars": 5
+          },
+          {
+            "name": "Le Toit du Cul de Chien",
+            "type": "boulder",
+            "grade": "7A",
+            "gradeSystem": "font",
+            "lengthM": 4,
+            "pitches": 1,
+            "stars": 4
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_yosemite",
+    "slug": "yosemite",
+    "name": "Yosemite",
+    "locationName": "California, ABD",
+    "countryCode": "US",
+    "rockType": "Granit",
+    "description": "Büyük duvar tırmanışının tapınağı. El Capitan, Half Dome ve Camp 4'ün efsanevi blokları. Çatlak tekniği, uzun geleneksel rotalar ve izin sistemi.",
+    "climbTypes": [
+      "trad",
+      "multipitch",
+      "alpine",
+      "boulder"
+    ],
+    "routeCount": 8,
+    "seasons": [
+      5,
+      6,
+      9,
+      10
+    ],
+    "approachMin": 30,
+    "sectors": [
+      {
+        "name": "El Capitan",
+        "orientation": "GD",
+        "routes": [
+          {
+            "name": "The Nose",
+            "type": "multipitch",
+            "grade": "5.9",
+            "gradeSystem": "yds",
+            "lengthM": 880,
+            "pitches": 31,
+            "stars": 5
+          },
+          {
+            "name": "Freerider",
+            "type": "multipitch",
+            "grade": "5.13a",
+            "gradeSystem": "yds",
+            "lengthM": 900,
+            "pitches": 30,
+            "stars": 5
+          }
+        ]
+      },
+      {
+        "name": "Half Dome",
+        "orientation": "KB",
+        "routes": [
+          {
+            "name": "Regular Northwest Face",
+            "type": "multipitch",
+            "grade": "5.9",
+            "gradeSystem": "yds",
+            "lengthM": 600,
+            "pitches": 23,
+            "stars": 5
+          },
+          {
+            "name": "Snake Dike",
+            "type": "trad",
+            "grade": "5.7",
+            "gradeSystem": "yds",
+            "lengthM": 250,
+            "pitches": 8,
+            "stars": 5
+          }
+        ]
+      },
+      {
+        "name": "Camp 4",
+        "orientation": "—",
+        "routes": [
+          {
+            "name": "Midnight Lightning",
+            "type": "boulder",
+            "grade": "V8",
+            "gradeSystem": "v_scale",
+            "lengthM": 5,
+            "pitches": 1,
+            "stars": 5
+          },
+          {
+            "name": "Bachar Cracker",
+            "type": "boulder",
+            "grade": "V4",
+            "gradeSystem": "v_scale",
+            "lengthM": 5,
+            "pitches": 1,
+            "stars": 4
+          }
+        ]
+      },
+      {
+        "name": "Cathedral Peak",
+        "orientation": "GD",
+        "routes": [
+          {
+            "name": "Southeast Buttress",
+            "type": "alpine",
+            "grade": "5.6",
+            "gradeSystem": "yds",
+            "lengthM": 210,
+            "pitches": 5,
+            "stars": 5
+          },
+          {
+            "name": "Serenity Crack",
+            "type": "trad",
+            "grade": "5.10d",
+            "gradeSystem": "yds",
+            "lengthM": 90,
+            "pitches": 3,
+            "stars": 5
+          }
+        ]
+      }
+    ]
+  }
+]

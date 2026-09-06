@@ -24,11 +24,17 @@ import { lines, mdTable, num, pct } from './lib/text.mjs';
 export const CODE_ALPHABET = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
 export const CODE_LENGTH = 6;
 
-/** Kod uzayı ve çakışma olasılığı (doğum günü yaklaşımı). */
+/**
+ * Kod uzayı ve yeniden üretim (retry) oranı.
+ *
+ * Kodlar sunucuda tekillik denetiminden geçer; bu yüzden anlamlı ölçü "iki kullanıcı aynı
+ * kodu alır mı" değil, "üretilen kod zaten kullanımda olduğu için kaç kez yeniden üretilir".
+ * Doğum günü paradoksu bu senaryoda yanıltıcıdır (1M kullanıcıda ~%100 çıkar ve hiçbir şey anlatmaz).
+ */
 export function codeSpace(length = CODE_LENGTH, users = 1_000_000) {
   const space = CODE_ALPHABET.length ** length;
-  const collisionProbability = 1 - Math.exp((-users * (users - 1)) / (2 * space));
-  return { alphabet: CODE_ALPHABET.length, length, space, users, collisionProbability };
+  const retryRate = users / space;
+  return { alphabet: CODE_ALPHABET.length, length, space, users, retryRate, uniqueness: 'sunucu tarafında tekillik denetimi' };
 }
 
 /* ------------------------------------------------------------------ */
@@ -296,7 +302,7 @@ export function main(argv = process.argv.slice(2)) {
       '',
       `- Alfabe: \`${CODE_ALPHABET}\` (${space.alphabet} karakter; 0/O ve 1/I/L çıkarıldı — telefonda okunur)`,
       `- Uzunluk: ${space.length} → ${num(space.space)} olası kod`,
-      `- 1.000.000 kullanıcıda çakışma olasılığı: ${(space.collisionProbability * 100).toFixed(4)}% (sunucu yine de tekillik denetler)`,
+      `- 1.000.000 kullanıcıda üretilen kodun zaten kullanımda olma oranı: ${(space.retryRate * 100).toFixed(3)}% → sunucu yeniden üretir (tekillik denetimi zorunlu)`,
       '- Kod büyük harf saklanır, girişte küçük harf ve boşluk normalleştirilir.',
       '- Kulüp kodu ayrı ön ek alır: `KLP-<kulüp kısaltması>` (ör. `KLP-ODTU`).',
       '',

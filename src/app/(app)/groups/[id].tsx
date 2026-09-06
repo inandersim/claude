@@ -182,6 +182,7 @@ export default function GroupChatScreen() {
     <Screen edges={['top']}>
       <GroupHeader
         group={group.data}
+        loading={group.isLoading}
         onBack={() => goBack(router, '/')}
         onInfo={() => router.push({ pathname: '/groups/info/[id]', params: { id } })}
       />

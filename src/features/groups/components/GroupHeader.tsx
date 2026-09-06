@@ -13,11 +13,14 @@ export function GroupHeader({
   onBack,
   onInfo,
   muted,
+  loading = false,
 }: {
   group: GroupWithMembership | null | undefined;
   onBack: () => void;
   onInfo: () => void;
   muted?: boolean;
+  /** Grup henüz yükleniyor mu? (bulunamayan grupta "Yükleniyor…" yazmasın) */
+  loading?: boolean;
 }) {
   const { t, locale } = useT();
   const { colors } = useTheme();
@@ -58,7 +61,7 @@ export function GroupHeader({
               <Icon name="lock" size={13} color={colors.textSubtle} strokeWidth={2.4} />
             ) : null}
             <Text variant="title" numberOfLines={1} style={{ flex: 1 }}>
-              {group?.name ?? t('common.loading')}
+              {group?.name ?? (loading ? t('common.loading') : '')}
             </Text>
             {muted ? <Icon name="moon" size={13} color={colors.textSubtle} /> : null}
           </View>

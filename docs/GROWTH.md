@@ -1,6 +1,8 @@
 # Zirtan — Sıfır Bütçeli Büyüme Oyun Kitabı
 
-> Eylül 2026. Hedef: reklam harcaması olmadan, tek kişilik bir ekiple ilk 90 günde **5.000 kurulum, 1.500 haftalık aktif kullanıcı, 40 kulüp/rehber ortağı**. Otomasyon için `agents/marketing/` (Claude API tabanlı plan / üretim / yanıt / analiz / yayın ajanları) kullanılır; bu belge _ne_ ve _neden_, ajanlar _nasıl_ sorusuna cevap verir.
+> Eylül 2026. Hedef: reklam harcaması olmadan, tek kişilik bir ekiple ilk 90 günde **5.000 kurulum, 1.500 haftalık aktif kullanıcı, 40 kulüp/rehber ortağı**. Otomasyon için `agents/marketing/` (Claude API tabanlı plan / üretim / yanıt / analiz / yayın ajanları **ve** API'siz çalışan lansman katmanı) kullanılır; bu belge _ne_ ve _neden_, ajanlar _nasıl_ sorusuna cevap verir.
+>
+> **Lansman günü, ilk 1000 kullanıcı planı, topluluk oyun kitabı ve referans sisteminin ürün tarafı** ayrı belgededir: [MARKETING_LAUNCH.md](MARKETING_LAUNCH.md).
 
 ## 0. İlkeler
 
@@ -105,6 +107,14 @@ Neden: Kafkasya (Gürcistan, Ermenistan, Dağıstan), Kırgızistan/Kazakistan t
 - **Şehir grupları:** Zirtan İstanbul / Ankara / İzmir / Antalya (+ Rusça Zirtan Анталия). Kural: etkinlik odaklı, her hafta sonu en az bir "birlikte çıkalım" başlığı; grup yöneticisi = o şehirdeki gönüllü elçi.
 - Anketler katılımı 3–5 kat artırır; her kanal gönderisine emoji tepki açık.
 - Telegram'dan uygulamaya geçiş: derin bağlantı `zirtan://` + UTM.
+
+### 3.5b X (Twitter), Pinterest, LinkedIn
+
+Lansman katmanıyla birlikte üç kanal daha eklendi (`agents/marketing/channels/`):
+
+- **X:** tek fikir, tek cümle; derinlik zincirle verilir. 280 karakter sert sınır (bağlantı 23 sayılır), hashtag en fazla 2, bağlantı ilk tweette değil sonda. Outdoor / açık veri / harita hesaplarının tweetlerine değer katan yanıt yazmak, kendi gönderimizden daha çok profil ziyareti getirir. Ücretsiz API katmanı yayına yeter; metrik elle dışa aktarılır.
+- **Pinterest:** arama motoru gibi çalışır, pinler aylarca trafik taşır — SEO'nun görsel hâli. 2:3 dikey görsel (1000×1500), başlık görselin üstünde okunur, her pin bir rehber sayfasına bağlanır. Panolar: Türkiye trekking rotaları, Nepal trekleri, kamp ekipmanı, dağda güvenlik. Aynı içerikten 3–5 farklı görselli pin üretmek cezalandırılmaz.
+- **LinkedIn:** kulüp, işletme, rehber ve basın tarafı. Kurucu günlüğü tonu (ne yaptık, ne öğrendik, rakam), haftada 1 gönderi; bağlantı ilk yoruma (gövdedeki bağlantı erişimi düşürür). Doküman (PDF karusel) biçimi en yüksek erişimi alır.
 
 ### 3.6 Reddit
 
@@ -251,5 +261,27 @@ Reklamı ölçmek için aynı UTM şeması + kurulum başına maliyet (CPI) < �
 | Perşembe   | Kulüp/rehber DM'leri (10), UGC izinleri, Collab koordinasyonu                                   |
 | Cuma       | VK/RU içerik, Telegram hafta sonu anketi, `reply` ile yorum/DM taslakları                       |
 | Hafta sonu | Etkinlik (kulüp gezisi / Zirtan şehir grubu) → UGC ham malzeme; günlük story                     |
+
+## 9. Lansman otomasyonu (API'siz katman)
+
+Claude API anahtarı olmadan da çalışan, derleme gerektirmeyen `.mjs` betikleri kanalları,
+içeriği, takvimi, lansmanı, ASO'yu, referans döngüsünü ve raporlamayı yürütür:
+
+| Komut | Ne yapar |
+| --- | --- |
+| `npm run content` | Kütüphane verisinden 11 arketipte içerik (tr/en/de/ru): kısa/orta/uzun gövde, hashtag, görsel brief, kaynak ve lisans atfı |
+| `npm run calendar` | 12 haftalık lansman takvimi, kanal kadansı, en iyi saatler, `.ics`, yeniden kullanım zinciri |
+| `npm run launch` | Lansman günü: 10 kanal duyurusu, Product Hunt, Show HN, Reddit planı, basın bülteni, e-posta, mağaza sürüm notu |
+| `npm run aso` | 23 dilde mağaza metni + rakip anahtar kelime analizi (AllTrails, Komoot, Wikiloc, Gaia GPS, iOverlander) |
+| `npm run referral` | Davet kodu şeması, ödül tablosu, K faktörü simülasyonu, paylaşım metinleri, API sözleşmesi |
+| `npm run report` | Haftalık büyüme raporu: huni, kırılım, hedef sapması, kural tabanlı öneri |
+| `npm run dispatch` | Kanal adaptörleri: `publish` · `schedule` · `metrics` · `reply` (kuru çalışmada elle yayın paketi) |
+
+Kanal sayısı 10'a çıktı: Instagram, Facebook, VK, Telegram, X, TikTok, YouTube, Reddit,
+Pinterest, LinkedIn. Hepsi aynı arayüzü uygular; anahtar yoksa ağ çağrısı yapılmaz,
+`out/packets/<kanal>/` altına kopyala-yapıştır hazır paket yazılır.
+
+Lansman günü akışı, ilk 1000 kullanıcı planı, hangi Reddit/Facebook/Telegram topluluklarında
+nasıl davranılacağı ve referans sisteminin ürün tarafı: [MARKETING_LAUNCH.md](MARKETING_LAUNCH.md).
 
 Ajan komutlarının ayrıntısı: [`agents/marketing/README.md`](../agents/marketing/README.md).

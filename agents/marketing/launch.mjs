@@ -20,7 +20,7 @@ import { humanDate, isoDate, nextMonday, parseDate } from './lib/dates.mjs';
 import { outPath, Writer } from './lib/fsx.mjs';
 import { lines, mdTable } from './lib/text.mjs';
 import { makeContext } from './channels/base.mjs';
-import { CHANNEL_IDS, CHANNELS, resolveChannels } from './channels/index.mjs';
+import { CHANNEL_IDS, resolveChannels } from './channels/index.mjs';
 
 const CAMPAIGN = 'launch';
 
@@ -291,7 +291,7 @@ export function hackerNews() {
     '**Başlık (80 karakter sınırı):**',
     '',
     '```text',
-    'Show HN: Open-data outdoor library and community hazard map for Türkiye and Nepal',
+    'Show HN: Open-data outdoor library and hazard map for Türkiye and Nepal',
     '```',
     '',
     '**Metin:**',
@@ -478,7 +478,7 @@ export function storeNotes() {
     '',
     '- Ekran görüntüleri ve metinler `aso.mjs` çıktısındaki dil dosyalarıyla aynı olmalı.',
     '- Yaş sınırı, veri güvenliği formu ve konum izni açıklaması güncel mi?',
-    '- "Kurtarma garantisi" ima eden hiçbir cümle yok (mağaza reddi sebebi).',
+    '- SOS için kesin sonuç ya da garanti ima eden hiçbir cümle yok (mağaza reddi sebebi).',
   );
 }
 

@@ -11,8 +11,8 @@ test('kod uzayı okunur alfabeyle hesaplanır', () => {
   assert.ok(!CODE_ALPHABET.includes('1'));
   const s = codeSpace(6, 1_000_000);
   assert.equal(s.space, CODE_ALPHABET.length ** 6);
-  assert.ok(s.collisionProbability > 0 && s.collisionProbability < 1);
-  assert.ok(codeSpace(8, 1_000_000).collisionProbability < s.collisionProbability, 'uzun kod daha az çakışır');
+  assert.ok(s.retryRate > 0 && s.retryRate < 0.01, `retry oranı ${s.retryRate}`);
+  assert.ok(codeSpace(8, 1_000_000).retryRate < s.retryRate, 'uzun kod daha az yeniden üretim ister');
 });
 
 test('K faktörü formülü ve simülasyon tutarlı', () => {

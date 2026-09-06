@@ -21,15 +21,40 @@ import { lines, mdTable } from './lib/text.mjs';
 
 const COMMANDS = ['publish', 'schedule', 'metrics', 'reply', 'channels'];
 
-/** Girdi dosyasından (içerik ya da takvim) gönderi listesi çıkarır. */
+/**
+ * Girdi dosyasından gönderi listesi çıkarır. Tanınan biçimler:
+ * - `content.json` (`{ items: [...] }`) ya da düz içerik dizisi → tam içerik nesneleri
+ * - `calendar.json` (`{ weeks: [{ slots: [...] }] }`) → zamanlama slotları (gövdesiz)
+ * - `{ slots: [...] }` → doğrudan slot listesi
+ * Girdi verilmezse örnek içerik üretir.
+ */
 export function loadItems(path, options = {}) {
   if (!path) return generateContent({ langs: options.langs ?? ['tr'], perArchetype: 1, limit: options.limit ?? 8 });
   const data = readJson(path);
   if (!data) throw new Error(`Girdi bulunamadı: ${path}`);
   if (Array.isArray(data)) return data;
   if (Array.isArray(data.items)) return data.items;
-  if (Array.isArray(data.slots)) return data.slots;
+  if (Array.isArray(data.weeks)) return data.weeks.flatMap((w) => (w.slots ?? []).map(slotToItem));
+  if (Array.isArray(data.slots)) return data.slots.map(slotToItem);
   throw new Error(`Girdi biçimi tanınmadı: ${path}`);
+}
+
+/** Takvim slotu → zamanlama nesnesi. Gövde taşımaz; yalnızca `schedule` için kullanılır. */
+function slotToItem(slot) {
+  return {
+    id: `${slot.contentId ?? slot.channel}-${slot.date}`,
+    contentId: slot.contentId,
+    channel: slot.channel,
+    lang: slot.lang ?? 'tr',
+    date: slot.date,
+    bestTime: slot.time,
+    format: slot.format,
+    title: slot.title ?? slot.note ?? slot.contentId ?? '',
+    cta: '',
+    link: '',
+    body: '',
+    fromCalendar: true,
+  };
 }
 
 async function cmdPublish(flags) {
@@ -45,9 +70,15 @@ async function cmdPublish(flags) {
 
   const ctx = makeContext({ live, writer, outDir: dir, log: (l) => console.log(`  ${l}`) });
   const results = [];
+  /** Takvim slotları gövde taşımaz; yayın için önce içerik üretilmeli. */
+  const skipped = [];
   for (const channel of channels) {
     for (const item of limited) {
       // Takvim slot'u zaten kanal-özel; içerik nesnesi ise kanala uyarlanır.
+      if (item.fromCalendar) {
+        skipped.push(item.id);
+        continue;
+      }
       const post = item.channel && item.body ? item : toPost(item, channel.id, { date: item.date, campaign: flags.campaign });
       if (post.channel && post.channel !== channel.id) continue;
       const res = await channel.publish(post, ctx);
@@ -57,6 +88,9 @@ async function cmdPublish(flags) {
 
   const ok = results.filter((r) => r.ok).length;
   const blocked = results.filter((r) => !r.ok);
+  if (skipped.length > 0) {
+    console.log(`  ${skipped.length} takvim slotu atlandı (gövde yok): önce \`content/engine.mjs\` çıktısını ver.`);
+  }
   writer.json(`${dir}/publish-log.json`, { generatedAt: new Date().toISOString(), live, results });
   writer.text(
     `${dir}/README.md`,
@@ -95,7 +129,7 @@ function cmdSchedule(flags) {
   for (const channel of channels) {
     const posts = items
       .filter((i) => !i.channel || i.channel === channel.id)
-      .map((i) => (i.body ? i : toPost(i, channel.id, { date: i.date })));
+      .map((i) => (i.fromCalendar || i.body ? i : toPost(i, channel.id, { date: i.date })));
     if (posts.length === 0) continue;
     const { entries } = channel.schedule(posts, ctx);
     all.push(...entries);

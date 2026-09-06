@@ -44,6 +44,9 @@ export function useToggleFollow(otherId: ID) {
     onSettled: () => {
       qc.invalidateQueries({ queryKey: queryKeys.users.detail(otherId) });
       qc.invalidateQueries({ queryKey: queryKeys.users.following(me.id, otherId) });
+      // "Takip" sekmesi takip listesine göre süzülüyor: akış önbellekleri de tazelenmeli.
+      qc.invalidateQueries({ queryKey: queryKeys.social.all });
+      qc.invalidateQueries({ queryKey: queryKeys.feed.all });
       refreshUser();
     },
   });

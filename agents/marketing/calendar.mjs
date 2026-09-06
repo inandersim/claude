@@ -17,7 +17,7 @@ import { listFlag, numberFlag, parseArgs, usage } from './lib/args.mjs';
 import { BRAND, CONTENT_LANGS } from './lib/brand.mjs';
 import { addDays, humanDate, isoDate, nextMonday, parseDate, weekdayTr } from './lib/dates.mjs';
 import { outPath, toCsv, Writer } from './lib/fsx.mjs';
-import { lines, mdTable, pick } from './lib/text.mjs';
+import { lines, mdTable } from './lib/text.mjs';
 import { CHANNELS, CHANNEL_IDS } from './channels/index.mjs';
 import { toIcs } from './channels/base.mjs';
 import { generateContent } from './content/engine.mjs';

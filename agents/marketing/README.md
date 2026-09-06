@@ -75,6 +75,72 @@ schemas.ts (JSON şema + yerel doğrulayıcı) ◀── yanıt JSON ──▶ r
 
 Uzun planlar 4'er hafta, gönderiler 6'şar öğe, yanıtlar 20'şer halinde üretilir; her parça ayrı istek olduğundan hafta/tarih tutarlılığı `fixWeek` ile yerelde düzeltilir.
 
+## Lansman otomasyonu (`.mjs` katmanı)
+
+Claude API'siz, **derleme gerektirmeyen** ikinci bir katman: kütüphane verisinden içerik üretir,
+12 haftalık takvimi kurar, lansman gününü yürütür, 23 dilde mağaza metni yazar, davet döngüsünü
+modeller ve haftalık raporu çıkarır. Hepsi **kuru çalışma** varsayılanıyla çalışır: anahtar yoksa
+`out/` altına elle yayınlanabilir paket yazar (metin + hashtag + görsel talimatı + en iyi saat +
+adım adım yayın yönergesi).
+
+| Komut | Ne yapar | Çıktı |
+| --- | --- | --- |
+| `npm run content` | Destinasyon, rota, tür, tarihi alan, kaya alanı, yer ve kulüp verisinden 11 arketipte içerik (tr/en/de/ru) | `out/content/` |
+| `npm run calendar` | 12 haftalık lansman takvimi (hazırlık → teaser → lansman → ivme → ritim), kanal kadansı, en iyi saatler, tekrar kullanım zinciri | `out/calendar/` + `.ics` |
+| `npm run launch` | Lansman dizisi: 10 kanal duyurusu, Product Hunt, Show HN, Reddit planı, basın bülteni (tr/en), e-posta, mağaza sürüm notu, saat saat akış | `out/launch/` |
+| `npm run aso` | 23 dil için başlık/alt başlık/anahtar kelime/açıklama/ekran metinleri + rakip analizi; karakter sınırlarını denetler | `out/aso/` |
+| `npm run referral` | Davet kodu şeması, ödül tablosu, K faktörü simülasyonu, paylaşım metinleri, API sözleşmesi | `out/referral/` |
+| `npm run report -- --input <csv>` | Haftalık büyüme raporu: huni, kanal/biçim kırılımı, hedef sapması, kural tabanlı öneri | `out/reports/` |
+| `npm run dispatch -- <komut>` | Kanal adaptörlerini çalıştırır: `publish` · `schedule` · `metrics` · `reply` · `channels` | `out/packets/`, `out/metrics/`, `out/replies/` |
+
+```bash
+npm run content -- --langs tr,en,de,ru --per-archetype 3
+npm run calendar -- --start 2026-10-05 --weeks 12 --launch-week 5
+npm run launch -- --date 2026-11-03            # kuru çalışma
+npm run launch -- --date 2026-11-03 --live      # anahtarı olan kanallarda gerçek yayın
+npm run aso:check                               # mağaza karakter sınırı denetimi (CI dostu)
+npm run referral -- --invite-rate 0.35 --accept-rate 0.45
+npm run report -- --input content/example-growth.csv --all
+npm run dispatch -- publish --input out/content/content.json --channels x,pinterest
+```
+
+### Kanallar
+
+On kanal, **tek arayüz**: `publish` · `schedule` · `metrics` · `reply`.
+
+| Kanal | API ile yayın | Gerekli değişkenler | Not |
+| --- | --- | --- | --- |
+| instagram | evet | `META_ACCESS_TOKEN`, `IG_USER_ID` | Bağlantı bio'da; karusel/Reel |
+| facebook | evet | `META_ACCESS_TOKEN`, `FB_PAGE_ID` | Gruplara API yok, elle |
+| vk | evet | `VK_ACCESS_TOKEN`, `VK_GROUP_ID` | Rusça uzun gönderi + Clips |
+| telegram | evet | `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHANNEL` | Kanal + şehir grupları |
+| x | evet | `X_BEARER_TOKEN` | 280 karakter; bağlantı 23 sayılır; zincir bölme |
+| pinterest | evet | `PINTEREST_ACCESS_TOKEN`, `PINTEREST_BOARD_ID` | Arama niyeti; 2:3 pin |
+| linkedin | evet | `LINKEDIN_ACCESS_TOKEN`, `LINKEDIN_ORG_URN` | Bağlantı ilk yoruma |
+| reddit | evet | `REDDIT_ACCESS_TOKEN`, `REDDIT_SUBREDDIT` | Subreddit kuralı metinde |
+| tiktok | hayır | `TIKTOK_ACCESS_TOKEN` (onaylı uygulama) | Elle yükleme paketi üretir |
+| youtube | hayır | `YOUTUBE_ACCESS_TOKEN` | Sürdürülebilir yükleme; elle |
+
+Anahtar yoksa ya da `--live` verilmediyse hiçbir ağ çağrısı yapılmaz; kanal klasörüne
+kopyala-yapıştır hazır `.md` paketi düşer. Yasak ifade içeren gönderi **yayına çıkmaz**
+(çıkış kodu 2).
+
+### İçerik motoru
+
+`content/engine.mjs` + `content/archetypes.mjs` + `content/lexicon.mjs`, veri kaynağı
+`content/data/*.json` (anlık görüntü; `npm run content:extract` ile tazelenir —
+`website/src/data/generated/*.json` ve `src/data/mock/seed.{heritage,wildlife}.ts`).
+
+Arketipler: etap etap gezi planı · ilk 10 dakika (tür + ilk yardım) · çıkmadan önce tehlike
+özeti · patikanın yanındaki tarihi alan · kaya alanı rehberi · bu ay nereye · bütçe ve izin ·
+rota kartı · üniversite kulübü çağrısı · yer kartı · UNESCO alanı + rota.
+
+Her içerik üç uzunlukta (kısa/orta/uzun), dört dilde, hashtag seti + görsel brief + çekim
+listesi + alt metin + kaynak/lisans atfı ile gelir. **Türkçe dışı diller çeviri değildir:**
+kütüphane verisi Türkçe olduğu için ilk yardım adımları, risk cümleleri ve alan kuralları
+`content/lexicon.mjs` içinde o dilde yazılmıştır; eşleşmeyen Türkçe veri çıktıya girmez ve
+`qa` alanında rapor edilir (`content.test.mjs` sızıntı olmadığını doğrular).
+
 ## Token alma adımları (hepsi ücretsiz)
 
 ### Meta — Instagram Graph API + Facebook Sayfa
@@ -120,10 +186,25 @@ Uzun planlar 4'er hafta, gönderiler 6'şar öğe, yanıtlar 20'şer halinde ür
 - `metrics.test.ts` — CSV ayrıştırma, yerel sayı biçimleri, özet metrikler, ISO hafta.
 - `commands.test.ts` — tarih yardımcıları, `fixWeek`, id tekilleştirme, marka bayrağı, Markdown render, `parseMentions`, `runPost` dry-run'da ağ çağrısı yapılmaması.
 
+`.mjs` katmanı için `npm run test:mjs` (aynı zamanda `npm test` içinde koşar):
+
+- `lib.test.mjs` — argüman ayrıştırma, UTC tarih yardımcıları, metin/CSV, UTM şeması, yasak ifade denetimi (dört dil).
+- `channels.test.mjs` — on kanalın dört yöntemi, kuru çalışma paketi, sahte `fetch` ile canlı yayın, karakter/hashtag sınırları, X zincir bölme, `.ics`, yanıt niyet sınıflaması.
+- `content.test.mjs` — veri anlık görüntüsü, 11 arketip × 4 dil, Türkçe sızıntı denetimi, ilk yardım sözlüğünün tam olması, kanal uyarlaması.
+- `calendar.test.mjs` — 12 hafta, faz sırası, lansman günü slotları, kanal kadansı, sıralama.
+- `launch.test.mjs` — duyuru metinleri, tüm lansman belgeleri, Show HN başlık sınırı, basın bülteninde iddia denetimi.
+- `aso.test.mjs` — 23 dilin karakter sınırları, marka adının çevrilmemesi, yasak ifade, rakip analizi kapsamı.
+- `referral.test.mjs` — K faktörü matematiği, kod uzayı, ödül ve kötüye kullanım kuralları, paylaşım metinleri.
+- `report.test.mjs` — sütun eş anlamlıları, oran hesapları, hafta bölme, öneri kuralları.
+- `dispatch.test.mjs` — CLI uçtan uca (publish/schedule/metrics/reply) geçici çıktı klasöründe.
+
 Claude API'ye gerçek istek atan yol (`plan`, `generate`, `reply`, `analyze`) testlerde çağrılmaz; `client.ts` içindeki `setClientForTests` sahte istemci enjekte etmek için bırakıldı.
 
 ## Bilinen sınırlar
 
+- `.mjs` katmanının canlı yayın yolu (`--live`) yalnızca sahte `fetch` ile test edilmiştir; gerçek anahtarla ilk yayın **elle** doğrulanmalıdır.
+- TikTok ve YouTube için otomatik yükleme yoktur (uygulama incelemesi/kota); kuru çalışma paketi elle yüklenir.
+- Görsel ve video üretimi kapsam dışıdır: `visual.brief`, `visual.shots` ve `visual.alt` alanları çekim brief'idir.
 - TikTok Content Posting API, YouTube Data API (upload) ve Reddit API için otomatik yayın yok: TikTok ve YouTube uygulama incelemesi/kota ister, Reddit kendi kendini tanıtan botları yasaklar. Bu kanallar için `generate` çıktısı elle yüklenir.
 - Instagram Story ve Reels kapak görseli, Facebook grup gönderisi (Graph API gruplara yayın iznini kapattı) desteklenmez.
 - Zamanlanmış yayın yok; `bestTime` bilgisini cron / GitHub Actions ile birleştirerek `post --yes` komutunu ilgili saatte çalıştır (örnek: `0 16 * * 1-5` UTC = 19:00 TR).

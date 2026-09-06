@@ -27,48 +27,54 @@ export interface PostgrestResponse<T> {
   count?: number | null;
 }
 
-/** `select`/`update`/`delete` üzerine zincirlenebilen süzgeçler. */
+/** `select`/`insert`/`update`/`delete` üzerine zincirlenebilen süzgeçler. */
 export interface FilterBuilder<T> extends PromiseLike<PostgrestResponse<T>> {
-  eq(column: string, value: unknown): FilterBuilder<T>;
-  neq(column: string, value: unknown): FilterBuilder<T>;
-  gt(column: string, value: unknown): FilterBuilder<T>;
-  gte(column: string, value: unknown): FilterBuilder<T>;
-  lt(column: string, value: unknown): FilterBuilder<T>;
-  lte(column: string, value: unknown): FilterBuilder<T>;
-  like(column: string, pattern: string): FilterBuilder<T>;
-  ilike(column: string, pattern: string): FilterBuilder<T>;
-  is(column: string, value: null | boolean): FilterBuilder<T>;
-  in(column: string, values: readonly unknown[]): FilterBuilder<T>;
+  eq(column: string, value: unknown): this;
+  neq(column: string, value: unknown): this;
+  gt(column: string, value: unknown): this;
+  gte(column: string, value: unknown): this;
+  lt(column: string, value: unknown): this;
+  lte(column: string, value: unknown): this;
+  like(column: string, pattern: string): this;
+  ilike(column: string, pattern: string): this;
+  is(column: string, value: null | boolean): this;
+  in(column: string, values: readonly unknown[]): this;
   /** Dizi/aralık sütunu verilen değerleri **içeriyor** mu */
-  contains(column: string, value: readonly unknown[] | string): FilterBuilder<T>;
+  contains(column: string, value: readonly unknown[] | string): this;
   /** Dizi sütunu verilen değerlerden en az biriyle **kesişiyor** mu */
-  overlaps(column: string, value: readonly unknown[]): FilterBuilder<T>;
+  overlaps(column: string, value: readonly unknown[]): this;
   /** `or('a.eq.1,b.is.null')` biçiminde PostgREST süzgeci */
-  or(filters: string): FilterBuilder<T>;
-  not(column: string, operator: string, value: unknown): FilterBuilder<T>;
+  or(filters: string): this;
+  not(column: string, operator: string, value: unknown): this;
   order(
     column: string,
     options?: { ascending?: boolean; nullsFirst?: boolean; referencedTable?: string },
-  ): FilterBuilder<T>;
-  limit(count: number): FilterBuilder<T>;
-  range(from: number, to: number): FilterBuilder<T>;
+  ): this;
+  limit(count: number): this;
+  range(from: number, to: number): this;
+  /** Mutasyon sonrası dönecek sütunlar (PostgREST `Prefer: return=representation`). */
+  select(columns?: string): this;
   /** Tam olarak bir satır bekler; yoksa hata döner. */
   single(): PromiseLike<PostgrestResponse<Row>>;
   /** En fazla bir satır bekler; yoksa `data: null`. */
   maybeSingle(): PromiseLike<PostgrestResponse<Row | null>>;
 }
 
-/** `insert`/`upsert` sonrası `select()` çağrılabilir. */
-export interface MutationBuilder extends FilterBuilder<Row[]> {
-  select(columns?: string): FilterBuilder<Row[]>;
-}
+/** `insert`/`upsert` da aynı süzgeç yüzeyini döner. */
+export type MutationBuilder = FilterBuilder<Row[]>;
 
 export interface QueryBuilder {
-  select(columns?: string, options?: { count?: 'exact' | 'planned' | 'estimated'; head?: boolean }): FilterBuilder<Row[]>;
+  select(
+    columns?: string,
+    options?: { count?: 'exact' | 'planned' | 'estimated'; head?: boolean },
+  ): FilterBuilder<Row[]>;
   insert(values: Row | Row[]): MutationBuilder;
-  upsert(values: Row | Row[], options?: { onConflict?: string; ignoreDuplicates?: boolean }): MutationBuilder;
-  update(values: Row): FilterBuilder<Row[]> & { select(columns?: string): FilterBuilder<Row[]> };
-  delete(): FilterBuilder<Row[]> & { select(columns?: string): FilterBuilder<Row[]> };
+  upsert(
+    values: Row | Row[],
+    options?: { onConflict?: string; ignoreDuplicates?: boolean },
+  ): MutationBuilder;
+  update(values: Row): FilterBuilder<Row[]>;
+  delete(): FilterBuilder<Row[]>;
 }
 
 /** Realtime kanalı (yalnızca kullandığımız yüzey). */

@@ -1,0 +1,27 @@
+{
+  "generatedAt": "2026-09-06",
+  "counts": {
+    "destinations": 18,
+    "routes": 25,
+    "crags": 10,
+    "places": 84,
+    "clubs": 14,
+    "heritage": 31,
+    "species": 40
+  },
+  "sources": [
+    "destinations: website/src/data/generated/destinations.json (18)",
+    "routes: website/src/data/generated/routes.json (25)",
+    "crags: website/src/data/generated/crags.json (10)",
+    "places: website/src/data/generated/places.json (84)",
+    "clubs: website/src/data/generated/clubs.json (14)",
+    "heritage: src/data/mock/seed.heritage.ts (31)",
+    "species: src/data/mock/seed.wildlife.ts (40)"
+  ],
+  "licenses": {
+    "osm": "© OpenStreetMap katkıcıları — ODbL 1.0",
+    "wikidata": "Wikidata — CC0 1.0",
+    "commons": "Wikimedia Commons — dosya başına yazar + lisans",
+    "seed": "Zirtan demo verisi — kaynak bağlantıları kayıt içinde (`sources`)"
+  }
+}

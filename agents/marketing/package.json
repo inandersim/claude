@@ -2,7 +2,7 @@
   "name": "@zirtan/marketing-agents",
   "version": "0.1.0",
   "private": true,
-  "description": "Zirtan — Claude API tabanlı sıfır bütçeli pazarlama ajanları (plan, içerik üretimi, yanıt, analiz, yayınlama)",
+  "description": "Zirtan — Claude API tabanlı sıfır bütçeli pazarlama otomasyonu (plan, içerik üretimi, kanal adaptörleri, takvim, lansman, ASO, referans, rapor)",
   "type": "module",
   "engines": {
     "node": ">=22"
@@ -13,13 +13,23 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "check": "tsc --noEmit -p tsconfig.json",
-    "test": "npm run build && node --test \"dist/test/**/*.test.js\"",
+    "test": "npm run build && node --test \"dist/test/**/*.test.js\" && npm run test:mjs",
     "cli": "node dist/src/cli.js",
     "plan": "node dist/src/cli.js plan",
     "generate": "node dist/src/cli.js generate",
     "reply": "node dist/src/cli.js reply",
     "analyze": "node dist/src/cli.js analyze",
-    "post": "node dist/src/cli.js post"
+    "post": "node dist/src/cli.js post",
+    "test:mjs": "node --test \"*.test.mjs\"",
+    "content": "node content/engine.mjs",
+    "content:extract": "node content/extract.mjs",
+    "calendar": "node calendar.mjs",
+    "launch": "node launch.mjs",
+    "aso": "node aso.mjs",
+    "aso:check": "node aso.mjs --check",
+    "referral": "node referral.mjs",
+    "report": "node report.mjs",
+    "dispatch": "node dispatch.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.124.0"

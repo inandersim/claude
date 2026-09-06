@@ -1,0 +1,3613 @@
+[
+  {
+    "id": "dest_ebc",
+    "slug": "everest-base-camp-trek",
+    "name": "Everest Base Camp Trek",
+    "region": "Khumbu, Solukhumbu",
+    "countryCode": "NP",
+    "type": "trek",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "summary": "Lukla’dan Khumbu vadisi boyunca Sherpa köyleri, manastırlar ve buzul morenleri üzerinden Everest Ana Kampı (5364 m) ve Kala Patthar (5545 m). Dünyanın en ünlü teahouse treki.",
+    "maxElevationM": 5545,
+    "typicalDays": 12,
+    "totalDistanceKm": 130,
+    "difficulty": "hard",
+    "bestMonths": [
+      3,
+      4,
+      5,
+      10,
+      11
+    ],
+    "budgetTry": {
+      "low": 60000,
+      "high": 150000
+    },
+    "risks": [
+      "Akut dağ hastalığı (AMS) — Lobuche/Gorak Shep’te en sık",
+      "HAPE/HACE: dinlenirken nefes darlığı, ataksi → hemen iniş",
+      "Lukla uçuş iptalleri ve hava kaynaklı program kayması",
+      "Kasım sonrası buzlu patika; Thukla geçidinde şiddetli rüzgâr",
+      "Khumbu öksürüğü ve mide enfeksiyonları (su arıtımı şart)",
+      "Yalnız yürüyüş kısıtı (Nepal 2023 rehber kuralı)"
+    ],
+    "gear": [
+      "-15 °C uyku tulumu (teahouse battaniyesi yetmez)",
+      "Kaz tüyü mont + hardshell",
+      "Kategori 4 güneş gözlüğü, 50+ krem",
+      "Su arıtma tableti / filtre, 2 L kapasite",
+      "Baş lambası + yedek pil (soğukta çabuk biter)",
+      "Power bank 20.000 mAh",
+      "Buff (Khumbu öksürüğü için)",
+      "Mikro krampon (Kasım–Mart)",
+      "Pulse oksimetre, kişisel ilaçlar"
+    ],
+    "rescueNote": "HRA Pheriche kliniği (4371 m) Mart–Mayıs ve Ekim–Kasım açıktır; Kunde Hastanesi (3840 m) yıl boyu. Helikopter tahliyesi sigorta ön onayıyla Lukla/Kathmandu’ya yapılır (CIWEC Klinik). Acil: Nepal 100/102, rehber şirketi veya HRA Kathmandu +977 1 4440292.",
+    "insuranceRequired": true,
+    "sources": [
+      "https://en.wikivoyage.org/wiki/Everest_Base_Camp_Trek",
+      "https://ntb.gov.np",
+      "https://www.himalayanrescue.org.np",
+      "https://www.nepalimmigration.gov.np/page/trekking-permit"
+    ],
+    "permits": [
+      {
+        "name": "Sagarmatha Milli Parkı giriş",
+        "costTry": 900,
+        "where": "Monjo kontrol noktası ya da Kathmandu NTB ofisi",
+        "note": "3.000 NPR; pasaport gerekli."
+      },
+      {
+        "name": "Khumbu Pasang Lhamu Kırsal Belediyesi izni",
+        "costTry": 900,
+        "where": "Lukla giriş kapısı",
+        "note": "3.000 NPR (ilk 4 hafta). TIMS istenmez."
+      }
+    ],
+    "transports": [
+      {
+        "mode": "flight",
+        "from": "İstanbul (IST)",
+        "to": "Kathmandu (KTM)",
+        "durationMin": 660,
+        "costTry": 34000,
+        "note": "Aktarmalı (DOH/DXB/DEL). Gidiş-dönüş, ekonomi."
+      },
+      {
+        "mode": "jeep",
+        "from": "Kathmandu",
+        "to": "Ramechhap / Manthali",
+        "durationMin": 270,
+        "costTry": 1200,
+        "note": "Yoğun sezonda Lukla uçuşları buradan kalkar; gece 02:00 çıkış."
+      },
+      {
+        "mode": "flight",
+        "from": "Manthali / Kathmandu",
+        "to": "Lukla (LUA)",
+        "durationMin": 25,
+        "costTry": 7800,
+        "note": "Tek yön, Tara/Summit Air; 15 kg bagaj sınırı. Hava iptali sık."
+      },
+      {
+        "mode": "trek",
+        "from": "Lukla",
+        "to": "Everest Base Camp",
+        "durationMin": 4200,
+        "costTry": null,
+        "note": "8 gün çıkış, 3 gün iniş."
+      }
+    ],
+    "stages": [
+      {
+        "order": 1,
+        "name": "Lukla (Tenzing-Hillary Havalimanı)",
+        "kind": "trailhead",
+        "elevationM": 2860,
+        "distanceKm": 0,
+        "durationMin": 0,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Sabah uçuşları hava kapanmadan iner; öğleden sonra iptaller sık. İlk gün Phakding’e yürünür.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 2,
+        "name": "Phakding",
+        "kind": "teahouse",
+        "elevationM": 2610,
+        "distanceKm": 8,
+        "durationMin": 210,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Dudh Koshi boyunca iniş ağırlıklı kısa gün; asma köprüler ve mani taşları.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 3,
+        "name": "Namche Bazaar",
+        "kind": "village",
+        "elevationM": 3440,
+        "distanceKm": 11,
+        "durationMin": 360,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Sagarmatha NP girişi Monjo’da. Aklimatizasyon günü: Everest View Hotel (3880 m) ya da Khumjung turu.",
+        "restDayRecommended": true
+      },
+      {
+        "order": 4,
+        "name": "Tengboche Manastırı",
+        "kind": "teahouse",
+        "elevationM": 3860,
+        "distanceKm": 10,
+        "durationMin": 330,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "2g",
+        "note": "Phunki Tenga’dan (3250 m) 600 m dik tırmanış. Ama Dablam ve Everest manzarası, sabah puja.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 5,
+        "name": "Dingboche",
+        "kind": "teahouse",
+        "elevationM": 4410,
+        "distanceKm": 11,
+        "durationMin": 330,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "wifi",
+        "note": "İkinci aklimatizasyon günü: Nangkartshang (5083 m) tırmanışı, akşam Dingboche’ye dönüş.",
+        "restDayRecommended": true
+      },
+      {
+        "order": 6,
+        "name": "Lobuche",
+        "kind": "teahouse",
+        "elevationM": 4940,
+        "distanceKm": 8,
+        "durationMin": 300,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "sat_only",
+        "note": "Thukla geçidinde (4830 m) Everest şehitleri anıtları. Geceleri -15 °C olağan.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 7,
+        "name": "Gorak Shep",
+        "kind": "teahouse",
+        "elevationM": 5164,
+        "distanceKm": 5,
+        "durationMin": 180,
+        "sleeping": true,
+        "waterAvailable": false,
+        "connectivity": "sat_only",
+        "note": "Son yerleşim; su parayla satılır. Aynı gün EBC’ye gidip dönülür, ertesi sabah Kala Patthar.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 8,
+        "name": "Everest Ana Kampı (EBC)",
+        "kind": "base_camp",
+        "elevationM": 5364,
+        "distanceKm": 4,
+        "durationMin": 150,
+        "sleeping": false,
+        "waterAvailable": false,
+        "connectivity": "none",
+        "note": "Khumbu Buzulu üzerinde moren yolu; nisan-mayıs sezonunda ekspedisyon çadırları. Konaklama yok.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 9,
+        "name": "Kala Patthar",
+        "kind": "viewpoint",
+        "elevationM": 5545,
+        "distanceKm": 2,
+        "durationMin": 150,
+        "sleeping": false,
+        "waterAvailable": false,
+        "connectivity": "none",
+        "note": "Gün doğumunda Everest, Nuptse, Pumori panoraması; rotanın en yüksek noktası. Aynı gün Pheriche’ye iniş.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 10,
+        "name": "Pheriche (HRA kliniği)",
+        "kind": "teahouse",
+        "elevationM": 4371,
+        "distanceKm": 13,
+        "durationMin": 420,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "2g",
+        "note": "Himalayan Rescue Association kliniği (Mart-Mayıs, Eylül-Kasım açık); ücretsiz günlük AMS semineri.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 11,
+        "name": "Namche Bazaar (dönüş)",
+        "kind": "village",
+        "elevationM": 3440,
+        "distanceKm": 20,
+        "durationMin": 420,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "",
+        "restDayRecommended": false
+      },
+      {
+        "order": 12,
+        "name": "Lukla (dönüş)",
+        "kind": "trailhead",
+        "elevationM": 2860,
+        "distanceKm": 19,
+        "durationMin": 420,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Ertesi sabah Kathmandu/Ramechhap uçuşu; hava riskine karşı 1–2 gün tampon bırak.",
+        "restDayRecommended": false
+      }
+    ]
+  },
+  {
+    "id": "dest_annapurna_circuit",
+    "slug": "annapurna-circuit",
+    "name": "Annapurna Circuit",
+    "region": "Manang – Mustang",
+    "countryCode": "NP",
+    "type": "trek",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "summary": "Subtropik Marsyangdi vadisinden Tibet platosu benzeri Manang’a, Thorong La (5416 m) üzerinden Muktinath ve Kali Gandaki’ye. Dünyanın en çeşitli manzaralı klasik turu.",
+    "maxElevationM": 5416,
+    "typicalDays": 12,
+    "totalDistanceKm": 160,
+    "difficulty": "hard",
+    "bestMonths": [
+      3,
+      4,
+      10,
+      11
+    ],
+    "budgetTry": {
+      "low": 45000,
+      "high": 110000
+    },
+    "risks": [
+      "Thorong La’da ani kar fırtınası ve beyaz-karanlık (2014 faciası)",
+      "AMS: Manang üstünde günde 500 m kuralı",
+      "Muktinath inişinde diz ve kayma yaralanmaları",
+      "Jeep yollarında heyelan (muson)",
+      "Giardia ve su kaynaklı hastalık",
+      "Rehbersiz yürüyüşçüler kontrol noktalarında geri çevrilebilir"
+    ],
+    "gear": [
+      "-10 °C uyku tulumu",
+      "Kaz tüyü mont, rüzgâr geçirmez eldiven",
+      "Trekking batonu (iniş için şart)",
+      "Mikro krampon (Kasım–Mart geçit için)",
+      "Kategori 4 gözlük, kar için",
+      "Su filtresi",
+      "Baş lambası (04:00 geçit çıkışı)"
+    ],
+    "rescueNote": "HRA Manang kliniği (3540 m) sezonda açık; Jomsom’da devlet hastanesi. Helikopter tahliyesi Manang ve Muktinath’tan Pokhara/Kathmandu’ya. Acil: 100 (polis), 102 (ambulans), tur acentesi 7/24 hattı.",
+    "insuranceRequired": true,
+    "sources": [
+      "https://en.wikivoyage.org/wiki/Annapurna_Circuit",
+      "https://ntnc.org.np/project/annapurna-conservation-area-project-acap",
+      "https://www.himalayanrescue.org.np"
+    ],
+    "permits": [
+      {
+        "name": "ACAP izni",
+        "costTry": 900,
+        "where": "NTB Kathmandu / Pokhara",
+        "note": "3.000 NPR; 2 fotoğraf."
+      },
+      {
+        "name": "TIMS kartı",
+        "costTry": 600,
+        "where": "NTB ofisi ya da acente",
+        "note": "2.000 NPR; rehberli gruplar için acente düzenler."
+      }
+    ],
+    "transports": [
+      {
+        "mode": "flight",
+        "from": "İstanbul (IST)",
+        "to": "Kathmandu (KTM)",
+        "durationMin": 660,
+        "costTry": 34000,
+        "note": "Aktarmalı, gidiş-dönüş."
+      },
+      {
+        "mode": "bus",
+        "from": "Kathmandu (Gongabu)",
+        "to": "Besisahar",
+        "durationMin": 420,
+        "costTry": 450,
+        "note": "Turist otobüsü 07:00; yerel otobüs daha ucuz ve yavaş."
+      },
+      {
+        "mode": "jeep",
+        "from": "Besisahar",
+        "to": "Chame",
+        "durationMin": 330,
+        "costTry": 1300,
+        "note": "Paylaşımlı jeep; sabah 08:00 kalkış."
+      },
+      {
+        "mode": "flight",
+        "from": "Jomsom",
+        "to": "Pokhara",
+        "durationMin": 20,
+        "costTry": 5200,
+        "note": "Sabah 07:00–09:00 arası; öğleden sonra rüzgâr nedeniyle uçuş yok."
+      }
+    ],
+    "stages": [
+      {
+        "order": 1,
+        "name": "Besisahar",
+        "kind": "trailhead",
+        "elevationM": 760,
+        "distanceKm": 0,
+        "durationMin": 0,
+        "sleeping": false,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Kathmandu’dan 6–8 saat otobüs. Çoğu grup buradan jeep ile Chame/Manang’a atlar.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 2,
+        "name": "Chame",
+        "kind": "village",
+        "elevationM": 2670,
+        "distanceKm": 63,
+        "durationMin": 300,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Manang bölgesi merkezi; jeep yolunun sonuna yakın. Kaplıca havuzu nehir kenarında.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 3,
+        "name": "Upper Pisang",
+        "kind": "village",
+        "elevationM": 3300,
+        "distanceKm": 15,
+        "durationMin": 300,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "2g",
+        "note": "Annapurna II karşıda. Üst rota (Ghyaru–Ngawal) manzara ve aklimatizasyon için alt yoldan iyidir.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 4,
+        "name": "Manang",
+        "kind": "village",
+        "elevationM": 3540,
+        "distanceKm": 20,
+        "durationMin": 420,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "wifi",
+        "note": "Aklimatizasyon günü: Ice Lake (4600 m) ya da Gangapurna gölü; HRA’nın 15:00 AMS semineri.",
+        "restDayRecommended": true
+      },
+      {
+        "order": 5,
+        "name": "Yak Kharka",
+        "kind": "teahouse",
+        "elevationM": 4050,
+        "distanceKm": 10,
+        "durationMin": 240,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Kısa gün; Manang’dan sonra günde 500 m kuralı için ideal ara durak.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 6,
+        "name": "Thorong Phedi",
+        "kind": "teahouse",
+        "elevationM": 4450,
+        "distanceKm": 7,
+        "durationMin": 210,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "High Camp (4850 m) geçidi kısaltır ama uyku irtifası riskli; AMS belirtisi varsa Phedi’de kal.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 7,
+        "name": "Thorong La",
+        "kind": "pass",
+        "elevationM": 5416,
+        "distanceKm": 6,
+        "durationMin": 300,
+        "sleeping": false,
+        "waterAvailable": false,
+        "connectivity": "none",
+        "note": "04:00 çıkış; rüzgâr öğleden önce artar. Kar sonrası 2014 fırtınası anısına; hava kötüyse bekle.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 8,
+        "name": "Muktinath",
+        "kind": "village",
+        "elevationM": 3760,
+        "distanceKm": 10,
+        "durationMin": 240,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "1.650 m iniş; dizleri koru. Hindu-Budist tapınağı; Jomsom’a jeep 1,5 saat.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 9,
+        "name": "Jomsom",
+        "kind": "village",
+        "elevationM": 2720,
+        "distanceKm": 20,
+        "durationMin": 90,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Pokhara’ya sabah uçuşu (20 dk) ya da 8–10 saat jeep/otobüs. Kali Gandaki rüzgârı öğleden sonra.",
+        "restDayRecommended": false
+      }
+    ]
+  },
+  {
+    "id": "dest_abc",
+    "slug": "annapurna-base-camp",
+    "name": "Annapurna Base Camp",
+    "region": "Annapurna Sanctuary",
+    "countryCode": "NP",
+    "type": "trek",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "summary": "Modi Khola vadisinden 4130 m’deki buzul amfisine kısa ve yoğun bir teahouse treki. 7–8 günde Annapurna I güney duvarının dibine.",
+    "maxElevationM": 4130,
+    "typicalDays": 8,
+    "totalDistanceKm": 70,
+    "difficulty": "moderate",
+    "bestMonths": [
+      3,
+      4,
+      5,
+      10,
+      11
+    ],
+    "budgetTry": {
+      "low": 30000,
+      "high": 70000
+    },
+    "risks": [
+      "Kış çığ kanalları (Deurali–MBC), sabah erken geçiş",
+      "AMS: 3 günde 2.000 m kazanım",
+      "Islak taş basamaklarda kayma",
+      "Muson sülükleri ve sis"
+    ],
+    "gear": [
+      "-10 °C uyku tulumu",
+      "Yağmurluk / poncho (muson)",
+      "Trekking batonu",
+      "Baş lambası",
+      "Su filtresi",
+      "Sülük çorabı (Haziran–Eylül)"
+    ],
+    "rescueNote": "ABC ve MBC helikopter pisti; en yakın klinik Chhomrong sağlık ocağı, hastane Pokhara (Manipal). Tur acentesi hattı ve 102.",
+    "insuranceRequired": true,
+    "sources": [
+      "https://en.wikivoyage.org/wiki/Annapurna_Sanctuary_Trek",
+      "https://ntnc.org.np/project/annapurna-conservation-area-project-acap"
+    ],
+    "permits": [
+      {
+        "name": "ACAP izni",
+        "costTry": 900,
+        "where": "NTB Pokhara",
+        "note": "3.000 NPR."
+      },
+      {
+        "name": "TIMS kartı",
+        "costTry": 600,
+        "where": "NTB Pokhara",
+        "note": "2.000 NPR."
+      }
+    ],
+    "transports": [
+      {
+        "mode": "flight",
+        "from": "İstanbul (IST)",
+        "to": "Kathmandu (KTM)",
+        "durationMin": 660,
+        "costTry": 34000,
+        "note": "Aktarmalı, gidiş-dönüş."
+      },
+      {
+        "mode": "bus",
+        "from": "Kathmandu",
+        "to": "Pokhara",
+        "durationMin": 420,
+        "costTry": 500,
+        "note": "Turist otobüsü; uçuş alternatifi 25 dk (~4.000 ₺)."
+      },
+      {
+        "mode": "jeep",
+        "from": "Pokhara",
+        "to": "Jhinu Danda",
+        "durationMin": 180,
+        "costTry": 800,
+        "note": "Paylaşımlı jeep; özel araç ~8.000 ₺."
+      }
+    ],
+    "stages": [
+      {
+        "order": 1,
+        "name": "Nayapul / Jhinu Danda",
+        "kind": "trailhead",
+        "elevationM": 1780,
+        "distanceKm": 0,
+        "durationMin": 0,
+        "sleeping": false,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Pokhara’dan jeep 3 saat. Jhinu kaplıcaları rotanın sonunda ödül.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 2,
+        "name": "Chhomrong",
+        "kind": "village",
+        "elevationM": 2170,
+        "distanceKm": 6,
+        "durationMin": 240,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Modi Khola vadisine giriş; son ATM/telefon sinyali burada.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 3,
+        "name": "Dovan",
+        "kind": "teahouse",
+        "elevationM": 2500,
+        "distanceKm": 10,
+        "durationMin": 330,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Bambu ve rododendron ormanı; sülük mevsimi (muson) dikkat.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 4,
+        "name": "Deurali",
+        "kind": "teahouse",
+        "elevationM": 3230,
+        "distanceKm": 7,
+        "durationMin": 240,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Hinku Mağarası geçilir; kış/ilkbaharda çığ kanalı — sabah erken geç.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 5,
+        "name": "Machapuchare Base Camp (MBC)",
+        "kind": "teahouse",
+        "elevationM": 3700,
+        "distanceKm": 5,
+        "durationMin": 180,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Aklimatizasyon için ABC’ye çıkmadan bir gece burada; gün doğumu Balık Kuyruğu’nda.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 6,
+        "name": "Annapurna Base Camp",
+        "kind": "base_camp",
+        "elevationM": 4130,
+        "distanceKm": 4,
+        "durationMin": 150,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "360° buzul amfisi: Annapurna I güney duvarı, Hiunchuli, Tent Peak. Anatoli Boukreev anıtı.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 7,
+        "name": "Bamboo",
+        "kind": "teahouse",
+        "elevationM": 2310,
+        "distanceKm": 17,
+        "durationMin": 420,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "",
+        "restDayRecommended": false
+      },
+      {
+        "order": 8,
+        "name": "Jhinu Danda (kaplıca)",
+        "kind": "village",
+        "elevationM": 1780,
+        "distanceKm": 12,
+        "durationMin": 330,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Nehir kenarı kaplıca havuzları; ertesi gün jeep ile Pokhara.",
+        "restDayRecommended": false
+      }
+    ]
+  },
+  {
+    "id": "dest_langtang",
+    "slug": "langtang-valley",
+    "name": "Langtang Vadisi",
+    "region": "Rasuwa, Langtang Milli Parkı",
+    "countryCode": "NP",
+    "type": "trek",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "summary": "Kathmandu’ya en yakın Himalaya vadisi: Syabrubesi’den Tamang köyleri ve yak meralarıyla Kyanjin Gompa’ya, Tserko Ri (4984 m) ile taçlanan sakin bir 7–8 günlük tur.",
+    "maxElevationM": 4984,
+    "typicalDays": 8,
+    "totalDistanceKm": 72,
+    "difficulty": "moderate",
+    "bestMonths": [
+      3,
+      4,
+      5,
+      10,
+      11,
+      12
+    ],
+    "budgetTry": {
+      "low": 25000,
+      "high": 60000
+    },
+    "risks": [
+      "Heyelan kanalları (Lama Hotel–Langtang)",
+      "Tserko Ri’de kar/buz ve AMS",
+      "Yol trafiği (Trishuli)",
+      "Kışın gece -15 °C"
+    ],
+    "gear": [
+      "-10 °C uyku tulumu",
+      "Kaz tüyü mont",
+      "Baş lambası",
+      "Su filtresi",
+      "Baton"
+    ],
+    "rescueNote": "Dhunche’de bölge hastanesi; Kyanjin Gompa helikopter pisti. Acil 100/102; tur acentesi hattı.",
+    "insuranceRequired": true,
+    "sources": [
+      "https://en.wikivoyage.org/wiki/Langtang_National_Park",
+      "https://ntb.gov.np"
+    ],
+    "permits": [
+      {
+        "name": "Langtang Milli Parkı giriş",
+        "costTry": 900,
+        "where": "Dhunche kontrol noktası",
+        "note": "3.000 NPR."
+      },
+      {
+        "name": "TIMS kartı",
+        "costTry": 600,
+        "where": "NTB Kathmandu",
+        "note": "2.000 NPR."
+      }
+    ],
+    "transports": [
+      {
+        "mode": "flight",
+        "from": "İstanbul (IST)",
+        "to": "Kathmandu (KTM)",
+        "durationMin": 660,
+        "costTry": 34000,
+        "note": "Aktarmalı, gidiş-dönüş."
+      },
+      {
+        "mode": "jeep",
+        "from": "Kathmandu",
+        "to": "Syabrubesi",
+        "durationMin": 390,
+        "costTry": 900,
+        "note": "Paylaşımlı jeep; otobüs 350 ₺ ama 9 saat."
+      }
+    ],
+    "stages": [
+      {
+        "order": 1,
+        "name": "Syabrubesi",
+        "kind": "trailhead",
+        "elevationM": 1460,
+        "distanceKm": 0,
+        "durationMin": 0,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Kathmandu’dan 7–9 saat otobüs/jeep (Trishuli yolu heyelan sezonunda yavaş).",
+        "restDayRecommended": false
+      },
+      {
+        "order": 2,
+        "name": "Lama Hotel",
+        "kind": "teahouse",
+        "elevationM": 2470,
+        "distanceKm": 11,
+        "durationMin": 360,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Langtang Khola boyunca orman; kırmızı panda bölgesi.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 3,
+        "name": "Langtang Köyü",
+        "kind": "village",
+        "elevationM": 3430,
+        "distanceKm": 15,
+        "durationMin": 360,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "2g",
+        "note": "2015 depreminde tamamen yıkıldı; yeni köy 1 km ilerde. Anıt duvarı ziyaret edilir.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 4,
+        "name": "Kyanjin Gompa",
+        "kind": "village",
+        "elevationM": 3870,
+        "distanceKm": 7,
+        "durationMin": 210,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "wifi",
+        "note": "Aklimatizasyon ve keşif merkezi: Kyanjin Ri (4773 m) yarım gün, Tserko Ri tam gün.",
+        "restDayRecommended": true
+      },
+      {
+        "order": 5,
+        "name": "Tserko Ri",
+        "kind": "viewpoint",
+        "elevationM": 4984,
+        "distanceKm": 6,
+        "durationMin": 360,
+        "sleeping": false,
+        "waterAvailable": false,
+        "connectivity": "none",
+        "note": "Langtang Lirung (7227 m), Shishapangma ve Tibet sınırı manzarası; 03:30 çıkış.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 6,
+        "name": "Lama Hotel (dönüş)",
+        "kind": "teahouse",
+        "elevationM": 2470,
+        "distanceKm": 22,
+        "durationMin": 420,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "",
+        "restDayRecommended": false
+      },
+      {
+        "order": 7,
+        "name": "Syabrubesi (dönüş)",
+        "kind": "trailhead",
+        "elevationM": 1460,
+        "distanceKm": 11,
+        "durationMin": 300,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "",
+        "restDayRecommended": false
+      }
+    ]
+  },
+  {
+    "id": "dest_manaslu",
+    "slug": "manaslu-circuit",
+    "name": "Manaslu Circuit",
+    "region": "Gorkha, Manaslu Koruma Alanı",
+    "countryCode": "NP",
+    "type": "trek",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "summary": "Budhi Gandaki vadisinden Nubri’nin Tibet köylerine, Larkya La (5106 m) ile Annapurna’ya bağlanan kısıtlı bölge turu. Zorunlu rehber, az kalabalık, 14–16 gün.",
+    "maxElevationM": 5106,
+    "typicalDays": 15,
+    "totalDistanceKm": 177,
+    "difficulty": "hard",
+    "bestMonths": [
+      3,
+      4,
+      5,
+      10,
+      11
+    ],
+    "budgetTry": {
+      "low": 75000,
+      "high": 140000
+    },
+    "risks": [
+      "Larkya La’da kar fırtınası ve buzlu iniş",
+      "Budhi Gandaki’de kaya düşmesi, dar patika",
+      "AMS (Samdo/Dharamsala)",
+      "Uzak bölge: tahliye gecikmesi",
+      "Zorunlu rehber ve 2 kişi kuralı"
+    ],
+    "gear": [
+      "-15 °C uyku tulumu",
+      "Mikro krampon",
+      "Kaz tüyü mont + ekspedisyon eldiveni",
+      "Baş lambası (03:30 geçit çıkışı)",
+      "Su filtresi",
+      "Uydu mesajlaşma cihazı (önerilir)"
+    ],
+    "rescueNote": "Samagaon sağlık ocağı ve helikopter pisti; en yakın hastane Gorkha/Kathmandu. Tahliye acente ve sigorta üzerinden; kısıtlı bölgede polis kontrol noktaları yardımcı olur.",
+    "insuranceRequired": true,
+    "sources": [
+      "https://en.wikivoyage.org/wiki/Manaslu_Circuit",
+      "https://www.nepalimmigration.gov.np/page/trekking-permit",
+      "https://ntnc.org.np/project/manaslu-conservation-area-project-mcap"
+    ],
+    "permits": [
+      {
+        "name": "Manaslu Kısıtlı Bölge İzni (MRAP)",
+        "costTry": 4200,
+        "where": "Kathmandu Göçmenlik Dairesi (acente aracılığıyla)",
+        "note": "Eylül–Kasım 100 USD/hafta; min. 2 kişi + rehber."
+      },
+      {
+        "name": "MCAP izni",
+        "costTry": 900,
+        "where": "NTB Kathmandu",
+        "note": "3.000 NPR."
+      },
+      {
+        "name": "ACAP izni",
+        "costTry": 900,
+        "where": "NTB Kathmandu",
+        "note": "Dharapani sonrası için gerekli."
+      }
+    ],
+    "transports": [
+      {
+        "mode": "flight",
+        "from": "İstanbul (IST)",
+        "to": "Kathmandu (KTM)",
+        "durationMin": 660,
+        "costTry": 34000,
+        "note": "Aktarmalı, gidiş-dönüş."
+      },
+      {
+        "mode": "jeep",
+        "from": "Kathmandu",
+        "to": "Machha Khola",
+        "durationMin": 540,
+        "costTry": 1500,
+        "note": "Paylaşımlı; özel jeep ~8.500 ₺ (7 kişi)."
+      },
+      {
+        "mode": "jeep",
+        "from": "Dharapani",
+        "to": "Besisahar",
+        "durationMin": 270,
+        "costTry": 1200,
+        "note": "Bozuk yol; ardından Kathmandu otobüsü 6 saat."
+      }
+    ],
+    "stages": [
+      {
+        "order": 1,
+        "name": "Machha Khola",
+        "kind": "trailhead",
+        "elevationM": 900,
+        "distanceKm": 0,
+        "durationMin": 0,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Kathmandu → Arughat/Soti Khola jeep 8–9 saat; kısıtlı bölge izni Jagat’ta kontrol edilir.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 2,
+        "name": "Jagat",
+        "kind": "village",
+        "elevationM": 1340,
+        "distanceKm": 22,
+        "durationMin": 420,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "2g",
+        "note": "Manaslu Kısıtlı Bölge (MRAP) girişi; izin ve rehber kontrolü.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 3,
+        "name": "Deng",
+        "kind": "village",
+        "elevationM": 1860,
+        "distanceKm": 20,
+        "durationMin": 420,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "",
+        "restDayRecommended": false
+      },
+      {
+        "order": 4,
+        "name": "Namrung",
+        "kind": "village",
+        "elevationM": 2630,
+        "distanceKm": 19,
+        "durationMin": 390,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "wifi",
+        "note": "Nubri Tibet kültürüne giriş; buradan sonra manastırlar ve mani duvarları.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 5,
+        "name": "Lho",
+        "kind": "village",
+        "elevationM": 3180,
+        "distanceKm": 10,
+        "durationMin": 240,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Ribung Gompa’dan Manaslu (8163 m) gün doğumu.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 6,
+        "name": "Samagaon",
+        "kind": "village",
+        "elevationM": 3530,
+        "distanceKm": 8,
+        "durationMin": 210,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "2g",
+        "note": "Aklimatizasyon günü: Birendra Gölü ya da Manaslu Ana Kampı (4800 m) gidiş-dönüş.",
+        "restDayRecommended": true
+      },
+      {
+        "order": 7,
+        "name": "Samdo",
+        "kind": "village",
+        "elevationM": 3860,
+        "distanceKm": 8,
+        "durationMin": 180,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Tibet sınırına 10 km; yak kervanları. Ek aklimatizasyon: Samdo Ri (5000 m).",
+        "restDayRecommended": false
+      },
+      {
+        "order": 8,
+        "name": "Dharamsala (Larkya Phedi)",
+        "kind": "camp",
+        "elevationM": 4460,
+        "distanceKm": 7,
+        "durationMin": 210,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Tek ve kalabalık lodge; erken rezervasyon. Geçit günü 03:30 çıkış.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 9,
+        "name": "Larkya La",
+        "kind": "pass",
+        "elevationM": 5106,
+        "distanceKm": 7,
+        "durationMin": 300,
+        "sleeping": false,
+        "waterAvailable": false,
+        "connectivity": "none",
+        "note": "Himlung, Cheo Himal, Annapurna II panoraması. Batı inişi buzlu; mikro krampon işe yarar.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 10,
+        "name": "Bimthang",
+        "kind": "village",
+        "elevationM": 3720,
+        "distanceKm": 9,
+        "durationMin": 300,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Buzul göl ve Manaslu batı yüzü; 1.400 m iniş sonrası sıcak yemek.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 11,
+        "name": "Dharapani",
+        "kind": "village",
+        "elevationM": 1860,
+        "distanceKm": 26,
+        "durationMin": 480,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Annapurna Circuit ile birleşir; Besisahar’a jeep 4–5 saat.",
+        "restDayRecommended": false
+      }
+    ]
+  },
+  {
+    "id": "dest_kilimanjaro",
+    "slug": "kilimanjaro-machame",
+    "name": "Kilimanjaro — Machame Rotası",
+    "region": "Kilimanjaro Milli Parkı",
+    "countryCode": "TZ",
+    "type": "expedition",
+    "adventureTypes": [
+      "hiking",
+      "climbing"
+    ],
+    "summary": "“Viski rotası”: yağmur ormanından Shira platosu, Barranco duvarı ve Barafu üzerinden Uhuru Peak (5895 m). 7 günlük plan, zorunlu rehber ve porter ekibiyle.",
+    "maxElevationM": 5895,
+    "typicalDays": 7,
+    "totalDistanceKm": 62,
+    "difficulty": "hard",
+    "bestMonths": [
+      1,
+      2,
+      3,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "budgetTry": {
+      "low": 90000,
+      "high": 180000
+    },
+    "risks": [
+      "AMS / HAPE — en yaygın tahliye sebebi",
+      "Zirve gecesi hipotermi ve donma (-15 °C, rüzgâr)",
+      "Barranco duvarında düşme",
+      "Dehidrasyon (günde 4 L hedef)",
+      "Alçak bölgelerde sıtma"
+    ],
+    "gear": [
+      "-15 °C uyku tulumu (kiralanabilir)",
+      "Kaz tüyü mont, balaclava, kalın eldiven + iç eldiven",
+      "Baş lambası + yedek pil (zirve gecesi 7 saat)",
+      "Kategori 4 gözlük",
+      "3 L su kapasitesi + termos (zirve gecesi hortum donar)",
+      "Trekking batonu",
+      "Yağmurluk (orman günü)",
+      "Duffel çanta (porter için, maks. 15 kg)"
+    ],
+    "rescueNote": "KINAPA kurtarma ekipleri her kampta; Kilimanjaro SAR helikopteri (Moshi) sigorta onayıyla. Hastane: KCMC Moshi. Acil: 112 (Tanzanya), tur şirketi telsiz ağı.",
+    "insuranceRequired": true,
+    "sources": [
+      "https://en.wikivoyage.org/wiki/Kilimanjaro",
+      "https://www.tanzaniaparks.go.tz/national_parks/kilimanjaro-national-park",
+      "https://kiliporters.org"
+    ],
+    "permits": [
+      {
+        "name": "KINAPA park + kamp + kurtarma ücretleri",
+        "costTry": 42000,
+        "where": "Lisanslı tur operatörü (Machame Gate’te ödeme)",
+        "note": "~1.000 USD / 7 gün; bireysel giriş yasak."
+      },
+      {
+        "name": "Tanzanya e-vizesi",
+        "costTry": 2100,
+        "where": "visa.immigration.go.tz",
+        "note": "50 USD; en az 10 gün önce başvur."
+      }
+    ],
+    "transports": [
+      {
+        "mode": "flight",
+        "from": "İstanbul (IST)",
+        "to": "Kilimanjaro (JRO)",
+        "durationMin": 480,
+        "costTry": 36000,
+        "note": "Direkt THY; gidiş-dönüş ekonomi."
+      },
+      {
+        "mode": "taxi",
+        "from": "JRO Havalimanı",
+        "to": "Moshi",
+        "durationMin": 50,
+        "costTry": 2000,
+        "note": "Tur şirketi transferi genelde dahil."
+      },
+      {
+        "mode": "jeep",
+        "from": "Moshi",
+        "to": "Machame Gate",
+        "durationMin": 60,
+        "costTry": null,
+        "note": "Tur paketine dahil."
+      }
+    ],
+    "stages": [
+      {
+        "order": 1,
+        "name": "Machame Gate",
+        "kind": "trailhead",
+        "elevationM": 1800,
+        "distanceKm": 0,
+        "durationMin": 0,
+        "sleeping": false,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Kayıt ve porter yük tartısı (maks. 20 kg). Moshi’den 1 saat.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 2,
+        "name": "Machame Camp",
+        "kind": "camp",
+        "elevationM": 3010,
+        "distanceKm": 11,
+        "durationMin": 360,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "2g",
+        "note": "Yağmur ormanı içinde tırmanış; öğleden sonra sis ve yağmur olağan.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 3,
+        "name": "Shira Camp",
+        "kind": "camp",
+        "elevationM": 3840,
+        "distanceKm": 5,
+        "durationMin": 300,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "2g",
+        "note": "Shira platosuna çıkış; Kibo ilk kez görünür. Geceleri 0 °C altı.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 4,
+        "name": "Lava Tower → Barranco Camp",
+        "kind": "camp",
+        "elevationM": 3960,
+        "distanceKm": 10,
+        "durationMin": 420,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "“Yüksek tırman, alçak uyu”: Lava Tower 4630 m’ye çıkılıp Barranco’ya inilir. En önemli aklimatizasyon günü.",
+        "restDayRecommended": true
+      },
+      {
+        "order": 5,
+        "name": "Karanga Camp",
+        "kind": "camp",
+        "elevationM": 3995,
+        "distanceKm": 5,
+        "durationMin": 240,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Barranco Duvarı (tırmanış sınıfı 2) sabah aşılır. Son su kaynağı; porterler yukarıya taşır.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 6,
+        "name": "Barafu Camp",
+        "kind": "base_camp",
+        "elevationM": 4673,
+        "distanceKm": 4,
+        "durationMin": 210,
+        "sleeping": true,
+        "waterAvailable": false,
+        "connectivity": "sat_only",
+        "note": "Zirve kampı; 18:00 uyku, 23:30 çıkış. Su yok (Karanga’dan taşınır).",
+        "restDayRecommended": false
+      },
+      {
+        "order": 7,
+        "name": "Stella Point",
+        "kind": "pass",
+        "elevationM": 5756,
+        "distanceKm": 5,
+        "durationMin": 390,
+        "sleeping": false,
+        "waterAvailable": false,
+        "connectivity": "none",
+        "note": "Krater kenarı; buradan Uhuru’ya 45 dk düz yürüyüş. Gün doğumu genelde burada.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 8,
+        "name": "Uhuru Peak",
+        "kind": "summit",
+        "elevationM": 5895,
+        "distanceKm": 1.5,
+        "durationMin": 45,
+        "sleeping": false,
+        "waterAvailable": false,
+        "connectivity": "none",
+        "note": "Afrika’nın çatısı. Zirvede 15 dk’dan fazla kalma; buzul kalıntıları (Furtwängler) yanı başında.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 9,
+        "name": "Mweka Camp",
+        "kind": "camp",
+        "elevationM": 3100,
+        "distanceKm": 13,
+        "durationMin": 420,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "2g",
+        "note": "Aynı gün Barafu’ya inip öğle yemeği, ardından 1.500 m daha iniş. Uzun gün: 12–14 saat.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 10,
+        "name": "Mweka Gate",
+        "kind": "trailhead",
+        "elevationM": 1640,
+        "distanceKm": 10,
+        "durationMin": 210,
+        "sleeping": false,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Zirtan sertifikası (Uhuru altın, Stella yeşil). Bahşiş töreni genelde burada.",
+        "restDayRecommended": false
+      }
+    ]
+  },
+  {
+    "id": "dest_torres",
+    "slug": "torres-del-paine-w",
+    "name": "Torres del Paine W Rotası",
+    "region": "Magallanes, Patagonya",
+    "countryCode": "CL",
+    "type": "trek",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "summary": "Grey Buzulu, Francés Vadisi ve granit kuleler: 4–5 günlük “W” ya da 8 günlük “O” turu. CONAF ve refugio rezervasyonu olmadan girilmez.",
+    "maxElevationM": 900,
+    "typicalDays": 5,
+    "totalDistanceKm": 80,
+    "difficulty": "moderate",
+    "bestMonths": [
+      10,
+      11,
+      12,
+      1,
+      2,
+      3,
+      4
+    ],
+    "budgetTry": {
+      "low": 40000,
+      "high": 110000
+    },
+    "risks": [
+      "Aşırı rüzgâr (100 km/s+), düşme",
+      "Hipotermi — yazın kar mümkün",
+      "Yangın kuralları (ihlalde sınır dışı)",
+      "Refugio rezervasyonu olmadan giriş reddi"
+    ],
+    "gear": [
+      "Rüzgâr geçirmez hardshell + pantolon",
+      "0 °C uyku tulumu (kamp)",
+      "Bere ve eldiven (yazın da)",
+      "Trekking batonu",
+      "Tüp ocağı (sadece izinli alanlarda)",
+      "Nakit CLP"
+    ],
+    "rescueNote": "CONAF ranger istasyonları her sektörde; ciddi vakalar Puerto Natales Hastanesi’ne (2,5 saat) götürülür. Acil: 133 (Carabineros), 131 (ambulans). Helikopter kurtarma sınırlı.",
+    "insuranceRequired": false,
+    "sources": [
+      "https://en.wikivoyage.org/wiki/Torres_del_Paine_National_Park",
+      "https://www.conaf.cl/parques/parque-nacional-torres-del-paine/",
+      "https://www.verticepatagonia.com"
+    ],
+    "permits": [
+      {
+        "name": "CONAF park girişi",
+        "costTry": 2100,
+        "where": "pasesparques.cl (online)",
+        "note": "~46.000 CLP yabancı, 3+ gün."
+      },
+      {
+        "name": "Konaklama rezervasyonu (Vertice / Las Torres)",
+        "costTry": null,
+        "where": "verticepatagonia.com, lastorres.com",
+        "note": "Her gece için zorunlu; girişte kontrol edilir."
+      }
+    ],
+    "transports": [
+      {
+        "mode": "flight",
+        "from": "İstanbul (IST)",
+        "to": "Santiago (SCL)",
+        "durationMin": 1200,
+        "costTry": 52000,
+        "note": "Aktarmalı (Madrid/São Paulo), gidiş-dönüş."
+      },
+      {
+        "mode": "flight",
+        "from": "Santiago",
+        "to": "Punta Arenas (PUQ)",
+        "durationMin": 210,
+        "costTry": 6500,
+        "note": "LATAM/Sky; erken alınırsa ucuz."
+      },
+      {
+        "mode": "bus",
+        "from": "Punta Arenas",
+        "to": "Puerto Natales",
+        "durationMin": 180,
+        "costTry": 550,
+        "note": "Bus-Sur; günde 8+ sefer."
+      },
+      {
+        "mode": "bus",
+        "from": "Puerto Natales",
+        "to": "Pudeto / Laguna Amarga",
+        "durationMin": 150,
+        "costTry": 650,
+        "note": "07:00 kalkış; gidiş-dönüş bilet."
+      },
+      {
+        "mode": "ferry",
+        "from": "Pudeto",
+        "to": "Paine Grande",
+        "durationMin": 30,
+        "costTry": 1500,
+        "note": "Katamaran; rüzgârda iptal olabilir."
+      }
+    ],
+    "stages": [
+      {
+        "order": 1,
+        "name": "Paine Grande (katamaran iskelesi)",
+        "kind": "trailhead",
+        "elevationM": 40,
+        "distanceKm": 0,
+        "durationMin": 0,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "wifi",
+        "note": "Pudeto’dan katamaran 30 dk (Pehoé gölü). Vertice Patagonia rezervasyonu şart.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 2,
+        "name": "Refugio Grey",
+        "kind": "hut",
+        "elevationM": 120,
+        "distanceKm": 11,
+        "durationMin": 240,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Grey Buzulu ve asma köprüler; ertesi gün Paine Grande’ye dönüş.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 3,
+        "name": "Campamento Italiano",
+        "kind": "camp",
+        "elevationM": 200,
+        "distanceKm": 19,
+        "durationMin": 360,
+        "sleeping": false,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Francés Vadisi girişi; çantalar burada bırakılıp Británico seyir noktasına çıkılır.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 4,
+        "name": "Mirador Británico",
+        "kind": "viewpoint",
+        "elevationM": 780,
+        "distanceKm": 6,
+        "durationMin": 180,
+        "sleeping": false,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Cuernos ve Paine Grande buzul çığları sesi. Rüzgâr 100 km/s’yi aşabilir.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 5,
+        "name": "Refugio Los Cuernos / Francés",
+        "kind": "hut",
+        "elevationM": 130,
+        "distanceKm": 12,
+        "durationMin": 240,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Nordenskjöld gölü kıyısı; Las Torres Patagonia işletmesi.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 6,
+        "name": "Refugio Chileno",
+        "kind": "hut",
+        "elevationM": 410,
+        "distanceKm": 16,
+        "durationMin": 360,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Ascencio vadisi; gün doğumu için 04:00’te kulelere çıkış (1,5–2 saat).",
+        "restDayRecommended": false
+      },
+      {
+        "order": 7,
+        "name": "Mirador Base de las Torres",
+        "kind": "viewpoint",
+        "elevationM": 900,
+        "distanceKm": 4,
+        "durationMin": 120,
+        "sleeping": false,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Üç granit kule ve turkuaz göl; son 45 dk moren kayaları. Kar/buz mevsiminde mikro krampon.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 8,
+        "name": "Hotel Las Torres / Welcome Center",
+        "kind": "trailhead",
+        "elevationM": 150,
+        "distanceKm": 12,
+        "durationMin": 240,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "wifi",
+        "note": "Laguna Amarga’ya shuttle, oradan Puerto Natales otobüsü 2,5 saat.",
+        "restDayRecommended": false
+      }
+    ]
+  },
+  {
+    "id": "dest_inca",
+    "slug": "inca-trail",
+    "name": "Inca Trail (Camino Inca)",
+    "region": "Cusco, Kutsal Vadi",
+    "countryCode": "PE",
+    "type": "trek",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "summary": "Km 82’den Dead Woman’s Pass (4215 m) ve İnka taş yolu boyunca Güneş Kapısı’na: 4 günlük, kotalı ve yalnızca lisanslı operatörle yürünebilen dünyanın en ünlü arkeolojik treki.",
+    "maxElevationM": 4215,
+    "typicalDays": 4,
+    "totalDistanceKm": 43,
+    "difficulty": "moderate",
+    "bestMonths": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "budgetTry": {
+      "low": 45000,
+      "high": 95000
+    },
+    "risks": [
+      "AMS (Cusco 3.400 m’ye uçakla iniş)",
+      "Islak İnka basamaklarında düşme",
+      "Ekvator UV’si, güneş yanığı",
+      "Permi kotası / pasaport uyumsuzluğu",
+      "Yağmur sezonu heyelanları (Şubat kapalı)"
+    ],
+    "gear": [
+      "0 °C uyku tulumu (kiralık)",
+      "Yağmurluk / poncho",
+      "Trekking batonu (lastik uçlu — zorunlu)",
+      "Baş lambası",
+      "Güneş şapkası + 50 krem",
+      "Böcek kovucu",
+      "Pasaport (orijinal!)"
+    ],
+    "rescueNote": "Rotada SERNANP ranger noktaları; operatörler oksijen taşır. Hastane: Cusco Regional. Tahliye Km 82 ya da Machu Picchu yönüne yürüyerek/at ile; acil 105 (polis), 116 (itfaiye/kurtarma).",
+    "insuranceRequired": false,
+    "sources": [
+      "https://en.wikivoyage.org/wiki/Inca_Trail",
+      "https://www.gob.pe/sernanp",
+      "https://www.machupicchu.gob.pe"
+    ],
+    "permits": [
+      {
+        "name": "Inca Trail permisi (SERNANP)",
+        "costTry": 4200,
+        "where": "Lisanslı tur operatörü",
+        "note": "Günlük 500 kota; 5–7 ay önce; pasaporta bağlı."
+      },
+      {
+        "name": "Machu Picchu girişi",
+        "costTry": 2200,
+        "where": "Operatör / tuboleto.cultura.pe",
+        "note": "Sabah slotu tur fiyatına dahil."
+      }
+    ],
+    "transports": [
+      {
+        "mode": "flight",
+        "from": "İstanbul (IST)",
+        "to": "Lima (LIM)",
+        "durationMin": 1080,
+        "costTry": 48000,
+        "note": "Aktarmalı, gidiş-dönüş."
+      },
+      {
+        "mode": "flight",
+        "from": "Lima",
+        "to": "Cusco (CUZ)",
+        "durationMin": 85,
+        "costTry": 4500,
+        "note": "LATAM/Sky; sabah uçuşları daha güvenilir."
+      },
+      {
+        "mode": "bus",
+        "from": "Cusco",
+        "to": "Km 82 (Piscacucho)",
+        "durationMin": 180,
+        "costTry": null,
+        "note": "Operatör transferi, 04:30 kalkış."
+      },
+      {
+        "mode": "train",
+        "from": "Aguas Calientes",
+        "to": "Ollantaytambo",
+        "durationMin": 100,
+        "costTry": 2800,
+        "note": "PeruRail/Inca Rail; tur paketine genelde dahil."
+      }
+    ],
+    "stages": [
+      {
+        "order": 1,
+        "name": "Km 82 (Piscacucho)",
+        "kind": "trailhead",
+        "elevationM": 2720,
+        "distanceKm": 0,
+        "durationMin": 0,
+        "sleeping": false,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Cusco’dan otobüs 3 saat; pasaport + permi kontrolü. Porter yükü maks. 20 kg (yasal).",
+        "restDayRecommended": false
+      },
+      {
+        "order": 2,
+        "name": "Wayllabamba",
+        "kind": "camp",
+        "elevationM": 3000,
+        "distanceKm": 12,
+        "durationMin": 360,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "2g",
+        "note": "Llactapata harabeleri yolda; son köy ve son bira.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 3,
+        "name": "Dead Woman’s Pass (Warmiwañusca)",
+        "kind": "pass",
+        "elevationM": 4215,
+        "distanceKm": 7,
+        "durationMin": 300,
+        "sleeping": false,
+        "waterAvailable": false,
+        "connectivity": "none",
+        "note": "Rotanın en yüksek ve en zor noktası; 1.200 m tırmanış tek sabahta. Koka çayı ve yavaş tempo.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 4,
+        "name": "Pacaymayo",
+        "kind": "camp",
+        "elevationM": 3600,
+        "distanceKm": 4,
+        "durationMin": 120,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Geçit sonrası 600 m iniş; en soğuk gece (0 °C civarı).",
+        "restDayRecommended": false
+      },
+      {
+        "order": 5,
+        "name": "Runkurakay Geçidi",
+        "kind": "pass",
+        "elevationM": 3950,
+        "distanceKm": 4,
+        "durationMin": 150,
+        "sleeping": false,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Runkurakay yuvarlak kalesi ve Sayacmarca harabeleri; İnka taş döşeme yolu başlar.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 6,
+        "name": "Wiñay Wayna",
+        "kind": "camp",
+        "elevationM": 2650,
+        "distanceKm": 12,
+        "durationMin": 360,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "“Sonsuz Genç” terasları kampın hemen altında; son gece, 03:30 uyanış.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 7,
+        "name": "Inti Punku (Güneş Kapısı)",
+        "kind": "viewpoint",
+        "elevationM": 2720,
+        "distanceKm": 5,
+        "durationMin": 90,
+        "sleeping": false,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Machu Picchu ilk kez buradan görünür; gün doğumu için kontrol noktası 05:30 açılır.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 8,
+        "name": "Machu Picchu",
+        "kind": "viewpoint",
+        "elevationM": 2430,
+        "distanceKm": 2,
+        "durationMin": 60,
+        "sleeping": false,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Rehberli tur ~2 saat; sonra otobüsle Aguas Calientes, trenle Ollantaytambo/Cusco.",
+        "restDayRecommended": false
+      }
+    ]
+  },
+  {
+    "id": "dest_tmb",
+    "slug": "tour-du-mont-blanc",
+    "name": "Tour du Mont Blanc",
+    "region": "Chamonix – Courmayeur – Champex",
+    "countryCode": "FR",
+    "type": "trek",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "summary": "Üç ülke, 170 km ve 10.000 m tırmanışla Mont Blanc masifinin çevresi. Refuge yarım pansiyonu, köy gîte’leri ve teleferik kısaltmalarıyla 11 günlük Alp klasiği.",
+    "maxElevationM": 2665,
+    "typicalDays": 11,
+    "totalDistanceKm": 170,
+    "difficulty": "moderate",
+    "bestMonths": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "budgetTry": {
+      "low": 45000,
+      "high": 95000
+    },
+    "risks": [
+      "Öğleden sonra fırtınası ve yıldırım (geçitler)",
+      "Haziran kar yamaçları",
+      "Fenêtre d’Arpette’te kaya düşmesi",
+      "Sıcak çarpması, dehidrasyon",
+      "Koruma köpekleri (patou)"
+    ],
+    "gear": [
+      "Uyku tulumu astarı (refuge zorunlu)",
+      "Hafif hardshell + yağmur pantolonu",
+      "Trekking batonu",
+      "Şapka, 50 krem",
+      "Mikro krampon (Haziran)",
+      "Kulak tıkacı (yatakhane)",
+      "Nakit EUR + CHF"
+    ],
+    "rescueNote": "Fransa: PGHM Chamonix (+33 4 50 53 16 89) ya da 112; İtalya: 118 (Soccorso Alpino); İsviçre: 1414 (Rega). Her refuge’de telsiz/telefon var.",
+    "insuranceRequired": false,
+    "sources": [
+      "https://en.wikivoyage.org/wiki/Tour_du_Mont_Blanc",
+      "https://www.montourdumontblanc.com",
+      "https://www.autourdumontblanc.com"
+    ],
+    "permits": [
+      {
+        "name": "Refuge rezervasyonu",
+        "costTry": null,
+        "where": "montourdumontblanc.com",
+        "note": "İzin yok; Temmuz–Ağustos için 4–5 ay önce rezervasyon."
+      }
+    ],
+    "transports": [
+      {
+        "mode": "flight",
+        "from": "İstanbul (IST)",
+        "to": "Cenevre (GVA)",
+        "durationMin": 190,
+        "costTry": 14000,
+        "note": "Direkt, gidiş-dönüş."
+      },
+      {
+        "mode": "bus",
+        "from": "Cenevre Havalimanı",
+        "to": "Chamonix",
+        "durationMin": 90,
+        "costTry": 1800,
+        "note": "Paylaşımlı shuttle; FlixBus daha ucuz."
+      },
+      {
+        "mode": "train",
+        "from": "Chamonix",
+        "to": "Les Houches",
+        "durationMin": 10,
+        "costTry": 150,
+        "note": "Mont Blanc Express; konaklama kartıyla ücretsiz."
+      }
+    ],
+    "stages": [
+      {
+        "order": 1,
+        "name": "Les Houches",
+        "kind": "trailhead",
+        "elevationM": 1010,
+        "distanceKm": 0,
+        "durationMin": 0,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Chamonix’den tren 10 dk. Klasik saat yönünün tersi başlangıç.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 2,
+        "name": "Les Contamines",
+        "kind": "village",
+        "elevationM": 1170,
+        "distanceKm": 16,
+        "durationMin": 360,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Col de Voza (1653 m) üzerinden; Bellevue teleferiği kısaltma seçeneği.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 3,
+        "name": "Refuge de la Croix du Bonhomme",
+        "kind": "hut",
+        "elevationM": 2443,
+        "distanceKm": 18,
+        "durationMin": 420,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Col du Bonhomme (2329 m) ve Croix du Bonhomme (2483 m); haziranda kar yamaları.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 4,
+        "name": "Les Chapieux → Refuge Elisabetta",
+        "kind": "hut",
+        "elevationM": 2195,
+        "distanceKm": 20,
+        "durationMin": 420,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Col de la Seigne (2516 m) ile İtalya’ya geçiş; Mont Blanc’ın güney yüzü.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 5,
+        "name": "Courmayeur",
+        "kind": "village",
+        "elevationM": 1224,
+        "distanceKm": 18,
+        "durationMin": 360,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "İtalyan yarısı; dinlenme günü ve Skyway Monte Bianco teleferiği için ideal.",
+        "restDayRecommended": true
+      },
+      {
+        "order": 6,
+        "name": "Rifugio Bonatti",
+        "kind": "hut",
+        "elevationM": 2025,
+        "distanceKm": 12,
+        "durationMin": 300,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Grandes Jorasses karşıda; rotanın en sevilen refuge’ü, erken doldurur.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 7,
+        "name": "La Fouly",
+        "kind": "village",
+        "elevationM": 1600,
+        "distanceKm": 20,
+        "durationMin": 420,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Grand Col Ferret (2537 m) ile İsviçre. Fiyatlar CHF; kart geçer.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 8,
+        "name": "Champex-Lac",
+        "kind": "village",
+        "elevationM": 1466,
+        "distanceKm": 15,
+        "durationMin": 300,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Göl kenarı köyü; Bovine rotası (kolay) ya da Fenêtre d’Arpette (2665 m, zor) seçimi.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 9,
+        "name": "Trient",
+        "kind": "village",
+        "elevationM": 1300,
+        "distanceKm": 16,
+        "durationMin": 360,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "",
+        "restDayRecommended": false
+      },
+      {
+        "order": 10,
+        "name": "Tré-le-Champ / Argentière",
+        "kind": "village",
+        "elevationM": 1417,
+        "distanceKm": 12,
+        "durationMin": 300,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Col de Balme (2191 m) ile Fransa’ya dönüş; Chamonix vadisi görünür.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 11,
+        "name": "Lac Blanc → Chamonix",
+        "kind": "viewpoint",
+        "elevationM": 2352,
+        "distanceKm": 18,
+        "durationMin": 420,
+        "sleeping": false,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Aiguilles Rouges merdivenleri; Mont Blanc masifi tam karşıda. Flégère teleferiği ile Chamonix.",
+        "restDayRecommended": false
+      }
+    ]
+  },
+  {
+    "id": "dest_haute_route",
+    "slug": "walkers-haute-route",
+    "name": "Haute Route (Chamonix – Zermatt)",
+    "region": "Valais Alpleri",
+    "countryCode": "CH",
+    "type": "trek",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "summary": "Mont Blanc’tan Matterhorn’a 11 geçit, 180 km ve 12.000 m tırmanış: yürüyüşçü Haute Route’u. Alplerin en iddialı kulübe-kulübe traversi.",
+    "maxElevationM": 2965,
+    "typicalDays": 12,
+    "totalDistanceKm": 180,
+    "difficulty": "hard",
+    "bestMonths": [
+      7,
+      8,
+      9
+    ],
+    "budgetTry": {
+      "low": 75000,
+      "high": 130000
+    },
+    "risks": [
+      "Fırtına ve yıldırım (geçitler)",
+      "Kaya düşmesi (Europaweg, Riedmatten)",
+      "Buzlu kar yamaçları (Temmuz başı)",
+      "Sisde yol kaybı"
+    ],
+    "gear": [
+      "Liner + kulübe terliği",
+      "Hardshell, eldiven, bere",
+      "Baton, mikro krampon (erken sezon)",
+      "GPS / çevrimdışı harita",
+      "Nakit CHF"
+    ],
+    "rescueNote": "Rega (1414) ve Air Zermatt (+41 27 966 86 86); kulübe bekçileri telsizle çağırır. 112 her yerde çalışır.",
+    "insuranceRequired": false,
+    "sources": [
+      "https://en.wikivoyage.org/wiki/Haute_Route",
+      "https://www.sac-cas.ch",
+      "https://www.myswitzerland.com"
+    ],
+    "permits": [
+      {
+        "name": "SAC kulübe rezervasyonu",
+        "costTry": null,
+        "where": "sac-cas.ch / kulübe siteleri",
+        "note": "İzin yok; yaz için 2–3 ay önce."
+      }
+    ],
+    "transports": [
+      {
+        "mode": "flight",
+        "from": "İstanbul (IST)",
+        "to": "Cenevre (GVA)",
+        "durationMin": 190,
+        "costTry": 14000,
+        "note": "Direkt, gidiş-dönüş."
+      },
+      {
+        "mode": "train",
+        "from": "Zermatt",
+        "to": "Cenevre",
+        "durationMin": 220,
+        "costTry": 4500,
+        "note": "Visp aktarmalı; Half Fare Card ile yarı fiyat."
+      }
+    ],
+    "stages": [
+      {
+        "order": 1,
+        "name": "Chamonix",
+        "kind": "trailhead",
+        "elevationM": 1035,
+        "distanceKm": 0,
+        "durationMin": 0,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "",
+        "restDayRecommended": false
+      },
+      {
+        "order": 2,
+        "name": "Trient",
+        "kind": "village",
+        "elevationM": 1300,
+        "distanceKm": 18,
+        "durationMin": 420,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Col de Balme üzerinden İsviçre’ye.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 3,
+        "name": "Champex-Lac",
+        "kind": "village",
+        "elevationM": 1466,
+        "distanceKm": 16,
+        "durationMin": 360,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "",
+        "restDayRecommended": false
+      },
+      {
+        "order": 4,
+        "name": "Cabane du Mont Fort",
+        "kind": "hut",
+        "elevationM": 2457,
+        "distanceKm": 24,
+        "durationMin": 480,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "2g",
+        "note": "Le Châble → Verbier teleferiği ile kısaltılabilir. Grand Combin manzarası.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 5,
+        "name": "Cabane de Prafleuri",
+        "kind": "hut",
+        "elevationM": 2624,
+        "distanceKm": 14,
+        "durationMin": 420,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Üç geçit (Termin, Louvie, Prafleuri 2965 m); rotanın en teknik günü, dağ keçileri.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 6,
+        "name": "Arolla",
+        "kind": "village",
+        "elevationM": 2006,
+        "distanceKm": 18,
+        "durationMin": 420,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Col de Riedmatten (2919 m) ya da Pas de Chèvres merdivenleri.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 7,
+        "name": "Cabane de Moiry",
+        "kind": "hut",
+        "elevationM": 2825,
+        "distanceKm": 22,
+        "durationMin": 480,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Moiry Buzulu kenarında modern kulübe; Col de Torrent (2919 m).",
+        "restDayRecommended": false
+      },
+      {
+        "order": 8,
+        "name": "Zinal",
+        "kind": "village",
+        "elevationM": 1675,
+        "distanceKm": 15,
+        "durationMin": 360,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Col de Sorebois (2835 m); teleferikle kısaltma seçeneği.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 9,
+        "name": "Europahütte",
+        "kind": "hut",
+        "elevationM": 2220,
+        "distanceKm": 30,
+        "durationMin": 540,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "2g",
+        "note": "Gruben ve Augstbordpass (2894 m) üzerinden St. Niklaus; Europaweg’in kaya düşmesi kapalı kesimleri için güncel durumu sor.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 10,
+        "name": "Zermatt",
+        "kind": "village",
+        "elevationM": 1608,
+        "distanceKm": 18,
+        "durationMin": 360,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Charles Kuonen asma köprüsü (494 m) ve Matterhorn ile bitiş.",
+        "restDayRecommended": false
+      }
+    ]
+  },
+  {
+    "id": "dest_aconcagua",
+    "slug": "aconcagua-normal-route",
+    "name": "Aconcagua Normal Rota",
+    "region": "Mendoza, And Dağları",
+    "countryCode": "AR",
+    "type": "expedition",
+    "adventureTypes": [
+      "climbing",
+      "hiking"
+    ],
+    "summary": "Amerika kıtasının çatısı (6961 m): teknik olmayan ama irtifası acımasız 18–20 günlük ekspedisyon. Plaza de Mulas’tan üç yüksek kamp, katır lojistiği ve zorunlu tıbbi kontroller.",
+    "maxElevationM": 6961,
+    "typicalDays": 19,
+    "totalDistanceKm": 75,
+    "difficulty": "extreme",
+    "bestMonths": [
+      12,
+      1,
+      2
+    ],
+    "budgetTry": {
+      "low": 130000,
+      "high": 280000
+    },
+    "risks": [
+      "HAPE / HACE — her sezon can kaybı",
+      "Viento Blanco: 100+ km/s rüzgâr ve -30 °C hissedilen",
+      "Donma (Canaleta, zirve sırtı)",
+      "Canaleta’da kaya düşmesi",
+      "Tıbbi kontrolde geri çevrilme (SpO₂ < 80)",
+      "Dehidrasyon ve iştah kaybı (kilo kaybı 5+ kg)"
+    ],
+    "gear": [
+      "Çift katlı bot (Olympus Mons / Spantik sınıfı)",
+      "-30 °C uyku tulumu",
+      "Ekspedisyon tulum ya da kaz tüyü parka + pantolon",
+      "Krampon, kazma (Cólera üstü için)",
+      "4 mevsim çadır (rüzgâr dayanımı)",
+      "Ocak + yakıt (kar eritme), 2 termos",
+      "Kategori 4 buzul gözlüğü + kar gözlüğü",
+      "Uydu telefon / inReach",
+      "Pulse oksimetre, deksametazon (doktorla)"
+    ],
+    "rescueNote": "Park doktorları Confluencia ve Plaza de Mulas’ta; ranger (guardaparque) telsiz ağı tüm kamplarda. Helikopter Plaza de Mulas’a kadar. Acil: 911 (Mendoza), park telsizi kanal 1. Hastane: Hospital Central Mendoza.",
+    "insuranceRequired": true,
+    "sources": [
+      "https://en.wikivoyage.org/wiki/Aconcagua",
+      "https://www.aconcagua.mendoza.gov.ar"
+    ],
+    "permits": [
+      {
+        "name": "Aconcagua Eyalet Parkı tırmanış permisi",
+        "costTry": 42000,
+        "where": "Mendoza, Centro de Visitantes (bizzat)",
+        "note": "Yüksek sezon ~1.000 USD / 20 gün; pasaport + sigorta beyanı."
+      }
+    ],
+    "transports": [
+      {
+        "mode": "flight",
+        "from": "İstanbul (IST)",
+        "to": "Buenos Aires (EZE)",
+        "durationMin": 1020,
+        "costTry": 55000,
+        "note": "Aktarmalı (São Paulo), gidiş-dönüş."
+      },
+      {
+        "mode": "flight",
+        "from": "Buenos Aires (AEP)",
+        "to": "Mendoza (MDZ)",
+        "durationMin": 120,
+        "costTry": 5500,
+        "note": "Aerolíneas/Flybondi; 23 kg bagaj ekle."
+      },
+      {
+        "mode": "bus",
+        "from": "Mendoza",
+        "to": "Penitentes / Horcones",
+        "durationMin": 210,
+        "costTry": 1500,
+        "note": "Servis şirketi transferi ya da Uspallata otobüsü."
+      },
+      {
+        "mode": "trek",
+        "from": "Horcones",
+        "to": "Plaza de Mulas",
+        "durationMin": 780,
+        "costTry": 16000,
+        "note": "2 gün; katır servisi (25 kg) fiyatı dahil."
+      }
+    ],
+    "stages": [
+      {
+        "order": 1,
+        "name": "Penitentes / Horcones girişi",
+        "kind": "trailhead",
+        "elevationM": 2950,
+        "distanceKm": 0,
+        "durationMin": 0,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Mendoza’dan 3,5 saat; permi Mendoza’da alınır, Horcones’te kontrol edilir.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 2,
+        "name": "Confluencia",
+        "kind": "camp",
+        "elevationM": 3400,
+        "distanceKm": 8,
+        "durationMin": 240,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Zorunlu tıbbi kontrol. Aklimatizasyon: Plaza Francia (4200 m, güney duvarı) gidiş-dönüş.",
+        "restDayRecommended": true
+      },
+      {
+        "order": 3,
+        "name": "Plaza de Mulas (Ana Kamp)",
+        "kind": "base_camp",
+        "elevationM": 4370,
+        "distanceKm": 18,
+        "durationMin": 540,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "wifi",
+        "note": "Dünyanın en büyük ana kamplarından; 2 dinlenme günü, doktor SpO₂ kontrolü. Bonete (5004 m) aklimatizasyon.",
+        "restDayRecommended": true
+      },
+      {
+        "order": 4,
+        "name": "Plaza Canadá",
+        "kind": "camp",
+        "elevationM": 4910,
+        "distanceKm": 3,
+        "durationMin": 240,
+        "sleeping": true,
+        "waterAvailable": false,
+        "connectivity": "none",
+        "note": "Kamp 1; yük taşıyıp ana kampa dönüş (carry), sonra yerleşme.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 5,
+        "name": "Nido de Cóndores",
+        "kind": "camp",
+        "elevationM": 5560,
+        "distanceKm": 3,
+        "durationMin": 300,
+        "sleeping": true,
+        "waterAvailable": false,
+        "connectivity": "sat_only",
+        "note": "Kamp 2; rüzgâr 80 km/s üstü sık. Buradan zirve denemesi de yapılır.",
+        "restDayRecommended": true
+      },
+      {
+        "order": 6,
+        "name": "Cólera (Kamp 3)",
+        "kind": "camp",
+        "elevationM": 5970,
+        "distanceKm": 2,
+        "durationMin": 240,
+        "sleeping": true,
+        "waterAvailable": false,
+        "connectivity": "none",
+        "note": "Zirve günü 04:00 çıkış; Independencia kulübesi (6400 m), Gran Acarreo, Canaleta.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 7,
+        "name": "Aconcagua Zirvesi",
+        "kind": "summit",
+        "elevationM": 6961,
+        "distanceKm": 3,
+        "durationMin": 540,
+        "sleeping": false,
+        "waterAvailable": false,
+        "connectivity": "none",
+        "note": "Amerika kıtasının çatısı. 14:00 dönüş saatini geçme; Canaleta’da kaya düşmesi.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 8,
+        "name": "Plaza de Mulas (dönüş)",
+        "kind": "base_camp",
+        "elevationM": 4370,
+        "distanceKm": 8,
+        "durationMin": 420,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "wifi",
+        "note": "",
+        "restDayRecommended": false
+      },
+      {
+        "order": 9,
+        "name": "Horcones (çıkış)",
+        "kind": "trailhead",
+        "elevationM": 2950,
+        "distanceKm": 26,
+        "durationMin": 540,
+        "sleeping": false,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Tek günde ana kamptan çıkış (26 km); katırlar ekipmanı taşır.",
+        "restDayRecommended": false
+      }
+    ]
+  },
+  {
+    "id": "dest_elbrus",
+    "slug": "elbrus-south",
+    "name": "Elbrus Güney Rotası",
+    "region": "Kabardey-Balkar, Kafkasya",
+    "countryCode": "RU",
+    "type": "expedition",
+    "adventureTypes": [
+      "climbing",
+      "skiing"
+    ],
+    "summary": "Avrupa’nın en yüksek zirvesi (5642 m) teleferik ve varil kulübeleriyle 7–8 günde. Teknik olarak kolay, hava ve irtifa açısından ciddi bir buzul tırmanışı.",
+    "maxElevationM": 5642,
+    "typicalDays": 8,
+    "totalDistanceKm": 30,
+    "difficulty": "hard",
+    "bestMonths": [
+      6,
+      7,
+      8
+    ],
+    "budgetTry": {
+      "low": 55000,
+      "high": 110000
+    },
+    "risks": [
+      "Beyaz-karanlıkta yön kaybı",
+      "Crevasse (rota dışı)",
+      "Donma ve AMS",
+      "Hızlı irtifa: teleferikle 3850 m’ye çıkış"
+    ],
+    "gear": [
+      "Krampon, kazma, emniyet kemeri",
+      "Çift ya da yalıtımlı bot",
+      "-20 °C uyku tulumu",
+      "Kaz tüyü mont, kar gözlüğü",
+      "GPS (beyaz-karanlık için)"
+    ],
+    "rescueNote": "MChS Elbrus kurtarma birimi Terskol (+7 866 38 71489); kayıt olmadan çıkmayın. Acil 112.",
+    "insuranceRequired": true,
+    "sources": [
+      "https://en.wikivoyage.org/wiki/Mount_Elbrus"
+    ],
+    "permits": [
+      {
+        "name": "Elbrus Milli Parkı girişi + MChS kaydı",
+        "costTry": 400,
+        "where": "Terskol (tur şirketi)",
+        "note": "Kayıt zorunlu, ücret sembolik."
+      }
+    ],
+    "transports": [
+      {
+        "mode": "flight",
+        "from": "İstanbul (IST)",
+        "to": "Mineralnye Vody (MRV)",
+        "durationMin": 180,
+        "costTry": 16000,
+        "note": "Direkt; e-vize gerekli."
+      },
+      {
+        "mode": "taxi",
+        "from": "MRV Havalimanı",
+        "to": "Terskol / Azau",
+        "durationMin": 180,
+        "costTry": 2500,
+        "note": "Paylaşımlı transfer."
+      }
+    ],
+    "stages": [
+      {
+        "order": 1,
+        "name": "Terskol",
+        "kind": "trailhead",
+        "elevationM": 2100,
+        "distanceKm": 0,
+        "durationMin": 0,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Mineralnye Vody havalimanından 3 saat. Cheget (3000 m) aklimatizasyon yürüyüşü.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 2,
+        "name": "Azau → Garabashi (Barrels)",
+        "kind": "hut",
+        "elevationM": 3850,
+        "distanceKm": 5,
+        "durationMin": 60,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "2g",
+        "note": "Üç teleferik + snowcat; “Bochki” varilleri. Aklimatizasyon: Priyut 11’e (4100 m) yürüyüş.",
+        "restDayRecommended": true
+      },
+      {
+        "order": 3,
+        "name": "Pastukhov Kayaları",
+        "kind": "viewpoint",
+        "elevationM": 4700,
+        "distanceKm": 4,
+        "durationMin": 240,
+        "sleeping": false,
+        "waterAvailable": false,
+        "connectivity": "none",
+        "note": "Aklimatizasyon günü hedefi; zirve gecesi snowcat ile buraya çıkılır (ücretli).",
+        "restDayRecommended": false
+      },
+      {
+        "order": 4,
+        "name": "Elbrus Batı Zirvesi",
+        "kind": "summit",
+        "elevationM": 5642,
+        "distanceKm": 6,
+        "durationMin": 480,
+        "sleeping": false,
+        "waterAvailable": false,
+        "connectivity": "none",
+        "note": "Sedlovina (5300 m) eyer, ardından batı zirveye traverse; sabit ip kesimi. Avrupa’nın çatısı.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 5,
+        "name": "Garabashi (dönüş)",
+        "kind": "hut",
+        "elevationM": 3850,
+        "distanceKm": 10,
+        "durationMin": 240,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "2g",
+        "note": "",
+        "restDayRecommended": false
+      },
+      {
+        "order": 6,
+        "name": "Terskol (dönüş)",
+        "kind": "trailhead",
+        "elevationM": 2100,
+        "distanceKm": 5,
+        "durationMin": 60,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "",
+        "restDayRecommended": false
+      }
+    ]
+  },
+  {
+    "id": "dest_agri",
+    "slug": "agri-dagi",
+    "name": "Ağrı Dağı (Ararat)",
+    "region": "Doğubayazıt, Ağrı",
+    "countryCode": "TR",
+    "type": "expedition",
+    "adventureTypes": [
+      "climbing",
+      "hiking"
+    ],
+    "summary": "Türkiye’nin çatısı 5137 m: Eli Köyü’nden 3200 ve 4200 m kamplarıyla 4–5 günlük buzullu volkan tırmanışı. İzin ve rehber zorunlu.",
+    "maxElevationM": 5137,
+    "typicalDays": 5,
+    "totalDistanceKm": 26,
+    "difficulty": "hard",
+    "bestMonths": [
+      7,
+      8,
+      9
+    ],
+    "budgetTry": {
+      "low": 18000,
+      "high": 40000
+    },
+    "risks": [
+      "Buzul ve krevas (4.800 m üstü)",
+      "AMS: 2 günde 3.000 m",
+      "Zirve fırtınası ve sis",
+      "Hipotermi, donma",
+      "İzin iptali (güvenlik)"
+    ],
+    "gear": [
+      "Krampon, kazma, kask",
+      "-15 °C uyku tulumu",
+      "Kaz tüyü mont, kar gözlüğü",
+      "Baş lambası (02:00 çıkış)",
+      "Tayt-hardshell katmanları",
+      "Su arıtma (1. kamp)"
+    ],
+    "rescueNote": "Doğubayazıt Devlet Hastanesi ve 112; dağ kurtarma Jandarma JAK / AFAD Ağrı. Acente telsiz ağı 1. kampa kadar.",
+    "insuranceRequired": false,
+    "sources": [
+      "https://tr.wikivoyage.org/wiki/A%C4%9Fr%C4%B1_Da%C4%9F%C4%B1",
+      "https://www.dogubayazit.gov.tr"
+    ],
+    "permits": [
+      {
+        "name": "Ağrı Dağı tırmanış izni",
+        "costTry": 2000,
+        "where": "Doğubayazıt Kaymakamlığı (acente aracılığıyla)",
+        "note": "3–7 iş günü; kimlik/pasaport fotokopisi; rehber zorunlu."
+      }
+    ],
+    "transports": [
+      {
+        "mode": "flight",
+        "from": "İstanbul (IST/SAW)",
+        "to": "Iğdır (IGD)",
+        "durationMin": 150,
+        "costTry": 5500,
+        "note": "Gidiş-dönüş; Ağrı (AJI) alternatif."
+      },
+      {
+        "mode": "taxi",
+        "from": "Iğdır",
+        "to": "Doğubayazıt",
+        "durationMin": 45,
+        "costTry": 900,
+        "note": "Minibüs 150 ₺."
+      },
+      {
+        "mode": "jeep",
+        "from": "Doğubayazıt",
+        "to": "Eli Köyü",
+        "durationMin": 60,
+        "costTry": 1200,
+        "note": "Acente jeep’i; katırlar köyde yüklenir."
+      }
+    ],
+    "stages": [
+      {
+        "order": 1,
+        "name": "Doğubayazıt",
+        "kind": "trailhead",
+        "elevationM": 1650,
+        "distanceKm": 0,
+        "durationMin": 0,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "İshak Paşa Sarayı ziyareti. İzin belgesi ve rehber acentesi burada.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 2,
+        "name": "Eli Köyü",
+        "kind": "village",
+        "elevationM": 2200,
+        "distanceKm": 22,
+        "durationMin": 60,
+        "sleeping": false,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Jeep ile 1 saat; katır yükleme (kişi başı ~15 kg). Yürüyüş buradan başlar.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 3,
+        "name": "1. Kamp (Yeşil Kamp)",
+        "kind": "camp",
+        "elevationM": 3200,
+        "distanceKm": 7,
+        "durationMin": 240,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "2g",
+        "note": "Çimenlik plato, kaynak suyu. Aklimatizasyon: 2. kampa yük taşıyıp dönüş.",
+        "restDayRecommended": true
+      },
+      {
+        "order": 4,
+        "name": "2. Kamp (Mıhtepe)",
+        "kind": "camp",
+        "elevationM": 4200,
+        "distanceKm": 4,
+        "durationMin": 240,
+        "sleeping": true,
+        "waterAvailable": false,
+        "connectivity": "none",
+        "note": "Taşlık kamp, rüzgârlı; su kar eritilerek. 18:00 uyku, 02:00 çıkış.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 5,
+        "name": "Ağrı Dağı Zirvesi",
+        "kind": "summit",
+        "elevationM": 5137,
+        "distanceKm": 3.5,
+        "durationMin": 360,
+        "sleeping": false,
+        "waterAvailable": false,
+        "connectivity": "none",
+        "note": "4.800 m’den itibaren buzul; krampon-kazma zorunlu. Türkiye’nin çatısı, İran ve Ermenistan ovaları.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 6,
+        "name": "1. Kamp (dönüş)",
+        "kind": "camp",
+        "elevationM": 3200,
+        "distanceKm": 7.5,
+        "durationMin": 300,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "2g",
+        "note": "Aynı gün zirveden 2. kampa iniş, toplanıp 1. kampa devam. Ertesi gün Eli Köyü + Doğubayazıt.",
+        "restDayRecommended": false
+      }
+    ]
+  },
+  {
+    "id": "dest_kackar",
+    "slug": "kackar-daglari",
+    "name": "Kaçkar Dağları",
+    "region": "Rize – Artvin, Doğu Karadeniz",
+    "countryCode": "TR",
+    "type": "trek",
+    "adventureTypes": [
+      "hiking",
+      "climbing"
+    ],
+    "summary": "Ayder’den Yukarı Kavrun, Dilberdüzü ve buzul gölleriyle Kaçkar zirvesi (3937 m). Yaylalar, sis ve kaplıcalarla 3–4 günlük Karadeniz klasiği.",
+    "maxElevationM": 3937,
+    "typicalDays": 4,
+    "totalDistanceKm": 35,
+    "difficulty": "moderate",
+    "bestMonths": [
+      7,
+      8,
+      9
+    ],
+    "budgetTry": {
+      "low": 8000,
+      "high": 25000
+    },
+    "risks": [
+      "Sis ve yön kaybı",
+      "Islak kaya, kar yamaçları (Temmuz)",
+      "Yıldırım ve dolu (öğleden sonra)",
+      "Gece soğuğu (0 °C)"
+    ],
+    "gear": [
+      "0 °C uyku tulumu",
+      "Yağmurluk (Karadeniz!)",
+      "Baton, mikro krampon (erken sezon)",
+      "Baş lambası",
+      "GPS / çevrimdışı harita (sis)"
+    ],
+    "rescueNote": "112; Rize/Artvin JAK ve AKUT Karadeniz ekipleri. Dilberdüzü’nde sezonluk jandarma noktası. Ayder’de sağlık ocağı, hastane Pazar/Rize.",
+    "insuranceRequired": false,
+    "sources": [
+      "https://tr.wikivoyage.org/wiki/Ka%C3%A7kar_Da%C4%9Flar%C4%B1",
+      "https://www.tarimorman.gov.tr"
+    ],
+    "permits": [],
+    "transports": [
+      {
+        "mode": "flight",
+        "from": "İstanbul (IST/SAW)",
+        "to": "Rize-Artvin (RZV)",
+        "durationMin": 120,
+        "costTry": 5000,
+        "note": "Gidiş-dönüş; Trabzon (TZX) alternatif."
+      },
+      {
+        "mode": "bus",
+        "from": "RZV Havalimanı",
+        "to": "Ayder",
+        "durationMin": 90,
+        "costTry": 400,
+        "note": "Pazar’dan Çamlıhemşin–Ayder minibüsü."
+      },
+      {
+        "mode": "jeep",
+        "from": "Ayder",
+        "to": "Yukarı Kavrun",
+        "durationMin": 45,
+        "costTry": 300,
+        "note": "Sabah dolmuşu; özel jeep 1.500 ₺."
+      }
+    ],
+    "stages": [
+      {
+        "order": 1,
+        "name": "Ayder Yaylası",
+        "kind": "trailhead",
+        "elevationM": 1350,
+        "distanceKm": 0,
+        "durationMin": 0,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Pazar/Çamlıhemşin’den minibüs. Kaplıca ve Rize çayı; dolmuş ile Yukarı Kavrun.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 2,
+        "name": "Yukarı Kavrun Yaylası",
+        "kind": "village",
+        "elevationM": 2300,
+        "distanceKm": 14,
+        "durationMin": 60,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "2g",
+        "note": "Jeep/dolmuş 45 dk. Yayla evlerinde konaklama; son sinyal ve son sıcak yemek.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 3,
+        "name": "Dilberdüzü",
+        "kind": "camp",
+        "elevationM": 3050,
+        "distanceKm": 6,
+        "durationMin": 210,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Geniş çimen kamp alanı, dere suyu. Ağustos hafta sonları kalabalık; sabah sisi.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 4,
+        "name": "Deniz Gölü",
+        "kind": "camp",
+        "elevationM": 3400,
+        "distanceKm": 2,
+        "durationMin": 120,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Zirve gecesi kampı; buzul gölü. 03:00 çıkış, kar-kaya karışık.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 5,
+        "name": "Kaçkar Zirvesi",
+        "kind": "summit",
+        "elevationM": 3937,
+        "distanceKm": 2.5,
+        "durationMin": 240,
+        "sleeping": false,
+        "waterAvailable": false,
+        "connectivity": "none",
+        "note": "Son bölüm kolay tırmanış (UIAA I–II); Karadeniz ve Verçenik manzarası. Öğle bulutu gelmeden in.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 6,
+        "name": "Dilberdüzü (dönüş)",
+        "kind": "camp",
+        "elevationM": 3050,
+        "distanceKm": 4.5,
+        "durationMin": 180,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "",
+        "restDayRecommended": false
+      },
+      {
+        "order": 7,
+        "name": "Yukarı Kavrun (dönüş)",
+        "kind": "village",
+        "elevationM": 2300,
+        "distanceKm": 6,
+        "durationMin": 150,
+        "sleeping": false,
+        "waterAvailable": true,
+        "connectivity": "2g",
+        "note": "Aynı gün Ayder kaplıcaları. Alternatif: Olgunlar tarafına geçiş (Kaçkar traversi).",
+        "restDayRecommended": false
+      }
+    ]
+  },
+  {
+    "id": "dest_likya",
+    "slug": "likya-yolu",
+    "name": "Likya Yolu",
+    "region": "Fethiye – Antalya, Teke Yarımadası",
+    "countryCode": "TR",
+    "type": "trek",
+    "adventureTypes": [
+      "hiking"
+    ],
+    "summary": "Fethiye’den Antalya’ya 500+ km işaretli kıyı yolu: antik Likya kentleri, koylar, Tahtalı (2366 m) ve köy pansiyonları. Bölüm bölüm ya da tam 25–30 gün.",
+    "maxElevationM": 2366,
+    "typicalDays": 10,
+    "totalDistanceKm": 200,
+    "difficulty": "moderate",
+    "bestMonths": [
+      3,
+      4,
+      5,
+      10,
+      11
+    ],
+    "budgetTry": {
+      "low": 12000,
+      "high": 35000
+    },
+    "risks": [
+      "Sıcak çarpması ve su yetersizliği",
+      "Kelebekler Vadisi inişi (halat)",
+      "Kaygan kireç taşı",
+      "Orman yangını (yaz)",
+      "Kene"
+    ],
+    "gear": [
+      "3 L su + filtre",
+      "Geniş kenarlı şapka, 50 krem",
+      "Hafif yağmurluk (ilkbahar)",
+      "Baton",
+      "Sandalet (koy molaları)",
+      "Kültür Rotaları rehber kitabı / GPX"
+    ],
+    "rescueNote": "112 ve AKUT Antalya/Muğla; kıyıda Sahil Güvenlik 158. Kaş, Kalkan, Kemer’de hastane; Kaş’ta hiperbarik oda yok (Antalya).",
+    "insuranceRequired": false,
+    "sources": [
+      "https://en.wikivoyage.org/wiki/Lycian_Way",
+      "https://cultureroutesinturkey.com/lycian-way"
+    ],
+    "permits": [
+      {
+        "name": "Antik alan girişleri (Patara, Olimpos)",
+        "costTry": 300,
+        "where": "Alan gişeleri / Müzekart",
+        "note": "Rota izni yok."
+      }
+    ],
+    "transports": [
+      {
+        "mode": "flight",
+        "from": "İstanbul (IST/SAW)",
+        "to": "Dalaman (DLM)",
+        "durationMin": 80,
+        "costTry": 3500,
+        "note": "Gidiş; dönüş Antalya (AYT)."
+      },
+      {
+        "mode": "bus",
+        "from": "Dalaman",
+        "to": "Fethiye / Ovacık",
+        "durationMin": 75,
+        "costTry": 250,
+        "note": "Havaş + Ölüdeniz dolmuşu."
+      },
+      {
+        "mode": "bus",
+        "from": "Göynük",
+        "to": "Antalya",
+        "durationMin": 60,
+        "costTry": 120,
+        "note": "Kemer–Antalya halk otobüsü."
+      }
+    ],
+    "stages": [
+      {
+        "order": 1,
+        "name": "Ovacık (Fethiye)",
+        "kind": "trailhead",
+        "elevationM": 300,
+        "distanceKm": 0,
+        "durationMin": 0,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Klasik başlangıç; Babadağ ve Ölüdeniz manzarasıyla açılış.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 2,
+        "name": "Faralya",
+        "kind": "village",
+        "elevationM": 400,
+        "distanceKm": 15,
+        "durationMin": 330,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Kelebekler Vadisi üstü; iniş dik ve halatlı, deneyimsizsen inme.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 3,
+        "name": "Kabak Koyu",
+        "kind": "village",
+        "elevationM": 120,
+        "distanceKm": 7,
+        "durationMin": 180,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "",
+        "restDayRecommended": false
+      },
+      {
+        "order": 4,
+        "name": "Alınca",
+        "kind": "village",
+        "elevationM": 800,
+        "distanceKm": 9,
+        "durationMin": 270,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "2g",
+        "note": "Kabak’tan 700 m dik tırmanış; köy evinde konaklama, yıldızlı gece.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 5,
+        "name": "Patara",
+        "kind": "village",
+        "elevationM": 20,
+        "distanceKm": 30,
+        "durationMin": 600,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "18 km plaj ve Likya Birliği meclis binası; Xanthos-Letoon UNESCO alanları yakında.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 6,
+        "name": "Kalkan → Kaş",
+        "kind": "village",
+        "elevationM": 30,
+        "distanceKm": 28,
+        "durationMin": 540,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Bezirgan yaylası üzerinden Kalkan, kıyı boyunca Kaş. Dinlenme günü ve dalış için ideal.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 7,
+        "name": "Üçağız / Simena (Kekova)",
+        "kind": "village",
+        "elevationM": 10,
+        "distanceKm": 26,
+        "durationMin": 480,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Aperlai ve batık şehir; kayıkla Kekova turu.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 8,
+        "name": "Demre (Myra)",
+        "kind": "village",
+        "elevationM": 30,
+        "distanceKm": 22,
+        "durationMin": 420,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Kaya mezarları ve Aziz Nikolaos Kilisesi; rota Finike üzerinden Adrasan’a devam eder.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 9,
+        "name": "Adrasan",
+        "kind": "village",
+        "elevationM": 10,
+        "distanceKm": 45,
+        "durationMin": 900,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Finike–Karaöz sahil ve Gelidonya feneri; Adrasan koyu.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 10,
+        "name": "Olimpos / Çıralı",
+        "kind": "village",
+        "elevationM": 20,
+        "distanceKm": 14,
+        "durationMin": 360,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Musa Dağı geçişi; Olimpos antik kenti ve Yanartaş (Chimaera) gece ateşleri.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 11,
+        "name": "Tahtalı (Olimpos) Dağı",
+        "kind": "summit",
+        "elevationM": 2366,
+        "distanceKm": 24,
+        "durationMin": 660,
+        "sleeping": false,
+        "waterAvailable": false,
+        "connectivity": "4g",
+        "note": "Rotanın en yüksek noktası (isteğe bağlı); Beycik üzerinden tırmanış, teleferikle iniş mümkün.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 12,
+        "name": "Göynük Kanyonu → Hisarçandır (Antalya)",
+        "kind": "trailhead",
+        "elevationM": 400,
+        "distanceKm": 30,
+        "durationMin": 600,
+        "sleeping": false,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Resmî bitiş Antalya Hisarçandır; Göynük’ten Kemer/Antalya otobüsü.",
+        "restDayRecommended": false
+      }
+    ]
+  },
+  {
+    "id": "dest_kapadokya",
+    "slug": "kapadokya",
+    "name": "Kapadokya Vadileri",
+    "region": "Nevşehir, İç Anadolu",
+    "countryCode": "TR",
+    "type": "multi_sport",
+    "adventureTypes": [
+      "hiking",
+      "climbing",
+      "paragliding",
+      "cycling"
+    ],
+    "summary": "Göreme merkezli vadi yürüyüşleri (Kızılçukur, Meskendir, Güvercinlik, Ihlara), gün doğumu balon uçuşu, tüf kayada spor tırmanış ve gravel bisiklet. 3–5 günlük çok sporlu üs.",
+    "maxElevationM": 1400,
+    "typicalDays": 3,
+    "totalDistanceKm": 40,
+    "difficulty": "easy",
+    "bestMonths": [
+      4,
+      5,
+      6,
+      9,
+      10
+    ],
+    "budgetTry": {
+      "low": 10000,
+      "high": 45000
+    },
+    "risks": [
+      "Kaya düşmesi / tüf çökmesi",
+      "Balon sert inişi ve iptaller",
+      "Yazın sıcak çarpması",
+      "Vadide yön kaybı (işaret eksik)",
+      "Saldırgan köpekler"
+    ],
+    "gear": [
+      "Baş lambası (tüneller)",
+      "Kask (tırmanış)",
+      "2 L su, şapka",
+      "Çevrimdışı harita",
+      "Bisiklet: gravel/MTB kiralık"
+    ],
+    "rescueNote": "112; Nevşehir Devlet Hastanesi ve Ürgüp Devlet Hastanesi 15–25 dk. Ihlara vadisinde ranger/jandarma noktası.",
+    "insuranceRequired": false,
+    "sources": [
+      "https://en.wikivoyage.org/wiki/Cappadocia",
+      "https://muze.gov.tr"
+    ],
+    "permits": [
+      {
+        "name": "Müze / vadi girişleri (Göreme AHM, Zelve, Ihlara)",
+        "costTry": 900,
+        "where": "Gişeler / Müzekart",
+        "note": "Vadi yürüyüşleri ücretsiz."
+      },
+      {
+        "name": "Balon uçuşu rezervasyonu",
+        "costTry": 9000,
+        "where": "Lisanslı balon şirketi",
+        "note": "05:00 kalkış; hava iptalinde iade."
+      }
+    ],
+    "transports": [
+      {
+        "mode": "flight",
+        "from": "İstanbul (IST/SAW)",
+        "to": "Nevşehir (NAV) / Kayseri (ASR)",
+        "durationMin": 90,
+        "costTry": 4000,
+        "note": "Gidiş-dönüş."
+      },
+      {
+        "mode": "bus",
+        "from": "Havalimanı",
+        "to": "Göreme",
+        "durationMin": 60,
+        "costTry": 600,
+        "note": "Rezervasyonlu shuttle."
+      },
+      {
+        "mode": "taxi",
+        "from": "Göreme",
+        "to": "Ihlara Vadisi",
+        "durationMin": 90,
+        "costTry": 2500,
+        "note": "Gün turu ya da kiralık araç."
+      }
+    ],
+    "stages": [
+      {
+        "order": 1,
+        "name": "Göreme",
+        "kind": "trailhead",
+        "elevationM": 1100,
+        "distanceKm": 0,
+        "durationMin": 0,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Merkez üs; Nevşehir/Kayseri havalimanından shuttle 1 saat.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 2,
+        "name": "Kızılçukur (Rose) & Meskendir Vadisi",
+        "kind": "viewpoint",
+        "elevationM": 1200,
+        "distanceKm": 6,
+        "durationMin": 180,
+        "sleeping": false,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Gün batımı kırmızı-pembe kayalar; Kolonlu Kilise ve Haçlı Kilise.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 3,
+        "name": "Çavuşin",
+        "kind": "village",
+        "elevationM": 1150,
+        "distanceKm": 3,
+        "durationMin": 60,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Terkedilmiş kaya köyü; Vaftizci Yahya Kilisesi.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 4,
+        "name": "Paşabağı & Zelve",
+        "kind": "viewpoint",
+        "elevationM": 1180,
+        "distanceKm": 5,
+        "durationMin": 150,
+        "sleeping": false,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Peri bacaları ve Zelve açık hava müzesi (ücretli).",
+        "restDayRecommended": false
+      },
+      {
+        "order": 5,
+        "name": "Ihlara Vadisi (Belisırma)",
+        "kind": "village",
+        "elevationM": 1150,
+        "distanceKm": 80,
+        "durationMin": 240,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Melendiz Çayı boyunca 14 km; Ihlara→Belisırma→Selime. Araçla 1,5 saat.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 6,
+        "name": "Güvercinlik Vadisi → Uçhisar",
+        "kind": "viewpoint",
+        "elevationM": 1350,
+        "distanceKm": 5,
+        "durationMin": 120,
+        "sleeping": false,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Göreme’den Uçhisar Kalesi’ne yumuşak tırmanış; en yüksek doğal seyir noktası.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 7,
+        "name": "Aşıklar Tepesi (balon seyri)",
+        "kind": "viewpoint",
+        "elevationM": 1180,
+        "distanceKm": 3,
+        "durationMin": 45,
+        "sleeping": false,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "05:00 balon kalkışı; balonla uçuş ~1 saat (~€200–260), rüzgâr iptalleri sık.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 8,
+        "name": "Ortahisar Kalesi",
+        "kind": "viewpoint",
+        "elevationM": 1200,
+        "distanceKm": 6,
+        "durationMin": 150,
+        "sleeping": false,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "Kaya tırmanışı (sport, 5b–7a) için Ortahisar ve Kızılçukur sektörleri; kask şart.",
+        "restDayRecommended": false
+      }
+    ]
+  },
+  {
+    "id": "dest_el_chalten",
+    "slug": "el-chalten-fitz-roy",
+    "name": "El Chaltén — Fitz Roy & Cerro Torre",
+    "region": "Los Glaciares Milli Parkı, Patagonya",
+    "countryCode": "AR",
+    "type": "trek",
+    "adventureTypes": [
+      "hiking",
+      "climbing"
+    ],
+    "summary": "Arjantin’in trekking başkenti: Laguna de los Tres ve Laguna Torre’ye ücretsiz kamplı 3–4 günlük tur; Fitz Roy gün doğumu, izin yok, rüzgâr çok.",
+    "maxElevationM": 1170,
+    "typicalDays": 4,
+    "totalDistanceKm": 45,
+    "difficulty": "moderate",
+    "bestMonths": [
+      11,
+      12,
+      1,
+      2,
+      3
+    ],
+    "budgetTry": {
+      "low": 20000,
+      "high": 55000
+    },
+    "risks": [
+      "Aşırı rüzgâr ve hipotermi",
+      "Los Tres son tırmanışta düşme",
+      "Dere geçişleri",
+      "Yangın yasağı"
+    ],
+    "gear": [
+      "Rüzgâr geçirmez kabuk",
+      "-5 °C uyku tulumu, rüzgâra dayanıklı çadır",
+      "Baton",
+      "Tüp ocağı (kasabada gaz)",
+      "Nakit ARS"
+    ],
+    "rescueNote": "Ranger ofisi El Chaltén (Parques Nacionales) ve gönüllü Comisión de Auxilio; 911 / 105. Sağlık ocağı kasabada, hastane El Calafate.",
+    "insuranceRequired": false,
+    "sources": [
+      "https://en.wikivoyage.org/wiki/El_Chalt%C3%A9n",
+      "https://www.argentina.gob.ar/parquesnacionales/losglaciares"
+    ],
+    "permits": [],
+    "transports": [
+      {
+        "mode": "flight",
+        "from": "İstanbul (IST)",
+        "to": "Buenos Aires (EZE)",
+        "durationMin": 1020,
+        "costTry": 55000,
+        "note": "Aktarmalı, gidiş-dönüş."
+      },
+      {
+        "mode": "flight",
+        "from": "Buenos Aires (AEP)",
+        "to": "El Calafate (FTE)",
+        "durationMin": 190,
+        "costTry": 7000,
+        "note": "Aerolíneas Argentinas."
+      },
+      {
+        "mode": "bus",
+        "from": "El Calafate",
+        "to": "El Chaltén",
+        "durationMin": 180,
+        "costTry": 1700,
+        "note": "Günde 3–4 sefer; erken rezervasyon."
+      }
+    ],
+    "stages": [
+      {
+        "order": 1,
+        "name": "El Chaltén",
+        "kind": "trailhead",
+        "elevationM": 400,
+        "distanceKm": 0,
+        "durationMin": 0,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "El Calafate’den otobüs 3 saat. Kayıt ve hava durumu için ranger ofisi.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 2,
+        "name": "Laguna Capri",
+        "kind": "camp",
+        "elevationM": 780,
+        "distanceKm": 5,
+        "durationMin": 120,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Fitz Roy gün doğumu kampı; rüzgârdan korunaklı ağaçlık alan.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 3,
+        "name": "Campamento Poincenot",
+        "kind": "camp",
+        "elevationM": 730,
+        "distanceKm": 5,
+        "durationMin": 90,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Laguna de los Tres’e 1 saat; 04:30 çıkış.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 4,
+        "name": "Laguna de los Tres",
+        "kind": "viewpoint",
+        "elevationM": 1170,
+        "distanceKm": 2,
+        "durationMin": 75,
+        "sleeping": false,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Fitz Roy ana yüzü 400 m dik tırmanışla; kar/buzda kapatılabilir.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 5,
+        "name": "Campamento De Agostini",
+        "kind": "camp",
+        "elevationM": 690,
+        "distanceKm": 10,
+        "durationMin": 240,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Laguna Madre e Hija üzerinden; Cerro Torre karşıda.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 6,
+        "name": "Laguna Torre & Mirador Maestri",
+        "kind": "viewpoint",
+        "elevationM": 720,
+        "distanceKm": 4,
+        "durationMin": 120,
+        "sleeping": false,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Buzdağlı göl; Cerro Torre (3128 m) rüzgârı bulutlara sarmışsa sabır.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 7,
+        "name": "El Chaltén (dönüş)",
+        "kind": "trailhead",
+        "elevationM": 400,
+        "distanceKm": 9,
+        "durationMin": 180,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "",
+        "restDayRecommended": false
+      }
+    ]
+  },
+  {
+    "id": "dest_kas",
+    "slug": "kas-dalis-bolgesi",
+    "name": "Kaş Dalış Bölgesi",
+    "region": "Antalya, Akdeniz",
+    "countryCode": "TR",
+    "type": "dive_region",
+    "adventureTypes": [
+      "diving"
+    ],
+    "summary": "Türkiye’nin dalış başkenti: uçak ve gemi batıkları, kanyon ve mağara duvarları, 30 m görüş. Başlangıçtan trimix teknik dalışa 3–5 günlük dalış safarisi.",
+    "maxElevationM": 0,
+    "typicalDays": 4,
+    "totalDistanceKm": 20,
+    "difficulty": "moderate",
+    "bestMonths": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "budgetTry": {
+      "low": 15000,
+      "high": 40000
+    },
+    "risks": [
+      "Dekompresyon hastalığı (oda Antalya’da)",
+      "Akıntı ve tekne trafiği",
+      "Derin batıkta narkoz",
+      "Denizanası (Ağustos)"
+    ],
+    "gear": [
+      "Dalış bilgisayarı",
+      "5 mm elbise (Mayıs/Kasım 7 mm)",
+      "Maske, palet (kiralık mevcut)",
+      "Yüzey şamandırası (SMB)",
+      "DAN sigorta kartı"
+    ],
+    "rescueNote": "Kaş Devlet Hastanesi ilk müdahale; hiperbarik oda Antalya. Sahil Güvenlik 158, 112, DAN Europe +39 06 4211 5685.",
+    "insuranceRequired": true,
+    "sources": [
+      "https://en.wikivoyage.org/wiki/Ka%C5%9F",
+      "https://www.tssf.gov.tr"
+    ],
+    "permits": [
+      {
+        "name": "Dalış brövesi + dalış kaydı",
+        "costTry": null,
+        "where": "Dalış merkezi kontrolü",
+        "note": "Son 12 ayda dalış yoksa refresh zorunlu."
+      }
+    ],
+    "transports": [
+      {
+        "mode": "flight",
+        "from": "İstanbul (IST/SAW)",
+        "to": "Antalya (AYT)",
+        "durationMin": 90,
+        "costTry": 3500,
+        "note": "Gidiş-dönüş."
+      },
+      {
+        "mode": "bus",
+        "from": "Antalya Otogarı",
+        "to": "Kaş",
+        "durationMin": 180,
+        "costTry": 400,
+        "note": "Batı Antalya; saat başı."
+      },
+      {
+        "mode": "ferry",
+        "from": "Kaş Limanı",
+        "to": "Dalış noktaları",
+        "durationMin": 30,
+        "costTry": null,
+        "note": "Dalış merkezi teknesi; pakete dahil."
+      }
+    ],
+    "stages": [
+      {
+        "order": 1,
+        "name": "Kaş Limanı",
+        "kind": "trailhead",
+        "elevationM": 0,
+        "distanceKm": 0,
+        "durationMin": 0,
+        "sleeping": true,
+        "waterAvailable": true,
+        "connectivity": "4g",
+        "note": "25+ dalış merkezi; SSI/PADI kursları. Antalya havalimanından 3 saat.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 2,
+        "name": "Flying Fish batığı",
+        "kind": "viewpoint",
+        "elevationM": -60,
+        "distanceKm": 3,
+        "durationMin": 45,
+        "sleeping": false,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "İkinci Dünya Savaşı uçak batığı; 60 m, teknik dalış (trimix) gerektirir.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 3,
+        "name": "Dimitri batığı",
+        "kind": "viewpoint",
+        "elevationM": -18,
+        "distanceKm": 2,
+        "durationMin": 40,
+        "sleeping": false,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "1968 yük gemisi; 5–30 m, başlangıç ve wreck dalışları için ideal.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 4,
+        "name": "Uluburun Batığı replikası",
+        "kind": "viewpoint",
+        "elevationM": -25,
+        "distanceKm": 6,
+        "durationMin": 45,
+        "sleeping": false,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Tunç Çağı gemisi replikası; 16–30 m.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 5,
+        "name": "Kanyon (Canyon) & Neptün",
+        "kind": "viewpoint",
+        "elevationM": -35,
+        "distanceKm": 4,
+        "durationMin": 50,
+        "sleeping": false,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Duvar dalışı, 18–40 m; deniz kaplumbağası ve orfoz.",
+        "restDayRecommended": false
+      },
+      {
+        "order": 6,
+        "name": "Kalkan Mavi Mağara & Sıçan Adası",
+        "kind": "viewpoint",
+        "elevationM": -20,
+        "distanceKm": 22,
+        "durationMin": 60,
+        "sleeping": false,
+        "waterAvailable": true,
+        "connectivity": "none",
+        "note": "Tekneyle 1 saat; mağara girişi 5–20 m, kalkan ve mürenler.",
+        "restDayRecommended": false
+      }
+    ]
+  }
+]
