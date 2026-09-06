@@ -3,17 +3,23 @@ import React from 'react';
 import { Linking, ScrollView, StyleSheet, View } from 'react-native';
 
 import { Button, EmptyState, Header, Icon, Screen, Text, type IconName } from '@/components/ui';
+import { useLocation } from '@/core/hooks/useLocation';
 import { useT } from '@/core/i18n';
 import { layout, radius, spacing, useTheme } from '@/core/theme';
 import { getFirstAidGuide } from '@/data/content/firstAid';
-import { emergencyNumber } from '@/domain';
+import { primaryNumber } from '@/domain';
+import { useCurrentUser } from '@/features/auth/session.store';
+import { useCountry } from '@/features/rescue/hooks';
 
 export default function FirstAidGuideScreen() {
   const { slug } = useLocalSearchParams<{ slug: string }>();
   const { t, locale } = useT();
   const { colors } = useTheme();
   const guide = getFirstAidGuide(locale, slug);
-  const number = emergencyNumber('TR');
+  const me = useCurrentUser();
+  const location = useLocation(me.coords);
+  const country = useCountry(location.coords);
+  const general = primaryNumber(country.profile, 'general');
 
   if (!guide) {
     return (
@@ -31,11 +37,11 @@ export default function FirstAidGuideScreen() {
         showBack
         right={
           <Button
-            label={number.general}
+            label={general}
             icon="siren"
             size="sm"
             variant="danger"
-            onPress={() => Linking.openURL(`tel:${number.general}`)}
+            onPress={() => Linking.openURL(`tel:${general}`)}
           />
         }
       />
