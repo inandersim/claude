@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { App } from './App';
 import { SessionProvider } from './auth/session';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { ToastProvider } from './components/Toast';
 import { I18nProvider } from './i18n';
 import { applyTheme } from './theme/tokens';
@@ -38,16 +39,18 @@ if (!container) throw new Error('#root bulunamadı');
 
 createRoot(container).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <I18nProvider>
-        <ToastProvider>
-          <BrowserRouter>
-            <SessionProvider>
-              <App />
-            </SessionProvider>
-          </BrowserRouter>
-        </ToastProvider>
-      </I18nProvider>
-    </QueryClientProvider>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <I18nProvider>
+          <ToastProvider>
+            <BrowserRouter>
+              <SessionProvider>
+                <App />
+              </SessionProvider>
+            </BrowserRouter>
+          </ToastProvider>
+        </I18nProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
   </StrictMode>,
 );
