@@ -42,6 +42,8 @@ export const ja: Translations = {
     search: '検索',
     km: 'km',
     m: 'm',
+    min: '分',
+    hour: '時間',
     error: '問題が発生しました',
     errorDescription: '接続を確認して、もう一度お試しください。',
     verified: '認証済み',
@@ -405,6 +407,7 @@ export const ja: Translations = {
     fair: '使用感あり',
   },
   market: {
+    perDay: '/ 日',
     title: 'マーケット',
     subtitle: 'アウトドア用品の売買・レンタル',
     searchPlaceholder: '用品、ブランド、場所を検索',

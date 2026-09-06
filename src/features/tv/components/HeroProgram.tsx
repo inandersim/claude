@@ -40,14 +40,14 @@ export function HeroProgram({ program, eyebrow }: Props) {
             <View style={[styles.pill, { backgroundColor: colors.primary }]}>
               <Icon name="sparkles" size={12} color={colors.onPrimary} strokeWidth={2.6} />
               <Text variant="label" weight="extrabold" color={colors.onPrimary}>
-                {eyebrow.toLocaleUpperCase('tr-TR')}
+                {eyebrow.toLocaleUpperCase(locale)}
               </Text>
             </View>
           ) : null}
           <View style={[styles.pill, { backgroundColor: 'rgba(8,14,12,0.6)' }]}>
             <Icon name={kind.icon} size={12} color="#FFFFFF" strokeWidth={2.6} />
             <Text variant="label" weight="extrabold" color="#FFFFFF">
-              {t(kind.labelKey).toLocaleUpperCase('tr-TR')}
+              {t(kind.labelKey).toLocaleUpperCase(locale)}
             </Text>
           </View>
         </View>

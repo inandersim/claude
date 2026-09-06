@@ -41,6 +41,8 @@ export const sv: Translations = {
     search: 'Sök',
     km: 'km',
     m: 'm',
+    min: 'min',
+    hour: 'tim',
     error: 'Något gick fel',
     errorDescription: 'Kontrollera din anslutning och försök igen.',
     verified: 'Verifierad',
@@ -403,6 +405,7 @@ export const sv: Translations = {
     fair: 'Okej',
   },
   market: {
+    perDay: '/ dag',
     title: 'Marknad',
     subtitle: 'Köp, sälj och hyr friluftsutrustning',
     searchPlaceholder: 'Sök utrustning, märke eller plats',

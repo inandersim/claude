@@ -2,7 +2,7 @@ import { useVideoPlayer, VideoView } from 'expo-video';
 import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { Icon, Tappable, Text } from '@/components/ui';
+import { ErrorState, Icon, Tappable, Text } from '@/components/ui';
 import { useT } from '@/core/i18n';
 import { radius, spacing, useTheme } from '@/core/theme';
 import { WATCH_COMPLETED_RATIO, type TvProgramWithChannel } from '@/domain';
@@ -23,10 +23,11 @@ interface Props {
  * her saniye alıp 5 sn'de bir kaydeder; sona yaklaşınca "Sonraki bölüm" düğmesi çıkar.
  */
 export function TvPlayer({ program, initialPositionSec = 0, next = null, onNext }: Props) {
-  const { t } = useT();
+  const { t, locale } = useT();
   const { colors } = useTheme();
   const { save, flush } = useSaveProgress(program.id);
   const [nearEnd, setNearEnd] = useState(false);
+  const [failed, setFailed] = useState(false);
   const seeked = useRef(false);
   // İlk konum yalnızca montajda okunur; sonraki ilerleme güncellemeleri seek tetiklemez.
   const startAt = useRef(initialPositionSec);
@@ -38,6 +39,7 @@ export function TvPlayer({ program, initialPositionSec = 0, next = null, onNext 
 
   useEffect(() => {
     const status = player.addListener('statusChange', ({ status }) => {
+      setFailed(status === 'error');
       if (status !== 'readyToPlay' || seeked.current) return;
       seeked.current = true;
       const position = startAt.current;
@@ -70,11 +72,22 @@ export function TvPlayer({ program, initialPositionSec = 0, next = null, onNext 
     <View style={styles.root}>
       <VideoView
         player={player}
-        style={StyleSheet.absoluteFill}
+        style={styles.video}
         contentFit="contain"
         nativeControls
         allowsPictureInPicture
       />
+      {failed ? (
+        <View style={styles.failed}>
+          <ErrorState
+            onRetry={() => {
+              setFailed(false);
+              seeked.current = false;
+              player.replace(program.videoUrl, true);
+            }}
+          />
+        </View>
+      ) : null}
       <View style={styles.header} pointerEvents="none">
         <View style={styles.headerText}>
           <Text variant="caption" weight="bold" color="rgba(255,255,255,0.85)" numberOfLines={1}>
@@ -102,7 +115,7 @@ export function TvPlayer({ program, initialPositionSec = 0, next = null, onNext 
           <Icon name="chevron-right" size={16} color={colors.onPrimary} strokeWidth={2.6} />
           <View style={styles.nextText}>
             <Text variant="label" weight="extrabold" color={colors.onPrimary}>
-              {t('tv.nextEpisode').toLocaleUpperCase('tr-TR')}
+              {t('tv.nextEpisode').toLocaleUpperCase(locale)}
             </Text>
             <Text variant="caption" weight="bold" color={colors.onPrimary} numberOfLines={1}>
               {next.title}
@@ -116,6 +129,10 @@ export function TvPlayer({ program, initialPositionSec = 0, next = null, onNext 
 
 const styles = StyleSheet.create({
   root: { width: '100%', aspectRatio: 16 / 9, backgroundColor: '#000', overflow: 'hidden' },
+  // absoluteFill tek başına yetmez: <video> yerine geçen bir eleman olduğundan
+  // web'de genişlik/yükseklik verilmezse doğal boyutunda (300×150) kalır.
+  video: { position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' },
+  failed: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center' },
   header: {
     position: 'absolute',
     top: 0,

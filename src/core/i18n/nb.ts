@@ -41,6 +41,8 @@ export const nb: Translations = {
     search: 'Søk',
     km: 'km',
     m: 'm',
+    min: 'min',
+    hour: 't',
     error: 'Noe gikk galt',
     errorDescription: 'Sjekk tilkoblingen og prøv igjen.',
     verified: 'Verifisert',
@@ -404,6 +406,7 @@ export const nb: Translations = {
     fair: 'Grei',
   },
   market: {
+    perDay: '/ dag',
     title: 'Markedsplass',
     subtitle: 'Kjøp, selg og lei friluftsutstyr',
     searchPlaceholder: 'Søk etter utstyr, merke eller sted',

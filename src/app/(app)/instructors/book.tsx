@@ -192,7 +192,8 @@ export default function BookInstructorScreen() {
                 <View style={[styles.summary, { backgroundColor: colors.primarySoft }]}>
                   <Icon name="banknote" size={18} color={colors.primary} strokeWidth={2.4} />
                   <Text variant="bodySm" color="textMuted" style={{ flex: 1 }}>
-                    {data.sessionDurationMin} dk · {t(ADVENTURE_TYPE_META[effectiveType].labelKey)}
+                    {data.sessionDurationMin} {t('common.min')} ·{' '}
+                    {t(ADVENTURE_TYPE_META[effectiveType].labelKey)}
                   </Text>
                   <Text variant="h3" color="primary">
                     {formatPriceTry(data.pricePerSessionTry, locale)}

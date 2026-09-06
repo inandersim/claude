@@ -41,6 +41,8 @@ export const de: Translations = {
     search: 'Suchen',
     km: 'km',
     m: 'm',
+    min: 'Min',
+    hour: 'Std',
     error: 'Etwas ist schiefgelaufen',
     errorDescription: 'Bitte überprüfe deine Verbindung und versuche es erneut.',
     verified: 'Verifiziert',
@@ -409,6 +411,7 @@ export const de: Translations = {
     fair: 'Gebraucht',
   },
   market: {
+    perDay: '/ Tag',
     title: 'Market',
     subtitle: 'Outdoor-Ausrüstung kaufen, verkaufen, mieten',
     searchPlaceholder: 'Suche nach Ausrüstung, Marke oder Ort',

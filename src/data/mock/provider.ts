@@ -1324,6 +1324,8 @@ export function createMockProvider(options: Options = {}): DataProvider {
       const booking: StayBooking = {
         id: generateId('sb'),
         businessId: b.id,
+        // Basit rezervasyon: envanter birimi seçilmez.
+        unitId: null,
         guestId: meId,
         checkIn: input.checkIn,
         checkOut: input.checkOut,

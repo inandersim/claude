@@ -41,6 +41,8 @@ export const id: Translations = {
     search: 'Cari',
     km: 'km',
     m: 'm',
+    min: 'mnt',
+    hour: 'jam',
     error: 'Terjadi kesalahan',
     errorDescription: 'Periksa koneksimu dan coba lagi.',
     verified: 'Terverifikasi',
@@ -404,6 +406,7 @@ export const id: Translations = {
     fair: 'Cukup',
   },
   market: {
+    perDay: '/ hari',
     title: 'Pasar',
     subtitle: 'Beli, jual, dan sewa perlengkapan outdoor',
     searchPlaceholder: 'Cari perlengkapan, merek, atau lokasi',

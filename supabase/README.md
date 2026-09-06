@@ -1,6 +1,6 @@
 # Zirtan — Veritabanı ve Sunucu Altyapısı
 
-Postgres 17 + PostGIS 3.4 üzerinde çalışan, **136 tablo · 105 enum · 299 RLS
+Postgres 16+ / PostGIS 3.4 üzerinde çalışan, **136 tablo · 105 enum · 299 RLS
 politikası · 90 fonksiyon · 89 tetikleyici**den oluşan üretime hazır şema.
 
 Şemanın sözleşmesi `src/data/repositories/index.ts` içindeki **38 repository
@@ -87,7 +87,7 @@ cd /yol/zirtan
 supabase start
 ```
 
-Docker üzerinde Postgres 17 + PostGIS, Auth, Storage, Realtime, Studio ve
+Docker üzerinde Postgres (config.toml'da 17) + PostGIS, Auth, Storage, Realtime, Studio ve
 Edge Runtime ayağa kalkar. Çıktıdaki `API URL`, `anon key` ve
 `service_role key` değerlerini not al.
 

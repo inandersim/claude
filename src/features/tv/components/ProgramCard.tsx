@@ -52,7 +52,7 @@ export function ProgramCard({ program, width, compact = false, showChannel = tru
           <View style={[styles.pill, { backgroundColor: kind.color }]}>
             <Icon name={kind.icon} size={11} color="#FFFFFF" strokeWidth={2.6} />
             <Text variant="label" weight="extrabold" color="#FFFFFF">
-              {t(kind.labelKey).toLocaleUpperCase('tr-TR')}
+              {t(kind.labelKey).toLocaleUpperCase(locale)}
             </Text>
           </View>
           {program.kidsFriendly ? (

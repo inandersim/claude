@@ -34,9 +34,12 @@ export function announcement(lang, date) {
   const table = {
     tr: {
       title: 'Zirtan yayında',
-      short: `Zirtan bugün App Store ve Google Play’de. Doğrulanmış maceraperestlerle eşleşme, topluluk tehlike haritası, ülkeye göre SOS ve 12 çevrimdışı ilk yardım rehberi — 23 dilde.`,
+      tiny: 'Zirtan bugün yayında: eşleşme, tehlike haritası, çevrimdışı ilk yardım. 23 dil, ücretsiz plan.',
+      short: `Zirtan bugün App Store ve Google Play’de.\nDoğrulanmış maceraperestlerle eşleşme, topluluk tehlike haritası, ülkeye göre SOS ve 12 çevrimdışı ilk yardım rehberi — 23 dilde.`,
       medium: lines(
-        'İki yıl boyunca aynı üç soruyu duyduk: kiminle çıkacağım, patikada ne var, bir şey olursa kimi arayacağım.',
+        'İki yıldır aynı üç soru geliyor.',
+        '',
+        'Kiminle çıkacağım? Patikada şu an ne var? Bir şey olursa kimi arayacağım?',
         '',
         `Zirtan bugün yayında (${day}). İçinde:`,
         '',
@@ -54,9 +57,12 @@ export function announcement(lang, date) {
     },
     en: {
       title: 'Zirtan is live',
-      short: `Zirtan is out today on the App Store and Google Play: verified partner matching, a community hazard map, country-aware SOS and 12 offline first-aid guides — in 23 languages.`,
+      tiny: 'Zirtan is live: partner matching, hazard map, offline first aid. 23 languages, free plan.',
+      short: `Zirtan is out today on the App Store and Google Play.\nVerified partner matching, a community hazard map, country-aware SOS and 12 offline first-aid guides — in 23 languages.`,
       medium: lines(
-        'For two years we kept hearing the same three questions: who do I go with, what is on the trail right now, and who do I call if something happens.',
+        'Two years, the same three questions.',
+        '',
+        'Who do I go with? What is on the trail right now? Who do I call if something happens?',
         '',
         `Zirtan is live today (${day}). What is in it:`,
         '',
@@ -74,9 +80,12 @@ export function announcement(lang, date) {
     },
     de: {
       title: 'Zirtan ist live',
-      short: `Zirtan ist ab heute im App Store und bei Google Play: verifizierte Partnersuche, Gefahrenkarte der Community, länderspezifisches SOS und 12 Offline-Erste-Hilfe-Leitfäden — in 23 Sprachen.`,
+      tiny: 'Zirtan ist live: Partnersuche, Gefahrenkarte, Offline-Erste-Hilfe. 23 Sprachen, Gratis-Plan.',
+      short: `Zirtan ist ab heute im App Store und bei Google Play.\nVerifizierte Partnersuche, Gefahrenkarte der Community, länderspezifisches SOS und 12 Offline-Erste-Hilfe-Leitfäden — in 23 Sprachen.`,
       medium: lines(
-        'Zwei Jahre lang kamen immer dieselben drei Fragen: mit wem gehe ich, was ist gerade am Weg, und wen rufe ich an, wenn etwas passiert.',
+        'Zwei Jahre, immer dieselben drei Fragen.',
+        '',
+        'Mit wem gehe ich? Was ist gerade am Weg? Wen rufe ich an, wenn etwas passiert?',
         '',
         `Zirtan ist seit heute live (${day}). Drin ist:`,
         '',
@@ -94,9 +103,12 @@ export function announcement(lang, date) {
     },
     ru: {
       title: 'Zirtan вышел',
-      short: `Zirtan сегодня в App Store и Google Play: подбор проверенных попутчиков, карта опасностей от сообщества, SOS с учётом страны и 12 офлайн-инструкций первой помощи — на 23 языках.`,
+      tiny: 'Zirtan вышел: попутчики, карта опасностей, офлайн-первая помощь. 23 языка, бесплатный план.',
+      short: `Zirtan сегодня в App Store и Google Play.\nПодбор проверенных попутчиков, карта опасностей от сообщества, SOS с учётом страны и 12 офлайн-инструкций первой помощи — на 23 языках.`,
       medium: lines(
-        'Два года мы слышали одни и те же три вопроса: с кем идти, что сейчас на тропе и кому звонить, если что-то случится.',
+        'Два года — одни и те же три вопроса.',
+        '',
+        'С кем идти? Что сейчас на тропе? Кому звонить, если что-то случится?',
         '',
         `Zirtan вышел сегодня (${day}). Что внутри:`,
         '',
@@ -572,7 +584,9 @@ export async function runLaunch(options = {}) {
         lang,
         date,
         title: override?.title ?? base.title,
-        body: override?.body ?? (channel.spec.recommendedChars < 400 ? base.short : base.medium),
+        body:
+          override?.body ??
+          (channel.spec.recommendedChars <= 200 ? base.tiny : channel.spec.recommendedChars < 400 ? base.short : base.medium),
         cta: base.cta,
         link: utmLink({ source: channel.id, medium: 'organic', campaign: CAMPAIGN, content: `launch-${lang}` }),
         hashtags: [],

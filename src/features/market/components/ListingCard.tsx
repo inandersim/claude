@@ -52,7 +52,7 @@ export function ListingCard({ listing, onToggleFavorite, width }: Props) {
             {listing.category === 'rental' ? (
               <Text variant="caption" color="textMuted">
                 {' '}
-                / gün
+                {t('market.perDay')}
               </Text>
             ) : null}
           </Text>

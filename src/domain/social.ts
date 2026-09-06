@@ -123,7 +123,13 @@ export function activeToken(
   return { kind: marker === '#' ? 'hashtag' : 'mention', query, start };
 }
 
-/** Aktif kelimeyi seçilen öneriyle değiştirir; yeni metin ve imleç konumunu döner. */
+/**
+ * Aktif kelimeyi seçilen öneriyle değiştirir; yeni metin ve imleç konumunu döner.
+ *
+ * İmleç konumu (web'de `onSelectionChange` gecikebildiği için) metnin gerisinde
+ * kalabilir; bu yüzden kelimenin sonu imleçle değil, metinden okunarak bulunur.
+ * Aksi hâlde "#kaç" → "#kaçkar ç" gibi artık harfler kalır.
+ */
 export function replaceActiveToken(
   text: string,
   cursor: number,
@@ -132,7 +138,9 @@ export function replaceActiveToken(
   const token = activeToken(text, cursor);
   if (!token) return { text, cursor };
   const head = text.slice(0, token.start);
-  const tail = text.slice(cursor);
+  const consumed = /^[\p{L}\p{N}_.]*/u.exec(text.slice(token.start + 1))?.[0].length ?? 0;
+  const end = Math.max(cursor, token.start + 1 + consumed);
+  const tail = text.slice(end);
   const inserted = `${replacement} `;
   return { text: head + inserted + tail, cursor: head.length + inserted.length };
 }

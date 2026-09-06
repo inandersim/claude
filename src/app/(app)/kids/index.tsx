@@ -21,6 +21,7 @@ import {
 import { useToast } from '@/core/hooks/useToast';
 import { useT } from '@/core/i18n';
 import { layout, radius, spacing, useTheme } from '@/core/theme';
+import { formatDuration } from '@/core/utils/time';
 import {
   CHILD_AVATARS,
   KID_PLACE_KINDS,
@@ -52,7 +53,7 @@ import {
 
 /** Çocuk ekleme formu (satır içi kart). */
 function AddChildForm({ onDone }: { onDone: () => void }) {
-  const { t } = useT();
+  const { t, locale } = useT();
   const { colors } = useTheme();
   const toast = useToast();
   const add = useAddChild();
@@ -99,7 +100,7 @@ function AddChildForm({ onDone }: { onDone: () => void }) {
       />
       <View style={{ gap: spacing.sm }}>
         <Text variant="label" color="textSubtle">
-          {t('kids.child.age').toLocaleUpperCase('tr-TR')}
+          {t('kids.child.age').toLocaleUpperCase(locale)}
         </Text>
         <AgeBandChips
           value={ageBand}
@@ -126,7 +127,7 @@ function AddChildForm({ onDone }: { onDone: () => void }) {
 
 export default function KidsScreen() {
   const router = useRouter();
-  const { t } = useT();
+  const { t, locale } = useT();
   const { colors } = useTheme();
   const { width } = useWindowDimensions();
   const me = useCurrentUser();
@@ -309,7 +310,7 @@ export default function KidsScreen() {
                     {p.title}
                   </Text>
                   <Text variant="label" color="textSubtle">
-                    {p.durationMin} dk
+                    {formatDuration(p.durationMin, locale)}
                   </Text>
                 </Tappable>
               ))}

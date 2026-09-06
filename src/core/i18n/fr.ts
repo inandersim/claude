@@ -41,6 +41,8 @@ export const fr: Translations = {
     search: 'Rechercher',
     km: 'km',
     m: 'm',
+    min: 'min',
+    hour: 'h',
     error: "Une erreur s'est produite",
     errorDescription: 'Vérifie ta connexion et réessaie.',
     verified: 'Vérifié',
@@ -407,6 +409,7 @@ export const fr: Translations = {
     fair: 'État moyen',
   },
   market: {
+    perDay: '/ jour',
     title: 'Marché',
     subtitle: 'Achète, vends et loue du matériel outdoor',
     searchPlaceholder: 'Rechercher un équipement, une marque ou un lieu',

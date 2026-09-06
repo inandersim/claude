@@ -41,6 +41,8 @@ export const ka: Translations = {
     search: 'ძიება',
     km: 'კმ',
     m: 'მ',
+    min: 'წთ',
+    hour: 'სთ',
     error: 'რაღაც არასწორად წავიდა',
     errorDescription: 'შეამოწმე კავშირი და სცადე თავიდან.',
     verified: 'დადასტურებული',
@@ -404,6 +406,7 @@ export const ka: Translations = {
     fair: 'დამაკმაყოფილებელი',
   },
   market: {
+    perDay: '/ დღე',
     title: 'ბაზრობა',
     subtitle: 'იყიდე, გაყიდე და იქირავე აღჭურვილობა',
     searchPlaceholder: 'მოძებნე აღჭურვილობა, ბრენდი ან ადგილი',

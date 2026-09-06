@@ -136,7 +136,10 @@ export default function InstructorDetailScreen() {
               >
                 <Stat value={`${data.studentsCount}`} label={t('instructors.students')} />
                 <Stat value={`${data.yearsExperience}`} label={t('instructors.experience')} />
-                <Stat value={`${data.sessionDurationMin / 60} sa`} label={t('home.duration')} />
+                <Stat
+                  value={`${data.sessionDurationMin / 60} ${t('common.hour')}`}
+                  label={t('home.duration')}
+                />
                 <Stat
                   value={data.distanceKm !== null ? formatDistance(data.distanceKm, locale) : '—'}
                   label={t('home.distance')}
@@ -286,7 +289,7 @@ export default function InstructorDetailScreen() {
         >
           <View style={{ flex: 1 }}>
             <Text variant="caption" color="textSubtle">
-              {t('instructors.perSession')} · {data.sessionDurationMin} dk
+              {t('instructors.perSession')} · {data.sessionDurationMin} {t('common.min')}
             </Text>
             <Text variant="h3" color="primary">
               {formatPriceTry(data.pricePerSessionTry, locale)}

@@ -28,7 +28,7 @@ function niceMax(value: number): number {
 
 function formatNumber(value: number): string {
   if (Math.abs(value) >= 1_000_000) return `${(value / 1_000_000).toFixed(1)}M`;
-  if (Math.abs(value) >= 1000) return `${(value / 1000).toFixed(value >= 10_000 ? 0 : 1)}B`;
+  if (Math.abs(value) >= 1000) return `${(value / 1000).toFixed(value >= 10_000 ? 0 : 1)}k`;
   return String(Math.round(value * 100) / 100);
 }
 
@@ -128,7 +128,8 @@ export function LineChart({
         })}
 
         {series[0]?.points.map((point, i) =>
-          i % labelStep === 0 || i === count - 1 ? (
+          // Son etiket bir öncekiyle çakışacaksa atlanır
+          (i % labelStep === 0 && i <= count - 1 - Math.ceil(labelStep / 2)) || i === count - 1 ? (
             <text
               key={point.date}
               x={x(i)}

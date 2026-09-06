@@ -84,8 +84,8 @@ export default function NewsDetailScreen() {
             <View style={[styles.severityBar, { backgroundColor: severity.color }]}>
               <Icon name={severity.icon} size={16} color="#FFFFFF" strokeWidth={2.6} />
               <Text variant="label" weight="extrabold" color="#FFFFFF">
-                {t(severity.labelKey).toLocaleUpperCase('tr-TR')} ·{' '}
-                {(active ? t('tv.news.active') : t('tv.news.expired')).toLocaleUpperCase('tr-TR')}
+                {t(severity.labelKey).toLocaleUpperCase(locale)} ·{' '}
+                {(active ? t('tv.news.active') : t('tv.news.expired')).toLocaleUpperCase(locale)}
               </Text>
             </View>
             <View style={styles.badges}>

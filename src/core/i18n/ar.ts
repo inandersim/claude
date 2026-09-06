@@ -41,6 +41,8 @@ export const ar: Translations = {
     search: 'بحث',
     km: 'كم',
     m: 'م',
+    min: 'د',
+    hour: 'س',
     error: 'حدث خطأ ما',
     errorDescription: 'تحقق من اتصالك وحاول مجددًا.',
     verified: 'موثّق',
@@ -401,6 +403,7 @@ export const ar: Translations = {
     fair: 'مقبول',
   },
   market: {
+    perDay: '/ يوم',
     title: 'السوق',
     subtitle: 'بيع وشراء وتأجير معدات الهواء الطلق',
     searchPlaceholder: 'ابحث عن معدات أو علامة تجارية أو موقع',

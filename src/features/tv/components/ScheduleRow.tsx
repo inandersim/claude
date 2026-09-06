@@ -17,7 +17,7 @@ interface Props {
 /** Yayın akışı satırı: saat aralığı, kanal, başlık; yayındaysa "ŞİMDİ" vurgusu. */
 export function ScheduleRow({ item, now, showChannel = true }: Props) {
   const router = useRouter();
-  const { t } = useT();
+  const { t, locale } = useT();
   const { colors } = useTheme();
   const onAir = isOnAir(item, now);
   const past = new Date(item.endsAt).getTime() <= now;
@@ -42,7 +42,7 @@ export function ScheduleRow({ item, now, showChannel = true }: Props) {
           <View style={[styles.nowPill, { backgroundColor: colors.primary }]}>
             <View style={styles.liveDot} />
             <Text variant="label" weight="extrabold" color={colors.onPrimary}>
-              {t('tv.nowPlaying').toLocaleUpperCase('tr-TR')}
+              {t('tv.nowPlaying').toLocaleUpperCase(locale)}
             </Text>
           </View>
         ) : null}
@@ -51,7 +51,7 @@ export function ScheduleRow({ item, now, showChannel = true }: Props) {
       <View style={styles.body}>
         {showChannel ? (
           <Text variant="label" weight="extrabold" color={item.channel.color}>
-            {item.channel.name.toLocaleUpperCase('tr-TR')}
+            {item.channel.name.toLocaleUpperCase(locale)}
           </Text>
         ) : null}
         <Text

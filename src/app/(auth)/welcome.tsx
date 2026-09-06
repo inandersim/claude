@@ -16,7 +16,7 @@ const HERO =
 export default function WelcomeScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  const { t } = useT();
+  const { t, locale } = useT();
 
   return (
     <View style={styles.root}>
@@ -53,7 +53,7 @@ export default function WelcomeScreen() {
           <View style={styles.pill}>
             <Icon name="sparkles" size={12} color="#5EE39B" strokeWidth={2.6} />
             <Text variant="label" weight="extrabold" color="#5EE39B">
-              {t('common.tagline').toLocaleUpperCase('tr-TR')}
+              {t('common.tagline').toLocaleUpperCase(locale)}
             </Text>
           </View>
           <Text variant="display" color="#F2F7F4">

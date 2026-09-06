@@ -3,12 +3,13 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
 import { goBack } from '@/core/navigation';
 import React from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { Header, Icon, Screen, Tappable, Text, type IconName } from '@/components/ui';
 import { useToast } from '@/core/hooks/useToast';
 import { LANGUAGE_META, LOCALES, useLocaleStore, useT, type Locale } from '@/core/i18n';
 import { layout, radius, spacing, useTheme, type ThemePreference } from '@/core/theme';
+import { confirmDialog } from '@/core/utils/confirm';
 import { getDataProvider } from '@/data';
 import { useSessionStore } from '@/features/auth/session.store';
 
@@ -36,27 +37,37 @@ export default function SettingsScreen() {
   }));
 
   const confirmSignOut = () => {
-    Alert.alert(t('auth.signOut'), t('auth.signOutConfirm'), [
-      { text: t('common.cancel'), style: 'cancel' },
-      { text: t('auth.signOut'), style: 'destructive', onPress: () => signOut() },
-    ]);
+    confirmDialog(
+      t('auth.signOut'),
+      t('auth.signOutConfirm'),
+      t('auth.signOut'),
+      t('common.cancel'),
+      () => {
+        signOut().catch(() => toast(t('common.error'), 'error'));
+      },
+    );
   };
 
   const confirmReset = () => {
-    Alert.alert(t('settings.resetData'), t('settings.resetConfirm'), [
-      { text: t('common.cancel'), style: 'cancel' },
-      {
-        text: t('settings.resetData'),
-        style: 'destructive',
-        onPress: async () => {
-          await getDataProvider().reset();
-          await qc.invalidateQueries();
-          await refreshUser();
-          toast(t('settings.resetDone'), 'success');
-          goBack(router);
-        },
+    confirmDialog(
+      t('settings.resetData'),
+      t('settings.resetConfirm'),
+      t('settings.resetData'),
+      t('common.cancel'),
+      () => {
+        void (async () => {
+          try {
+            await getDataProvider().reset();
+            await qc.invalidateQueries();
+            await refreshUser();
+            toast(t('settings.resetDone'), 'success');
+            goBack(router);
+          } catch {
+            toast(t('common.error'), 'error');
+          }
+        })();
       },
-    ]);
+    );
   };
 
   return (
@@ -151,10 +162,11 @@ export default function SettingsScreen() {
 
 function Group({ title, children }: { title: string; children: React.ReactNode }) {
   const { colors } = useTheme();
+  const { locale } = useT();
   return (
     <View style={{ gap: spacing.sm }}>
       <Text variant="label" color="textSubtle" style={{ marginLeft: spacing.xs }}>
-        {title.toLocaleUpperCase('tr-TR')}
+        {title.toLocaleUpperCase(locale)}
       </Text>
       <View style={[styles.group, { backgroundColor: colors.surface, borderColor: colors.border }]}>
         {children}
@@ -261,7 +273,7 @@ function Option({
         },
       ]}
       accessibilityRole="radio"
-      accessibilityState={{ selected: active }}
+      accessibilityState={{ checked: active, selected: active }}
     >
       {icon ? (
         <Icon

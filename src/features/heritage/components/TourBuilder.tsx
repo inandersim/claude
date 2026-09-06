@@ -39,7 +39,10 @@ export function TourBuilder({
   const [date, setDate] = useState('');
   const [notes, setNotes] = useState('');
   const [query, setQuery] = useState('');
-  const [selected, setSelected] = useState<string[]>(initialSiteIds);
+  // Derin bağlantıdaki (`?siteId=…`) tanımsız id sayaca/özete karışmasın.
+  const [selected, setSelected] = useState<string[]>(() =>
+    initialSiteIds.filter((id) => sites.some((s) => s.id === id)),
+  );
   const [error, setError] = useState<string | null>(null);
 
   const byId = useMemo(() => new Map(sites.map((s) => [s.id, s])), [sites]);

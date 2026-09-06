@@ -676,6 +676,8 @@ export interface BusinessWithOwner extends Business {
 export interface StayBooking {
   id: ID;
   businessId: ID;
+  /** Envanterli rezervasyonlarda konaklama birimi; eski/basit rezervasyonlarda `null`. */
+  unitId: ID | null;
   guestId: ID;
   checkIn: ISODate;
   checkOut: ISODate;

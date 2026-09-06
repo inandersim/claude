@@ -305,7 +305,7 @@ export function SosPage() {
             <MapPlot label={t('sos.map')} markers={markers} onSelect={setSelectedId} />
           </Card>
 
-          <div className="grid" style={{ gridTemplateColumns: selected ? '1.6fr 1fr' : '1fr', alignItems: 'start' }}>
+          <div className="grid" style={{ gridTemplateColumns: selected ? 'minmax(0, 1.6fr) minmax(0, 1fr)' : 'minmax(0, 1fr)', alignItems: 'start' }}>
             <DataTable
               caption={t('sos.tab.incidents')}
               columns={incidentColumns}

@@ -42,6 +42,8 @@ export const pt: Translations = {
     search: 'Buscar',
     km: 'km',
     m: 'm',
+    min: 'min',
+    hour: 'h',
     error: 'Algo deu errado',
     errorDescription: 'Verifique sua conexão e tente novamente.',
     verified: 'Verificado',
@@ -407,6 +409,7 @@ export const pt: Translations = {
     fair: 'Usado',
   },
   market: {
+    perDay: '/ dia',
     title: 'Mercado',
     subtitle: 'Compre, venda e alugue equipamentos outdoor',
     searchPlaceholder: 'Busque equipamento, marca ou localização',

@@ -41,6 +41,8 @@ export const th: Translations = {
     search: 'ค้นหา',
     km: 'กม.',
     m: 'ม.',
+    min: 'นาที',
+    hour: 'ชม.',
     error: 'เกิดข้อผิดพลาดบางอย่าง',
     errorDescription: 'โปรดตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง',
     verified: 'ยืนยันแล้ว',
@@ -402,6 +404,7 @@ export const th: Translations = {
     fair: 'พอใช้',
   },
   market: {
+    perDay: '/ วัน',
     title: 'ตลาดซื้อขาย',
     subtitle: 'ซื้อ ขาย และเช่าอุปกรณ์กลางแจ้ง',
     searchPlaceholder: 'ค้นหาอุปกรณ์ แบรนด์ หรือสถานที่',

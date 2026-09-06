@@ -41,6 +41,8 @@ export const zh: Translations = {
     search: '搜索',
     km: '公里',
     m: '米',
+    min: '分钟',
+    hour: '小时',
     error: '出了点问题',
     errorDescription: '请检查网络连接后重试。',
     verified: '已认证',
@@ -398,6 +400,7 @@ export const zh: Translations = {
     fair: '一般',
   },
   market: {
+    perDay: '/ 天',
     title: '集市',
     subtitle: '买卖和租赁户外装备',
     searchPlaceholder: '搜索装备、品牌或地点',

@@ -41,6 +41,8 @@ export const el: Translations = {
     search: 'Αναζήτηση',
     km: 'χλμ',
     m: 'μ',
+    min: 'λεπ',
+    hour: 'ώ',
     error: 'Κάτι πήγε στραβά',
     errorDescription: 'Ελέγξτε τη σύνδεσή σας και δοκιμάστε ξανά.',
     verified: 'Επαληθευμένο',
@@ -406,6 +408,7 @@ export const el: Translations = {
     fair: 'Μέτρια',
   },
   market: {
+    perDay: '/ ημέρα',
     title: 'Αγορά',
     subtitle: 'Αγοράστε, πουλήστε και νοικιάστε εξοπλισμό υπαίθρου',
     searchPlaceholder: 'Αναζήτηση εξοπλισμού, μάρκας ή τοποθεσίας',

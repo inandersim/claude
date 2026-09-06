@@ -41,6 +41,8 @@ export const nl: Translations = {
     search: 'Zoeken',
     km: 'km',
     m: 'm',
+    min: 'min',
+    hour: 'u',
     error: 'Er is iets misgegaan',
     errorDescription: 'Controleer je verbinding en probeer het opnieuw.',
     verified: 'Geverifieerd',
@@ -405,6 +407,7 @@ export const nl: Translations = {
     fair: 'Redelijk',
   },
   market: {
+    perDay: '/ dag',
     title: 'Marktplaats',
     subtitle: 'Koop, verkoop en huur outdooruitrusting',
     searchPlaceholder: 'Zoek uitrusting, merk of locatie',

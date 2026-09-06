@@ -41,6 +41,8 @@ export const it: Translations = {
     search: 'Cerca',
     km: 'km',
     m: 'm',
+    min: 'min',
+    hour: 'h',
     error: 'Qualcosa è andato storto',
     errorDescription: 'Controlla la connessione e riprova.',
     verified: 'Verificato',
@@ -407,6 +409,7 @@ export const it: Translations = {
     fair: 'Usurato',
   },
   market: {
+    perDay: '/ giorno',
     title: 'Mercato',
     subtitle: 'Compra, vendi e noleggia attrezzatura outdoor',
     searchPlaceholder: 'Cerca attrezzatura, marca o posizione',

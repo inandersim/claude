@@ -26,7 +26,7 @@ interface Props {
  */
 export function NewsTicker({ news, intervalMs = 5_000 }: Props) {
   const router = useRouter();
-  const { t } = useT();
+  const { t, locale } = useT();
   const { colors } = useTheme();
   const [index, setIndex] = useState(0);
   const offset = useSharedValue(0);
@@ -76,7 +76,7 @@ export function NewsTicker({ news, intervalMs = 5_000 }: Props) {
       <View style={styles.textWrap}>
         <View style={styles.labelRow}>
           <Text variant="label" weight="extrabold" color={severity.color}>
-            {t(severity.labelKey).toLocaleUpperCase('tr-TR')}
+            {t(severity.labelKey).toLocaleUpperCase(locale)}
           </Text>
           <Text variant="label" color="textSubtle">
             · {t(category.labelKey)} · {item.region}

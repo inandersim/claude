@@ -41,6 +41,8 @@ export const en: Translations = {
     search: 'Search',
     km: 'km',
     m: 'm',
+    min: 'min',
+    hour: 'h',
     error: 'Something went wrong',
     errorDescription: 'Please check your connection and try again.',
     verified: 'Verified',
@@ -402,6 +404,7 @@ export const en: Translations = {
     fair: 'Fair',
   },
   market: {
+    perDay: '/ day',
     title: 'Marketplace',
     subtitle: 'Buy, sell and rent outdoor gear',
     searchPlaceholder: 'Search gear, brand or location',

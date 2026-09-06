@@ -1448,6 +1448,7 @@ export const seedBusinesses: Business[] = [
 export const seedStayBookings: StayBooking[] = [
   {
     id: 'sb1',
+    unitId: 'unit_biz2_deluxe',
     businessId: 'biz2',
     guestId: CURRENT_USER_ID,
     checkIn: daysAhead(20),

@@ -2,7 +2,6 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-  Alert,
   FlatList,
   KeyboardAvoidingView,
   Platform,
@@ -28,6 +27,7 @@ import { useToast } from '@/core/hooks/useToast';
 import { useT } from '@/core/i18n';
 import { queryKeys } from '@/core/query/keys';
 import { fontFamily, radius, spacing, useTheme } from '@/core/theme';
+import { confirmDialog } from '@/core/utils/confirm';
 import { formatRelative } from '@/core/utils/time';
 import { isRemoteAiConfigured } from '@/data/ai/remoteAi';
 import { suggestPrompts, type AiThread } from '@/domain';
@@ -60,18 +60,17 @@ export default function AssistantScreen() {
   };
 
   const confirmDelete = (thread: AiThread) => {
-    Alert.alert(t('ai.deleteThread'), t('ai.deleteConfirm'), [
-      { text: t('common.cancel'), style: 'cancel' },
-      {
-        text: t('ai.deleteThread'),
-        style: 'destructive',
-        onPress: () =>
-          remove.mutate(thread.id, {
-            onSuccess: () => toast(t('ai.deleted'), 'success'),
-            onError: () => toast(t('common.error'), 'error'),
-          }),
-      },
-    ]);
+    confirmDialog(
+      t('ai.deleteThread'),
+      t('ai.deleteConfirm'),
+      t('ai.deleteThread'),
+      t('common.cancel'),
+      () =>
+        remove.mutate(thread.id, {
+          onSuccess: () => toast(t('ai.deleted'), 'success'),
+          onError: () => toast(t('common.error'), 'error'),
+        }),
+    );
   };
 
   const header = (

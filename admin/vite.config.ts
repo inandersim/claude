@@ -32,6 +32,18 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    chunkSizeWarningLimit: 2400,
+    chunkSizeWarningLimit: 900,
+    rollupOptions: {
+      output: {
+        // Tohum veri (mock) ve satıcı kodu ayrı parçalara alınır; böylece
+        // panel kodu değiştiğinde büyük veri parçası önbellekte kalır.
+        manualChunks(id: string) {
+          if (id.includes('/src/data/mock/')) return 'seed-data';
+          if (id.includes('/src/domain/')) return 'domain';
+          if (id.includes('node_modules')) return 'vendor';
+          return undefined;
+        },
+      },
+    },
   },
 });

@@ -41,6 +41,8 @@ export const cs: Translations = {
     search: 'Hledat',
     km: 'km',
     m: 'm',
+    min: 'min',
+    hour: 'h',
     error: 'Něco se pokazilo',
     errorDescription: 'Zkontrolujte připojení a zkuste to znovu.',
     verified: 'Ověřeno',
@@ -403,6 +405,7 @@ export const cs: Translations = {
     fair: 'Ucházející',
   },
   market: {
+    perDay: '/ den',
     title: 'Tržiště',
     subtitle: 'Kupujte, prodávejte a půjčujte outdoorové vybavení',
     searchPlaceholder: 'Hledat vybavení, značku nebo místo',

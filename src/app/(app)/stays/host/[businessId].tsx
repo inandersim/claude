@@ -725,7 +725,7 @@ function VerificationTab({
         <StatTile
           icon="timer"
           label={t('inventory.host.responseTime')}
-          value={`${responseTimeMin} dk`}
+          value={`${responseTimeMin} ${t('common.min')}`}
           style={styles.tile}
           compact
         />

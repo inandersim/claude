@@ -86,7 +86,7 @@ export default function ListingDetailScreen() {
                   {data.category === 'rental' ? (
                     <Text variant="bodySm" color="textMuted">
                       {' '}
-                      / gün
+                      {t('market.perDay')}
                     </Text>
                   ) : null}
                 </Text>

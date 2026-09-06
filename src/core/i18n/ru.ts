@@ -41,6 +41,8 @@ export const ru: Translations = {
     search: 'Поиск',
     km: 'км',
     m: 'м',
+    min: 'мин',
+    hour: 'ч',
     error: 'Что-то пошло не так',
     errorDescription: 'Проверь подключение и попробуй снова.',
     verified: 'Подтверждено',
@@ -405,6 +407,7 @@ export const ru: Translations = {
     fair: 'Изношенное',
   },
   market: {
+    perDay: '/ день',
     title: 'Маркет',
     subtitle: 'Покупай, продавай и арендуй снаряжение для активного отдыха',
     searchPlaceholder: 'Ищи снаряжение, бренд или место',

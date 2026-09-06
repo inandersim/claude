@@ -41,6 +41,8 @@ export const ko: Translations = {
     search: '검색',
     km: 'km',
     m: 'm',
+    min: '분',
+    hour: '시간',
     error: '문제가 발생했어요',
     errorDescription: '연결 상태를 확인하고 다시 시도해 주세요.',
     verified: '인증됨',
@@ -400,6 +402,7 @@ export const ko: Translations = {
     fair: '보통',
   },
   market: {
+    perDay: '/ 일',
     title: '마켓',
     subtitle: '아웃도어 장비 구매, 판매, 대여',
     searchPlaceholder: '장비, 브랜드 또는 위치 검색',

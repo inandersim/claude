@@ -249,7 +249,8 @@ export default function SpeciesDetailScreen() {
             onPress={doctor}
             fullWidth
           />
-          {rank >= 2 && s.group === 'mammal' ? (
+          {/* Kaçırma profili olan gruplar: memeliler ve yılanlar (yılanda titreşim/yere vurma) */}
+          {rank >= 2 && (s.group === 'mammal' || s.group === 'snake') ? (
             <Button
               label={t('wildlife.identify.panic')}
               icon="siren"

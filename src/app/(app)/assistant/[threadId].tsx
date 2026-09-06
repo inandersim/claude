@@ -1,7 +1,6 @@
 import { useLocalSearchParams, useRouter, type Href } from 'expo-router';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
-  Alert,
   FlatList,
   KeyboardAvoidingView,
   Platform,
@@ -23,6 +22,7 @@ import {
 import { useToast } from '@/core/hooks/useToast';
 import { useT } from '@/core/i18n';
 import { goBack } from '@/core/navigation';
+import { confirmDialog } from '@/core/utils/confirm';
 import { fontFamily, radius, spacing, useTheme } from '@/core/theme';
 import type { AiAction, AiMessage } from '@/domain';
 import { ChatBubble } from '@/features/ai/components/ChatBubble';
@@ -86,21 +86,20 @@ export default function AssistantThreadScreen() {
 
   const onDelete = () => {
     if (!realId) return;
-    Alert.alert(t('ai.deleteThread'), t('ai.deleteConfirm'), [
-      { text: t('common.cancel'), style: 'cancel' },
-      {
-        text: t('ai.deleteThread'),
-        style: 'destructive',
-        onPress: () =>
-          remove.mutate(realId, {
-            onSuccess: () => {
-              toast(t('ai.deleted'), 'success');
-              goBack(router, '/');
-            },
-            onError: () => toast(t('common.error'), 'error'),
-          }),
-      },
-    ]);
+    confirmDialog(
+      t('ai.deleteThread'),
+      t('ai.deleteConfirm'),
+      t('ai.deleteThread'),
+      t('common.cancel'),
+      () =>
+        remove.mutate(realId, {
+          onSuccess: () => {
+            toast(t('ai.deleted'), 'success');
+            goBack(router, '/');
+          },
+          onError: () => toast(t('common.error'), 'error'),
+        }),
+    );
   };
 
   const title = thread.data?.title || t('ai.assistant');

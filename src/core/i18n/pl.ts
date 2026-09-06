@@ -41,6 +41,8 @@ export const pl: Translations = {
     search: 'Szukaj',
     km: 'km',
     m: 'm',
+    min: 'min',
+    hour: 'godz',
     error: 'Coś poszło nie tak',
     errorDescription: 'Sprawdź połączenie i spróbuj ponownie.',
     verified: 'Zweryfikowano',
@@ -404,6 +406,7 @@ export const pl: Translations = {
     fair: 'Przeciętny',
   },
   market: {
+    perDay: '/ dzień',
     title: 'Giełda',
     subtitle: 'Kupuj, sprzedawaj i wypożyczaj sprzęt outdoorowy',
     searchPlaceholder: 'Szukaj sprzętu, marki lub miejsca',

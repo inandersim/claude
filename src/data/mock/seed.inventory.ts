@@ -219,6 +219,7 @@ export const seedInventoryBookings: StayBooking[] = [
   {
     // u_me — tamamlanmış konaklama (yorum yazılabilir), ödeme serbest bırakıldı
     id: 'sb_inv1',
+    unitId: null,
     businessId: 'biz1',
     guestId: CURRENT_USER_ID,
     checkIn: daysAgo(12),
@@ -233,6 +234,7 @@ export const seedInventoryBookings: StayBooking[] = [
   {
     // u_me — yaklaşan konaklama, emanette (iptal edilebilir)
     id: 'sb_inv2',
+    unitId: 'unit_biz5_bungalow',
     businessId: 'biz5',
     guestId: CURRENT_USER_ID,
     checkIn: daysAhead(6),
@@ -247,6 +249,7 @@ export const seedInventoryBookings: StayBooking[] = [
   {
     // u_elif — iptal edildi, kısmi iade
     id: 'sb_inv3',
+    unitId: null,
     businessId: 'biz4',
     guestId: 'u_elif',
     checkIn: daysAhead(9),
@@ -261,6 +264,7 @@ export const seedInventoryBookings: StayBooking[] = [
   {
     // u_can — biz1'e yaklaşan, emanette
     id: 'sb_inv4',
+    unitId: 'unit_biz1_family',
     businessId: 'biz1',
     guestId: 'u_can',
     checkIn: daysAhead(4),
@@ -275,6 +279,7 @@ export const seedInventoryBookings: StayBooking[] = [
   {
     // u_zeynep — biz2 geçmiş konaklama, ödeme aktarıldı
     id: 'sb_inv5',
+    unitId: null,
     businessId: 'biz2',
     guestId: 'u_zeynep',
     checkIn: daysAgo(20),

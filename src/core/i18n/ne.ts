@@ -41,6 +41,8 @@ export const ne: Translations = {
     search: 'खोज्नुहोस्',
     km: 'किमी',
     m: 'मि',
+    min: 'मि',
+    hour: 'घ',
     error: 'केही गडबड भयो',
     errorDescription: 'कृपया आफ्नो इन्टरनेट जडान जाँचेर फेरि प्रयास गर्नुहोस्।',
     verified: 'प्रमाणित',
@@ -404,6 +406,7 @@ export const ne: Translations = {
     fair: 'पुरानो',
   },
   market: {
+    perDay: '/ दिन',
     title: 'बजार',
     subtitle: 'आउटडोर उपकरण किन्नुहोस्, बेच्नुहोस्, भाडामा लिनुहोस्',
     searchPlaceholder: 'उपकरण, ब्रान्ड वा स्थान खोज्नुहोस्',

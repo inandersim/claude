@@ -104,15 +104,17 @@ export function createInventoryRepository(ctx: MockContext): InventoryRepository
     return b;
   };
 
-  const unitOfBooking = (t: Tables, bookingId: ID): StayUnit | null => {
-    const block = t.unitBlocks.find((b) => b.bookingId === bookingId);
-    return block ? (t.stayUnits.find((u) => u.id === block.unitId) ?? null) : null;
+  const unitOfBooking = (t: Tables, booking: StayBooking): StayUnit | null => {
+    // Önce rezervasyondaki doğrudan bağ; yoksa (eski kayıtlar) blok üzerinden çöz.
+    const unitId =
+      booking.unitId ?? t.unitBlocks.find((b) => b.bookingId === booking.id)?.unitId ?? null;
+    return unitId ? (t.stayUnits.find((u) => u.id === unitId) ?? null) : null;
   };
 
   const withPayment = (t: Tables, booking: StayBooking): BookingWithPayment => ({
     ...booking,
     business: findBusiness(t, booking.businessId),
-    unit: unitOfBooking(t, booking.id),
+    unit: unitOfBooking(t, booking),
     payment: t.payments.find((p) => p.bookingId === booking.id) ?? null,
     policy: policyOf(t, booking.businessId),
   });
@@ -181,6 +183,7 @@ export function createInventoryRepository(ctx: MockContext): InventoryRepository
       const booking: StayBooking = {
         id: generateId('sb'),
         businessId: business.id,
+        unitId: unit.id,
         guestId: meId,
         checkIn: `${toDayKey(input.checkIn)}T14:00:00.000Z`,
         checkOut: `${toDayKey(input.checkOut)}T11:00:00.000Z`,
@@ -278,12 +281,9 @@ export function createInventoryRepository(ctx: MockContext): InventoryRepository
           t.payments[idx] = applyPaymentEvent(p, 'refund', nowIso, preview.refundTry);
         }
       }
-      // Tarihleri serbest bırak ama rezervasyon → birim bağını koru: bloğu sıfır uzunluğa
-      // indiriyoruz (from === to hiçbir geceyle kesişmez), böylece iptal sonrası detay
-      // ekranında birim ve gecelik kırılım görünmeye devam eder.
-      for (const blk of t.unitBlocks) {
-        if (blk.bookingId === b.id) blk.to = blk.from;
-      }
+      // Tarihler serbest bırakılır; birim bağı `booking.unitId` üzerinde durduğu için
+      // iptal sonrası detay ekranı birimi göstermeye devam eder.
+      t.unitBlocks = t.unitBlocks.filter((blk) => blk.bookingId !== b.id);
       b.status = 'cancelled';
       refreshPayouts(t, b.businessId);
       ctx.db.markDirty();

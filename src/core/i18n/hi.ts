@@ -41,6 +41,8 @@ export const hi: Translations = {
     search: 'खोजें',
     km: 'किमी',
     m: 'मी',
+    min: 'मि',
+    hour: 'घं',
     error: 'कुछ गड़बड़ हो गई',
     errorDescription: 'कृपया अपना कनेक्शन जाँचें और फिर कोशिश करें।',
     verified: 'सत्यापित',
@@ -402,6 +404,7 @@ export const hi: Translations = {
     fair: 'ठीक-ठाक',
   },
   market: {
+    perDay: '/ दिन',
     title: 'बाज़ार',
     subtitle: 'आउटडोर उपकरण खरीदें, बेचें और किराए पर लें',
     searchPlaceholder: 'उपकरण, ब्रांड या स्थान खोजें',

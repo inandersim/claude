@@ -59,7 +59,7 @@ export function KidPlaceCard({ place, width }: Props) {
           <View style={[styles.pill, { backgroundColor: kind.color }]}>
             <Icon name={kind.icon as IconName} size={12} color="#FFFFFF" strokeWidth={2.4} />
             <Text variant="label" weight="extrabold" color="#FFFFFF">
-              {t(kind.labelKey).toLocaleUpperCase('tr-TR')}
+              {t(kind.labelKey).toLocaleUpperCase(locale)}
             </Text>
           </View>
           {place.savedByMe ? (

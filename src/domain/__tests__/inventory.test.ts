@@ -249,6 +249,7 @@ describe('rezervasyon kuralları', () => {
   const base: StayBooking = {
     id: 'sb',
     businessId: 'b1',
+    unitId: null,
     guestId: 'u_me',
     checkIn: '2026-06-20T14:00:00.000Z',
     checkOut: '2026-06-22T11:00:00.000Z',

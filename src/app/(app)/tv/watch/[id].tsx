@@ -268,7 +268,7 @@ export default function WatchScreen() {
             <Icon name="info" size={14} color={colors.textSubtle} />
             <View style={{ flex: 1, gap: 2 }}>
               <Text variant="label" weight="extrabold" color="textSubtle">
-                {t('tv.credits').toLocaleUpperCase('tr-TR')}
+                {t('tv.credits').toLocaleUpperCase(locale)}
               </Text>
               <Text variant="caption" color="textMuted">
                 {data.creditsNote}

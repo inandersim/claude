@@ -13,12 +13,12 @@ interface Props {
 
 /** 8 emoji avatar seçici. */
 export function ChildAvatarPicker({ value, onChange }: Props) {
-  const { t } = useT();
+  const { t, locale } = useT();
   const { colors } = useTheme();
   return (
     <View style={styles.wrap}>
       <Text variant="label" color="textSubtle">
-        {t('kids.child.avatar').toLocaleUpperCase('tr-TR')}
+        {t('kids.child.avatar').toLocaleUpperCase(locale)}
       </Text>
       <View style={styles.row}>
         {CHILD_AVATARS.map((a) => {

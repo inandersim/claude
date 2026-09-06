@@ -101,6 +101,13 @@ describe('activeToken / replaceActiveToken', () => {
       cursor: 14,
     });
   });
+  it('imleç geride kalsa da kelimenin tamamını değiştirir (web onSelectionChange gecikmesi)', () => {
+    // Metin "selam #kaç" ama imleç bir karakter geride: artık harf kalmamalı.
+    expect(replaceActiveToken('selam #kaç', 9, '#kaçkar')).toEqual({
+      text: 'selam #kaçkar ',
+      cursor: 14,
+    });
+  });
 });
 
 describe('reactionSummary', () => {

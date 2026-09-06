@@ -40,6 +40,8 @@ export const tr = {
     search: 'Ara',
     km: 'km',
     m: 'm',
+    min: 'dk',
+    hour: 'sa',
     error: 'Bir şeyler ters gitti',
     errorDescription: 'Lütfen bağlantını kontrol edip tekrar dene.',
     verified: 'Doğrulanmış',
@@ -403,6 +405,7 @@ export const tr = {
     fair: 'Yıpranmış',
   },
   market: {
+    perDay: '/ gün',
     title: 'Market',
     subtitle: 'Outdoor ekipman al, sat, kirala',
     searchPlaceholder: 'Ekipman, marka veya konum ara',

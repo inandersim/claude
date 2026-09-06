@@ -41,7 +41,7 @@ type GridSize = '3' | '4';
 
 /** Seçili çocuk için kart, çıkartma rafı ve sıfırlama. */
 function HuntBoard({ child, size }: { child: ChildProfile; size: 3 | 4 }) {
-  const { t } = useT();
+  const { t, locale } = useT();
   const { colors } = useTheme();
   const toast = useToast();
   const tasks = useHuntTasks(child.ageBand);
@@ -162,7 +162,7 @@ function HuntBoard({ child, size }: { child: ChildProfile; size: 3 | 4 }) {
 
 export default function HuntScreen() {
   const router = useRouter();
-  const { t } = useT();
+  const { t, locale } = useT();
   const children = useChildren();
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [size, setSize] = useState<GridSize>('3');
@@ -194,7 +194,7 @@ export default function HuntScreen() {
         ) : (
           <>
             <Text variant="label" color="textSubtle">
-              {t('kids.hunt.pickChild').toLocaleUpperCase('tr-TR')}
+              {t('kids.hunt.pickChild').toLocaleUpperCase(locale)}
             </Text>
             <View style={{ gap: spacing.sm }}>
               {children.data!.map((c) => (
