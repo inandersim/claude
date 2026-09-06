@@ -17,7 +17,11 @@ export function InfoGrid({ guide }: Props) {
     guide.tryRate !== null
       ? t('countries.info.rate', {
           currency: guide.currency,
-          try: formatPriceTry(guide.tryRate, locale),
+          // Küçük kurlarda (1 NPR ≈ 0,25 ₺) yuvarlama sıfır göstermesin
+          try:
+            guide.tryRate < 1
+              ? `₺${guide.tryRate.toLocaleString(locale, { minimumFractionDigits: 2, maximumFractionDigits: 3 })}`
+              : formatPriceTry(guide.tryRate, locale),
         })
       : guide.currency;
   const languages = guide.languages.map((l) => languageName(l, locale)).join(', ');
