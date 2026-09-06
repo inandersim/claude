@@ -1,0 +1,107 @@
+name: Security
+
+on:
+  push:
+    branches: [main, 'claude/**']
+  pull_request:
+  schedule:
+    - cron: '30 4 * * 1' # Pazartesi 04:30 UTC
+
+permissions:
+  contents: read
+  security-events: write
+  pull-requests: read
+
+concurrency:
+  group: security-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  secrets:
+    name: Gizli anahtar taraması (gitleaks)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  dependencies:
+    name: Bağımlılık açıkları (npm audit)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Uygulama
+        run: npm audit --omit=dev --audit-level=high
+      - name: AI gateway
+        working-directory: server/ai-gateway
+        run: npm ci && npm audit --omit=dev --audit-level=high
+      - name: Pazarlama ajanları
+        working-directory: agents/marketing
+        run: npm ci && npm audit --omit=dev --audit-level=high
+
+  codeql:
+    name: Statik analiz (CodeQL)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: github/codeql-action/init@v3
+        with:
+          languages: javascript-typescript
+          queries: security-and-quality
+      - uses: github/codeql-action/analyze@v3
+        with:
+          category: /language:javascript-typescript
+
+  semgrep:
+    name: Semgrep (OWASP, JS/TS, gizli bilgi)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    container:
+      image: semgrep/semgrep
+    steps:
+      - uses: actions/checkout@v4
+      - run: semgrep ci --config p/owasp-top-ten --config p/javascript --config p/typescript --config p/secrets --config p/react
+        env:
+          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+        continue-on-error: true
+
+  gateway-hardening:
+    name: Gateway sertleştirme testleri
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Derle ve kimlik/oran sınırı davranışını doğrula
+        working-directory: server/ai-gateway
+        run: |
+          npm ci
+          npm run build
+          node -e "
+            const { spawn } = require('node:child_process');
+            const p = spawn('node', ['dist/index.js'], { env: { ...process.env, PORT: '8787', ZIRTAN_GATEWAY_KEYS: 'test-key', ANTHROPIC_API_KEY: 'sk-ant-placeholder' }, stdio: 'inherit' });
+            const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+            (async () => {
+              await wait(1500);
+              const noKey = await fetch('http://localhost:8787/v1/chat', { method: 'POST', headers: { 'content-type': 'application/json' }, body: '{}' });
+              if (noKey.status !== 401) { console.error('Anahtarsız istek 401 dönmeli, döndü:', noKey.status); process.exit(1); }
+              const big = await fetch('http://localhost:8787/v1/chat', { method: 'POST', headers: { 'content-type': 'application/json', 'x-zirtan-key': 'test-key' }, body: JSON.stringify({ messages: [{ role: 'user', content: 'x'.repeat(9_000_000) }] }) });
+              if (big.status !== 413 && big.status !== 400) { console.error('Aşırı gövde reddedilmeli, döndü:', big.status); process.exit(1); }
+              console.log('gateway sertleştirme OK');
+              p.kill(); process.exit(0);
+            })().catch((e) => { console.error(e); p.kill(); process.exit(1); });
+          "
