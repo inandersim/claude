@@ -77,9 +77,7 @@ export function destinationPoint(origin: GeoPoint, bearingDeg: number, distM: nu
   const θ = toRad(bearingDeg);
   const φ1 = toRad(origin.latitude);
   const λ1 = toRad(origin.longitude);
-  const φ2 = Math.asin(
-    Math.sin(φ1) * Math.cos(δ) + Math.cos(φ1) * Math.sin(δ) * Math.cos(θ),
-  );
+  const φ2 = Math.asin(Math.sin(φ1) * Math.cos(δ) + Math.cos(φ1) * Math.sin(δ) * Math.cos(θ));
   const λ2 =
     λ1 +
     Math.atan2(Math.sin(θ) * Math.sin(δ) * Math.cos(φ1), Math.cos(δ) - Math.sin(φ1) * Math.sin(φ2));
@@ -228,7 +226,8 @@ export function bboxOf(points: GeoPoint[]): [number, number, number, number] {
 /** Her noktanın rota başından kümülatif mesafesi (m) */
 export function cumulativeM(points: GeoPoint[]): number[] {
   const out: number[] = [0];
-  for (let i = 1; i < points.length; i++) out.push(out[i - 1]! + distanceM(points[i - 1]!, points[i]!));
+  for (let i = 1; i < points.length; i++)
+    out.push(out[i - 1]! + distanceM(points[i - 1]!, points[i]!));
   return out;
 }
 
@@ -354,7 +353,8 @@ function hasNeighbor(key: string, other: Set<string>): boolean {
   if (other.has(key)) return true;
   const [r, c] = key.split(':').map((v) => parseInt(v, 10)) as [number, number];
   for (let dr = -1; dr <= 1; dr++)
-    for (let dc = -1; dc <= 1; dc++) if ((dr || dc) && other.has(`${r + dr}:${c + dc}`)) return true;
+    for (let dc = -1; dc <= 1; dc++)
+      if ((dr || dc) && other.has(`${r + dr}:${c + dc}`)) return true;
   return false;
 }
 
@@ -418,7 +418,7 @@ export function medianCenterline(tracks: Track[], cellM = 30): TrackPoint[] {
 
 function modeOf<T>(values: T[]): T {
   const counts = new Map<T, number>();
-  let best = values[0]!;
+  let best: T = values[0] as T;
   let bestN = 0;
   for (const v of values) {
     const n = (counts.get(v) ?? 0) + 1;
@@ -550,13 +550,49 @@ export function mergeIntoExisting(
 
 /** Anahtar kelime listeleri (küçük harf, tr+en) — sıra: öncelik */
 const POI_KEYWORDS: [PoiKind, string[]][] = [
-  ['danger', ['tehlike', 'çığ', 'düşen kaya', 'kaya düşme', 'uçurum', 'dikkat', 'danger', 'avalanche', 'rockfall']],
-  ['water', ['pınar', 'çeşme', 'kaynak suyu', 'su kaynağı', 'içme suyu', 'su var', 'dere', 'spring', 'water source', 'stream']],
+  [
+    'danger',
+    [
+      'tehlike',
+      'çığ',
+      'düşen kaya',
+      'kaya düşme',
+      'uçurum',
+      'dikkat',
+      'danger',
+      'avalanche',
+      'rockfall',
+    ],
+  ],
+  [
+    'water',
+    [
+      'pınar',
+      'çeşme',
+      'kaynak suyu',
+      'su kaynağı',
+      'içme suyu',
+      'su var',
+      'dere',
+      'spring',
+      'water source',
+      'stream',
+    ],
+  ],
   ['summit', ['zirve', 'summit', 'tepe noktası', 'doruk', 'peak']],
-  ['viewpoint', ['manzara', 'viewpoint', 'panorama', 'gün batımı', 'gündoğumu', 'gün doğumu', 'seyir', 'view']],
+  [
+    'viewpoint',
+    ['manzara', 'viewpoint', 'panorama', 'gün batımı', 'gündoğumu', 'gün doğumu', 'seyir', 'view'],
+  ],
   ['shelter', ['barınak', 'sığınak', 'kulübe', 'dağ evi', 'refuge', 'shelter', 'hut', 'bothy']],
-  ['campsite', ['kamp', 'çadır', 'camp', 'tent', '⛺', 'bivak', 'bivouac', 'konakla', 'gece burada']],
-  ['food', ['kahvaltı', 'lokanta', 'yemek', 'çay molası', 'restoran', 'food', 'restaurant', 'cafe']],
+  [
+    'campsite',
+    ['kamp', 'çadır', 'camp', 'tent', '⛺', 'bivak', 'bivouac', 'konakla', 'gece burada'],
+  ],
+  [
+    'food',
+    ['kahvaltı', 'lokanta', 'yemek', 'çay molası', 'restoran', 'food', 'restaurant', 'cafe'],
+  ],
   ['parking', ['otopark', 'park et', 'arabayı bırak', 'parking', 'park yeri']],
   ['trailhead', ['patika başı', 'başlangıç noktası', 'trailhead', 'start point', 'rota başı']],
   ['junction', ['kavşak', 'yol ayrımı', 'ayrım', 'junction', 'fork']],
@@ -767,7 +803,13 @@ export function buildNavigation(
       prev.bearingDeg = outB;
       continue;
     }
-    drafts.push({ coords: corners[i]!, maneuver, cumulativeM: cum[i]!, bearingDeg: outB, poiName: null });
+    drafts.push({
+      coords: corners[i]!,
+      maneuver,
+      cumulativeM: cum[i]!,
+      bearingDeg: outB,
+      poiName: null,
+    });
   }
   drafts.push({
     coords: corners[corners.length - 1]!,
@@ -840,7 +882,14 @@ export function progressAlong(
   const proj = projectOnTrack(points, position);
   const total = cumulativeM(points)[points.length - 1] ?? 0;
   if (!proj) {
-    return { stepIndex, distanceToNextM: 0, remainingM: 0, offRouteM: 0, isOffRoute: false, etaMin: 0 };
+    return {
+      stepIndex,
+      distanceToNextM: 0,
+      remainingM: 0,
+      offRouteM: 0,
+      isOffRoute: false,
+      etaMin: 0,
+    };
   }
   const along = proj.alongM;
   let idx = stepIndex;
@@ -1124,7 +1173,11 @@ export function nearbyPois(
 ): TrackPoiWithDistance[] {
   return pois
     .filter((p) => !kind || p.kind === kind)
-    .map((p) => ({ ...p, distanceKm: round(distanceKm(origin, p.coords)), confirmedByMe: confirmedIds.has(p.id) }))
+    .map((p) => ({
+      ...p,
+      distanceKm: round(distanceKm(origin, p.coords)),
+      confirmedByMe: confirmedIds.has(p.id),
+    }))
     .filter((p) => p.distanceKm !== null && p.distanceKm <= radiusKm)
     .sort((a, b) => (a.distanceKm ?? 0) - (b.distanceKm ?? 0));
 }
@@ -1144,7 +1197,10 @@ export function verifyThreshold(verifiedCount: number): boolean {
 }
 
 /** Parçanın durumu: 3+ doğrulamalı topluluk rotasına bağlıysa `verified` */
-export function statusFor(track: Pick<Track, 'status'>, trail: CommunityTrail | null): Track['status'] {
+export function statusFor(
+  track: Pick<Track, 'status'>,
+  trail: CommunityTrail | null,
+): Track['status'] {
   if (track.status === 'draft') return 'draft';
   return trail && verifyThreshold(trail.verifiedCount) ? 'verified' : 'published';
 }
