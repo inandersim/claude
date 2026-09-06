@@ -186,7 +186,9 @@ export function plainText(body: string): string {
 /** İlk paragraftan kısa özet; `max` karakteri aşarsa kelime sınırında kesip "…" ekler. */
 export function excerpt(body: string, max = 160): string {
   const first =
-    parseArticleBody(body).find((b) => b.type === 'p')?.text ?? plainText(body).split('\n')[0] ?? '';
+    parseArticleBody(body).find((b) => b.type === 'p')?.text ??
+    plainText(body).split('\n')[0] ??
+    '';
   const text = first.replace(/\s+/g, ' ').trim();
   if (text.length <= max) return text;
   const cut = text.slice(0, max);
@@ -286,7 +288,9 @@ export interface ArticleValidation {
 }
 
 /** Başlık ≥ 8, gövde ≥ 300 karakter. Boş nesne = geçerli. */
-export function validateArticle(input: Pick<CreateArticleInput, 'title' | 'body'>): ArticleValidation {
+export function validateArticle(
+  input: Pick<CreateArticleInput, 'title' | 'body'>,
+): ArticleValidation {
   const errors: ArticleValidation = {};
   if (input.title.trim().length < MIN_TITLE_LENGTH) errors.title = 'titleShort';
   if (input.body.trim().length < MIN_BODY_LENGTH) errors.body = 'bodyShort';
@@ -346,7 +350,11 @@ export interface TopicMeta {
 
 /** Kategori → ikon, renk ve çeviri anahtarı. */
 export const topicMeta: Record<ArticleCategory, TopicMeta> = {
-  trip_report: { labelKey: 'articles.categories.trip_report', icon: 'map-pinned', color: '#5EE39B' },
+  trip_report: {
+    labelKey: 'articles.categories.trip_report',
+    icon: 'map-pinned',
+    color: '#5EE39B',
+  },
   guide: { labelKey: 'articles.categories.guide', icon: 'book-open', color: '#4FB3FF' },
   gear: { labelKey: 'articles.categories.gear', icon: 'backpack', color: '#F5B301' },
   safety: { labelKey: 'articles.categories.safety', icon: 'shield-alert', color: '#F97316' },

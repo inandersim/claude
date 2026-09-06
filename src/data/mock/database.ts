@@ -2,6 +2,18 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { deepClone } from '@/core/utils/clone';
 import type {
+  AudioGuideStop,
+  ChildProfile,
+  HeritageSite,
+  HeritageTour,
+  HuntProgress,
+  HuntTask,
+  KidPlace,
+  NewsItem,
+  TvChannel,
+  TvProgram,
+  TvSchedule,
+  WatchProgress,
   Article,
   ArticleComment,
   ConsultMessage,
@@ -199,6 +211,15 @@ import {
   seedWildlifeAnswers,
   seedWildlifeQuestions,
 } from './seed.wildlife';
+import { seedAudioGuides, seedHeritageSites, seedHeritageTours } from './seed.heritage';
+import { seedChildren, seedHuntProgress, seedHuntTasks, seedKidPlaces } from './seed.kids';
+import {
+  seedNews,
+  seedTvChannels,
+  seedTvPrograms,
+  seedTvSchedule,
+  seedWatchProgress,
+} from './seed.tv';
 
 export interface Tables {
   users: User[];

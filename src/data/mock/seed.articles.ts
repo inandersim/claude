@@ -180,7 +180,8 @@ export const seedArticles: Article[] = [
     id: 'art_ebc_12',
     authorId: 'u_elif',
     title: "Everest Base Camp'te 12 gün: gün gün notlarım",
-    subtitle: 'Lukla uçuşundan Kala Patthar sabahına; aklimatizasyon, konaklama ve bütçe gerçekleri.',
+    subtitle:
+      'Lukla uçuşundan Kala Patthar sabahına; aklimatizasyon, konaklama ve bütçe gerçekleri.',
     cover: unsplash('1544735716-392fe2489ffa'),
     category: 'trip_report',
     tags: ['everest', 'nepal', 'trekking', 'yüksek-irtifa', 'ebc'],
@@ -253,7 +254,8 @@ Sorularınız varsa yorumlara yazın; sonraki yazı Annapurna Devresi'ni EBC ile
     id: 'art_kackar_kis',
     authorId: 'u_can',
     title: "Kaçkar'da kış geçişi: ekipman listesi ve hatalarım",
-    subtitle: 'Yukarı Kavron–Ayder hattında dört günlük kış geçişi; işe yarayanlar, işe yaramayanlar.',
+    subtitle:
+      'Yukarı Kavron–Ayder hattında dört günlük kış geçişi; işe yarayanlar, işe yaramayanlar.',
     cover: unsplash('1464822759023-fed622ff2c3b'),
     category: 'gear',
     tags: ['kaçkar', 'kış', 'ekipman', 'kar-ayakkabısı', 'çığ'],
@@ -325,7 +327,8 @@ Bölgede kış operasyonu yapan yerel rehberler var; ilk kış geçişinizi rehb
     id: 'art_kas_dalis',
     authorId: 'u_zeynep',
     title: "Kaş'ta ilk 10 dalış noktası",
-    subtitle: 'Yeni sertifikalı dalgıçlar için derinlik, akıntı ve görünürlük notlarıyla nokta rehberi.',
+    subtitle:
+      'Yeni sertifikalı dalgıçlar için derinlik, akıntı ve görünürlük notlarıyla nokta rehberi.',
     cover: unsplash('1544551763-46a013bb70d5'),
     category: 'guide',
     tags: ['kaş', 'dalış', 'akdeniz', 'batık', 'scuba'],
@@ -467,7 +470,7 @@ Geyikbayırı'nda kış kampı gece 2–5 °C; çadır yerine bungalov tutmak se
     id: 'art_ultralight',
     authorId: 'u_lale',
     title: "Ultralight kampçılık: 6 kg'ın altına inmek",
-    subtitle: 'Temel ağırlığı 11 kg\'dan 5,8 kg\'a indirdiğim üç yıl; her kalemin gerekçesi.',
+    subtitle: "Temel ağırlığı 11 kg'dan 5,8 kg'a indirdiğim üç yıl; her kalemin gerekçesi.",
     cover: unsplash('1478827387698-1527781a4887'),
     category: 'gear',
     tags: ['ultralight', 'kamp', 'ekipman', 'sırt-çantası', 'trekking'],
@@ -529,7 +532,7 @@ Listemin tam halini (gramıyla) web sitemde bulabilirsiniz. Sorularınızı yoru
     id: 'art_nepal_kadin',
     authorId: 'u_elif',
     title: 'Yalnız kadın gezgin olarak Nepal',
-    subtitle: 'Kathmandu sokaklarından Langtang lodge\'larına: güvenlik, kültür ve beklentiler.',
+    subtitle: "Kathmandu sokaklarından Langtang lodge'larına: güvenlik, kültür ve beklentiler.",
     cover: unsplash('1506905925346-21bda4d32df4'),
     category: 'culture',
     tags: ['nepal', 'yalnız-seyahat', 'kadın-gezgin', 'kültür', 'langtang'],
@@ -587,7 +590,8 @@ Bir sonraki yazıda EBC ile Annapurna Devresi'ni karşılaştırıyorum; yalnız
     id: 'art_drone_shgm',
     authorId: 'u_baris',
     title: 'Drone ile dağ çekimi: SHGM kuralları ve etik',
-    subtitle: 'Kayıt, uçuş izinleri, milli parklar ve kimsenin hakkında konuşmadığı yaban hayatı sorunu.',
+    subtitle:
+      'Kayıt, uçuş izinleri, milli parklar ve kimsenin hakkında konuşmadığı yaban hayatı sorunu.',
     cover: unsplash('1519681393784-d120267933ba'),
     category: 'photography',
     tags: ['drone', 'shgm', 'fotoğraf', 'video', 'milli-park'],
@@ -806,7 +810,8 @@ Doğu bölümü (Kaş–Antalya) için ayrı bir yazı planlıyorum; Olympos–�
     id: 'art_kili_porter',
     authorId: 'u_can',
     title: "Kilimanjaro: porter'lara adil ücret",
-    subtitle: 'Ucuz tur seçtiğinizde o farkı kim ödüyor? KPAP standartları, gerçek maaşlar ve ne yapabilirsiniz.',
+    subtitle:
+      'Ucuz tur seçtiğinizde o farkı kim ödüyor? KPAP standartları, gerçek maaşlar ve ne yapabilirsiniz.',
     cover: unsplash('1589553416260-f586c8f1514f'),
     category: 'opinion',
     tags: ['kilimanjaro', 'porter', 'etik', 'tanzanya', 'adil-seyahat'],
@@ -873,7 +878,7 @@ Bu yazı sadece Kilimanjaro'yu anlatıyor ama aynı sorun Nepal'de, Peru'da, Fas
     id: 'art_termik',
     authorId: 'u_baris',
     title: 'Yamaç paraşütünde termik okuma: bulut, kuş ve arazi ipuçları',
-    subtitle: 'Ölüdeniz ve Pamukkale\'de sürede iki katına çıkmamı sağlayan gözlem alışkanlıkları.',
+    subtitle: "Ölüdeniz ve Pamukkale'de sürede iki katına çıkmamı sağlayan gözlem alışkanlıkları.",
     cover: unsplash('1502920917128-1aa500764cbd'),
     category: 'guide',
     tags: ['yamaç-paraşütü', 'termik', 'ölüdeniz', 'hava', 'xc'],
@@ -936,7 +941,8 @@ Sorularınız için yorumlar açık; bir sonraki yazı Kapadokya'da sabah uçuş
     id: 'art_altin_saat',
     authorId: 'u_baris',
     title: 'Dağda fotoğraf: altın saat ve pozlama',
-    subtitle: 'Kar, gölge ve keskin ışıkla mücadele: histogram, filtre ve kompozisyon üzerine pratik rehber.',
+    subtitle:
+      'Kar, gölge ve keskin ışıkla mücadele: histogram, filtre ve kompozisyon üzerine pratik rehber.',
     cover: unsplash('1547234935-80c7145ec969'),
     category: 'photography',
     tags: ['fotoğraf', 'altın-saat', 'pozlama', 'dağ', 'manzara'],
@@ -1070,7 +1076,8 @@ Sonraki hedef Likya kıyısında bikepacking; o yazıda çadırlı kurulumu ve a
     id: 'art_torres_rez',
     authorId: 'u_elif',
     title: 'Torres del Paine W: rezervasyon savaşı',
-    subtitle: 'CONAF ve iki özel işletmeci arasında kamp/refugio rezervasyonu nasıl yapılır; hangi tarihte ne bulunur.',
+    subtitle:
+      'CONAF ve iki özel işletmeci arasında kamp/refugio rezervasyonu nasıl yapılır; hangi tarihte ne bulunur.',
     cover: unsplash('1478827387698-1527781a4887'),
     category: 'guide',
     tags: ['torres-del-paine', 'patagonya', 'şili', 'rezervasyon', 'trekking'],
@@ -1148,14 +1155,15 @@ export const seedArticleComments: ArticleComment[] = [
     articleId: 'art_ebc_12',
     authorId: 'u_mert',
     content:
-      'Nangkartshang uyarısı çok yerinde. Ben de aklimatizasyon gününü atlayıp Lobuche\'de bir gece kâbus yaşadım, ertesi gün Dingboche\'ye geri indim.',
+      "Nangkartshang uyarısı çok yerinde. Ben de aklimatizasyon gününü atlayıp Lobuche'de bir gece kâbus yaşadım, ertesi gün Dingboche'ye geri indim.",
     createdAt: daysAgo(20),
   },
   {
     id: 'ac_2',
     articleId: 'art_ebc_12',
     authorId: 'u_selin',
-    content: 'Bütçe kısmı için teşekkürler, tam da bunu arıyordum. Su filtresi olarak hangisini kullandınız?',
+    content:
+      'Bütçe kısmı için teşekkürler, tam da bunu arıyordum. Su filtresi olarak hangisini kullandınız?',
     createdAt: daysAgo(19),
   },
   {
@@ -1169,98 +1177,108 @@ export const seedArticleComments: ArticleComment[] = [
     id: 'ac_4',
     articleId: 'art_ebc_12',
     authorId: CURRENT_USER_ID,
-    content: 'Ramechhap uyarısı için ayrıca teşekkürler; gece 02:00 minibüsünü bilmeden gitseydim rezalet olurdu.',
+    content:
+      'Ramechhap uyarısı için ayrıca teşekkürler; gece 02:00 minibüsünü bilmeden gitseydim rezalet olurdu.',
     createdAt: daysAgo(15),
   },
   {
     id: 'ac_5',
     articleId: 'art_ebc_12',
     authorId: 'u_ayse',
-    content: 'Everest Link kartı Gorak Shep\'te de çalıştı mı gerçekten? Geçen sene Lobuche\'den sonra sinyal yoktu.',
+    content:
+      "Everest Link kartı Gorak Shep'te de çalıştı mı gerçekten? Geçen sene Lobuche'den sonra sinyal yoktu.",
     createdAt: daysAgo(10),
   },
   {
     id: 'ac_6',
     articleId: 'art_kackar_kis',
     authorId: 'u_emre',
-    content: 'Benzinli ocak notuna katılıyorum. Kartuş -12 °C\'de neredeyse hiç ısıtmadı, tersine çevirerek idare ettik.',
+    content:
+      "Benzinli ocak notuna katılıyorum. Kartuş -12 °C'de neredeyse hiç ısıtmadı, tersine çevirerek idare ettik.",
     createdAt: daysAgo(30),
   },
   {
     id: 'ac_7',
     articleId: 'art_kackar_kis',
     authorId: 'u_nil',
-    content: 'Kar ayakkabısı hazırlığı için Uludağ\'da bir gün yeterli mi sizce?',
+    content: "Kar ayakkabısı hazırlığı için Uludağ'da bir gün yeterli mi sizce?",
     createdAt: daysAgo(29),
   },
   {
     id: 'ac_8',
     articleId: 'art_kackar_kis',
     authorId: 'u_can',
-    content: 'Yeterli; hatta iki saat çanta ile iniş-çıkış yapmak bile büyük fark yaratıyor. Bilek hareketini öğrenmek asıl mesele.',
+    content:
+      'Yeterli; hatta iki saat çanta ile iniş-çıkış yapmak bile büyük fark yaratıyor. Bilek hareketini öğrenmek asıl mesele.',
     createdAt: daysAgo(29),
   },
   {
     id: 'ac_9',
     articleId: 'art_kas_dalis',
     authorId: 'u_mert',
-    content: 'Uçak batığı ilk derin dalışım olmuştu, harika seçim. Kanyon\'a bir sonraki sezon.',
+    content: "Uçak batığı ilk derin dalışım olmuştu, harika seçim. Kanyon'a bir sonraki sezon.",
     createdAt: daysAgo(11),
   },
   {
     id: 'ac_10',
     articleId: 'art_kas_dalis',
     authorId: CURRENT_USER_ID,
-    content: 'Eylül için Kaş\'ta hangi merkezi önerirsiniz? Küçük grup önemli benim için.',
+    content: "Eylül için Kaş'ta hangi merkezi önerirsiniz? Küçük grup önemli benim için.",
     createdAt: daysAgo(9),
   },
   {
     id: 'ac_11',
     articleId: 'art_kas_dalis',
     authorId: 'u_zeynep',
-    content: 'İsim vermeyeyim ama limandaki merkezlerin çoğu 4 kişilik gruplarla çalışıyor; oksijen kiti sorusunu sormayı unutmayın.',
+    content:
+      'İsim vermeyeyim ama limandaki merkezlerin çoğu 4 kişilik gruplarla çalışıyor; oksijen kiti sorusunu sormayı unutmayın.',
     createdAt: daysAgo(9),
   },
   {
     id: 'ac_12',
     articleId: 'art_ultralight',
     authorId: 'u_ayse',
-    content: 'Quilt\'e geçiş için tereddütteydim; -5 °C konforda üşümediniz mi gerçekten?',
+    content: "Quilt'e geçiş için tereddütteydim; -5 °C konforda üşümediniz mi gerçekten?",
     createdAt: daysAgo(43),
   },
   {
     id: 'ac_13',
     articleId: 'art_ultralight',
     authorId: 'u_lale',
-    content: 'Sıfırın altında bir gece ceketle uyudum, onun dışında hiç sorun olmadı. Mat R değeri asıl belirleyici.',
+    content:
+      'Sıfırın altında bir gece ceketle uyudum, onun dışında hiç sorun olmadı. Mat R değeri asıl belirleyici.',
     createdAt: daysAgo(42),
   },
   {
     id: 'ac_14',
     articleId: 'art_nepal_kadin',
     authorId: 'u_selin',
-    content: 'Kadın rehber kuruluşu bilgisi çok değerli, teşekkürler. Langtang\'a tek başıma gitmeye karar verdim.',
+    content:
+      "Kadın rehber kuruluşu bilgisi çok değerli, teşekkürler. Langtang'a tek başıma gitmeye karar verdim.",
     createdAt: daysAgo(58),
   },
   {
     id: 'ac_15',
     articleId: 'art_nepal_kadin',
     authorId: 'u_nil',
-    content: 'Kuduz ön aşısı konusunu kimse yazmıyor; sağlık turizmi kliniğinde 3 doz yaptırdım, iyi ki.',
+    content:
+      'Kuduz ön aşısı konusunu kimse yazmıyor; sağlık turizmi kliniğinde 3 doz yaptırdım, iyi ki.',
     createdAt: daysAgo(50),
   },
   {
     id: 'ac_16',
     articleId: 'art_drone_shgm',
     authorId: 'u_kerem',
-    content: 'Milli park izniyle SHGM izninin ayrı olması bilgisi çok kişiyi şaşırtacak. Kaçkar için başvuru ne kadar sürdü?',
+    content:
+      'Milli park izniyle SHGM izninin ayrı olması bilgisi çok kişiyi şaşırtacak. Kaçkar için başvuru ne kadar sürdü?',
     createdAt: daysAgo(27),
   },
   {
     id: 'ac_17',
     articleId: 'art_drone_shgm',
     authorId: 'u_baris',
-    content: 'Yaklaşık üç hafta; e-posta ile başvurdum, çekim tarihini ve amacını yazmak gerekiyor.',
+    content:
+      'Yaklaşık üç hafta; e-posta ile başvurdum, çekim tarihini ve amacını yazmak gerekiyor.',
     createdAt: daysAgo(26),
   },
   {
@@ -1274,14 +1292,16 @@ export const seedArticleComments: ArticleComment[] = [
     id: 'ac_19',
     articleId: 'art_cig_okumak',
     authorId: CURRENT_USER_ID,
-    content: 'Farkındalık eğitimi için Ocak\'ta yer var mı biliyor musunuz? TDF sitesinde takvim güncel değil.',
+    content:
+      "Farkındalık eğitimi için Ocak'ta yer var mı biliyor musunuz? TDF sitesinde takvim güncel değil.",
     createdAt: daysAgo(5),
   },
   {
     id: 'ac_20',
     articleId: 'art_kili_porter',
     authorId: 'u_mert',
-    content: 'Geçen yıl KPAP partner operatörle gittik; fiyat farkı vardı ama porterların ekipmanını görünce pişman olmadık.',
+    content:
+      'Geçen yıl KPAP partner operatörle gittik; fiyat farkı vardı ama porterların ekipmanını görünce pişman olmadık.',
     createdAt: daysAgo(38),
   },
 ];

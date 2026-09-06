@@ -51,9 +51,7 @@ export function createArticleRepository(ctx: MockContext): ArticleRepository {
   const withUser = (t: Tables, w: WriterProfile, meId: ID): WriterWithUser => ({
     ...w,
     user: requireUser(t.users, w.userId),
-    followedByMe: t.writerFollows.some(
-      (f) => f.followerId === meId && f.writerUserId === w.userId,
-    ),
+    followedByMe: t.writerFollows.some((f) => f.followerId === meId && f.writerUserId === w.userId),
   });
 
   const findArticle = (t: Tables, id: ID): Article => {
@@ -343,9 +341,7 @@ export function createArticleRepository(ctx: MockContext): ArticleRepository {
     async saved(meId) {
       await wait();
       const t = await db.load();
-      const ids = new Set(
-        t.articleSaves.filter((s) => s.userId === meId).map((s) => s.articleId),
-      );
+      const ids = new Set(t.articleSaves.filter((s) => s.userId === meId).map((s) => s.articleId));
       return sortByNewest(t.articles.filter((a) => ids.has(a.id) && visibleTo(a, meId))).map((a) =>
         withAuthor(t, a, meId),
       );
