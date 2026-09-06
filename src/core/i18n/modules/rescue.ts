@@ -1,3 +1,4 @@
+import { rescue_pl } from './locales/pl/rescue';
 import { rescue_ar } from './locales/ar/rescue';
 import { rescue_pt } from './locales/pt/rescue';
 import { rescue_es } from './locales/es/rescue';
@@ -8,10 +9,15 @@ import { rescue_it } from './locales/it/rescue';
 import { rescue_zh } from './locales/zh/rescue';
 import { rescue_hi } from './locales/hi/rescue';
 import { rescue_ne } from './locales/ne/rescue';
+import { rescue_el } from './locales/el/rescue';
+import { rescue_id } from './locales/id/rescue';
+import { rescue_cs } from './locales/cs/rescue';
 import { localeSet } from './shared';
 import { rescue_ja } from './locales/ja/rescue';
 import { rescue_ko } from './locales/ko/rescue';
 import { rescue_nb } from './locales/nb/rescue';
+import { rescue_nl } from './locales/nl/rescue';
+import { rescue_sv } from './locales/sv/rescue';
 
 const tr = {
   title: 'Ülke kurtarma dizini',
@@ -174,6 +180,9 @@ const en: RescueI18nShape = {
 
 /** rescue modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
 export const rescueI18n = localeSet(tr, en, {
+  pl: rescue_pl,
+  cs: rescue_cs,
+  id: rescue_id,
   ko: rescue_ko,
   ar: rescue_ar,
   ru: rescue_ru,
@@ -187,4 +196,7 @@ export const rescueI18n = localeSet(tr, en, {
   hi: rescue_hi,
   ne: rescue_ne,
   nb: rescue_nb,
+  el: rescue_el,
+  nl: rescue_nl,
+  sv: rescue_sv,
 });

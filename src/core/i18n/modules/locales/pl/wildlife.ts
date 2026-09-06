@@ -96,7 +96,8 @@ export const wildlife_pl: WildlifeI18nShape = {
     openSpecies: 'Strona gatunku',
     unknown: 'Brak w bazie',
     permissionTitle: 'Potrzebne uprawnienie do aparatu',
-    permissionBody: 'Zezwól na dostęp do aparatu, aby sfotografować i rozpoznać węża, owada lub grzyba.',
+    permissionBody:
+      'Zezwól na dostęp do aparatu, aby sfotografować i rozpoznać węża, owada lub grzyba.',
     permissionGrant: 'Zezwól',
     webNote: 'W przeglądarce zamiast aparatu możesz wybrać zdjęcie z galerii.',
     close: 'Zamknij',
@@ -220,7 +221,8 @@ export const wildlife_pl: WildlifeI18nShape = {
     volumeHint: 'Ustaw maksymalną głośność; skieruj telefon w stronę zwierzęcia.',
     noteSnake: 'Węże nie słyszą dźwięków w powietrzu: tup, wysyłaj wibracje, zachowaj dystans.',
     noteLimited: 'Ultradźwięk z głośnika telefonu jest ograniczony; połącz z innym dźwiękiem.',
-    noteGeneral: 'Dźwięk to pierwsze ostrzeżenie; prawdziwą ochroną są dystans i właściwe zachowanie.',
+    noteGeneral:
+      'Dźwięk to pierwsze ostrzeżenie; prawdziwą ochroną są dystans i właściwe zachowanie.',
     webNote: 'W przeglądarce odtwarzany jest tylko dźwięk; bez wibracji i latarki.',
     logged: 'Zdarzenie zapisane ({{seconds}} s)',
     duration: '{{seconds}} s',

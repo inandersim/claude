@@ -1,3 +1,4 @@
+import { ai_pl } from './locales/pl/ai';
 import { ai_ar } from './locales/ar/ai';
 import { ai_de } from './locales/de/ai';
 import { ai_fr } from './locales/fr/ai';
@@ -11,6 +12,11 @@ import { ai_ko } from './locales/ko/ai';
 import { ai_hi } from './locales/hi/ai';
 import { ai_ne } from './locales/ne/ai';
 import { ai_nb } from './locales/nb/ai';
+import { ai_el } from './locales/el/ai';
+import { ai_id } from './locales/id/ai';
+import { ai_nl } from './locales/nl/ai';
+import { ai_sv } from './locales/sv/ai';
+import { ai_cs } from './locales/cs/ai';
 import { localeSet } from './shared';
 
 const tr = {
@@ -132,6 +138,9 @@ const en: AiI18nShape = {
 
 /** ai modülü çevirileri — tr kaynak, en zorunlu; diğer diller aşağıya eklenir. */
 export const aiI18n = localeSet(tr, en, {
+  pl: ai_pl,
+  cs: ai_cs,
+  id: ai_id,
   ko: ai_ko,
   ar: ai_ar,
   de: ai_de,
@@ -145,4 +154,7 @@ export const aiI18n = localeSet(tr, en, {
   hi: ai_hi,
   ne: ai_ne,
   nb: ai_nb,
+  el: ai_el,
+  nl: ai_nl,
+  sv: ai_sv,
 });

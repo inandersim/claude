@@ -1,3 +1,4 @@
+import { social_pl } from './locales/pl/social';
 import { social_ar } from './locales/ar/social';
 import { social_pt } from './locales/pt/social';
 import { social_es } from './locales/es/social';
@@ -8,10 +9,15 @@ import { social_it } from './locales/it/social';
 import { social_zh } from './locales/zh/social';
 import { social_hi } from './locales/hi/social';
 import { social_ne } from './locales/ne/social';
+import { social_el } from './locales/el/social';
+import { social_id } from './locales/id/social';
+import { social_cs } from './locales/cs/social';
 import { localeSet } from './shared';
 import { social_ja } from './locales/ja/social';
 import { social_ko } from './locales/ko/social';
 import { social_nb } from './locales/nb/social';
+import { social_nl } from './locales/nl/social';
+import { social_sv } from './locales/sv/social';
 
 const tr = {
   title: 'Topluluk',
@@ -224,6 +230,9 @@ const en: SocialI18nShape = {
 
 /** social modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
 export const socialI18n = localeSet(tr, en, {
+  pl: social_pl,
+  cs: social_cs,
+  id: social_id,
   ko: social_ko,
   ar: social_ar,
   ru: social_ru,
@@ -237,4 +246,7 @@ export const socialI18n = localeSet(tr, en, {
   hi: social_hi,
   ne: social_ne,
   nb: social_nb,
+  el: social_el,
+  nl: social_nl,
+  sv: social_sv,
 });

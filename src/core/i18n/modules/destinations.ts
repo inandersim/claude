@@ -1,3 +1,4 @@
+import { destinations_pl } from './locales/pl/destinations';
 import { destinations_ar } from './locales/ar/destinations';
 import { destinations_pt } from './locales/pt/destinations';
 import { destinations_es } from './locales/es/destinations';
@@ -8,10 +9,15 @@ import { destinations_it } from './locales/it/destinations';
 import { destinations_zh } from './locales/zh/destinations';
 import { destinations_hi } from './locales/hi/destinations';
 import { destinations_ne } from './locales/ne/destinations';
+import { destinations_el } from './locales/el/destinations';
+import { destinations_id } from './locales/id/destinations';
+import { destinations_cs } from './locales/cs/destinations';
 import { localeSet } from './shared';
 import { destinations_ja } from './locales/ja/destinations';
 import { destinations_ko } from './locales/ko/destinations';
 import { destinations_nb } from './locales/nb/destinations';
+import { destinations_nl } from './locales/nl/destinations';
+import { destinations_sv } from './locales/sv/destinations';
 
 const tr = {
   title: 'Destinasyonlar',
@@ -601,6 +607,9 @@ const en: DestinationsI18nShape = {
 
 /** destinations modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
 export const destinationsI18n = localeSet(tr, en, {
+  pl: destinations_pl,
+  cs: destinations_cs,
+  id: destinations_id,
   ko: destinations_ko,
   ar: destinations_ar,
   ru: destinations_ru,
@@ -614,4 +623,7 @@ export const destinationsI18n = localeSet(tr, en, {
   hi: destinations_hi,
   ne: destinations_ne,
   nb: destinations_nb,
+  el: destinations_el,
+  nl: destinations_nl,
+  sv: destinations_sv,
 });

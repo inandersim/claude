@@ -1,3 +1,4 @@
+import { vision_pl } from './locales/pl/vision';
 import { vision_ar } from './locales/ar/vision';
 import { vision_pt } from './locales/pt/vision';
 import { vision_es } from './locales/es/vision';
@@ -8,10 +9,15 @@ import { vision_it } from './locales/it/vision';
 import { vision_zh } from './locales/zh/vision';
 import { vision_hi } from './locales/hi/vision';
 import { vision_ne } from './locales/ne/vision';
+import { vision_el } from './locales/el/vision';
+import { vision_id } from './locales/id/vision';
+import { vision_cs } from './locales/cs/vision';
 import { localeSet } from './shared';
 import { vision_ja } from './locales/ja/vision';
 import { vision_ko } from './locales/ko/vision';
 import { vision_nb } from './locales/nb/vision';
+import { vision_nl } from './locales/nl/vision';
+import { vision_sv } from './locales/sv/vision';
 
 const tr = {
   title: 'Kamera ile sor',
@@ -198,6 +204,9 @@ const en: VisionI18nShape = {
 
 /** vision modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
 export const visionI18n = localeSet(tr, en, {
+  pl: vision_pl,
+  cs: vision_cs,
+  id: vision_id,
   ko: vision_ko,
   ar: vision_ar,
   ru: vision_ru,
@@ -211,4 +220,7 @@ export const visionI18n = localeSet(tr, en, {
   hi: vision_hi,
   ne: vision_ne,
   nb: vision_nb,
+  el: vision_el,
+  nl: vision_nl,
+  sv: vision_sv,
 });

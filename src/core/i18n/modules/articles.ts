@@ -1,3 +1,4 @@
+import { articles_pl } from './locales/pl/articles';
 import { articles_ar } from './locales/ar/articles';
 import { articles_pt } from './locales/pt/articles';
 import { articles_es } from './locales/es/articles';
@@ -8,10 +9,15 @@ import { articles_it } from './locales/it/articles';
 import { articles_zh } from './locales/zh/articles';
 import { articles_hi } from './locales/hi/articles';
 import { articles_ne } from './locales/ne/articles';
+import { articles_el } from './locales/el/articles';
+import { articles_id } from './locales/id/articles';
+import { articles_cs } from './locales/cs/articles';
 import { localeSet } from './shared';
 import { articles_ja } from './locales/ja/articles';
 import { articles_ko } from './locales/ko/articles';
 import { articles_nb } from './locales/nb/articles';
+import { articles_nl } from './locales/nl/articles';
+import { articles_sv } from './locales/sv/articles';
 
 const tr = {
   title: 'Yazarlar & Blog',
@@ -341,6 +347,9 @@ const en: ArticlesI18nShape = {
 
 /** articles modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
 export const articlesI18n = localeSet(tr, en, {
+  pl: articles_pl,
+  cs: articles_cs,
+  id: articles_id,
   ko: articles_ko,
   ar: articles_ar,
   ru: articles_ru,
@@ -354,4 +363,7 @@ export const articlesI18n = localeSet(tr, en, {
   hi: articles_hi,
   ne: articles_ne,
   nb: articles_nb,
+  el: articles_el,
+  nl: articles_nl,
+  sv: articles_sv,
 });

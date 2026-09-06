@@ -1,3 +1,4 @@
+import { clubs_pl } from './locales/pl/clubs';
 import { clubs_ar } from './locales/ar/clubs';
 import { clubs_de } from './locales/de/clubs';
 import { clubs_fr } from './locales/fr/clubs';
@@ -11,6 +12,11 @@ import { clubs_ko } from './locales/ko/clubs';
 import { clubs_hi } from './locales/hi/clubs';
 import { clubs_ne } from './locales/ne/clubs';
 import { clubs_nb } from './locales/nb/clubs';
+import { clubs_el } from './locales/el/clubs';
+import { clubs_id } from './locales/id/clubs';
+import { clubs_nl } from './locales/nl/clubs';
+import { clubs_sv } from './locales/sv/clubs';
+import { clubs_cs } from './locales/cs/clubs';
 import { localeSet } from './shared';
 
 const tr = {
@@ -317,6 +323,9 @@ const en: ClubsI18nShape = {
 
 /** clubs modülü çevirileri — tr kaynak, en zorunlu; diğer diller aşağıya eklenir. */
 export const clubsI18n = localeSet(tr, en, {
+  pl: clubs_pl,
+  cs: clubs_cs,
+  id: clubs_id,
   ko: clubs_ko,
   ar: clubs_ar,
   de: clubs_de,
@@ -330,4 +339,7 @@ export const clubsI18n = localeSet(tr, en, {
   hi: clubs_hi,
   ne: clubs_ne,
   nb: clubs_nb,
+  el: clubs_el,
+  nl: clubs_nl,
+  sv: clubs_sv,
 });

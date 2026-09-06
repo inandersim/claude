@@ -1,3 +1,4 @@
+import { satellite_pl } from './locales/pl/satellite';
 import { satellite_ar } from './locales/ar/satellite';
 import { satellite_de } from './locales/de/satellite';
 import { satellite_fr } from './locales/fr/satellite';
@@ -11,6 +12,11 @@ import { satellite_ko } from './locales/ko/satellite';
 import { satellite_hi } from './locales/hi/satellite';
 import { satellite_ne } from './locales/ne/satellite';
 import { satellite_nb } from './locales/nb/satellite';
+import { satellite_el } from './locales/el/satellite';
+import { satellite_id } from './locales/id/satellite';
+import { satellite_nl } from './locales/nl/satellite';
+import { satellite_sv } from './locales/sv/satellite';
+import { satellite_cs } from './locales/cs/satellite';
 import { localeSet } from './shared';
 
 const tr = {
@@ -296,6 +302,9 @@ const en: SatelliteI18nShape = {
 
 /** satellite modülü çevirileri — tr kaynak, en zorunlu; diğer diller aşağıya eklenir. */
 export const satelliteI18n = localeSet(tr, en, {
+  pl: satellite_pl,
+  cs: satellite_cs,
+  id: satellite_id,
   ko: satellite_ko,
   ar: satellite_ar,
   de: satellite_de,
@@ -309,4 +318,7 @@ export const satelliteI18n = localeSet(tr, en, {
   hi: satellite_hi,
   ne: satellite_ne,
   nb: satellite_nb,
+  el: satellite_el,
+  nl: satellite_nl,
+  sv: satellite_sv,
 });

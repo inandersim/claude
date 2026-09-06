@@ -1,3 +1,4 @@
+import { climbing_pl } from './locales/pl/climbing';
 import { climbing_ar } from './locales/ar/climbing';
 import { climbing_de } from './locales/de/climbing';
 import { climbing_fr } from './locales/fr/climbing';
@@ -11,6 +12,11 @@ import { climbing_ko } from './locales/ko/climbing';
 import { climbing_hi } from './locales/hi/climbing';
 import { climbing_ne } from './locales/ne/climbing';
 import { climbing_nb } from './locales/nb/climbing';
+import { climbing_el } from './locales/el/climbing';
+import { climbing_id } from './locales/id/climbing';
+import { climbing_nl } from './locales/nl/climbing';
+import { climbing_sv } from './locales/sv/climbing';
+import { climbing_cs } from './locales/cs/climbing';
 import { localeSet } from './shared';
 
 const tr = {
@@ -288,6 +294,9 @@ const en: ClimbingI18nShape = {
 
 /** climbing modülü çevirileri — tr kaynak, en zorunlu; diğer diller aşağıya eklenir. */
 export const climbingI18n = localeSet(tr, en, {
+  pl: climbing_pl,
+  cs: climbing_cs,
+  id: climbing_id,
   ko: climbing_ko,
   ar: climbing_ar,
   de: climbing_de,
@@ -301,4 +310,7 @@ export const climbingI18n = localeSet(tr, en, {
   hi: climbing_hi,
   ne: climbing_ne,
   nb: climbing_nb,
+  el: climbing_el,
+  nl: climbing_nl,
+  sv: climbing_sv,
 });

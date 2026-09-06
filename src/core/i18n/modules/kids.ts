@@ -1,3 +1,4 @@
+import { kids_pl } from './locales/pl/kids';
 import { kids_ar } from './locales/ar/kids';
 import { kids_pt } from './locales/pt/kids';
 import { kids_es } from './locales/es/kids';
@@ -8,10 +9,15 @@ import { kids_it } from './locales/it/kids';
 import { kids_zh } from './locales/zh/kids';
 import { kids_hi } from './locales/hi/kids';
 import { kids_ne } from './locales/ne/kids';
+import { kids_el } from './locales/el/kids';
+import { kids_id } from './locales/id/kids';
+import { kids_cs } from './locales/cs/kids';
 import { localeSet } from './shared';
 import { kids_ja } from './locales/ja/kids';
 import { kids_ko } from './locales/ko/kids';
 import { kids_nb } from './locales/nb/kids';
+import { kids_nl } from './locales/nl/kids';
+import { kids_sv } from './locales/sv/kids';
 
 const tr = {
   title: 'Çocuk',
@@ -338,6 +344,9 @@ const en: KidsI18nShape = {
 
 /** kids modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
 export const kidsI18n = localeSet(tr, en, {
+  pl: kids_pl,
+  cs: kids_cs,
+  id: kids_id,
   ko: kids_ko,
   ar: kids_ar,
   ru: kids_ru,
@@ -351,4 +360,7 @@ export const kidsI18n = localeSet(tr, en, {
   hi: kids_hi,
   ne: kids_ne,
   nb: kids_nb,
+  el: kids_el,
+  nl: kids_nl,
+  sv: kids_sv,
 });

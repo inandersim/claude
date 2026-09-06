@@ -1,3 +1,4 @@
+import { tv_pl } from './locales/pl/tv';
 import { tv_ar } from './locales/ar/tv';
 import { tv_pt } from './locales/pt/tv';
 import { tv_es } from './locales/es/tv';
@@ -8,10 +9,15 @@ import { tv_it } from './locales/it/tv';
 import { tv_zh } from './locales/zh/tv';
 import { tv_hi } from './locales/hi/tv';
 import { tv_ne } from './locales/ne/tv';
+import { tv_el } from './locales/el/tv';
+import { tv_id } from './locales/id/tv';
+import { tv_cs } from './locales/cs/tv';
 import { localeSet } from './shared';
 import { tv_ja } from './locales/ja/tv';
 import { tv_ko } from './locales/ko/tv';
 import { tv_nb } from './locales/nb/tv';
+import { tv_nl } from './locales/nl/tv';
+import { tv_sv } from './locales/sv/tv';
 
 const tr = {
   title: 'Zirtan TV',
@@ -306,6 +312,9 @@ const en: TvI18nShape = {
 
 /** tv modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
 export const tvI18n = localeSet(tr, en, {
+  pl: tv_pl,
+  cs: tv_cs,
+  id: tv_id,
   ko: tv_ko,
   ar: tv_ar,
   ru: tv_ru,
@@ -319,4 +328,7 @@ export const tvI18n = localeSet(tr, en, {
   hi: tv_hi,
   ne: tv_ne,
   nb: tv_nb,
+  el: tv_el,
+  nl: tv_nl,
+  sv: tv_sv,
 });

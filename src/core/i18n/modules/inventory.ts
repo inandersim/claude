@@ -1,3 +1,4 @@
+import { inventory_pl } from './locales/pl/inventory';
 import { inventory_ar } from './locales/ar/inventory';
 import { inventory_de } from './locales/de/inventory';
 import { inventory_fr } from './locales/fr/inventory';
@@ -11,6 +12,11 @@ import { inventory_ko } from './locales/ko/inventory';
 import { inventory_hi } from './locales/hi/inventory';
 import { inventory_ne } from './locales/ne/inventory';
 import { inventory_nb } from './locales/nb/inventory';
+import { inventory_el } from './locales/el/inventory';
+import { inventory_id } from './locales/id/inventory';
+import { inventory_nl } from './locales/nl/inventory';
+import { inventory_sv } from './locales/sv/inventory';
+import { inventory_cs } from './locales/cs/inventory';
 import { localeSet } from './shared';
 
 const tr = {
@@ -516,6 +522,9 @@ const en: InventoryI18nShape = {
 
 /** inventory modülü çevirileri — tr kaynak, en zorunlu; diğer diller aşağıya eklenir. */
 export const inventoryI18n = localeSet(tr, en, {
+  pl: inventory_pl,
+  cs: inventory_cs,
+  id: inventory_id,
   ko: inventory_ko,
   ar: inventory_ar,
   de: inventory_de,
@@ -529,4 +538,7 @@ export const inventoryI18n = localeSet(tr, en, {
   hi: inventory_hi,
   ne: inventory_ne,
   nb: inventory_nb,
+  el: inventory_el,
+  nl: inventory_nl,
+  sv: inventory_sv,
 });

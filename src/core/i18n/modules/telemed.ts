@@ -1,3 +1,4 @@
+import { telemed_pl } from './locales/pl/telemed';
 import { telemed_ar } from './locales/ar/telemed';
 import { telemed_pt } from './locales/pt/telemed';
 import { telemed_es } from './locales/es/telemed';
@@ -8,10 +9,15 @@ import { telemed_it } from './locales/it/telemed';
 import { telemed_zh } from './locales/zh/telemed';
 import { telemed_hi } from './locales/hi/telemed';
 import { telemed_ne } from './locales/ne/telemed';
+import { telemed_el } from './locales/el/telemed';
+import { telemed_id } from './locales/id/telemed';
+import { telemed_cs } from './locales/cs/telemed';
 import { localeSet } from './shared';
 import { telemed_ja } from './locales/ja/telemed';
 import { telemed_ko } from './locales/ko/telemed';
 import { telemed_nb } from './locales/nb/telemed';
+import { telemed_nl } from './locales/nl/telemed';
+import { telemed_sv } from './locales/sv/telemed';
 
 const tr = {
   title: 'Çevrimiçi doktor',
@@ -332,6 +338,9 @@ const en: TelemedI18nShape = {
 
 /** telemed modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
 export const telemedI18n = localeSet(tr, en, {
+  pl: telemed_pl,
+  cs: telemed_cs,
+  id: telemed_id,
   ko: telemed_ko,
   ar: telemed_ar,
   ru: telemed_ru,
@@ -345,4 +354,7 @@ export const telemedI18n = localeSet(tr, en, {
   hi: telemed_hi,
   ne: telemed_ne,
   nb: telemed_nb,
+  el: telemed_el,
+  nl: telemed_nl,
+  sv: telemed_sv,
 });

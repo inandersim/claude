@@ -1,3 +1,4 @@
+import { tracks_pl } from './locales/pl/tracks';
 import { tracks_ar } from './locales/ar/tracks';
 import { tracks_pt } from './locales/pt/tracks';
 import { tracks_es } from './locales/es/tracks';
@@ -8,10 +9,15 @@ import { tracks_it } from './locales/it/tracks';
 import { tracks_zh } from './locales/zh/tracks';
 import { tracks_hi } from './locales/hi/tracks';
 import { tracks_ne } from './locales/ne/tracks';
+import { tracks_el } from './locales/el/tracks';
+import { tracks_id } from './locales/id/tracks';
+import { tracks_cs } from './locales/cs/tracks';
 import { localeSet } from './shared';
 import { tracks_ja } from './locales/ja/tracks';
 import { tracks_ko } from './locales/ko/tracks';
 import { tracks_nb } from './locales/nb/tracks';
+import { tracks_nl } from './locales/nl/tracks';
+import { tracks_sv } from './locales/sv/tracks';
 
 const tr = {
   title: 'Topluluk rotaları',
@@ -481,6 +487,9 @@ const en: TracksI18nShape = {
 
 /** tracks modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
 export const tracksI18n = localeSet(tr, en, {
+  pl: tracks_pl,
+  cs: tracks_cs,
+  id: tracks_id,
   ko: tracks_ko,
   ar: tracks_ar,
   ru: tracks_ru,
@@ -494,4 +503,7 @@ export const tracksI18n = localeSet(tr, en, {
   hi: tracks_hi,
   ne: tracks_ne,
   nb: tracks_nb,
+  el: tracks_el,
+  nl: tracks_nl,
+  sv: tracks_sv,
 });
