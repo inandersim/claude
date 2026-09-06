@@ -21,6 +21,7 @@ import { countriesI18n } from './modules/countries';
 import { articlesI18n } from './modules/articles';
 import { wildlifeI18n } from './modules/wildlife';
 import { telemedI18n } from './modules/telemed';
+import { phoneAuthI18n } from './modules/phoneAuth';
 import type { Translations } from './tr';
 
 export const pt: Translations = {
@@ -809,4 +810,5 @@ export const pt: Translations = {
   articles: articlesI18n.pt,
   wildlife: wildlifeI18n.pt,
   telemed: telemedI18n.pt,
+  phoneAuth: phoneAuthI18n.pt,
 };

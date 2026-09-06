@@ -798,6 +798,8 @@ export interface PgPostgrestOptions {
 /** `SupabaseLike` uygulaması: doğrudan Postgres'e bağlanır. */
 export function createPgPostgrest(pool: Pool, session: PgPostgrestOptions): SupabaseLike {
   const ctx = new PgContext(pool, () => session.getUserId());
+  /** Bekleyen SMS kodları (numara → kod); GoTrue yerine geçer. */
+  const otpCodes = new Map<string, string>();
 
   const auth: AuthApiLike = {
     async getSession() {
@@ -826,6 +828,44 @@ export function createPgPostgrest(pool: Pool, session: PgPostgrestOptions): Supa
       session.setUserId(id);
       return { data: { user: id ? { id } : null }, error: null };
     },
+    /**
+     * GoTrue'nun telefon OTP akışının test karşılığı. Gerçek SMS yoktur:
+     * kod bellekte tutulur ve `verifyOtp` ile karşılaştırılır. Kullanıcı yoksa
+     * `auth.users` satırı açılır — böylece `handle_new_auth_user` tetikleyicisi
+     * gerçek şemada çalışır ve profil satırı oluşur.
+     */
+    async signInWithOtp({ phone, options }) {
+      const found = await ctx.query('SELECT id FROM auth.users WHERE phone = $1', [phone]);
+      let id = found[0]?.id ? String(found[0].id) : null;
+      if (!id) {
+        if (options?.shouldCreateUser === false) {
+          return { data: { user: null }, error: { message: 'Signups not allowed for otp' } };
+        }
+        const created = await ctx.query(
+          `INSERT INTO auth.users (phone, raw_user_meta_data) VALUES ($1, $2) RETURNING id`,
+          [phone, JSON.stringify(options?.data ?? {})],
+        );
+        id = created[0]?.id ? String(created[0].id) : null;
+      }
+      if (!id) return { data: { user: null }, error: { message: 'Invalid phone' } };
+      // Testlerde kod numaranın son 6 hanesidir; deterministik ve sabit değil.
+      otpCodes.set(phone, phone.replace(/\D/g, '').slice(-6));
+      return { data: { user: { id } }, error: null };
+    },
+
+    async verifyOtp({ phone, token }) {
+      const expected = otpCodes.get(phone);
+      if (!expected) return { data: { user: null }, error: { message: 'Token has expired' } };
+      if (expected !== token) {
+        return { data: { user: null }, error: { message: 'Token has expired or is invalid' } };
+      }
+      otpCodes.delete(phone);
+      const found = await ctx.query('SELECT id FROM auth.users WHERE phone = $1', [phone]);
+      const id = found[0]?.id ? String(found[0].id) : null;
+      session.setUserId(id);
+      return { data: { user: id ? { id } : null }, error: null };
+    },
+
     async signOut() {
       session.setUserId(null);
       return { error: null };

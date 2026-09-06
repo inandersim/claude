@@ -3,6 +3,7 @@ import type { DataProvider } from '../repositories';
 import { createRemoteContext, type RemoteContext } from './context';
 import type { SupabaseLike } from './postgrest';
 import { createArticleRepository } from './repos/articles';
+import { createPhoneAuthRepository } from './repos/auth';
 import { createClimbingRepository } from './repos/climbing';
 import { createClubRepository } from './repos/clubs';
 import {
@@ -68,7 +69,9 @@ export function createRemoteProvider(
 
   return {
     context: ctx,
-    auth: createAuthRepository(ctx),
+    // E-posta/şifre `repos/core.ts`, telefon OTP `repos/auth.ts` içinde;
+    // ekranlar ikisini tek `AuthApi` olarak görür.
+    auth: { ...createAuthRepository(ctx), ...createPhoneAuthRepository(ctx) },
     users: createUserRepository(ctx),
     feed: createFeedRepository(ctx),
     explore: createExploreRepository(ctx),

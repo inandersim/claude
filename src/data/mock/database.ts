@@ -350,11 +350,16 @@ export interface Tables {
   doctors: Doctor[];
   consultations: Consultation[];
   consultMessages: ConsultMessage[];
+  /**
+   * Doğrulanmış telefon → kullanıcı eşlemesi (E.164). Uzak sağlayıcıda bunun
+   * karşılığı `auth.users.phone` + `profiles.phone` benzersiz alanıdır.
+   */
+  phoneLinks: { phone: string; userId: string }[];
   /** Oturum açmış kullanıcının kimliği (null → çıkış yapılmış) */
   sessionUserId: string | null;
 }
 
-const STORAGE_KEY = 'zirtan.mockdb.v8';
+const STORAGE_KEY = 'zirtan.mockdb.v9';
 
 function seedTables(): Tables {
   return {
@@ -476,6 +481,8 @@ function seedTables(): Tables {
     doctors: deepClone(seedDoctors),
     consultations: deepClone(seedConsultations),
     consultMessages: deepClone(seedConsultMessages),
+    // Demo hesabın numarası: bu numarayla doğrulama yapan demo profiline girer.
+    phoneLinks: [{ phone: '+905321112267', userId: CURRENT_USER_ID }],
     sessionUserId: null,
   };
 }

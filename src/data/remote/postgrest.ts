@@ -120,6 +120,20 @@ export interface AuthApiLike {
     password: string;
     options?: { data?: Row };
   }): Promise<PostgrestResponse<{ user: { id: string } | null }>>;
+  /**
+   * Telefona SMS doğrulama kodu gönderir (Supabase Auth `signInWithOtp`).
+   * Kullanıcı yoksa `shouldCreateUser` ile oluşturulur.
+   */
+  signInWithOtp(input: {
+    phone: string;
+    options?: { shouldCreateUser?: boolean; data?: Row; channel?: 'sms' | 'whatsapp' };
+  }): Promise<PostgrestResponse<{ user: { id: string } | null }>>;
+  /** SMS kodunu doğrular ve oturum açar. */
+  verifyOtp(input: {
+    phone: string;
+    token: string;
+    type: 'sms' | 'phone_change';
+  }): Promise<PostgrestResponse<{ user: { id: string } | null }>>;
   signOut(): Promise<{ error: PostgrestError | null }>;
 }
 

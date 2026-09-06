@@ -65,24 +65,26 @@ export default function WelcomeScreen() {
         </Animated.View>
 
         <Animated.View entering={FadeInUp.delay(450).duration(700)} style={styles.actions}>
+          {/* Birincil yol: telefon numarası + SMS doğrulama */}
           <Button
-            label={t('auth.getStarted')}
+            label={t('phoneAuth.continueWithPhone')}
             size="lg"
             fullWidth
+            icon="phone"
             iconRight="arrow-right"
-            onPress={() => router.push('/sign-up')}
+            onPress={() => router.push('/phone')}
+            accessibilityLabel={t('phoneAuth.continueWithPhone')}
           />
+          {/* İkincil yol: e-posta/şifre — sunucusuz geliştirme için korunur */}
           <Tappable
             onPress={() => router.push('/sign-in')}
             haptic="selection"
             style={styles.secondary}
             accessibilityRole="button"
+            accessibilityLabel={t('phoneAuth.continueWithEmail')}
           >
-            <Text variant="bodySm" color="rgba(242,247,244,0.7)">
-              {t('auth.haveAccount')}{' '}
-              <Text variant="bodySm" weight="bold" color="#5EE39B">
-                {t('auth.signIn')}
-              </Text>
+            <Text variant="bodySm" weight="bold" color="rgba(242,247,244,0.7)">
+              {t('phoneAuth.continueWithEmail')}
             </Text>
           </Tappable>
         </Animated.View>

@@ -301,6 +301,57 @@ export interface SignUpInput extends SignInInput {
 }
 
 /* ------------------------------------------------------------------ */
+/* Telefonla kayıt / SMS doğrulama                                     */
+/* ------------------------------------------------------------------ */
+
+/** Kod isteme girdisi. Numara E.164 biçiminde olmalıdır (`+905321112267`). */
+export interface RequestOtpInput {
+  phone: string;
+  /** Kullanıcının seçtiği arayüz dili; SMS metni bu dilde gönderilir. */
+  locale?: string;
+}
+
+/** Kod isteme sonucu — ekranın geri sayımı ve rozeti bu değerlerle çizilir. */
+export interface OtpChallenge {
+  /** Kodun gönderildiği E.164 numara */
+  phone: string;
+  /** Kodun geçerliliğini yitireceği an */
+  expiresAt: ISODate;
+  /** Yeniden gönder düğmesinin açılacağı an */
+  resendAvailableAt: ISODate;
+  /** Bu numara için kalan yanlış deneme hakkı */
+  attemptsRemaining: number;
+  /**
+   * **Yalnızca sunucusuz geliştirme (mock) sağlayıcısında** doludur: gerçek
+   * SMS gitmediği için üretilen kod ekranda rozet olarak gösterilir. Uzak
+   * sağlayıcıda her zaman `null`'dır.
+   */
+  devCode: string | null;
+}
+
+export interface VerifyOtpInput {
+  phone: string;
+  code: string;
+}
+
+/** Kod doğrulama sonucu. */
+export interface OtpVerification {
+  /** Profili tamamlanmış kullanıcı; ilk kez giren için `null` */
+  user: User | null;
+  /** Profil adımı gerekiyor mu (ilk doğrulama) */
+  needsProfile: boolean;
+  phone: string;
+}
+
+/** Kayıt tamamlama (ilk doğrulamadan sonra ad + kullanıcı adı). */
+export interface CompleteProfileInput {
+  phone: string;
+  displayName: string;
+  username: string;
+  locale?: string;
+}
+
+/* ------------------------------------------------------------------ */
 /* Tehlikeli yerler                                                    */
 /* ------------------------------------------------------------------ */
 

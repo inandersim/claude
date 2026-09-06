@@ -53,3 +53,4 @@ out/
 admin/dist/
 admin/node_modules/
 agents/marketing/out/
+out/auth-verify/

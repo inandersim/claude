@@ -64,6 +64,16 @@ Sorgulanan her alan normal kolondur.
 | `blocks` | `profiles` × `profiles` | RLS görünürlüğünün temeli |
 | `reports` | → `profiles` | moderasyon şikâyeti |
 
+### Telefon doğrulama (`0035_phone_auth.sql`)
+| Tablo | İlişkiler | Not |
+|---|---|---|
+| `user_phones` | → `profiles` (1-1) | Doğrulanmış E.164 numara, **tekil**. Numara `profiles`'te DEĞİL: orada SELECT herkese açık. RLS: yalnızca sahibi okur, yazma yok (tetikleyici açar) |
+| `otp_attempts` | — | Kod gönderim/doğrulama defteri. Ham numara yok, peppered SHA-256 özeti + IP. RLS politikası yok → yalnızca `service_role` |
+
+`profiles` iki kolon kazandı: `profile_completed` (kayıt ekranı gerekli mi) ve
+`phone_verified` (numarası doğrulanmış hesap). `handle_new_auth_user`
+telefonla açılan kayıtları da karşılar. Ayrıntı: `docs/AUTH.md`.
+
 ### Sosyal (`0004_social.sql`)
 `routes` · `trending_locations` · `posts` · `comments` · `post_likes` ·
 `reactions` · `collections` · `saved_posts` · `stories` · `story_views`

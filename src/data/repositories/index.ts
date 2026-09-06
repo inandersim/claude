@@ -42,6 +42,11 @@ import type {
   Route,
   SignInInput,
   SignUpInput,
+  RequestOtpInput,
+  VerifyOtpInput,
+  OtpChallenge,
+  OtpVerification,
+  CompleteProfileInput,
   StartStreamInput,
   StreamMessageWithAuthor,
   TrendingLocation,
@@ -187,10 +192,48 @@ import type {
 
 export interface AuthRepository {
   getSession(): Promise<User | null>;
+  /** Geliştirme/demo girişi (e-posta + şifre). Üretimde telefon akışı esastır. */
   signIn(input: SignInInput): Promise<User>;
   signUp(input: SignUpInput): Promise<User>;
   signOut(): Promise<void>;
 }
+
+/**
+ * Telefon + SMS doğrulama (OTP) yüzeyi.
+ *
+ * `AuthRepository`'den ayrı bir arayüzdir: e-posta/şifre uygulaması ile telefon
+ * uygulaması farklı dosyalarda yaşar (uzak sağlayıcıda `repos/core.ts` ve
+ * `repos/auth.ts`), sağlayıcı ikisini birleştirir. Ekranlar ikisini tek nesne
+ * olarak görür (`AuthApi`).
+ */
+export interface PhoneAuthRepository {
+  /**
+   * Telefona SMS doğrulama kodu ister.
+   *
+   * Hız sınırı (`domain/phone.ts`) burada uygulanır: bekleme süresi dolmadan
+   * ya da saatlik kota aşıldığında `OtpError` fırlatılır. Mock sağlayıcıda
+   * üretilen kod `devCode` alanında döner ve konsola yazılır; uzak sağlayıcıda
+   * `devCode` her zaman `null`'dır.
+   */
+  requestOtp(input: RequestOtpInput): Promise<OtpChallenge>;
+
+  /**
+   * Kodu doğrular ve oturumu açar.
+   *
+   * Numara ilk kez doğrulanıyorsa `needsProfile: true` döner ve `user` boştur;
+   * kayıt `completeProfile` ile tamamlanır.
+   */
+  verifyOtp(input: VerifyOtpInput): Promise<OtpVerification>;
+
+  /** Doğrulanmış numara için görünen ad + kullanıcı adı yazar, kaydı tamamlar. */
+  completeProfile(input: CompleteProfileInput): Promise<User>;
+
+  /** Kullanıcı adı benzersizlik kontrolü (kayıt tamamlama adımında canlı). */
+  isUsernameAvailable(username: string): Promise<boolean>;
+}
+
+/** Ekranların gördüğü tam kimlik yüzeyi: e-posta/şifre + telefon OTP. */
+export type AuthApi = AuthRepository & PhoneAuthRepository;
 
 export interface UserRepository {
   getById(id: ID): Promise<User | null>;
@@ -788,7 +831,7 @@ export interface KidsRepository {
 }
 
 export interface DataProvider {
-  auth: AuthRepository;
+  auth: AuthApi;
   users: UserRepository;
   feed: FeedRepository;
   explore: ExploreRepository;

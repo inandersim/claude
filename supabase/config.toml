@@ -47,6 +47,63 @@ enable_signup = true
 enable_signup = true
 enable_confirmations = false   # yerelde e-posta onayı kapalı
 
+# --------------------------------------------------------------------
+# Telefon + SMS doğrulama (OTP)
+#
+# Uygulama akışı: src/app/(auth)/phone.tsx → verify.tsx → complete-profile.tsx
+# Veri katmanı  : src/data/remote/repos/auth.ts (signInWithOtp / verifyOtp)
+# Şema          : supabase/migrations/0035_phone_auth.sql
+#
+# Kod uzunluğu ve ömrü GoTrue ortam değişkenleriyle ayarlanır; barındırılan
+# projede Authentication → Providers → Phone altında da görünür:
+#   GOTRUE_SMS_OTP_LENGTH = 6      (src/domain/phone.ts OTP_LENGTH ile aynı)
+#   GOTRUE_SMS_OTP_EXP    = 180    (OTP_TTL_SEC ile aynı — 3 dakika)
+# İkisi istemcideki geri sayımla birebir tutulmalıdır.
+# --------------------------------------------------------------------
+[auth.sms]
+enable_signup = true
+enable_confirmations = true    # numara doğrulanmadan oturum açılmaz
+# {{ .Code }} GoTrue tarafından üretilen koddur; metin 160 karakteri aşmamalı
+# (aşarsa çok parçalı SMS olur ve maliyet ikiye katlanır).
+template = "Zirtan dogrulama kodun: {{ .Code }}. Kodu kimseyle paylasma."
+# Aynı numaraya iki SMS arasındaki en kısa süre. İstemci tarafındaki üstel
+# bekleme (30s → 60s → 120s → 240s → 300s) bunun üstünde çalışır.
+max_frequency = "30s"
+
+# YEREL GELİŞTİRME: gerçek SMS göndermeden akışı yürütmek için sabit kodlar.
+# Üretimde bu blok BOŞ olmalıdır.
+[auth.sms.test_otp]
+"+905321112267" = "123456"
+
+# Varsayılan sağlayıcı: hepsi kapalı → yerelde yalnızca test_otp çalışır.
+# Üretimde yalnızca BİRİ açılır; karşılaştırma için bkz. docs/AUTH.md.
+[auth.sms.twilio]
+enabled = false
+account_sid = "env(SUPABASE_AUTH_SMS_TWILIO_ACCOUNT_SID)"
+message_service_sid = "env(SUPABASE_AUTH_SMS_TWILIO_MESSAGE_SERVICE_SID)"
+auth_token = "env(SUPABASE_AUTH_SMS_TWILIO_AUTH_TOKEN)"
+
+[auth.sms.vonage]
+enabled = false
+api_key = "env(SUPABASE_AUTH_SMS_VONAGE_API_KEY)"
+api_secret = "env(SUPABASE_AUTH_SMS_VONAGE_API_SECRET)"
+from = "Zirtan"
+
+# Netgsm/İletimerkezi gibi yerel sağlayıcılar GoTrue'da yerleşik değildir;
+# `[auth.hook.send_sms]` kancasıyla bir Edge Function üzerinden bağlanır.
+# Türkiye trafiğinde belirgin biçimde ucuzdur — bkz. docs/AUTH.md.
+# [auth.hook.send_sms]
+# enabled = true
+# uri = "https://<proje>.supabase.co/functions/v1/send-sms"
+# secrets = "env(SUPABASE_AUTH_HOOK_SEND_SMS_SECRETS)"
+
+# Kaba kuvvet ve numara sıralama saldırısına karşı sunucu sınırları.
+[auth.rate_limit]
+# Saatte gönderilebilecek toplam SMS (proje geneli).
+sms_sent = 30
+# Aynı IP'den 5 dakikada yapılabilecek doğrulama isteği.
+token_verifications = 30
+
 [analytics]
 enabled = false
 

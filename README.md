@@ -179,6 +179,14 @@ Veri katmanı iki sağlayıcı sunar: `src/data/mock` (çevrimdışı demo veris
 uygulama gerçek sağlayıcıya geçer. Kurulum, realtime/depolama/çevrimdışı kuyruk ve
 sözleşme testleri: [docs/REMOTE_PROVIDER.md](docs/REMOTE_PROVIDER.md).
 
+Kayıt ve giriş **telefon numarası + SMS doğrulama kodu (OTP)** ile yapılır:
+ülke kodu seçici ve canlı biçimlendirmeli numara ekranı, 6 haneli kod, geri
+sayımlı yeniden gönderme, kalan deneme sayısı ve kaba kuvvet kilidi. Sunucusuz
+geliştirmede kod gerçekten üretilir, konsola yazılır ve ekrandaki geliştirme
+rozetinde gösterilir. Kurallar `src/domain/phone.ts` içinde saf fonksiyonlardır;
+SMS sağlayıcısı karşılaştırması (Twilio/Vonage/Netgsm/İletimerkezi), maliyet
+kabası ve güvenlik önlemleri: [docs/AUTH.md](docs/AUTH.md).
+
 ## Dünya lokasyon kütüphanesi (veri hattı)
 
 `tools/data-pipeline` dünyadaki outdoor noktalarını açık veriden toplar ve SQLite / PostGIS'e yazar:

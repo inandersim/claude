@@ -21,9 +21,12 @@ src/data/remote/
 ├── storage.ts      Medya yükleme (kova, boyut/tip doğrulaması, EXIF notu)
 ├── offline.ts      Çevrimdışı yazma kuyruğu ve çakışma politikası
 └── repos/
-    ├── core.ts     auth, users, feed, explore, matches, notifications,
-    │               messages, hazards, live, market, instructors, library,
-    │               presence, stories, businesses, billing, emergency
+    ├── core.ts     auth (e-posta/şifre), users, feed, explore, matches,
+    │               notifications, messages, hazards, live, market,
+    │               instructors, library, presence, stories, businesses,
+    │               billing, emergency
+    ├── auth.ts     telefon + SMS doğrulama (OTP) — Supabase Auth
+    │               signInWithOtp / verifyOtp; bkz. docs/AUTH.md
     ├── social.ts   social
     ├── groups.ts   groups
     ├── inventory.ts inventory
@@ -246,6 +249,9 @@ sosyal tepki/kaydetme/yeniden paylaşım · birebir mesaj · bildirimler.
 | `wildlife.deterrents` | `deterrent_profiles` tablosu yerine domain sabiti (`DETERRENT_PROFILES`) döner; kaynak doğruluğu koddadır. |
 | Türkçe metin araması | Mock `toLocaleLowerCase('tr-TR')` kullanır; uzak sağlayıcı `ilike` ile veritabanı harmanlamasına güvenir. `İ/ı` gibi harflerde küçük farklar olabilir. |
 | `provider.reset()` | Uzak sağlayıcıda **boştur** (yıkıcı işlem istemciden tetiklenmez). |
+| Telefon OTP kodu | Mock kodu **üretir**, konsola yazar ve `OtpChallenge.devCode` ile ekrana verir (geliştirme rozeti). Uzak sağlayıcıda `devCode` her zaman `null`; kod yalnızca SMS ile gider. |
+| Telefon hız sınırı | Mock'ta sınırın tek uygulayıcısı istemcidir (`src/domain/phone.ts`). Uzak sağlayıcıda asıl sınır GoTrue + `otp_attempts`'tir; istemcideki sayaç yalnızca geri sayımı çizer ve gereksiz isteği baştan keser. |
+| `verifyOtp` → `needsProfile` | Mock'ta numara↔kullanıcı eşlemesi (`phoneLinks`) yoksa `true`. Uzak sağlayıcıda `profiles.profile_completed` alanına bakılır. |
 | `tracks.rebuildCommunityTrails()` | Kümeleme sonucu satır satır yazılır (tek işlem değildir); eşzamanlı çağrılarda son yazan kazanır. |
 | Sayfalama | `feed.list` ve benzeri listeler mock ile aynı şekilde tümünü döner (sözleşmede limit yok). Üretimde `feed_posts` RPC'sinin `max_rows` değeri 200'dür. |
 
@@ -291,8 +297,10 @@ tohumlamada görünmez, yalnızca **çalışma zamanı yazmalarında** ortaya ç
    `PGHOST=… ./supabase/test/run.sh` ile doğrula.
 3. `.env` içine `EXPO_PUBLIC_SUPABASE_URL` + `EXPO_PUBLIC_SUPABASE_ANON_KEY`
    yaz, `EXPO_PUBLIC_DATA_PROVIDER` satırını kaldır ya da `remote` yap.
-4. Auth sağlayıcılarını (e-posta/şifre, gerekirse OAuth) panelde etkinleştir;
-   `handle_new_auth_user` tetikleyicisi profili otomatik açar.
+4. Auth sağlayıcılarını panelde etkinleştir; `handle_new_auth_user`
+   tetikleyicisi profili otomatik açar. **Telefon (SMS OTP) ana yoldur** —
+   sağlayıcı seçimi, maliyet karşılaştırması ve kurulum adımları için
+   `docs/AUTH.md`; şema için `supabase/migrations/0035_phone_auth.sql`.
 5. Storage kovalarını `0300_realtime_storage.sql` ile oluştur; `avatars`,
    `post-media` gibi açık kovalarda CDN önbelleğini aç.
 6. Realtime'da `supabase_realtime` yayınını ve tablo başına RLS'i doğrula

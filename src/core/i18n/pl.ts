@@ -20,6 +20,7 @@ import { countriesI18n } from './modules/countries';
 import { articlesI18n } from './modules/articles';
 import { wildlifeI18n } from './modules/wildlife';
 import { telemedI18n } from './modules/telemed';
+import { phoneAuthI18n } from './modules/phoneAuth';
 import type { Translations } from './tr';
 
 export const pl: Translations = {
@@ -807,4 +808,5 @@ export const pl: Translations = {
   articles: articlesI18n.pl,
   wildlife: wildlifeI18n.pl,
   telemed: telemedI18n.pl,
+  phoneAuth: phoneAuthI18n.pl,
 };

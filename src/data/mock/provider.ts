@@ -16,6 +16,16 @@ import {
   stayTotal,
   visibleShares,
   distanceKm,
+  OtpError,
+  normalizeUsername,
+  validateDisplayName,
+  validatePhone,
+  validateUsername,
+  type CompleteProfileInput,
+  type OtpChallenge,
+  type OtpVerification,
+  type RequestOtpInput,
+  type VerifyOtpInput,
   type Business,
   type BusinessFilter,
   type BusinessWithOwner,
@@ -57,7 +67,7 @@ import {
 } from '@/domain';
 
 import type {
-  AuthRepository,
+  AuthApi,
   BillingRepository,
   BusinessRepository,
   DataProvider,
@@ -100,11 +110,14 @@ import { createArticleRepository } from './repos/articles';
 import { createCountryRepository } from './repos/countries';
 import { createTelemedRepository } from './repos/telemed';
 import { createWildlifeRepository } from './repos/wildlife';
+import { MockOtpService } from './otp';
 import { CURRENT_USER_ID } from './seed';
 
 interface Options {
   persist?: boolean;
   latencyMs?: number;
+  /** Testlerde kodu sabitlemek için değiştirilebilir OTP motoru. */
+  otp?: MockOtpService;
 }
 
 export class NotFoundError extends Error {
@@ -125,6 +138,8 @@ export function createMockProvider(options: Options = {}): DataProvider {
   const db = new MockDatabase(options.persist ?? true);
   const latency = options.latencyMs ?? 260;
   const wait = () => delay(latency);
+  /** SMS sağlayıcısı yerine geçen geliştirme motoru (kodu gerçekten üretir). */
+  const otp = options.otp ?? new MockOtpService();
 
   const requireUser = (users: User[], id: ID): User => {
     const user = users.find((u) => u.id === id);
@@ -184,7 +199,7 @@ export function createMockProvider(options: Options = {}): DataProvider {
     });
   };
 
-  const auth: AuthRepository = {
+  const auth: AuthApi = {
     async getSession() {
       const t = await db.load();
       if (!t.sessionUserId) return null;
@@ -217,6 +232,109 @@ export function createMockProvider(options: Options = {}): DataProvider {
       const t = await db.load();
       t.sessionUserId = null;
       db.markDirty();
+    },
+
+    /* ---------------- Telefon + SMS doğrulama (OTP) ---------------- */
+
+    async requestOtp({ phone, locale }: RequestOtpInput): Promise<OtpChallenge> {
+      await wait();
+      const check = validatePhone(phone);
+      if (!check.valid || !check.e164) throw new OtpError('invalidPhone');
+
+      const now = Date.now();
+      const issued = otp.issue(check.e164, now);
+      void locale; // gerçek sağlayıcıda SMS metninin dili
+
+      return {
+        phone: check.e164,
+        expiresAt: new Date(issued.expiresAt).toISOString(),
+        resendAvailableAt: new Date(issued.resendAvailableAt).toISOString(),
+        attemptsRemaining: issued.attemptsRemaining,
+        // Sunucusuz geliştirmede kod ekranda rozet olarak gösterilir.
+        devCode: issued.code,
+      };
+    },
+
+    async verifyOtp({ phone, code }: VerifyOtpInput): Promise<OtpVerification> {
+      await wait();
+      const check = validatePhone(phone);
+      if (!check.valid || !check.e164) throw new OtpError('invalidPhone');
+
+      otp.verify(check.e164, code);
+
+      const t = await db.load();
+      const link = t.phoneLinks.find((l) => l.phone === check.e164);
+      if (!link) return { user: null, needsProfile: true, phone: check.e164 };
+
+      const user = t.users.find((u) => u.id === link.userId);
+      if (!user) return { user: null, needsProfile: true, phone: check.e164 };
+
+      t.sessionUserId = user.id;
+      db.markDirty();
+      return { user, needsProfile: false, phone: check.e164 };
+    },
+
+    async completeProfile({
+      phone,
+      displayName,
+      username,
+      locale,
+    }: CompleteProfileInput): Promise<User> {
+      await wait();
+      const check = validatePhone(phone);
+      if (!check.valid || !check.e164) throw new OtpError('invalidPhone');
+      if (!otp.isVerified(check.e164)) throw new OtpError('notVerified');
+
+      if (validateDisplayName(displayName)) throw new AuthError('Görünen ad geçersiz.');
+      const handle = normalizeUsername(username);
+      if (validateUsername(handle)) throw new AuthError('Kullanıcı adı geçersiz.');
+
+      const t = await db.load();
+      const taken = t.users.some((u) => u.username.toLowerCase() === handle);
+      if (taken) throw new OtpError('usernameTaken');
+
+      const existing = t.phoneLinks.find((l) => l.phone === check.e164);
+      const user: User = existing
+        ? requireUser(t.users, existing.userId)
+        : {
+            id: generateId('u'),
+            username: handle,
+            displayName: displayName.trim(),
+            avatarUrl: null,
+            coverUrl: null,
+            bio: '',
+            locationName: '',
+            coords: { latitude: 41.0082, longitude: 28.9784 },
+            isVerified: false,
+            totalDistanceKm: 0,
+            totalAdventures: 0,
+            followersCount: 0,
+            followingCount: 0,
+            trustScore: 50,
+            favoriteTypes: [],
+            joinedAt: new Date().toISOString(),
+            plan: 'free',
+            emergencyContacts: [],
+          };
+
+      user.username = handle;
+      user.displayName = displayName.trim();
+      if (!existing) {
+        t.users.push(user);
+        t.phoneLinks.push({ phone: check.e164, userId: user.id });
+      }
+      t.sessionUserId = user.id;
+      db.markDirty();
+      otp.clear(check.e164);
+      void locale;
+      return user;
+    },
+
+    async isUsernameAvailable(username: string): Promise<boolean> {
+      const handle = normalizeUsername(username);
+      if (validateUsername(handle)) return false;
+      const t = await db.load();
+      return !t.users.some((u) => u.username.toLowerCase() === handle);
     },
   };
 

@@ -20,6 +20,8 @@ DO $$ BEGIN CREATE ROLE authenticator  NOLOGIN; EXCEPTION WHEN duplicate_object 
 CREATE TABLE IF NOT EXISTS auth.users (
   id                 uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   email              text UNIQUE,
+  -- Telefonla kayıt (OTP): GoTrue'da da benzersizdir.
+  phone              text UNIQUE,
   encrypted_password text,
   raw_user_meta_data jsonb NOT NULL DEFAULT '{}'::jsonb,
   created_at         timestamptz NOT NULL DEFAULT now()
