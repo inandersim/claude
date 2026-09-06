@@ -24,7 +24,8 @@
     "bundle-size": "node agents/devops/bundle-size.mjs",
     "ux-audit": "node tools/ux-audit/drive.js",
     "sounds": "node tools/sounds/generate.mjs",
-    "test:sounds": "node --test tools/sounds/generate.test.mjs"
+    "test:sounds": "node --test tools/sounds/generate.test.mjs",
+    "test:selfheal": "node --test agents/selfheal/*.test.mjs"
   },
   "dependencies": {
     "@expo-google-fonts/manrope": "^0.4.2",

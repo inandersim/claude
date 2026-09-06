@@ -16,7 +16,7 @@ export const telemed_es: TelemedI18nShape = {
   doctors: 'Médicos',
   doctorsSubtitle: '{{online}} en línea · {{total}} médicos',
   history: 'Consultas anteriores',
-  historySubtitle: 'Consultas completadas y canceladas',
+  historySubtitle: 'Consultas en curso, completadas y canceladas',
   empty: 'No se encontró ningún médico disponible',
   emptyDescription: 'Relaja los filtros o mira todas las especialidades.',
   historyEmpty: 'Aún no hay consultas',

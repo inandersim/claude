@@ -210,6 +210,8 @@ export default function WildlifeHomeScreen() {
               label: t('wildlife.filters.everywhere'),
               icon: 'globe',
               onPress: () => {
+                // Aramayı da temizle: yoksa "her yer" sonrası liste boş kalır
+                setQuery('');
                 setCountry(null);
                 setGroup(null);
                 setDanger(null);

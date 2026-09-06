@@ -29,13 +29,14 @@ function Section({
   bullet: 'dot' | 'number' | 'x';
 }) {
   const { colors } = useTheme();
+  const { locale } = useT();
   if (items.length === 0) return null;
   return (
     <View style={styles.section}>
       <View style={styles.sectionHead}>
         <Icon name={icon} size={16} color={color} strokeWidth={2.4} />
         <Text variant="label" color="textMuted">
-          {title.toUpperCase()}
+          {title.toLocaleUpperCase(locale)}
         </Text>
       </View>
       {items.map((item, index) => (
@@ -69,7 +70,7 @@ function Section({
  * uygulama içi aksiyon çipleri ve kaynak rozeti (Bulut / Çevrimdışı).
  */
 export function AdviceCard({ advice, onAction }: AdviceCardProps) {
-  const { t } = useT();
+  const { t, locale } = useT();
   const { colors } = useTheme();
   const color = riskColor(advice.risk, colors);
   const confidencePct = Math.round(advice.confidence * 100);
@@ -127,7 +128,7 @@ export function AdviceCard({ advice, onAction }: AdviceCardProps) {
           <View style={styles.sectionHead}>
             <Icon name="arrow-up-right" size={16} color={colors.primary} strokeWidth={2.4} />
             <Text variant="label" color="textMuted">
-              {t('vision.actions').toUpperCase()}
+              {t('vision.actions').toLocaleUpperCase(locale)}
             </Text>
           </View>
           <View style={styles.actions} accessibilityLabel={t('vision.actions')}>

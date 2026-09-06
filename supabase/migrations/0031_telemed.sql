@@ -59,8 +59,10 @@ CREATE TABLE consultations (
   CONSTRAINT consultations_accepted_has_doctor CHECK (
     status IN ('requested', 'cancelled') OR doctor_id IS NOT NULL
   ),
+  -- Tamamlanan danışmanın bitiş zamanı olmalı; iptal edilenlerde de
+  -- bitiş zamanı bulunabilir (hasta vazgeçtiğinde damgalanır).
   CONSTRAINT consultations_ended_consistency CHECK (
-    (status = 'completed') = (ended_at IS NOT NULL)
+    status <> 'completed' OR ended_at IS NOT NULL
   )
 );
 -- Aynı anda tek açık danışma (telemed.ts:206)

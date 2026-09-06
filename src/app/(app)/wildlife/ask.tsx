@@ -23,7 +23,7 @@ export default function AskWildlifeScreen() {
     imageUrl?: string;
   }>();
   const router = useRouter();
-  const { t } = useT();
+  const { t, locale } = useT();
   const { colors } = useTheme();
   const toast = useToast();
   const me = useCurrentUser();
@@ -114,7 +114,7 @@ export default function AskWildlifeScreen() {
         />
 
         <Text variant="label" color="textMuted">
-          {t('wildlife.ask.photo').toUpperCase()}
+          {t('wildlife.ask.photo').toLocaleUpperCase(locale)}
         </Text>
         {imageUrl ? (
           <View>
@@ -197,7 +197,7 @@ export default function AskWildlifeScreen() {
         </View>
 
         <Text variant="label" color="textMuted">
-          {t('wildlife.ask.guess').toUpperCase()}
+          {t('wildlife.ask.guess').toLocaleUpperCase(locale)}
         </Text>
         {picked ? (
           <View style={styles.pickedRow}>

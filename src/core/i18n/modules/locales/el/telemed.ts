@@ -16,7 +16,7 @@ export const telemed_el: TelemedI18nShape = {
   doctors: 'Γιατροί',
   doctorsSubtitle: '{{online}} online · {{total}} γιατροί',
   history: 'Προηγούμενες συμβουλεύσεις',
-  historySubtitle: 'Ολοκληρωμένες και ακυρωμένες συνεδρίες',
+  historySubtitle: 'Σε εξέλιξη, ολοκληρωμένες και ακυρωμένες συνεδρίες',
   empty: 'Κανένας γιατρός δεν ταιριάζει',
   emptyDescription: 'Χαλαρώστε τα φίλτρα ή δείξτε όλες τις ειδικότητες.',
   historyEmpty: 'Καμία συμβούλευση ακόμα',

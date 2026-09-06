@@ -15,7 +15,7 @@ export const telemed_sv: TelemedI18nShape = {
   doctors: 'Läkare',
   doctorsSubtitle: '{{online}} online · {{total}} läkare',
   history: 'Tidigare konsultationer',
-  historySubtitle: 'Genomförda och avbrutna sessioner',
+  historySubtitle: 'Pågående, genomförda och avbrutna sessioner',
   empty: 'Inga matchande läkare',
   emptyDescription: 'Lätta på filtren eller visa alla specialiteter.',
   historyEmpty: 'Inga konsultationer ännu',

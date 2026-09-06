@@ -11,7 +11,8 @@ import { OUT_DIR } from './util.mjs';
 
 export const CHANGELOG_PATH = join(OUT_DIR, 'CHANGELOG.md');
 
-const HEADER = `# Self-heal değişiklik günlüğü
+/** Günlük dosyasının başlığı (dosya yoksa yazılır). */
+export const HEADER = `# Self-heal değişiklik günlüğü
 
 Bu dosyaya **yalnızca ekleme** yapılır. Her satır otomatik hattın (analiz → düzeltme → kanarya)
 attığı bir adımı kim/ne/neden/kanıt olarak kaydeder; bir adımı geri almak için yeni bir

@@ -15,7 +15,7 @@ export const telemed_ja: TelemedI18nShape = {
   doctors: '医師',
   doctorsSubtitle: '{{online}}人オンライン · {{total}}人の医師',
   history: '過去の相談',
-  historySubtitle: '完了およびキャンセルした相談',
+  historySubtitle: '進行中・完了・キャンセルした相談',
   empty: '対応可能な医師が見つかりません',
   emptyDescription: 'フィルターを緩めるか、すべての専門分野を表示して。',
   historyEmpty: 'まだ相談はありません',

@@ -1,0 +1,67 @@
+# Zirtan — Supabase yerel geliştirme yapılandırması
+# `supabase start` bu dosyayı okur.
+
+project_id = "zirtan"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "storage", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+# Sayfalama üst sınırı: istemci PostgREST üzerinden en fazla bu kadar satır çeker
+max_rows = 1000
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 17
+
+[db.pooler]
+enabled = true
+port = 54329
+pool_mode = "transaction"
+default_pool_size = 20
+max_client_conn = 200
+
+[realtime]
+enabled = true
+
+[studio]
+enabled = true
+port = 54323
+
+[storage]
+enabled = true
+file_size_limit = "512MiB"
+
+[auth]
+enabled = true
+site_url = "zirtan://"
+additional_redirect_urls = ["zirtan://", "http://localhost:8081"]
+jwt_expiry = 3600
+enable_refresh_token_rotation = true
+refresh_token_reuse_interval = 10
+enable_signup = true
+
+[auth.email]
+enable_signup = true
+enable_confirmations = false   # yerelde e-posta onayı kapalı
+
+[analytics]
+enabled = false
+
+# --------------------------------------------------------------------
+# Edge fonksiyonları
+# --------------------------------------------------------------------
+
+[functions.sos-dispatch]
+verify_jwt = true              # yalnızca oturum açmış kullanıcı SOS sevk eder
+
+[functions.return-promise-check]
+verify_jwt = false             # zamanlayıcı çağırır; ZIRTAN_CRON_SECRET ile korunur
+
+[functions.push-fanout]
+verify_jwt = false             # zamanlayıcı çağırır; ZIRTAN_CRON_SECRET ile korunur
+
+[functions.payment-webhook]
+verify_jwt = false             # sağlayıcı imzasıyla doğrulanır (HMAC)

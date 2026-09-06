@@ -25,7 +25,7 @@ export function IdentificationResult({
   onPanic,
   onDoctor,
 }: IdentificationResultProps) {
-  const { t } = useT();
+  const { t, locale } = useT();
   const { colors } = useTheme();
   const hasDanger = result.candidates.some((c) => dangerRank(c.danger) >= 2);
 
@@ -103,7 +103,7 @@ export function IdentificationResult({
       {result.advice.length > 0 ? (
         <View style={[styles.advice, { backgroundColor: colors.surfaceMuted }]}>
           <Text variant="label" color="textMuted">
-            {t('wildlife.identify.advice').toUpperCase()}
+            {t('wildlife.identify.advice').toLocaleUpperCase(locale)}
           </Text>
           {result.advice.map((a, i) => (
             <View key={i} style={styles.adviceRow}>

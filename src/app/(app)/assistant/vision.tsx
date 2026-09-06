@@ -281,7 +281,7 @@ export default function VisionScreen() {
           ) : null}
           <View style={styles.fallbackChips}>
             <Text variant="label" color="textMuted" style={styles.chipsLabel}>
-              {t('vision.situationTitle').toUpperCase()}
+              {t('vision.situationTitle').toLocaleUpperCase(locale)}
             </Text>
             <SituationChips value={situation} onChange={setSituation} size="md" />
           </View>

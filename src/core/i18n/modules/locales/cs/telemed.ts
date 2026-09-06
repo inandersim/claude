@@ -16,7 +16,7 @@ export const telemed_cs: TelemedI18nShape = {
   doctors: 'Lékaři',
   doctorsSubtitle: '{{online}} online · {{total}} lékařů',
   history: 'Předchozí konzultace',
-  historySubtitle: 'Dokončené a zrušené relace',
+  historySubtitle: 'Probíhající, dokončené a zrušené relace',
   empty: 'Žádní odpovídající lékaři',
   emptyDescription: 'Uvolněte filtry nebo zobrazte všechny specializace.',
   historyEmpty: 'Zatím žádné konzultace',

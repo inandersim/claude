@@ -1,0 +1,142 @@
+# Kanarya nöbeti: yayınlanan OTA güncellemesinin ölçümlerini eşiklerle karşılaştırır.
+# Karar `geri-al` ise iş akışı KIRMIZI biter ve issue açılır — geri alma komutu insan tarafından
+# (ya da EAS_TOKEN tanımlıysa "rollback" işiyle) çalıştırılır. Bu iş akışı kendi başına yayın YAPMAZ.
+# Süreç ve eşiklerin gerekçesi: docs/SELF_IMPROVEMENT.md
+name: Canary
+
+on:
+  schedule:
+    - cron: '15 */2 * * *' # iki saatte bir: kanarya aşamaları saatler sürer
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: 'Değerlendirilecek aşama'
+        type: choice
+        options: [yuzde5, yuzde25, yuzde50, tam]
+        default: yuzde5
+      risky:
+        description: 'Riskli alan (ödeme/SOS/kimlik) değişikliği — bekleme iki katı, her aşamada insan onayı'
+        type: boolean
+        default: false
+      metrics_url:
+        description: 'Ölçüm JSON adresi (boşsa ZIRTAN_TELEMETRY_URL, o da yoksa fixture)'
+        type: string
+        required: false
+
+concurrency:
+  group: canary
+  cancel-in-progress: false
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      issues: write
+    env:
+      GH_TOKEN: ${{ secrets.CLAUDE_GH_TOKEN || secrets.GITHUB_TOKEN }}
+      ZIRTAN_TELEMETRY_URL: ${{ secrets.ZIRTAN_TELEMETRY_URL }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.CLAUDE_GH_TOKEN || secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Merdiven ve eşikler
+        run: node agents/selfheal/canary.mjs stages ${{ inputs.risky && '--risky' || '' }}
+
+      - name: Kanarya ölçümlerini çek
+        id: metrics
+        run: |
+          set -e
+          URL="${{ inputs.metrics_url }}"
+          if [ -z "$URL" ] && [ -n "$ZIRTAN_TELEMETRY_URL" ]; then
+            URL="$ZIRTAN_TELEMETRY_URL/canary?stage=${{ inputs.stage || 'yuzde5' }}"
+          fi
+          if [ -n "$URL" ]; then
+            # Yalnızca okuma: gövde gönderilmez, kimlik bilgisi eklenmez.
+            if curl -sf --max-time 20 -H 'accept: application/json' "$URL" -o /tmp/canary.json; then
+              echo "path=/tmp/canary.json" >> "$GITHUB_OUTPUT"
+              echo "source=canlı: $URL" >> "$GITHUB_OUTPUT"
+            else
+              echo "Canlı uç okunamadı; fixture kullanılacak." >&2
+              echo "path=agents/selfheal/fixtures/canary-metrics.json" >> "$GITHUB_OUTPUT"
+              echo "source=fixture (canlı uç yanıt vermedi)" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "path=agents/selfheal/fixtures/canary-metrics.json" >> "$GITHUB_OUTPUT"
+            echo "source=fixture (ZIRTAN_TELEMETRY_URL tanımsız)" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Değerlendir
+        id: eval
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          node agents/selfheal/canary.mjs evaluate \
+            --metrics "${{ steps.metrics.outputs.path }}" \
+            --stage "${{ inputs.stage || 'yuzde5' }}" \
+            ${{ inputs.risky && '--risky' || '' }} | tee /tmp/canary-karar.md
+          node agents/selfheal/canary.mjs evaluate \
+            --metrics "${{ steps.metrics.outputs.path }}" \
+            --stage "${{ inputs.stage || 'yuzde5' }}" \
+            ${{ inputs.risky && '--risky' || '' }} --json --no-audit > /tmp/canary-karar.json
+          echo "decision=$(node -e "process.stdout.write(require('/tmp/canary-karar.json').decision.decision)")" >> "$GITHUB_OUTPUT"
+
+      - name: Özeti koşu sayfasına yaz
+        if: always()
+        run: |
+          {
+            echo "## Kanarya — aşama \`${{ inputs.stage || 'yuzde5' }}\`"
+            echo ""
+            echo "Ölçüm kaynağı: ${{ steps.metrics.outputs.source }}"
+            echo ""
+            cat /tmp/canary-karar.md 2>/dev/null || echo "_karar üretilemedi_"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Denetim kaydını işle
+        if: always()
+        continue-on-error: true
+        run: |
+          set -e
+          if git diff --quiet -- docs/health/self/CHANGELOG.md; then exit 0; fi
+          DATE=$(date -u +%F)
+          BRANCH="selfheal/canary-$DATE"
+          git config user.name "zirtan-selfheal-bot"
+          git config user.email "selfheal-bot@users.noreply.github.com"
+          git checkout -B "$BRANCH"
+          git add docs/health/self/CHANGELOG.md
+          git commit -m "chore(canary): $DATE kanarya kararı denetim kaydı [skip claude]"
+          git push -f origin "$BRANCH"
+          gh pr create --head "$BRANCH" --base "${{ github.event.repository.default_branch }}" \
+            --title "chore(canary): $DATE kanarya kararı" \
+            --body "Kanarya kararı: \`${{ steps.eval.outputs.decision }}\`. Ayrıntı: koşu özeti." \
+            --label self-heal 2>/dev/null || echo "PR zaten var ya da gh kullanılamıyor"
+
+      - name: Geri alma gerekiyorsa issue aç ve kırmızı bitir
+        if: steps.eval.outputs.decision == 'geri-al'
+        run: |
+          BODY=$(cat /tmp/canary-karar.md)
+          gh issue create \
+            --title "🔴 Kanarya geri alma: ${{ inputs.stage || 'yuzde5' }} aşaması eşiği aştı" \
+            --label "self-heal,needs-human" \
+            --body "$BODY
+
+          Geri alma **otomatik yapılmadı** — komutu bir bakımcı çalıştırmalıdır:
+
+          \`\`\`bash
+          eas update:rollback --branch production
+          \`\`\`
+
+          Koşu: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            || echo "issue açılamadı (gh yetkisi?)"
+          echo "Kanarya eşiği aşıldı — geri alma gerekiyor." >&2
+          exit 1

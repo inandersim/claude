@@ -15,7 +15,7 @@ export const telemed_ar: TelemedI18nShape = {
   doctors: 'الأطباء',
   doctorsSubtitle: '{{online}} متصل · {{total}} طبيب',
   history: 'الاستشارات السابقة',
-  historySubtitle: 'المحادثات المكتملة والملغاة',
+  historySubtitle: 'المحادثات الجارية والمكتملة والملغاة',
   empty: 'لا أطباء متاحين',
   emptyDescription: 'خفف عوامل التصفية أو اعرض كل التخصصات.',
   historyEmpty: 'لا استشارات بعد',

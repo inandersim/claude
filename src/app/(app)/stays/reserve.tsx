@@ -36,6 +36,8 @@ export default function ReserveStayScreen() {
   const [guests, setGuests] = useState(2);
   const data = business.data;
 
+  // Konaklama sunmayan işletmeler (mağaza, tur operatörü) rezerve edilemez.
+  const noStay = !!data && data.priceFromTry === null;
   const dateAt = (days: number) => new Date(now + days * 86_400_000);
   const fmt = (d: Date) =>
     d.toLocaleDateString(locale === 'tr' ? 'tr-TR' : 'en-US', {
@@ -85,6 +87,12 @@ export default function ReserveStayScreen() {
             icon="compass"
             title={t('notFound.title')}
             description={t('notFound.description')}
+          />
+        ) : noStay ? (
+          <EmptyState
+            icon="store"
+            title={t('inventory.business.noStay')}
+            description={t('inventory.business.noStayDescription')}
           />
         ) : (
           <>
@@ -184,7 +192,7 @@ export default function ReserveStayScreen() {
           size="lg"
           fullWidth
           loading={reserve.isPending}
-          disabled={!data}
+          disabled={!data || noStay || !totals}
           onPress={submit}
         />
       </View>

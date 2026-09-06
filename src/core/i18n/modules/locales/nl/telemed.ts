@@ -16,7 +16,7 @@ export const telemed_nl: TelemedI18nShape = {
   doctors: 'Artsen',
   doctorsSubtitle: '{{online}} online · {{total}} artsen',
   history: 'Eerdere consulten',
-  historySubtitle: 'Voltooide en geannuleerde sessies',
+  historySubtitle: 'Lopende, voltooide en geannuleerde sessies',
   empty: 'Geen passende artsen',
   emptyDescription: 'Versoepel de filters of toon alle specialismen.',
   historyEmpty: 'Nog geen consulten',

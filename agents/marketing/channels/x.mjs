@@ -9,6 +9,10 @@ export const spec = {
   maxHashtags: 2,
   foldAt: 140,
   linkPolicy: 'inline',
+  /** 280 karakterde CTA ayrı cümle olarak yer kaplar; kanca + bağlantı yeter. */
+  ctaInBody: false,
+  /** X bağlantıları t.co ile 23 karakter sayılır — uzunluk hesabı buna göre. */
+  linkCountsAs: 23,
   formats: ['text', 'thread', 'single_image', 'short', 'poll'],
   bestTimes: { tr: ['08:30', '12:30', '21:30'], en: ['13:00', '17:00'], de: ['08:00', '18:00'], ru: ['10:00', '19:00'] },
   maxPerDay: 4,

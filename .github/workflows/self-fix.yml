@@ -1,0 +1,132 @@
+# Bulgu başına otomatik düzeltme PR'ı.
+# `root-cause` ajanı kök nedeni bulur, ÖNCE başarısız olan bir test yazar, sonra en küçük
+# düzeltmeyi uygular. Kapılar (yetki · kalkan · kanıt · lint+typecheck+test) yeşil olmadan
+# PR açılmaz; riskli alana (ödeme/SOS/kimlik) dokunulmuşsa PR `needs-human` etiketiyle taslak açılır.
+name: Self fix
+
+on:
+  workflow_dispatch:
+    inputs:
+      finding:
+        description: 'Bulgu kimliği (docs/health/self/latest.json içindeki id). Boş bırakılırsa en yüksek puanlı otomatik düzeltilebilir bulgu seçilir.'
+        type: string
+        required: false
+      dry_run:
+        description: 'PR açma, yalnızca kapıları çalıştır'
+        type: boolean
+        default: false
+  schedule:
+    - cron: '0 6 * * 1' # her pazartesi 06:00 UTC — haftada bir düzeltme denemesi (maliyet freni)
+
+concurrency:
+  group: self-fix
+  cancel-in-progress: false
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      id-token: write
+      actions: read
+    env:
+      GH_TOKEN: ${{ secrets.CLAUDE_GH_TOKEN || secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.CLAUDE_GH_TOKEN || secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Self-heal birim testleri (hat sağlam mı)
+        run: npm run test:selfheal
+
+      - name: Bulguyu seç
+        id: pick
+        run: |
+          set -e
+          if [ ! -f docs/health/self/latest.json ]; then
+            echo "Analiz raporu yok — önce self-analysis.yml çalıştırılmalı." >&2
+            echo "found=false" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          FINDING="${{ inputs.finding }}"
+          if [ -z "$FINDING" ]; then
+            FINDING=$(node -e "
+              const r=require('./docs/health/self/latest.json');
+              const f=r.findings.find(x=>x.autoFixable);
+              process.stdout.write(f?f.id:'');
+            ")
+          fi
+          if [ -z "$FINDING" ]; then
+            echo "Otomatik düzeltmeye uygun bulgu yok."; echo "found=false" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          echo "found=true" >> "$GITHUB_OUTPUT"
+          echo "finding=$FINDING" >> "$GITHUB_OUTPUT"
+          echo "Seçilen bulgu: $FINDING"
+
+      - name: Görev tarifi (yetki sınırları ve zorunlu sıra)
+        if: steps.pick.outputs.found == 'true'
+        run: node agents/selfheal/propose-fix.mjs plan --finding "${{ steps.pick.outputs.finding }}" || true
+
+      - name: Claude — kök neden ve en küçük düzeltme
+        if: steps.pick.outputs.found == 'true'
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.CLAUDE_GH_TOKEN || secrets.GITHUB_TOKEN }}
+          prompt: |
+            `.claude/agents/root-cause.md` talimatlarına göre `${{ steps.pick.outputs.finding }}` bulgusunu düzelt.
+
+            Sıra kesindir ve atlanamaz:
+            1. `node agents/selfheal/propose-fix.mjs plan --finding ${{ steps.pick.outputs.finding }}` ile görev tarifini oku.
+               Tarifteki izin listesi dışına ÇIKMA. `src/` dışındaki hiçbir dosyaya dokunma.
+            2. Kök nedeni bul (yığın izi → çağıran → neden zinciri → aynı desenin başka yerlerde yayılımı).
+            3. ÖNCE hatayı gösteren testi yaz ve kırmızı olduğunu kanıtla:
+               `node agents/selfheal/guard.mjs record --finding ${{ steps.pick.outputs.finding }} --test <test-dosyasi> --phase red`
+               Bu adımda test GEÇERSE test hatayı yakalamıyordur; testi düzelt. Kanıt olmadan PR açılamaz.
+            4. En küçük düzeltmeyi uygula. Belirtiyi değil nedeni düzelt.
+            5. Yeşili kanıtla: `... --phase green`
+            6. `node agents/selfheal/propose-fix.mjs verify --finding ${{ steps.pick.outputs.finding }}` ile dört kapıyı çalıştır.
+               Herhangi biri kırmızıysa düzeltmeyi tamamla; kapıları atlamaya ÇALIŞMA (yolu yoktur).
+            7. Kapılar yeşilse ve `${{ inputs.dry_run }}` != true ise:
+               `node agents/selfheal/propose-fix.mjs pr --finding ${{ steps.pick.outputs.finding }}`
+               Bu komut dalı açar, taslak PR'ı oluşturur ve `docs/health/self/CHANGELOG.md` denetim kaydını yazar.
+
+            Yasaklar: `it.skip`/`xit`/`test.todo`/`.only`/`--passWithNoTests` ile test atlama yok; `@ts-ignore`/`eslint-disable`
+            ile hata gizleme yok; var olan testi silme ya da beklentisini zayıflatma yok; sır/anahtar/`.env` okuma yok;
+            uzak sunucuya veri gönderme yok; `main` dalına push yok.
+
+            Düzeltme büyüyorsa ya da kök neden ürün kararı gerektiriyorsa DURDUR: kod değiştirme, bulunanları PR yerine
+            koşu günlüğüne özet olarak yaz.
+
+            Sonunda 5 satırlık özet ver: kök neden, değişen dosyalar, kanıt (test + kırmızı/yeşil çıkış kodları),
+            kapı sonuçları, insan onayı gerekip gerekmediği.
+          claude_args: |
+            --max-turns 50
+            --allowedTools "Read,Edit,Write,Grep,Glob,Bash(npm run lint*),Bash(npm run typecheck),Bash(npm test*),Bash(npm run test:selfheal),Bash(npm run test:pipeline),Bash(npx prettier*),Bash(npx tsc*),Bash(npx eslint*),Bash(npx jest*),Bash(node agents/selfheal/*),Bash(node agents/devops/*),Bash(grep*),Bash(git status*),Bash(git diff*),Bash(git log*),Bash(git add*),Bash(git commit*),Bash(git checkout*),Bash(git push*),Bash(gh pr create*),Bash(gh pr comment*),Bash(gh pr list*)"
+
+      - name: Kapı sonucu (Claude'dan bağımsız son kontrol)
+        if: steps.pick.outputs.found == 'true'
+        continue-on-error: true
+        run: node agents/selfheal/propose-fix.mjs verify --finding "${{ steps.pick.outputs.finding }}"
+
+      - name: Denetim kaydını artefakt olarak sakla
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: self-fix-${{ github.run_id }}
+          path: |
+            docs/health/self/CHANGELOG.md
+            docs/health/self/evidence/
+          retention-days: 30
+          if-no-files-found: ignore

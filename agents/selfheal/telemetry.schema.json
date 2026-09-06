@@ -99,7 +99,7 @@
         "stack": { "type": "string", "maxLength": 4000 },
         "screen": { "type": "string", "maxLength": 120 },
         "fatal": { "type": "boolean" },
-        "jsEngine": { "type": "string", "enum": ["hermes", "jsc", "v8"] }
+        "jsEngine": { "type": "string", "maxLength": 40, "description": "Bilgilendirici; yeni bir motor adı olayın tamamını geçersiz kılmasın diye serbest metin." }
       }
     },
     "detail_error": {
@@ -139,7 +139,7 @@
           "description": "Yol şablonu (`/ai/summarize`). Sorgu dizesi ve kimlikler kırpılır."
         },
         "status": { "type": "integer", "minimum": 0, "maximum": 599 },
-        "method": { "type": "string", "enum": ["GET", "POST", "PUT", "PATCH", "DELETE"] },
+        "method": { "type": "string", "enum": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"] },
         "ms": { "type": "number", "minimum": 0 },
         "errorCode": { "type": "string", "maxLength": 80 }
       }

@@ -16,7 +16,7 @@ export const telemed_id: TelemedI18nShape = {
   doctors: 'Dokter',
   doctorsSubtitle: '{{online}} online · {{total}} dokter',
   history: 'Konsultasi sebelumnya',
-  historySubtitle: 'Sesi yang selesai dan dibatalkan',
+  historySubtitle: 'Sesi yang berlangsung, selesai, dan dibatalkan',
   empty: 'Tidak ada dokter yang cocok',
   emptyDescription: 'Longgarkan filter atau tampilkan semua spesialisasi.',
   historyEmpty: 'Belum ada konsultasi',

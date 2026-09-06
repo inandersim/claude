@@ -78,9 +78,17 @@ export function charCount(text) {
   return [...String(text)].length;
 }
 
-/** Satırları boş olanları atarak birleştirir. */
+/**
+ * Satırları birleştirir: `null`/`undefined` atılır, boş satır korunur (Markdown paragrafı),
+ * üst üste gelen boş satırlar tek boş satıra indirilir.
+ */
 export function lines(...parts) {
-  return parts.flat().filter((l) => l !== undefined && l !== null && String(l).trim() !== '').join('\n');
+  return parts
+    .flat()
+    .filter((l) => l !== undefined && l !== null)
+    .join('\n')
+    .replace(/\n{3,}/gu, '\n\n')
+    .trim();
 }
 
 /** Markdown tablo üretir. */

@@ -119,7 +119,17 @@ export default function GroupInfoScreen() {
       ) : group.isError ? (
         <ErrorState onRetry={() => group.refetch()} />
       ) : !g ? (
-        <EmptyState icon="users" title={t('common.error')} />
+        /* Geçersiz kimlik: hata değil, "bulunamadı" gösterilir. */
+        <EmptyState
+          icon="users"
+          title={t('notFound.title')}
+          description={t('notFound.description')}
+          action={{
+            label: t('groups.title'),
+            onPress: () => router.replace('/groups'),
+            icon: 'arrow-left',
+          }}
+        />
       ) : (
         <View style={styles.content}>
           <View style={styles.hero}>

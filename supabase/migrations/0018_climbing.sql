@@ -59,7 +59,8 @@ CREATE TABLE climbing_routes (
   length_m      integer CHECK (length_m IS NULL OR length_m > 0),
   pitches       smallint NOT NULL DEFAULT 1 CHECK (pitches > 0),
   bolts         smallint CHECK (bolts IS NULL OR bolts >= 0),
-  stars         smallint NOT NULL DEFAULT 0 CHECK (stars BETWEEN 0 AND 3),
+  -- Yıldız: 0–5 (topluluk kalite oyu)
+  stars         smallint NOT NULL DEFAULT 0 CHECK (stars BETWEEN 0 AND 5),
   first_ascent  text,
   description   text NOT NULL DEFAULT '',
   verification  verification_status NOT NULL DEFAULT 'unverified',

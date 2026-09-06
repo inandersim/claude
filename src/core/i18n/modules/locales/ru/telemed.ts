@@ -15,7 +15,7 @@ export const telemed_ru: TelemedI18nShape = {
   doctors: 'Врачи',
   doctorsSubtitle: '{{online}} онлайн · {{total}} врачей',
   history: 'Прошлые консультации',
-  historySubtitle: 'Завершённые и отменённые обращения',
+  historySubtitle: 'Текущие, завершённые и отменённые обращения',
   empty: 'Подходящий врач не найден',
   emptyDescription: 'Ослабьте фильтры или посмотрите все специальности.',
   historyEmpty: 'Консультаций пока нет',

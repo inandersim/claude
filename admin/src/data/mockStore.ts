@@ -125,6 +125,21 @@ function round(value: number, digits = 0): number {
 
 export const LOCALE_CODES = Object.keys(LANGUAGE_META);
 
+
+/** Yerel (çevrimdışı) avatar üretimi — dış servise istek atılmaz. */
+const AVATAR_COLORS = ['#2F7D4F', '#E8722A', '#3A8DDE', '#D98A0B', '#8E6BD0', '#0FA3A3', '#C2557A'];
+
+export function avatarDataUri(name: string): string {
+  const initials = name
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((part) => part.charAt(0).toLocaleUpperCase('tr'))
+    .join('');
+  const color = AVATAR_COLORS[hashString(name) % AVATAR_COLORS.length] as string;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><rect width="80" height="80" rx="40" fill="${color}"/><text x="40" y="51" font-family="Manrope, sans-serif" font-size="30" font-weight="700" fill="#ffffff" text-anchor="middle">${initials}</text></svg>`;
+  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+}
+
 /* ------------------------------------------------------------------ */
 /* Panel hesapları                                                     */
 /* ------------------------------------------------------------------ */
@@ -135,7 +150,7 @@ export const adminAccounts: AdminAccount[] = [
     name: 'Deniz Kaya',
     email: 'deniz@zirtan.app',
     role: 'admin',
-    avatarUrl: 'https://i.pravatar.cc/200?img=12',
+    avatarUrl: avatarDataUri('Deniz Kaya'),
     lastActiveAt: isoHoursAgo(0.2),
   },
   {
@@ -143,7 +158,7 @@ export const adminAccounts: AdminAccount[] = [
     name: 'Selin Aydın',
     email: 'selin@zirtan.app',
     role: 'moderator',
-    avatarUrl: 'https://i.pravatar.cc/200?img=32',
+    avatarUrl: avatarDataUri('Selin Aydın'),
     lastActiveAt: isoHoursAgo(1.4),
   },
   {
@@ -151,7 +166,7 @@ export const adminAccounts: AdminAccount[] = [
     name: 'Kerem Doğan',
     email: 'kerem@zirtan.app',
     role: 'editor',
-    avatarUrl: 'https://i.pravatar.cc/200?img=15',
+    avatarUrl: avatarDataUri('Kerem Doğan'),
     lastActiveAt: isoHoursAgo(5),
   },
   {
@@ -159,7 +174,7 @@ export const adminAccounts: AdminAccount[] = [
     name: 'Ayşe Yıldırım',
     email: 'ayse@zirtan.app',
     role: 'support',
-    avatarUrl: 'https://i.pravatar.cc/200?img=45',
+    avatarUrl: avatarDataUri('Ayşe Yıldırım'),
     lastActiveAt: isoHoursAgo(9),
   },
 ];
@@ -237,7 +252,8 @@ function makeUserRows(): { rows: AdminUserRow[]; details: Map<ID, AdminUserDetai
       id,
       username,
       displayName,
-      avatarUrl: seed?.avatarUrl ?? `https://i.pravatar.cc/200?img=${(i % 70) + 1}`,
+      // Demo ortamı çevrimdışı çalışsın diye avatarlar yerel SVG olarak üretilir.
+      avatarUrl: avatarDataUri(displayName),
       email: `${username.replace(/\./g, '')}@example.com`,
       phone: `+90 5${String(20 + (i % 60)).padStart(2, '0')} ${String(100 + (i % 900))} ${String(
         1000 + ((i * 37) % 9000),
@@ -756,6 +772,7 @@ const SOS_STAGE_LABELS: Record<SosStage, string> = {
   idle: 'Beklemede',
   armed: 'Hazırlandı',
   sent: 'Sinyal gönderildi',
+  dispatched: 'Ekip yönlendirildi',
   acknowledged: 'Merkez teyit etti',
   resolved: 'Kapatıldı',
 };

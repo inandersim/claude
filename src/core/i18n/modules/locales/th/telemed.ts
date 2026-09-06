@@ -15,7 +15,7 @@ export const telemed_th: TelemedI18nShape = {
   doctors: 'แพทย์',
   doctorsSubtitle: 'ออนไลน์ {{online}} · แพทย์ {{total}} คน',
   history: 'การปรึกษาที่ผ่านมา',
-  historySubtitle: 'เซสชันที่เสร็จสิ้นและยกเลิก',
+  historySubtitle: 'เซสชันที่กำลังดำเนินอยู่ เสร็จสิ้น และยกเลิก',
   empty: 'ไม่พบแพทย์ที่ตรงกัน',
   emptyDescription: 'ผ่อนตัวกรองหรือแสดงทุกสาขา',
   historyEmpty: 'ยังไม่มีการปรึกษา',

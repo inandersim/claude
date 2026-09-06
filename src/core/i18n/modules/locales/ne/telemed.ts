@@ -15,7 +15,7 @@ export const telemed_ne: TelemedI18nShape = {
   doctors: 'डाक्टरहरू',
   doctorsSubtitle: '{{online}} अनलाइन · {{total}} डाक्टर',
   history: 'पुराना परामर्शहरू',
-  historySubtitle: 'पूरा भएका र रद्द गरिएका परामर्शहरू',
+  historySubtitle: 'चलिरहेका, पूरा भएका र रद्द गरिएका परामर्शहरू',
   empty: 'उपयुक्त डाक्टर भेटिएन',
   emptyDescription: 'फिल्टर खुकुलो पार्नुहोस् वा सबै विशेषज्ञता हेर्नुहोस्।',
   historyEmpty: 'अहिलेसम्म कुनै परामर्श छैन',

@@ -27,7 +27,7 @@ const IS_WEB = Platform.OS === 'web';
  */
 export default function DeterrentScreen() {
   const router = useRouter();
-  const { t } = useT();
+  const { t, locale } = useT();
   const { colors } = useTheme();
   const toast = useToast();
   const me = useCurrentUser();
@@ -70,8 +70,9 @@ export default function DeterrentScreen() {
     if (!animal || !activeSound) return;
     if (flashOn && !IS_WEB && !permission?.granted && permission?.canAskAgain !== false)
       await requestPermission().catch(() => undefined);
-    await player.start(activeSound, { vibrate: vibrateOn, flash: flashOn });
-    if (player.error) toast(t('wildlife.panic.playError'), 'error');
+    // `player.error` bu kapanışta bayat kalır; başlatma sonucunu doğrudan kullan
+    const ok = await player.start(activeSound, { vibrate: vibrateOn, flash: flashOn });
+    if (!ok) toast(t('wildlife.panic.playError'), 'error');
   };
 
   const toggle = () => {
@@ -81,7 +82,10 @@ export default function DeterrentScreen() {
 
   const changeSound = (next: DeterrentSound) => {
     setSound(next);
-    if (player.playing) void player.start(next, { vibrate: vibrateOn, flash: flashOn });
+    if (!player.playing) return;
+    void player.start(next, { vibrate: vibrateOn, flash: flashOn }).then((ok) => {
+      if (!ok) toast(t('wildlife.panic.playError'), 'error');
+    });
   };
 
   return (
@@ -217,7 +221,7 @@ export default function DeterrentScreen() {
             </View>
 
             <Text variant="label" color="textMuted">
-              {t('wildlife.panic.sosHint').toUpperCase()}
+              {t('wildlife.panic.sosHint').toLocaleUpperCase(locale)}
             </Text>
             <View style={styles.links}>
               <Button

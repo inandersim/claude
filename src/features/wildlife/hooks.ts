@@ -216,7 +216,8 @@ export interface DeterrentPlayerState {
   torch: boolean;
   /** Son hata (ses yüklenemedi vb.) */
   error: string | null;
-  start: (sound: DeterrentSound, options?: DeterrentPlayerOptions) => Promise<void>;
+  /** Çalmaya başladıysa `true`; ses yüklenemediyse `false` (state güncellemesini beklemeden) */
+  start: (sound: DeterrentSound, options?: DeterrentPlayerOptions) => Promise<boolean>;
   /** Çalmayı durdurur; geçen süreyi saniye olarak döner */
   stop: () => number;
 }
@@ -267,7 +268,7 @@ export function useDeterrentPlayer(): DeterrentPlayerState {
   }, [clearTimers, releasePlayer]);
 
   const start = useCallback(
-    async (next: DeterrentSound, options: DeterrentPlayerOptions = {}) => {
+    async (next: DeterrentSound, options: DeterrentPlayerOptions = {}): Promise<boolean> => {
       clearTimers();
       releasePlayer();
       setError(null);
@@ -284,9 +285,9 @@ export function useDeterrentPlayer(): DeterrentPlayerState {
       } catch {
         setError('play');
         setPlaying(false);
-        return;
+        return false;
       }
-      if (IS_WEB) return;
+      if (IS_WEB) return true;
       if (options.vibrate !== false) {
         void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy).catch(() => undefined);
         hapticTimer.current = setInterval(() => {
@@ -297,6 +298,7 @@ export function useDeterrentPlayer(): DeterrentPlayerState {
         setTorch(true);
         torchTimer.current = setInterval(() => setTorch((v) => !v), TORCH_INTERVAL_MS);
       }
+      return true;
     },
     [clearTimers, releasePlayer],
   );

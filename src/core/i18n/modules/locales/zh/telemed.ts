@@ -15,7 +15,7 @@ export const telemed_zh: TelemedI18nShape = {
   doctors: '医生',
   doctorsSubtitle: '{{online}} 位在线 · 共 {{total}} 位医生',
   history: '历史咨询',
-  historySubtitle: '已完成和已取消的咨询',
+  historySubtitle: '进行中、已完成和已取消的咨询',
   empty: '没有找到合适的医生',
   emptyDescription: '放宽筛选条件，或查看所有专科。',
   historyEmpty: '还没有咨询',

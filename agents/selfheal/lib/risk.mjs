@@ -88,7 +88,7 @@ export const RISKY = [
  *   tek yıldız             → tek bir yol bölümü içinde her şey
  *   soru işareti           → tek karakter
  */
-export function matchGlob(pattern, path) {
+export function matchGlob(pattern, path, { caseInsensitive = false } = {}) {
   let rx = '';
   for (let i = 0; i < pattern.length; i++) {
     const ch = pattern[i];
@@ -112,7 +112,7 @@ export function matchGlob(pattern, path) {
       rx += ch;
     }
   }
-  return new RegExp('^' + rx + '$').test(path);
+  return new RegExp('^' + rx + '$', caseInsensitive ? 'i' : '').test(path);
 }
 
 /** Yolu normalize eder: baştaki `./`, `/` ve ters bölü ayırıcıları temizlenir. */
@@ -135,8 +135,13 @@ export function classifyPath(inputPath) {
   // klasör ancak içindeki dosyalar izinliyse izinli sayılır.
   const isDirHint = path.endsWith('/');
   const probe = isDirHint ? `${path}dosya.ts` : path;
-  const deny = DENY.find((d) => matchGlob(d.pattern, path) || (isDirHint && matchGlob(d.pattern, probe)));
-  const riskHits = RISKY.filter((r) => matchGlob(r.pattern, path) || (isDirHint && matchGlob(r.pattern, probe)));
+  // DENY ve RISKY büyük/küçük harfe duyarsız eşleşir: depoda `PaymentTimeline.tsx`,
+  // `SosButton.tsx`, `HoldSosButton.tsx` gibi adlar var — duyarlı eşleşme bunları kaçırır
+  // ve kaçırmanın bedeli (riskli dosyaya sessizce dokunmak) yanlış pozitiften ağırdır.
+  // ALLOW duyarlı kalır: izin vermek, yasaklamaktan daha temkinli olmalıdır.
+  const ci = { caseInsensitive: true };
+  const deny = DENY.find((d) => matchGlob(d.pattern, path, ci) || (isDirHint && matchGlob(d.pattern, probe, ci)));
+  const riskHits = RISKY.filter((r) => matchGlob(r.pattern, path, ci) || (isDirHint && matchGlob(r.pattern, probe, ci)));
   const inAllow = ALLOW.some((p) => matchGlob(p, probe));
   return {
     path,

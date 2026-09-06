@@ -20,6 +20,7 @@ import {
   Tappable,
 } from '@/components/ui';
 import { useT } from '@/core/i18n';
+import { goBack } from '@/core/navigation';
 import { fontFamily, radius, spacing, useTheme } from '@/core/theme';
 import type { Message } from '@/domain';
 import { useCurrentUser } from '@/features/auth/session.store';
@@ -39,6 +40,8 @@ export default function ChatScreen() {
   const send = useSendMessage(id, matchId || null);
   const [draft, setDraft] = useState('');
   const listRef = useRef<FlatList<Message>>(null);
+  // Geçersiz kimlik: sohbet kabuğu yerine "bulunamadı" gösterilir.
+  const notFound = !other.isLoading && !other.isError && !other.data;
 
   useEffect(() => {
     if (thread.data?.length) {
@@ -81,7 +84,18 @@ export default function ChatScreen() {
         style={{ flex: 1 }}
         keyboardVerticalOffset={insets.top}
       >
-        {thread.isLoading ? (
+        {notFound ? (
+          <EmptyState
+            icon="user"
+            title={t('notFound.title')}
+            description={t('notFound.description')}
+            action={{
+              label: t('common.back'),
+              onPress: () => goBack(router),
+              icon: 'arrow-left',
+            }}
+          />
+        ) : thread.isLoading ? (
           <View style={styles.skeletons}>
             <Skeleton width="60%" height={44} style={{ borderRadius: radius.lg }} />
             <Skeleton
@@ -111,6 +125,7 @@ export default function ChatScreen() {
             onContentSizeChange={() => listRef.current?.scrollToEnd({ animated: false })}
           />
         )}
+        {notFound ? null : (
         <View
           style={[
             styles.composer,
@@ -147,6 +162,7 @@ export default function ChatScreen() {
             accessibilityLabel={t('common.send')}
           />
         </View>
+        )}
       </KeyboardAvoidingView>
     </Screen>
   );

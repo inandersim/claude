@@ -1,7 +1,6 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { goBack } from '@/core/navigation';
 import React, { useEffect, useMemo, useState } from 'react';
-import { Pressable, StyleSheet, View, useWindowDimensions } from 'react-native';
+import { ActivityIndicator, Pressable, StyleSheet, View, useWindowDimensions } from 'react-native';
 import Animated, {
   Easing,
   useAnimatedStyle,
@@ -10,9 +9,10 @@ import Animated, {
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { AdventureImage, Avatar, Icon, IconButton, Text } from '@/components/ui';
+import { AdventureImage, Avatar, EmptyState, Icon, IconButton, Screen, Text } from '@/components/ui';
 import { useT } from '@/core/i18n';
-import { radius, spacing } from '@/core/theme';
+import { goBack } from '@/core/navigation';
+import { radius, spacing, useTheme } from '@/core/theme';
 import { formatRelative } from '@/core/utils/time';
 import { ADVENTURE_TYPE_META } from '@/domain';
 import { useCurrentUser } from '@/features/auth/session.store';
@@ -26,16 +26,15 @@ export default function StoryViewerScreen() {
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
   const { t, locale } = useT();
+  const { colors } = useTheme();
   const me = useCurrentUser();
   const groups = useStoryGroups();
   const markSeen = useMarkStorySeen();
 
   const list = groups.data ?? [];
-  const groupIndex = Math.max(
-    0,
-    list.findIndex((g) => g.author.id === authorId),
-  );
-  const group = list[groupIndex];
+  // Bilinmeyen kimlikte başka birinin anını göstermeyelim: -1 korunur.
+  const groupIndex = list.findIndex((g) => g.author.id === authorId);
+  const group = groupIndex >= 0 ? list[groupIndex] : undefined;
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const story = group?.stories[index];
@@ -72,8 +71,25 @@ export default function StoryViewerScreen() {
   const barStyle = useAnimatedStyle(() => ({ width: `${progress.get() * 100}%` }));
   const meta = useMemo(() => (story ? ADVENTURE_TYPE_META[story.adventureType] : null), [story]);
 
+  if (groups.isLoading) {
+    return (
+      <View style={[styles.root, styles.center, { paddingTop: insets.top }]}>
+        <ActivityIndicator color={colors.primary} />
+      </View>
+    );
+  }
+
   if (!group || !story) {
-    return <View style={[styles.root, { paddingTop: insets.top }]} />;
+    return (
+      <Screen edges={['top']} contentStyle={styles.center}>
+        <EmptyState
+          icon="camera"
+          title={t('notFound.title')}
+          description={t('notFound.description')}
+          action={{ label: t('common.back'), onPress: () => goBack(router), icon: 'arrow-left' }}
+        />
+      </Screen>
+    );
   }
 
   return (
@@ -186,6 +202,7 @@ export default function StoryViewerScreen() {
 
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: '#000' },
+  center: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   tapZone: { position: 'absolute', top: 0, bottom: 0 },
   top: { position: 'absolute', left: spacing.md, right: spacing.md, gap: spacing.sm },
   bars: { flexDirection: 'row', gap: 4 },

@@ -278,7 +278,12 @@ export function createInventoryRepository(ctx: MockContext): InventoryRepository
           t.payments[idx] = applyPaymentEvent(p, 'refund', nowIso, preview.refundTry);
         }
       }
-      t.unitBlocks = t.unitBlocks.filter((blk) => blk.bookingId !== b.id);
+      // Tarihleri serbest bırak ama rezervasyon → birim bağını koru: bloğu sıfır uzunluğa
+      // indiriyoruz (from === to hiçbir geceyle kesişmez), böylece iptal sonrası detay
+      // ekranında birim ve gecelik kırılım görünmeye devam eder.
+      for (const blk of t.unitBlocks) {
+        if (blk.bookingId === b.id) blk.to = blk.from;
+      }
       b.status = 'cancelled';
       refreshPayouts(t, b.businessId);
       ctx.db.markDirty();

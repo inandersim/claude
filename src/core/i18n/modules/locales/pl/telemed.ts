@@ -17,7 +17,7 @@ export const telemed_pl: TelemedI18nShape = {
   doctors: 'Lekarze',
   doctorsSubtitle: '{{online}} online · {{total}} lekarzy',
   history: 'Poprzednie konsultacje',
-  historySubtitle: 'Zakończone i anulowane sesje',
+  historySubtitle: 'Trwające, zakończone i anulowane sesje',
   empty: 'Brak pasujących lekarzy',
   emptyDescription: 'Poluzuj filtry lub pokaż wszystkie specjalizacje.',
   historyEmpty: 'Brak konsultacji',

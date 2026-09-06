@@ -1,0 +1,111 @@
+# Günlük kendini analiz: telemetri + CI geçmişi + test kapsamı + performans bütçeleri +
+# i18n denetimi + güvenlik taraması → önceliklendirilmiş bulgu listesi.
+# Rapor docs/health/self/<tarih>.{json,md} olarak yazılır ve selfheal/analysis-<tarih> dalında PR açılır.
+# Claude çağrılmaz — bu iş akışı yalnızca ölçer (maliyet: sadece Actions dakikası).
+name: Self analysis
+
+on:
+  schedule:
+    - cron: '30 4 * * *' # her gün 04:30 UTC (nightly-health 03:00'ten sonra, raporları çakışmasın)
+  workflow_dispatch:
+    inputs:
+      live:
+        description: 'Canlı kaynakları kullan (gh run list, npm audit, ZIRTAN_TELEMETRY_URL)'
+        type: boolean
+        default: true
+
+concurrency:
+  group: self-analysis
+  cancel-in-progress: true
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      pull-requests: write
+    env:
+      GH_TOKEN: ${{ secrets.CLAUDE_GH_TOKEN || secrets.GITHUB_TOKEN }}
+      # Gerçek telemetri ucu tanımlıysa oradan okunur; yoksa fixture kullanılır (rapor bunu yazar).
+      ZIRTAN_TELEMETRY_URL: ${{ secrets.ZIRTAN_TELEMETRY_URL }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.CLAUDE_GH_TOKEN || secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Self-heal birim testleri
+        run: npm run test:selfheal
+
+      - name: Test kapsamı (analiz girdisi)
+        continue-on-error: true
+        run: npm test -- --ci --coverage --coverageReporters=json-summary --silent
+
+      - name: Analiz (telemetri · CI · kapsam · performans · i18n · güvenlik)
+        id: analyze
+        continue-on-error: true
+        run: |
+          node agents/selfheal/analyze.mjs \
+            ${{ (github.event_name == 'workflow_dispatch' && inputs.live == false) && ' ' || '--live' }} \
+            --out docs/health/self
+
+      - name: Performans nöbeti (bütçe aşımı özeti)
+        continue-on-error: true
+        run: node agents/selfheal/perf.mjs
+
+      - name: Artefakt (rapor)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: self-analysis-${{ github.run_id }}
+          path: docs/health/self/
+          retention-days: 30
+          if-no-files-found: ignore
+
+      - name: Rapor dalı ve PR
+        if: always()
+        run: |
+          set -e
+          DATE=$(date -u +%F)
+          BRANCH="selfheal/analysis-$DATE"
+          git config user.name "zirtan-selfheal-bot"
+          git config user.email "selfheal-bot@users.noreply.github.com"
+          npx prettier --write "docs/health/self/*.md" >/dev/null 2>&1 || true
+          git checkout -B "$BRANCH"
+          git add docs/health/self
+          if git diff --cached --quiet; then
+            echo "değişiklik yok"; exit 0
+          fi
+          git commit -m "chore(selfheal): $DATE analiz raporu [skip claude]"
+          git push -f origin "$BRANCH"
+          SUMMARY=$(node -e "
+            const r=require('./docs/health/self/latest.json');
+            const s=r.summary;
+            console.log(\`Durum **\${s.overall}** — \${s.total} bulgu (\${s.bySeverity.kritik??0} kritik, \${s.bySeverity.yuksek??0} yüksek). \${s.autoFixable} otomatik düzeltilebilir, \${s.needsHuman} insan onayı gerektiriyor.\`);
+            console.log('');
+            console.log('En yüksek puanlı beş bulgu:');
+            for (const f of r.findings.slice(0,5)) console.log(\`- [\${f.severity}] \${f.title} (puan \${f.score}, \${f.source})\`);
+          ")
+          BODY="$SUMMARY
+
+          Rapor: \`docs/health/self/$DATE.md\` · Veri kaynakları raporun başındaki tabloda.
+          Düzeltme hattı: \`self-fix.yml\` iş akışını bir bulgu kimliğiyle elle tetikleyin.
+
+          Koşu: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          if gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number' | grep -q .; then
+            gh pr comment "$BRANCH" --body "$BODY"
+          else
+            gh pr create --head "$BRANCH" --base "${{ github.event.repository.default_branch }}" \
+              --title "chore(selfheal): $DATE analiz raporu" --body "$BODY" --label self-heal || \
+            gh pr create --head "$BRANCH" --base "${{ github.event.repository.default_branch }}" \
+              --title "chore(selfheal): $DATE analiz raporu" --body "$BODY"
+          fi

@@ -78,13 +78,16 @@ export function formatForChannel(item, spec) {
   if (tags.length > 0) parts.push(tags.join(' '));
 
   let text = parts.join('\n\n');
-  if (charCount(text) > spec.maxChars) {
+  /** X gibi kanallarda bağlantı sabit uzunlukta sayılır (t.co kısaltması). */
+  const effectiveLength = (value) =>
+    spec.linkCountsAs && link ? charCount(value) - charCount(link) + spec.linkCountsAs : charCount(value);
+  if (effectiveLength(text) > spec.maxChars) {
     const tail = parts.slice(1).join('\n\n');
-    const room = spec.maxChars - charCount(tail) - 2;
+    const room = spec.maxChars - effectiveLength(tail) - 2;
     text = [truncate(String(item.body).trim(), Math.max(60, room)), tail].filter(Boolean).join('\n\n');
     warnings.push(`metin ${spec.maxChars} karaktere kısaltıldı`);
-  } else if (charCount(text) > spec.recommendedChars) {
-    warnings.push(`metin ${charCount(text)} karakter; önerilen ≤ ${spec.recommendedChars}`);
+  } else if (effectiveLength(text) > spec.recommendedChars) {
+    warnings.push(`metin ${effectiveLength(text)} karakter; önerilen ≤ ${spec.recommendedChars}`);
   }
 
   const firstLine = String(item.body).split('\n')[0] ?? '';
@@ -115,7 +118,7 @@ export function packetMarkdown(item, spec, formatted, extra = {}) {
     `- Dil: ${item.lang}`,
     `- Tarih / en iyi saat: ${item.date ?? '—'} · ${item.bestTime ?? bestTimeFor(spec, item.lang)} (Europe/Istanbul)`,
     item.link ? `- Bağlantı: ${item.link}` : null,
-    `- Karakter: ${charCount(formatted.text)} / ${spec.maxChars}`,
+    `- Karakter: ${charCount(formatted.text)} / ${spec.maxChars}${spec.linkCountsAs && formatted.link ? ` (bağlantı ${spec.linkCountsAs} sayılır → etkin ${charCount(formatted.text) - charCount(formatted.link) + spec.linkCountsAs})` : ''}`,
     extra.mode ? `- Mod: ${extra.mode}${extra.reason ? ` — ${extra.reason}` : ''}` : null,
     '',
     '## Yayına giden metin',

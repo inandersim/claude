@@ -37,7 +37,12 @@ if [ -f "$ROOT/supabase/seed/seed.sql" ] && [ "${ZIRTAN_SKIP_SEED:-0}" != "1" ];
   "${PSQL[@]}" -d "$DB" -f "$ROOT/supabase/seed/seed.sql" >/dev/null
 fi
 
-echo "→ doğrulama sorguları"
+echo "→ şema doğrulaması"
 "${PSQL[@]}" -d "$DB" -f "$ROOT/supabase/test/01_assertions.sql"
+
+if [ -f "$ROOT/supabase/seed/seed.sql" ] && [ "${ZIRTAN_SKIP_SEED:-0}" != "1" ]; then
+  echo "→ RLS ve fonksiyon testleri"
+  "${PSQL[@]}" -d "$DB" -f "$ROOT/supabase/test/02_rls_tests.sql"
+fi
 
 echo "✓ Tüm migration'lar hatasız uygulandı."

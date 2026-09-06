@@ -85,10 +85,23 @@ export function createTrackRepository(ctx: MockContext): TrackRepository {
     return [...direct, ...corridor];
   };
 
+  /** POI listesini mesafe ve "benim onayım" bilgisiyle zenginleştirir. */
+  const decoratePois = (
+    t: Tables,
+    pois: TrackPoi[],
+    meId: ID | null,
+    origin: GeoPoint | null,
+  ): TrackPoi[] => {
+    if (!meId) return pois;
+    const decorated: TrackPoiWithDistance[] = pois.map((p) => withDistance(t, p, meId, origin));
+    return decorated;
+  };
+
   const withDetails = (
     t: Tables,
     trail: CommunityTrail,
     origin: GeoPoint | null,
+    meId: ID | null = null,
   ): CommunityTrailWithDetails => {
     const contributorIds = new Set(
       t.tracks.filter((x) => x.communityTrailId === trail.id).map((x) => x.userId),
@@ -101,7 +114,8 @@ export function createTrackRepository(ctx: MockContext): TrackRepository {
     const start = trail.points[0];
     return {
       ...trail,
-      pois: trailPois(t, trail),
+      // Detay ekranında POI mesafesi gösterilmez; yalnızca "benim onayım" bilgisi taşınır
+      pois: decoratePois(t, trailPois(t, trail), meId, null),
       distanceFromMeKm: origin && start ? round(distanceKm(origin, start), 1) : null,
       contributors,
     };
@@ -238,7 +252,12 @@ export function createTrackRepository(ctx: MockContext): TrackRepository {
       const me = t.users.find((u) => u.id === meId);
       return {
         ...withUser(t, track, me?.coords ?? null),
-        pois: t.trackPois.filter((p) => p.trackId === id),
+        pois: decoratePois(
+          t,
+          t.trackPois.filter((p) => p.trackId === id),
+          meId,
+          null,
+        ),
       };
     },
 
@@ -328,7 +347,7 @@ export function createTrackRepository(ctx: MockContext): TrackRepository {
       const trail = t.communityTrails.find((x) => x.id === id);
       if (!trail) return null;
       const me = t.users.find((u) => u.id === meId);
-      return withDetails(t, trail, me?.coords ?? null);
+      return withDetails(t, trail, me?.coords ?? null, meId);
     },
 
     async verifyTrail(meId, id) {

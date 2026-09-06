@@ -56,10 +56,20 @@ export default function NotificationsScreen() {
           break;
         case 'like':
         case 'comment':
+        case 'reaction':
+        case 'mention':
+        case 'repost':
           if (n.postId) router.push({ pathname: '/post/[id]', params: { id: n.postId } });
           break;
         case 'follow':
           router.push({ pathname: '/user/[id]', params: { id: n.senderId } });
+          break;
+        case 'story_posted':
+          router.push({ pathname: '/stories/[authorId]', params: { authorId: n.senderId } });
+          break;
+        case 'group_invite':
+        case 'group_message':
+          if (n.targetId) router.push({ pathname: '/groups/[id]', params: { id: n.targetId } });
           break;
         case 'booking_request':
         case 'booking_confirmed':

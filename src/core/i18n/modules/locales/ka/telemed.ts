@@ -16,7 +16,7 @@ export const telemed_ka: TelemedI18nShape = {
   doctors: 'ექიმები',
   doctorsSubtitle: '{{online}} ონლაინ · {{total}} ექიმი',
   history: 'წინა კონსულტაციები',
-  historySubtitle: 'დასრულებული და გაუქმებული საუბრები',
+  historySubtitle: 'მიმდინარე, დასრულებული და გაუქმებული საუბრები',
   empty: 'შესაფერისი ექიმი ვერ მოიძებნა',
   emptyDescription: 'შეარბილე ფილტრები ან ნახე ყველა სპეციალობა.',
   historyEmpty: 'ჯერ კონსულტაციები არ არის',

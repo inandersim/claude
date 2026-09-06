@@ -212,13 +212,36 @@ export const HASHTAGS = {
   },
 };
 
+/** Ülkeye göre yerel hashtag'ler — içerik konusunun ülkesiyle eşleşir. */
+export const LOCAL_TAGS_BY_COUNTRY = {
+  TR: { tr: ['#kaçkar', '#likyayolu', '#kapadokya', '#aladağlar', '#ağrıdağı', '#geyikbayırı', '#olimpos'], en: ['#turkey', '#lycianway', '#cappadocia', '#kackar', '#geyikbayiri'], de: ['#türkei', '#lykischerweg', '#kappadokien', '#kackar'], ru: ['#турция', '#ликийскаятропа', '#каппадокия', '#качкар'] },
+  NP: { tr: ['#nepal', '#everest', '#annapurna', '#himalaya'], en: ['#nepal', '#everestbasecamp', '#annapurna', '#himalayas'], de: ['#nepal', '#everest', '#annapurna', '#himalaya'], ru: ['#непал', '#эверест', '#аннапурна', '#гималаи'] },
+  GE: { tr: ['#gürcistan', '#kafkasya', '#svaneti'], en: ['#georgia', '#caucasus', '#svaneti'], de: ['#georgien', '#kaukasus', '#swanetien'], ru: ['#грузия', '#кавказ', '#сванетия'] },
+  RU: { tr: ['#elbruz', '#kafkasya'], en: ['#elbrus', '#caucasus'], de: ['#elbrus', '#kaukasus'], ru: ['#эльбрус', '#кавказ'] },
+  FR: { tr: ['#montblanc', '#alpler'], en: ['#montblanc', '#alps', '#tmb'], de: ['#montblanc', '#alpen'], ru: ['#монблан', '#альпы'] },
+  CH: { tr: ['#alpler', '#zermatt'], en: ['#alps', '#hauteroute', '#zermatt'], de: ['#alpen', '#hauteroute', '#zermatt'], ru: ['#альпы', '#церматт'] },
+  IT: { tr: ['#dolomitler', '#alpler'], en: ['#dolomites', '#alps'], de: ['#dolomiten', '#alpen'], ru: ['#доломиты', '#альпы'] },
+  GR: { tr: ['#kalymnos', '#yunanistan'], en: ['#kalymnos', '#greece'], de: ['#kalymnos', '#griechenland'], ru: ['#калимнос', '#греция'] },
+  TZ: { tr: ['#kilimanjaro', '#tanzanya'], en: ['#kilimanjaro', '#tanzania'], de: ['#kilimandscharo', '#tansania'], ru: ['#килиманджаро', '#танзания'] },
+  PE: { tr: ['#peru', '#incayolu'], en: ['#peru', '#incatrail'], de: ['#peru', '#inkapfad'], ru: ['#перу', '#инкатрейл'] },
+  CL: { tr: ['#patagonya', '#torresdelpaine'], en: ['#patagonia', '#torresdelpaine'], de: ['#patagonien', '#torresdelpaine'], ru: ['#патагония', '#торресдельпайне'] },
+  AR: { tr: ['#patagonya', '#aconcagua'], en: ['#patagonia', '#aconcagua'], de: ['#patagonien', '#aconcagua'], ru: ['#патагония', '#аконкагуа'] },
+};
+
+/** Konu ülkesine göre yerel etiketler; ülke bilinmiyorsa genel havuz. */
+export function localTags(country, lang) {
+  const byCountry = LOCAL_TAGS_BY_COUNTRY[country];
+  if (byCountry?.[lang]) return byCountry[lang];
+  return (HASHTAGS[lang] ?? HASHTAGS.en).local;
+}
+
 /** Çağrı kalıpları — kanal ve amaca göre seçilir. */
 export const CTAS = {
   tr: [
-    'Zirtan’i indir, yakınındaki maceraperestlerle eşleş.',
-    'Rotanı Zirtan’de aç, tehlike haritasına bak, sonra yola çık.',
+    'Zirtan’ı indir, yakınındaki maceraperestlerle eşleş.',
+    'Rotanı Zirtan’da aç, tehlike haritasına bak, sonra yola çık.',
     'Gördüğün tehlikeyi işaretle — arkandan gelen bilsin.',
-    'Kulübünü Zirtan’e ekle, etkinliğini duyur.',
+    'Kulübünü Zirtan’a ekle, etkinliğini duyur.',
     'Davet kodunla arkadaşını çağır, ikiniz de Pro kazanın.',
   ],
   en: [

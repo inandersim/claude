@@ -61,6 +61,8 @@ export default function BookStayScreen() {
   const business = useBusiness(businessId, null);
   const units = useUnits(businessId);
   const host = useHostProfile(businessId);
+  // Parametresiz ya da geçersiz kimlikle açıldığında "birim yok" değil "bulunamadı" göster.
+  const missingBusiness = !businessId || (!business.isLoading && !business.data);
   const selectedUnitId = unitId ?? units.data?.[0]?.id ?? null;
   const selectedUnit = units.data?.find((u) => u.id === selectedUnitId) ?? null;
   const availability = useAvailability(selectedUnitId, month, shiftMonth(month, 1));
@@ -117,9 +119,15 @@ export default function BookStayScreen() {
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
       >
-        {units.isError ? (
+        {missingBusiness ? (
+          <EmptyState
+            icon="building-2"
+            title={t('inventory.business.notFound')}
+            description={t('inventory.business.notFoundDescription')}
+          />
+        ) : units.isError ? (
           <ErrorState onRetry={() => units.refetch()} />
-        ) : units.isLoading ? (
+        ) : units.isLoading || business.isLoading ? (
           <SkeletonGroup>
             <Skeleton height={96} style={{ borderRadius: radius.xl }} />
             <Skeleton height={96} style={{ borderRadius: radius.xl }} />
@@ -227,26 +235,28 @@ export default function BookStayScreen() {
         )}
       </ScrollView>
 
-      <View
-        style={[
-          styles.footer,
-          {
-            backgroundColor: colors.background,
-            borderTopColor: colors.border,
-            paddingBottom: Math.max(insets.bottom, spacing.md),
-          },
-        ]}
-      >
-        <Button
-          label={t('inventory.payment.payWithEscrow')}
-          icon="lock"
-          size="lg"
-          fullWidth
-          loading={book.isPending}
-          disabled={!canPay}
-          onPress={submit}
-        />
-      </View>
+      {missingBusiness ? null : (
+        <View
+          style={[
+            styles.footer,
+            {
+              backgroundColor: colors.background,
+              borderTopColor: colors.border,
+              paddingBottom: Math.max(insets.bottom, spacing.md),
+            },
+          ]}
+        >
+          <Button
+            label={t('inventory.payment.payWithEscrow')}
+            icon="lock"
+            size="lg"
+            fullWidth
+            loading={book.isPending}
+            disabled={!canPay}
+            onPress={submit}
+          />
+        </View>
+      )}
     </Screen>
   );
 }

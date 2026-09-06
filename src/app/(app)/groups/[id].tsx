@@ -93,6 +93,7 @@ export default function GroupChatScreen() {
     [messages.data, group.data?.pinnedMessageId],
   );
 
+  const notFound = !group.isLoading && !group.isError && !group.data;
   const state = postingState(group.data);
   const manager = canManageGroup(group.data?.membership ?? null);
   const disabledLabel =
@@ -207,6 +208,20 @@ export default function GroupChatScreen() {
             />
             <Skeleton width="50%" height={44} style={{ borderRadius: radius.lg }} />
           </View>
+        ) : notFound ? (
+          /* Geçersiz kimlik: hata değil, "bulunamadı" gösterilir. */
+          <View style={styles.emptyWrap}>
+            <EmptyState
+              icon="users"
+              title={t('notFound.title')}
+              description={t('notFound.description')}
+              action={{
+                label: t('groups.title'),
+                onPress: () => router.replace('/groups'),
+                icon: 'arrow-left',
+              }}
+            />
+          </View>
         ) : messages.isError || group.isError ? (
           <ErrorState onRetry={() => messages.refetch()} />
         ) : (
@@ -259,19 +274,21 @@ export default function GroupChatScreen() {
           </View>
         ) : null}
 
-        <Composer
-          value={draft}
-          onChange={setDraft}
-          onSend={sendText}
-          onAttach={(kind) => {
-            onAttach(kind).catch(onError);
-          }}
-          replyTo={replyTo}
-          onCancelReply={() => setReplyTo(null)}
-          sending={send.isPending}
-          disabledLabel={disabledLabel}
-          bottomInset={insets.bottom}
-        />
+        {notFound ? null : (
+          <Composer
+            value={draft}
+            onChange={setDraft}
+            onSend={sendText}
+            onAttach={(kind) => {
+              onAttach(kind).catch(onError);
+            }}
+            replyTo={replyTo}
+            onCancelReply={() => setReplyTo(null)}
+            sending={send.isPending}
+            disabledLabel={disabledLabel}
+            bottomInset={insets.bottom}
+          />
+        )}
       </KeyboardAvoidingView>
 
       <PollComposer

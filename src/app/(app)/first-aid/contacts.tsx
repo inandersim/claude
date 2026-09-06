@@ -12,6 +12,12 @@ import type { EmergencyContact } from '@/domain';
 import { useCurrentUser } from '@/features/auth/session.store';
 import { useUpdateEmergencyContacts } from '@/features/firstaid/hooks';
 
+/** Satır başına doğrulama hatası (ad / telefon). */
+interface RowError {
+  name?: string;
+  phone?: string;
+}
+
 export default function EmergencyContactsScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
@@ -23,12 +29,30 @@ export default function EmergencyContactsScreen() {
   const [contacts, setContacts] = useState<EmergencyContact[]>(
     me.emergencyContacts.length ? me.emergencyContacts : [{ name: '', phone: '', userId: null }],
   );
+  const [errors, setErrors] = useState<RowError[]>([]);
 
-  const set = (i: number, patch: Partial<EmergencyContact>) =>
+  const set = (i: number, patch: Partial<EmergencyContact>) => {
     setContacts((list) => list.map((c, idx) => (idx === i ? { ...c, ...patch } : c)));
-  const remove = (i: number) => setContacts((list) => list.filter((_, idx) => idx !== i));
+    setErrors((prev) => (prev.length ? prev.map((e, idx) => (idx === i ? {} : e)) : prev));
+  };
+  const remove = (i: number) => {
+    setContacts((list) => list.filter((_, idx) => idx !== i));
+    setErrors((prev) => (prev.length ? prev.filter((_, idx) => idx !== i) : prev));
+  };
 
-  const save = () =>
+  const save = () => {
+    // Yarım dolu satır sessizce siliniyordu: ad ya da telefondan biri boşsa uyar
+    const next: RowError[] = contacts.map((c) => {
+      const name = c.name.trim();
+      const phone = c.phone.trim();
+      if (!name && !phone) return {};
+      return {
+        name: name ? undefined : t('auth.requiredField'),
+        phone: phone ? undefined : t('auth.requiredField'),
+      };
+    });
+    setErrors(next);
+    if (next.some((e) => e.name || e.phone)) return;
     update.mutate(contacts, {
       onSuccess: () => {
         toast(t('firstAid.contactsSaved'), 'success');
@@ -36,6 +60,7 @@ export default function EmergencyContactsScreen() {
       },
       onError: () => toast(t('common.error'), 'error'),
     });
+  };
 
   return (
     <Screen edges={['top']}>
@@ -79,6 +104,7 @@ export default function EmergencyContactsScreen() {
                 value={c.name}
                 onChangeText={(v) => set(i, { name: v })}
                 placeholder={t('firstAid.contactNamePlaceholder')}
+                error={errors[i]?.name}
               />
               <Input
                 label={t('firstAid.contactPhone')}
@@ -87,6 +113,7 @@ export default function EmergencyContactsScreen() {
                 onChangeText={(v) => set(i, { phone: v })}
                 keyboardType="phone-pad"
                 placeholder={t('firstAid.contactPhonePlaceholder')}
+                error={errors[i]?.phone}
               />
             </View>
           ))}

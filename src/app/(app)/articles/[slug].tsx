@@ -212,7 +212,7 @@ export default function ArticleDetailScreen() {
                   <ActionButton
                     icon="bookmark"
                     label={data.savedByMe ? t('articles.savedState') : t('articles.save')}
-                    a11y={t('articles.save')}
+                    a11y={data.savedByMe ? t('articles.savedState') : t('articles.save')}
                     active={data.savedByMe}
                     color={colors.primary}
                     onPress={() => save.mutate(data.id, { onError })}

@@ -15,7 +15,7 @@ export const telemed_ko: TelemedI18nShape = {
   doctors: '의사',
   doctorsSubtitle: '온라인 {{online}}명 · 의사 {{total}}명',
   history: '지난 상담',
-  historySubtitle: '완료 및 취소된 세션',
+  historySubtitle: '진행 중·완료·취소된 세션',
   empty: '일치하는 의사가 없어요',
   emptyDescription: '필터를 완화하거나 모든 전문 분야를 표시하세요.',
   historyEmpty: '아직 상담이 없어요',

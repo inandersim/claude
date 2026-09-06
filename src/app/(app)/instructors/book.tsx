@@ -15,6 +15,7 @@ import {
   Avatar,
   Button,
   Chip,
+  EmptyState,
   Header,
   Icon,
   IconButton,
@@ -43,6 +44,8 @@ export default function BookInstructorScreen() {
   const [dayOffset, setDayOffset] = useState<number>(3);
   const [message, setMessage] = useState('');
   const data = instructor.data;
+  // Parametresiz ya da geçersiz kimlikle açıldığında iskelet takılı kalmasın.
+  const notFound = !instructorId || (!instructor.isLoading && !data);
   const effectiveType = type ?? data?.specialties[0] ?? 'hiking';
 
   // Eğitmenin uygun günlerine denk gelen sonraki 10 gün
@@ -92,120 +95,135 @@ export default function BookInstructorScreen() {
           contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + 120 }]}
           keyboardShouldPersistTaps="handled"
         >
-          {instructor.isLoading || !data ? (
-            <Skeleton height={80} style={{ borderRadius: radius.xl }} />
+          {notFound ? (
+            <EmptyState
+              icon="graduation-cap"
+              title={t('notFound.title')}
+              description={t('notFound.description')}
+            />
           ) : (
-            <View
-              style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.border }]}
-            >
-              <Avatar
-                uri={data.user.avatarUrl}
-                name={data.user.displayName}
-                size={52}
-                verified={data.user.isVerified}
-                ring
-              />
-              <View style={{ flex: 1 }}>
-                <Text variant="h3">{data.user.displayName}</Text>
-                <Text variant="caption" color="textMuted" numberOfLines={1}>
-                  {data.headline}
-                </Text>
-                <RatingStars rating={data.rating} count={data.reviewCount} size={11} />
-              </View>
-            </View>
-          )}
-
-          <Field title={t('post.adventureType')}>
-            <View style={styles.chips}>
-              {(data?.specialties ?? []).map((item) => {
-                const meta = ADVENTURE_TYPE_META[item];
-                return (
-                  <Chip
-                    key={item}
-                    label={t(meta.labelKey)}
-                    icon={meta.icon}
-                    color={meta.color}
-                    selected={effectiveType === item}
-                    onPress={() => setType(item)}
+            <>
+              {instructor.isLoading || !data ? (
+                <Skeleton height={80} style={{ borderRadius: radius.xl }} />
+              ) : (
+                <View
+                  style={[
+                    styles.card,
+                    { backgroundColor: colors.surface, borderColor: colors.border },
+                  ]}
+                >
+                  <Avatar
+                    uri={data.user.avatarUrl}
+                    name={data.user.displayName}
+                    size={52}
+                    verified={data.user.isVerified}
+                    ring
                   />
-                );
-              })}
-            </View>
-          </Field>
+                  <View style={{ flex: 1 }}>
+                    <Text variant="h3">{data.user.displayName}</Text>
+                    <Text variant="caption" color="textMuted" numberOfLines={1}>
+                      {data.headline}
+                    </Text>
+                    <RatingStars rating={data.rating} count={data.reviewCount} size={11} />
+                  </View>
+                </View>
+              )}
 
-          <Field title={t('instructors.date')}>
-            <View style={styles.chips}>
-              {options.map((o) => (
-                <Chip
-                  key={o.offset}
-                  size="sm"
-                  icon="calendar"
-                  label={o.date.toLocaleDateString(locale === 'tr' ? 'tr-TR' : 'en-US', {
-                    weekday: 'short',
-                    day: 'numeric',
-                    month: 'short',
+              <Field title={t('post.adventureType')}>
+                <View style={styles.chips}>
+                  {(data?.specialties ?? []).map((item) => {
+                    const meta = ADVENTURE_TYPE_META[item];
+                    return (
+                      <Chip
+                        key={item}
+                        label={t(meta.labelKey)}
+                        icon={meta.icon}
+                        color={meta.color}
+                        selected={effectiveType === item}
+                        onPress={() => setType(item)}
+                      />
+                    );
                   })}
-                  selected={selected?.offset === o.offset}
-                  onPress={() => setDayOffset(o.offset)}
-                />
-              ))}
-            </View>
-          </Field>
+                </View>
+              </Field>
 
-          <Field title={t('chat.title')}>
-            <View
-              style={[
-                styles.textarea,
-                { backgroundColor: colors.surfaceMuted, borderColor: colors.border },
-              ]}
-            >
-              <TextInput
-                value={message}
-                onChangeText={setMessage}
-                placeholder={t('instructors.messagePlaceholder')}
-                placeholderTextColor={colors.textSubtle}
-                multiline
-                maxLength={400}
-                style={[
-                  styles.textareaInput,
-                  { color: colors.text, fontFamily: fontFamily.medium },
-                ]}
-              />
-            </View>
-          </Field>
+              <Field title={t('instructors.date')}>
+                <View style={styles.chips}>
+                  {options.map((o) => (
+                    <Chip
+                      key={o.offset}
+                      size="sm"
+                      icon="calendar"
+                      label={o.date.toLocaleDateString(locale === 'tr' ? 'tr-TR' : 'en-US', {
+                        weekday: 'short',
+                        day: 'numeric',
+                        month: 'short',
+                      })}
+                      selected={selected?.offset === o.offset}
+                      onPress={() => setDayOffset(o.offset)}
+                    />
+                  ))}
+                </View>
+              </Field>
 
-          {data ? (
-            <View style={[styles.summary, { backgroundColor: colors.primarySoft }]}>
-              <Icon name="banknote" size={18} color={colors.primary} strokeWidth={2.4} />
-              <Text variant="bodySm" color="textMuted" style={{ flex: 1 }}>
-                {data.sessionDurationMin} dk · {t(ADVENTURE_TYPE_META[effectiveType].labelKey)}
-              </Text>
-              <Text variant="h3" color="primary">
-                {formatPriceTry(data.pricePerSessionTry, locale)}
-              </Text>
-            </View>
-          ) : null}
+              <Field title={t('chat.title')}>
+                <View
+                  style={[
+                    styles.textarea,
+                    { backgroundColor: colors.surfaceMuted, borderColor: colors.border },
+                  ]}
+                >
+                  <TextInput
+                    value={message}
+                    onChangeText={setMessage}
+                    placeholder={t('instructors.messagePlaceholder')}
+                    placeholderTextColor={colors.textSubtle}
+                    multiline
+                    maxLength={400}
+                    style={[
+                      styles.textareaInput,
+                      { color: colors.text, fontFamily: fontFamily.medium },
+                    ]}
+                  />
+                </View>
+              </Field>
+
+              {data ? (
+                <View style={[styles.summary, { backgroundColor: colors.primarySoft }]}>
+                  <Icon name="banknote" size={18} color={colors.primary} strokeWidth={2.4} />
+                  <Text variant="bodySm" color="textMuted" style={{ flex: 1 }}>
+                    {data.sessionDurationMin} dk · {t(ADVENTURE_TYPE_META[effectiveType].labelKey)}
+                  </Text>
+                  <Text variant="h3" color="primary">
+                    {formatPriceTry(data.pricePerSessionTry, locale)}
+                  </Text>
+                </View>
+              ) : null}
+            </>
+          )}
         </ScrollView>
-        <View
-          style={[
-            styles.footer,
-            {
-              backgroundColor: colors.background,
-              borderTopColor: colors.border,
-              paddingBottom: Math.max(insets.bottom, spacing.md),
-            },
-          ]}
-        >
-          <Button
-            label={t('instructors.sendRequest')}
-            icon="calendar-check"
-            size="lg"
-            fullWidth
-            loading={book.isPending}
-            disabled={!data}
-            onPress={submit}
-          />
-        </View>
+        {notFound ? null : (
+          <View
+            style={[
+              styles.footer,
+              {
+                backgroundColor: colors.background,
+                borderTopColor: colors.border,
+                paddingBottom: Math.max(insets.bottom, spacing.md),
+              },
+            ]}
+          >
+            <Button
+              label={t('instructors.sendRequest')}
+              icon="calendar-check"
+              size="lg"
+              fullWidth
+              loading={book.isPending}
+              disabled={!data}
+              onPress={submit}
+            />
+          </View>
+        )}
       </KeyboardAvoidingView>
     </Screen>
   );

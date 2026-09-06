@@ -16,7 +16,7 @@ export const telemed_de: TelemedI18nShape = {
   doctors: 'Ärzte',
   doctorsSubtitle: '{{online}} online · {{total}} Ärzte',
   history: 'Frühere Beratungen',
-  historySubtitle: 'Abgeschlossene und abgebrochene Gespräche',
+  historySubtitle: 'Laufende, abgeschlossene und abgebrochene Gespräche',
   empty: 'Kein passender Arzt gefunden',
   emptyDescription: 'Lockere die Filter oder zeige alle Fachrichtungen.',
   historyEmpty: 'Noch keine Beratungen',
