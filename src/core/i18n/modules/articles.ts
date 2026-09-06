@@ -1,4 +1,11 @@
+import { articles_pt } from './locales/pt/articles';
+import { articles_es } from './locales/es/articles';
+import { articles_fr } from './locales/fr/articles';
+import { articles_de } from './locales/de/articles';
+import { articles_ru } from './locales/ru/articles';
+import { articles_it } from './locales/it/articles';
 import { localeSet } from './shared';
+import { articles_ja } from './locales/ja/articles';
 
 const tr = {
   title: 'Yazarlar & Blog',
@@ -327,4 +334,12 @@ const en: ArticlesI18nShape = {
 };
 
 /** articles modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
-export const articlesI18n = localeSet(tr, en);
+export const articlesI18n = localeSet(tr, en, {
+  ru: articles_ru,
+  ja: articles_ja,
+  de: articles_de,
+  fr: articles_fr,
+  es: articles_es,
+  pt: articles_pt,
+  it: articles_it,
+});

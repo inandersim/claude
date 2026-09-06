@@ -1,4 +1,11 @@
+import { vision_pt } from './locales/pt/vision';
+import { vision_es } from './locales/es/vision';
+import { vision_fr } from './locales/fr/vision';
+import { vision_de } from './locales/de/vision';
+import { vision_ru } from './locales/ru/vision';
+import { vision_it } from './locales/it/vision';
 import { localeSet } from './shared';
+import { vision_ja } from './locales/ja/vision';
 
 const tr = {
   title: 'Kamera ile sor',
@@ -184,4 +191,12 @@ const en: VisionI18nShape = {
 };
 
 /** vision modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
-export const visionI18n = localeSet(tr, en);
+export const visionI18n = localeSet(tr, en, {
+  ru: vision_ru,
+  ja: vision_ja,
+  de: vision_de,
+  fr: vision_fr,
+  es: vision_es,
+  pt: vision_pt,
+  it: vision_it,
+});

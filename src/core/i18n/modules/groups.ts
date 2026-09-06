@@ -1,4 +1,11 @@
+import { groups_pt } from './locales/pt/groups';
+import { groups_es } from './locales/es/groups';
+import { groups_fr } from './locales/fr/groups';
+import { groups_de } from './locales/de/groups';
+import { groups_ru } from './locales/ru/groups';
+import { groups_it } from './locales/it/groups';
 import { localeSet } from './shared';
+import { groups_ja } from './locales/ja/groups';
 
 const tr = {
   title: 'Gruplar',
@@ -336,4 +343,12 @@ const en: GroupsI18nShape = {
 };
 
 /** groups modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
-export const groupsI18n = localeSet(tr, en);
+export const groupsI18n = localeSet(tr, en, {
+  ru: groups_ru,
+  ja: groups_ja,
+  de: groups_de,
+  fr: groups_fr,
+  es: groups_es,
+  pt: groups_pt,
+  it: groups_it,
+});

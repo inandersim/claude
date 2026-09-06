@@ -1,4 +1,11 @@
+import { tv_pt } from './locales/pt/tv';
+import { tv_es } from './locales/es/tv';
+import { tv_fr } from './locales/fr/tv';
+import { tv_de } from './locales/de/tv';
+import { tv_ru } from './locales/ru/tv';
+import { tv_it } from './locales/it/tv';
 import { localeSet } from './shared';
+import { tv_ja } from './locales/ja/tv';
 
 const tr = {
   title: 'Zirtan TV',
@@ -292,4 +299,12 @@ const en: TvI18nShape = {
 };
 
 /** tv modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
-export const tvI18n = localeSet(tr, en);
+export const tvI18n = localeSet(tr, en, {
+  ru: tv_ru,
+  ja: tv_ja,
+  de: tv_de,
+  fr: tv_fr,
+  es: tv_es,
+  pt: tv_pt,
+  it: tv_it,
+});

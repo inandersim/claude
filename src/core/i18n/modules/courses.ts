@@ -1,4 +1,11 @@
+import { courses_pt } from './locales/pt/courses';
+import { courses_es } from './locales/es/courses';
+import { courses_fr } from './locales/fr/courses';
+import { courses_de } from './locales/de/courses';
+import { courses_ru } from './locales/ru/courses';
+import { courses_it } from './locales/it/courses';
 import { localeSet } from './shared';
+import { courses_ja } from './locales/ja/courses';
 
 const tr = {
   title: 'Eğitimler',
@@ -91,10 +98,10 @@ const tr = {
     next: 'Sonraki soru',
     submit: 'Cevapları gönder',
     result: 'Sonuç',
-    score: '{{correct}}/{{total}} doğru · %{{score}}',
+    score: '{{correct}}/{{total}} doğru · % {{score}}',
     passed: 'Geçtin! 🎉',
     failed: 'Geçemedin. Tekrar dene.',
-    passHint: 'Geçmek için en az %{{score}} gerekir.',
+    passHint: 'Geçmek için en az % {{score}} gerekir.',
     retry: 'Tekrar dene',
     review: 'Yanlışlar: {{list}}',
   },
@@ -387,4 +394,12 @@ const en: CoursesI18nShape = {
 };
 
 /** courses modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
-export const coursesI18n = localeSet(tr, en);
+export const coursesI18n = localeSet(tr, en, {
+  ru: courses_ru,
+  ja: courses_ja,
+  de: courses_de,
+  fr: courses_fr,
+  es: courses_es,
+  pt: courses_pt,
+  it: courses_it,
+});

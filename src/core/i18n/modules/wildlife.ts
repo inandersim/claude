@@ -1,4 +1,11 @@
+import { wildlife_pt } from './locales/pt/wildlife';
+import { wildlife_es } from './locales/es/wildlife';
+import { wildlife_fr } from './locales/fr/wildlife';
+import { wildlife_de } from './locales/de/wildlife';
+import { wildlife_ru } from './locales/ru/wildlife';
+import { wildlife_it } from './locales/it/wildlife';
 import { localeSet } from './shared';
+import { wildlife_ja } from './locales/ja/wildlife';
 
 const tr = {
   title: 'Canlı tanıma & güvenlik',
@@ -83,7 +90,7 @@ const tr = {
     noInput: 'Fotoğraf ya da açıklama ekle',
     error: 'Tanımlama başarısız',
     result: 'Olası türler',
-    confidence: '%{{value}} güven',
+    confidence: '% {{value}} güven',
     source: { remote: 'Model tahmini', local: 'Çevrimdışı tahmin' },
     advice: 'Tavsiye',
     dangerAlert: 'Tehlikeli tür olasılığı',
@@ -464,4 +471,12 @@ const en: WildlifeI18nShape = {
 };
 
 /** wildlife modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
-export const wildlifeI18n = localeSet(tr, en);
+export const wildlifeI18n = localeSet(tr, en, {
+  ru: wildlife_ru,
+  ja: wildlife_ja,
+  de: wildlife_de,
+  fr: wildlife_fr,
+  es: wildlife_es,
+  pt: wildlife_pt,
+  it: wildlife_it,
+});

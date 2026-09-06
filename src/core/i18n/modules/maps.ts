@@ -98,7 +98,7 @@ const tr = {
   nodeLabel: '{{name}}, {{altitude}}',
   createdAt: 'Kaydedildi: {{date}}',
   packForRegion: 'Bölge paketi',
-  progress: '%{{percent}}',
+  progress: '% {{percent}}',
 };
 
 /** Diğer dillerin uyması gereken şekil. */

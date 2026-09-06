@@ -1,4 +1,11 @@
+import { social_pt } from './locales/pt/social';
+import { social_es } from './locales/es/social';
+import { social_fr } from './locales/fr/social';
+import { social_de } from './locales/de/social';
+import { social_ru } from './locales/ru/social';
+import { social_it } from './locales/it/social';
 import { localeSet } from './shared';
+import { social_ja } from './locales/ja/social';
 
 const tr = {
   title: 'Topluluk',
@@ -210,4 +217,12 @@ const en: SocialI18nShape = {
 };
 
 /** social modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
-export const socialI18n = localeSet(tr, en);
+export const socialI18n = localeSet(tr, en, {
+  ru: social_ru,
+  ja: social_ja,
+  de: social_de,
+  fr: social_fr,
+  es: social_es,
+  pt: social_pt,
+  it: social_it,
+});

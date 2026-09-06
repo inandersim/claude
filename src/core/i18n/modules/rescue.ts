@@ -1,4 +1,11 @@
+import { rescue_pt } from './locales/pt/rescue';
+import { rescue_es } from './locales/es/rescue';
+import { rescue_fr } from './locales/fr/rescue';
+import { rescue_de } from './locales/de/rescue';
+import { rescue_ru } from './locales/ru/rescue';
+import { rescue_it } from './locales/it/rescue';
 import { localeSet } from './shared';
+import { rescue_ja } from './locales/ja/rescue';
 
 const tr = {
   title: 'Ülke kurtarma dizini',
@@ -160,4 +167,12 @@ const en: RescueI18nShape = {
 };
 
 /** rescue modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
-export const rescueI18n = localeSet(tr, en);
+export const rescueI18n = localeSet(tr, en, {
+  ru: rescue_ru,
+  ja: rescue_ja,
+  de: rescue_de,
+  fr: rescue_fr,
+  es: rescue_es,
+  pt: rescue_pt,
+  it: rescue_it,
+});

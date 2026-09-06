@@ -1,4 +1,11 @@
+import { kids_pt } from './locales/pt/kids';
+import { kids_es } from './locales/es/kids';
+import { kids_fr } from './locales/fr/kids';
+import { kids_de } from './locales/de/kids';
+import { kids_ru } from './locales/ru/kids';
+import { kids_it } from './locales/it/kids';
 import { localeSet } from './shared';
+import { kids_ja } from './locales/ja/kids';
 
 const tr = {
   title: 'Çocuk',
@@ -324,4 +331,12 @@ const en: KidsI18nShape = {
 };
 
 /** kids modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
-export const kidsI18n = localeSet(tr, en);
+export const kidsI18n = localeSet(tr, en, {
+  ru: kids_ru,
+  ja: kids_ja,
+  de: kids_de,
+  fr: kids_fr,
+  es: kids_es,
+  pt: kids_pt,
+  it: kids_it,
+});
