@@ -731,6 +731,8 @@ export const cs: Translations = {
     addContact: 'Přidat kontakt',
     contactName: 'Jméno',
     contactPhone: 'Telefon',
+    contactNamePlaceholder: 'Jana Nováková',
+    contactPhonePlaceholder: '+420 6xx xxx xxx',
     contactsSaved: 'Nouzové kontakty uloženy',
     emergencyNumber: 'Tísňové číslo',
     disclaimer:

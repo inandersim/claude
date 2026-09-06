@@ -734,6 +734,8 @@ export const id: Translations = {
     addContact: 'Tambah kontak',
     contactName: 'Nama',
     contactPhone: 'Telepon',
+    contactNamePlaceholder: 'Siti Rahayu',
+    contactPhonePlaceholder: '+62 8xx xxxx xxxx',
     contactsSaved: 'Kontak darurat tersimpan',
     emergencyNumber: 'Nomor darurat',
     disclaimer:

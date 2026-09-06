@@ -735,6 +735,8 @@ export const ru: Translations = {
     addContact: 'Добавить контакт',
     contactName: 'Имя',
     contactPhone: 'Телефон',
+    contactNamePlaceholder: 'Анна Иванова',
+    contactPhonePlaceholder: '+7 9xx xxx-xx-xx',
     contactsSaved: 'Экстренные контакты сохранены',
     emergencyNumber: 'Экстренный номер',
     disclaimer:

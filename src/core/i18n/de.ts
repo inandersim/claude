@@ -741,6 +741,8 @@ export const de: Translations = {
     addContact: 'Notfallkontakt hinzufügen',
     contactName: 'Name',
     contactPhone: 'Telefon',
+    contactNamePlaceholder: 'Anna Müller',
+    contactPhonePlaceholder: '+49 15x xxxxxxx',
     contactsSaved: 'Notfallkontakte gespeichert',
     emergencyNumber: 'Notrufnummer',
     disclaimer:

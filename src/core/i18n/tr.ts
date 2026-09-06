@@ -730,6 +730,8 @@ export const tr = {
     addContact: 'Acil kişi ekle',
     contactName: 'Ad',
     contactPhone: 'Telefon',
+    contactNamePlaceholder: 'Ayşe Kaya',
+    contactPhonePlaceholder: '+90 5xx xxx xx xx',
     contactsSaved: 'Acil kişiler kaydedildi',
     emergencyNumber: 'Acil numara',
     disclaimer:

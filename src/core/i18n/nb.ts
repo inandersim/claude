@@ -733,6 +733,8 @@ export const nb: Translations = {
     addContact: 'Legg til kontakt',
     contactName: 'Navn',
     contactPhone: 'Telefon',
+    contactNamePlaceholder: 'Ingrid Hansen',
+    contactPhonePlaceholder: '+47 4xx xx xxx',
     contactsSaved: 'Nødkontakter lagret',
     emergencyNumber: 'Nødnummer',
     disclaimer:

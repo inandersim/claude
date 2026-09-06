@@ -194,11 +194,7 @@ const styles = StyleSheet.create({
     padding: spacing.xs + 2,
     borderRadius: radius.full,
     borderWidth: StyleSheet.hairlineWidth,
-    shadowColor: '#000',
-    shadowOpacity: 0.18,
-    shadowRadius: 12,
-    shadowOffset: { width: 0, height: 6 },
-    elevation: 8,
+    boxShadow: '0px 6px 12px rgba(0, 0, 0, 0.18)',
   },
   option: {
     width: 54,

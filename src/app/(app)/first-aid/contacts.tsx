@@ -78,7 +78,7 @@ export default function EmergencyContactsScreen() {
                 icon="user"
                 value={c.name}
                 onChangeText={(v) => set(i, { name: v })}
-                placeholder="Ayşe Kaya"
+                placeholder={t('firstAid.contactNamePlaceholder')}
               />
               <Input
                 label={t('firstAid.contactPhone')}
@@ -86,7 +86,7 @@ export default function EmergencyContactsScreen() {
                 value={c.phone}
                 onChangeText={(v) => set(i, { phone: v })}
                 keyboardType="phone-pad"
-                placeholder="+90 5xx xxx xx xx"
+                placeholder={t('firstAid.contactPhonePlaceholder')}
               />
             </View>
           ))}

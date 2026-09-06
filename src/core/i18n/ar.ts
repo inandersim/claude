@@ -725,6 +725,8 @@ export const ar: Translations = {
     addContact: 'إضافة جهة اتصال',
     contactName: 'الاسم',
     contactPhone: 'الهاتف',
+    contactNamePlaceholder: 'سارة أحمد',
+    contactPhonePlaceholder: '+971 5x xxx xxxx',
     contactsSaved: 'تم حفظ جهات اتصال الطوارئ',
     emergencyNumber: 'رقم الطوارئ',
     disclaimer:

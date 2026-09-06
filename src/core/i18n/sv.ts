@@ -730,6 +730,8 @@ export const sv: Translations = {
     addContact: 'Lägg till kontakt',
     contactName: 'Namn',
     contactPhone: 'Telefon',
+    contactNamePlaceholder: 'Anna Andersson',
+    contactPhonePlaceholder: '+46 7x xxx xx xx',
     contactsSaved: 'Nödkontakter sparade',
     emergencyNumber: 'Nödnummer',
     disclaimer:

@@ -114,10 +114,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: spacing.xs,
-    shadowColor: '#000',
-    shadowOpacity: 0.3,
-    shadowRadius: 16,
-    shadowOffset: { width: 0, height: 8 },
-    elevation: 8,
+    boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.3)',
   },
 });

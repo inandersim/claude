@@ -721,6 +721,8 @@ export const zh: Translations = {
     addContact: '添加联系人',
     contactName: '姓名',
     contactPhone: '电话',
+    contactNamePlaceholder: '张伟',
+    contactPhonePlaceholder: '+86 1xx xxxx xxxx',
     contactsSaved: '紧急联系人已保存',
     emergencyNumber: '急救电话',
     disclaimer: '本指南不能替代医疗建议。遇到严重情况请立即拨打急救电话。',

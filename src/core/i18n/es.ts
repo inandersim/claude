@@ -739,6 +739,8 @@ export const es: Translations = {
     addContact: 'Añadir contacto de emergencia',
     contactName: 'Nombre',
     contactPhone: 'Teléfono',
+    contactNamePlaceholder: 'Lucía García',
+    contactPhonePlaceholder: '+34 6xx xxx xxx',
     contactsSaved: 'Contactos de emergencia guardados',
     emergencyNumber: 'Número de emergencia',
     disclaimer:

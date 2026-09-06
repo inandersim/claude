@@ -24,6 +24,15 @@ export function useCourse(id: ID) {
   });
 }
 
+/** Derin bağlantı: yalnızca ders kimliği bilindiğinde dersi (ve kursunu) çözer. */
+export function useLessonById(id: ID) {
+  return useQuery({
+    queryKey: queryKeys.courses.lesson(id),
+    queryFn: () => getDataProvider().courses.lessonById(id),
+    enabled: Boolean(id),
+  });
+}
+
 export function useLessons(courseId: ID) {
   return useQuery({
     queryKey: queryKeys.courses.lessons(courseId),

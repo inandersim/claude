@@ -197,21 +197,14 @@ export const typography: Record<
   label: { fontSize: 11, lineHeight: 14, weight: 'semibold', letterSpacing: 0.4 },
 };
 
+/**
+ * Gölgeler `boxShadow` ile tanımlanır: React Native 0.76+ (Yeni Mimari) ve
+ * react-native-web bunu ortak olarak destekler; eski `shadow*` prop'ları
+ * kullanımdan kalkmıştır.
+ */
 export const shadows = {
-  card: {
-    shadowColor: '#000',
-    shadowOpacity: 0.12,
-    shadowRadius: 16,
-    shadowOffset: { width: 0, height: 8 },
-    elevation: 4,
-  },
-  floating: {
-    shadowColor: '#000',
-    shadowOpacity: 0.22,
-    shadowRadius: 24,
-    shadowOffset: { width: 0, height: 12 },
-    elevation: 10,
-  },
+  card: { boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.12)' },
+  floating: { boxShadow: '0px 12px 24px rgba(0, 0, 0, 0.22)' },
 } as const;
 
 export const layout = {

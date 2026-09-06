@@ -728,6 +728,8 @@ export const hi: Translations = {
     addContact: 'संपर्क जोड़ें',
     contactName: 'नाम',
     contactPhone: 'फ़ोन',
+    contactNamePlaceholder: 'आरव शर्मा',
+    contactPhonePlaceholder: '+91 9xxxx xxxxx',
     contactsSaved: 'आपातकालीन संपर्क सहेजे गए',
     emergencyNumber: 'आपातकालीन नंबर',
     disclaimer:

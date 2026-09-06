@@ -731,6 +731,8 @@ export const ne: Translations = {
     addContact: 'आपतकालीन सम्पर्क थप्नुहोस्',
     contactName: 'नाम',
     contactPhone: 'फोन',
+    contactNamePlaceholder: 'आरव श्रेष्ठ',
+    contactPhonePlaceholder: '+977 98xxxxxxxx',
     contactsSaved: 'आपतकालीन सम्पर्कहरू सेभ भए',
     emergencyNumber: 'आपतकालीन नम्बर',
     disclaimer:

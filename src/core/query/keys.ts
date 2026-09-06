@@ -252,6 +252,7 @@ export const queryKeys = {
     list: (meId: ID, filter: CourseFilter) => ['courses', 'list', meId, filter] as const,
     detail: (meId: ID, id: ID) => ['courses', 'detail', meId, id] as const,
     lessons: (id: ID) => ['courses', 'lessons', id] as const,
+    lesson: (id: ID) => ['courses', 'lesson', id] as const,
     sessions: (id: ID) => ['courses', 'sessions', id] as const,
     mine: (meId: ID) => ['courses', 'mine', meId] as const,
     certificates: (meId: ID) => ['courses', 'certificates', meId] as const,

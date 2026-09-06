@@ -100,6 +100,12 @@ export function createCourseRepository(ctx: MockContext): CourseRepository {
       return lessonsOf(t, courseId);
     },
 
+    async lessonById(id) {
+      await wait();
+      const t = await db.load();
+      return t.lessons.find((l) => l.id === id) ?? null;
+    },
+
     async sessions(courseId) {
       await wait();
       const t = await db.load();

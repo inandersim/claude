@@ -27,22 +27,32 @@ import { ProgressHeader } from '@/features/courses/components/ProgressHeader';
 import { QuizPlayer } from '@/features/courses/components/QuizPlayer';
 import { ReadingView } from '@/features/courses/components/ReadingView';
 import { VideoLesson } from '@/features/courses/components/VideoLesson';
-import { useCompleteLesson, useCourse, useLessons } from '@/features/courses/hooks';
+import { useCompleteLesson, useCourse, useLessonById, useLessons } from '@/features/courses/hooks';
 
 export default function LessonScreen() {
-  const { id, courseId } = useLocalSearchParams<{ id: string; courseId: string }>();
+  const { id, courseId: courseIdParam } = useLocalSearchParams<{
+    id: string;
+    courseId?: string;
+  }>();
   const router = useRouter();
   const { t } = useT();
   const { colors } = useTheme();
   const toast = useToast();
   const [justCompleted, setJustCompleted] = useState(false);
 
+  // Derin bağlantıda `courseId` gelmeyebilir; o zaman dersten çözülür.
+  const direct = useLessonById(courseIdParam ? '' : id);
+  const courseId = courseIdParam ?? direct.data?.courseId ?? '';
+
   const course = useCourse(courseId);
   const lessons = useLessons(courseId);
   const complete = useCompleteLesson();
 
   const lessonList = useMemo(() => lessons.data ?? [], [lessons.data]);
-  const lesson = useMemo(() => lessonList.find((l) => l.id === id) ?? null, [lessonList, id]);
+  const lesson = useMemo(
+    () => lessonList.find((l) => l.id === id) ?? direct.data ?? null,
+    [lessonList, id, direct.data],
+  );
   const enrollment = course.data?.enrollment ?? null;
   const accessible = lesson ? canAccessLesson(lesson, enrollment) : false;
   const completed = Boolean(lesson && enrollment?.completedLessonIds.includes(lesson.id));
@@ -97,7 +107,7 @@ export default function LessonScreen() {
     });
   };
 
-  const loading = course.isLoading || lessons.isLoading;
+  const loading = direct.isLoading || course.isLoading || lessons.isLoading;
 
   return (
     <Screen scroll edges={['top', 'bottom']}>
@@ -108,7 +118,7 @@ export default function LessonScreen() {
         onBack={goBackToCourse}
       />
       <View style={styles.content}>
-        {course.isError || lessons.isError ? (
+        {direct.isError || course.isError || lessons.isError ? (
           <ErrorState
             onRetry={() => {
               course.refetch();

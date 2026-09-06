@@ -729,6 +729,8 @@ export const en: Translations = {
     addContact: 'Add contact',
     contactName: 'Name',
     contactPhone: 'Phone',
+    contactNamePlaceholder: 'Alex Morgan',
+    contactPhonePlaceholder: '+1 555 000 0000',
     contactsSaved: 'Emergency contacts saved',
     emergencyNumber: 'Emergency number',
     disclaimer:

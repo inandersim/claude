@@ -739,6 +739,8 @@ export const el: Translations = {
     addContact: 'Προσθήκη επαφής',
     contactName: 'Όνομα',
     contactPhone: 'Τηλέφωνο',
+    contactNamePlaceholder: 'Μαρία Παπαδοπούλου',
+    contactPhonePlaceholder: '+30 69x xxx xxxx',
     contactsSaved: 'Οι επαφές έκτακτης ανάγκης αποθηκεύτηκαν',
     emergencyNumber: 'Αριθμός έκτακτης ανάγκης',
     disclaimer:

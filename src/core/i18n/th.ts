@@ -727,6 +727,8 @@ export const th: Translations = {
     addContact: 'เพิ่มผู้ติดต่อ',
     contactName: 'ชื่อ',
     contactPhone: 'โทรศัพท์',
+    contactNamePlaceholder: 'สมชาย ใจดี',
+    contactPhonePlaceholder: '+66 8x xxx xxxx',
     contactsSaved: 'บันทึกผู้ติดต่อฉุกเฉินแล้ว',
     emergencyNumber: 'หมายเลขฉุกเฉิน',
     disclaimer:

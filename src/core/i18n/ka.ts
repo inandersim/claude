@@ -734,6 +734,8 @@ export const ka: Translations = {
     addContact: 'კონტაქტის დამატება',
     contactName: 'სახელი',
     contactPhone: 'ტელეფონი',
+    contactNamePlaceholder: 'ნინო ბერიძე',
+    contactPhonePlaceholder: '+995 5xx xxx xxx',
     contactsSaved: 'საგანგებო კონტაქტები შენახულია',
     emergencyNumber: 'გადაუდებელი ნომერი',
     disclaimer:

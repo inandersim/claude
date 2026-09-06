@@ -735,6 +735,8 @@ export const pl: Translations = {
     addContact: 'Dodaj kontakt',
     contactName: 'Imię',
     contactPhone: 'Telefon',
+    contactNamePlaceholder: 'Anna Kowalska',
+    contactPhonePlaceholder: '+48 5xx xxx xxx',
     contactsSaved: 'Kontakty alarmowe zapisane',
     emergencyNumber: 'Numer alarmowy',
     disclaimer:

@@ -530,6 +530,8 @@ export interface CourseRepository {
   list(meId: ID, filter: CourseFilter): Promise<CourseWithInstructor[]>;
   getById(meId: ID, id: ID): Promise<CourseWithInstructor | null>;
   lessons(courseId: ID): Promise<Lesson[]>;
+  /** Derin bağlantı için: yalnızca ders kimliğinden dersi çözer. */
+  lessonById(id: ID): Promise<Lesson | null>;
   sessions(courseId: ID): Promise<CourseSession[]>;
   enroll(meId: ID, courseId: ID, sessionId?: ID | null): Promise<Enrollment>;
   completeLesson(

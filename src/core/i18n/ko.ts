@@ -724,6 +724,8 @@ export const ko: Translations = {
     addContact: '연락처 추가',
     contactName: '이름',
     contactPhone: '전화',
+    contactNamePlaceholder: '김민준',
+    contactPhonePlaceholder: '+82 10-xxxx-xxxx',
     contactsSaved: '비상 연락처가 저장됐어요',
     emergencyNumber: '긴급 전화번호',
     disclaimer:

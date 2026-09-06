@@ -735,6 +735,8 @@ export const nl: Translations = {
     addContact: 'Contact toevoegen',
     contactName: 'Naam',
     contactPhone: 'Telefoon',
+    contactNamePlaceholder: 'Sanne de Vries',
+    contactPhonePlaceholder: '+31 6 xxxxxxxx',
     contactsSaved: 'Noodcontacten opgeslagen',
     emergencyNumber: 'Alarmnummer',
     disclaimer:

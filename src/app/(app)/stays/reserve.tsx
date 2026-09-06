@@ -4,7 +4,17 @@ import React, { useState } from 'react';
 import { Platform, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { Button, Chip, Header, Icon, IconButton, Screen, Skeleton, Text } from '@/components/ui';
+import {
+  Button,
+  Chip,
+  EmptyState,
+  Header,
+  Icon,
+  IconButton,
+  Screen,
+  Skeleton,
+  Text,
+} from '@/components/ui';
 import { useToast } from '@/core/hooks/useToast';
 import { useT } from '@/core/i18n';
 import { layout, radius, spacing, useTheme } from '@/core/theme';
@@ -68,8 +78,14 @@ export default function ReserveStayScreen() {
         }
       />
       <ScrollView contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + 120 }]}>
-        {!data ? (
+        {!data && (business.isLoading || business.isFetching) ? (
           <Skeleton height={80} style={{ borderRadius: radius.xl }} />
+        ) : !data ? (
+          <EmptyState
+            icon="compass"
+            title={t('notFound.title')}
+            description={t('notFound.description')}
+          />
         ) : (
           <>
             <Field title={`${t('stays.checkIn')} (${t('stays.dateHint')})`}>

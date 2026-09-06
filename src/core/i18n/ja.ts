@@ -732,6 +732,8 @@ export const ja: Translations = {
     addContact: '連絡先を追加',
     contactName: '名前',
     contactPhone: '電話番号',
+    contactNamePlaceholder: '山田 花子',
+    contactPhonePlaceholder: '+81 90-xxxx-xxxx',
     contactsSaved: '緊急連絡先を保存しました',
     emergencyNumber: '緊急通報番号',
     disclaimer:
