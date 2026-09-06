@@ -211,7 +211,7 @@ export default function GroupChatScreen() {
           </View>
         ) : notFound ? (
           /* Geçersiz kimlik: hata değil, "bulunamadı" gösterilir. */
-          <View style={styles.emptyWrap}>
+          <View style={styles.notFoundWrap}>
             <EmptyState
               icon="users"
               title={t('notFound.title')}
@@ -379,6 +379,8 @@ export default function GroupChatScreen() {
 const styles = StyleSheet.create({
   list: { paddingVertical: spacing.md, flexGrow: 1 },
   emptyWrap: { transform: [{ scaleY: -1 }], paddingVertical: spacing.xxl },
+  // Ters çevrilmiş listenin dışında: scaleY dönüşümü olmamalı.
+  notFoundWrap: { flex: 1, justifyContent: 'center', paddingVertical: spacing.xxl },
   skeletons: { flex: 1, padding: spacing.lg, gap: spacing.md, justifyContent: 'flex-end' },
   joinBar: {
     flexDirection: 'row',

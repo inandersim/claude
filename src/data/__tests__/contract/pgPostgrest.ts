@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Pool, types as pgTypes, type PoolClient } from 'pg';
 
 import type {
