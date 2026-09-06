@@ -26,7 +26,8 @@ const tr = {
   empty: 'Sonuç yok',
   emptyDescription: 'Filtreleri gevşetmeyi ya da başka bir ad aramayı dene.',
   savedEmpty: 'Henüz kaydedilen yok',
-  savedEmptyDescription: 'Beğendiğin rotaları yer imine ekle; çevrimdışı rehber olarak burada dursun.',
+  savedEmptyDescription:
+    'Beğendiğin rotaları yer imine ekle; çevrimdışı rehber olarak burada dursun.',
   type: {
     trek: 'Trek',
     expedition: 'Ekspedisyon',
@@ -181,7 +182,7 @@ const tr = {
     gi: 'Mide-bağırsak (iştahsızlık, bulantı)',
     fatigue: 'Yorgunluk / halsizlik',
     dizziness: 'Baş dönmesi',
-    level: { 0: 'Yok', 1: 'Hafif', 2: 'Orta', 3: 'Şiddetli' },
+    level: { l0: 'Yok', l1: 'Hafif', l2: 'Orta', l3: 'Şiddetli' },
     note: 'Not',
     notePlaceholder: 'Uyku, iştah, nabız, SpO₂…',
     submit: 'Kaydı ekle',
@@ -200,7 +201,8 @@ const tr = {
     descendNow: 'İn, 112 / uydu SOS',
     history: 'Geçmiş kayıtlar',
     historyEmpty: 'Henüz kayıt yok',
-    historyEmptyDescription: 'İrtifa kazandıkça her akşam skorunu kaydet; eğilim grafiği burada oluşur.',
+    historyEmptyDescription:
+      'İrtifa kazandıkça her akşam skorunu kaydet; eğilim grafiği burada oluşur.',
     chartScore: 'Skor',
     chartElevation: 'İrtifa',
     invalidElevation: 'Geçerli bir irtifa gir (0–9000 m)',
@@ -474,7 +476,7 @@ const en: DestinationsI18nShape = {
     gi: 'Gastrointestinal (poor appetite, nausea)',
     fatigue: 'Fatigue / weakness',
     dizziness: 'Dizziness',
-    level: { 0: 'None', 1: 'Mild', 2: 'Moderate', 3: 'Severe' },
+    level: { l0: 'None', l1: 'Mild', l2: 'Moderate', l3: 'Severe' },
     note: 'Note',
     notePlaceholder: 'Sleep, appetite, pulse, SpO₂…',
     submit: 'Add entry',
@@ -493,7 +495,8 @@ const en: DestinationsI18nShape = {
     descendNow: 'Descend, 112 / satellite SOS',
     history: 'History',
     historyEmpty: 'No entries yet',
-    historyEmptyDescription: 'Log your score every evening as you gain altitude; the trend chart builds here.',
+    historyEmptyDescription:
+      'Log your score every evening as you gain altitude; the trend chart builds here.',
     chartScore: 'Score',
     chartElevation: 'Elevation',
     invalidElevation: 'Enter a valid elevation (0–9000 m)',
