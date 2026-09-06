@@ -1,0 +1,45 @@
+[
+  {
+    "id": "c1",
+    "channel": "instagram",
+    "kind": "comment",
+    "author": "dagci_ahmet",
+    "text": "Kaçkar videosu süper, GPX nerede?"
+  },
+  {
+    "id": "c2",
+    "channel": "instagram",
+    "kind": "comment",
+    "author": "solo_yuruyus",
+    "text": "Yalnız çıkınca telefon çekmiyor, bu uygulama ne işe yarayacak?"
+  },
+  {
+    "id": "d1",
+    "channel": "instagram",
+    "kind": "dm",
+    "author": "odtu_dsk",
+    "text": "Merhaba, kulübümüz için etkinlik sayfası açabilir miyiz? Hafta sonu Aladağlar gezimiz var."
+  },
+  {
+    "id": "c3",
+    "channel": "vk",
+    "kind": "comment",
+    "author": "ivan_trek",
+    "text": "Есть ли карта опасностей для Ликийской тропы на русском?",
+    "lang": "ru"
+  },
+  {
+    "id": "c4",
+    "channel": "facebook",
+    "kind": "comment",
+    "author": "ayse.k",
+    "text": "Şu an Kavrun'dayım, arkadaşım düştü bacağı hareket etmiyor, ne yapmalıyım??"
+  },
+  {
+    "id": "c5",
+    "channel": "telegram",
+    "kind": "comment",
+    "author": "spambot9000",
+    "text": "Best crypto signals 🚀 join now t.me/xxx"
+  }
+]

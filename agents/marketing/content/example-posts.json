@@ -1,0 +1,157 @@
+{
+  "week": 1,
+  "generatedAt": "2026-09-07T08:00:00.000Z",
+  "posts": [
+    {
+      "id": "ig-reel-kackar-gun1",
+      "date": "2026-09-08",
+      "channel": "instagram",
+      "format": "reel",
+      "lang": "tr",
+      "title": "Kaçkar’da 3 gün — 1. gün: Ayder → Yukarı Kavrun",
+      "body": "Sabah 5, sis, önümüzde 3 gün.\n\nİlk gün en uzun etap: Ayder’den Yukarı Kavrun’a 14 km, +900 m. Suyu Kavrun’da doldur; sonrasında 2 saat kaynak yok.\n\nBiri iki gün önce Zirve’de heyelan işaretlemiş — rotayı üstten aldık. Acil durumda 112.",
+      "hashtags": [
+        "#zirveapp",
+        "#kaçkar",
+        "#trekking",
+        "#doğayürüyüşü",
+        "#karadeniz",
+        "#kamp",
+        "#dağcılık"
+      ],
+      "cta": "3 günün rotası ve GPX’i Zirve’de — bağlantı bio’da.",
+      "bestTime": "19:30",
+      "link": "https://zirve.app/r/kackar?utm_source=instagram&utm_medium=organic&utm_campaign=w01",
+      "scenes": [
+        {
+          "n": 1,
+          "durationSec": 1.5,
+          "visual": "Ayder’de çadır kapağı açılır, sis",
+          "onScreenText": "Kaçkar — 1. gün",
+          "voiceover": "Sabah 5, sis, 3 gün önümüzde."
+        },
+        {
+          "n": 2,
+          "durationSec": 4,
+          "visual": "POV patika, hızlandırılmış",
+          "onScreenText": "Ayder → Yukarı Kavrun · 14 km · +900 m",
+          "voiceover": "İlk gün en uzun etap. Suyu Kavrun’da doldur."
+        },
+        {
+          "n": 3,
+          "durationSec": 4,
+          "visual": "Telefonda Zirve tehlike haritası, yakınlarda heyelan işareti",
+          "onScreenText": "Topluluk tehlike haritası",
+          "voiceover": "Biri iki gün önce heyelan işaretlemiş — rotayı üstten aldık."
+        },
+        {
+          "n": 4,
+          "durationSec": 5,
+          "visual": "Kamp, ocak, yıldız time-lapse",
+          "onScreenText": "Gece: 4 °C",
+          "voiceover": "Ateş yasak, ocak var. Uyku tulumu -5 konfor."
+        },
+        {
+          "n": 5,
+          "durationSec": 3,
+          "visual": "Sabah zirve silüeti",
+          "onScreenText": "2. gün → yarın",
+          "voiceover": "Yarın: göller. Takip et."
+        }
+      ],
+      "frames": [],
+      "media": [
+        {
+          "type": "video",
+          "url": "https://cdn.example.com/zirve/kackar-gun1.mp4",
+          "path": "",
+          "alt": "Sisli Ayder yaylasında çadırdan çıkan yürüyüşçü, arkada Kaçkar sırtları"
+        }
+      ],
+      "visualBrief": "Dikey 9:16, telefon; ilk karede büyük metin; altyazı zorunlu. Tehlike haritası ekran görüntüsünde kullanıcı adları maskeli.",
+      "notes": "reuse: TikTok ve Shorts’a filigransız yükle."
+    },
+    {
+      "id": "fb-carousel-likya-5-hata",
+      "date": "2026-09-09",
+      "channel": "facebook",
+      "format": "carousel",
+      "lang": "tr",
+      "title": "Likya Yolu’nda yeni başlayanların 5 hatası",
+      "body": "Likya Yolu’na ilk kez çıkacaksan bu 5 hatayı önceden bil:\n\n1) Ekimde bile 3 litre su az gelir — Fethiye–Ölüdeniz etabında çeşme yok.\n2) Pamuklu tişört: terler, akşam üşütür. Sentetik ya da merinos.\n3) Gün batımına 1 saat kala hâlâ yürümek — patika işaretleri karanlıkta görünmez.\n4) Kamp yerini önceden bakmamak — Zirve kütüphanesinde kamp alanları ve su noktaları açık veriyle işaretli.\n5) Kimseye haber vermemek — canlı konumu bir arkadaşınla paylaş.\n\nAcil durumda 112.",
+      "hashtags": ["#likyayolu", "#zirveapp"],
+      "cta": "Rotayı Zirve’de planla, tehlike haritasına bak, sonra çık.",
+      "bestTime": "20:30",
+      "link": "https://zirve.app/r/likya?utm_source=facebook&utm_medium=organic&utm_campaign=w01",
+      "scenes": [],
+      "frames": [
+        "Kapak: Likya Yolu — 5 hata (Babadağ manzarası)",
+        "1 · Su: 3 litre + tuz tableti",
+        "2 · Kıyafet: pamuk yok",
+        "3 · Zaman: gün batımından 1 saat önce kampta ol",
+        "4 · Kamp yeri: Zirve kütüphanesi ekran görüntüsü (© OpenStreetMap katkıcıları)",
+        "5 · Haber ver: canlı konum paylaşımı",
+        "Kapanış: Sen ne eklerdin? Yorumla."
+      ],
+      "media": [
+        {
+          "type": "image",
+          "url": "https://cdn.example.com/zirve/likya-1.jpg",
+          "path": "",
+          "alt": "Babadağ’dan Ölüdeniz manzarası, ön planda patika işareti"
+        },
+        {
+          "type": "image",
+          "url": "https://cdn.example.com/zirve/likya-2.jpg",
+          "path": "",
+          "alt": "Kamp alanı ve su noktası işaretli harita ekranı"
+        }
+      ],
+      "visualBrief": "Karusel 1080×1350; her karede büyük numara; son kare soru.",
+      "notes": ""
+    },
+    {
+      "id": "vk-post-likiyskaya-tropa",
+      "date": "2026-09-10",
+      "channel": "vk",
+      "format": "single_image",
+      "lang": "ru",
+      "title": "Ликийская тропа за 4 дня: Фетхие → Олюдениз → Кабак",
+      "body": "Ликийская тропа — 500 км вдоль побережья, но первые 4 дня самые красивые.\n\nДень 1: Овачик → Фаралья, 14 км, набор 600 м. Вода только в Кираме.\nДень 2: Фаралья → Кабак, 7 км, пляж и кемпинг.\nДень 3–4: Кабак → Алынджа → Гей, виды на Бабадаг.\n\nСезон: октябрь–апрель. Летом жара выше 35 °C.\nВ Zirve есть карта опасностей от сообщества и кемпинги из открытых данных. В экстренной ситуации — 112.",
+      "hashtags": ["#ликийскаятропа", "#турция", "#поход", "#треккинг", "#zirveapp"],
+      "cta": "Маршрут и GPX — в Zirve.",
+      "bestTime": "19:00",
+      "link": "https://zirve.app/ru/r/likya?utm_source=vk&utm_medium=organic&utm_campaign=w01",
+      "scenes": [],
+      "frames": [],
+      "media": [
+        {
+          "type": "image",
+          "url": "",
+          "path": "content/media/likya-babadag.jpg",
+          "alt": "Вид на Олюдениз с Бабадага"
+        }
+      ],
+      "visualBrief": "Горизонтальное фото 1200×800, без текста на изображении.",
+      "notes": "Предложить в сообщества «Походы Турция», «Треккинг Кавказ» через «предложить новость»."
+    },
+    {
+      "id": "tg-daily-nereye",
+      "date": "2026-09-11",
+      "channel": "telegram",
+      "format": "text",
+      "lang": "tr",
+      "title": "Bugün nereye? — Aladağlar, Emli Vadisi",
+      "body": "Bugün nereye? Aladağlar, Emli Vadisi.\n\nÇukurbağ’dan Emli kamp alanına 9 km, +700 m, 4 saat. Hava: açık, gece 6 °C. Su: Emli’de kaynak var.\n\nTopluluk notu: patikanın son 1 km’si taşlık, bastonu çıkar. Acil durumda 112.",
+      "hashtags": ["#aladağlar", "#zirveapp"],
+      "cta": "Yakınında kim çıkıyor? ZMatch’e bak.",
+      "bestTime": "08:00",
+      "link": "https://zirve.app/r/aladaglar?utm_source=telegram&utm_medium=organic&utm_campaign=w01",
+      "scenes": [],
+      "frames": [],
+      "media": [],
+      "visualBrief": "",
+      "notes": "Günlük seri; Pazar günü haftalık anket."
+    }
+  ]
+}

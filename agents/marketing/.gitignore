@@ -1,0 +1,10 @@
+node_modules
+dist
+.env
+# Üretilen içerik (plan, haftalık gönderiler, yanıtlar, analizler) depoya girmez;
+# yalnızca örnek dosyalar tutulur.
+content/*
+!content/example-week.md
+!content/example-posts.json
+!content/example-mentions.json
+!content/example-insights.csv
