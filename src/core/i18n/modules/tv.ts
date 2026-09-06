@@ -4,6 +4,7 @@ import { tv_fr } from './locales/fr/tv';
 import { tv_de } from './locales/de/tv';
 import { tv_ru } from './locales/ru/tv';
 import { tv_it } from './locales/it/tv';
+import { tv_zh } from './locales/zh/tv';
 import { localeSet } from './shared';
 import { tv_ja } from './locales/ja/tv';
 
@@ -307,4 +308,5 @@ export const tvI18n = localeSet(tr, en, {
   es: tv_es,
   pt: tv_pt,
   it: tv_it,
+  zh: tv_zh,
 });

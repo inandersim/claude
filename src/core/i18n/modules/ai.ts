@@ -5,6 +5,7 @@ import { ai_it } from './locales/it/ai';
 import { ai_ja } from './locales/ja/ai';
 import { ai_pt } from './locales/pt/ai';
 import { ai_ru } from './locales/ru/ai';
+import { ai_zh } from './locales/zh/ai';
 import { localeSet } from './shared';
 
 const tr = {
@@ -133,4 +134,5 @@ export const aiI18n = localeSet(tr, en, {
   ja: ai_ja,
   pt: ai_pt,
   ru: ai_ru,
+  zh: ai_zh,
 });

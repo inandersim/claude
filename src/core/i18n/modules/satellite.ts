@@ -5,6 +5,7 @@ import { satellite_it } from './locales/it/satellite';
 import { satellite_ja } from './locales/ja/satellite';
 import { satellite_pt } from './locales/pt/satellite';
 import { satellite_ru } from './locales/ru/satellite';
+import { satellite_zh } from './locales/zh/satellite';
 import { localeSet } from './shared';
 
 const tr = {
@@ -297,4 +298,5 @@ export const satelliteI18n = localeSet(tr, en, {
   ja: satellite_ja,
   pt: satellite_pt,
   ru: satellite_ru,
+  zh: satellite_zh,
 });

@@ -4,6 +4,7 @@ import { articles_fr } from './locales/fr/articles';
 import { articles_de } from './locales/de/articles';
 import { articles_ru } from './locales/ru/articles';
 import { articles_it } from './locales/it/articles';
+import { articles_zh } from './locales/zh/articles';
 import { localeSet } from './shared';
 import { articles_ja } from './locales/ja/articles';
 
@@ -342,4 +343,5 @@ export const articlesI18n = localeSet(tr, en, {
   es: articles_es,
   pt: articles_pt,
   it: articles_it,
+  zh: articles_zh,
 });

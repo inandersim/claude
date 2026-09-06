@@ -4,6 +4,7 @@ import { social_fr } from './locales/fr/social';
 import { social_de } from './locales/de/social';
 import { social_ru } from './locales/ru/social';
 import { social_it } from './locales/it/social';
+import { social_zh } from './locales/zh/social';
 import { localeSet } from './shared';
 import { social_ja } from './locales/ja/social';
 
@@ -225,4 +226,5 @@ export const socialI18n = localeSet(tr, en, {
   es: social_es,
   pt: social_pt,
   it: social_it,
+  zh: social_zh,
 });

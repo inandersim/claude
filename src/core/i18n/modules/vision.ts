@@ -4,6 +4,7 @@ import { vision_fr } from './locales/fr/vision';
 import { vision_de } from './locales/de/vision';
 import { vision_ru } from './locales/ru/vision';
 import { vision_it } from './locales/it/vision';
+import { vision_zh } from './locales/zh/vision';
 import { localeSet } from './shared';
 import { vision_ja } from './locales/ja/vision';
 
@@ -199,4 +200,5 @@ export const visionI18n = localeSet(tr, en, {
   es: vision_es,
   pt: vision_pt,
   it: vision_it,
+  zh: vision_zh,
 });

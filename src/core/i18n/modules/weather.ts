@@ -4,6 +4,7 @@ import { weather_fr } from './locales/fr/weather';
 import { weather_de } from './locales/de/weather';
 import { weather_ru } from './locales/ru/weather';
 import { weather_it } from './locales/it/weather';
+import { weather_zh } from './locales/zh/weather';
 import { localeSet } from './shared';
 import { weather_ja } from './locales/ja/weather';
 
@@ -377,4 +378,5 @@ export const weatherI18n = localeSet(tr, en, {
   es: weather_es,
   pt: weather_pt,
   it: weather_it,
+  zh: weather_zh,
 });

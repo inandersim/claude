@@ -5,6 +5,7 @@ import { clubs_it } from './locales/it/clubs';
 import { clubs_ja } from './locales/ja/clubs';
 import { clubs_pt } from './locales/pt/clubs';
 import { clubs_ru } from './locales/ru/clubs';
+import { clubs_zh } from './locales/zh/clubs';
 import { localeSet } from './shared';
 
 const tr = {
@@ -318,4 +319,5 @@ export const clubsI18n = localeSet(tr, en, {
   ja: clubs_ja,
   pt: clubs_pt,
   ru: clubs_ru,
+  zh: clubs_zh,
 });

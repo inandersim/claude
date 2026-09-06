@@ -4,6 +4,7 @@ import { groups_fr } from './locales/fr/groups';
 import { groups_de } from './locales/de/groups';
 import { groups_ru } from './locales/ru/groups';
 import { groups_it } from './locales/it/groups';
+import { groups_zh } from './locales/zh/groups';
 import { localeSet } from './shared';
 import { groups_ja } from './locales/ja/groups';
 
@@ -351,4 +352,5 @@ export const groupsI18n = localeSet(tr, en, {
   es: groups_es,
   pt: groups_pt,
   it: groups_it,
+  zh: groups_zh,
 });

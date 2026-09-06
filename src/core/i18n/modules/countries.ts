@@ -4,6 +4,7 @@ import { countries_fr } from './locales/fr/countries';
 import { countries_de } from './locales/de/countries';
 import { countries_ru } from './locales/ru/countries';
 import { countries_it } from './locales/it/countries';
+import { countries_zh } from './locales/zh/countries';
 import { localeSet } from './shared';
 import { countries_ja } from './locales/ja/countries';
 
@@ -336,4 +337,5 @@ export const countriesI18n = localeSet(tr, en, {
   es: countries_es,
   pt: countries_pt,
   it: countries_it,
+  zh: countries_zh,
 });
