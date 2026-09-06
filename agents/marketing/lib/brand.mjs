@@ -144,7 +144,8 @@ export const FORBIDDEN_PHRASES = [
   { pattern: 'asla kaybolmaz', reason: 'Mutlak güvenlik vaadi' },
   { pattern: 'hiç(bir zaman)? kaybolmaz', reason: 'Mutlak güvenlik vaadi' },
   { pattern: '%\\s?100 güven', reason: 'Mutlak güvenlik vaadi' },
-  { pattern: 'kurtarma garantisi', reason: 'SOS bir bildirim aracıdır, kurtarma garantisi değildir' },
+  // Olumsuzlanmış kullanım ("kurtarma garantisi değildir") yasal uyarının kendisidir; yakalanmaz.
+  { pattern: 'kurtarma garantisi(?!\\s*(değildir|değil|vermez|sunmaz))', reason: 'SOS bir bildirim aracıdır, kurtarma garantisi değildir' },
   { pattern: 'hayat(ını|ınızı) kurtarır', reason: 'Tıbbi/güvenlik sonucu vaadi' },
   { pattern: 'ilk yardım(a)? gerek kalmaz', reason: 'Tıbbi tavsiye yerine geçme iddiası' },
   { pattern: 'never get lost', reason: 'Absolute safety claim' },
@@ -154,7 +155,7 @@ export const FORBIDDEN_PHRASES = [
   { pattern: 'replaces? (a )?(doctor|first aid training)', reason: 'Medical advice substitution' },
   { pattern: 'никогда не потеря', reason: 'Абсолютное обещание безопасности' },
   { pattern: '100% безопас', reason: 'Абсолютное обещание безопасности' },
-  { pattern: 'гарантия спасения', reason: 'SOS не гарантирует спасение' },
+  { pattern: '(?<!не )гарантия спасения', reason: 'SOS не гарантирует спасение' },
   { pattern: 'nie verirren', reason: 'Absolutes Sicherheitsversprechen' },
   { pattern: '100 ?% sicher', reason: 'Absolutes Sicherheitsversprechen' },
   { pattern: 'rettung garantiert|garantierte rettung', reason: 'SOS ist keine Rettungsgarantie' },

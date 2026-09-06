@@ -182,41 +182,42 @@ const INTENT_RULES = [
     intent: 'safety',
     escalate: true,
     patterns: [
-      /\b(kayboldu|kayıp|yaralan|düştü|kaza|imdat|acil|sos|çığ|donma)\b/iu,
-      /\b(lost|injured|accident|emergency|rescue|avalanche|frostbite)\b/iu,
-      /\b(потерял|травм|авари|срочно|спасат|лавин)\w*/iu,
-      /\b(verletzt|notfall|rettung|lawine|vermisst)\b/iu,
+      // Türkçe eklemeli dildir: kök eşleşmesi yeterli (yaralandı, kayboldu, düşmüş).
+      /(?<!\p{L})(kaybol|kayıp|yaralan|yarala|düştü|düşmüş|kaza(?!n)|imdat|acil|sos|çığ|donma|hipotermi)/iu,
+      /(?<!\p{L})(lost|injured|accident|emergency|rescue|avalanche|frostbite)\b/iu,
+      /(?<!\p{L})(потерял|травм|авари|срочно|спасат|лавин)\w*/iu,
+      /(?<!\p{L})(verletzt|notfall|rettung|lawine|vermisst)\b/iu,
     ],
   },
   {
     intent: 'complaint',
     escalate: true,
     patterns: [
-      /\b(çöktü|açılmıyor|hata|bug|çalışmıyor|iade|para|dolandır)\b/iu,
-      /\b(crash|broken|doesn'?t work|refund|scam|bug)\b/iu,
-      /\b(не работает|ошибк|вылета|верните)\w*/iu,
-      /\b(stürzt ab|funktioniert nicht|fehler|erstattung)\b/iu,
+      /(?<!\p{L})(çök|açılmıyor|hata|bug|çalışmıyor|donuyor|iade|dolandır)/iu,
+      /(?<!\p{L})(crash|broken|doesn'?t work|refund|scam|bug)\b/iu,
+      /(?<!\p{L})(не работает|ошибк|вылета|верните)\w*/iu,
+      /(?<!\p{L})(stürzt ab|funktioniert nicht|fehler|erstattung)\b/iu,
     ],
   },
   {
     intent: 'partnership',
     escalate: true,
     patterns: [
-      /\b(iş ?birliği|sponsor|reklam|kulüb?ümüz|rehberim|işletme|ortaklık)\b/iu,
-      /\b(collab|partnership|sponsor|our club|press|media kit)\b/iu,
-      /\b(сотрудничеств|реклам|наш клуб|партнёр)\w*/iu,
-      /\b(kooperation|zusammenarbeit|verein|presse)\b/iu,
+      /(?<!\p{L})(iş ?birliği|işbirliği|sponsor|reklam|kulübümüz|kulübüm|rehberim|işletme|ortaklık)/iu,
+      /(?<!\p{L})(collab|partnership|sponsor|our club|press|media kit)\b/iu,
+      /(?<!\p{L})(сотрудничеств|реклам|наш клуб|партнёр)\w*/iu,
+      /(?<!\p{L})(kooperation|zusammenarbeit|verein|presse)\b/iu,
     ],
   },
   {
     intent: 'question',
     escalate: false,
-    patterns: [/\?/u, /\b(nasıl|nerede|ne zaman|var mı|kaç)\b/iu, /\b(how|where|when|does it|can i)\b/iu, /\b(как|где|когда|можно ли)\b/iu, /\b(wie|wo|wann|kann ich)\b/iu],
+    patterns: [/\?/u, /(?<!\p{L})(nasıl|nerede|ne zaman|var mı|kaç)(?!\p{L})/iu, /\b(how|where|when|does it|can i)\b/iu, /(?<!\p{L})(как|где|когда|можно ли)(?!\p{L})/iu, /(?<!\p{L})(wie|wo|wann|kann ich)(?!\p{L})/iu],
   },
   {
     intent: 'spam',
     escalate: false,
-    patterns: [/\b(takipçi|follow ?4 ?follow|kazan[ıi]?n?ç garanti|bitcoin|casino|bahis)\b/iu, /\bfree followers?\b/iu, /\b(крипт|казино|подписчик)\w*/iu],
+    patterns: [/(?<!\p{L})(takipçi|follow ?4 ?follow|bitcoin|casino|bahis|kazanç garanti)/iu, /\bfree followers?\b/iu, /(?<!\p{L})(крипт|казино|подписчик)/iu],
   },
 ];
 
@@ -224,8 +225,8 @@ const INTENT_RULES = [
 export function guessLang(text) {
   const t = String(text);
   if (/[\u0400-\u04FF]/u.test(t)) return 'ru';
-  if (/[çğışöüÇĞİŞÖÜ]/u.test(t) || /\b(nasıl|nerede|merhaba|teşekkür|kulüp)\b/iu.test(t)) return 'tr';
-  if (/\b(und|nicht|wie|danke|wandern|berg|kann)\b/iu.test(t) || /[äöüß]/u.test(t)) return 'de';
+  if (/[çğışöüÇĞİŞÖÜ]/u.test(t) || /(?<!\p{L})(nasıl|nerede|merhaba|teşekkür|kulüp)/iu.test(t)) return 'tr';
+  if (/(?<!\p{L})(und|nicht|wie|danke|wandern|berg|kann)(?!\p{L})/iu.test(t) || /[äöüß]/u.test(t)) return 'de';
   return 'en';
 }
 

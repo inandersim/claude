@@ -50,3 +50,5 @@ coverage/
 
 # Harita hattı çıktıları (yeniden üretilebilir)
 out/
+admin/dist/
+admin/node_modules/
