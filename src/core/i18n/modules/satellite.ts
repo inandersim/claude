@@ -17,6 +17,7 @@ import { satellite_id } from './locales/id/satellite';
 import { satellite_nl } from './locales/nl/satellite';
 import { satellite_sv } from './locales/sv/satellite';
 import { satellite_cs } from './locales/cs/satellite';
+import { satellite_th } from './locales/th/satellite';
 import { localeSet } from './shared';
 
 const tr = {
@@ -321,4 +322,5 @@ export const satelliteI18n = localeSet(tr, en, {
   el: satellite_el,
   nl: satellite_nl,
   sv: satellite_sv,
+  th: satellite_th,
 });

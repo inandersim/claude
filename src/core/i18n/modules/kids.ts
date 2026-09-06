@@ -12,6 +12,7 @@ import { kids_ne } from './locales/ne/kids';
 import { kids_el } from './locales/el/kids';
 import { kids_id } from './locales/id/kids';
 import { kids_cs } from './locales/cs/kids';
+import { kids_th } from './locales/th/kids';
 import { localeSet } from './shared';
 import { kids_ja } from './locales/ja/kids';
 import { kids_ko } from './locales/ko/kids';
@@ -363,4 +364,5 @@ export const kidsI18n = localeSet(tr, en, {
   el: kids_el,
   nl: kids_nl,
   sv: kids_sv,
+  th: kids_th,
 });

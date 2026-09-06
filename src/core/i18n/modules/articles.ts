@@ -12,6 +12,7 @@ import { articles_ne } from './locales/ne/articles';
 import { articles_el } from './locales/el/articles';
 import { articles_id } from './locales/id/articles';
 import { articles_cs } from './locales/cs/articles';
+import { articles_th } from './locales/th/articles';
 import { localeSet } from './shared';
 import { articles_ja } from './locales/ja/articles';
 import { articles_ko } from './locales/ko/articles';
@@ -366,4 +367,5 @@ export const articlesI18n = localeSet(tr, en, {
   el: articles_el,
   nl: articles_nl,
   sv: articles_sv,
+  th: articles_th,
 });

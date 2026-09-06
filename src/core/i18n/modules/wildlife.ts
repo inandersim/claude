@@ -12,6 +12,7 @@ import { wildlife_ne } from './locales/ne/wildlife';
 import { wildlife_el } from './locales/el/wildlife';
 import { wildlife_id } from './locales/id/wildlife';
 import { wildlife_cs } from './locales/cs/wildlife';
+import { wildlife_th } from './locales/th/wildlife';
 import { localeSet } from './shared';
 import { wildlife_ja } from './locales/ja/wildlife';
 import { wildlife_ko } from './locales/ko/wildlife';
@@ -503,4 +504,5 @@ export const wildlifeI18n = localeSet(tr, en, {
   el: wildlife_el,
   nl: wildlife_nl,
   sv: wildlife_sv,
+  th: wildlife_th,
 });

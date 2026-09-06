@@ -12,6 +12,7 @@ import { vision_ne } from './locales/ne/vision';
 import { vision_el } from './locales/el/vision';
 import { vision_id } from './locales/id/vision';
 import { vision_cs } from './locales/cs/vision';
+import { vision_th } from './locales/th/vision';
 import { localeSet } from './shared';
 import { vision_ja } from './locales/ja/vision';
 import { vision_ko } from './locales/ko/vision';
@@ -223,4 +224,5 @@ export const visionI18n = localeSet(tr, en, {
   el: vision_el,
   nl: vision_nl,
   sv: vision_sv,
+  th: vision_th,
 });

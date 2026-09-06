@@ -12,6 +12,7 @@ import { tv_ne } from './locales/ne/tv';
 import { tv_el } from './locales/el/tv';
 import { tv_id } from './locales/id/tv';
 import { tv_cs } from './locales/cs/tv';
+import { tv_th } from './locales/th/tv';
 import { localeSet } from './shared';
 import { tv_ja } from './locales/ja/tv';
 import { tv_ko } from './locales/ko/tv';
@@ -331,4 +332,5 @@ export const tvI18n = localeSet(tr, en, {
   el: tv_el,
   nl: tv_nl,
   sv: tv_sv,
+  th: tv_th,
 });

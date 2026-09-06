@@ -17,6 +17,7 @@ import { ai_id } from './locales/id/ai';
 import { ai_nl } from './locales/nl/ai';
 import { ai_sv } from './locales/sv/ai';
 import { ai_cs } from './locales/cs/ai';
+import { ai_th } from './locales/th/ai';
 import { localeSet } from './shared';
 
 const tr = {
@@ -157,4 +158,5 @@ export const aiI18n = localeSet(tr, en, {
   el: ai_el,
   nl: ai_nl,
   sv: ai_sv,
+  th: ai_th,
 });

@@ -17,6 +17,7 @@ import { maps_id } from './locales/id/maps';
 import { maps_nl } from './locales/nl/maps';
 import { maps_sv } from './locales/sv/maps';
 import { maps_cs } from './locales/cs/maps';
+import { maps_th } from './locales/th/maps';
 import { localeSet } from './shared';
 
 const tr = {
@@ -231,4 +232,5 @@ export const mapsI18n = localeSet(tr, en, {
   el: maps_el,
   nl: maps_nl,
   sv: maps_sv,
+  th: maps_th,
 });

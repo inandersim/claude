@@ -17,6 +17,7 @@ import { inventory_id } from './locales/id/inventory';
 import { inventory_nl } from './locales/nl/inventory';
 import { inventory_sv } from './locales/sv/inventory';
 import { inventory_cs } from './locales/cs/inventory';
+import { inventory_th } from './locales/th/inventory';
 import { localeSet } from './shared';
 
 const tr = {
@@ -541,4 +542,5 @@ export const inventoryI18n = localeSet(tr, en, {
   el: inventory_el,
   nl: inventory_nl,
   sv: inventory_sv,
+  th: inventory_th,
 });

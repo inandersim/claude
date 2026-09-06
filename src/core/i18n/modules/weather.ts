@@ -12,6 +12,7 @@ import { weather_ne } from './locales/ne/weather';
 import { weather_el } from './locales/el/weather';
 import { weather_id } from './locales/id/weather';
 import { weather_cs } from './locales/cs/weather';
+import { weather_th } from './locales/th/weather';
 import { localeSet } from './shared';
 import { weather_ja } from './locales/ja/weather';
 import { weather_ko } from './locales/ko/weather';
@@ -401,4 +402,5 @@ export const weatherI18n = localeSet(tr, en, {
   el: weather_el,
   nl: weather_nl,
   sv: weather_sv,
+  th: weather_th,
 });

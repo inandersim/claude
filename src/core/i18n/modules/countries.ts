@@ -12,6 +12,7 @@ import { countries_ne } from './locales/ne/countries';
 import { countries_el } from './locales/el/countries';
 import { countries_id } from './locales/id/countries';
 import { countries_cs } from './locales/cs/countries';
+import { countries_th } from './locales/th/countries';
 import { localeSet } from './shared';
 import { countries_ja } from './locales/ja/countries';
 import { countries_ko } from './locales/ko/countries';
@@ -360,4 +361,5 @@ export const countriesI18n = localeSet(tr, en, {
   el: countries_el,
   nl: countries_nl,
   sv: countries_sv,
+  th: countries_th,
 });

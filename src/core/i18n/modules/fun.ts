@@ -17,6 +17,7 @@ import { fun_id } from './locales/id/fun';
 import { fun_nl } from './locales/nl/fun';
 import { fun_sv } from './locales/sv/fun';
 import { fun_cs } from './locales/cs/fun';
+import { fun_th } from './locales/th/fun';
 import { localeSet } from './shared';
 
 const tr = {
@@ -437,4 +438,5 @@ export const funI18n = localeSet(tr, en, {
   el: fun_el,
   nl: fun_nl,
   sv: fun_sv,
+  th: fun_th,
 });

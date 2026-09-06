@@ -12,6 +12,7 @@ import { rescue_ne } from './locales/ne/rescue';
 import { rescue_el } from './locales/el/rescue';
 import { rescue_id } from './locales/id/rescue';
 import { rescue_cs } from './locales/cs/rescue';
+import { rescue_th } from './locales/th/rescue';
 import { localeSet } from './shared';
 import { rescue_ja } from './locales/ja/rescue';
 import { rescue_ko } from './locales/ko/rescue';
@@ -199,4 +200,5 @@ export const rescueI18n = localeSet(tr, en, {
   el: rescue_el,
   nl: rescue_nl,
   sv: rescue_sv,
+  th: rescue_th,
 });
