@@ -37,13 +37,7 @@ export const WEATHER_THRESHOLDS = {
 
 /** Hava ikonu adları — `IconName` alt kümesi (Icon kaydında mevcut olmalı). */
 export type WeatherIcon =
-  | 'sun'
-  | 'cloud-sun'
-  | 'cloud'
-  | 'cloud-rain'
-  | 'cloud-lightning'
-  | 'snowflake'
-  | 'wind';
+  'sun' | 'cloud-sun' | 'cloud' | 'cloud-rain' | 'cloud-lightning' | 'snowflake' | 'wind';
 
 export type WmoGroup =
   | 'clear'
@@ -143,12 +137,18 @@ export function windChill(tempC: number, windKmh: number): number {
  * Donma seviyesi (m): önce ilk saatin `freezingLevelM` değeri, yoksa hava sıcaklığından
  * ve rakımdan lapse-rate ile türetilir (referans rakım verilmişse).
  */
-export function freezingLevel(hourly: WeatherHour[], referenceElevM: number | null = null): number | null {
+export function freezingLevel(
+  hourly: WeatherHour[],
+  referenceElevM: number | null = null,
+): number | null {
   const first = hourly[0];
   if (!first) return null;
   if (first.freezingLevelM != null) return Math.round(first.freezingLevelM);
   if (referenceElevM == null) return null;
-  return Math.max(0, Math.round(referenceElevM + (first.temperatureC * 1000) / LAPSE_RATE_C_PER_KM));
+  return Math.max(
+    0,
+    Math.round(referenceElevM + (first.temperatureC * 1000) / LAPSE_RATE_C_PER_KM),
+  );
 }
 
 /** Derece → 8 yönlü pusula etiketi (rüzgârın GELDİĞİ yön). */
@@ -207,9 +207,7 @@ function scanHourly(
  * rüzgâr/hamle > 50 uyarı, > 80 tehlike; yıldırım kodları 95–99; soğuk < −10; sıcak > 35;
  * kar > 10 cm/gün; yağış > 20 mm/gün; UV ≥ 8. Sonuç seviyeye göre sıralıdır (tehlike önce).
  */
-export function computeAlerts(
-  forecast: Pick<WeatherForecast, 'hourly' | 'daily'>,
-): WeatherAlert[] {
+export function computeAlerts(forecast: Pick<WeatherForecast, 'hourly' | 'daily'>): WeatherAlert[] {
   const T = WEATHER_THRESHOLDS;
   const { hourly, daily } = forecast;
   const alerts: WeatherAlert[] = [];
@@ -524,6 +522,19 @@ const EAWS_BOXES: RegionBox[] = [
   },
   {
     region: {
+      code: 'FR',
+      name: 'Fransız Alpleri (Météo-France)',
+      official: true,
+      url: 'https://meteofrance.com/meteo-montagne',
+      caamlUrl: null,
+    },
+    latMin: 43.7,
+    latMax: 46.0,
+    lonMin: 5.0,
+    lonMax: 7.05,
+  },
+  {
+    region: {
       code: 'CH',
       name: 'İsviçre Alpleri (SLF)',
       official: true,
@@ -547,19 +558,6 @@ const EAWS_BOXES: RegionBox[] = [
     latMax: 47.1,
     lonMin: 6.6,
     lonMax: 13.9,
-  },
-  {
-    region: {
-      code: 'FR',
-      name: 'Fransız Alpleri (Météo-France)',
-      official: true,
-      url: 'https://meteofrance.com/meteo-montagne',
-      caamlUrl: null,
-    },
-    latMin: 43.7,
-    latMax: 46.5,
-    lonMin: 5.0,
-    lonMax: 7.2,
   },
   {
     region: {
@@ -708,7 +706,10 @@ function dayOfYear(d: Date): number {
 function guessElevation(coords: GeoPoint, rand: () => number): number {
   // Türkiye içi: doğuya gittikçe yükselir; kıyı şeridi düşük
   const inTurkey =
-    coords.latitude > 35.8 && coords.latitude < 42.2 && coords.longitude > 25.6 && coords.longitude < 44.9;
+    coords.latitude > 35.8 &&
+    coords.latitude < 42.2 &&
+    coords.longitude > 25.6 &&
+    coords.longitude < 44.9;
   if (inTurkey) {
     const east = Math.max(0, coords.longitude - 29) / 15;
     return Math.round(150 + east * 1400 + rand() * 300);
@@ -772,7 +773,8 @@ export function mockForecast(
     const regime = regimes[Math.min(regimeCount - 1, Math.floor(i / 18))]!;
     const diurnal = 5.5 * Math.sin(((localHour - 9) / 24) * Math.PI * 2);
     const noise = (rand() - 0.5) * 2;
-    const seaLevel = seaLevelBaseTemp(coords.latitude, doy) + diurnal * (1 - regime.cloud * 0.6) + noise;
+    const seaLevel =
+      seaLevelBaseTemp(coords.latitude, doy) + diurnal * (1 - regime.cloud * 0.6) + noise;
     const temperatureC = Math.round(lapseRateAdjust(seaLevel, 0, elev) * 10) / 10;
 
     const gustFactor = 1.3 + regime.windy * 0.6;
@@ -813,7 +815,10 @@ export function mockForecast(
     }
 
     const apparentC = Math.round(windChill(temperatureC, windKmh) * 10) / 10;
-    const freezingLevelM = Math.max(0, Math.round(elev + (temperatureC * 1000) / LAPSE_RATE_C_PER_KM));
+    const freezingLevelM = Math.max(
+      0,
+      Math.round(elev + (temperatureC * 1000) / LAPSE_RATE_C_PER_KM),
+    );
 
     hourly.push({
       time: time.toISOString(),
