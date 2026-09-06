@@ -10,6 +10,8 @@ import {
 } from './prompt.js';
 import { executeTool, tools } from './tools.js';
 import { handleSpecies } from './species.js';
+import { handleStravaActivities, handleStravaAuthUrl, handleStravaToken } from './strava.js';
+import { handleTriage } from './triage.js';
 import { handleVision } from './vision.js';
 
 /* ------------------------------------------------------------------ */
@@ -366,7 +368,8 @@ const server = createServer(async (req, res) => {
       (url.pathname === '/v1/chat' ||
         url.pathname === '/v1/plan-trip' ||
         url.pathname === '/v1/vision' ||
-        url.pathname === '/v1/species')
+        url.pathname === '/v1/species' ||
+        url.pathname === '/v1/triage')
     ) {
       const subject = authenticate(req);
       rateLimit(subject);
@@ -387,7 +390,32 @@ const server = createServer(async (req, res) => {
           fail: (status, message) => new HttpError(status, message),
           sendJson,
         });
+      else if (url.pathname === '/v1/triage')
+        // Tıbbi ön triyaj: aciliyet + adımlar; hayati tehlikede 112 yönlendirmesi triage.ts içinde.
+        await handleTriage(req, res, {
+          client,
+          model: MODEL,
+          fail: (status, message) => new HttpError(status, message),
+          sendJson,
+        });
       else await handlePlanTrip(req, res);
+      return;
+    }
+    // Strava OAuth köprüsü: client secret yalnızca sunucuda; uygulama anahtarı yine zorunlu.
+    if (url.pathname.startsWith('/v1/strava/')) {
+      const subject = authenticate(req);
+      rateLimit(subject);
+      const stravaDeps = {
+        fail: (status: number, message: string) => new HttpError(status, message),
+        sendJson,
+      };
+      if (req.method === 'GET' && url.pathname === '/v1/strava/auth-url')
+        await handleStravaAuthUrl(req, res, stravaDeps);
+      else if (req.method === 'POST' && url.pathname === '/v1/strava/token')
+        await handleStravaToken(req, res, stravaDeps);
+      else if (req.method === 'GET' && url.pathname === '/v1/strava/activities')
+        await handleStravaActivities(req, res, stravaDeps);
+      else sendJson(res, 404, { error: 'not_found' });
       return;
     }
     sendJson(res, 404, { error: 'not_found' });
