@@ -1,3 +1,4 @@
+import { articles_ka } from './locales/ka/articles';
 import { articles_pl } from './locales/pl/articles';
 import { articles_ar } from './locales/ar/articles';
 import { articles_pt } from './locales/pt/articles';
@@ -348,6 +349,7 @@ const en: ArticlesI18nShape = {
 
 /** articles modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
 export const articlesI18n = localeSet(tr, en, {
+  ka: articles_ka,
   pl: articles_pl,
   cs: articles_cs,
   id: articles_id,

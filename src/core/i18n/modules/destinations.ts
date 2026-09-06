@@ -1,3 +1,4 @@
+import { destinations_ka } from './locales/ka/destinations';
 import { destinations_pl } from './locales/pl/destinations';
 import { destinations_ar } from './locales/ar/destinations';
 import { destinations_pt } from './locales/pt/destinations';
@@ -608,6 +609,7 @@ const en: DestinationsI18nShape = {
 
 /** destinations modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
 export const destinationsI18n = localeSet(tr, en, {
+  ka: destinations_ka,
   pl: destinations_pl,
   cs: destinations_cs,
   id: destinations_id,

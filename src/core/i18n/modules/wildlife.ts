@@ -1,3 +1,4 @@
+import { wildlife_ka } from './locales/ka/wildlife';
 import { wildlife_pl } from './locales/pl/wildlife';
 import { wildlife_ar } from './locales/ar/wildlife';
 import { wildlife_pt } from './locales/pt/wildlife';
@@ -485,6 +486,7 @@ const en: WildlifeI18nShape = {
 
 /** wildlife modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
 export const wildlifeI18n = localeSet(tr, en, {
+  ka: wildlife_ka,
   pl: wildlife_pl,
   cs: wildlife_cs,
   id: wildlife_id,

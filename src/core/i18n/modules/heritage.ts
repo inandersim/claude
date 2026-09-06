@@ -1,3 +1,4 @@
+import { heritage_ka } from './locales/ka/heritage';
 import { heritage_pl } from './locales/pl/heritage';
 import { heritage_ar } from './locales/ar/heritage';
 import { heritage_pt } from './locales/pt/heritage';
@@ -367,6 +368,7 @@ const en: HeritageI18nShape = {
 
 /** heritage modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
 export const heritageI18n = localeSet(tr, en, {
+  ka: heritage_ka,
   pl: heritage_pl,
   cs: heritage_cs,
   id: heritage_id,

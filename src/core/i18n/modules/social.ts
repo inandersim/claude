@@ -1,3 +1,4 @@
+import { social_ka } from './locales/ka/social';
 import { social_pl } from './locales/pl/social';
 import { social_ar } from './locales/ar/social';
 import { social_pt } from './locales/pt/social';
@@ -231,6 +232,7 @@ const en: SocialI18nShape = {
 
 /** social modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
 export const socialI18n = localeSet(tr, en, {
+  ka: social_ka,
   pl: social_pl,
   cs: social_cs,
   id: social_id,

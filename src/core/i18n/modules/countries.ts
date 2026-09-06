@@ -1,3 +1,4 @@
+import { countries_ka } from './locales/ka/countries';
 import { countries_pl } from './locales/pl/countries';
 import { countries_ar } from './locales/ar/countries';
 import { countries_pt } from './locales/pt/countries';
@@ -342,6 +343,7 @@ const en: CountriesI18nShape = {
 
 /** countries modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
 export const countriesI18n = localeSet(tr, en, {
+  ka: countries_ka,
   pl: countries_pl,
   cs: countries_cs,
   id: countries_id,

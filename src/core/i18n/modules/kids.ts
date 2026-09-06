@@ -1,3 +1,4 @@
+import { kids_ka } from './locales/ka/kids';
 import { kids_pl } from './locales/pl/kids';
 import { kids_ar } from './locales/ar/kids';
 import { kids_pt } from './locales/pt/kids';
@@ -345,6 +346,7 @@ const en: KidsI18nShape = {
 
 /** kids modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
 export const kidsI18n = localeSet(tr, en, {
+  ka: kids_ka,
   pl: kids_pl,
   cs: kids_cs,
   id: kids_id,

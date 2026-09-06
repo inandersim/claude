@@ -1,3 +1,4 @@
+import { telemed_ka } from './locales/ka/telemed';
 import { telemed_pl } from './locales/pl/telemed';
 import { telemed_ar } from './locales/ar/telemed';
 import { telemed_pt } from './locales/pt/telemed';
@@ -339,6 +340,7 @@ const en: TelemedI18nShape = {
 
 /** telemed modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
 export const telemedI18n = localeSet(tr, en, {
+  ka: telemed_ka,
   pl: telemed_pl,
   cs: telemed_cs,
   id: telemed_id,

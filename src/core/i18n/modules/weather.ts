@@ -1,3 +1,4 @@
+import { weather_ka } from './locales/ka/weather';
 import { weather_pl } from './locales/pl/weather';
 import { weather_ar } from './locales/ar/weather';
 import { weather_pt } from './locales/pt/weather';
@@ -383,6 +384,7 @@ const en: WeatherI18nShape = {
 
 /** weather modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
 export const weatherI18n = localeSet(tr, en, {
+  ka: weather_ka,
   pl: weather_pl,
   cs: weather_cs,
   id: weather_id,

@@ -1,3 +1,4 @@
+import { vision_ka } from './locales/ka/vision';
 import { vision_pl } from './locales/pl/vision';
 import { vision_ar } from './locales/ar/vision';
 import { vision_pt } from './locales/pt/vision';
@@ -205,6 +206,7 @@ const en: VisionI18nShape = {
 
 /** vision modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
 export const visionI18n = localeSet(tr, en, {
+  ka: vision_ka,
   pl: vision_pl,
   cs: vision_cs,
   id: vision_id,

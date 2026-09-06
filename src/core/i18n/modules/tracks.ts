@@ -1,3 +1,4 @@
+import { tracks_ka } from './locales/ka/tracks';
 import { tracks_pl } from './locales/pl/tracks';
 import { tracks_ar } from './locales/ar/tracks';
 import { tracks_pt } from './locales/pt/tracks';
@@ -488,6 +489,7 @@ const en: TracksI18nShape = {
 
 /** tracks modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
 export const tracksI18n = localeSet(tr, en, {
+  ka: tracks_ka,
   pl: tracks_pl,
   cs: tracks_cs,
   id: tracks_id,

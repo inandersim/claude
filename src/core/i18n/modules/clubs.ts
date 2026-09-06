@@ -1,3 +1,4 @@
+import { clubs_ka } from './locales/ka/clubs';
 import { clubs_pl } from './locales/pl/clubs';
 import { clubs_ar } from './locales/ar/clubs';
 import { clubs_de } from './locales/de/clubs';
@@ -324,6 +325,7 @@ const en: ClubsI18nShape = {
 
 /** clubs modülü çevirileri — tr kaynak, en zorunlu; diğer diller aşağıya eklenir. */
 export const clubsI18n = localeSet(tr, en, {
+  ka: clubs_ka,
   pl: clubs_pl,
   cs: clubs_cs,
   id: clubs_id,

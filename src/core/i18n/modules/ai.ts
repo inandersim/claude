@@ -1,3 +1,4 @@
+import { ai_ka } from './locales/ka/ai';
 import { ai_pl } from './locales/pl/ai';
 import { ai_ar } from './locales/ar/ai';
 import { ai_de } from './locales/de/ai';
@@ -139,6 +140,7 @@ const en: AiI18nShape = {
 
 /** ai modülü çevirileri — tr kaynak, en zorunlu; diğer diller aşağıya eklenir. */
 export const aiI18n = localeSet(tr, en, {
+  ka: ai_ka,
   pl: ai_pl,
   cs: ai_cs,
   id: ai_id,

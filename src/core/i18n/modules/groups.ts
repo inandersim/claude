@@ -1,3 +1,4 @@
+import { groups_ka } from './locales/ka/groups';
 import { groups_pl } from './locales/pl/groups';
 import { groups_ar } from './locales/ar/groups';
 import { groups_pt } from './locales/pt/groups';
@@ -357,6 +358,7 @@ const en: GroupsI18nShape = {
 
 /** groups modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
 export const groupsI18n = localeSet(tr, en, {
+  ka: groups_ka,
   pl: groups_pl,
   cs: groups_cs,
   id: groups_id,

@@ -1,3 +1,4 @@
+import { rescue_ka } from './locales/ka/rescue';
 import { rescue_pl } from './locales/pl/rescue';
 import { rescue_ar } from './locales/ar/rescue';
 import { rescue_pt } from './locales/pt/rescue';
@@ -181,6 +182,7 @@ const en: RescueI18nShape = {
 
 /** rescue modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
 export const rescueI18n = localeSet(tr, en, {
+  ka: rescue_ka,
   pl: rescue_pl,
   cs: rescue_cs,
   id: rescue_id,

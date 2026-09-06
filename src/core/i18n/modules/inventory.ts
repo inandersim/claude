@@ -1,3 +1,4 @@
+import { inventory_ka } from './locales/ka/inventory';
 import { inventory_pl } from './locales/pl/inventory';
 import { inventory_ar } from './locales/ar/inventory';
 import { inventory_de } from './locales/de/inventory';
@@ -523,6 +524,7 @@ const en: InventoryI18nShape = {
 
 /** inventory modülü çevirileri — tr kaynak, en zorunlu; diğer diller aşağıya eklenir. */
 export const inventoryI18n = localeSet(tr, en, {
+  ka: inventory_ka,
   pl: inventory_pl,
   cs: inventory_cs,
   id: inventory_id,

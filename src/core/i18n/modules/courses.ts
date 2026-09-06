@@ -1,3 +1,4 @@
+import { courses_ka } from './locales/ka/courses';
 import { courses_pl } from './locales/pl/courses';
 import { courses_ar } from './locales/ar/courses';
 import { courses_pt } from './locales/pt/courses';
@@ -408,6 +409,7 @@ const en: CoursesI18nShape = {
 
 /** courses modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
 export const coursesI18n = localeSet(tr, en, {
+  ka: courses_ka,
   pl: courses_pl,
   cs: courses_cs,
   id: courses_id,

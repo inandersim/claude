@@ -1,3 +1,4 @@
+import { tv_ka } from './locales/ka/tv';
 import { tv_pl } from './locales/pl/tv';
 import { tv_ar } from './locales/ar/tv';
 import { tv_pt } from './locales/pt/tv';
@@ -313,6 +314,7 @@ const en: TvI18nShape = {
 
 /** tv modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
 export const tvI18n = localeSet(tr, en, {
+  ka: tv_ka,
   pl: tv_pl,
   cs: tv_cs,
   id: tv_id,

@@ -1,3 +1,4 @@
+import { satellite_ka } from './locales/ka/satellite';
 import { satellite_pl } from './locales/pl/satellite';
 import { satellite_ar } from './locales/ar/satellite';
 import { satellite_de } from './locales/de/satellite';
@@ -303,6 +304,7 @@ const en: SatelliteI18nShape = {
 
 /** satellite modülü çevirileri — tr kaynak, en zorunlu; diğer diller aşağıya eklenir. */
 export const satelliteI18n = localeSet(tr, en, {
+  ka: satellite_ka,
   pl: satellite_pl,
   cs: satellite_cs,
   id: satellite_id,

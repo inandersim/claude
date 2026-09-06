@@ -1,3 +1,4 @@
+import { maps_ka } from './locales/ka/maps';
 import { maps_pl } from './locales/pl/maps';
 import { maps_ar } from './locales/ar/maps';
 import { maps_de } from './locales/de/maps';
@@ -213,6 +214,7 @@ const en: MapsI18nShape = {
 
 /** maps modülü çevirileri — tr kaynak, en zorunlu; diğer diller aşağıya eklenir. */
 export const mapsI18n = localeSet(tr, en, {
+  ka: maps_ka,
   pl: maps_pl,
   cs: maps_cs,
   id: maps_id,
