@@ -70,7 +70,7 @@ export default function RouletteScreen() {
       <View style={styles.content}>
         <View style={{ gap: spacing.xs }}>
           <Text variant="label" color="textMuted">
-            {t('fun.roulette.preferences').toLocaleUpperCase('tr-TR')}
+            {t('fun.roulette.preferences').toLocaleUpperCase(locale)}
           </Text>
           <ScrollView
             horizontal
@@ -129,7 +129,7 @@ export default function RouletteScreen() {
                 </View>
                 <View style={{ flex: 1 }}>
                   <Text variant="label" color="textMuted">
-                    {t('fun.roulette.result').toLocaleUpperCase('tr-TR')}
+                    {t('fun.roulette.result').toLocaleUpperCase(locale)}
                   </Text>
                   <Text variant="h3" numberOfLines={2}>
                     {suggestion.placeName}

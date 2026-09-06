@@ -25,7 +25,7 @@ import {
   Text,
 } from '@/components/ui';
 import { useToast } from '@/core/hooks/useToast';
-import { useT } from '@/core/i18n';
+import { currentLocale, useT } from '@/core/i18n';
 import { fontFamily, layout, radius, spacing, useTheme } from '@/core/theme';
 import {
   ADVENTURE_TYPES,
@@ -307,7 +307,7 @@ export default function NewPostScreen() {
                   <Icon name={field.icon} size={16} color={field.color} strokeWidth={2.4} />
                   <View style={{ flex: 1 }}>
                     <Text variant="label" color="textSubtle">
-                      {field.label.toLocaleUpperCase('tr-TR')}
+                      {field.label.toLocaleUpperCase(currentLocale())}
                     </Text>
                     <View style={styles.metricInputRow}>
                       <TextInput

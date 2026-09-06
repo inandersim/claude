@@ -15,7 +15,7 @@ import {
   Skeleton,
   Text,
 } from '@/components/ui';
-import { useT } from '@/core/i18n';
+import { currentLocale, useT } from '@/core/i18n';
 import { layout, radius, spacing, useTheme } from '@/core/theme';
 import { formatCompact } from '@/core/utils/format';
 import { ADVENTURE_TYPE_META, DIFFICULTY_META, mapsUrl } from '@/domain';
@@ -79,7 +79,7 @@ export default function LocationDetailScreen() {
               <View style={styles.trendPill}>
                 <Icon name="trending-up" size={12} color="#5EE39B" strokeWidth={2.8} />
                 <Text variant="label" weight="extrabold" color="#F2F7F4">
-                  +{location.data.trendPercent}% {t('explore.trending').toLocaleUpperCase('tr-TR')}
+                  +{location.data.trendPercent}% {t('explore.trending').toLocaleUpperCase(locale)}
                 </Text>
               </View>
               <Text variant="display" color="#FFFFFF">
@@ -208,7 +208,7 @@ function Stat({
         {value}
       </Text>
       <Text variant="label" color="textSubtle" align="center">
-        {label.toLocaleUpperCase('tr-TR')}
+        {label.toLocaleUpperCase(currentLocale())}
       </Text>
     </View>
   );

@@ -75,10 +75,9 @@ export function pickUser(map: Map<ID, User>, id: ID): User {
   return user;
 }
 
-export type NotificationInput = Omit<
-  Notification,
-  'id' | 'createdAt' | 'isRead' | 'targetId'
-> & { targetId?: ID | null };
+export type NotificationInput = Omit<Notification, 'id' | 'createdAt' | 'isRead' | 'targetId'> & {
+  targetId?: ID | null;
+};
 
 /**
  * Bildirim yazar. Mock'taki `pushNotification` ile aynı kural:

@@ -52,20 +52,20 @@ export function ArticleCard({ article, variant = 'default' }: Props) {
           <View style={[styles.pill, { backgroundColor: meta.color }]}>
             <Icon name={meta.icon} size={12} color="#0B1410" strokeWidth={2.4} />
             <Text variant="label" weight="extrabold" color="#0B1410">
-              {t(meta.labelKey).toLocaleUpperCase('tr-TR')}
+              {t(meta.labelKey).toLocaleUpperCase(locale)}
             </Text>
           </View>
           {article.status === 'draft' ? (
             <View style={[styles.pill, { backgroundColor: colors.warning }]}>
               <Text variant="label" weight="extrabold" color="#0B1410">
-                {t('articles.status.draft').toLocaleUpperCase('tr-TR')}
+                {t('articles.status.draft').toLocaleUpperCase(locale)}
               </Text>
             </View>
           ) : article.status === 'featured' ? (
             <View style={[styles.pill, { backgroundColor: 'rgba(8,14,12,0.6)' }]}>
               <Icon name="sparkles" size={12} color="#F5B301" strokeWidth={2.4} />
               <Text variant="label" weight="extrabold" color="#F2F7F4">
-                {t('articles.status.featured').toLocaleUpperCase('tr-TR')}
+                {t('articles.status.featured').toLocaleUpperCase(locale)}
               </Text>
             </View>
           ) : null}

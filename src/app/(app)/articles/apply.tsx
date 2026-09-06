@@ -14,7 +14,7 @@ import {
   Text,
 } from '@/components/ui';
 import { useToast } from '@/core/hooks/useToast';
-import { useT } from '@/core/i18n';
+import { currentLocale, useT } from '@/core/i18n';
 import { goBack } from '@/core/navigation';
 import { layout, radius, spacing, useTheme } from '@/core/theme';
 import {
@@ -81,7 +81,7 @@ function StatusCard({ profile }: { profile: WriterProfile }) {
         color={approved ? colors.success : colors.warning}
       />
       <Text variant="label" color="textSubtle">
-        {t('articles.apply.statusTitle').toLocaleUpperCase('tr-TR')}
+        {t('articles.apply.statusTitle').toLocaleUpperCase(currentLocale())}
       </Text>
       <Text variant="h3">
         {approved ? t('articles.apply.approved') : t('articles.apply.pending')}
@@ -185,7 +185,7 @@ function ApplicationForm() {
       />
       <View style={styles.field}>
         <Text variant="label" color="textSubtle">
-          {t('articles.apply.topics').toLocaleUpperCase('tr-TR')}
+          {t('articles.apply.topics').toLocaleUpperCase(currentLocale())}
         </Text>
         <View style={styles.chips}>
           {ARTICLE_CATEGORIES.map((c) => (

@@ -240,9 +240,7 @@ export default function CourseDetailScreen() {
               <Stat
                 icon="languages"
                 value={data.languages.length.toString()}
-                label={data.languages
-                  .map((l) => l.slice(0, 2).toLocaleUpperCase('tr-TR'))
-                  .join(' ')}
+                label={data.languages.map((l) => l.slice(0, 2).toLocaleUpperCase(locale)).join(' ')}
               />
             </View>
 

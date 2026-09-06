@@ -68,13 +68,13 @@ export default function PlansScreen() {
             <View style={styles.earnRow}>
               <View style={{ flex: 1 }}>
                 <Text variant="label" color="textSubtle">
-                  {t('plans.gross').toLocaleUpperCase('tr-TR')}
+                  {t('plans.gross').toLocaleUpperCase(locale)}
                 </Text>
                 <Text variant="h3">{formatPriceTry(earnings.data.grossTry, locale, false)}</Text>
               </View>
               <View style={{ flex: 1 }}>
                 <Text variant="label" color="textSubtle">
-                  {t('plans.commission').toLocaleUpperCase('tr-TR')} · %
+                  {t('plans.commission').toLocaleUpperCase(locale)} · %
                   {Math.round(PLAN_SPECS[me.plan].commissionRate * 100)}
                 </Text>
                 <Text variant="h3" color="danger">
@@ -83,7 +83,7 @@ export default function PlansScreen() {
               </View>
               <View style={{ flex: 1 }}>
                 <Text variant="label" color="textSubtle">
-                  {t('plans.net').toLocaleUpperCase('tr-TR')}
+                  {t('plans.net').toLocaleUpperCase(locale)}
                 </Text>
                 <Text variant="h3" color="primary">
                   {formatPriceTry(earnings.data.netTry, locale, false)}
@@ -138,7 +138,7 @@ export default function PlansScreen() {
                     {current ? (
                       <View style={[styles.currentPill, { backgroundColor: `${color}22` }]}>
                         <Text variant="label" weight="extrabold" color={color}>
-                          {t('plans.current').toLocaleUpperCase('tr-TR')}
+                          {t('plans.current').toLocaleUpperCase(locale)}
                         </Text>
                       </View>
                     ) : null}

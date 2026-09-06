@@ -76,23 +76,23 @@ export function EventCard({
             {formatDate(event.startsAt, dateLocale, 'd')}
           </Text>
           <Text variant="label" weight="extrabold" color="primary">
-            {formatDate(event.startsAt, dateLocale, 'MMM').toLocaleUpperCase('tr-TR')}
+            {formatDate(event.startsAt, dateLocale, 'MMM').toLocaleUpperCase(locale)}
           </Text>
         </View>
         <View style={{ flex: 1, gap: 4 }}>
           <View style={styles.kindRow}>
             <Icon name={EVENT_KIND_ICON[event.kind]} size={12} color={colors.textSubtle} />
             <Text variant="label" color="textSubtle">
-              {t(`clubs.eventKind.${event.kind}`).toLocaleUpperCase('tr-TR')}
+              {t(`clubs.eventKind.${event.kind}`).toLocaleUpperCase(locale)}
             </Text>
             {isPast ? (
               <Text variant="label" color="textSubtle">
-                · {t('clubs.past').toLocaleUpperCase('tr-TR')}
+                · {t('clubs.past').toLocaleUpperCase(locale)}
               </Text>
             ) : null}
             {event.openToAll ? (
               <Text variant="label" color="success">
-                · {t('clubs.openToAll').toLocaleUpperCase('tr-TR')}
+                · {t('clubs.openToAll').toLocaleUpperCase(locale)}
               </Text>
             ) : null}
           </View>

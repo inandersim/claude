@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 
 import { Icon, Tappable, Text } from '@/components/ui';
-import { useT } from '@/core/i18n';
+import { currentLocale, useT } from '@/core/i18n';
 import { radius, spacing, useTheme } from '@/core/theme';
 import { ADVENTURE_TYPE_META, type QuizQuestion } from '@/domain';
 
@@ -30,7 +30,7 @@ export function QuizCard({ question, index, total, selected, onSelect }: QuizCar
     <View style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.border }]}>
       <View style={styles.head}>
         <Text variant="label" color="textMuted">
-          {t('fun.quiz.question', { current: index + 1, total }).toLocaleUpperCase('tr-TR')}
+          {t('fun.quiz.question', { current: index + 1, total }).toLocaleUpperCase(currentLocale())}
         </Text>
         {meta ? (
           <View style={[styles.pill, { backgroundColor: meta.softColor }]}>

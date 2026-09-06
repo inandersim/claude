@@ -29,7 +29,7 @@ export function RecentAdventureRow({ post }: { post: FeedPost }) {
           <View style={[styles.typeChip, { backgroundColor: meta.softColor }]}>
             <Icon name={meta.icon} size={11} color={meta.color} strokeWidth={2.6} />
             <Text variant="label" weight="extrabold" color={meta.color}>
-              {t(meta.labelKey).toLocaleUpperCase('tr-TR')}
+              {t(meta.labelKey).toLocaleUpperCase(locale)}
             </Text>
           </View>
           <Text variant="caption" color="textSubtle">

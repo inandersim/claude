@@ -15,6 +15,7 @@ import {
   type IconName,
 } from '@/components/ui';
 import { useLocation } from '@/core/hooks/useLocation';
+import { confirmDialog } from '@/core/utils/confirm';
 import { useToast } from '@/core/hooks/useToast';
 import { useT, type TranslationKey } from '@/core/i18n';
 import { layout, radius, spacing, useTheme } from '@/core/theme';
@@ -61,25 +62,20 @@ export default function FirstAidScreen() {
   const active = Boolean(activeSos.data);
 
   const onTrigger = () => {
-    Alert.alert(
+    confirmDialog(
       t('firstAid.sosConfirm'),
       t('rescue.sosConfirmDescription', { number: general, country: countryLabel }),
-      [
-        { text: t('common.cancel'), style: 'cancel' },
-        {
-          text: t('firstAid.sosSend'),
-          style: 'destructive',
-          onPress: () =>
-            trigger.mutate(location.coords, {
-              onSuccess: async (event) => {
-                toast(t('firstAid.sosSent', { count: event.notifiedContacts }), 'success');
-                if (Platform.OS !== 'web') Linking.openURL(dialUrl(general)).catch(() => undefined);
-                const message = sosMessage(me.displayName, location.coords, locale);
-                Share.share({ message }).catch(() => undefined);
-              },
-            }),
-        },
-      ],
+      t('firstAid.sosSend'),
+      t('common.cancel'),
+      () =>
+        trigger.mutate(location.coords, {
+          onSuccess: async (event) => {
+            toast(t('firstAid.sosSent', { count: event.notifiedContacts }), 'success');
+            if (Platform.OS !== 'web') Linking.openURL(dialUrl(general)).catch(() => undefined);
+            const message = sosMessage(me.displayName, location.coords, locale);
+            Share.share({ message }).catch(() => undefined);
+          },
+        }),
     );
   };
 
@@ -256,7 +252,7 @@ export default function FirstAidScreen() {
         {FIRST_AID_CATEGORIES.map((cat) => (
           <View key={cat} style={{ gap: spacing.sm }}>
             <Text variant="label" color="textSubtle">
-              {t(`firstAid.category.${cat}` as TranslationKey).toLocaleUpperCase('tr-TR')}
+              {t(`firstAid.category.${cat}` as TranslationKey).toLocaleUpperCase(locale)}
             </Text>
             {guides
               .filter((g) => g.category === cat)

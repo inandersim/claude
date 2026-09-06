@@ -15,7 +15,7 @@ import {
 } from '@/components/ui';
 import { useLocation } from '@/core/hooks/useLocation';
 import { useToast } from '@/core/hooks/useToast';
-import { useT } from '@/core/i18n';
+import { currentLocale, useT } from '@/core/i18n';
 import { layout, radius, spacing, useTheme } from '@/core/theme';
 import {
   isAcceptedPlan,
@@ -210,7 +210,7 @@ export default function ZMatchScreen() {
             <>
               {incoming.length > 0 ? (
                 <Text variant="label" color="textSubtle">
-                  {t('zmatch.incoming').toLocaleUpperCase('tr-TR')} · {incoming.length}
+                  {t('zmatch.incoming').toLocaleUpperCase(currentLocale())} · {incoming.length}
                 </Text>
               ) : null}
               {incoming.map((m) => (
@@ -225,7 +225,7 @@ export default function ZMatchScreen() {
               ))}
               {outgoing.length > 0 ? (
                 <Text variant="label" color="textSubtle" style={{ marginTop: spacing.sm }}>
-                  {t('zmatch.outgoing').toLocaleUpperCase('tr-TR')} · {outgoing.length}
+                  {t('zmatch.outgoing').toLocaleUpperCase(currentLocale())} · {outgoing.length}
                 </Text>
               ) : null}
               {outgoing.map((m) => (

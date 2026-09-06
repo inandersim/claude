@@ -4,7 +4,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { Badge, Button, Chip, Header, Input, Screen, Text } from '@/components/ui';
 import { useToast } from '@/core/hooks/useToast';
-import { useT } from '@/core/i18n';
+import { currentLocale, useT } from '@/core/i18n';
 import { goBack } from '@/core/navigation';
 import { radius, spacing, useTheme } from '@/core/theme';
 import {
@@ -110,7 +110,7 @@ export default function ImportTrackScreen() {
       />
       <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
         <Text variant="label" color="textMuted">
-          {t('tracks.importScreen.sourceLabel').toLocaleUpperCase('tr-TR')}
+          {t('tracks.importScreen.sourceLabel').toLocaleUpperCase(currentLocale())}
         </Text>
         <ScrollView
           horizontal

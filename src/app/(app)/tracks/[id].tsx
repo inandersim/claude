@@ -16,6 +16,7 @@ import {
   Text,
 } from '@/components/ui';
 import { useToast } from '@/core/hooks/useToast';
+import { confirmDialog } from '@/core/utils/confirm';
 import { useT } from '@/core/i18n';
 import { goBack } from '@/core/navigation';
 import { radius, spacing, useTheme } from '@/core/theme';
@@ -75,10 +76,13 @@ export default function TrackDetailScreen() {
       run();
       return;
     }
-    Alert.alert(t('tracks.delete'), t('tracks.deleteConfirm'), [
-      { text: t('common.cancel'), style: 'cancel' },
-      { text: t('common.delete'), style: 'destructive', onPress: run },
-    ]);
+    confirmDialog(
+      t('tracks.delete'),
+      t('tracks.deleteConfirm'),
+      t('common.delete'),
+      t('common.cancel'),
+      run,
+    );
   };
 
   const onShare = async () => {

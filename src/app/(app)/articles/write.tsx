@@ -19,7 +19,7 @@ import {
   Text,
 } from '@/components/ui';
 import { useToast } from '@/core/hooks/useToast';
-import { useT } from '@/core/i18n';
+import { currentLocale, useT } from '@/core/i18n';
 import { goBack } from '@/core/navigation';
 import { layout, radius, spacing, useTheme } from '@/core/theme';
 import {
@@ -217,7 +217,7 @@ function ArticleForm({ initial }: { initial: Article | undefined }) {
 
       <View style={styles.field}>
         <Text variant="label" color="textSubtle">
-          {t('articles.write.cover').toLocaleUpperCase('tr-TR')}
+          {t('articles.write.cover').toLocaleUpperCase(currentLocale())}
         </Text>
         {cover ? (
           <View style={styles.coverWrap}>
@@ -261,7 +261,7 @@ function ArticleForm({ initial }: { initial: Article | undefined }) {
 
       <View style={styles.field}>
         <Text variant="label" color="textSubtle">
-          {t('articles.write.category').toLocaleUpperCase('tr-TR')}
+          {t('articles.write.category').toLocaleUpperCase(currentLocale())}
         </Text>
         <CategoryChips
           value={category}
@@ -283,7 +283,7 @@ function ArticleForm({ initial }: { initial: Article | undefined }) {
 
       <View style={styles.field}>
         <Text variant="label" color="textSubtle">
-          {t('articles.write.destination').toLocaleUpperCase('tr-TR')}
+          {t('articles.write.destination').toLocaleUpperCase(currentLocale())}
         </Text>
         <ScrollView
           horizontal
@@ -311,7 +311,7 @@ function ArticleForm({ initial }: { initial: Article | undefined }) {
 
       <View style={styles.field}>
         <Text variant="label" color="textSubtle">
-          {t('articles.write.country').toLocaleUpperCase('tr-TR')}
+          {t('articles.write.country').toLocaleUpperCase(currentLocale())}
         </Text>
         <ScrollView
           horizontal
@@ -339,7 +339,7 @@ function ArticleForm({ initial }: { initial: Article | undefined }) {
 
       <View style={styles.field}>
         <Text variant="label" color="textSubtle">
-          {t('articles.write.adventureTypes').toLocaleUpperCase('tr-TR')}
+          {t('articles.write.adventureTypes').toLocaleUpperCase(currentLocale())}
         </Text>
         <View style={styles.chips}>
           {ADVENTURE_TYPES.map((type) => (
@@ -358,7 +358,7 @@ function ArticleForm({ initial }: { initial: Article | undefined }) {
 
       <View style={styles.field}>
         <Text variant="label" color="textSubtle">
-          {t('articles.write.body').toLocaleUpperCase('tr-TR')}
+          {t('articles.write.body').toLocaleUpperCase(currentLocale())}
         </Text>
         <MarkdownEditor
           value={body}

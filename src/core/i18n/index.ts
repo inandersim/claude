@@ -129,6 +129,17 @@ type Leaves<T, Prefix extends string = ''> = {
 
 export type TranslationKey = Leaves<typeof tr>;
 
+/**
+ * Etkin dil kodu. `t()` gibi modül düzeyinde okunur; bileşenler dil
+ * değiştiğinde `useT()` üzerinden zaten yeniden render edilir.
+ *
+ * Büyük/küçük harf dönüşümünde gereklidir: `toLocaleUpperCase('tr-TR')`
+ * İngilizce metinde "critical" → "CRİTİCAL" üretir (Türkçe noktalı İ kuralı).
+ */
+export function currentLocale(): Locale {
+  return i18n.locale as Locale;
+}
+
 /** Tip güvenli çeviri fonksiyonu. */
 export function t(key: TranslationKey, options?: Record<string, string | number>): string {
   return i18n.t(key, options);

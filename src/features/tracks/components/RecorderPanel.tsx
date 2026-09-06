@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { Button, IconButton, Input, Text } from '@/components/ui';
-import { useT } from '@/core/i18n';
+import { currentLocale, useT } from '@/core/i18n';
 import { radius, spacing, useTheme } from '@/core/theme';
 import { formatAltitude } from '@/core/utils/format';
 import { formatDistance, POI_KINDS, type PoiKind } from '@/domain';
@@ -57,7 +57,7 @@ export function RecorderPanel({ recorder, onFinish }: Props) {
       <View style={styles.statusRow}>
         <View style={[styles.dot, { backgroundColor: statusColor }]} />
         <Text variant="label" color="textMuted">
-          {statusLabel.toLocaleUpperCase('tr-TR')}
+          {statusLabel.toLocaleUpperCase(locale)}
         </Text>
         <Text variant="label" color="textSubtle" style={{ marginLeft: 'auto' }}>
           {t('tracks.recorder.gpsPoints', { count: recorder.points.length })}
@@ -226,7 +226,7 @@ function BigStat({ label, value }: { label: string; value: string }) {
         {value}
       </Text>
       <Text variant="label" color="textSubtle">
-        {label.toLocaleUpperCase('tr-TR')}
+        {label.toLocaleUpperCase(currentLocale())}
       </Text>
     </View>
   );

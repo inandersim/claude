@@ -16,6 +16,7 @@ import {
   type IconName,
 } from '@/components/ui';
 import { useLocation } from '@/core/hooks/useLocation';
+import { confirmDialog } from '@/core/utils/confirm';
 import { useToast } from '@/core/hooks/useToast';
 import { useT } from '@/core/i18n';
 import { layout, radius, spacing, useTheme } from '@/core/theme';
@@ -43,24 +44,6 @@ import {
   useSos,
   useStartSos,
 } from '@/features/satellite/hooks';
-
-/** Web'de Alert.alert çalışmaz; onay diyaloğu için basit yedek. */
-function confirm(
-  title: string,
-  message: string,
-  okLabel: string,
-  cancelLabel: string,
-  onOk: () => void,
-) {
-  if (Platform.OS === 'web') {
-    if (globalThis.confirm?.(`${title}\n\n${message}`)) onOk();
-    return;
-  }
-  Alert.alert(title, message, [
-    { text: cancelLabel, style: 'cancel' },
-    { text: okLabel, style: 'destructive', onPress: onOk },
-  ]);
-}
 
 export default function SatelliteSosScreen() {
   const router = useRouter();
@@ -92,7 +75,7 @@ export default function SatelliteSosScreen() {
   const notified = me.emergencyContacts;
 
   const onTrigger = () =>
-    confirm(
+    confirmDialog(
       t('satellite.sos.confirmTitle'),
       t('satellite.sos.confirmDescription'),
       t('satellite.sos.confirmSend'),
@@ -117,7 +100,7 @@ export default function SatelliteSosScreen() {
     });
 
   const onCancel = () =>
-    confirm(
+    confirmDialog(
       t('satellite.sos.cancelConfirm'),
       t('satellite.sos.cancelDescription'),
       t('satellite.sos.cancel'),

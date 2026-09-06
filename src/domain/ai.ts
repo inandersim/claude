@@ -298,7 +298,8 @@ const INTENT_PRIORITY: AiIntent[] = [
   'general',
 ];
 
-const DAYS_PATTERN = /(\d{1,2})\s*(gunluk|gun|gece|gecelik|days?|nights?)\b/;
+// "3 gün", "3 günlük", "3-day", "3 days", "2 nights" — araya tire de girebilir.
+const DAYS_PATTERN = /(\d{1,2})\s*[-–—]?\s*(gunluk|gun|gece|gecelik|days?|nights?)\b/;
 
 /** Anahtar kelime tabanlı niyet sınıflandırması (TR + EN). */
 export function classifyIntent(text: string, _locale: string = 'tr'): AiIntent {
@@ -1222,13 +1223,13 @@ export function suggestPrompts(ctx: AiContext, locale: string = ctx.locale): str
 }
 
 /** İlk mesajdan kısa sohbet başlığı üretir (≤ 48 karakter). */
-export function summarizeThreadTitle(firstMessage: string): string {
+export function summarizeThreadTitle(firstMessage: string, locale = 'tr'): string {
   const clean = firstMessage
     .replace(/\s+/g, ' ')
     .trim()
     .replace(/[?!.…]+$/g, '');
-  if (!clean) return 'Sohbet';
-  const capped = clean.charAt(0).toLocaleUpperCase('tr-TR') + clean.slice(1);
+  if (!clean) return isTr(locale) ? 'Sohbet' : 'Chat';
+  const capped = clean.charAt(0).toLocaleUpperCase(locale) + clean.slice(1);
   if (capped.length <= 48) return capped;
   const cut = capped.slice(0, 48);
   const lastSpace = cut.lastIndexOf(' ');

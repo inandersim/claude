@@ -301,9 +301,7 @@ export function fromGeoLine(points: { latitude: number; longitude: number }[]): 
 export function toGeoPath(value: unknown): GeoPoint[] {
   const raw = json<unknown[]>(value, []);
   if (!Array.isArray(raw)) return [];
-  return raw
-    .map((p) => toGeoPoint(p))
-    .filter((p): p is GeoPoint => p !== null);
+  return raw.map((p) => toGeoPoint(p)).filter((p): p is GeoPoint => p !== null);
 }
 
 /** Domain noktalarını jsonb yol biçimine çevirir. */
@@ -1003,7 +1001,10 @@ export function toHostProfile(row: Row): HostProfile {
   return {
     businessId: str(row.business_id),
     verification: str(row.verification, 'none') as HostProfile['verification'],
-    cancellationPolicy: str(row.cancellation_policy, 'moderate') as HostProfile['cancellationPolicy'],
+    cancellationPolicy: str(
+      row.cancellation_policy,
+      'moderate',
+    ) as HostProfile['cancellationPolicy'],
     responseRatePct: num(row.response_rate_pct),
     responseTimeMin: num(row.response_time_min),
     payoutIban: strOrNull(row.payout_iban),

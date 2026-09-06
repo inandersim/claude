@@ -101,4 +101,6 @@ export const social_ka: SocialI18nShape = {
   communityHint: 'ტრენდები, პოპულარული პოსტები და ახალი ადამიანები',
   discover: 'აღმოაჩინე',
   postsCount: '{{count}} პოსტი',
+  storyPrev: 'Previous moment',
+  storyNext: 'Next moment',
 };

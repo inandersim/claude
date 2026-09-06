@@ -167,7 +167,7 @@ export function CountryRescueCard({
         <Icon name="phone" size={26} color="#FFFFFF" strokeWidth={2.4} />
         <View style={{ flex: 1 }}>
           <Text variant="label" color="#FFFFFF" style={{ opacity: 0.85 }}>
-            {t('rescue.numbers.general').toLocaleUpperCase('tr-TR')} · {t('rescue.call')}
+            {t('rescue.numbers.general').toLocaleUpperCase(locale)} · {t('rescue.call')}
           </Text>
           <Text variant="h1" color="#FFFFFF" weight="extrabold">
             {general}
@@ -225,7 +225,7 @@ export function CountryRescueCard({
             accessibilityLabel={`${t(`rescue.numbers.${kind}`)} ${number}`}
           >
             <Text variant="label" color="textSubtle">
-              {t(`rescue.numbers.${kind}`).toLocaleUpperCase('tr-TR')}
+              {t(`rescue.numbers.${kind}`).toLocaleUpperCase(locale)}
             </Text>
             <Text variant="title" weight="bold">
               {number}

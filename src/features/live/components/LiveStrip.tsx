@@ -3,7 +3,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { Avatar, Icon, Tappable, Text } from '@/components/ui';
-import { useT } from '@/core/i18n';
+import { currentLocale, useT } from '@/core/i18n';
 import { radius, spacing, useTheme } from '@/core/theme';
 import { useStreams } from '@/features/live/hooks';
 
@@ -62,7 +62,7 @@ export function LiveStrip() {
               color="#FFFFFF"
               style={{ fontSize: 9, lineHeight: 11 }}
             >
-              {t('live.liveNow').toLocaleUpperCase('tr-TR')}
+              {t('live.liveNow').toLocaleUpperCase(currentLocale())}
             </Text>
           </View>
           <Text variant="label" color="text" numberOfLines={1}>

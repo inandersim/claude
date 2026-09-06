@@ -3,7 +3,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { Avatar, Icon, Tappable, Text } from '@/components/ui';
-import { useT } from '@/core/i18n';
+import { currentLocale, useT } from '@/core/i18n';
 import { radius, spacing, useTheme } from '@/core/theme';
 import { useCurrentUser } from '@/features/auth/session.store';
 import { useStreams } from '@/features/live/hooks';
@@ -83,7 +83,7 @@ export function StoriesStrip() {
             >
               {s.source === 'drone'
                 ? t('drone.badge')
-                : t('live.liveNow').toLocaleUpperCase('tr-TR')}
+                : t('live.liveNow').toLocaleUpperCase(currentLocale())}
             </Text>
           </View>
           <Text variant="label" numberOfLines={1}>

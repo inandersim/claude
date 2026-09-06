@@ -46,7 +46,9 @@ describe('Heritage provider', () => {
     expect(after.length).toBe(before.length + 1);
     expect(after[0]?.source).toBe('route');
     expect(after[0]?.amount).toBe(20);
-    expect((await p.heritage.getById(CURRENT_USER_ID, 'her_gobeklitepe', null))?.visitedByMe).toBe(true);
+    expect((await p.heritage.getById(CURRENT_USER_ID, 'her_gobeklitepe', null))?.visitedByMe).toBe(
+      true,
+    );
 
     expect(await p.heritage.markVisited(CURRENT_USER_ID, 'her_gobeklitepe')).toBe(false);
     expect((await p.fun.xpHistory(CURRENT_USER_ID)).length).toBe(before.length);

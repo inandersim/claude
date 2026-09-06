@@ -20,7 +20,7 @@ import {
   Skeleton,
   Text,
 } from '@/components/ui';
-import { useT } from '@/core/i18n';
+import { currentLocale, useT } from '@/core/i18n';
 import { goBack } from '@/core/navigation';
 import { fontFamily, layout, radius, spacing, useTheme } from '@/core/theme';
 import { ADVENTURE_TYPE_META, DIFFICULTY_META, formatDistance } from '@/domain';
@@ -211,7 +211,7 @@ function RouteStat({ label, value, color }: { label: string; value: string; colo
         {value}
       </Text>
       <Text variant="label" color="textSubtle">
-        {label.toLocaleUpperCase('tr-TR')}
+        {label.toLocaleUpperCase(currentLocale())}
       </Text>
     </View>
   );

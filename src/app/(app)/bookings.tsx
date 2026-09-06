@@ -96,13 +96,13 @@ export default function BookingsScreen() {
           >
             <View style={{ flex: 1 }}>
               <Text variant="label" color="textSubtle">
-                {t('plans.gross').toLocaleUpperCase('tr-TR')}
+                {t('plans.gross').toLocaleUpperCase(locale)}
               </Text>
               <Text variant="h3">{formatPriceTry(earnings.data.grossTry, locale, false)}</Text>
             </View>
             <View style={{ flex: 1 }}>
               <Text variant="label" color="textSubtle">
-                {t('plans.net').toLocaleUpperCase('tr-TR')}
+                {t('plans.net').toLocaleUpperCase(locale)}
               </Text>
               <Text variant="h3" color="primary">
                 {formatPriceTry(earnings.data.netTry, locale, false)}
@@ -131,7 +131,7 @@ export default function BookingsScreen() {
             {incoming.length > 0 ? (
               <>
                 <Text variant="label" color="textSubtle">
-                  {t('booking.incoming').toLocaleUpperCase('tr-TR')} · {incoming.length}
+                  {t('booking.incoming').toLocaleUpperCase(locale)} · {incoming.length}
                 </Text>
                 {incoming.map((b) => (
                   <BookingCard
@@ -151,7 +151,7 @@ export default function BookingsScreen() {
                   color="textSubtle"
                   style={{ marginTop: incoming.length ? spacing.sm : 0 }}
                 >
-                  {t('booking.title').toLocaleUpperCase('tr-TR')} · {mine.length}
+                  {t('booking.title').toLocaleUpperCase(locale)} · {mine.length}
                 </Text>
                 {mine.map((b) => (
                   <BookingCard key={b.id} booking={b} meId={me.id} />
@@ -163,7 +163,7 @@ export default function BookingsScreen() {
         {stays.data && stays.data.length > 0 ? (
           <>
             <Text variant="label" color="textSubtle" style={{ marginTop: spacing.lg }}>
-              {t('stays.myBookings').toLocaleUpperCase('tr-TR')} · {stays.data.length}
+              {t('stays.myBookings').toLocaleUpperCase(locale)} · {stays.data.length}
             </Text>
             {stays.data.map((b) => (
               <Tappable

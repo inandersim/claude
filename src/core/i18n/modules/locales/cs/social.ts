@@ -101,4 +101,6 @@ export const social_cs: SocialI18nShape = {
   communityHint: 'Trendy, oblíbené příspěvky a noví lidé',
   discover: 'Objevovat',
   postsCount: '{{count}} příspěvků',
+  storyPrev: 'Previous moment',
+  storyNext: 'Next moment',
 };

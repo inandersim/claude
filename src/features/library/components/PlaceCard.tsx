@@ -83,7 +83,7 @@ export function PlaceCard({
         </AdventureImage>
         <View style={{ flex: 1, gap: 2 }}>
           <Text variant="label" weight="extrabold" color={meta.color}>
-            {t(meta.labelKey).toLocaleUpperCase('tr-TR')}
+            {t(meta.labelKey).toLocaleUpperCase(locale)}
           </Text>
           <Text variant="title" numberOfLines={1}>
             {name}
@@ -120,7 +120,7 @@ export function PlaceCard({
         <View style={[styles.kindPill, { backgroundColor: 'rgba(8,14,12,0.6)' }]}>
           <Icon name={meta.icon} size={12} color={meta.color} strokeWidth={2.6} />
           <Text variant="label" weight="extrabold" color="#F2F7F4">
-            {t(meta.labelKey).toLocaleUpperCase('tr-TR')}
+            {t(meta.labelKey).toLocaleUpperCase(locale)}
           </Text>
         </View>
         <View style={styles.bottom}>

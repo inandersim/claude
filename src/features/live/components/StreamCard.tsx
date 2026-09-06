@@ -52,7 +52,7 @@ export function StreamCard({ stream, width, row = false }: Props) {
           <View style={styles.rowTop}>
             <Icon name={meta.icon} size={12} color={meta.color} strokeWidth={2.6} />
             <Text variant="label" weight="extrabold" color={meta.color}>
-              {t(meta.labelKey).toLocaleUpperCase('tr-TR')}
+              {t(meta.labelKey).toLocaleUpperCase(locale)}
             </Text>
           </View>
           <Text variant="title" numberOfLines={2}>

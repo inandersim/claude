@@ -62,7 +62,7 @@ export function InstructorCard({
             <View key={type} style={[styles.typeChip, { backgroundColor: meta.softColor }]}>
               <Icon name={meta.icon} size={11} color={meta.color} strokeWidth={2.6} />
               <Text variant="label" weight="extrabold" color={meta.color}>
-                {t(meta.labelKey).toLocaleUpperCase('tr-TR')}
+                {t(meta.labelKey).toLocaleUpperCase(locale)}
               </Text>
             </View>
           );

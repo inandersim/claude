@@ -11,7 +11,7 @@ import {
   Skeleton,
   Text,
 } from '@/components/ui';
-import { useT } from '@/core/i18n';
+import { currentLocale, useT } from '@/core/i18n';
 import { layout, radius, spacing, useTheme } from '@/core/theme';
 import { LEADERBOARD_SCOPES, type LeaderboardScope } from '@/domain';
 import { LeaderboardRow } from '@/features/fun/components/LeaderboardRow';
@@ -70,7 +70,7 @@ export default function LeaderboardScreen() {
           ]}
         >
           <Text variant="label" color="textMuted" style={{ marginBottom: spacing.xs }}>
-            {t('fun.leaderboard.yourRank').toLocaleUpperCase('tr-TR')}
+            {t('fun.leaderboard.yourRank').toLocaleUpperCase(currentLocale())}
           </Text>
           <LeaderboardRow entry={me} pinned />
         </View>

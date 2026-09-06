@@ -40,7 +40,7 @@ export function CertificateCard({ certificate, course, now, large = false }: Pro
         </View>
         <View style={{ flex: 1 }}>
           <Text variant="label" weight="extrabold" color={inkMuted}>
-            {course.provider.toLocaleUpperCase('tr-TR')}
+            {course.provider.toLocaleUpperCase(locale)}
           </Text>
           <Text variant={large ? 'h3' : 'title'} weight="extrabold" color={ink} numberOfLines={2}>
             {course.certificateName ?? course.title}

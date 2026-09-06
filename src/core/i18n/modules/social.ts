@@ -122,6 +122,8 @@ const tr = {
   communityHint: 'Trendler, popüler paylaşımlar ve yeni insanlar',
   discover: 'Keşfet',
   postsCount: '{{count}} gönderi',
+  storyPrev: 'Önceki an',
+  storyNext: 'Sonraki an',
 };
 
 /** Diğer dillerin uyması gereken şekil. */
@@ -228,6 +230,8 @@ const en: SocialI18nShape = {
   communityHint: 'Trends, popular posts and new people',
   discover: 'Discover',
   postsCount: '{{count}} posts',
+  storyPrev: 'Previous moment',
+  storyNext: 'Next moment',
 };
 
 /** social modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */

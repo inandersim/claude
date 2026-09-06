@@ -4,7 +4,7 @@ import { Platform, ScrollView, StyleSheet, Switch, View } from 'react-native';
 
 import { Button, Chip, Header, Input, Screen, Text } from '@/components/ui';
 import { useToast } from '@/core/hooks/useToast';
-import { useT } from '@/core/i18n';
+import { currentLocale, useT } from '@/core/i18n';
 import { goBack } from '@/core/navigation';
 import { radius, spacing, useTheme } from '@/core/theme';
 import {
@@ -137,7 +137,7 @@ export default function RecordTrackScreen() {
               icon="map-pin"
             />
             <Text variant="label" color="textMuted">
-              {t('tracks.recorder.typeLabel').toLocaleUpperCase('tr-TR')}
+              {t('tracks.recorder.typeLabel').toLocaleUpperCase(currentLocale())}
             </Text>
             <ScrollView
               horizontal

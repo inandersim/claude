@@ -101,4 +101,6 @@ export const social_ko: SocialI18nShape = {
   communityHint: '트렌드, 인기 게시물, 새로운 사람',
   discover: '발견',
   postsCount: '게시물 {{count}}개',
+  storyPrev: 'Previous moment',
+  storyNext: 'Next moment',
 };

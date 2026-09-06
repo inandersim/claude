@@ -95,7 +95,10 @@ import { maybeRow, oneRow, rows, type Row } from '../postgrest';
 
 /** `ilike` süzgecini kırabilecek karakterleri temizler. */
 function safeQuery(value: string): string {
-  return value.trim().replace(/[(),"*]/g, ' ').trim();
+  return value
+    .trim()
+    .replace(/[(),"*]/g, ' ')
+    .trim();
 }
 
 /* ================================================================== */
@@ -130,7 +133,9 @@ export function createAuthRepository(ctx: RemoteContext): AuthRepository {
       const result = await db.auth.signUp({
         email,
         password,
-        options: { data: { username: username.trim().toLowerCase(), display_name: displayName.trim() } },
+        options: {
+          data: { username: username.trim().toLowerCase(), display_name: displayName.trim() },
+        },
       });
       if (result.error) throw new AuthError(result.error.message);
       const id = result.data?.user?.id;
@@ -470,10 +475,7 @@ export function createExploreRepository(ctx: RemoteContext): ExploreRepository {
       if (!q) return { locations: [], users: [], routes: [] };
       const [locations, users, routes] = await Promise.all([
         rows(
-          db
-            .from('trending_locations')
-            .select('*')
-            .or(`name.ilike.*${q}*,region.ilike.*${q}*`),
+          db.from('trending_locations').select('*').or(`name.ilike.*${q}*,region.ilike.*${q}*`),
           'yer araması başarısız',
         ),
         rows(
@@ -505,7 +507,10 @@ export function createMatchRepository(ctx: RemoteContext): MatchRepository {
   const { db } = ctx;
 
   const withUsers = async (matches: ZMatch[]): Promise<ZMatchWithUsers[]> => {
-    const users = await fetchUsers(db, matches.flatMap((m) => [m.requesterId, m.receiverId]));
+    const users = await fetchUsers(
+      db,
+      matches.flatMap((m) => [m.requesterId, m.receiverId]),
+    );
     return matches.map((m) => ({
       ...m,
       requester: pickUser(users, m.requesterId),
@@ -538,10 +543,7 @@ export function createMatchRepository(ctx: RemoteContext): MatchRepository {
       const [profiles, matchRows] = await Promise.all([
         rows(db.from('profiles').select(PROFILE_SELECT).in('id', ids), 'profiller okunamadı'),
         rows(
-          db
-            .from('matches')
-            .select('*')
-            .or(`requester_id.eq.${meId},receiver_id.eq.${meId}`),
+          db.from('matches').select('*').or(`requester_id.eq.${meId},receiver_id.eq.${meId}`),
           'eşleşmeler okunamadı',
         ),
       ]);
@@ -767,11 +769,18 @@ export function createHazardRepository(ctx: RemoteContext): HazardRepository {
     meId: ID,
     origin: GeoPoint | null,
   ): Promise<HazardZoneWithReporter[]> => {
-    const reporters = await fetchUsers(db, hazards.map((h) => h.reporterId));
+    const reporters = await fetchUsers(
+      db,
+      hazards.map((h) => h.reporterId),
+    );
     const ids = hazards.map((h) => h.id);
     const confirmed = ids.length
       ? await rows(
-          db.from('hazard_confirmations').select('hazard_id').eq('user_id', meId).in('hazard_id', ids),
+          db
+            .from('hazard_confirmations')
+            .select('hazard_id')
+            .eq('user_id', meId)
+            .in('hazard_id', ids),
           'tehlike onayları okunamadı',
         )
       : [];
@@ -920,27 +929,32 @@ export function createLiveRepository(ctx: RemoteContext): LiveRepository {
   });
 
   const one = async (id: ID): Promise<LiveStreamWithHost> => {
-    const row = await oneRow(db.from('live_streams').select(STREAM_SELECT).eq('id', id), 'yayın okunamadı');
+    const row = await oneRow(
+      db.from('live_streams').select(STREAM_SELECT).eq('id', id),
+      'yayın okunamadı',
+    );
     return withHost(row);
   };
 
   return {
     async list() {
       const data = await rows(db.from('live_streams').select(STREAM_SELECT), 'yayınlar okunamadı');
-      return data
-        .map(withHost)
-        .sort((a, b) => {
-          if (STREAM_ORDER[a.status] !== STREAM_ORDER[b.status]) {
-            return STREAM_ORDER[a.status] - STREAM_ORDER[b.status];
-          }
-          if (a.status === 'live') return b.viewerCount - a.viewerCount;
-          if (a.status === 'scheduled') return (a.scheduledAt ?? '').localeCompare(b.scheduledAt ?? '');
-          return (b.endedAt ?? '').localeCompare(a.endedAt ?? '');
-        });
+      return data.map(withHost).sort((a, b) => {
+        if (STREAM_ORDER[a.status] !== STREAM_ORDER[b.status]) {
+          return STREAM_ORDER[a.status] - STREAM_ORDER[b.status];
+        }
+        if (a.status === 'live') return b.viewerCount - a.viewerCount;
+        if (a.status === 'scheduled')
+          return (a.scheduledAt ?? '').localeCompare(b.scheduledAt ?? '');
+        return (b.endedAt ?? '').localeCompare(a.endedAt ?? '');
+      });
     },
 
     async getById(id) {
-      const row = await maybeRow(db.from('live_streams').select(STREAM_SELECT).eq('id', id), 'yayın okunamadı');
+      const row = await maybeRow(
+        db.from('live_streams').select(STREAM_SELECT).eq('id', id),
+        'yayın okunamadı',
+      );
       return row ? withHost(row) : null;
     },
 
@@ -1000,7 +1014,13 @@ export function createLiveRepository(ctx: RemoteContext): LiveRepository {
             source: input.source ?? 'camera',
             drone_telemetry:
               input.source === 'drone'
-                ? { altitudeM: 120, speedKmh: 0, batteryPct: 100, headingDeg: 0, distanceFromPilotM: 0 }
+                ? {
+                    altitudeM: 120,
+                    speedKmh: 0,
+                    batteryPct: 100,
+                    headingDeg: 0,
+                    distanceFromPilotM: 0,
+                  }
                 : null,
           })
           .select(STREAM_SELECT),
@@ -1047,7 +1067,10 @@ export function createLiveRepository(ctx: RemoteContext): LiveRepository {
       );
       if (!row) throw new NotFoundError('Yayın', streamId);
       await rows(
-        db.from('live_streams').update({ likes_count: num(row.likes_count) + 1 }).eq('id', streamId),
+        db
+          .from('live_streams')
+          .update({ likes_count: num(row.likes_count) + 1 })
+          .eq('id', streamId),
         'beğeni yazılamadı',
       );
       return { likesCount: num(row.likes_count) + 1 };
@@ -1076,7 +1099,10 @@ export function createLiveRepository(ctx: RemoteContext): LiveRepository {
       );
       if (!row || row.status !== 'live' || num(row.viewer_count) <= 0) return;
       await rows(
-        db.from('live_streams').update({ viewer_count: num(row.viewer_count) - 1 }).eq('id', streamId),
+        db
+          .from('live_streams')
+          .update({ viewer_count: num(row.viewer_count) - 1 })
+          .eq('id', streamId),
         'izleyici sayacı güncellenemedi',
       );
     },
@@ -1091,11 +1117,18 @@ export function createMarketRepository(ctx: RemoteContext): MarketRepository {
   const { db } = ctx;
 
   const enrich = async (listings: Listing[], viewerId: ID): Promise<ListingWithSeller[]> => {
-    const sellers = await fetchUsers(db, listings.map((l) => l.sellerId));
+    const sellers = await fetchUsers(
+      db,
+      listings.map((l) => l.sellerId),
+    );
     const ids = listings.map((l) => l.id);
     const favorites = ids.length
       ? await rows(
-          db.from('listing_favorites').select('listing_id').eq('user_id', viewerId).in('listing_id', ids),
+          db
+            .from('listing_favorites')
+            .select('listing_id')
+            .eq('user_id', viewerId)
+            .in('listing_id', ids),
           'favoriler okunamadı',
         )
       : [];
@@ -1146,10 +1179,17 @@ export function createMarketRepository(ctx: RemoteContext): MarketRepository {
     },
 
     async toggleFavorite(viewerId, id) {
-      const listing = await maybeRow(db.from('listings').select('id').eq('id', id), 'ilan okunamadı');
+      const listing = await maybeRow(
+        db.from('listings').select('id').eq('id', id),
+        'ilan okunamadı',
+      );
       if (!listing) throw new NotFoundError('İlan', id);
       const existing = await maybeRow(
-        db.from('listing_favorites').select('listing_id').eq('user_id', viewerId).eq('listing_id', id),
+        db
+          .from('listing_favorites')
+          .select('listing_id')
+          .eq('user_id', viewerId)
+          .eq('listing_id', id),
         'favori okunamadı',
       );
       if (existing) {
@@ -1176,7 +1216,8 @@ export function createMarketRepository(ctx: RemoteContext): MarketRepository {
         'ilan okunamadı',
       );
       if (!row) throw new NotFoundError('İlan', id);
-      if (String(row.seller_id) !== sellerId) throw new AuthError('Yalnızca satıcı ilanı kapatabilir.');
+      if (String(row.seller_id) !== sellerId)
+        throw new AuthError('Yalnızca satıcı ilanı kapatabilir.');
       const updated = await oneRow(
         db
           .from('listings')
@@ -1199,7 +1240,10 @@ export function createMarketRepository(ctx: RemoteContext): MarketRepository {
 export function createInstructorRepository(ctx: RemoteContext): InstructorRepository {
   const { db } = ctx;
 
-  const withUser = async (instructor: Instructor, origin: GeoPoint | null): Promise<InstructorWithUser> => ({
+  const withUser = async (
+    instructor: Instructor,
+    origin: GeoPoint | null,
+  ): Promise<InstructorWithUser> => ({
     ...instructor,
     user: await requireUser(db, instructor.userId),
     distanceKm: origin ? distanceKm(origin, instructor.coords) : null,
@@ -1209,7 +1253,10 @@ export function createInstructorRepository(ctx: RemoteContext): InstructorReposi
     const bookings = bookingRows.map(toBooking);
     const instructorIds = bookings.map((b) => b.instructorId);
     const instructorRows = instructorIds.length
-      ? await rows(db.from('instructors').select('*').in('id', instructorIds), 'eğitmenler okunamadı')
+      ? await rows(
+          db.from('instructors').select('*').in('id', instructorIds),
+          'eğitmenler okunamadı',
+        )
       : [];
     const instructors = new Map(instructorRows.map((row) => [String(row.id), toInstructor(row)]));
     const users = await fetchUsers(db, [
@@ -1231,7 +1278,10 @@ export function createInstructorRepository(ctx: RemoteContext): InstructorReposi
     async list(origin, filter = {}) {
       const data = await rows(db.from('instructors').select('*'), 'eğitmenler okunamadı');
       const instructors = data.map(toInstructor);
-      const users = await fetchUsers(db, instructors.map((i) => i.userId));
+      const users = await fetchUsers(
+        db,
+        instructors.map((i) => i.userId),
+      );
       return rankInstructors({
         instructors,
         users: Array.from(users.values()),
@@ -1241,7 +1291,10 @@ export function createInstructorRepository(ctx: RemoteContext): InstructorReposi
     },
 
     async getById(id, origin) {
-      const row = await maybeRow(db.from('instructors').select('*').eq('id', id), 'eğitmen okunamadı');
+      const row = await maybeRow(
+        db.from('instructors').select('*').eq('id', id),
+        'eğitmen okunamadı',
+      );
       return row ? await withUser(toInstructor(row), origin) : null;
     },
 
@@ -1394,7 +1447,9 @@ export function createLibraryRepository(ctx: RemoteContext): LibraryRepository {
       const place = toLibraryPlace(row);
       return {
         ...place,
-        distanceKm: origin ? distanceKm(origin, { latitude: place.lat, longitude: place.lng }) : null,
+        distanceKm: origin
+          ? distanceKm(origin, { latitude: place.lat, longitude: place.lng })
+          : null,
       };
     },
 
@@ -1444,7 +1499,10 @@ export function createPresenceRepository(ctx: RemoteContext): PresenceRepository
         ),
       ]);
       const shares = shareRows.map(toLocationShare);
-      const users = await fetchUsers(db, shares.map((s) => s.userId));
+      const users = await fetchUsers(
+        db,
+        shares.map((s) => s.userId),
+      );
       const iFollow = new Set(
         followRows.filter((f) => String(f.follower_id) === meId).map((f) => String(f.following_id)),
       );
@@ -1454,9 +1512,7 @@ export function createPresenceRepository(ctx: RemoteContext): PresenceRepository
           .map((f) => String(f.follower_id)),
       );
       const matchIds = new Set(
-        matchRows
-          .map(toMatch)
-          .map((m) => (m.requesterId === meId ? m.receiverId : m.requesterId)),
+        matchRows.map(toMatch).map((m) => (m.requesterId === meId ? m.receiverId : m.requesterId)),
       );
       return visibleShares({
         meId,
@@ -1517,10 +1573,7 @@ export function createPresenceRepository(ctx: RemoteContext): PresenceRepository
     },
 
     async stop(meId) {
-      await rows(
-        db.from('location_shares').delete().eq('user_id', meId),
-        'paylaşım durdurulamadı',
-      );
+      await rows(db.from('location_shares').delete().eq('user_id', meId), 'paylaşım durdurulamadı');
     },
   };
 }
@@ -1545,7 +1598,10 @@ export function createStoryRepository(ctx: RemoteContext): StoryRepository {
         'an görüntülemeleri okunamadı',
       );
       const seen = new Set(seenRows.map((row) => String(row.story_id)));
-      const users = await fetchUsers(db, stories.map((s) => s.authorId));
+      const users = await fetchUsers(
+        db,
+        stories.map((s) => s.authorId),
+      );
       const byAuthor = new Map<ID, Story[]>();
       for (const s of stories) byAuthor.set(s.authorId, [...(byAuthor.get(s.authorId) ?? []), s]);
 
@@ -1627,7 +1683,10 @@ export function createBusinessRepository(ctx: RemoteContext): BusinessRepository
     businesses: Business[],
     origin: GeoPoint | null,
   ): Promise<BusinessWithOwner[]> => {
-    const owners = await fetchUsers(db, businesses.map((b) => b.ownerId));
+    const owners = await fetchUsers(
+      db,
+      businesses.map((b) => b.ownerId),
+    );
     return businesses.map((b) => ({
       ...b,
       owner: pickUser(owners, b.ownerId),
@@ -1660,7 +1719,10 @@ export function createBusinessRepository(ctx: RemoteContext): BusinessRepository
     },
 
     async getById(id, origin) {
-      const row = await maybeRow(db.from('businesses').select('*').eq('id', id), 'işletme okunamadı');
+      const row = await maybeRow(
+        db.from('businesses').select('*').eq('id', id),
+        'işletme okunamadı',
+      );
       if (!row) return null;
       const [result] = await withOwner([toBusiness(row)], origin);
       return result ?? null;

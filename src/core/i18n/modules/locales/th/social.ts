@@ -101,4 +101,6 @@ export const social_th: SocialI18nShape = {
   communityHint: 'เทรนด์ โพสต์ยอดนิยม และผู้คนใหม่ ๆ',
   discover: 'ค้นพบ',
   postsCount: '{{count}} โพสต์',
+  storyPrev: 'Previous moment',
+  storyNext: 'Next moment',
 };

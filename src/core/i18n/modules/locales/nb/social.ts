@@ -101,4 +101,6 @@ export const social_nb: SocialI18nShape = {
   communityHint: 'Trender, populære innlegg og nye folk',
   discover: 'Oppdag',
   postsCount: '{{count}} innlegg',
+  storyPrev: 'Previous moment',
+  storyNext: 'Next moment',
 };

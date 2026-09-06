@@ -16,7 +16,7 @@ import {
   Text,
 } from '@/components/ui';
 import { useToast } from '@/core/hooks/useToast';
-import { useT } from '@/core/i18n';
+import { currentLocale, useT } from '@/core/i18n';
 import { layout, radius, spacing, useTheme } from '@/core/theme';
 import { formatDate, formatRelative } from '@/core/utils/time';
 import { ADVENTURE_TYPE_META, MATCH_STATUS_META, otherPartyId } from '@/domain';
@@ -202,7 +202,7 @@ function Detail({
       <Icon name={icon} size={16} color={color ?? colors.textSubtle} strokeWidth={2.4} />
       <View style={{ flex: 1 }}>
         <Text variant="label" color="textSubtle">
-          {label.toLocaleUpperCase('tr-TR')}
+          {label.toLocaleUpperCase(currentLocale())}
         </Text>
         <Text variant="title" color={color}>
           {value}

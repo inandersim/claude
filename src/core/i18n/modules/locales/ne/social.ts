@@ -101,4 +101,6 @@ export const social_ne: SocialI18nShape = {
   communityHint: 'ट्रेन्ड, लोकप्रिय पोस्ट र नयाँ मानिसहरू',
   discover: 'अन्वेषण',
   postsCount: '{{count}} पोस्ट',
+  storyPrev: 'Previous moment',
+  storyNext: 'Next moment',
 };

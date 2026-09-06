@@ -35,8 +35,8 @@ export function MatchCandidateCard({ candidate, onRequest }: Props) {
         <View style={styles.distancePill}>
           <Icon name="navigation" size={12} color="#5EE39B" strokeWidth={2.6} />
           <Text variant="label" weight="extrabold" color="#F2F7F4">
-            {formatDistance(candidate.distanceKm, locale).toLocaleUpperCase('tr-TR')}{' '}
-            {t('zmatch.away').toLocaleUpperCase('tr-TR')}
+            {formatDistance(candidate.distanceKm, locale).toLocaleUpperCase(locale)}{' '}
+            {t('zmatch.away').toLocaleUpperCase(locale)}
           </Text>
         </View>
         <View style={[styles.trustPill, { backgroundColor: 'rgba(8,14,12,0.6)' }]}>
@@ -86,7 +86,7 @@ export function MatchCandidateCard({ candidate, onRequest }: Props) {
               {user.totalAdventures}
             </Text>
             <Text variant="label" color="textSubtle">
-              {t('profile.adventures').toLocaleUpperCase('tr-TR')}
+              {t('profile.adventures').toLocaleUpperCase(locale)}
             </Text>
           </View>
           <View style={[styles.divider, { backgroundColor: colors.border }]} />
@@ -127,8 +127,7 @@ export function MatchCandidateCard({ candidate, onRequest }: Props) {
               })}
             </View>
             <Text variant="label" color="textSubtle">
-              {candidate.sharedTypes.length}{' '}
-              {t('zmatch.commonInterests').toLocaleUpperCase('tr-TR')}
+              {candidate.sharedTypes.length} {t('zmatch.commonInterests').toLocaleUpperCase(locale)}
             </Text>
           </View>
         </View>

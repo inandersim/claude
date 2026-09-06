@@ -34,7 +34,7 @@ export function SessionCard({
   const availability = sessionAvailability(session, now);
   const start = new Date(session.startsAt);
   const day = start.getDate();
-  const month = formatDate(session.startsAt, locale, 'MMM').toLocaleUpperCase('tr-TR');
+  const month = formatDate(session.startsAt, locale, 'MMM').toLocaleUpperCase(locale);
   const sameDay = session.startsAt.slice(0, 10) === session.endsAt.slice(0, 10);
   const range = sameDay
     ? formatDate(session.startsAt, locale, 'd MMMM yyyy')

@@ -134,7 +134,7 @@ export default function WriterProfileScreen() {
               style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.border }]}
             >
               <Text variant="label" color="textSubtle">
-                {t('articles.bio').toLocaleUpperCase('tr-TR')}
+                {t('articles.bio').toLocaleUpperCase(locale)}
               </Text>
               <Text variant="body">{data.bio}</Text>
               <View style={styles.metaRow}>

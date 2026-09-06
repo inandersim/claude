@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 
+import { currentLocale } from '@/core/i18n';
 import { radius, spacing, useTheme } from '@/core/theme';
 
 import { Icon, type IconName } from './Icon';
@@ -33,7 +34,7 @@ export function StatTile({ icon, label, value, color, style, compact = false }: 
           {value}
         </Text>
         <Text variant="label" color="textSubtle" numberOfLines={1}>
-          {label.toLocaleUpperCase('tr-TR')}
+          {label.toLocaleUpperCase(currentLocale())}
         </Text>
       </View>
     </View>

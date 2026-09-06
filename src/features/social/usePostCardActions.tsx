@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { Alert, Platform } from 'react-native';
 
 import { useToast } from '@/core/hooks/useToast';
+import { confirmDialog } from '@/core/utils/confirm';
 import { useT } from '@/core/i18n';
 import type { FeedPost, ReactionType } from '@/domain';
 
@@ -54,10 +55,13 @@ export function usePostCardActions(onDeleted?: () => void) {
         run();
         return;
       }
-      Alert.alert(t('social.delete'), t('social.deleteConfirm'), [
-        { text: t('common.cancel'), style: 'cancel' },
-        { text: t('common.delete'), style: 'destructive', onPress: run },
-      ]);
+      confirmDialog(
+        t('social.delete'),
+        t('social.deleteConfirm'),
+        t('common.delete'),
+        t('common.cancel'),
+        run,
+      );
     },
     [deletePost, onDeleted, t, toast],
   );

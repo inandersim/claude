@@ -54,14 +54,14 @@ export function CourseCard({ course, compact = false }: Props) {
           <View style={[styles.pill, { backgroundColor: meta.color }]}>
             <Icon name={meta.icon} size={12} color="#0B1410" strokeWidth={2.6} />
             <Text variant="label" weight="extrabold" color="#0B1410">
-              {t(meta.labelKey).toLocaleUpperCase('tr-TR')}
+              {t(meta.labelKey).toLocaleUpperCase(locale)}
             </Text>
           </View>
           {enrollment?.status === 'completed' ? (
             <View style={[styles.pill, { backgroundColor: colors.success }]}>
               <Icon name="award" size={12} color="#0B1410" strokeWidth={2.6} />
               <Text variant="label" weight="extrabold" color="#0B1410">
-                {t('courses.completed').toLocaleUpperCase('tr-TR')}
+                {t('courses.completed').toLocaleUpperCase(locale)}
               </Text>
             </View>
           ) : null}

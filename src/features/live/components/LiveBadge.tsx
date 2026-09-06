@@ -9,7 +9,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { Text } from '@/components/ui';
-import { useT } from '@/core/i18n';
+import { currentLocale, useT } from '@/core/i18n';
 import { radius, spacing } from '@/core/theme';
 
 export function LiveBadge({ size = 'md' }: { size?: 'sm' | 'md' }) {
@@ -26,7 +26,7 @@ export function LiveBadge({ size = 'md' }: { size?: 'sm' | 'md' }) {
     <View style={[styles.badge, size === 'sm' && styles.small]}>
       <Animated.View style={[styles.dot, dotStyle]} />
       <Text variant="label" weight="extrabold" color="#FFFFFF">
-        {t('live.liveNow').toLocaleUpperCase('tr-TR')}
+        {t('live.liveNow').toLocaleUpperCase(currentLocale())}
       </Text>
     </View>
   );

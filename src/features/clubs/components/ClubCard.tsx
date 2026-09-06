@@ -53,7 +53,7 @@ export function ClubCard({
               <View style={[styles.pill, { backgroundColor: 'rgba(8,14,12,0.6)' }]}>
                 <Icon name="badge-check" size={12} color="#7BE495" strokeWidth={2.4} />
                 <Text variant="label" weight="extrabold" color="#F2F7F4">
-                  {t('clubs.verifiedShort').toLocaleUpperCase('tr-TR')}
+                  {t('clubs.verifiedShort').toLocaleUpperCase(locale)}
                 </Text>
               </View>
             ) : (
@@ -62,7 +62,7 @@ export function ClubCard({
             {membershipLabel ? (
               <View style={[styles.pill, { backgroundColor: membershipColor }]}>
                 <Text variant="label" weight="extrabold" color="#0B1410">
-                  {membershipLabel.toLocaleUpperCase('tr-TR')}
+                  {membershipLabel.toLocaleUpperCase(locale)}
                 </Text>
               </View>
             ) : null}

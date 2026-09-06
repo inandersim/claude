@@ -101,4 +101,6 @@ export const social_id: SocialI18nShape = {
   communityHint: 'Tren, postingan populer, dan orang baru',
   discover: 'Temukan',
   postsCount: '{{count}} postingan',
+  storyPrev: 'Previous moment',
+  storyNext: 'Next moment',
 };

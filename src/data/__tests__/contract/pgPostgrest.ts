@@ -54,6 +54,7 @@ interface Embed {
 
 interface Meta {
   columns: Map<string, Set<string>>;
+  jsonColumns: Map<string, Set<string>>;
   scalarFns: Map<string, boolean>;
   foreignKeys: Map<string, { table: string; column: string } | null>;
 }
@@ -359,6 +360,16 @@ class Builder implements MutationBuilder {
   private async execute(): Promise<Row[]> {
     const values: unknown[] = [];
     const table = quoteIdent(this.table);
+    // json/jsonb sütunlarına giden diziler/nesneler metne çevrilir
+    // (PostgREST gövdeyi zaten JSON olarak gönderir).
+    const jsonColumns =
+      this.op === 'select' || this.op === 'delete'
+        ? new Set<string>()
+        : await this.ctx.jsonColumnsOf(this.table);
+    const coerce = (column: string, value: unknown): unknown =>
+      jsonColumns.has(column) && value !== null && value !== undefined
+        ? JSON.stringify(value)
+        : (value ?? null);
     const parsed = parseSelect(this.selectString);
     const projection = parsed.columns.includes('*')
       ? '*'
@@ -383,7 +394,7 @@ class Builder implements MutationBuilder {
         const columns = Array.from(new Set(list.flatMap((r) => Object.keys(r))));
         const tuples = list.map((row) => {
           const cells = columns.map((c) => {
-            values.push(row[c] === undefined ? null : row[c]);
+            values.push(coerce(c, row[c]));
             return `$${values.length}`;
           });
           return `(${cells.join(', ')})`;
@@ -408,7 +419,7 @@ class Builder implements MutationBuilder {
       case 'update': {
         const row = (this.payload ?? {}) as Row;
         const assignments = Object.keys(row).map((c) => {
-          values.push(row[c] === undefined ? null : row[c]);
+          values.push(coerce(c, row[c]));
           return `${quoteIdent(c)} = $${values.length}`;
         });
         if (!assignments.length) return [];
@@ -482,7 +493,12 @@ function toPostgrestError(error: unknown): PostgrestError {
 /* ------------------------------------------------------------------ */
 
 class PgContext {
-  private meta: Meta = { columns: new Map(), scalarFns: new Map(), foreignKeys: new Map() };
+  private meta: Meta = {
+    columns: new Map(),
+    jsonColumns: new Map(),
+    scalarFns: new Map(),
+    foreignKeys: new Map(),
+  };
 
   constructor(
     private readonly pool: Pool,
@@ -505,15 +521,32 @@ class PgContext {
   }
 
   async columnsOf(table: string): Promise<Set<string>> {
-    const cached = this.meta.columns.get(table);
-    if (cached) return cached;
+    await this.loadColumns(table);
+    return this.meta.columns.get(table) ?? new Set();
+  }
+
+  /** json/jsonb sütunları: değerler metne çevrilerek gönderilir. */
+  async jsonColumnsOf(table: string): Promise<Set<string>> {
+    await this.loadColumns(table);
+    return this.meta.jsonColumns.get(table) ?? new Set();
+  }
+
+  private async loadColumns(table: string): Promise<void> {
+    if (this.meta.columns.has(table)) return;
     const rows = await this.query(
-      `SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name = $1`,
+      `SELECT column_name, data_type FROM information_schema.columns
+        WHERE table_schema = 'public' AND table_name = $1`,
       [table],
     );
-    const set = new Set(rows.map((r) => String(r.column_name)));
-    this.meta.columns.set(table, set);
-    return set;
+    this.meta.columns.set(table, new Set(rows.map((r) => String(r.column_name))));
+    this.meta.jsonColumns.set(
+      table,
+      new Set(
+        rows
+          .filter((r) => String(r.data_type) === 'jsonb' || String(r.data_type) === 'json')
+          .map((r) => String(r.column_name)),
+      ),
+    );
   }
 
   /** `tablo.sütun` yabancı anahtarının işaret ettiği (tablo, sütun) çiftini döner. */
@@ -738,7 +771,10 @@ class RpcBuilder implements FilterBuilder<Row[]> {
         if (result.length !== 1) {
           return {
             data: null,
-            error: { message: 'JSON object requested, multiple (or no) rows returned', code: 'PGRST116' },
+            error: {
+              message: 'JSON object requested, multiple (or no) rows returned',
+              code: 'PGRST116',
+            },
           };
         }
         return { data: result[0], error: null };

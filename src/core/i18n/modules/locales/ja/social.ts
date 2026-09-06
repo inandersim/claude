@@ -101,4 +101,6 @@ export const social_ja: SocialI18nShape = {
   communityHint: 'トレンド、人気の投稿、新しい人',
   discover: '探す',
   postsCount: '{{count}}件の投稿',
+  storyPrev: 'Previous moment',
+  storyNext: 'Next moment',
 };

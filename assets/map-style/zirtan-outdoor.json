@@ -1,0 +1,398 @@
+{
+  "version": 8,
+  "name": "Zirtan Outdoor",
+  "metadata": {
+    "zirtan:version": 1,
+    "zirtan:doc": "Doğa temalı vektör stil. Renkler '@token' göstergeleriyle yazılır ve çalışma anında (src/features/maps/vector/style.ts → resolveMapStyle) tema varyantından çözülür. Kaynak adı '@source', karo katmanları OSM etiketlerini olduğu gibi taşır (highway, sac_scale, surface, natural, landuse, waterway, tourism, amenity).",
+    "zirtan:sourceLayers": ["trails", "roads", "water", "landuse", "poi", "contours"],
+    "zirtan:variants": {
+      "light": {
+        "land": "#F1EEE2",
+        "forest": "#CFE0BE",
+        "scrub": "#DCE7C6",
+        "rock": "#E2DCD0",
+        "glacier": "#E8F1F6",
+        "water": "#AFD3E6",
+        "waterLine": "#7FB4D4",
+        "contour": "rgba(150, 132, 104, 0.45)",
+        "roadCasing": "#D8D2C4",
+        "road": "#FFFFFF",
+        "trail": "#8A5A2B",
+        "trailTrack": "#A8813F",
+        "trailSteps": "#7A4A22",
+        "trailTechnical": "#B4432F",
+        "poiPeak": "#7A4A22",
+        "poiWater": "#2E7FB8",
+        "poiShelter": "#2F7D4F",
+        "poiCamp": "#E8722A",
+        "poiView": "#8A5AB8",
+        "poiStroke": "#FFFFFF"
+      },
+      "dark": {
+        "land": "#101B17",
+        "forest": "#17301F",
+        "scrub": "#1D3524",
+        "rock": "#26302B",
+        "glacier": "#20343C",
+        "water": "#153446",
+        "waterLine": "#2C6C90",
+        "contour": "rgba(140, 168, 150, 0.28)",
+        "roadCasing": "#1B2A24",
+        "road": "#3D5147",
+        "trail": "#C79A63",
+        "trailTrack": "#9E7C4A",
+        "trailSteps": "#D7B183",
+        "trailTechnical": "#FF8A72",
+        "poiPeak": "#D7B183",
+        "poiWater": "#7CBCFF",
+        "poiShelter": "#6FD59A",
+        "poiCamp": "#F5A05A",
+        "poiView": "#C79BF0",
+        "poiStroke": "#0B1210"
+      },
+      "sun": {
+        "land": "#FFFFFF",
+        "forest": "#BBD9A2",
+        "scrub": "#D3E7B6",
+        "rock": "#E6E0D2",
+        "glacier": "#E3F0F7",
+        "water": "#93C4E0",
+        "waterLine": "#0B4FA8",
+        "contour": "rgba(80, 70, 55, 0.55)",
+        "roadCasing": "#8A8F86",
+        "road": "#FFFFFF",
+        "trail": "#6B3B12",
+        "trailTrack": "#8A5F1E",
+        "trailSteps": "#4A2607",
+        "trailTechnical": "#B80000",
+        "poiPeak": "#4A2607",
+        "poiWater": "#0B4FA8",
+        "poiShelter": "#0F6B36",
+        "poiCamp": "#C24E00",
+        "poiView": "#5B2A9B",
+        "poiStroke": "#FFFFFF"
+      }
+    }
+  },
+  "sources": {},
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "paint": { "background-color": "@land" }
+    },
+    {
+      "id": "landuse-forest",
+      "type": "fill",
+      "source": "@source",
+      "source-layer": "landuse",
+      "minzoom": 8,
+      "filter": [
+        "any",
+        ["==", ["get", "landuse"], "forest"],
+        ["==", ["get", "natural"], "wood"]
+      ],
+      "paint": { "fill-color": "@forest", "fill-opacity": 0.85 }
+    },
+    {
+      "id": "landuse-scrub",
+      "type": "fill",
+      "source": "@source",
+      "source-layer": "landuse",
+      "minzoom": 9,
+      "filter": ["in", ["get", "natural"], ["literal", ["scrub", "grassland"]]],
+      "paint": { "fill-color": "@scrub", "fill-opacity": 0.7 }
+    },
+    {
+      "id": "landuse-rock",
+      "type": "fill",
+      "source": "@source",
+      "source-layer": "landuse",
+      "minzoom": 9,
+      "filter": ["in", ["get", "natural"], ["literal", ["bare_rock", "scree"]]],
+      "paint": { "fill-color": "@rock", "fill-opacity": 0.9 }
+    },
+    {
+      "id": "landuse-glacier",
+      "type": "fill",
+      "source": "@source",
+      "source-layer": "landuse",
+      "minzoom": 8,
+      "filter": ["==", ["get", "natural"], "glacier"],
+      "paint": { "fill-color": "@glacier" }
+    },
+    {
+      "id": "water-fill",
+      "type": "fill",
+      "source": "@source",
+      "source-layer": "water",
+      "minzoom": 7,
+      "filter": ["==", ["geometry-type"], "Polygon"],
+      "paint": { "fill-color": "@water" }
+    },
+    {
+      "id": "water-line",
+      "type": "line",
+      "source": "@source",
+      "source-layer": "water",
+      "minzoom": 9,
+      "filter": ["==", ["geometry-type"], "LineString"],
+      "layout": { "line-cap": "round", "line-join": "round" },
+      "paint": {
+        "line-color": "@waterLine",
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          9,
+          0.6,
+          12,
+          1.4,
+          15,
+          3
+        ]
+      }
+    },
+    {
+      "id": "contour-line",
+      "type": "line",
+      "source": "@source",
+      "source-layer": "contours",
+      "minzoom": 12,
+      "paint": {
+        "line-color": "@contour",
+        "line-width": [
+          "case",
+          ["==", ["%", ["to-number", ["get", "ele"], 0], 100], 0],
+          0.9,
+          0.45
+        ]
+      }
+    },
+    {
+      "id": "road-casing",
+      "type": "line",
+      "source": "@source",
+      "source-layer": "roads",
+      "minzoom": 8,
+      "layout": { "line-cap": "round", "line-join": "round" },
+      "paint": {
+        "line-color": "@roadCasing",
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.4],
+          ["zoom"],
+          8,
+          1.6,
+          12,
+          4.5,
+          16,
+          12
+        ]
+      }
+    },
+    {
+      "id": "road-fill",
+      "type": "line",
+      "source": "@source",
+      "source-layer": "roads",
+      "minzoom": 9,
+      "layout": { "line-cap": "round", "line-join": "round" },
+      "paint": {
+        "line-color": "@road",
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.4],
+          ["zoom"],
+          9,
+          0.7,
+          12,
+          2.6,
+          16,
+          8
+        ]
+      }
+    },
+    {
+      "id": "trail-track",
+      "type": "line",
+      "source": "@source",
+      "source-layer": "trails",
+      "minzoom": 9,
+      "filter": ["==", ["get", "highway"], "track"],
+      "layout": { "line-cap": "butt", "line-join": "round" },
+      "paint": {
+        "line-color": "@trailTrack",
+        "line-dasharray": [4, 1.5],
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.4],
+          ["zoom"],
+          9,
+          0.9,
+          13,
+          2.4,
+          16,
+          5
+        ]
+      }
+    },
+    {
+      "id": "trail-path",
+      "type": "line",
+      "source": "@source",
+      "source-layer": "trails",
+      "minzoom": 9,
+      "filter": [
+        "all",
+        ["in", ["get", "highway"], ["literal", ["path", "footway", "bridleway", "cycleway"]]],
+        ["!", ["in", ["get", "sac_scale"], ["literal", ["demanding_mountain_hiking", "alpine_hiking", "demanding_alpine_hiking", "difficult_alpine_hiking"]]]]
+      ],
+      "layout": { "line-cap": "round", "line-join": "round" },
+      "paint": {
+        "line-color": "@trail",
+        "line-dasharray": [3, 1.2],
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.4],
+          ["zoom"],
+          9,
+          0.8,
+          13,
+          2.2,
+          16,
+          4.5
+        ]
+      }
+    },
+    {
+      "id": "trail-demanding",
+      "type": "line",
+      "source": "@source",
+      "source-layer": "trails",
+      "minzoom": 10,
+      "filter": [
+        "any",
+        ["in", ["get", "sac_scale"], ["literal", ["demanding_mountain_hiking", "alpine_hiking", "demanding_alpine_hiking", "difficult_alpine_hiking"]]],
+        ["==", ["get", "highway"], "via_ferrata"],
+        ["has", "via_ferrata_scale"]
+      ],
+      "layout": { "line-cap": "butt", "line-join": "round" },
+      "paint": {
+        "line-color": "@trailTechnical",
+        "line-dasharray": [1.6, 1.1],
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.4],
+          ["zoom"],
+          10,
+          1.1,
+          13,
+          2.6,
+          16,
+          5
+        ]
+      }
+    },
+    {
+      "id": "trail-steps",
+      "type": "line",
+      "source": "@source",
+      "source-layer": "trails",
+      "minzoom": 12,
+      "filter": ["==", ["get", "highway"], "steps"],
+      "layout": { "line-cap": "butt" },
+      "paint": {
+        "line-color": "@trailSteps",
+        "line-dasharray": [0.6, 0.6],
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          2,
+          16,
+          6
+        ]
+      }
+    },
+    {
+      "id": "poi-peak",
+      "type": "circle",
+      "source": "@source",
+      "source-layer": "poi",
+      "minzoom": 10,
+      "filter": ["==", ["get", "natural"], "peak"],
+      "paint": {
+        "circle-radius": ["interpolate", ["linear"], ["zoom"], 10, 3.5, 15, 7],
+        "circle-color": "@poiPeak",
+        "circle-stroke-color": "@poiStroke",
+        "circle-stroke-width": 1.5
+      }
+    },
+    {
+      "id": "poi-shelter",
+      "type": "circle",
+      "source": "@source",
+      "source-layer": "poi",
+      "minzoom": 11,
+      "filter": [
+        "any",
+        ["==", ["get", "amenity"], "shelter"],
+        ["in", ["get", "tourism"], ["literal", ["alpine_hut", "wilderness_hut"]]]
+      ],
+      "paint": {
+        "circle-radius": ["interpolate", ["linear"], ["zoom"], 11, 3.5, 15, 7],
+        "circle-color": "@poiShelter",
+        "circle-stroke-color": "@poiStroke",
+        "circle-stroke-width": 1.5
+      }
+    },
+    {
+      "id": "poi-camp",
+      "type": "circle",
+      "source": "@source",
+      "source-layer": "poi",
+      "minzoom": 11,
+      "filter": ["==", ["get", "tourism"], "camp_site"],
+      "paint": {
+        "circle-radius": ["interpolate", ["linear"], ["zoom"], 11, 3.5, 15, 6.5],
+        "circle-color": "@poiCamp",
+        "circle-stroke-color": "@poiStroke",
+        "circle-stroke-width": 1.5
+      }
+    },
+    {
+      "id": "poi-spring",
+      "type": "circle",
+      "source": "@source",
+      "source-layer": "poi",
+      "minzoom": 12,
+      "filter": ["==", ["get", "natural"], "spring"],
+      "paint": {
+        "circle-radius": ["interpolate", ["linear"], ["zoom"], 12, 3, 15, 6],
+        "circle-color": "@poiWater",
+        "circle-stroke-color": "@poiStroke",
+        "circle-stroke-width": 1.5
+      }
+    },
+    {
+      "id": "poi-viewpoint",
+      "type": "circle",
+      "source": "@source",
+      "source-layer": "poi",
+      "minzoom": 12,
+      "filter": [
+        "any",
+        ["==", ["get", "tourism"], "viewpoint"],
+        ["==", ["get", "mountain_pass"], "yes"]
+      ],
+      "paint": {
+        "circle-radius": ["interpolate", ["linear"], ["zoom"], 12, 3, 15, 6],
+        "circle-color": "@poiView",
+        "circle-stroke-color": "@poiStroke",
+        "circle-stroke-width": 1.5
+      }
+    }
+  ]
+}

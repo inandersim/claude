@@ -12,6 +12,7 @@ import {
   Text,
 } from '@/components/ui';
 import { useToast } from '@/core/hooks/useToast';
+import { confirmDialog } from '@/core/utils/confirm';
 import { useT } from '@/core/i18n';
 import { radius, spacing, useTheme } from '@/core/theme';
 import type { AiAction } from '@/domain';
@@ -44,10 +45,13 @@ export default function VisionHistoryScreen() {
       if (globalThis.confirm?.(t('vision.historyScreen.clearConfirm'))) doClear();
       return;
     }
-    Alert.alert(t('vision.historyScreen.clear'), t('vision.historyScreen.clearConfirm'), [
-      { text: t('common.cancel'), style: 'cancel' },
-      { text: t('vision.historyScreen.clear'), style: 'destructive', onPress: doClear },
-    ]);
+    confirmDialog(
+      t('vision.historyScreen.clear'),
+      t('vision.historyScreen.clearConfirm'),
+      t('vision.historyScreen.clear'),
+      t('common.cancel'),
+      doClear,
+    );
   };
 
   const openCamera = () => router.push('/assistant/vision');

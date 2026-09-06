@@ -81,7 +81,12 @@ export interface QueryBuilder {
 export interface RealtimeChannelLike {
   on(
     type: 'postgres_changes',
-    filter: { event: '*' | 'INSERT' | 'UPDATE' | 'DELETE'; schema: string; table: string; filter?: string },
+    filter: {
+      event: '*' | 'INSERT' | 'UPDATE' | 'DELETE';
+      schema: string;
+      table: string;
+      filter?: string;
+    },
     callback: (payload: { eventType: string; new: Row; old: Row }) => void,
   ): RealtimeChannelLike;
   subscribe(callback?: (status: string) => void): RealtimeChannelLike;
@@ -96,7 +101,10 @@ export interface StorageFileApiLike {
   ): Promise<PostgrestResponse<{ path: string } | null>>;
   remove(paths: string[]): Promise<PostgrestResponse<unknown>>;
   getPublicUrl(path: string): { data: { publicUrl: string } };
-  createSignedUrl(path: string, expiresIn: number): Promise<PostgrestResponse<{ signedUrl: string } | null>>;
+  createSignedUrl(
+    path: string,
+    expiresIn: number,
+  ): Promise<PostgrestResponse<{ signedUrl: string } | null>>;
 }
 
 /** `client.auth` — yalnızca AuthRepository'nin kullandığı yüzey. */

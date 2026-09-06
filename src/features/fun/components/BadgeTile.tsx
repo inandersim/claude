@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { Icon, Text, type IconName } from '@/components/ui';
-import { useT } from '@/core/i18n';
+import { currentLocale, useT } from '@/core/i18n';
 import { radius, spacing, useTheme } from '@/core/theme';
 import type { BadgeTier, BadgeWithStatus } from '@/domain';
 
@@ -67,7 +67,7 @@ export function BadgeTile({ badge, width }: BadgeTileProps) {
         {badge.name}
       </Text>
       <Text variant="label" color={tint} align="center">
-        {t(`fun.tier.${badge.tier}`).toLocaleUpperCase('tr-TR')}
+        {t(`fun.tier.${badge.tier}`).toLocaleUpperCase(currentLocale())}
       </Text>
     </View>
   );

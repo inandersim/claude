@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { Text } from '@/components/ui';
-import { useT } from '@/core/i18n';
+import { currentLocale, useT } from '@/core/i18n';
 import { radius, spacing, useTheme } from '@/core/theme';
 import { DIFFICULTY_META, type DifficultyGrade } from '@/domain';
 
@@ -37,7 +37,7 @@ export function DifficultyBadge({
       </View>
       {showLabel ? (
         <Text variant="label" weight="extrabold" color={meta.color}>
-          {t(meta.labelKey).toLocaleUpperCase('tr-TR')}
+          {t(meta.labelKey).toLocaleUpperCase(currentLocale())}
         </Text>
       ) : null}
     </View>

@@ -23,12 +23,16 @@ export function formatAltitude(meters: number, locale = 'tr'): string {
   return `${formatNumber(meters, locale)} m`;
 }
 
-export function initials(name: string): string {
+/**
+ * Ad-soyaddan baş harfler. `locale` verilebilir: Türkçede "i" → "İ",
+ * İngilizcede "I" olmalıdır; varsayılan Türkçedir (uygulamanın kaynak dili).
+ */
+export function initials(name: string, locale = 'tr'): string {
   return name
     .split(' ')
     .filter(Boolean)
     .slice(0, 2)
-    .map((part) => part.charAt(0).toLocaleUpperCase('tr-TR'))
+    .map((part) => part.charAt(0).toLocaleUpperCase(locale))
     .join('');
 }
 

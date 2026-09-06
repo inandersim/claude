@@ -31,7 +31,7 @@ export function LevelCard({ level, streakDays }: LevelCardProps) {
       <ProgressRing value={pct} size={92} strokeWidth={8} color={colors.primary}>
         <View style={styles.ringInner}>
           <Text variant="label" color="textMuted">
-            {t('fun.level.label').toLocaleUpperCase('tr-TR')}
+            {t('fun.level.label').toLocaleUpperCase(locale)}
           </Text>
           <Text variant="h1">{level.level}</Text>
         </View>

@@ -4,7 +4,7 @@ import { SectionList, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { EmptyState, ErrorState, Header, Screen, Skeleton, Tappable, Text } from '@/components/ui';
-import { useT } from '@/core/i18n';
+import { currentLocale, useT } from '@/core/i18n';
 import { radius, spacing } from '@/core/theme';
 import { dateGroup, type DateGroup } from '@/core/utils/time';
 import type { NotificationWithSender } from '@/domain';
@@ -131,7 +131,7 @@ export default function NotificationsScreen() {
           renderItem={({ item }) => <NotificationItem notification={item} onPress={onPress} />}
           renderSectionHeader={({ section }) => (
             <Text variant="label" color="textSubtle" style={styles.sectionTitle}>
-              {section.title.toLocaleUpperCase('tr-TR')}
+              {section.title.toLocaleUpperCase(currentLocale())}
             </Text>
           )}
           stickySectionHeadersEnabled={false}

@@ -14,7 +14,7 @@ import {
   Tappable,
   Text,
 } from '@/components/ui';
-import { useT } from '@/core/i18n';
+import { currentLocale, useT } from '@/core/i18n';
 import { layout, radius, spacing, useTheme } from '@/core/theme';
 import { ADVENTURE_TYPES, ADVENTURE_TYPE_META, type AdventureType } from '@/domain';
 import { RecentAdventureRow } from '@/features/explore/components/RecentAdventureRow';
@@ -471,7 +471,7 @@ function SearchResults({
       {data.locations.length > 0 ? (
         <View style={styles.resultGroup}>
           <Text variant="label" color="textSubtle" style={styles.groupLabel}>
-            {t('explore.trending').toLocaleUpperCase('tr-TR')}
+            {t('explore.trending').toLocaleUpperCase(currentLocale())}
           </Text>
           {data.locations.map((loc) => (
             <TrendingLocationCard key={loc.id} location={loc} wide />
@@ -481,7 +481,7 @@ function SearchResults({
       {data.users.length > 0 ? (
         <View style={styles.resultGroup}>
           <Text variant="label" color="textSubtle" style={styles.groupLabel}>
-            {t('zmatch.subtitle').toLocaleUpperCase('tr-TR')}
+            {t('zmatch.subtitle').toLocaleUpperCase(currentLocale())}
           </Text>
           {data.users.map((user) => (
             <Tappable
@@ -514,7 +514,7 @@ function SearchResults({
       {data.routes.length > 0 ? (
         <View style={styles.resultGroup}>
           <Text variant="label" color="textSubtle" style={styles.groupLabel}>
-            {t('explore.routes').toLocaleUpperCase('tr-TR')}
+            {t('explore.routes').toLocaleUpperCase(currentLocale())}
           </Text>
           <View style={styles.chips}>
             {data.routes.map((route) => (

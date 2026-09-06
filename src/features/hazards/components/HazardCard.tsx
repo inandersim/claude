@@ -71,7 +71,7 @@ export function HazardCard({
           <View style={{ flex: 1 }} />
           {resolved ? (
             <Text variant="label" weight="extrabold" color="textSubtle">
-              {t('hazards.resolved').toLocaleUpperCase('tr-TR')}
+              {t('hazards.resolved').toLocaleUpperCase(locale)}
             </Text>
           ) : (
             <SeverityBadge severity={hazard.severity} />

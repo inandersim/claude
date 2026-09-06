@@ -27,13 +27,13 @@ export function ArticleHero({ article }: { article: Article }) {
             <View style={[styles.pill, { backgroundColor: meta.color }]}>
               <Icon name={meta.icon} size={12} color="#0B1410" strokeWidth={2.4} />
               <Text variant="label" weight="extrabold" color="#0B1410">
-                {t(meta.labelKey).toLocaleUpperCase('tr-TR')}
+                {t(meta.labelKey).toLocaleUpperCase(locale)}
               </Text>
             </View>
             {article.status === 'draft' ? (
               <View style={[styles.pill, { backgroundColor: colors.warning }]}>
                 <Text variant="label" weight="extrabold" color="#0B1410">
-                  {t('articles.status.draft').toLocaleUpperCase('tr-TR')}
+                  {t('articles.status.draft').toLocaleUpperCase(locale)}
                 </Text>
               </View>
             ) : null}

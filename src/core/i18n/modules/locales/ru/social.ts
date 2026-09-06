@@ -101,4 +101,6 @@ export const social_ru: SocialI18nShape = {
   communityHint: 'Тренды, популярные посты и новые люди',
   discover: 'Обзор',
   postsCount: '{{count}} постов',
+  storyPrev: 'Previous moment',
+  storyNext: 'Next moment',
 };

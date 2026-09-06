@@ -240,7 +240,7 @@ export default function LiveStreamScreen() {
                 ].map((item) => (
                   <View key={item.label} style={{ flex: 1 }}>
                     <Text variant="label" color="textSubtle" numberOfLines={1}>
-                      {item.label.toLocaleUpperCase('tr-TR')}
+                      {item.label.toLocaleUpperCase(locale)}
                     </Text>
                     <Text variant="title" weight="extrabold">
                       {item.value}

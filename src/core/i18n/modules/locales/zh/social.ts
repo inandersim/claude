@@ -101,4 +101,6 @@ export const social_zh: SocialI18nShape = {
   communityHint: '热门话题、热门帖子和新朋友',
   discover: '发现',
   postsCount: '{{count}} 条帖子',
+  storyPrev: 'Previous moment',
+  storyNext: 'Next moment',
 };

@@ -274,6 +274,7 @@ function Option({
       ]}
       accessibilityRole="radio"
       accessibilityState={{ checked: active, selected: active }}
+      aria-checked={active}
     >
       {icon ? (
         <Icon

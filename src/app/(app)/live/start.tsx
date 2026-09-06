@@ -1,6 +1,7 @@
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { useRouter } from 'expo-router';
 import { goBack } from '@/core/navigation';
+import { confirmDialog } from '@/core/utils/confirm';
 import React, { useState } from 'react';
 import { Alert, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -97,10 +98,13 @@ export default function StartStreamScreen() {
       if (ok) finish(liveId);
       return;
     }
-    Alert.alert(t('live.endStream'), t('live.endConfirm'), [
-      { text: t('common.cancel'), style: 'cancel' },
-      { text: t('live.endStream'), style: 'destructive', onPress: () => finish(liveId) },
-    ]);
+    confirmDialog(
+      t('live.endStream'),
+      t('live.endConfirm'),
+      t('live.endStream'),
+      t('common.cancel'),
+      () => finish(liveId),
+    );
   };
 
   const mm = String(Math.floor(elapsed / 60)).padStart(2, '0');

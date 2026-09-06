@@ -151,7 +151,7 @@ function PostCardComponent({
                     <View style={[styles.verifiedPill, { backgroundColor: 'rgba(8,14,12,0.55)' }]}>
                       <Icon name="shield-check" size={12} color="#5EE39B" strokeWidth={2.6} />
                       <Text variant="label" weight="extrabold" color="#F2F7F4">
-                        {t('home.verifiedInfo').toLocaleUpperCase('tr-TR')}
+                        {t('home.verifiedInfo').toLocaleUpperCase(locale)}
                       </Text>
                     </View>
                   ) : (

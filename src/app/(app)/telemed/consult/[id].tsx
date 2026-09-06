@@ -22,6 +22,7 @@ import {
   Text,
 } from '@/components/ui';
 import { useToast } from '@/core/hooks/useToast';
+import { confirmDialog } from '@/core/utils/confirm';
 import { useT } from '@/core/i18n';
 import { goBack } from '@/core/navigation';
 import { fontFamily, radius, spacing, useTheme } from '@/core/theme';
@@ -47,24 +48,6 @@ import {
 } from '@/features/telemed/hooks';
 
 type Row = ConsultMessage & { sender: User };
-
-/** Web'de Alert.alert çalışmaz; onay diyaloğu için basit yedek. */
-function confirm(
-  title: string,
-  message: string,
-  okLabel: string,
-  cancelLabel: string,
-  onOk: () => void,
-) {
-  if (Platform.OS === 'web') {
-    if (globalThis.confirm?.(`${title}\n\n${message}`)) onOk();
-    return;
-  }
-  Alert.alert(title, message, [
-    { text: cancelLabel, style: 'cancel' },
-    { text: okLabel, style: 'destructive', onPress: onOk },
-  ]);
-}
 
 export default function ConsultScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -100,7 +83,7 @@ export default function ConsultScreen() {
   };
 
   const onEnd = () =>
-    confirm(
+    confirmDialog(
       t('telemed.consult.end'),
       t('telemed.consult.endConfirm'),
       t('common.done'),
@@ -113,7 +96,7 @@ export default function ConsultScreen() {
     );
 
   const onCancel = () =>
-    confirm(
+    confirmDialog(
       t('telemed.consult.cancel'),
       t('telemed.consult.cancelConfirm'),
       t('telemed.consult.cancel'),

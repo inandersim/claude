@@ -42,14 +42,14 @@ export function BusinessCard({ business, width }: { business: BusinessWithOwner;
           <View style={[styles.pill, { backgroundColor: 'rgba(8,14,12,0.6)' }]}>
             <Icon name={meta.icon} size={12} color="#F2F7F4" strokeWidth={2.4} />
             <Text variant="label" weight="extrabold" color="#F2F7F4">
-              {t(meta.labelKey).toLocaleUpperCase('tr-TR')}
+              {t(meta.labelKey).toLocaleUpperCase(locale)}
             </Text>
           </View>
           {business.isFeatured ? (
             <View style={[styles.pill, { backgroundColor: colors.accent }]}>
               <Icon name="sparkles" size={12} color="#1A1000" strokeWidth={2.6} />
               <Text variant="label" weight="extrabold" color="#1A1000">
-                {t('stays.featured').toLocaleUpperCase('tr-TR')}
+                {t('stays.featured').toLocaleUpperCase(locale)}
               </Text>
             </View>
           ) : null}

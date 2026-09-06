@@ -41,7 +41,7 @@ export function ListingCard({ listing, onToggleFavorite, width }: Props) {
           {listing.isSold ? (
             <View style={styles.sold}>
               <Text variant="label" weight="extrabold" color="#FFFFFF">
-                {t('market.sold').toLocaleUpperCase('tr-TR')}
+                {t('market.sold').toLocaleUpperCase(locale)}
               </Text>
             </View>
           ) : null}

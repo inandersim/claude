@@ -4,6 +4,8 @@
  *
  *   node tools/tiles/build-tiles.mjs --region likya
  *   node tools/tiles/build-tiles.mjs --region likya --check    # yalnızca araç kontrolü
+ *   node tools/tiles/build-tiles.mjs --input dump.json --region uludag   # ağsız, yerel döküm
+ *   node tools/tiles/build-tiles.mjs --region likya --js-tiler           # dış araçsız PMTiles
  *
  * Hat:
  *   1. Overpass'tan bölge verisi (yollar, su, arazi, zirveler, barınaklar) → GeoJSON
@@ -15,12 +17,13 @@
  */
 
 import { execFileSync, spawnSync } from 'node:child_process';
-import { existsSync, mkdirSync, statSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { fetchWithRetry } from '../data-pipeline/lib/http.js';
 import { REGIONS } from './build-graph.mjs';
+import { buildTiles, packPmtiles } from './lib/pmtiles-writer.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 
@@ -119,6 +122,11 @@ async function fetchLayer(layer, bbox, { fetchImpl = fetchWithRetry } = {}) {
   throw lastError;
 }
 
+/** Overpass sırası [güney, batı, kuzey, doğu] → GeoJSON sırası [minLon, minLat, maxLon, maxLat]. */
+export function lonLatBbox([s, w, n, e]) {
+  return [w, s, e, n];
+}
+
 /** Bir dış aracın kurulu olup olmadığını söyler. */
 export function hasTool(name) {
   return spawnSync('which', [name], { encoding: 'utf8' }).status === 0;
@@ -145,6 +153,67 @@ Alternatif: hazır Protomaps küresel paketinden bölge kesmek (araç kurulumu g
   pmtiles extract https://build.protomaps.com/YYYYMMDD.pmtiles out/tiles/<bölge>.pmtiles --bbox=<w,s,e,n>
 `.trim();
 
+/**
+ * Yerel Overpass dökümündeki bir öğeyi hangi karo katmanına ait olduğunu söyler.
+ * Ağ kapalıyken (`--input`) katman başına ayrı sorgu atılamadığı için sınıflandırma
+ * burada, etiketlere bakılarak yapılır.
+ */
+export function classifyElement(el) {
+  const tags = el.tags ?? {};
+  if (el.type === 'node') {
+    if (
+      tags.natural === 'peak' ||
+      tags.natural === 'spring' ||
+      tags.amenity === 'shelter' ||
+      tags.mountain_pass === 'yes' ||
+      ['alpine_hut', 'wilderness_hut', 'camp_site', 'viewpoint'].includes(tags.tourism)
+    )
+      return 'poi';
+    return null;
+  }
+  if (tags.natural === 'water' || ['river', 'stream'].includes(tags.waterway)) return 'water';
+  if (
+    tags.landuse === 'forest' ||
+    ['wood', 'scrub', 'grassland', 'bare_rock', 'scree', 'glacier'].includes(tags.natural)
+  )
+    return 'landuse';
+  if (['path', 'track', 'footway', 'bridleway', 'steps', 'via_ferrata'].includes(tags.highway))
+    return 'trails';
+  if (tags.route === 'hiking') return 'trails';
+  if (tags.highway) return 'roads';
+  return null;
+}
+
+/** Overpass öğelerini katmanlara böler; her katman ayrı GeoJSON olur. */
+export function splitLayers(elements) {
+  const buckets = Object.fromEntries(Object.keys(LAYERS).map((l) => [l, []]));
+  for (const el of elements) {
+    const layer = classifyElement(el);
+    if (layer && buckets[layer]) buckets[layer].push(el);
+  }
+  return buckets;
+}
+
+/** Öğelerin sınır kutusu [minLon, minLat, maxLon, maxLat]. */
+export function boundsOf(elements) {
+  let minLon = Infinity;
+  let minLat = Infinity;
+  let maxLon = -Infinity;
+  let maxLat = -Infinity;
+  const visit = (lon, lat) => {
+    minLon = Math.min(minLon, lon);
+    maxLon = Math.max(maxLon, lon);
+    minLat = Math.min(minLat, lat);
+    maxLat = Math.max(maxLat, lat);
+  };
+  for (const el of elements) {
+    if (typeof el.lat === 'number') visit(el.lon, el.lat);
+    for (const g of el.geometry ?? []) visit(g.lon, g.lat);
+  }
+  if (!Number.isFinite(minLon)) return null;
+  return [minLon, minLat, maxLon, maxLat];
+}
+
 function parseArgs(argv) {
   const args = { minzoom: 6, maxzoom: 14 };
   for (let i = 0; i < argv.length; i += 1) {
@@ -153,6 +222,8 @@ function parseArgs(argv) {
     else if (a === '--bbox') args.bbox = argv[++i].split(',').map(Number);
     else if (a === '--check') args.check = true;
     else if (a === '--geojson-only') args.geojsonOnly = true;
+    else if (a === '--input') args.input = argv[++i];
+    else if (a === '--js-tiler') args.jsTiler = true;
     else if (a === '--maxzoom') args.maxzoom = Number(argv[++i]);
     else if (a === '--minzoom') args.minzoom = Number(argv[++i]);
   }
@@ -171,8 +242,8 @@ async function main() {
   }
 
   const region = args.region;
-  const bbox = args.bbox ?? REGIONS[region]?.bbox;
-  if (!bbox) {
+  let bbox = args.bbox ?? REGIONS[region]?.bbox;
+  if (!bbox && !args.input) {
     console.error('Bölge gerekli: --region <id> ya da --bbox s,w,n,e');
     console.error(`Hazır bölgeler: ${Object.keys(REGIONS).join(', ')}`);
     process.exit(1);
@@ -181,26 +252,87 @@ async function main() {
   const geoDir = resolve(ROOT, 'out/geojson', region);
   mkdirSync(geoDir, { recursive: true });
   const layerFiles = [];
+  const layerData = {};
 
-  for (const layer of Object.keys(LAYERS)) {
-    console.log(`→ ${region}/${layer}: OpenStreetMap'ten çekiliyor…`);
-    const elements = await fetchLayer(layer, bbox);
-    const geojson = toGeoJson(elements, layer);
-    const file = resolve(geoDir, `${layer}.geojson`);
-    writeFileSync(file, JSON.stringify(geojson));
-    const mb = (statSync(file).size / 1024 / 1024).toFixed(1);
-    console.log(`  ${geojson.features.length} nesne · ${mb} MB · ${file}`);
-    if (geojson.features.length) layerFiles.push({ layer, file });
+  if (args.input) {
+    // Ağ kapalıyken: tek bir Overpass dökümü etiketlere göre katmanlara bölünür.
+    console.log(`→ ${region}: yerel döküm okunuyor (${args.input})…`);
+    const dump = JSON.parse(readFileSync(resolve(args.input), 'utf8'));
+    const elements = dump.elements ?? [];
+    bbox = args.bbox ? lonLatBbox(args.bbox) : (boundsOf(elements) ?? [0, 0, 0, 0]);
+    const buckets = splitLayers(elements);
+    for (const [layer, els] of Object.entries(buckets)) {
+      const geojson = toGeoJson(els, layer);
+      const file = resolve(geoDir, `${layer}.geojson`);
+      writeFileSync(file, JSON.stringify(geojson));
+      console.log(`  ${layer}: ${geojson.features.length} nesne · ${file}`);
+      if (geojson.features.length) {
+        layerFiles.push({ layer, file });
+        layerData[layer] = geojson;
+      }
+    }
+  } else {
+    for (const layer of Object.keys(LAYERS)) {
+      console.log(`→ ${region}/${layer}: OpenStreetMap'ten çekiliyor…`);
+      const elements = await fetchLayer(layer, bbox);
+      const geojson = toGeoJson(elements, layer);
+      const file = resolve(geoDir, `${layer}.geojson`);
+      writeFileSync(file, JSON.stringify(geojson));
+      const mb = (statSync(file).size / 1024 / 1024).toFixed(1);
+      console.log(`  ${geojson.features.length} nesne · ${mb} MB · ${file}`);
+      if (geojson.features.length) {
+        layerFiles.push({ layer, file });
+        layerData[layer] = geojson;
+      }
+    }
+    bbox = lonLatBbox(bbox);
   }
 
   if (args.geojsonOnly) return;
-  if (missing.length) {
-    console.log(`\n⚠ GeoJSON hazır ama karo üretilemedi.\n\n${INSTALL_HINT}`);
-    return;
-  }
 
   const tilesDir = resolve(ROOT, 'out/tiles');
   mkdirSync(tilesDir, { recursive: true });
+
+  // Dış araçlar yoksa (ya da --js-tiler) saf JS hattı devreye girer.
+  if (args.jsTiler || missing.length) {
+    if (missing.length && !args.jsTiler) {
+      console.log(`\n⚠ tippecanoe/pmtiles yok — saf JS hattına düşülüyor.\n${INSTALL_HINT}\n`);
+    }
+    const out = resolve(tilesDir, `${region}.pmtiles`);
+    console.log('\n→ geojson-vt + vt-pbf: vektör karolar üretiliyor…');
+    const tiles = buildTiles(layerData, {
+      minzoom: args.minzoom,
+      maxzoom: args.maxzoom,
+      bbox,
+    });
+    const { buffer, stats } = packPmtiles(tiles, {
+      minzoom: args.minzoom,
+      maxzoom: args.maxzoom,
+      bbox,
+      metadata: {
+        name: region,
+        description: `Zirtan outdoor karoları — ${region}`,
+        attribution: '© OpenStreetMap katkıcıları (ODbL)',
+        type: 'baselayer',
+        // Şema, veri boş olsa da tam listelenir: istemci stilinde her katman
+        // tanımlıdır, aksi hâlde MapLibre "source-layer yok" uyarısı basar.
+        vector_layers: Object.keys(LAYERS).map((id) => ({
+          id,
+          description: id,
+          minzoom: Math.max(args.minzoom, LAYERS[id].minzoom),
+          maxzoom: args.maxzoom,
+          fields: {},
+        })),
+      },
+    });
+    writeFileSync(out, buffer);
+    const mbJs = (buffer.length / 1024 / 1024).toFixed(2);
+    console.log(
+      `\n✔ ${out} · ${mbJs} MB · ${stats.tiles} karo (${stats.unique} benzersiz gövde)`,
+    );
+    console.log(`  Uygulamaya eklemek için: MapPack.sizeMb = ${mbJs}, format = 'pmtiles'`);
+    return;
+  }
   const mbtiles = resolve(tilesDir, `${region}.mbtiles`);
   const pmtiles = resolve(tilesDir, `${region}.pmtiles`);
 

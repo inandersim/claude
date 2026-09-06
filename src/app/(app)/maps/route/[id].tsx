@@ -14,6 +14,7 @@ import {
   Text,
 } from '@/components/ui';
 import { useToast } from '@/core/hooks/useToast';
+import { confirmDialog } from '@/core/utils/confirm';
 import { useT } from '@/core/i18n';
 import { layout, radius, spacing, useTheme } from '@/core/theme';
 import { formatDate } from '@/core/utils/time';
@@ -66,10 +67,13 @@ export default function SavedRouteScreen() {
       run();
       return;
     }
-    Alert.alert(t('maps.deleteRoute'), t('maps.deleteConfirm'), [
-      { text: t('common.cancel'), style: 'cancel' },
-      { text: t('common.delete'), style: 'destructive', onPress: run },
-    ]);
+    confirmDialog(
+      t('maps.deleteRoute'),
+      t('maps.deleteConfirm'),
+      t('common.delete'),
+      t('common.cancel'),
+      run,
+    );
   };
 
   const onShare = async () => {

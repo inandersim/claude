@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { AdventureImage, Avatar, Icon, ProgressRing, Text } from '@/components/ui';
-import { useT } from '@/core/i18n';
+import { currentLocale, useT } from '@/core/i18n';
 import { radius, spacing, useTheme } from '@/core/theme';
 import { formatCompact } from '@/core/utils/format';
 import { formatDate } from '@/core/utils/time';
@@ -136,7 +136,7 @@ function Stat({ value, label }: { value: string; label: string }) {
     <View style={styles.stat}>
       <Text variant="h3">{value}</Text>
       <Text variant="label" color="textSubtle">
-        {label.toLocaleUpperCase('tr-TR')}
+        {label.toLocaleUpperCase(currentLocale())}
       </Text>
     </View>
   );

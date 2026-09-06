@@ -101,4 +101,6 @@ export const social_ar: SocialI18nShape = {
   communityHint: 'الرائج والمنشورات الشائعة وأشخاص جدد',
   discover: 'استكشاف',
   postsCount: '{{count}} منشور',
+  storyPrev: 'Previous moment',
+  storyNext: 'Next moment',
 };

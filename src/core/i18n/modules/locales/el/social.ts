@@ -101,4 +101,6 @@ export const social_el: SocialI18nShape = {
   communityHint: 'Τάσεις, δημοφιλείς δημοσιεύσεις και νέα άτομα',
   discover: 'Ανακάλυψη',
   postsCount: '{{count}} δημοσιεύσεις',
+  storyPrev: 'Previous moment',
+  storyNext: 'Next moment',
 };

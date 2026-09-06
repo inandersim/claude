@@ -115,14 +115,14 @@ export default function StoryViewerScreen() {
         onPress={goPrev}
         onLongPress={() => setPaused(true)}
         onPressOut={() => setPaused(false)}
-        accessibilityLabel="prev"
+        accessibilityLabel={t('social.storyPrev')}
       />
       <Pressable
         style={[styles.tapZone, { right: 0, width: width * 0.7 }]}
         onPress={goNext}
         onLongPress={() => setPaused(true)}
         onPressOut={() => setPaused(false)}
-        accessibilityLabel="next"
+        accessibilityLabel={t('social.storyNext')}
       />
 
       <View style={[styles.top, { top: insets.top + spacing.sm }]} pointerEvents="box-none">
@@ -172,7 +172,7 @@ export default function StoryViewerScreen() {
           <View style={[styles.typePill, { backgroundColor: meta.color }]}>
             <Icon name={meta.icon} size={12} color="#06120B" strokeWidth={2.6} />
             <Text variant="label" weight="extrabold" color="#06120B">
-              {t(meta.labelKey).toLocaleUpperCase('tr-TR')}
+              {t(meta.labelKey).toLocaleUpperCase(locale)}
               {story.altitudeM !== null ? ` · ${story.altitudeM} m` : ''}
             </Text>
           </View>

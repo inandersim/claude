@@ -101,4 +101,6 @@ export const social_nl: SocialI18nShape = {
   communityHint: 'Trends, populaire berichten en nieuwe mensen',
   discover: 'Ontdek',
   postsCount: '{{count}} berichten',
+  storyPrev: 'Previous moment',
+  storyNext: 'Next moment',
 };

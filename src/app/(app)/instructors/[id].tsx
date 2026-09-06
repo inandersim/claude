@@ -18,7 +18,7 @@ import {
   Text,
 } from '@/components/ui';
 import { useLocation } from '@/core/hooks/useLocation';
-import { useT } from '@/core/i18n';
+import { currentLocale, useT } from '@/core/i18n';
 import { layout, radius, spacing, useTheme } from '@/core/theme';
 import { formatRelative } from '@/core/utils/time';
 import { ADVENTURE_TYPE_META, formatDistance, formatPriceTry } from '@/domain';
@@ -105,7 +105,7 @@ export default function InstructorDetailScreen() {
                 <View style={[styles.verified, { backgroundColor: colors.primarySoft }]}>
                   <Icon name="graduation-cap" size={13} color={colors.primary} strokeWidth={2.6} />
                   <Text variant="label" weight="extrabold" color="primary">
-                    {t('instructors.verifiedInstructor').toLocaleUpperCase('tr-TR')}
+                    {t('instructors.verifiedInstructor').toLocaleUpperCase(locale)}
                   </Text>
                 </View>
               </View>
@@ -193,7 +193,7 @@ export default function InstructorDetailScreen() {
                           weight="extrabold"
                           color={active ? colors.onPrimary : colors.textSubtle}
                         >
-                          {label.toLocaleUpperCase('tr-TR')}
+                          {label.toLocaleUpperCase(locale)}
                         </Text>
                       </View>
                     );
@@ -333,7 +333,7 @@ function Stat({ value, label }: { value: string; label: string }) {
         {value}
       </Text>
       <Text variant="label" color="textSubtle" align="center" numberOfLines={1}>
-        {label.toLocaleUpperCase('tr-TR')}
+        {label.toLocaleUpperCase(currentLocale())}
       </Text>
     </View>
   );
