@@ -225,7 +225,7 @@
     "metaDescription": "Route planning, community hazard map, ZMatch partner matching, live streaming, satellite SOS and a world destination archive. The outdoor adventure social network from Türkiye to the world.",
     "heroKicker": "Outdoor adventure social network",
     "heroTitle": "Zirtan — plan your adventure, share it, stay safe",
-    "heroLead": "One app for hiking, climbing, diving, skiing and cycling: route planner, offline maps, community hazard map, verified partner matching and satellite SOS. Born in Türkiye, speaks nine languages.",
+    "heroLead": "One app for hiking, climbing, diving, skiing and cycling: route planner, offline maps, community hazard map, verified partner matching and satellite SOS. Born in Türkiye, speaks 23 languages.",
     "heroCtaPrimary": "Explore routes",
     "heroCtaSecondary": "How it works",
     "storeIos": "App Store",
@@ -670,7 +670,7 @@
   },
   "about": {
     "title": "About",
-    "metaDescription": "Zirtan is the outdoor adventure social network born in Türkiye and speaking nine languages. Mission, team, open data and roadmap.",
+    "metaDescription": "Zirtan is the outdoor adventure social network born in Türkiye and speaking 23 languages. Mission, team, open data and roadmap.",
     "kicker": "About",
     "lead": "Zirtan wants everyone who goes to the mountains to plan, find partners and stay safe in the same app.",
     "missionTitle": "Mission",
@@ -691,7 +691,7 @@
       },
       {
         "title": "Multilingual",
-        "text": "9 languages, country-based emergency directory and local rescue organisations."
+        "text": "23 languages, country-based emergency directory and local rescue organisations."
       }
     ],
     "roadmapTitle": "Roadmap",
@@ -731,7 +731,7 @@
     "facts": [
       { "k": "Founded", "v": "2026, Türkiye" },
       { "k": "Platforms", "v": "iOS, Android (Expo / React Native)" },
-      { "k": "Languages", "v": "9" },
+      { "k": "Languages", "v": "23" },
       { "k": "SOS directory", "v": "58 countries" },
       { "k": "Licence", "v": "MIT (app code)" }
     ],
