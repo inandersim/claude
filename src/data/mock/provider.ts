@@ -86,6 +86,11 @@ import { createFunRepository } from './repos/fun';
 import { createInventoryRepository } from './repos/inventory';
 import { createMapsRepository } from './repos/maps';
 import { createSatelliteRepository } from './repos/satellite';
+import { createCourseRepository } from './repos/courses';
+import { createDestinationRepository } from './repos/destinations';
+import { createGroupRepository } from './repos/groups';
+import { createSocialRepository } from './repos/social';
+import { createVisionRepository } from './repos/vision';
 import { CURRENT_USER_ID } from './seed';
 
 interface Options {
@@ -1495,6 +1500,11 @@ export function createMockProvider(options: Options = {}): DataProvider {
     inventory: atBoundary(createInventoryRepository(ctx)),
     clubs: atBoundary(createClubRepository(ctx)),
     fun: atBoundary(createFunRepository(ctx)),
+    destinations: atBoundary(createDestinationRepository(ctx)),
+    vision: atBoundary(createVisionRepository(ctx)),
+    social: atBoundary(createSocialRepository(ctx)),
+    groups: atBoundary(createGroupRepository(ctx)),
+    courses: atBoundary(createCourseRepository(ctx)),
     reset: () => db.reset(),
   };
 }

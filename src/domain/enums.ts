@@ -156,6 +156,14 @@ export const NOTIFICATION_TYPES = [
   'stay_request',
   'stay_confirmed',
   'story_posted',
+  'reaction',
+  'mention',
+  'repost',
+  'group_invite',
+  'group_message',
+  'trip_overdue',
+  'course_enrolled',
+  'certificate_issued',
 ] as const;
 export type NotificationType = (typeof NOTIFICATION_TYPES)[number];
 
@@ -573,3 +581,131 @@ export type AiIntent = (typeof AI_INTENTS)[number];
 
 export const AI_ROLES = ['user', 'assistant'] as const;
 export type AiRole = (typeof AI_ROLES)[number];
+
+/* ------------------------------------------------------------------ */
+/* v1.3 — Destinasyon arşivi, yol planı, AMS                           */
+/* ------------------------------------------------------------------ */
+
+export const STAGE_KINDS = [
+  'trailhead',
+  'village',
+  'teahouse',
+  'camp',
+  'hut',
+  'base_camp',
+  'pass',
+  'summit',
+  'viewpoint',
+] as const;
+export type StageKind = (typeof STAGE_KINDS)[number];
+
+export const TRANSPORT_MODES = ['flight', 'bus', 'jeep', 'train', 'ferry', 'trek', 'taxi'] as const;
+export type TransportMode = (typeof TRANSPORT_MODES)[number];
+
+export const DESTINATION_TYPES = [
+  'trek',
+  'expedition',
+  'climbing_area',
+  'dive_region',
+  'ski_region',
+  'multi_sport',
+] as const;
+export type DestinationType = (typeof DESTINATION_TYPES)[number];
+
+export const TRIP_PLAN_STATUSES = [
+  'planned',
+  'active',
+  'overdue',
+  'returned',
+  'cancelled',
+] as const;
+export type TripPlanStatus = (typeof TRIP_PLAN_STATUSES)[number];
+
+/* ------------------------------------------------------------------ */
+/* v1.3 — Kamera ile AI tavsiye                                        */
+/* ------------------------------------------------------------------ */
+
+export const VISION_SITUATIONS = [
+  'terrain',
+  'weather',
+  'gear',
+  'injury',
+  'wildlife',
+  'plant',
+  'map',
+  'water',
+  'camp',
+  'other',
+] as const;
+export type VisionSituation = (typeof VISION_SITUATIONS)[number];
+
+export const RISK_LEVELS = ['low', 'moderate', 'high', 'extreme'] as const;
+export type RiskLevel = (typeof RISK_LEVELS)[number];
+
+/* ------------------------------------------------------------------ */
+/* v1.3 — Sosyal paylaşım                                              */
+/* ------------------------------------------------------------------ */
+
+export const POST_KINDS = ['adventure', 'status', 'photo'] as const;
+export type PostKind = (typeof POST_KINDS)[number];
+
+export const REACTION_TYPES = ['like', 'love', 'wow', 'fire', 'strong'] as const;
+export type ReactionType = (typeof REACTION_TYPES)[number];
+
+export const FEED_TABS = ['all', 'following', 'adventures', 'status'] as const;
+export type FeedTab = (typeof FEED_TABS)[number];
+
+/* ------------------------------------------------------------------ */
+/* v1.3 — Gruplar & kanallar                                            */
+/* ------------------------------------------------------------------ */
+
+export const GROUP_KINDS = ['group', 'channel'] as const;
+export type GroupKind = (typeof GROUP_KINDS)[number];
+
+export const GROUP_PRIVACIES = ['public', 'private'] as const;
+export type GroupPrivacy = (typeof GROUP_PRIVACIES)[number];
+
+export const GROUP_ROLES = ['member', 'admin', 'owner'] as const;
+export type GroupRole = (typeof GROUP_ROLES)[number];
+
+export const GROUP_MESSAGE_TYPES = [
+  'text',
+  'image',
+  'location',
+  'route',
+  'poll',
+  'system',
+] as const;
+export type GroupMessageType = (typeof GROUP_MESSAGE_TYPES)[number];
+
+/* ------------------------------------------------------------------ */
+/* v1.3 — Eğitimler                                                    */
+/* ------------------------------------------------------------------ */
+
+export const COURSE_CATEGORIES = [
+  'mountaineering',
+  'climbing',
+  'avalanche',
+  'first_aid',
+  'navigation',
+  'diving',
+  'paragliding',
+  'paddling',
+  'winter',
+  'drone',
+  'ethics',
+  'photography',
+] as const;
+export type CourseCategory = (typeof COURSE_CATEGORIES)[number];
+
+export const COURSE_FORMATS = ['online', 'in_person', 'hybrid'] as const;
+export type CourseFormat = (typeof COURSE_FORMATS)[number];
+
+export const COURSE_LEVELS = ['beginner', 'intermediate', 'advanced', 'professional'] as const;
+export type CourseLevel = (typeof COURSE_LEVELS)[number];
+
+export const LESSON_TYPES = ['video', 'reading', 'quiz', 'practical'] as const;
+export type LessonType = (typeof LESSON_TYPES)[number];
+
+export const ENROLLMENT_STATUSES = ['active', 'completed', 'expired'] as const;
+export type EnrollmentStatus = (typeof ENROLLMENT_STATUSES)[number];

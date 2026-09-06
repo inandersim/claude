@@ -96,6 +96,36 @@ import type {
   PassportStamp,
   RouletteSuggestion,
   XpEvent,
+  Destination,
+  DestinationWithDistance,
+  DestinationFilter,
+  DestinationStage,
+  AmsCheck,
+  ReturnPlan,
+  CreateReturnPlanInput,
+  VisionRequest,
+  VisionAdvice,
+  VisionHistoryItem,
+  CreateStatusPostInput,
+  ReactionType,
+  Collection,
+  HashtagSummary,
+  SocialFilter,
+  Group,
+  GroupWithMembership,
+  GroupMessageWithSender,
+  CreateGroupInput,
+  SendGroupMessageInput,
+  GroupFilter,
+  GroupRole,
+  Course,
+  CourseWithInstructor,
+  CourseFilter,
+  Lesson,
+  CourseSession,
+  Enrollment,
+  Certificate,
+  CourseReview,
 } from '@/domain';
 
 /**
@@ -376,6 +406,101 @@ export interface FunRepository {
   xpHistory(meId: ID): Promise<XpEvent[]>;
 }
 
+/* ------------------------------------------------------------------ */
+/* v1.3 — Yeni modüller                                                 */
+/* ------------------------------------------------------------------ */
+
+export interface DestinationRepository {
+  list(meId: ID, filter: DestinationFilter): Promise<DestinationWithDistance[]>;
+  getById(meId: ID, id: ID, origin: GeoPoint | null): Promise<DestinationWithDistance | null>;
+  stages(destinationId: ID): Promise<DestinationStage[]>;
+  toggleSave(meId: ID, destinationId: ID): Promise<{ saved: boolean }>;
+  saved(meId: ID): Promise<Destination[]>;
+  amsChecks(meId: ID): Promise<AmsCheck[]>;
+  logAms(
+    meId: ID,
+    input: Omit<AmsCheck, 'id' | 'userId' | 'score' | 'severity' | 'createdAt'>,
+  ): Promise<AmsCheck>;
+  returnPlans(meId: ID): Promise<ReturnPlan[]>;
+  createReturnPlan(meId: ID, input: CreateReturnPlanInput): Promise<ReturnPlan>;
+  /** Dönüş bildir → returned */
+  markReturned(meId: ID, planId: ID): Promise<ReturnPlan>;
+  cancelReturnPlan(meId: ID, planId: ID): Promise<void>;
+  /** Süresi geçenleri overdue yapar ve acil kişilere bildirim gönderir; güncellenenleri döner */
+  checkOverdue(meId: ID, now: ISODate): Promise<ReturnPlan[]>;
+}
+
+export interface VisionRepository {
+  analyze(meId: ID, input: VisionRequest): Promise<VisionAdvice>;
+  history(meId: ID): Promise<VisionHistoryItem[]>;
+  clearHistory(meId: ID): Promise<void>;
+}
+
+export interface SocialRepository {
+  feed(meId: ID, filter: SocialFilter): Promise<FeedPost[]>;
+  createStatus(meId: ID, input: CreateStatusPostInput): Promise<FeedPost>;
+  react(meId: ID, postId: ID, type: ReactionType | null): Promise<FeedPost>;
+  toggleSave(meId: ID, postId: ID, collectionId?: ID | null): Promise<FeedPost>;
+  repost(meId: ID, postId: ID, caption: string): Promise<FeedPost>;
+  collections(meId: ID): Promise<Collection[]>;
+  createCollection(meId: ID, name: string): Promise<Collection>;
+  savedPosts(meId: ID, collectionId?: ID | null): Promise<FeedPost[]>;
+  hashtags(limit?: number): Promise<HashtagSummary[]>;
+  byHashtag(meId: ID, tag: string): Promise<FeedPost[]>;
+  searchUsers(query: string): Promise<User[]>;
+  deletePost(meId: ID, postId: ID): Promise<void>;
+}
+
+export interface GroupRepository {
+  list(meId: ID, filter: GroupFilter): Promise<GroupWithMembership[]>;
+  getById(meId: ID, groupId: ID): Promise<GroupWithMembership | null>;
+  create(meId: ID, input: CreateGroupInput): Promise<GroupWithMembership>;
+  join(meId: ID, groupId: ID): Promise<GroupWithMembership>;
+  joinByCode(meId: ID, code: string): Promise<GroupWithMembership>;
+  leave(meId: ID, groupId: ID): Promise<void>;
+  members(groupId: ID): Promise<(User & { role: GroupRole; joinedAt: ISODate })[]>;
+  setRole(meId: ID, groupId: ID, userId: ID, role: GroupRole): Promise<void>;
+  messages(
+    meId: ID,
+    groupId: ID,
+    before?: ISODate | null,
+    limit?: number,
+  ): Promise<GroupMessageWithSender[]>;
+  send(meId: ID, groupId: ID, input: SendGroupMessageInput): Promise<GroupMessageWithSender>;
+  vote(meId: ID, groupId: ID, messageId: ID, optionIds: ID[]): Promise<GroupMessageWithSender>;
+  pin(meId: ID, groupId: ID, messageId: ID | null): Promise<Group>;
+  markRead(meId: ID, groupId: ID): Promise<void>;
+  toggleMute(meId: ID, groupId: ID): Promise<boolean>;
+  invite(meId: ID, groupId: ID, userId: ID): Promise<void>;
+}
+
+export interface CourseRepository {
+  list(meId: ID, filter: CourseFilter): Promise<CourseWithInstructor[]>;
+  getById(meId: ID, id: ID): Promise<CourseWithInstructor | null>;
+  lessons(courseId: ID): Promise<Lesson[]>;
+  sessions(courseId: ID): Promise<CourseSession[]>;
+  enroll(meId: ID, courseId: ID, sessionId?: ID | null): Promise<Enrollment>;
+  completeLesson(
+    meId: ID,
+    courseId: ID,
+    lessonId: ID,
+    quizScore?: number | null,
+  ): Promise<Enrollment>;
+  myCourses(meId: ID): Promise<CourseWithInstructor[]>;
+  certificates(meId: ID): Promise<(Certificate & { course: Course })[]>;
+  reviews(courseId: ID): Promise<(CourseReview & { author: User })[]>;
+  review(meId: ID, courseId: ID, rating: number, text: string): Promise<CourseReview>;
+  /** Eğitmen (Pro Guide) kendi kursunu ekler */
+  createCourse(
+    meId: ID,
+    input: Omit<
+      Course,
+      'id' | 'slug' | 'rating' | 'reviewCount' | 'enrolledCount' | 'createdAt' | 'lessonCount'
+    >,
+    lessons: Omit<Lesson, 'id' | 'courseId'>[],
+  ): Promise<CourseWithInstructor>;
+}
+
 export interface DataProvider {
   auth: AuthRepository;
   users: UserRepository;
@@ -401,6 +526,11 @@ export interface DataProvider {
   inventory: InventoryRepository;
   clubs: ClubRepository;
   fun: FunRepository;
+  destinations: DestinationRepository;
+  vision: VisionRepository;
+  social: SocialRepository;
+  groups: GroupRepository;
+  courses: CourseRepository;
   /** Demo verilerini sıfırlar (yalnızca mock sağlayıcı için anlamlı) */
   reset(): Promise<void>;
 }

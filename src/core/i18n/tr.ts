@@ -5,6 +5,12 @@ import { satelliteI18n } from './modules/satellite';
 import { inventoryI18n } from './modules/inventory';
 import { clubsI18n } from './modules/clubs';
 import { funI18n } from './modules/fun';
+import { destinationsI18n } from './modules/destinations';
+import { visionI18n } from './modules/vision';
+import { rescueI18n } from './modules/rescue';
+import { socialI18n } from './modules/social';
+import { groupsI18n } from './modules/groups';
+import { coursesI18n } from './modules/courses';
 
 export const tr = {
   common: {
@@ -737,6 +743,14 @@ export const tr = {
     stay_request: 'konaklama rezervasyonu talep etti',
     stay_confirmed: 'konaklama rezervasyonunu onayladı',
     story_posted: 'yeni bir an paylaştı',
+    reaction: 'gönderine tepki verdi',
+    mention: 'seni bir gönderide etiketledi',
+    repost: 'gönderini yeniden paylaştı',
+    group_invite: 'seni bir gruba davet etti',
+    group_message: 'grupta yeni mesaj yazdı',
+    trip_overdue: 'planlanan dönüş saatini geçti — kontrol et',
+    course_enrolled: 'bir eğitime kaydoldu',
+    certificate_issued: 'sertifikan hazır',
   },
   time: {
     minutesAgo: '{{count}} dk önce',
@@ -755,6 +769,12 @@ export const tr = {
   inventory: inventoryI18n.tr,
   clubs: clubsI18n.tr,
   fun: funI18n.tr,
+  destinations: destinationsI18n.tr,
+  vision: visionI18n.tr,
+  rescue: rescueI18n.tr,
+  social: socialI18n.tr,
+  groups: groupsI18n.tr,
+  courses: coursesI18n.tr,
 };
 
 export type Translations = typeof tr;

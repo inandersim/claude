@@ -2,6 +2,23 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { deepClone } from '@/core/utils/clone';
 import type {
+  AmsCheck,
+  Certificate,
+  Collection,
+  Course,
+  CourseReview,
+  CourseSession,
+  Destination,
+  DestinationStage,
+  Enrollment,
+  Group,
+  GroupMember,
+  GroupMessage,
+  Lesson,
+  Reaction,
+  ReturnPlan,
+  SavedPost,
+  VisionHistoryItem,
   AiMessage,
   AiThread,
   Ascent,
@@ -123,6 +140,25 @@ import {
 } from './seed.inventory';
 import { seedMapPacks, seedMapRegions, seedSavedRoutes, seedTrailGraphs } from './seed.maps';
 import { seedSatDevices, seedSatMessages, seedSosSessions } from './seed.satellite';
+import {
+  seedCertificates,
+  seedCourseReviews,
+  seedCourseSessions,
+  seedCourses,
+  seedEnrollments,
+  seedLessons,
+} from './seed.courses';
+import {
+  seedAmsChecks,
+  seedDestinationEmergencyCenters,
+  seedDestinationStages,
+  seedDestinations,
+  seedReturnPlans,
+  seedSavedDestinations,
+} from './seed.destinations';
+import { seedGroupMembers, seedGroupMessages, seedGroups, seedPollVotes } from './seed.groups';
+import { seedCollections, seedReactions, seedSavedPosts, seedStatusPosts } from './seed.social';
+import { seedVisionHistory } from './seed.vision';
 
 export interface Tables {
   users: User[];
@@ -185,16 +221,36 @@ export interface Tables {
   quizQuestions: QuizQuestion[];
   quizAttempts: { userId: string; date: string; correct: number }[];
   passportStamps: PassportStamp[];
+  /* v1.3 */
+  destinations: Destination[];
+  destinationStages: DestinationStage[];
+  savedDestinations: { userId: string; destinationId: string }[];
+  amsChecks: AmsCheck[];
+  returnPlans: ReturnPlan[];
+  visionHistory: (VisionHistoryItem & { userId: string })[];
+  reactions: Reaction[];
+  savedPosts: SavedPost[];
+  collections: Collection[];
+  groups: Group[];
+  groupMembers: GroupMember[];
+  groupMessages: GroupMessage[];
+  pollVotes: { userId: string; messageId: string; optionIds: string[] }[];
+  courses: Course[];
+  lessons: Lesson[];
+  courseSessions: CourseSession[];
+  enrollments: Enrollment[];
+  certificates: Certificate[];
+  courseReviews: CourseReview[];
   /** Oturum açmış kullanıcının kimliği (null → çıkış yapılmış) */
   sessionUserId: string | null;
 }
 
-const STORAGE_KEY = 'zirve.mockdb.v4';
+const STORAGE_KEY = 'zirve.mockdb.v5';
 
 function seedTables(): Tables {
   return {
     users: deepClone(seedUsers),
-    posts: deepClone(seedPosts),
+    posts: deepClone([...seedStatusPosts, ...seedPosts]),
     comments: deepClone(seedComments),
     follows: deepClone(seedFollows),
     likes: deepClone(seedLikes),
@@ -218,7 +274,7 @@ function seedTables(): Tables {
     storyViews: deepClone(seedStoryViews),
     businesses: deepClone(seedBusinesses),
     stayBookings: deepClone(seedStayBookings),
-    emergencyCenters: deepClone(seedEmergencyCenters),
+    emergencyCenters: deepClone([...seedEmergencyCenters, ...seedDestinationEmergencyCenters]),
     sosEvents: [],
     aiThreads: deepClone(seedAiThreads),
     aiMessages: deepClone(seedAiMessages),
@@ -252,6 +308,25 @@ function seedTables(): Tables {
     quizQuestions: deepClone(seedQuizQuestions),
     quizAttempts: deepClone(seedQuizAttempts),
     passportStamps: deepClone(seedPassportStamps),
+    destinations: deepClone(seedDestinations),
+    destinationStages: deepClone(seedDestinationStages),
+    savedDestinations: deepClone(seedSavedDestinations),
+    amsChecks: deepClone(seedAmsChecks),
+    returnPlans: deepClone(seedReturnPlans),
+    visionHistory: deepClone(seedVisionHistory),
+    reactions: deepClone(seedReactions),
+    savedPosts: deepClone(seedSavedPosts),
+    collections: deepClone(seedCollections),
+    groups: deepClone(seedGroups),
+    groupMembers: deepClone(seedGroupMembers),
+    groupMessages: deepClone(seedGroupMessages),
+    pollVotes: deepClone(seedPollVotes),
+    courses: deepClone(seedCourses),
+    lessons: deepClone(seedLessons),
+    courseSessions: deepClone(seedCourseSessions),
+    enrollments: deepClone(seedEnrollments),
+    certificates: deepClone(seedCertificates),
+    courseReviews: deepClone(seedCourseReviews),
     sessionUserId: null,
   };
 }
@@ -284,7 +359,9 @@ export class MockDatabase {
               Array.isArray(parsed.hazards) &&
               Array.isArray(parsed.library) &&
               Array.isArray(parsed.crags) &&
-              Array.isArray(parsed.clubs)
+              Array.isArray(parsed.clubs) &&
+              Array.isArray(parsed.destinations) &&
+              Array.isArray(parsed.groups)
             ) {
               this.tables = parsed;
               return parsed;

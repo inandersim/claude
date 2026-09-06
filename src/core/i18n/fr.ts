@@ -5,6 +5,12 @@ import { satelliteI18n } from './modules/satellite';
 import { inventoryI18n } from './modules/inventory';
 import { clubsI18n } from './modules/clubs';
 import { funI18n } from './modules/fun';
+import { destinationsI18n } from './modules/destinations';
+import { visionI18n } from './modules/vision';
+import { rescueI18n } from './modules/rescue';
+import { socialI18n } from './modules/social';
+import { groupsI18n } from './modules/groups';
+import { coursesI18n } from './modules/courses';
 import type { Translations } from './tr';
 
 export const fr: Translations = {
@@ -746,6 +752,14 @@ export const fr: Translations = {
     stay_request: "a demandé une réservation d'hébergement",
     stay_confirmed: "a confirmé ta réservation d'hébergement",
     story_posted: 'a partagé un nouveau moment',
+    reaction: 'a réagi à ta publication',
+    mention: 't’a mentionné dans une publication',
+    repost: 'a republié ta publication',
+    group_invite: 't’a invité dans un groupe',
+    group_message: 'a écrit dans un groupe',
+    trip_overdue: 'a dépassé l’heure de retour prévue — vérifie',
+    course_enrolled: 's’est inscrit à une formation',
+    certificate_issued: 'ton certificat est prêt',
   },
   time: {
     minutesAgo: 'il y a {{count}} min',
@@ -764,4 +778,10 @@ export const fr: Translations = {
   inventory: inventoryI18n.fr,
   clubs: clubsI18n.fr,
   fun: funI18n.fr,
+  destinations: destinationsI18n.fr,
+  vision: visionI18n.fr,
+  rescue: rescueI18n.fr,
+  social: socialI18n.fr,
+  groups: groupsI18n.fr,
+  courses: coursesI18n.fr,
 };

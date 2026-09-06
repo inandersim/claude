@@ -6,6 +6,12 @@ import { satelliteI18n } from './modules/satellite';
 import { inventoryI18n } from './modules/inventory';
 import { clubsI18n } from './modules/clubs';
 import { funI18n } from './modules/fun';
+import { destinationsI18n } from './modules/destinations';
+import { visionI18n } from './modules/vision';
+import { rescueI18n } from './modules/rescue';
+import { socialI18n } from './modules/social';
+import { groupsI18n } from './modules/groups';
+import { coursesI18n } from './modules/courses';
 import type { Translations } from './tr';
 
 export const ja: Translations = {
@@ -739,6 +745,14 @@ export const ja: Translations = {
     stay_request: 'さんが宿泊予約をリクエストしました',
     stay_confirmed: 'さんが宿泊予約を承認しました',
     story_posted: 'さんが新しいモーメントをシェアしました',
+    reaction: 'さんがあなたの投稿にリアクションしました',
+    mention: 'さんが投稿であなたをメンションしました',
+    repost: 'さんがあなたの投稿を再共有しました',
+    group_invite: 'さんがグループに招待しました',
+    group_message: 'さんがグループに投稿しました',
+    trip_overdue: 'さんが予定の帰還時刻を過ぎています — 確認してください',
+    course_enrolled: 'さんがコースに登録しました',
+    certificate_issued: '証明書の準備ができました',
   },
   time: {
     minutesAgo: '{{count}}分前',
@@ -757,4 +771,10 @@ export const ja: Translations = {
   inventory: inventoryI18n.ja,
   clubs: clubsI18n.ja,
   fun: funI18n.ja,
+  destinations: destinationsI18n.ja,
+  vision: visionI18n.ja,
+  rescue: rescueI18n.ja,
+  social: socialI18n.ja,
+  groups: groupsI18n.ja,
+  courses: coursesI18n.ja,
 };

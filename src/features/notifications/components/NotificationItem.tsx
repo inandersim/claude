@@ -25,6 +25,14 @@ const typeMeta: Record<NotificationType, { icon: IconName; color: string }> = {
   stay_request: { icon: 'building-2', color: '#FFB547' },
   stay_confirmed: { icon: 'calendar-check', color: '#5EE39B' },
   story_posted: { icon: 'sparkles', color: '#CE93D8' },
+  reaction: { icon: 'heart', color: '#FF6B9D' },
+  mention: { icon: 'at-sign', color: '#6CB4FF' },
+  repost: { icon: 'repeat', color: '#5EE39B' },
+  group_invite: { icon: 'users', color: '#FFD54F' },
+  group_message: { icon: 'message-square', color: '#6CB4FF' },
+  trip_overdue: { icon: 'timer', color: '#FF6B6B' },
+  course_enrolled: { icon: 'graduation-cap', color: '#5EE39B' },
+  certificate_issued: { icon: 'award', color: '#FFB547' },
 };
 
 export function NotificationItem({

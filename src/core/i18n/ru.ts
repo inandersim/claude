@@ -5,6 +5,12 @@ import { satelliteI18n } from './modules/satellite';
 import { inventoryI18n } from './modules/inventory';
 import { clubsI18n } from './modules/clubs';
 import { funI18n } from './modules/fun';
+import { destinationsI18n } from './modules/destinations';
+import { visionI18n } from './modules/vision';
+import { rescueI18n } from './modules/rescue';
+import { socialI18n } from './modules/social';
+import { groupsI18n } from './modules/groups';
+import { coursesI18n } from './modules/courses';
 import type { Translations } from './tr';
 
 export const ru: Translations = {
@@ -742,6 +748,14 @@ export const ru: Translations = {
     stay_request: 'запросил(а) бронирование проживания',
     stay_confirmed: 'подтвердил(а) твоё бронирование проживания',
     story_posted: 'опубликовал(а) новый момент',
+    reaction: 'отреагировал(а) на твой пост',
+    mention: 'упомянул(а) тебя в посте',
+    repost: 'поделился(лась) твоим постом',
+    group_invite: 'пригласил(а) тебя в группу',
+    group_message: 'написал(а) в группе',
+    trip_overdue: 'не вернулся(лась) к запланированному времени — проверь',
+    course_enrolled: 'записался(лась) на курс',
+    certificate_issued: 'твой сертификат готов',
   },
   time: {
     minutesAgo: '{{count}} мин назад',
@@ -760,4 +774,10 @@ export const ru: Translations = {
   inventory: inventoryI18n.ru,
   clubs: clubsI18n.ru,
   fun: funI18n.ru,
+  destinations: destinationsI18n.ru,
+  vision: visionI18n.ru,
+  rescue: rescueI18n.ru,
+  social: socialI18n.ru,
+  groups: groupsI18n.ru,
+  courses: coursesI18n.ru,
 };

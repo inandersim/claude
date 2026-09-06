@@ -114,6 +114,45 @@ export default function AppLayout() {
       <Stack.Screen name="fun/quiz" />
       <Stack.Screen name="fun/roulette" />
       <Stack.Screen name="fun/passport" />
+      {/* v1.3 */}
+      <Stack.Screen name="destinations/index" />
+      <Stack.Screen name="destinations/[id]" />
+      <Stack.Screen name="destinations/ams" />
+      <Stack.Screen name="destinations/plans" />
+      <Stack.Screen
+        name="destinations/plan-new"
+        options={{ presentation: 'modal', animation: 'slide_from_bottom' }}
+      />
+      <Stack.Screen
+        name="assistant/vision"
+        options={{ presentation: 'fullScreenModal', animation: 'slide_from_bottom' }}
+      />
+      <Stack.Screen name="assistant/vision-history" />
+      <Stack.Screen name="first-aid/country" />
+      <Stack.Screen
+        name="post/status"
+        options={{ presentation: 'modal', animation: 'slide_from_bottom' }}
+      />
+      <Stack.Screen name="social/index" />
+      <Stack.Screen name="social/saved" />
+      <Stack.Screen name="social/tag/[tag]" />
+      <Stack.Screen name="groups/index" />
+      <Stack.Screen name="groups/[id]" />
+      <Stack.Screen name="groups/info/[id]" />
+      <Stack.Screen
+        name="groups/create"
+        options={{ presentation: 'modal', animation: 'slide_from_bottom' }}
+      />
+      <Stack.Screen name="groups/join" />
+      <Stack.Screen name="courses/index" />
+      <Stack.Screen name="courses/[id]" />
+      <Stack.Screen name="courses/lesson/[id]" />
+      <Stack.Screen name="courses/my" />
+      <Stack.Screen name="courses/certificate/[id]" />
+      <Stack.Screen
+        name="courses/create"
+        options={{ presentation: 'modal', animation: 'slide_from_bottom' }}
+      />
     </Stack>
   );
 }

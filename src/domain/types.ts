@@ -43,6 +43,23 @@ import type {
   UnitKind,
   VerificationStatus,
   XpSource,
+  CourseCategory,
+  CourseFormat,
+  CourseLevel,
+  DestinationType,
+  EnrollmentStatus,
+  GroupKind,
+  GroupMessageType,
+  GroupPrivacy,
+  GroupRole,
+  LessonType,
+  PostKind,
+  ReactionType,
+  RiskLevel,
+  StageKind,
+  TransportMode,
+  TripPlanStatus,
+  VisionSituation,
 } from './enums';
 
 export type ID = string;
@@ -105,12 +122,26 @@ export interface Post {
   isVerifiedInfo: boolean;
   routeId: ID | null;
   createdAt: ISODate;
+  /* v1.3 — sosyal alanlar (eski kayıtlar için isteğe bağlı; yokluğunda 'adventure') */
+  kind?: PostKind;
+  /** Çoklu fotoğraf (imageUrl ilk kare) */
+  images?: string[];
+  hashtags?: string[];
+  mentions?: ID[];
+  repostOfId?: ID | null;
+  savesCount?: number;
+  repostsCount?: number;
 }
 
 /** Oturum açmış kullanıcıya göre zenginleştirilmiş gönderi */
 export interface FeedPost extends Post {
   author: User;
   likedByMe: boolean;
+  /* v1.3 */
+  myReaction?: ReactionType | null;
+  reactionCounts?: Partial<Record<ReactionType, number>>;
+  savedByMe?: boolean;
+  repostOf?: (Post & { author: User }) | null;
 }
 
 export interface Comment {
@@ -1311,4 +1342,424 @@ export interface RouletteSuggestion {
   placeName: string;
   distanceKm: number | null;
   reason: string;
+}
+
+/* ------------------------------------------------------------------ */
+/* v1.3 — Destinasyon arşivi, yol planı, AMS                           */
+/* ------------------------------------------------------------------ */
+
+export interface DestinationTransport {
+  mode: TransportMode;
+  from: string;
+  to: string;
+  durationMin: number;
+  costTry: number | null;
+  note: string;
+}
+
+export interface DestinationPermit {
+  name: string;
+  costTry: number | null;
+  where: string;
+  note: string;
+}
+
+export interface DestinationStage {
+  id: ID;
+  destinationId: ID;
+  order: number;
+  name: string;
+  kind: StageKind;
+  coords: GeoPoint;
+  elevationM: number;
+  /** Önceki duraktan mesafe/süre */
+  distanceKm: number;
+  durationMin: number;
+  /** Konaklama: lodge/teahouse/kamp — olanaklar ve kapasite */
+  sleeping: boolean;
+  facilities: string[];
+  waterAvailable: boolean;
+  connectivity: 'none' | 'sat_only' | '2g' | '4g' | 'wifi';
+  note: string;
+  /** Aklimatizasyon önerisi: burada ek gün */
+  restDayRecommended: boolean;
+}
+
+export interface Destination {
+  id: ID;
+  slug: string;
+  name: string;
+  region: string;
+  countryCode: string;
+  type: DestinationType;
+  adventureTypes: AdventureType[];
+  coords: GeoPoint;
+  imageUrl: string | null;
+  summary: string;
+  /** Uzun anlatım (nasıl gidilir, ne zaman, ne bekle) — Markdown benzeri düz metin */
+  guide: string;
+  maxElevationM: number;
+  typicalDays: number;
+  totalDistanceKm: number;
+  difficulty: DifficultyGrade;
+  /** En iyi aylar 1-12 */
+  bestMonths: number[];
+  transports: DestinationTransport[];
+  permits: DestinationPermit[];
+  /** Tahmini bütçe (kişi başı, ₺) */
+  budgetTry: { low: number; high: number };
+  risks: string[];
+  gear: string[];
+  /** Ülke acil numarası dışındaki yerel kurtarma bilgisi */
+  rescueNote: string;
+  insuranceRequired: boolean;
+  stageCount: number;
+  rating: number;
+  reviewCount: number;
+  sources: string[];
+  updatedAt: ISODate;
+}
+
+export interface DestinationWithDistance extends Destination {
+  distanceKm: number | null;
+  /** Kullanıcının kaydettiği (favori) */
+  savedByMe: boolean;
+}
+
+export interface DestinationFilter {
+  query?: string;
+  countryCode?: string | null;
+  type?: DestinationType | null;
+  adventureType?: AdventureType | null;
+  origin?: GeoPoint | null;
+  month?: number | null;
+}
+
+/** Lake Louise AMS öz-değerlendirme (0-3 puan × 4 belirti) */
+export interface AmsCheck {
+  id: ID;
+  userId: ID;
+  destinationId: ID | null;
+  elevationM: number;
+  headache: 0 | 1 | 2 | 3;
+  gi: 0 | 1 | 2 | 3;
+  fatigue: 0 | 1 | 2 | 3;
+  dizziness: 0 | 1 | 2 | 3;
+  score: number;
+  severity: 'none' | 'mild' | 'moderate' | 'severe';
+  note: string;
+  createdAt: ISODate;
+}
+
+export interface ReturnPlan {
+  id: ID;
+  userId: ID;
+  title: string;
+  destinationId: ID | null;
+  adventureType: AdventureType;
+  startAt: ISODate;
+  /** Beklenen dönüş; bu saatten `graceMin` sonra hâlâ dönmediyse acil kişilere uyarı */
+  expectedReturnAt: ISODate;
+  graceMin: number;
+  route: string;
+  companions: string;
+  contactIds: ID[];
+  status: TripPlanStatus;
+  returnedAt: ISODate | null;
+  alertSentAt: ISODate | null;
+  createdAt: ISODate;
+}
+
+export interface CreateReturnPlanInput {
+  title: string;
+  destinationId: ID | null;
+  adventureType: AdventureType;
+  startAt: ISODate;
+  expectedReturnAt: ISODate;
+  graceMin: number;
+  route: string;
+  companions: string;
+}
+
+/* ------------------------------------------------------------------ */
+/* v1.3 — Kamera ile AI tavsiye                                        */
+/* ------------------------------------------------------------------ */
+
+export interface VisionRequest {
+  /** data:image/jpeg;base64,… ya da dosya URI */
+  imageUri: string | null;
+  imageBase64: string | null;
+  situation: VisionSituation;
+  question: string;
+  coords: GeoPoint | null;
+  altitudeM: number | null;
+  locale: string;
+}
+
+export interface VisionAdvice {
+  id: ID;
+  situation: VisionSituation;
+  /** Görüntüde tespit edilenler (kısa maddeler) */
+  observations: string[];
+  risk: RiskLevel;
+  advice: string[];
+  /** Yapılmaması gerekenler */
+  avoid: string[];
+  /** Uygulama içi bağlantılar */
+  actions: AiAction[];
+  /** Yanıt kaynağı */
+  source: 'remote' | 'local';
+  confidence: number;
+  createdAt: ISODate;
+}
+
+export interface VisionHistoryItem extends VisionAdvice {
+  thumbnailUri: string | null;
+  question: string;
+}
+
+/* ------------------------------------------------------------------ */
+/* v1.3 — Sosyal paylaşım                                              */
+/* ------------------------------------------------------------------ */
+
+export interface Reaction {
+  postId: ID;
+  userId: ID;
+  type: ReactionType;
+  createdAt: ISODate;
+}
+
+export interface SavedPost {
+  userId: ID;
+  postId: ID;
+  collectionId: ID | null;
+  createdAt: ISODate;
+}
+
+export interface Collection {
+  id: ID;
+  userId: ID;
+  name: string;
+  coverUrl: string | null;
+  count: number;
+  createdAt: ISODate;
+}
+
+export interface CreateStatusPostInput {
+  caption: string;
+  imageUris: string[];
+  locationName: string | null;
+  coords?: GeoPoint | null;
+  adventureType?: AdventureType | null;
+}
+
+export interface HashtagSummary {
+  tag: string;
+  count: number;
+  /** Son 7 günde artış */
+  trending: boolean;
+}
+
+export interface SocialFilter {
+  tab: FeedTabValue;
+  hashtag?: string | null;
+}
+export type FeedTabValue = 'all' | 'following' | 'adventures' | 'status';
+
+/* ------------------------------------------------------------------ */
+/* v1.3 — Gruplar & kanallar                                            */
+/* ------------------------------------------------------------------ */
+
+export interface Group {
+  id: ID;
+  name: string;
+  kind: GroupKind;
+  privacy: GroupPrivacy;
+  description: string;
+  avatarUrl: string | null;
+  adventureTypes: AdventureType[];
+  city: string | null;
+  countryCode: string | null;
+  ownerId: ID;
+  memberCount: number;
+  inviteCode: string;
+  pinnedMessageId: ID | null;
+  clubId: ID | null;
+  createdAt: ISODate;
+  lastMessageAt: ISODate | null;
+}
+
+export interface GroupMember {
+  groupId: ID;
+  userId: ID;
+  role: GroupRole;
+  joinedAt: ISODate;
+  muted: boolean;
+  lastReadAt: ISODate | null;
+}
+
+export interface GroupWithMembership extends Group {
+  membership: GroupRole | null;
+  unreadCount: number;
+  lastMessage: GroupMessage | null;
+}
+
+export interface PollOption {
+  id: ID;
+  text: string;
+  votes: number;
+}
+
+export interface GroupMessage {
+  id: ID;
+  groupId: ID;
+  senderId: ID;
+  type: GroupMessageType;
+  text: string;
+  imageUrl: string | null;
+  coords: GeoPoint | null;
+  routeId: ID | null;
+  poll: { question: string; options: PollOption[]; multi: boolean } | null;
+  replyToId: ID | null;
+  createdAt: ISODate;
+  editedAt: ISODate | null;
+}
+
+export interface GroupMessageWithSender extends GroupMessage {
+  sender: User;
+  myVote: ID[] | null;
+  replyTo: (GroupMessage & { sender: User }) | null;
+}
+
+export interface CreateGroupInput {
+  name: string;
+  kind: GroupKind;
+  privacy: GroupPrivacy;
+  description: string;
+  adventureTypes: AdventureType[];
+  city: string | null;
+}
+
+export interface SendGroupMessageInput {
+  type: GroupMessageType;
+  text: string;
+  imageUri?: string | null;
+  coords?: GeoPoint | null;
+  routeId?: ID | null;
+  poll?: { question: string; options: string[]; multi: boolean } | null;
+  replyToId?: ID | null;
+}
+
+export interface GroupFilter {
+  query?: string;
+  kind?: GroupKind | null;
+  adventureType?: AdventureType | null;
+  mineOnly?: boolean;
+}
+
+/* ------------------------------------------------------------------ */
+/* v1.3 — Eğitimler                                                    */
+/* ------------------------------------------------------------------ */
+
+export interface Lesson {
+  id: ID;
+  courseId: ID;
+  moduleTitle: string;
+  order: number;
+  title: string;
+  type: LessonType;
+  durationMin: number;
+  /** Video URL (demo), okuma metni ya da quiz soruları */
+  videoUrl: string | null;
+  body: string;
+  quiz: { question: string; options: string[]; answerIndex: number }[] | null;
+  /** Ücretsiz önizleme */
+  preview: boolean;
+}
+
+export interface Course {
+  id: ID;
+  slug: string;
+  title: string;
+  category: CourseCategory;
+  level: CourseLevel;
+  format: CourseFormat;
+  summary: string;
+  description: string;
+  imageUrl: string | null;
+  instructorId: ID | null;
+  /** Kurum (PADI, AIARE, NOLS, TDF vb.) */
+  provider: string;
+  certificateName: string | null;
+  /** Sertifika geçerlilik ayı; null → süresiz */
+  validityMonths: number | null;
+  priceTry: number;
+  durationHours: number;
+  lessonCount: number;
+  rating: number;
+  reviewCount: number;
+  enrolledCount: number;
+  languages: string[];
+  prerequisites: string[];
+  outcomes: string[];
+  adventureTypes: AdventureType[];
+  createdAt: ISODate;
+}
+
+export interface CourseSession {
+  id: ID;
+  courseId: ID;
+  startsAt: ISODate;
+  endsAt: ISODate;
+  locationName: string;
+  coords: GeoPoint | null;
+  seats: number;
+  seatsLeft: number;
+  priceTry: number;
+}
+
+export interface Enrollment {
+  id: ID;
+  courseId: ID;
+  userId: ID;
+  sessionId: ID | null;
+  status: EnrollmentStatus;
+  completedLessonIds: ID[];
+  progress: number;
+  quizScores: Record<ID, number>;
+  enrolledAt: ISODate;
+  completedAt: ISODate | null;
+}
+
+export interface Certificate {
+  id: ID;
+  userId: ID;
+  courseId: ID;
+  code: string;
+  issuedAt: ISODate;
+  expiresAt: ISODate | null;
+  holderName: string;
+}
+
+export interface CourseWithInstructor extends Course {
+  instructor: User | null;
+  enrollment: Enrollment | null;
+  nextSession: CourseSession | null;
+}
+
+export interface CourseReview {
+  id: ID;
+  courseId: ID;
+  authorId: ID;
+  rating: number;
+  text: string;
+  createdAt: ISODate;
+}
+
+export interface CourseFilter {
+  query?: string;
+  category?: CourseCategory | null;
+  format?: CourseFormat | null;
+  level?: CourseLevel | null;
+  adventureType?: AdventureType | null;
 }
