@@ -4,7 +4,7 @@
  *
  * Her `src/core/i18n/modules/<mod>.ts` için:
  *  - `tr` kaynağının anahtar/yer tutucu haritasını çıkarır,
- *  - `en` ve `locales/<loc>/<mod>.ts` (de, fr, es, it, ja, pt, ru) dosyalarını karşılaştırır:
+ *  - `en` ve `locales/<loc>/<mod>.ts` (22 dil) dosyalarını karşılaştırır:
  *      eksik dosya, eksik/fazla anahtar, `{{name}}` yer tutucu kümesi uyuşmazlığı,
  *  - `%{name}` (i18n-js eski biçimi) kullanımını yakalar (`%{{x}}` = yüzde işareti + yer tutucu, sorun değil),
  *  - modül dosyasının dil dosyasını `localeSet(...)` ile bağlayıp bağlamadığını kontrol eder.
@@ -20,7 +20,29 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const MODULES_DIR = join(ROOT, 'src', 'core', 'i18n', 'modules');
-const LOCALES = ['de', 'fr', 'es', 'it', 'ja', 'pt', 'ru'];
+const LOCALES = [
+  'de',
+  'fr',
+  'es',
+  'it',
+  'ja',
+  'pt',
+  'ru',
+  'zh',
+  'ko',
+  'hi',
+  'ne',
+  'ar',
+  'ka',
+  'el',
+  'pl',
+  'cs',
+  'nl',
+  'sv',
+  'nb',
+  'id',
+  'th',
+];
 const PLACEHOLDER = /\{\{\s*([a-zA-Z0-9_]+)\s*\}\}/g;
 const LEGACY_PLACEHOLDER = /%\{(?!\{)/;
 
