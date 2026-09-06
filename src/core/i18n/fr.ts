@@ -13,6 +13,9 @@ import { groupsI18n } from './modules/groups';
 import { coursesI18n } from './modules/courses';
 import { tracksI18n } from './modules/tracks';
 import { weatherI18n } from './modules/weather';
+import { tvI18n } from './modules/tv';
+import { heritageI18n } from './modules/heritage';
+import { kidsI18n } from './modules/kids';
 import { countriesI18n } from './modules/countries';
 import { articlesI18n } from './modules/articles';
 import { wildlifeI18n } from './modules/wildlife';
@@ -796,6 +799,9 @@ export const fr: Translations = {
   courses: coursesI18n.fr,
   tracks: tracksI18n.fr,
   weather: weatherI18n.fr,
+  tv: tvI18n.fr,
+  heritage: heritageI18n.fr,
+  kids: kidsI18n.fr,
   countries: countriesI18n.fr,
   articles: articlesI18n.fr,
   wildlife: wildlifeI18n.fr,

@@ -13,6 +13,9 @@ import { groupsI18n } from './modules/groups';
 import { coursesI18n } from './modules/courses';
 import { tracksI18n } from './modules/tracks';
 import { weatherI18n } from './modules/weather';
+import { tvI18n } from './modules/tv';
+import { heritageI18n } from './modules/heritage';
+import { kidsI18n } from './modules/kids';
 import { countriesI18n } from './modules/countries';
 import { articlesI18n } from './modules/articles';
 import { wildlifeI18n } from './modules/wildlife';
@@ -787,6 +790,9 @@ export const tr = {
   courses: coursesI18n.tr,
   tracks: tracksI18n.tr,
   weather: weatherI18n.tr,
+  tv: tvI18n.tr,
+  heritage: heritageI18n.tr,
+  kids: kidsI18n.tr,
   countries: countriesI18n.tr,
   articles: articlesI18n.tr,
   wildlife: wildlifeI18n.tr,

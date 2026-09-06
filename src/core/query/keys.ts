@@ -7,6 +7,10 @@ import type {
   GroupFilter,
   SocialFilter,
   TrackFilter,
+  TvFilter,
+  HeritageFilter,
+  KidPlaceFilter,
+  KidAgeBand,
   ArticleFilter,
   SpeciesFilter,
   ClubFilter,
@@ -319,5 +323,34 @@ export const queryKeys = {
     doctor: (id: ID) => ['telemed', 'doctor', id] as const,
     consultation: (meId: ID, id: ID) => ['telemed', 'consultation', meId, id] as const,
     mine: (meId: ID) => ['telemed', 'mine', meId] as const,
+  },
+  /* v1.6 */
+  tv: {
+    all: ['tv'] as const,
+    channels: ['tv', 'channels'] as const,
+    programs: (meId: ID, filter: TvFilter) => ['tv', 'programs', meId, filter] as const,
+    program: (meId: ID, id: ID) => ['tv', 'program', meId, id] as const,
+    schedule: (day: string) => ['tv', 'schedule', day] as const,
+    news: (category: string | null, countryCode: string | null) =>
+      ['tv', 'news', category, countryCode] as const,
+    continueWatching: (meId: ID) => ['tv', 'continue', meId] as const,
+  },
+  heritage: {
+    all: ['heritage'] as const,
+    list: (meId: ID, filter: HeritageFilter) =>
+      ['heritage', 'list', meId, { ...filter, origin: filter.origin ? 'o' : null }] as const,
+    detail: (meId: ID, id: ID) => ['heritage', 'detail', meId, id] as const,
+    audio: (id: ID) => ['heritage', 'audio', id] as const,
+    tours: (meId: ID) => ['heritage', 'tours', meId] as const,
+  },
+  kids: {
+    all: ['kids'] as const,
+    places: (meId: ID, filter: KidPlaceFilter) =>
+      ['kids', 'places', meId, { ...filter, origin: filter.origin ? 'o' : null }] as const,
+    place: (meId: ID, id: ID) => ['kids', 'place', meId, id] as const,
+    children: (meId: ID) => ['kids', 'children', meId] as const,
+    tasks: (ageBand: KidAgeBand | null) => ['kids', 'tasks', ageBand] as const,
+    hunt: (meId: ID, child: string) => ['kids', 'hunt', meId, child] as const,
+    checklist: (ageBand: KidAgeBand | null) => ['kids', 'checklist', ageBand] as const,
   },
 };

@@ -171,6 +171,23 @@ export default function AppLayout() {
         options={{ presentation: 'fullScreenModal', animation: 'fade' }}
       />
       <Stack.Screen name="weather/index" />
+      {/* v1.6 */}
+      <Stack.Screen name="tv/index" />
+      <Stack.Screen name="tv/watch/[id]" options={{ animation: 'fade' }} />
+      <Stack.Screen name="tv/channel/[id]" />
+      <Stack.Screen name="tv/news/[id]" />
+      <Stack.Screen
+        name="tv/submit"
+        options={{ presentation: 'modal', animation: 'slide_from_bottom' }}
+      />
+      <Stack.Screen name="heritage/index" />
+      <Stack.Screen name="heritage/[id]" />
+      <Stack.Screen name="heritage/guide/[id]" />
+      <Stack.Screen name="heritage/tours" />
+      <Stack.Screen name="kids/index" />
+      <Stack.Screen name="kids/place/[id]" />
+      <Stack.Screen name="kids/hunt" />
+      <Stack.Screen name="kids/checklist" />
       {/* v1.5 */}
       <Stack.Screen name="countries/index" />
       <Stack.Screen name="countries/[code]" />

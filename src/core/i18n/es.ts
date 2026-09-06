@@ -14,6 +14,9 @@ import { groupsI18n } from './modules/groups';
 import { coursesI18n } from './modules/courses';
 import { tracksI18n } from './modules/tracks';
 import { weatherI18n } from './modules/weather';
+import { tvI18n } from './modules/tv';
+import { heritageI18n } from './modules/heritage';
+import { kidsI18n } from './modules/kids';
 import { countriesI18n } from './modules/countries';
 import { articlesI18n } from './modules/articles';
 import { wildlifeI18n } from './modules/wildlife';
@@ -624,7 +627,8 @@ export const es: Translations = {
     reviews: 'reseñas',
     about: 'Acerca de',
     suitableFor: 'Actividades adecuadas',
-    partnerCta: '¿Tienes un hotel, camping o tienda? Publícalo en Zirtan y llega a los aventureros.',
+    partnerCta:
+      '¿Tienes un hotel, camping o tienda? Publícalo en Zirtan y llega a los aventureros.',
     dateHint: 'A partir de hoy',
     days: 'días después',
   },
@@ -795,6 +799,9 @@ export const es: Translations = {
   courses: coursesI18n.es,
   tracks: tracksI18n.es,
   weather: weatherI18n.es,
+  tv: tvI18n.es,
+  heritage: heritageI18n.es,
+  kids: kidsI18n.es,
   countries: countriesI18n.es,
   articles: articlesI18n.es,
   wildlife: wildlifeI18n.es,

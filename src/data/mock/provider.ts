@@ -93,6 +93,9 @@ import { createSocialRepository } from './repos/social';
 import { createVisionRepository } from './repos/vision';
 import { createTrackRepository } from './repos/tracks';
 import { createWeatherRepository } from './repos/weather';
+import { createHeritageRepository } from './repos/heritage';
+import { createKidsRepository } from './repos/kids';
+import { createTvRepository } from './repos/tv';
 import { createArticleRepository } from './repos/articles';
 import { createCountryRepository } from './repos/countries';
 import { createTelemedRepository } from './repos/telemed';
@@ -1513,6 +1516,9 @@ export function createMockProvider(options: Options = {}): DataProvider {
     courses: atBoundary(createCourseRepository(ctx)),
     tracks: atBoundary(createTrackRepository(ctx)),
     weather: atBoundary(createWeatherRepository(ctx)),
+    tv: atBoundary(createTvRepository(ctx)),
+    heritage: atBoundary(createHeritageRepository(ctx)),
+    kids: atBoundary(createKidsRepository(ctx)),
     countries: atBoundary(createCountryRepository(ctx)),
     articles: atBoundary(createArticleRepository(ctx)),
     wildlife: atBoundary(createWildlifeRepository(ctx)),

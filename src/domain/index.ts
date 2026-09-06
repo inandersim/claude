@@ -29,3 +29,6 @@ export * from './countries';
 export * from './articles';
 export * from './wildlife';
 export * from './telemed';
+export * from './tv';
+export * from './heritage';
+export * from './kids';

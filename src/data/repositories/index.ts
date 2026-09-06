@@ -162,6 +162,23 @@ import type {
   ConsultationWithDetails,
   ConsultMessage,
   RequestConsultInput,
+  TvChannel,
+  TvProgramWithChannel,
+  TvSchedule,
+  NewsItem,
+  TvFilter,
+  HeritageSite,
+  HeritageSiteWithDistance,
+  AudioGuideStop,
+  HeritageTour,
+  HeritageFilter,
+  KidPlaceWithDistance,
+  KidPlaceFilter,
+  HuntTask,
+  HuntProgress,
+  FamilyChecklistItem,
+  ChildProfile,
+  KidAgeBand,
 } from '@/domain';
 
 /**
@@ -688,16 +705,75 @@ export interface TelemedRepository {
   /** Doktor tarafı (demo): bekleyen talepleri kabul */
   accept(doctorUserId: ID, consultationId: ID): Promise<ConsultationWithDetails>;
   /** AI ön triyaj: şikâyetten aciliyet + adımlar (yerel kural tabanlı; gateway varsa uzaktan) */
-  triage(input: {
-    complaint: string;
-    speciesId?: ID | null;
-    locale: string;
-  }): Promise<{
+  triage(input: { complaint: string; speciesId?: ID | null; locale: string }): Promise<{
     urgency: Consultation['urgency'];
     steps: string[];
     firstAidSlug: string | null;
     callEmergency: boolean;
   }>;
+}
+
+/* ------------------------------------------------------------------ */
+/* v1.6 — Zirtan TV, tarihi alanlar, çocuk modülü                      */
+/* ------------------------------------------------------------------ */
+
+export interface TvRepository {
+  channels(): Promise<TvChannel[]>;
+  programs(meId: ID, filter: TvFilter): Promise<TvProgramWithChannel[]>;
+  program(meId: ID, id: ID): Promise<TvProgramWithChannel | null>;
+  schedule(from: ISODate, to: ISODate): Promise<(TvSchedule & { channel: TvChannel })[]>;
+  news(category?: NewsItem['category'] | null, countryCode?: string | null): Promise<NewsItem[]>;
+  newsItem(id: ID): Promise<NewsItem | null>;
+  saveProgress(meId: ID, programId: ID, positionSec: number, durationSec: number): Promise<void>;
+  continueWatching(meId: ID): Promise<TvProgramWithChannel[]>;
+  toggleWatchLater(meId: ID, programId: ID): Promise<boolean>;
+  toggleLike(meId: ID, programId: ID): Promise<TvProgramWithChannel>;
+  followChannel(meId: ID, channelId: ID): Promise<boolean>;
+  /** Kullanıcı/kanal sahibi program yükler (demo: URL ile) */
+  submitProgram(
+    meId: ID,
+    input: Omit<
+      TvProgramWithChannel,
+      | 'id'
+      | 'channel'
+      | 'progress'
+      | 'watchLater'
+      | 'likedByMe'
+      | 'viewsCount'
+      | 'likesCount'
+      | 'publishedAt'
+    >,
+  ): Promise<TvProgramWithChannel>;
+}
+
+export interface HeritageRepository {
+  list(meId: ID, filter: HeritageFilter): Promise<HeritageSiteWithDistance[]>;
+  getById(meId: ID, id: ID, origin: GeoPoint | null): Promise<HeritageSiteWithDistance | null>;
+  audioGuide(siteId: ID): Promise<AudioGuideStop[]>;
+  toggleSave(meId: ID, siteId: ID): Promise<boolean>;
+  markVisited(meId: ID, siteId: ID): Promise<boolean>;
+  tours(meId: ID): Promise<HeritageTour[]>;
+  createTour(
+    meId: ID,
+    input: Omit<HeritageTour, 'id' | 'userId' | 'createdAt'>,
+  ): Promise<HeritageTour>;
+  deleteTour(meId: ID, tourId: ID): Promise<void>;
+  /** Yakındaki rota/destinasyon bağlantıları için */
+  nearby(origin: GeoPoint, radiusKm: number): Promise<HeritageSiteWithDistance[]>;
+}
+
+export interface KidsRepository {
+  places(meId: ID, filter: KidPlaceFilter): Promise<KidPlaceWithDistance[]>;
+  place(meId: ID, id: ID, origin: GeoPoint | null): Promise<KidPlaceWithDistance | null>;
+  toggleSave(meId: ID, placeId: ID): Promise<boolean>;
+  children(meId: ID): Promise<ChildProfile[]>;
+  addChild(meId: ID, name: string, ageBand: KidAgeBand, avatar: string): Promise<ChildProfile>;
+  removeChild(meId: ID, childId: ID): Promise<void>;
+  huntTasks(ageBand: KidAgeBand | null): Promise<HuntTask[]>;
+  huntProgress(meId: ID, childName: string): Promise<HuntProgress>;
+  completeTask(meId: ID, childName: string, taskId: ID): Promise<HuntProgress>;
+  resetHunt(meId: ID, childName: string): Promise<HuntProgress>;
+  checklist(ageBand: KidAgeBand | null): Promise<FamilyChecklistItem[]>;
 }
 
 export interface DataProvider {

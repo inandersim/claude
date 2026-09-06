@@ -77,6 +77,13 @@ import type {
   QuestionStatus,
   SpeciesGroup,
   VisaType,
+  HeritageEra,
+  HeritageKind,
+  KidAgeBand,
+  KidPlaceKind,
+  NewsCategory,
+  TvChannelKind,
+  TvProgramKind,
 } from './enums';
 
 export type ID = string;
@@ -2307,4 +2314,248 @@ export interface RequestConsultInput {
   coords: GeoPoint | null;
   channel: 'chat' | 'video';
   imageUri?: string | null;
+}
+
+/* ------------------------------------------------------------------ */
+/* v1.6 — Zirtan TV                                                    */
+/* ------------------------------------------------------------------ */
+
+export interface TvChannel {
+  id: ID;
+  name: string;
+  kind: TvChannelKind;
+  description: string;
+  logoUrl: string | null;
+  color: string;
+  followerCount: number;
+  ownerId: ID | null;
+  isOfficial: boolean;
+}
+
+export interface TvProgram {
+  id: ID;
+  channelId: ID;
+  title: string;
+  kind: TvProgramKind;
+  description: string;
+  thumbnailUrl: string | null;
+  videoUrl: string;
+  durationMin: number;
+  adventureTypes: AdventureType[];
+  destinationId: ID | null;
+  countryCode: string | null;
+  /** Dizi bölümü ise */
+  seriesTitle: string | null;
+  episode: number | null;
+  publishedAt: ISODate;
+  viewsCount: number;
+  likesCount: number;
+  languages: string[];
+  subtitles: string[];
+  /** Yaş uygunluğu (çocuk modülü için) */
+  kidsFriendly: boolean;
+  creditsNote: string;
+}
+
+export interface TvProgramWithChannel extends TvProgram {
+  channel: TvChannel;
+  progress: number;
+  watchLater: boolean;
+  likedByMe: boolean;
+}
+
+export interface TvSchedule {
+  id: ID;
+  channelId: ID;
+  programId: ID | null;
+  streamId: ID | null;
+  title: string;
+  startsAt: ISODate;
+  endsAt: ISODate;
+}
+
+export interface NewsItem {
+  id: ID;
+  category: NewsCategory;
+  title: string;
+  summary: string;
+  body: string;
+  region: string;
+  countryCode: string | null;
+  coords: GeoPoint | null;
+  sourceName: string;
+  sourceUrl: string | null;
+  severity: 'info' | 'warning' | 'critical';
+  publishedAt: ISODate;
+  expiresAt: ISODate | null;
+}
+
+export interface WatchProgress {
+  userId: ID;
+  programId: ID;
+  positionSec: number;
+  durationSec: number;
+  updatedAt: ISODate;
+}
+
+export interface TvFilter {
+  query?: string;
+  channelId?: ID | null;
+  kind?: TvProgramKind | null;
+  adventureType?: AdventureType | null;
+  kidsOnly?: boolean;
+}
+
+/* ------------------------------------------------------------------ */
+/* v1.6 — Arkeolojik & tarihi alan gezileri                            */
+/* ------------------------------------------------------------------ */
+
+export interface HeritageSite {
+  id: ID;
+  slug: string;
+  name: string;
+  kind: HeritageKind;
+  eras: HeritageEra[];
+  countryCode: string;
+  region: string;
+  coords: GeoPoint;
+  elevationM: number | null;
+  imageUrl: string | null;
+  summary: string;
+  history: string;
+  isUnesco: boolean;
+  unescoYear: number | null;
+  openingHours: string;
+  entryFeeTry: number | null;
+  museumPassValid: boolean;
+  visitDurationMin: number;
+  accessibility: 'easy' | 'moderate' | 'hard';
+  /** Ulaşım / yürüyüş bağlantısı */
+  nearestTrailhead: string | null;
+  linkedTrailId: ID | null;
+  linkedDestinationId: ID | null;
+  adventureTypes: AdventureType[];
+  rules: string[];
+  bestMonths: number[];
+  rating: number;
+  reviewCount: number;
+  sources: string[];
+  updatedAt: ISODate;
+}
+
+export interface HeritageSiteWithDistance extends HeritageSite {
+  distanceKm: number | null;
+  visitedByMe: boolean;
+  savedByMe: boolean;
+}
+
+/** Sesli rehber bölümü: metin olarak saklanır, cihazda okunur (TTS) */
+export interface AudioGuideStop {
+  id: ID;
+  siteId: ID;
+  order: number;
+  title: string;
+  coords: GeoPoint | null;
+  durationSec: number;
+  script: string;
+  imageUrl: string | null;
+}
+
+export interface HeritageTour {
+  id: ID;
+  userId: ID;
+  title: string;
+  siteIds: ID[];
+  date: ISODate | null;
+  notes: string;
+  createdAt: ISODate;
+}
+
+export interface HeritageFilter {
+  query?: string;
+  countryCode?: string | null;
+  era?: HeritageEra | null;
+  kind?: HeritageKind | null;
+  unescoOnly?: boolean;
+  origin?: GeoPoint | null;
+}
+
+/* ------------------------------------------------------------------ */
+/* v1.6 — Çocuk modülü                                                 */
+/* ------------------------------------------------------------------ */
+
+export interface KidPlace {
+  id: ID;
+  name: string;
+  kind: KidPlaceKind;
+  ageBands: KidAgeBand[];
+  coords: GeoPoint;
+  locationName: string;
+  countryCode: string | null;
+  description: string;
+  imageUrl: string | null;
+  facilities: string[];
+  strollerFriendly: boolean;
+  shade: boolean;
+  toilets: boolean;
+  water: boolean;
+  safetyNotes: string[];
+  /** Çocukla yürüyüş: mesafe/süre */
+  trailKm: number | null;
+  trailMin: number | null;
+  entryFeeTry: number | null;
+  rating: number;
+  reviewCount: number;
+  seasonMonths: number[];
+  linkedBusinessId: ID | null;
+  linkedLibraryPlaceId: ID | null;
+}
+
+export interface KidPlaceWithDistance extends KidPlace {
+  distanceKm: number | null;
+  savedByMe: boolean;
+}
+
+export interface KidPlaceFilter {
+  query?: string;
+  kind?: KidPlaceKind | null;
+  ageBand?: KidAgeBand | null;
+  origin?: GeoPoint | null;
+  strollerOnly?: boolean;
+}
+
+/** Doğa avı / bingo görevi */
+export interface HuntTask {
+  id: ID;
+  text: string;
+  icon: string;
+  category: 'plant' | 'animal' | 'rock' | 'water' | 'sky' | 'sound' | 'craft';
+  ageBands: KidAgeBand[];
+  points: number;
+}
+
+export interface HuntProgress {
+  userId: ID;
+  /** Çocuk profili (isteğe bağlı çoklu çocuk) */
+  childName: string;
+  completedTaskIds: ID[];
+  stickers: string[];
+  points: number;
+  updatedAt: ISODate;
+}
+
+export interface FamilyChecklistItem {
+  key: string;
+  label: string;
+  ageBands: KidAgeBand[];
+  category: 'safety' | 'comfort' | 'food' | 'fun' | 'health';
+}
+
+export interface ChildProfile {
+  id: ID;
+  userId: ID;
+  name: string;
+  ageBand: KidAgeBand;
+  avatar: string;
+  createdAt: ISODate;
 }

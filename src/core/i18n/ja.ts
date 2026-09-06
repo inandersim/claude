@@ -14,6 +14,9 @@ import { groupsI18n } from './modules/groups';
 import { coursesI18n } from './modules/courses';
 import { tracksI18n } from './modules/tracks';
 import { weatherI18n } from './modules/weather';
+import { tvI18n } from './modules/tv';
+import { heritageI18n } from './modules/heritage';
+import { kidsI18n } from './modules/kids';
 import { countriesI18n } from './modules/countries';
 import { articlesI18n } from './modules/articles';
 import { wildlifeI18n } from './modules/wildlife';
@@ -789,6 +792,9 @@ export const ja: Translations = {
   courses: coursesI18n.ja,
   tracks: tracksI18n.ja,
   weather: weatherI18n.ja,
+  tv: tvI18n.ja,
+  heritage: heritageI18n.ja,
+  kids: kidsI18n.ja,
   countries: countriesI18n.ja,
   articles: articlesI18n.ja,
   wildlife: wildlifeI18n.ja,

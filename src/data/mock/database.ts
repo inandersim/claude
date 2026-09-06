@@ -287,6 +287,25 @@ export interface Tables {
   communityTrails: CommunityTrail[];
   poiConfirmations: { userId: string; poiId: string }[];
   trailVerifications: { userId: string; trailId: string }[];
+  /* v1.6 */
+  tvChannels: TvChannel[];
+  tvPrograms: TvProgram[];
+  tvSchedule: TvSchedule[];
+  news: NewsItem[];
+  watchProgress: WatchProgress[];
+  watchLater: { userId: string; programId: string }[];
+  programLikes: { userId: string; programId: string }[];
+  channelFollows: { userId: string; channelId: string }[];
+  heritageSites: HeritageSite[];
+  audioGuides: AudioGuideStop[];
+  heritageTours: HeritageTour[];
+  heritageSaves: { userId: string; siteId: string }[];
+  heritageVisits: { userId: string; siteId: string; at: string }[];
+  kidPlaces: KidPlace[];
+  kidPlaceSaves: { userId: string; placeId: string }[];
+  children: ChildProfile[];
+  huntTasks: HuntTask[];
+  huntProgress: HuntProgress[];
   /* v1.5 */
   countryGuides: CountryGuide[];
   countryChecklists: CountryChecklist[];
@@ -309,7 +328,7 @@ export interface Tables {
   sessionUserId: string | null;
 }
 
-const STORAGE_KEY = 'zirtan.mockdb.v7';
+const STORAGE_KEY = 'zirtan.mockdb.v8';
 
 function seedTables(): Tables {
   return {
@@ -396,6 +415,24 @@ function seedTables(): Tables {
     communityTrails: deepClone(seedCommunityTrails),
     poiConfirmations: deepClone(seedPoiConfirmations),
     trailVerifications: [],
+    tvChannels: deepClone(seedTvChannels),
+    tvPrograms: deepClone(seedTvPrograms),
+    tvSchedule: deepClone(seedTvSchedule),
+    news: deepClone(seedNews),
+    watchProgress: deepClone(seedWatchProgress),
+    watchLater: [],
+    programLikes: [],
+    channelFollows: [],
+    heritageSites: deepClone(seedHeritageSites),
+    audioGuides: deepClone(seedAudioGuides),
+    heritageTours: deepClone(seedHeritageTours),
+    heritageSaves: [],
+    heritageVisits: [],
+    kidPlaces: deepClone(seedKidPlaces),
+    kidPlaceSaves: [],
+    children: deepClone(seedChildren),
+    huntTasks: deepClone(seedHuntTasks),
+    huntProgress: deepClone(seedHuntProgress),
     countryGuides: deepClone(seedCountryGuides),
     countryChecklists: deepClone(seedCountryChecklists),
     writers: deepClone(seedWriters),

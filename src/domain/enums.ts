@@ -847,3 +847,81 @@ export type ConsultStatus = (typeof CONSULT_STATUSES)[number];
 
 export const CONSULT_URGENCIES = ['low', 'medium', 'high', 'critical'] as const;
 export type ConsultUrgency = (typeof CONSULT_URGENCIES)[number];
+
+/* ------------------------------------------------------------------ */
+/* v1.6 — Zirtan TV, tarihi alanlar, çocuk modülü                      */
+/* ------------------------------------------------------------------ */
+
+export const TV_CHANNEL_KINDS = ['documentary', 'news', 'live', 'education', 'community'] as const;
+export type TvChannelKind = (typeof TV_CHANNEL_KINDS)[number];
+
+export const TV_PROGRAM_KINDS = [
+  'documentary',
+  'news',
+  'series',
+  'short',
+  'live_replay',
+  'tutorial',
+] as const;
+export type TvProgramKind = (typeof TV_PROGRAM_KINDS)[number];
+
+export const NEWS_CATEGORIES = [
+  'weather',
+  'closure',
+  'rescue',
+  'event',
+  'gear',
+  'community',
+  'science',
+] as const;
+export type NewsCategory = (typeof NEWS_CATEGORIES)[number];
+
+export const HERITAGE_ERAS = [
+  'prehistoric',
+  'hittite',
+  'urartu',
+  'phrygian',
+  'lycian',
+  'greek',
+  'roman',
+  'byzantine',
+  'seljuk',
+  'ottoman',
+  'inca',
+  'maya',
+  'khmer',
+  'nabataean',
+  'egyptian',
+  'other',
+] as const;
+export type HeritageEra = (typeof HERITAGE_ERAS)[number];
+
+export const HERITAGE_KINDS = [
+  'ancient_city',
+  'temple',
+  'castle',
+  'monastery',
+  'underground_city',
+  'rock_art',
+  'tomb',
+  'sunken_city',
+  'museum',
+  'bridge',
+] as const;
+export type HeritageKind = (typeof HERITAGE_KINDS)[number];
+
+export const KID_AGE_BANDS = ['0_3', '4_6', '7_10', '11_14'] as const;
+export type KidAgeBand = (typeof KID_AGE_BANDS)[number];
+
+export const KID_PLACE_KINDS = [
+  'playground',
+  'nature_park',
+  'family_camp',
+  'farm',
+  'easy_trail',
+  'beach',
+  'adventure_park',
+  'museum',
+  'zoo',
+] as const;
+export type KidPlaceKind = (typeof KID_PLACE_KINDS)[number];
