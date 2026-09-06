@@ -1,4 +1,4 @@
-import type { Locale } from '../index';
+import { LOCALES, type Locale } from '../languages';
 
 /**
  * Modül çevirileri: tr ve en zorunlu, diğer diller verilmezse İngilizceye düşer.
@@ -9,15 +9,9 @@ export function localeSet<T>(
   en: T,
   rest: Partial<Record<Exclude<Locale, 'tr' | 'en'>, T>> = {},
 ): Record<Locale, T> {
-  return {
-    tr,
-    en,
-    de: rest.de ?? en,
-    fr: rest.fr ?? en,
-    es: rest.es ?? en,
-    it: rest.it ?? en,
-    ja: rest.ja ?? en,
-    pt: rest.pt ?? en,
-    ru: rest.ru ?? en,
-  };
+  const out = {} as Record<Locale, T>;
+  for (const loc of LOCALES) {
+    out[loc] = loc === 'tr' ? tr : loc === 'en' ? en : (rest[loc] ?? en);
+  }
+  return out;
 }

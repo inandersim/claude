@@ -7,7 +7,7 @@ import { Alert, StyleSheet, View } from 'react-native';
 
 import { Header, Icon, Screen, Tappable, Text, type IconName } from '@/components/ui';
 import { useToast } from '@/core/hooks/useToast';
-import { useLocaleStore, useT, type Locale } from '@/core/i18n';
+import { LANGUAGE_META, LOCALES, useLocaleStore, useT, type Locale } from '@/core/i18n';
 import { layout, radius, spacing, useTheme, type ThemePreference } from '@/core/theme';
 import { getDataProvider } from '@/data';
 import { useSessionStore } from '@/features/auth/session.store';
@@ -30,17 +30,10 @@ export default function SettingsScreen() {
     { value: 'sun', label: t('settings.themeSun'), icon: 'sunrise' },
     { value: 'system', label: t('settings.themeSystem'), icon: 'sparkles' },
   ];
-  const localeOptions: { value: Locale; label: string }[] = [
-    { value: 'tr', label: t('settings.turkish') },
-    { value: 'en', label: t('settings.english') },
-    { value: 'de', label: t('settings.german') },
-    { value: 'fr', label: t('settings.french') },
-    { value: 'es', label: t('settings.spanish') },
-    { value: 'it', label: t('settings.italian') },
-    { value: 'ja', label: t('settings.japanese') },
-    { value: 'pt', label: t('settings.portuguese') },
-    { value: 'ru', label: t('settings.russian') },
-  ];
+  const localeOptions: { value: Locale; label: string }[] = LOCALES.map((code) => ({
+    value: code,
+    label: `${LANGUAGE_META[code].flag} ${LANGUAGE_META[code].native}`,
+  }));
 
   const confirmSignOut = () => {
     Alert.alert(t('auth.signOut'), t('auth.signOutConfirm'), [
