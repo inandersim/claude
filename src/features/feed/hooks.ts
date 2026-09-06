@@ -29,11 +29,18 @@ export function usePostsByLocation(locationName: string) {
   });
 }
 
+/** Gönderi detayı; sosyal alanlar (tepki, kayıt, repost) sosyal akıştan zenginleştirilir. */
 export function usePost(postId: ID) {
   const me = useCurrentUser();
   return useQuery({
     queryKey: queryKeys.feed.detail(me.id, postId),
-    queryFn: () => getDataProvider().feed.getById(me.id, postId),
+    queryFn: async () => {
+      const provider = getDataProvider();
+      const post = await provider.feed.getById(me.id, postId);
+      if (!post) return null;
+      const social = await provider.social.feed(me.id, { tab: 'all' });
+      return social.find((p) => p.id === postId) ?? post;
+    },
   });
 }
 

@@ -1,20 +1,19 @@
 import { useRouter } from 'expo-router';
-import React, { memo, useCallback, useState } from 'react';
+import React, { memo, useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withSequence,
-  withSpring,
-} from 'react-native-reanimated';
 
-import { AdventureImage, Avatar, Icon, IconButton, Tappable, Text } from '@/components/ui';
-import { haptics } from '@/core/hooks/useHaptics';
+import { Avatar, Icon, IconButton, Tappable, Text } from '@/components/ui';
 import { useT } from '@/core/i18n';
 import { radius, spacing, useTheme } from '@/core/theme';
 import { formatCompact } from '@/core/utils/format';
 import { formatRelative } from '@/core/utils/time';
-import { type FeedPost } from '@/domain';
+import { isSocialPost, postImages, type FeedPost, type ReactionType } from '@/domain';
+import { useCurrentUser } from '@/features/auth/session.store';
+import { ImageCarousel } from '@/features/social/components/ImageCarousel';
+import { ReactionBar } from '@/features/social/components/ReactionBar';
+import { ReactionSummary } from '@/features/social/components/ReactionSummary';
+import { RepostCard } from '@/features/social/components/RepostCard';
+import { RichText } from '@/features/social/components/RichText';
 
 import { AdventureTypeBadge } from './AdventureTypeBadge';
 import { DifficultyBadge } from './DifficultyBadge';
@@ -23,24 +22,37 @@ import { TrailConditionBadge } from './TrailConditionBadge';
 
 interface Props {
   post: FeedPost;
-  onToggleLike: (postId: string) => void;
+  /** Tepki ver / değiştir / kaldır (null = kaldır) */
+  onReact?: (postId: string, type: ReactionType | null) => void;
+  /** Eski API: beğeni aç/kapa — onReact verilmediğinde kullanılır */
+  onToggleLike?: (postId: string) => void;
+  onToggleSave?: (postId: string) => void;
+  /** Yer imine uzun basınca koleksiyon seçimi */
+  onSaveLongPress?: (post: FeedPost) => void;
+  onRepost?: (post: FeedPost) => void;
+  /** Yalnızca kendi gönderilerinde gösterilir */
+  onDelete?: (post: FeedPost) => void;
   /** Detay sayfasında görsel daha büyük ve metrikler tam gösterilir */
   detailed?: boolean;
 }
 
-function PostCardComponent({ post, onToggleLike, detailed = false }: Props) {
+function PostCardComponent({
+  post,
+  onReact,
+  onToggleLike,
+  onToggleSave,
+  onSaveLongPress,
+  onRepost,
+  onDelete,
+  detailed = false,
+}: Props) {
   const { colors } = useTheme();
   const { t, locale } = useT();
   const router = useRouter();
-  const [showHeart, setShowHeart] = useState(false);
-  const heartScale = useSharedValue(0);
-  const likeScale = useSharedValue(1);
-
-  const heartStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: heartScale.get() }],
-    opacity: heartScale.get(),
-  }));
-  const likeStyle = useAnimatedStyle(() => ({ transform: [{ scale: likeScale.get() }] }));
+  const me = useCurrentUser();
+  const social = isSocialPost(post);
+  const images = postImages(post);
+  const isMine = post.authorId === me.id;
 
   const openPost = useCallback(
     () => router.push({ pathname: '/post/[id]', params: { id: post.id } }),
@@ -51,35 +63,30 @@ function PostCardComponent({ post, onToggleLike, detailed = false }: Props) {
     [router, post.authorId],
   );
 
-  const handleLike = useCallback(() => {
-    likeScale.set(withSequence(withSpring(1.35, { damping: 6, stiffness: 400 }), withSpring(1)));
-    haptics.medium();
-    onToggleLike(post.id);
-  }, [likeScale, onToggleLike, post.id]);
+  const react = useCallback(
+    (type: ReactionType | null) => {
+      if (onReact) onReact(post.id, type);
+      else onToggleLike?.(post.id);
+    },
+    [onReact, onToggleLike, post.id],
+  );
 
-  const lastTap = React.useRef(0);
-  const handleImagePress = useCallback(() => {
-    const now = Date.now();
-    if (now - lastTap.current < 280) {
-      if (!post.likedByMe) onToggleLike(post.id);
-      setShowHeart(true);
-      heartScale.set(withSequence(withSpring(1, { damping: 8 }), withSpring(0, { damping: 14 })));
-      haptics.medium();
-      setTimeout(() => setShowHeart(false), 700);
-      lastTap.current = 0;
-      return;
-    }
-    lastTap.current = now;
-    setTimeout(() => {
-      if (lastTap.current === now) {
-        lastTap.current = 0;
-        if (!detailed) openPost();
-      }
-    }, 290);
-  }, [detailed, heartScale, onToggleLike, openPost, post.id, post.likedByMe]);
+  const handleDoubleTap = useCallback(() => {
+    if (!post.likedByMe) react('like');
+  }, [post.likedByMe, react]);
 
   return (
     <View style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+      {/* Yeniden paylaşım başlığı */}
+      {post.repostOfId ? (
+        <View style={[styles.repostHead, { borderBottomColor: colors.border }]}>
+          <Icon name="repeat" size={14} color={colors.primary} strokeWidth={2.4} />
+          <Text variant="caption" weight="bold" color="textMuted" numberOfLines={1}>
+            {t('social.repostedBy', { name: post.author.displayName })}
+          </Text>
+        </View>
+      ) : null}
+
       {/* Yazar satırı */}
       <View style={styles.authorRow}>
         <Tappable
@@ -87,6 +94,7 @@ function PostCardComponent({ post, onToggleLike, detailed = false }: Props) {
           haptic="selection"
           style={styles.authorInfo}
           accessibilityRole="button"
+          accessibilityLabel={post.author.displayName}
         >
           <Avatar
             uri={post.author.avatarUrl}
@@ -109,83 +117,97 @@ function PostCardComponent({ post, onToggleLike, detailed = false }: Props) {
             </View>
           </View>
         </Tappable>
-        <AdventureTypeBadge type={post.adventureType} />
+        {social ? (
+          post.kind === 'photo' ? (
+            <View style={[styles.kindPill, { backgroundColor: colors.surfaceMuted }]}>
+              <Icon name="image" size={12} color={colors.textMuted} strokeWidth={2.4} />
+              {images.length > 1 ? (
+                <Text variant="label" weight="bold" color="textMuted">
+                  {images.length}
+                </Text>
+              ) : null}
+            </View>
+          ) : null
+        ) : (
+          <AdventureTypeBadge type={post.adventureType} />
+        )}
       </View>
 
-      {/* Görsel */}
-      <Tappable
-        onPress={handleImagePress}
-        haptic="none"
-        scaleTo={0.995}
-        accessibilityRole="imagebutton"
-        accessibilityLabel={post.caption}
-      >
-        <AdventureImage
-          uri={post.imageUrl}
-          adventureType={post.adventureType}
-          style={[styles.image, detailed && styles.imageDetailed]}
-          overlay
-        >
-          <View style={styles.imageOverlayTop}>
-            {post.isVerifiedInfo ? (
-              <View style={[styles.verifiedPill, { backgroundColor: 'rgba(8,14,12,0.55)' }]}>
-                <Icon name="shield-check" size={12} color="#5EE39B" strokeWidth={2.6} />
-                <Text variant="label" weight="extrabold" color="#F2F7F4">
-                  {t('home.verifiedInfo').toLocaleUpperCase('tr-TR')}
-                </Text>
-              </View>
-            ) : (
-              <View />
-            )}
-            <DifficultyBadge grade={post.difficulty} />
-          </View>
-          <View style={styles.imageOverlayBottom}>
-            <View style={styles.altitudeRow}>
-              <Icon name="mountain-snow" size={16} color="#FFFFFF" strokeWidth={2.4} />
-              <Text variant="h2" color="#FFFFFF">
-                {post.altitudeM.toLocaleString(locale === 'tr' ? 'tr-TR' : 'en-US')} m
-              </Text>
-            </View>
-            <TrailConditionBadge condition={post.trailCondition} />
-          </View>
-          {showHeart ? (
-            <Animated.View pointerEvents="none" style={[styles.bigHeart, heartStyle]}>
-              <Icon name="heart" size={88} color="#FFFFFF" fill="#FF6B6B" strokeWidth={1.5} />
-            </Animated.View>
-          ) : null}
-        </AdventureImage>
-      </Tappable>
+      {/* Görsel(ler) */}
+      {images.length > 0 ? (
+        <View style={styles.imageWrap}>
+          <ImageCarousel
+            images={images}
+            adventureType={post.adventureType}
+            aspectRatio={detailed ? 1 : 4 / 3}
+            onPress={detailed ? undefined : openPost}
+            onDoubleTap={handleDoubleTap}
+            accessibilityLabel={post.caption}
+          >
+            {!social ? (
+              <>
+                <View style={styles.imageOverlayTop}>
+                  {post.isVerifiedInfo ? (
+                    <View style={[styles.verifiedPill, { backgroundColor: 'rgba(8,14,12,0.55)' }]}>
+                      <Icon name="shield-check" size={12} color="#5EE39B" strokeWidth={2.6} />
+                      <Text variant="label" weight="extrabold" color="#F2F7F4">
+                        {t('home.verifiedInfo').toLocaleUpperCase('tr-TR')}
+                      </Text>
+                    </View>
+                  ) : (
+                    <View />
+                  )}
+                  <DifficultyBadge grade={post.difficulty} />
+                </View>
+                <View style={styles.imageOverlayBottom}>
+                  <View style={styles.altitudeRow}>
+                    <Icon name="mountain-snow" size={16} color="#FFFFFF" strokeWidth={2.4} />
+                    <Text variant="h2" color="#FFFFFF">
+                      {post.altitudeM.toLocaleString(locale === 'tr' ? 'tr-TR' : 'en-US')} m
+                    </Text>
+                  </View>
+                  <TrailConditionBadge condition={post.trailCondition} />
+                </View>
+              </>
+            ) : null}
+          </ImageCarousel>
+        </View>
+      ) : null}
 
-      {/* Açıklama + metrikler */}
+      {/* Açıklama + (macera ise) metrikler + (repost ise) orijinal */}
       <View style={styles.body}>
-        <Text variant="body" numberOfLines={detailed ? undefined : 3}>
-          {post.caption}
-        </Text>
-        <PostMetrics post={post} compact={!detailed} />
+        {post.caption ? (
+          <RichText
+            text={post.caption}
+            numberOfLines={detailed ? undefined : social ? 6 : 3}
+            variant={social && images.length === 0 ? 'title' : 'body'}
+            weight={social && images.length === 0 ? 'medium' : undefined}
+          />
+        ) : null}
+        {post.repostOfId ? <RepostCard post={post.repostOf} interactive={!detailed} /> : null}
+        {!social ? <PostMetrics post={post} compact={!detailed} /> : null}
+
+        <View style={styles.summaryRow}>
+          <ReactionSummary counts={post.reactionCounts} fallbackTotal={post.likesCount} />
+          <View style={{ flex: 1 }} />
+          {post.commentsCount > 0 ? (
+            <Text variant="caption" weight="bold" color="textMuted">
+              {formatCompact(post.commentsCount, locale)}{' '}
+              {t('home.comments').toLocaleLowerCase('tr-TR')}
+            </Text>
+          ) : null}
+          {(post.repostsCount ?? 0) > 0 ? (
+            <Text variant="caption" weight="bold" color="textMuted">
+              · {formatCompact(post.repostsCount ?? 0, locale)}{' '}
+              {t('social.reposted').toLocaleLowerCase('tr-TR')}
+            </Text>
+          ) : null}
+        </View>
       </View>
 
       {/* Aksiyonlar */}
       <View style={[styles.actions, { borderTopColor: colors.border }]}>
-        <Animated.View style={likeStyle}>
-          <Tappable
-            onPress={handleLike}
-            haptic="none"
-            scaleTo={0.9}
-            style={styles.action}
-            accessibilityRole="button"
-            accessibilityLabel={t('home.likes')}
-          >
-            <Icon
-              name="heart"
-              size={22}
-              color={post.likedByMe ? colors.danger : colors.text}
-              fill={post.likedByMe ? colors.danger : 'none'}
-            />
-            <Text variant="bodySm" weight="bold" color={post.likedByMe ? 'danger' : 'text'}>
-              {formatCompact(post.likesCount, locale)}
-            </Text>
-          </Tappable>
-        </Animated.View>
+        <ReactionBar myReaction={post.myReaction} total={post.likesCount} onReact={react} />
         <Tappable
           onPress={openPost}
           haptic="selection"
@@ -199,8 +221,25 @@ function PostCardComponent({ post, onToggleLike, detailed = false }: Props) {
             {formatCompact(post.commentsCount, locale)}
           </Text>
         </Tappable>
+        {onRepost ? (
+          <Tappable
+            onPress={() => onRepost(post)}
+            haptic="selection"
+            scaleTo={0.9}
+            style={styles.action}
+            accessibilityRole="button"
+            accessibilityLabel={t('social.repost')}
+          >
+            <Icon name="repeat" size={22} strokeWidth={2.2} />
+            {(post.repostsCount ?? 0) > 0 ? (
+              <Text variant="bodySm" weight="bold">
+                {formatCompact(post.repostsCount ?? 0, locale)}
+              </Text>
+            ) : null}
+          </Tappable>
+        ) : null}
         <View style={{ flex: 1 }} />
-        {post.routeId ? (
+        {post.routeId && !social ? (
           <Tappable
             onPress={openPost}
             haptic="selection"
@@ -211,6 +250,38 @@ function PostCardComponent({ post, onToggleLike, detailed = false }: Props) {
             <Text variant="caption" weight="bold" color="primary">
               {t('post.viewRoute')}
             </Text>
+          </Tappable>
+        ) : null}
+        {isMine && onDelete ? (
+          <IconButton
+            icon="trash"
+            variant="ghost"
+            size={36}
+            iconSize={18}
+            color={colors.danger}
+            onPress={() => onDelete(post)}
+            accessibilityLabel={t('social.delete')}
+          />
+        ) : null}
+        {onToggleSave ? (
+          <Tappable
+            onPress={() => onToggleSave(post.id)}
+            onLongPress={onSaveLongPress ? () => onSaveLongPress(post) : undefined}
+            delayLongPress={260}
+            haptic="light"
+            scaleTo={0.85}
+            style={styles.iconAction}
+            accessibilityRole="button"
+            accessibilityLabel={post.savedByMe ? t('social.unsave') : t('social.save')}
+            accessibilityHint={onSaveLongPress ? t('social.selectCollection') : undefined}
+          >
+            <Icon
+              name="bookmark"
+              size={22}
+              color={post.savedByMe ? colors.primary : colors.text}
+              fill={post.savedByMe ? colors.primary : 'none'}
+              strokeWidth={2.2}
+            />
           </Tappable>
         ) : null}
         <IconButton
@@ -233,6 +304,15 @@ const styles = StyleSheet.create({
     borderWidth: StyleSheet.hairlineWidth,
     overflow: 'hidden',
   },
+  repostHead: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingHorizontal: spacing.md,
+    paddingTop: spacing.sm + 2,
+    paddingBottom: spacing.sm,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
   authorRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -242,8 +322,15 @@ const styles = StyleSheet.create({
   },
   authorInfo: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: spacing.sm + 2 },
   metaRow: { flexDirection: 'row', alignItems: 'center', gap: 3 },
-  image: { aspectRatio: 4 / 3, marginHorizontal: spacing.sm, borderRadius: radius.lg },
-  imageDetailed: { aspectRatio: 1 },
+  kindPill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    height: 26,
+    paddingHorizontal: spacing.sm,
+    borderRadius: radius.full,
+  },
+  imageWrap: { marginHorizontal: spacing.sm },
   imageOverlayTop: {
     position: 'absolute',
     top: spacing.md,
@@ -271,16 +358,8 @@ const styles = StyleSheet.create({
     borderRadius: radius.full,
   },
   altitudeRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.xs + 2 },
-  bigHeart: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   body: { padding: spacing.md, gap: spacing.md },
+  summaryRow: { flexDirection: 'row', alignItems: 'center', gap: 4, minHeight: 18 },
   actions: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -290,6 +369,7 @@ const styles = StyleSheet.create({
     borderTopWidth: StyleSheet.hairlineWidth,
   },
   action: { flexDirection: 'row', alignItems: 'center', gap: spacing.xs + 2, paddingVertical: 4 },
+  iconAction: { paddingVertical: 4, paddingHorizontal: 2 },
   routePill: {
     flexDirection: 'row',
     alignItems: 'center',

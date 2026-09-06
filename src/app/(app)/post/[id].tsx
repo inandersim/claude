@@ -1,4 +1,4 @@
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
   KeyboardAvoidingView,
@@ -21,22 +21,19 @@ import {
   Text,
 } from '@/components/ui';
 import { useT } from '@/core/i18n';
+import { goBack } from '@/core/navigation';
 import { fontFamily, layout, radius, spacing, useTheme } from '@/core/theme';
 import { ADVENTURE_TYPE_META, DIFFICULTY_META, formatDistance } from '@/domain';
 import { RoutePreview } from '@/features/explore/components/RoutePreview';
 import { CommentItem } from '@/features/feed/components/CommentItem';
 import { PostCard } from '@/features/feed/components/PostCard';
 import { PostCardSkeleton } from '@/features/feed/components/PostCardSkeleton';
-import {
-  useAddComment,
-  useComments,
-  usePost,
-  useRoute,
-  useToggleLike,
-} from '@/features/feed/hooks';
+import { useAddComment, useComments, usePost, useRoute } from '@/features/feed/hooks';
+import { usePostCardActions } from '@/features/social/usePostCardActions';
 
 export default function PostDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
+  const router = useRouter();
   const { t, locale } = useT();
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
@@ -44,7 +41,7 @@ export default function PostDetailScreen() {
   const post = usePost(id);
   const comments = useComments(id);
   const route = useRoute(post.data?.routeId ?? null);
-  const toggleLike = useToggleLike();
+  const actions = usePostCardActions(() => goBack(router));
   const addComment = useAddComment(id);
   const [draft, setDraft] = useState('');
 
@@ -76,7 +73,11 @@ export default function PostDetailScreen() {
             <>
               <PostCard
                 post={post.data}
-                onToggleLike={(postId) => toggleLike.mutate(postId)}
+                onReact={actions.onReact}
+                onToggleSave={actions.onToggleSave}
+                onSaveLongPress={actions.onSaveLongPress}
+                onRepost={actions.onRepost}
+                onDelete={actions.onDelete}
                 detailed
               />
 
@@ -198,6 +199,7 @@ export default function PostDetailScreen() {
           </View>
         ) : null}
       </KeyboardAvoidingView>
+      {actions.sheets}
     </Screen>
   );
 }

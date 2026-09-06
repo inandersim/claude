@@ -1,5 +1,5 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -10,6 +10,7 @@ import {
   IconButton,
   Screen,
   SectionHeader,
+  SegmentedControl,
   Skeleton,
 } from '@/components/ui';
 import { useT } from '@/core/i18n';
@@ -19,6 +20,9 @@ import { useUserPosts } from '@/features/feed/hooks';
 import { PostGrid } from '@/features/profile/components/PostGrid';
 import { ProfileHeader } from '@/features/profile/components/ProfileHeader';
 import { useIsFollowing, useToggleFollow, useUser } from '@/features/profile/hooks';
+import { useSavedPosts } from '@/features/social/hooks';
+
+type ProfileTab = 'posts' | 'saved';
 
 export default function UserProfileScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -32,6 +36,10 @@ export default function UserProfileScreen() {
   const posts = useUserPosts(id);
   const following = useIsFollowing(id);
   const toggleFollow = useToggleFollow(id);
+  const [tab, setTab] = useState<ProfileTab>('posts');
+  const saved = useSavedPosts(null);
+  const showSaved = isMe && tab === 'saved';
+  const list = showSaved ? saved : posts;
 
   return (
     <Screen scroll edges={[]}>
@@ -100,18 +108,49 @@ export default function UserProfileScreen() {
             }
           />
           <View style={styles.section}>
+            {isMe ? (
+              <View style={styles.tabs}>
+                <SegmentedControl<ProfileTab>
+                  segments={[
+                    { value: 'posts', label: t('social.postsTab'), badge: posts.data?.length },
+                    { value: 'saved', label: t('social.savedTab'), badge: saved.data?.length },
+                  ]}
+                  value={tab}
+                  onChange={setTab}
+                />
+              </View>
+            ) : null}
             <SectionHeader
-              title={t('profile.posts')}
-              subtitle={posts.data ? `${posts.data.length} ${t('explore.adventures')}` : undefined}
+              title={showSaved ? t('social.savedTab') : t('profile.posts')}
+              subtitle={
+                showSaved
+                  ? saved.data
+                    ? t('social.itemsCount', { count: saved.data.length })
+                    : undefined
+                  : posts.data
+                    ? `${posts.data.length} ${t('explore.adventures')}`
+                    : undefined
+              }
+              actionLabel={showSaved ? t('social.collections') : undefined}
+              onAction={showSaved ? () => router.push('/social/saved') : undefined}
             />
-            {posts.isLoading ? (
+            {list.isLoading ? (
               <View style={styles.skeletonGrid}>
                 {[0, 1, 2].map((i) => (
                   <Skeleton key={i} width="31%" height={110} style={{ borderRadius: radius.md }} />
                 ))}
               </View>
-            ) : posts.data && posts.data.length > 0 ? (
-              <PostGrid posts={posts.data} />
+            ) : list.isError ? (
+              <ErrorState onRetry={() => list.refetch()} />
+            ) : list.data && list.data.length > 0 ? (
+              <PostGrid posts={list.data} />
+            ) : showSaved ? (
+              <EmptyState
+                compact
+                icon="bookmark"
+                title={t('social.noSaved')}
+                description={t('social.noSavedDescription')}
+              />
             ) : (
               <EmptyState compact icon="camera" title={t('profile.noPosts')} />
             )}
@@ -138,6 +177,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   section: { marginTop: spacing.xxl },
+  tabs: { paddingHorizontal: spacing.lg, marginBottom: spacing.md },
   skeletonGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',

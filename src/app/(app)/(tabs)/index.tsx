@@ -1,21 +1,32 @@
 import { FlashList } from '@shopify/flash-list';
 import { useRouter } from 'expo-router';
 import React, { useCallback, useMemo, useState } from 'react';
-import { RefreshControl, StyleSheet, View } from 'react-native';
+import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { Avatar, EmptyState, ErrorState, IconButton, Screen, Text } from '@/components/ui';
+import {
+  Avatar,
+  EmptyState,
+  ErrorState,
+  IconButton,
+  Screen,
+  Tappable,
+  Text,
+} from '@/components/ui';
 import { useT } from '@/core/i18n';
-import { layout, spacing, useTheme } from '@/core/theme';
-import type { AdventureType, FeedPost } from '@/domain';
+import { layout, radius, spacing, useTheme } from '@/core/theme';
+import type { FeedPost, FeedTabValue } from '@/domain';
 import { useCurrentUser } from '@/features/auth/session.store';
-import { AdventureTypeFilter } from '@/features/feed/components/AdventureTypeFilter';
 import { PostCard } from '@/features/feed/components/PostCard';
 import { PostCardSkeleton } from '@/features/feed/components/PostCardSkeleton';
-import { useFeed, useToggleLike } from '@/features/feed/hooks';
 import { HazardBanner } from '@/features/hazards/components/HazardBanner';
-import { StoriesStrip } from '@/features/stories/components/StoriesStrip';
 import { useUnreadCount } from '@/features/notifications/hooks';
+import { ComposeSheet } from '@/features/social/components/ComposeSheet';
+import { FeedTabs } from '@/features/social/components/FeedTabs';
+import { HashtagChip } from '@/features/social/components/HashtagChip';
+import { useSocialFeed, useTrendingHashtags } from '@/features/social/hooks';
+import { usePostCardActions } from '@/features/social/usePostCardActions';
+import { StoriesStrip } from '@/features/stories/components/StoriesStrip';
 
 function greetingKey(): 'home.greetingMorning' | 'home.greetingDay' | 'home.greetingEvening' {
   const hour = new Date().getHours();
@@ -30,20 +41,29 @@ export default function HomeScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const me = useCurrentUser();
-  const [type, setType] = useState<AdventureType | null>(null);
-  const feed = useFeed(type);
-  const toggleLike = useToggleLike();
+  const [tab, setTab] = useState<FeedTabValue>('all');
+  const [hashtag, setHashtag] = useState<string | null>(null);
+  const [composeOpen, setComposeOpen] = useState(false);
+  const filter = useMemo(() => ({ tab, hashtag }), [tab, hashtag]);
+  const feed = useSocialFeed(filter);
+  const trending = useTrendingHashtags(8);
   const { data: unread = 0 } = useUnreadCount();
-
-  const onToggleLike = useCallback((postId: string) => toggleLike.mutate(postId), [toggleLike]);
+  const actions = usePostCardActions();
 
   const renderItem = useCallback(
     ({ item }: { item: FeedPost }) => (
       <View style={styles.item}>
-        <PostCard post={item} onToggleLike={onToggleLike} />
+        <PostCard
+          post={item}
+          onReact={actions.onReact}
+          onToggleSave={actions.onToggleSave}
+          onSaveLongPress={actions.onSaveLongPress}
+          onRepost={actions.onRepost}
+          onDelete={actions.onDelete}
+        />
       </View>
     ),
-    [onToggleLike],
+    [actions],
   );
 
   const header = useMemo(
@@ -61,6 +81,16 @@ export default function HomeScreen() {
           </View>
           <View style={styles.headerActions}>
             <IconButton
+              icon="users"
+              onPress={() => router.push('/social')}
+              accessibilityLabel={t('social.community')}
+            />
+            <IconButton
+              icon="message-circle"
+              onPress={() => router.push('/groups')}
+              accessibilityLabel={t('social.messages')}
+            />
+            <IconButton
               icon="bell"
               badge={unread}
               onPress={() => router.push('/notifications')}
@@ -68,22 +98,65 @@ export default function HomeScreen() {
             />
             <IconButton
               icon="plus"
-              onPress={() => router.push('/post/new')}
-              accessibilityLabel={t('home.createPost')}
+              onPress={() => setComposeOpen(true)}
+              accessibilityLabel={t('social.compose.title')}
               color={colors.onPrimary}
               style={{ backgroundColor: colors.primary }}
             />
           </View>
         </View>
+        <FeedTabs value={tab} onChange={setTab} />
+        {trending.data && trending.data.length > 0 ? (
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.trendRow}
+          >
+            <Tappable
+              onPress={() => router.push('/social')}
+              haptic="selection"
+              style={[styles.trendLabel, { backgroundColor: colors.primarySoft }]}
+              accessibilityRole="button"
+              accessibilityLabel={t('social.trending')}
+            >
+              <Text variant="caption" weight="extrabold" color="primary">
+                {t('social.trending')}
+              </Text>
+            </Tappable>
+            {trending.data.map((h) => (
+              <HashtagChip
+                key={h.tag}
+                tag={h.tag}
+                trending={h.trending}
+                selected={hashtag === h.tag}
+                onPress={(tag) => setHashtag((prev) => (prev === tag ? null : tag))}
+                size="sm"
+              />
+            ))}
+          </ScrollView>
+        ) : null}
         <StoriesStrip />
         <HazardBanner origin={me.coords} />
-        <AdventureTypeFilter value={type} onChange={setType} />
       </View>
     ),
-    [colors.onPrimary, colors.primary, me, router, t, type, unread],
+    [
+      colors.onPrimary,
+      colors.primary,
+      colors.primarySoft,
+      hashtag,
+      me,
+      router,
+      t,
+      tab,
+      trending.data,
+      unread,
+    ],
   );
 
   const bottomPadding = layout.tabBarHeight + insets.bottom + spacing.xl;
+  const emptyTitle = tab === 'following' ? t('social.emptyFollowing') : t('social.empty');
+  const emptyDescription =
+    tab === 'following' ? t('social.emptyFollowingDescription') : t('social.emptyDescription');
 
   return (
     <Screen edges={['top']}>
@@ -107,18 +180,27 @@ export default function HomeScreen() {
             ) : (
               <EmptyState
                 icon="tent"
-                title={t('home.emptyTitle')}
-                description={t('home.emptyDescription')}
-                action={{
-                  label: t('home.createPost'),
-                  onPress: () => router.push('/post/new'),
-                  icon: 'plus',
-                }}
+                title={emptyTitle}
+                description={emptyDescription}
+                action={
+                  tab === 'following'
+                    ? {
+                        label: t('social.discover'),
+                        onPress: () => router.push('/social'),
+                        icon: 'users',
+                      }
+                    : {
+                        label: t('social.compose.status'),
+                        onPress: () => router.push('/post/status'),
+                        icon: 'plus',
+                      }
+                }
               />
             )
           }
           contentContainerStyle={{ paddingBottom: bottomPadding }}
           showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
           refreshControl={
             <RefreshControl
               refreshing={feed.isRefetching && !feed.isLoading}
@@ -129,6 +211,8 @@ export default function HomeScreen() {
           }
         />
       )}
+      <ComposeSheet visible={composeOpen} onClose={() => setComposeOpen(false)} />
+      {actions.sheets}
     </Screen>
   );
 }
@@ -144,6 +228,13 @@ const styles = StyleSheet.create({
   },
   greeting: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm + 2 },
   headerActions: { flexDirection: 'row', gap: spacing.sm },
+  trendRow: { paddingHorizontal: spacing.lg, gap: spacing.sm, alignItems: 'center' },
+  trendLabel: {
+    height: 30,
+    paddingHorizontal: spacing.sm + 2,
+    borderRadius: radius.full,
+    justifyContent: 'center',
+  },
   item: {
     paddingHorizontal: spacing.lg,
     paddingBottom: spacing.md,
