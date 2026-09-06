@@ -25,3 +25,7 @@ export * from './groups';
 export * from './courses';
 export * from './tracks';
 export * from './weather';
+export * from './countries';
+export * from './articles';
+export * from './wildlife';
+export * from './telemed';

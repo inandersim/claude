@@ -66,6 +66,17 @@ import type {
   PoiSource,
   TrackSource,
   TrackStatus,
+  ArticleCategory,
+  ArticleStatus,
+  ConsultStatus,
+  ConsultUrgency,
+  DangerLevel,
+  DeterrentAnimal,
+  DeterrentSound,
+  DoctorSpecialty,
+  QuestionStatus,
+  SpeciesGroup,
+  VisaType,
 } from './enums';
 
 export type ID = string;
@@ -1970,4 +1981,330 @@ export interface AvalancheBulletin {
   summary: string;
   source: 'eaws' | 'mock';
   url: string | null;
+}
+
+/* ------------------------------------------------------------------ */
+/* v1.5 — Ülke sosyal & vize rehberi                                   */
+/* ------------------------------------------------------------------ */
+
+export interface VisaInfo {
+  /** Türk pasaportu için */
+  type: VisaType;
+  maxStayDays: number | null;
+  costTry: number | null;
+  processingDays: number | null;
+  url: string | null;
+  note: string;
+}
+
+export interface CountryGuide {
+  countryCode: string;
+  name: string;
+  region: string;
+  languages: string[];
+  currency: string;
+  /** 1 birim yerel para ≈ ₺ */
+  tryRate: number | null;
+  timezone: string;
+  plugTypes: string[];
+  visa: VisaInfo;
+  /** Belge kontrol listesi (pasaport geçerliliği, sigorta, sarı humma, ehliyet…) */
+  documents: { key: string; label: string; required: boolean; note: string }[];
+  etiquette: string[];
+  dressCode: string;
+  religionNotes: string;
+  photographyRules: string;
+  tipping: string;
+  bargaining: string;
+  /** Kimlere/nelere dikkat: dolandırıcılık, sahte rehber, taksi, sokak köpekleri… */
+  watchOut: string[];
+  womenTravelers: string;
+  laws: string[];
+  droneRules: string;
+  alcoholRules: string;
+  money: string;
+  connectivity: string;
+  health: string[];
+  vaccines: string[];
+  bestMonths: number[];
+  /** Kısa "günlük yaşam" ipuçları */
+  dailyTips: string[];
+  sources: string[];
+  updatedAt: ISODate;
+}
+
+export interface CountryChecklist {
+  userId: ID;
+  countryCode: string;
+  /** işaretlenen belge anahtarları */
+  done: string[];
+  tripDate: ISODate | null;
+  updatedAt: ISODate;
+}
+
+/* ------------------------------------------------------------------ */
+/* v1.5 — Yazarlar & blog                                              */
+/* ------------------------------------------------------------------ */
+
+export interface WriterProfile {
+  userId: ID;
+  penName: string;
+  bio: string;
+  languages: string[];
+  topics: ArticleCategory[];
+  website: string | null;
+  isVerified: boolean;
+  followerCount: number;
+  articleCount: number;
+  appliedAt: ISODate;
+  approvedAt: ISODate | null;
+}
+
+export interface WriterWithUser extends WriterProfile {
+  user: User;
+  followedByMe: boolean;
+}
+
+export interface Article {
+  id: ID;
+  authorId: ID;
+  slug: string;
+  title: string;
+  subtitle: string;
+  coverUrl: string | null;
+  category: ArticleCategory;
+  /** Basit markdown: # başlık, paragraflar, - liste, > alıntı, ![resim](url) */
+  body: string;
+  tags: string[];
+  destinationId: ID | null;
+  countryCode: string | null;
+  adventureTypes: AdventureType[];
+  readMinutes: number;
+  status: ArticleStatus;
+  likesCount: number;
+  commentsCount: number;
+  viewsCount: number;
+  locale: string;
+  publishedAt: ISODate | null;
+  createdAt: ISODate;
+  updatedAt: ISODate;
+}
+
+export interface ArticleWithAuthor extends Article {
+  author: User;
+  writer: WriterProfile | null;
+  likedByMe: boolean;
+  savedByMe: boolean;
+}
+
+export interface ArticleComment {
+  id: ID;
+  articleId: ID;
+  authorId: ID;
+  content: string;
+  createdAt: ISODate;
+}
+
+export interface CreateArticleInput {
+  title: string;
+  subtitle: string;
+  coverUri: string | null;
+  category: ArticleCategory;
+  body: string;
+  tags: string[];
+  destinationId: ID | null;
+  countryCode: string | null;
+  adventureTypes: AdventureType[];
+  publish: boolean;
+}
+
+export interface ArticleFilter {
+  query?: string;
+  category?: ArticleCategory | null;
+  authorId?: ID | null;
+  countryCode?: string | null;
+  tag?: string | null;
+  featuredOnly?: boolean;
+}
+
+/* ------------------------------------------------------------------ */
+/* v1.5 — Canlı tanımlama, topluluk soru-cevap, kaçırma sesleri       */
+/* ------------------------------------------------------------------ */
+
+export interface Species {
+  id: ID;
+  commonName: string;
+  scientificName: string;
+  group: SpeciesGroup;
+  danger: DangerLevel;
+  /** Görüldüğü ülkeler */
+  countryCodes: string[];
+  habitats: string[];
+  description: string;
+  identification: string[];
+  /** Karşılaşınca ne yapmalı / yapmamalı */
+  encounterDo: string[];
+  encounterDont: string[];
+  /** Isırık/sokma sonrası ilk yardım rehber slug'ı */
+  firstAidSlug: string | null;
+  /** Venom/toksin notu */
+  venomNote: string | null;
+  imageUrl: string | null;
+  lookalikes: string[];
+  activeMonths: number[];
+  activeHours: 'day' | 'night' | 'both';
+  sources: string[];
+}
+
+export interface SpeciesFilter {
+  query?: string;
+  group?: SpeciesGroup | null;
+  danger?: DangerLevel | null;
+  countryCode?: string | null;
+}
+
+export interface SpeciesIdentification {
+  id: ID;
+  userId: ID;
+  imageUri: string | null;
+  /** AI/tahmin sonuçları — en olası önce */
+  candidates: { speciesId: ID | null; name: string; confidence: number; danger: DangerLevel }[];
+  advice: string[];
+  source: 'remote' | 'local';
+  coords: GeoPoint | null;
+  createdAt: ISODate;
+}
+
+export interface WildlifeQuestion {
+  id: ID;
+  authorId: ID;
+  title: string;
+  body: string;
+  imageUrl: string | null;
+  coords: GeoPoint | null;
+  locationName: string;
+  speciesGuessId: ID | null;
+  status: QuestionStatus;
+  urgent: boolean;
+  answersCount: number;
+  acceptedAnswerId: ID | null;
+  createdAt: ISODate;
+}
+
+export interface WildlifeAnswer {
+  id: ID;
+  questionId: ID;
+  authorId: ID;
+  body: string;
+  speciesId: ID | null;
+  upvotes: number;
+  isExpert: boolean;
+  createdAt: ISODate;
+}
+
+export interface WildlifeQuestionWithDetails extends WildlifeQuestion {
+  author: User;
+  speciesGuess: Species | null;
+  answers: (WildlifeAnswer & { author: User; species: Species | null; upvotedByMe: boolean })[];
+  /** Şu an çevrimiçi ve yanıtlayabilecek kullanıcı sayısı (mock presence) */
+  onlineHelpers: number;
+}
+
+export interface DeterrentProfile {
+  animal: DeterrentAnimal;
+  /** Etkili olduğu düşünülen sesler (etkinlik sırasına göre) */
+  sounds: { sound: DeterrentSound; effectiveness: number; note: string }[];
+  /** Ses dışı davranış tavsiyeleri */
+  behaviorDo: string[];
+  behaviorDont: string[];
+  /** Gündüz/gece, yavru varsa vb. kritik notlar */
+  warnings: string[];
+  /** Bilimsel kaynak/uyarı: kesin garanti yok */
+  evidence: string;
+}
+
+export interface DeterrentEvent {
+  id: ID;
+  userId: ID;
+  animal: DeterrentAnimal;
+  sound: DeterrentSound;
+  coords: GeoPoint | null;
+  durationS: number;
+  createdAt: ISODate;
+}
+
+/* ------------------------------------------------------------------ */
+/* v1.5 — Tele-tıp (çevrimiçi doktor)                                  */
+/* ------------------------------------------------------------------ */
+
+export interface Doctor {
+  id: ID;
+  userId: ID;
+  title: string;
+  specialties: DoctorSpecialty[];
+  languages: string[];
+  licenseNo: string;
+  institution: string;
+  isVerified: boolean;
+  isOnline: boolean;
+  /** Ortalama yanıt süresi (dk) */
+  responseMin: number;
+  rating: number;
+  consultCount: number;
+  /** Gönüllü (ücretsiz) / ücretli dakika */
+  volunteer: boolean;
+  priceTryPerConsult: number;
+  countryCodes: string[];
+  bio: string;
+}
+
+export interface DoctorWithUser extends Doctor {
+  user: User;
+}
+
+export interface Consultation {
+  id: ID;
+  patientId: ID;
+  doctorId: ID | null;
+  urgency: ConsultUrgency;
+  /** Kısa şikâyet + AI ön triyaj özeti */
+  complaint: string;
+  triage: string[];
+  firstAidSlug: string | null;
+  speciesId: ID | null;
+  coords: GeoPoint | null;
+  status: ConsultStatus;
+  channel: 'chat' | 'video';
+  createdAt: ISODate;
+  acceptedAt: ISODate | null;
+  endedAt: ISODate | null;
+  summary: string | null;
+}
+
+export interface ConsultMessage {
+  id: ID;
+  consultationId: ID;
+  senderId: ID;
+  content: string;
+  imageUrl: string | null;
+  /** Doktor talimatı (vurgulu gösterilir) */
+  isInstruction: boolean;
+  createdAt: ISODate;
+}
+
+export interface ConsultationWithDetails extends Consultation {
+  patient: User;
+  doctor: DoctorWithUser | null;
+  messages: (ConsultMessage & { sender: User })[];
+}
+
+export interface RequestConsultInput {
+  complaint: string;
+  urgency: ConsultUrgency;
+  specialty: DoctorSpecialty | null;
+  firstAidSlug: string | null;
+  speciesId: ID | null;
+  coords: GeoPoint | null;
+  channel: 'chat' | 'video';
+  imageUri?: string | null;
 }

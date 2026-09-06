@@ -13,6 +13,10 @@ import { groupsI18n } from './modules/groups';
 import { coursesI18n } from './modules/courses';
 import { tracksI18n } from './modules/tracks';
 import { weatherI18n } from './modules/weather';
+import { countriesI18n } from './modules/countries';
+import { articlesI18n } from './modules/articles';
+import { wildlifeI18n } from './modules/wildlife';
+import { telemedI18n } from './modules/telemed';
 
 export const tr = {
   common: {
@@ -783,6 +787,10 @@ export const tr = {
   courses: coursesI18n.tr,
   tracks: tracksI18n.tr,
   weather: weatherI18n.tr,
+  countries: countriesI18n.tr,
+  articles: articlesI18n.tr,
+  wildlife: wildlifeI18n.tr,
+  telemed: telemedI18n.tr,
 };
 
 export type Translations = typeof tr;

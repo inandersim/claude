@@ -93,6 +93,10 @@ import { createSocialRepository } from './repos/social';
 import { createVisionRepository } from './repos/vision';
 import { createTrackRepository } from './repos/tracks';
 import { createWeatherRepository } from './repos/weather';
+import { createArticleRepository } from './repos/articles';
+import { createCountryRepository } from './repos/countries';
+import { createTelemedRepository } from './repos/telemed';
+import { createWildlifeRepository } from './repos/wildlife';
 import { CURRENT_USER_ID } from './seed';
 
 interface Options {
@@ -1509,6 +1513,10 @@ export function createMockProvider(options: Options = {}): DataProvider {
     courses: atBoundary(createCourseRepository(ctx)),
     tracks: atBoundary(createTrackRepository(ctx)),
     weather: atBoundary(createWeatherRepository(ctx)),
+    countries: atBoundary(createCountryRepository(ctx)),
+    articles: atBoundary(createArticleRepository(ctx)),
+    wildlife: atBoundary(createWildlifeRepository(ctx)),
+    telemed: atBoundary(createTelemedRepository(ctx)),
     reset: () => db.reset(),
   };
 }

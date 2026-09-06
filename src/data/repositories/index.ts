@@ -137,6 +137,31 @@ import type {
   TrackFilter,
   WeatherForecast,
   AvalancheBulletin,
+  CountryGuide,
+  CountryChecklist,
+  WriterProfile,
+  WriterWithUser,
+  Article,
+  ArticleWithAuthor,
+  ArticleComment,
+  CreateArticleInput,
+  ArticleFilter,
+  Species,
+  SpeciesFilter,
+  SpeciesIdentification,
+  WildlifeQuestion,
+  WildlifeQuestionWithDetails,
+  WildlifeAnswer,
+  DeterrentProfile,
+  DeterrentEvent,
+  DeterrentAnimal,
+  DeterrentSound,
+  DoctorWithUser,
+  DoctorSpecialty,
+  Consultation,
+  ConsultationWithDetails,
+  ConsultMessage,
+  RequestConsultInput,
 } from '@/domain';
 
 /**
@@ -562,6 +587,119 @@ export interface WeatherRepository {
   avalanche(coords: GeoPoint): Promise<AvalancheBulletin | null>;
 }
 
+/* ------------------------------------------------------------------ */
+/* v1.5 — Ülke rehberi, yazarlar, canlı tanımlama, tele-tıp            */
+/* ------------------------------------------------------------------ */
+
+export interface CountryRepository {
+  list(query?: string | null): Promise<CountryGuide[]>;
+  getByCode(code: string): Promise<CountryGuide | null>;
+  checklist(meId: ID, code: string): Promise<CountryChecklist>;
+  toggleDocument(meId: ID, code: string, key: string): Promise<CountryChecklist>;
+  setTripDate(meId: ID, code: string, date: ISODate | null): Promise<CountryChecklist>;
+}
+
+export interface ArticleRepository {
+  list(meId: ID, filter: ArticleFilter): Promise<ArticleWithAuthor[]>;
+  getBySlug(meId: ID, slug: string): Promise<ArticleWithAuthor | null>;
+  writers(meId: ID, query?: string | null): Promise<WriterWithUser[]>;
+  writer(meId: ID, userId: ID): Promise<WriterWithUser | null>;
+  myWriterProfile(meId: ID): Promise<WriterProfile | null>;
+  applyWriter(
+    meId: ID,
+    input: Pick<WriterProfile, 'penName' | 'bio' | 'languages' | 'topics' | 'website'>,
+  ): Promise<WriterProfile>;
+  create(meId: ID, input: CreateArticleInput): Promise<ArticleWithAuthor>;
+  update(meId: ID, articleId: ID, input: Partial<CreateArticleInput>): Promise<ArticleWithAuthor>;
+  toggleLike(meId: ID, articleId: ID): Promise<ArticleWithAuthor>;
+  toggleSave(meId: ID, articleId: ID): Promise<ArticleWithAuthor>;
+  toggleFollowWriter(meId: ID, userId: ID): Promise<WriterWithUser>;
+  comments(articleId: ID): Promise<(ArticleComment & { author: User })[]>;
+  addComment(meId: ID, articleId: ID, content: string): Promise<ArticleComment & { author: User }>;
+  saved(meId: ID): Promise<ArticleWithAuthor[]>;
+  mine(meId: ID): Promise<Article[]>;
+}
+
+export interface WildlifeRepository {
+  species(filter: SpeciesFilter): Promise<Species[]>;
+  speciesById(id: ID): Promise<Species | null>;
+  identify(
+    meId: ID,
+    input: {
+      imageUri: string | null;
+      imageBase64: string | null;
+      description: string;
+      coords: GeoPoint | null;
+      locale: string;
+    },
+  ): Promise<SpeciesIdentification>;
+  identifications(meId: ID): Promise<SpeciesIdentification[]>;
+  questions(
+    meId: ID,
+    filter?: {
+      status?: WildlifeQuestion['status'] | null;
+      urgentOnly?: boolean;
+      mineOnly?: boolean;
+    },
+  ): Promise<WildlifeQuestionWithDetails[]>;
+  question(meId: ID, id: ID): Promise<WildlifeQuestionWithDetails | null>;
+  ask(
+    meId: ID,
+    input: Omit<
+      WildlifeQuestion,
+      'id' | 'authorId' | 'status' | 'answersCount' | 'acceptedAnswerId' | 'createdAt'
+    >,
+  ): Promise<WildlifeQuestionWithDetails>;
+  answer(
+    meId: ID,
+    questionId: ID,
+    body: string,
+    speciesId?: ID | null,
+  ): Promise<WildlifeQuestionWithDetails>;
+  upvote(meId: ID, answerId: ID): Promise<WildlifeAnswer>;
+  accept(meId: ID, questionId: ID, answerId: ID): Promise<WildlifeQuestionWithDetails>;
+  deterrents(): Promise<DeterrentProfile[]>;
+  deterrent(animal: DeterrentAnimal): Promise<DeterrentProfile>;
+  logDeterrent(
+    meId: ID,
+    animal: DeterrentAnimal,
+    sound: DeterrentSound,
+    coords: GeoPoint | null,
+    durationS: number,
+  ): Promise<DeterrentEvent>;
+  /** Çevrimiçi ve soru yanıtlayabilecek kullanıcı sayısı (mock presence) */
+  onlineHelpers(): Promise<{ count: number; experts: User[] }>;
+}
+
+export interface TelemedRepository {
+  doctors(specialty?: DoctorSpecialty | null, onlineOnly?: boolean): Promise<DoctorWithUser[]>;
+  doctor(id: ID): Promise<DoctorWithUser | null>;
+  request(meId: ID, input: RequestConsultInput): Promise<ConsultationWithDetails>;
+  consultation(meId: ID, id: ID): Promise<ConsultationWithDetails | null>;
+  myConsultations(meId: ID): Promise<ConsultationWithDetails[]>;
+  send(
+    meId: ID,
+    consultationId: ID,
+    content: string,
+    imageUri?: string | null,
+  ): Promise<ConsultMessage & { sender: User }>;
+  end(meId: ID, consultationId: ID, summary?: string | null): Promise<ConsultationWithDetails>;
+  cancel(meId: ID, consultationId: ID): Promise<void>;
+  /** Doktor tarafı (demo): bekleyen talepleri kabul */
+  accept(doctorUserId: ID, consultationId: ID): Promise<ConsultationWithDetails>;
+  /** AI ön triyaj: şikâyetten aciliyet + adımlar (yerel kural tabanlı; gateway varsa uzaktan) */
+  triage(input: {
+    complaint: string;
+    speciesId?: ID | null;
+    locale: string;
+  }): Promise<{
+    urgency: Consultation['urgency'];
+    steps: string[];
+    firstAidSlug: string | null;
+    callEmergency: boolean;
+  }>;
+}
+
 export interface DataProvider {
   auth: AuthRepository;
   users: UserRepository;
@@ -594,6 +732,10 @@ export interface DataProvider {
   courses: CourseRepository;
   tracks: TrackRepository;
   weather: WeatherRepository;
+  countries: CountryRepository;
+  articles: ArticleRepository;
+  wildlife: WildlifeRepository;
+  telemed: TelemedRepository;
   /** Demo verilerini sıfırlar (yalnızca mock sağlayıcı için anlamlı) */
   reset(): Promise<void>;
 }

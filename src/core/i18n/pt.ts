@@ -14,6 +14,10 @@ import { groupsI18n } from './modules/groups';
 import { coursesI18n } from './modules/courses';
 import { tracksI18n } from './modules/tracks';
 import { weatherI18n } from './modules/weather';
+import { countriesI18n } from './modules/countries';
+import { articlesI18n } from './modules/articles';
+import { wildlifeI18n } from './modules/wildlife';
+import { telemedI18n } from './modules/telemed';
 import type { Translations } from './tr';
 
 export const pt: Translations = {
@@ -790,4 +794,8 @@ export const pt: Translations = {
   courses: coursesI18n.pt,
   tracks: tracksI18n.pt,
   weather: weatherI18n.pt,
+  countries: countriesI18n.pt,
+  articles: articlesI18n.pt,
+  wildlife: wildlifeI18n.pt,
+  telemed: telemedI18n.pt,
 };

@@ -13,6 +13,10 @@ import { groupsI18n } from './modules/groups';
 import { coursesI18n } from './modules/courses';
 import { tracksI18n } from './modules/tracks';
 import { weatherI18n } from './modules/weather';
+import { countriesI18n } from './modules/countries';
+import { articlesI18n } from './modules/articles';
+import { wildlifeI18n } from './modules/wildlife';
+import { telemedI18n } from './modules/telemed';
 import type { Translations } from './tr';
 
 export const it: Translations = {
@@ -792,4 +796,8 @@ export const it: Translations = {
   courses: coursesI18n.it,
   tracks: tracksI18n.it,
   weather: weatherI18n.it,
+  countries: countriesI18n.it,
+  articles: articlesI18n.it,
+  wildlife: wildlifeI18n.it,
+  telemed: telemedI18n.it,
 };

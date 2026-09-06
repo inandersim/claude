@@ -764,3 +764,86 @@ export type NavManeuver = (typeof NAV_MANEUVERS)[number];
 
 export const AVALANCHE_LEVELS = [1, 2, 3, 4, 5] as const;
 export type AvalancheLevel = (typeof AVALANCHE_LEVELS)[number];
+
+/* ------------------------------------------------------------------ */
+/* v1.5 — Ülke rehberi, yazarlar, canlı tanımlama, tele-tıp            */
+/* ------------------------------------------------------------------ */
+
+export const VISA_TYPES = ['visa_free', 'e_visa', 'on_arrival', 'embassy', 'banned'] as const;
+export type VisaType = (typeof VISA_TYPES)[number];
+
+export const ARTICLE_STATUSES = ['draft', 'published', 'featured'] as const;
+export type ArticleStatus = (typeof ARTICLE_STATUSES)[number];
+
+export const ARTICLE_CATEGORIES = [
+  'trip_report',
+  'guide',
+  'gear',
+  'safety',
+  'culture',
+  'photography',
+  'opinion',
+] as const;
+export type ArticleCategory = (typeof ARTICLE_CATEGORIES)[number];
+
+export const SPECIES_GROUPS = [
+  'snake',
+  'mammal',
+  'insect',
+  'arachnid',
+  'marine',
+  'bird',
+  'plant',
+  'fungus',
+] as const;
+export type SpeciesGroup = (typeof SPECIES_GROUPS)[number];
+
+export const DANGER_LEVELS = ['harmless', 'caution', 'dangerous', 'deadly'] as const;
+export type DangerLevel = (typeof DANGER_LEVELS)[number];
+
+export const DETERRENT_ANIMALS = [
+  'bear',
+  'wolf',
+  'boar',
+  'dog',
+  'snake',
+  'jackal',
+  'monkey',
+  'elephant',
+  'big_cat',
+] as const;
+export type DeterrentAnimal = (typeof DETERRENT_ANIMALS)[number];
+
+export const DETERRENT_SOUNDS = [
+  'air_horn',
+  'siren',
+  'whistle',
+  'shout',
+  'clap',
+  'metal_clang',
+  'ultrasonic',
+  'stomp',
+] as const;
+export type DeterrentSound = (typeof DETERRENT_SOUNDS)[number];
+
+export const QUESTION_STATUSES = ['open', 'answered', 'resolved'] as const;
+export type QuestionStatus = (typeof QUESTION_STATUSES)[number];
+
+export const DOCTOR_SPECIALTIES = [
+  'emergency',
+  'toxicology',
+  'wilderness',
+  'orthopedics',
+  'dermatology',
+  'general',
+  'pediatrics',
+  'dive_medicine',
+  'altitude_medicine',
+] as const;
+export type DoctorSpecialty = (typeof DOCTOR_SPECIALTIES)[number];
+
+export const CONSULT_STATUSES = ['requested', 'active', 'completed', 'cancelled'] as const;
+export type ConsultStatus = (typeof CONSULT_STATUSES)[number];
+
+export const CONSULT_URGENCIES = ['low', 'medium', 'high', 'critical'] as const;
+export type ConsultUrgency = (typeof CONSULT_URGENCIES)[number];

@@ -7,6 +7,8 @@ import type {
   GroupFilter,
   SocialFilter,
   TrackFilter,
+  ArticleFilter,
+  SpeciesFilter,
   ClubFilter,
   ISODate,
   LeaderboardScope,
@@ -281,5 +283,41 @@ export const queryKeys = {
       ['weather', 'forecast', coords.latitude.toFixed(2), coords.longitude.toFixed(2)] as const,
     avalanche: (coords: GeoPoint) =>
       ['weather', 'avalanche', coords.latitude.toFixed(1), coords.longitude.toFixed(1)] as const,
+  },
+  /* v1.5 */
+  countries: {
+    all: ['countries'] as const,
+    list: (query: string | null) => ['countries', 'list', query] as const,
+    detail: (code: string) => ['countries', 'detail', code] as const,
+    checklist: (meId: ID, code: string) => ['countries', 'checklist', meId, code] as const,
+  },
+  articles: {
+    all: ['articles'] as const,
+    list: (meId: ID, filter: ArticleFilter) => ['articles', 'list', meId, filter] as const,
+    detail: (meId: ID, slug: string) => ['articles', 'detail', meId, slug] as const,
+    writers: (meId: ID, query: string | null) => ['articles', 'writers', meId, query] as const,
+    writer: (meId: ID, userId: ID) => ['articles', 'writer', meId, userId] as const,
+    me: (meId: ID) => ['articles', 'me', meId] as const,
+    comments: (id: ID) => ['articles', 'comments', id] as const,
+    saved: (meId: ID) => ['articles', 'saved', meId] as const,
+    mine: (meId: ID) => ['articles', 'mine', meId] as const,
+  },
+  wildlife: {
+    all: ['wildlife'] as const,
+    species: (filter: SpeciesFilter) => ['wildlife', 'species', filter] as const,
+    speciesDetail: (id: ID) => ['wildlife', 'speciesDetail', id] as const,
+    identifications: (meId: ID) => ['wildlife', 'identifications', meId] as const,
+    questions: (meId: ID, filter: unknown) => ['wildlife', 'questions', meId, filter] as const,
+    question: (meId: ID, id: ID) => ['wildlife', 'question', meId, id] as const,
+    deterrents: ['wildlife', 'deterrents'] as const,
+    online: ['wildlife', 'online'] as const,
+  },
+  telemed: {
+    all: ['telemed'] as const,
+    doctors: (specialty: string | null, onlineOnly: boolean) =>
+      ['telemed', 'doctors', specialty, onlineOnly] as const,
+    doctor: (id: ID) => ['telemed', 'doctor', id] as const,
+    consultation: (meId: ID, id: ID) => ['telemed', 'consultation', meId, id] as const,
+    mine: (meId: ID) => ['telemed', 'mine', meId] as const,
   },
 };

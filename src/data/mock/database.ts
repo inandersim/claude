@@ -2,6 +2,19 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { deepClone } from '@/core/utils/clone';
 import type {
+  Article,
+  ArticleComment,
+  ConsultMessage,
+  Consultation,
+  CountryChecklist,
+  CountryGuide,
+  DeterrentEvent,
+  Doctor,
+  Species,
+  SpeciesIdentification,
+  WildlifeAnswer,
+  WildlifeQuestion,
+  WriterProfile,
   CommunityTrail,
   Track,
   TrackPoi,
@@ -168,6 +181,24 @@ import {
   seedTrackPois,
   seedTracks,
 } from './seed.tracks';
+import {
+  seedArticleComments,
+  seedArticleLikes,
+  seedArticleSaves,
+  seedArticles,
+  seedWriterFollows,
+  seedWriters,
+} from './seed.articles';
+import { seedCountryChecklists, seedCountryGuides } from './seed.countries';
+import { seedConsultMessages, seedConsultations, seedDoctors } from './seed.telemed';
+import {
+  seedAnswerUpvotes,
+  seedDeterrentEvents,
+  seedIdentifications,
+  seedSpecies,
+  seedWildlifeAnswers,
+  seedWildlifeQuestions,
+} from './seed.wildlife';
 
 export interface Tables {
   users: User[];
@@ -256,11 +287,29 @@ export interface Tables {
   communityTrails: CommunityTrail[];
   poiConfirmations: { userId: string; poiId: string }[];
   trailVerifications: { userId: string; trailId: string }[];
+  /* v1.5 */
+  countryGuides: CountryGuide[];
+  countryChecklists: CountryChecklist[];
+  writers: WriterProfile[];
+  writerFollows: { followerId: string; writerUserId: string }[];
+  articles: Article[];
+  articleComments: ArticleComment[];
+  articleLikes: { userId: string; articleId: string }[];
+  articleSaves: { userId: string; articleId: string }[];
+  species: Species[];
+  identifications: SpeciesIdentification[];
+  wildlifeQuestions: WildlifeQuestion[];
+  wildlifeAnswers: WildlifeAnswer[];
+  answerUpvotes: { userId: string; answerId: string }[];
+  deterrentEvents: DeterrentEvent[];
+  doctors: Doctor[];
+  consultations: Consultation[];
+  consultMessages: ConsultMessage[];
   /** Oturum açmış kullanıcının kimliği (null → çıkış yapılmış) */
   sessionUserId: string | null;
 }
 
-const STORAGE_KEY = 'zirve.mockdb.v6';
+const STORAGE_KEY = 'zirve.mockdb.v7';
 
 function seedTables(): Tables {
   return {
@@ -347,6 +396,23 @@ function seedTables(): Tables {
     communityTrails: deepClone(seedCommunityTrails),
     poiConfirmations: deepClone(seedPoiConfirmations),
     trailVerifications: [],
+    countryGuides: deepClone(seedCountryGuides),
+    countryChecklists: deepClone(seedCountryChecklists),
+    writers: deepClone(seedWriters),
+    writerFollows: deepClone(seedWriterFollows),
+    articles: deepClone(seedArticles),
+    articleComments: deepClone(seedArticleComments),
+    articleLikes: deepClone(seedArticleLikes),
+    articleSaves: deepClone(seedArticleSaves),
+    species: deepClone(seedSpecies),
+    identifications: deepClone(seedIdentifications),
+    wildlifeQuestions: deepClone(seedWildlifeQuestions),
+    wildlifeAnswers: deepClone(seedWildlifeAnswers),
+    answerUpvotes: deepClone(seedAnswerUpvotes),
+    deterrentEvents: deepClone(seedDeterrentEvents),
+    doctors: deepClone(seedDoctors),
+    consultations: deepClone(seedConsultations),
+    consultMessages: deepClone(seedConsultMessages),
     sessionUserId: null,
   };
 }
@@ -382,7 +448,8 @@ export class MockDatabase {
               Array.isArray(parsed.clubs) &&
               Array.isArray(parsed.destinations) &&
               Array.isArray(parsed.groups) &&
-              Array.isArray(parsed.tracks)
+              Array.isArray(parsed.tracks) &&
+              Array.isArray(parsed.species)
             ) {
               this.tables = parsed;
               return parsed;

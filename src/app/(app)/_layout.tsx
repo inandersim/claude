@@ -171,6 +171,44 @@ export default function AppLayout() {
         options={{ presentation: 'fullScreenModal', animation: 'fade' }}
       />
       <Stack.Screen name="weather/index" />
+      {/* v1.5 */}
+      <Stack.Screen name="countries/index" />
+      <Stack.Screen name="countries/[code]" />
+      <Stack.Screen name="countries/checklist/[code]" />
+      <Stack.Screen name="articles/index" />
+      <Stack.Screen name="articles/[slug]" />
+      <Stack.Screen name="articles/writer/[userId]" />
+      <Stack.Screen name="articles/writers" />
+      <Stack.Screen
+        name="articles/write"
+        options={{ presentation: 'fullScreenModal', animation: 'slide_from_bottom' }}
+      />
+      <Stack.Screen name="articles/apply" />
+      <Stack.Screen name="articles/saved" />
+      <Stack.Screen name="wildlife/index" />
+      <Stack.Screen name="wildlife/species/[id]" />
+      <Stack.Screen
+        name="wildlife/identify"
+        options={{ presentation: 'fullScreenModal', animation: 'slide_from_bottom' }}
+      />
+      <Stack.Screen name="wildlife/questions" />
+      <Stack.Screen name="wildlife/question/[id]" />
+      <Stack.Screen
+        name="wildlife/ask"
+        options={{ presentation: 'modal', animation: 'slide_from_bottom' }}
+      />
+      <Stack.Screen
+        name="wildlife/deterrent"
+        options={{ presentation: 'fullScreenModal', animation: 'fade' }}
+      />
+      <Stack.Screen name="telemed/index" />
+      <Stack.Screen name="telemed/doctor/[id]" />
+      <Stack.Screen
+        name="telemed/request"
+        options={{ presentation: 'modal', animation: 'slide_from_bottom' }}
+      />
+      <Stack.Screen name="telemed/consult/[id]" />
+      <Stack.Screen name="telemed/history" />
     </Stack>
   );
 }
