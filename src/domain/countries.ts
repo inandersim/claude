@@ -283,10 +283,9 @@ export function daysBetween(now: Date | number | string, target: Date | number |
   return Math.ceil((b - a) / DAY_MS);
 }
 
-/** Hızlı seçim → ISO tarih (gün başına yuvarlanmış UTC). */
+/** Hızlı seçim → ISO tarih (`now` ile aynı saat; gün farkı tam sayı kalır). */
 export function tripDateFromPreset(preset: TripDatePreset, now: Date | number): ISODate {
   const d = new Date(now);
-  d.setUTCHours(12, 0, 0, 0);
   switch (preset) {
     case '2w':
       d.setUTCDate(d.getUTCDate() + 14);
@@ -379,7 +378,7 @@ export function visaSteps(guide: Pick<CountryGuide, 'visa'>): TranslationKey[] {
         'countries.steps.returnTicket',
         'countries.steps.insurance',
         'countries.steps.entryStamp',
-      ] as TranslationKey[];
+      ];
     case 'on_arrival':
       return [
         'countries.steps.passportValidity',
@@ -387,7 +386,7 @@ export function visaSteps(guide: Pick<CountryGuide, 'visa'>): TranslationKey[] {
         'countries.steps.arrivalForm',
         'countries.steps.insurance',
         'countries.steps.entryStamp',
-      ] as TranslationKey[];
+      ];
     case 'e_visa':
       return [
         'countries.steps.passportValidity',
@@ -396,7 +395,7 @@ export function visaSteps(guide: Pick<CountryGuide, 'visa'>): TranslationKey[] {
         'countries.steps.payFee',
         'countries.steps.printApproval',
         'countries.steps.insurance',
-      ] as TranslationKey[];
+      ];
     case 'embassy':
       return [
         'countries.steps.passportValidity',
@@ -405,9 +404,9 @@ export function visaSteps(guide: Pick<CountryGuide, 'visa'>): TranslationKey[] {
         'countries.steps.biometrics',
         'countries.steps.waitDecision',
         'countries.steps.insurance',
-      ] as TranslationKey[];
+      ];
     case 'banned':
-      return ['countries.steps.contactMinistry'] as TranslationKey[];
+      return ['countries.steps.contactMinistry'];
     default:
       return [];
   }
@@ -428,4 +427,25 @@ export function bestMonthsLabel(months: number[], locale = 'tr'): string {
 export function sourceHost(url: string): string {
   const match = /^https?:\/\/([^/]+)/i.exec(url);
   return match?.[1]?.replace(/^www\./, '') ?? url;
+}
+
+/* ------------------------------------------------------------------ */
+/* Yasa rozetleri                                                      */
+/* ------------------------------------------------------------------ */
+
+export type LawTone = 'allowed' | 'restricted' | 'banned';
+
+/** Serbest metinden kaba sinyal: "yasak" → banned, "izin/kayıt/kısıt" → restricted, aksi → allowed. */
+export function lawTone(text: string): LawTone {
+  const t = normalizeCountryText(text);
+  if (/\b(tam(amen)? yasak|kesin(likle)? yasak|yasak seviyesinde|fiilen yasak|calismaz)\b/.test(t))
+    return 'banned';
+  if (/\byasak\b/.test(t) && !/\b(serbest|tolere|yasal)\b/.test(t)) return 'banned';
+  if (/\b(izin|kayit|kisit|lisans|sinirli|tolere|belirlenmis)\b/.test(t)) return 'restricted';
+  return 'allowed';
+}
+
+/** Kamp ile ilgili yasa maddesi (yoksa `null`). */
+export function campingLaw(guide: Pick<CountryGuide, 'laws'>): string | null {
+  return guide.laws.find((l) => /kamp|bivak|allemannsretten/i.test(l)) ?? null;
 }
