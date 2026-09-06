@@ -714,7 +714,9 @@ export function localIdentify(
     return { species: s, score };
   });
 
-  const positives = scored.filter((x) => x.score > 0).sort((a, b) => b.score - a.score);
+  const positives = folded
+    ? scored.filter((x) => x.score > 0).sort((a, b) => b.score - a.score)
+    : [];
   let picked = positives.slice(0, IDENTIFY_MAX_CANDIDATES);
   if (picked.length === 0) {
     // Hiç ipucu yoksa: ülkedeki (ya da tümündeki) en tehlikeli türleri düşük güvenle öner
@@ -869,8 +871,8 @@ export function encounterAdvice(species: Species): string[] {
   steps.push(...species.encounterDo);
   for (const generic of GROUP_GENERIC_DO[species.group])
     if (!steps.includes(generic)) steps.push(generic);
-  if (species.firstAidSlug) steps.push('Isırık/sokma/temas olduysa ilk yardım rehberini aç.');
-  return steps.slice(0, 8);
+  if (!species.firstAidSlug) return steps.slice(0, 8);
+  return [...steps.slice(0, 7), 'Isırık/sokma/temas olduysa ilk yardım rehberini aç.'];
 }
 
 export type QuestionUrgency = 'none' | 'watch' | 'urgent';
@@ -1065,12 +1067,12 @@ export const DETERRENT_PROFILES: DeterrentProfile[] = [
     animal: 'dog',
     sounds: [
       { sound: 'shout', effectiveness: 0.7, note: 'Sert, düşük tonlu "Hayır!" komutu.' },
+      { sound: 'air_horn', effectiveness: 0.55, note: 'Sürü köpeklerini duraklatır.' },
       {
         sound: 'ultrasonic',
         effectiveness: 0.5,
         note: '20 kHz köpek kulağını rahatsız eder; telefon hoparlörü sınırlıdır.',
       },
-      { sound: 'air_horn', effectiveness: 0.55, note: 'Sürü köpeklerini duraklatır.' },
       { sound: 'whistle', effectiveness: 0.35, note: 'Düdük dikkat dağıtır.' },
     ],
     behaviorDo: [

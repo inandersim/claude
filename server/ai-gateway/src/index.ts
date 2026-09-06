@@ -9,6 +9,7 @@ import {
   type GatewayContext,
 } from './prompt.js';
 import { executeTool, tools } from './tools.js';
+import { handleSpecies } from './species.js';
 import { handleVision } from './vision.js';
 
 /* ------------------------------------------------------------------ */
@@ -364,7 +365,8 @@ const server = createServer(async (req, res) => {
       req.method === 'POST' &&
       (url.pathname === '/v1/chat' ||
         url.pathname === '/v1/plan-trip' ||
-        url.pathname === '/v1/vision')
+        url.pathname === '/v1/vision' ||
+        url.pathname === '/v1/species')
     ) {
       const subject = authenticate(req);
       rateLimit(subject);
@@ -372,6 +374,14 @@ const server = createServer(async (req, res) => {
       else if (url.pathname === '/v1/vision')
         // Görüntü analizi: kendi gövde sınırı (8 MB) ve JSON şeması vision.ts içinde.
         await handleVision(req, res, {
+          client,
+          model: MODEL,
+          fail: (status, message) => new HttpError(status, message),
+          sendJson,
+        });
+      else if (url.pathname === '/v1/species')
+        // Tür tanımlama: görüntü isteğe bağlı; JSON şeması species.ts içinde.
+        await handleSpecies(req, res, {
           client,
           model: MODEL,
           fail: (status, message) => new HttpError(status, message),

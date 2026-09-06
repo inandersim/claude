@@ -87,7 +87,8 @@ const tr = {
     source: { remote: 'Model tahmini', local: 'Çevrimdışı tahmin' },
     advice: 'Tavsiye',
     dangerAlert: 'Tehlikeli tür olasılığı',
-    dangerAlertBody: 'Adaylar arasında tehlikeli ya da ölümcül tür var. Mesafeni koru; ısırık/sokma varsa doktor.',
+    dangerAlertBody:
+      'Adaylar arasında tehlikeli ya da ölümcül tür var. Mesafeni koru; ısırık/sokma varsa doktor.',
     panic: 'Acil tepki',
     askCommunity: 'Topluluğa sor',
     openSpecies: 'Tür sayfası',
@@ -215,7 +216,8 @@ const tr = {
     vibrate: 'Titreşim',
     volumeHint: 'Ses seviyesini sonuna kadar aç; telefonu hayvana doğru tut.',
     noteSnake: 'Yılan havadan ses duymaz: yere vur, titreşim yay, mesafe koy.',
-    noteLimited: 'Ultrasonik ses telefon hoparlöründe sınırlıdır; alternatif sesle birlikte kullan.',
+    noteLimited:
+      'Ultrasonik ses telefon hoparlöründe sınırlıdır; alternatif sesle birlikte kullan.',
     noteGeneral: 'Ses ilk uyarıdır; asıl koruma mesafe ve doğru davranıştır.',
     webNote: 'Web’de yalnızca ses çalınır; titreşim ve fener yoktur.',
     logged: 'Olay kaydedildi ({{seconds}} sn)',
@@ -237,7 +239,8 @@ const en: WildlifeI18nShape = {
   firstAid: 'First aid guide',
   doctor: 'Online doctor',
   sos: 'Satellite SOS',
-  evidence: 'Scientific evidence is limited; sound is no guarantee — distance and behaviour matter most.',
+  evidence:
+    'Scientific evidence is limited; sound is no guarantee — distance and behaviour matter most.',
   search: 'Search species, Latin name or symptom',
   filters: {
     all: 'All',
@@ -296,7 +299,8 @@ const en: WildlifeI18nShape = {
     notFound: 'Species not found',
     error: 'Could not load species',
     dangerNote: 'Dangerous species: keep your distance, do not touch or approach.',
-    deadlyNote: 'Deadly species: do not approach; call emergency services after any bite/sting/ingestion.',
+    deadlyNote:
+      'Deadly species: do not approach; call emergency services after any bite/sting/ingestion.',
     steps: 'Encounter steps',
   },
   identify: {
@@ -317,7 +321,8 @@ const en: WildlifeI18nShape = {
     source: { remote: 'Model estimate', local: 'Offline estimate' },
     advice: 'Advice',
     dangerAlert: 'Possible dangerous species',
-    dangerAlertBody: 'A dangerous or deadly species is among the candidates. Keep your distance; see a doctor after any bite/sting.',
+    dangerAlertBody:
+      'A dangerous or deadly species is among the candidates. Keep your distance; see a doctor after any bite/sting.',
     panic: 'Emergency response',
     askCommunity: 'Ask the community',
     openSpecies: 'Species page',
@@ -372,7 +377,8 @@ const en: WildlifeI18nShape = {
     upvoteError: 'Could not upvote',
     expert: 'Expert',
     byAuthor: 'Asker',
-    urgentBanner: 'Urgent question: for a bite/sting call emergency services and use first aid first.',
+    urgentBanner:
+      'Urgent question: for a bite/sting call emergency services and use first aid first.',
     refreshing: 'Live — refreshes every 5 s',
   },
   ask: {
