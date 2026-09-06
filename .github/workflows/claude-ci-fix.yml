@@ -1,0 +1,72 @@
+# CI kırmızıya dönünce (main dışı, aynı depodaki dallarda) Claude'u çağırıp kök nedeni düzelttirir.
+# Not: GITHUB_TOKEN ile yapılan push CI'yı yeniden tetiklemez; CLAUDE_GH_TOKEN (PAT/App token)
+# tanımlıysa o kullanılır ve düzeltme commit'i yeni bir CI koşusu başlatır. Döngüyü önlemek için
+# Claude'un kendi commit'lerinde tekrar çalışmaz (bot yazarı kontrolü).
+name: Claude CI fix
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches:
+      - 'claude/**'
+      - 'feat/**'
+      - 'fix/**'
+      - 'chore/**'
+      - 'health/**'
+
+concurrency:
+  group: claude-ci-fix-${{ github.event.workflow_run.head_branch }}
+  cancel-in-progress: true
+
+jobs:
+  fix:
+    if: |
+      github.event.workflow_run.conclusion == 'failure' &&
+      github.event.workflow_run.head_branch != 'main' &&
+      github.event.workflow_run.head_repository.full_name == github.repository &&
+      !contains(github.event.workflow_run.head_commit.author.name, 'claude') &&
+      !contains(github.event.workflow_run.head_commit.message, '[skip claude]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      id-token: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_branch }}
+          fetch-depth: 0
+          token: ${{ secrets.CLAUDE_GH_TOKEN || secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Claude — CI hatasını kökten düzelt
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.CLAUDE_GH_TOKEN || secrets.GITHUB_TOKEN }}
+          additional_permissions: |
+            actions: read
+          prompt: |
+            Depo: ${{ github.repository }} · Dal: ${{ github.event.workflow_run.head_branch }} · Başarısız CI koşusu: ${{ github.event.workflow_run.html_url }} (run id ${{ github.event.workflow_run.id }}).
+
+            Görev: `.claude/agents/steward.md` talimatlarına göre CI hatasını **kök nedenden** düzelt.
+            1. Hatayı yerelde yeniden üret: `npm run lint -- --max-warnings=0`, `npm run typecheck`, `npm test -- --ci`, `npm run test:pipeline`. Gerekirse `gh run view ${{ github.event.workflow_run.id }} --log-failed` ile günlüğü oku.
+            2. Belirtiyi değil nedeni düzelt. Test atlama (`it.skip`, `xit`, `--passWithNoTests`), `@ts-ignore`, `eslint-disable` ya da test beklentisini yumuşatma YASAK. Bir test yanlış beklentiye sahipse gerekçesini PR yorumunda açıkla.
+            3. `npm run lint && npm run typecheck && npm test` tamamı geçmeden bitirme; dokunduğun dosyaları `npx prettier --write` ile biçimlendir.
+            4. Yalnızca değiştirdiğin dosyaları `git add` ile ekle, Türkçe conventional commit mesajıyla (`fix(scope): …`) bu dala commit at ve `git push` yap. main dalına asla push etme.
+            5. Dal için açık bir PR varsa (`gh pr list --head ${{ github.event.workflow_run.head_branch }}`), kök neden ve düzeltmeyi 5 satırı geçmeyen bir yorumla özetle. PR yoksa yorum yazma.
+            Düzeltemiyorsan hiçbir şey commit etme; nedenini PR yorumunda (PR varsa) açıkla.
+          claude_args: |
+            --max-turns 50
+            --allowedTools "Read,Edit,Write,Grep,Glob,Bash(npm run lint*),Bash(npm run typecheck),Bash(npm test*),Bash(npm run test:pipeline),Bash(npx prettier*),Bash(npx tsc*),Bash(npx eslint*),Bash(npx jest*),Bash(npx expo export*),Bash(node agents/devops/*),Bash(git add*),Bash(git commit*),Bash(git push*),Bash(git status*),Bash(git diff*),Bash(git log*),Bash(gh run view*),Bash(gh pr list*),Bash(gh pr comment*)"

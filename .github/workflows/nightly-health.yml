@@ -1,0 +1,155 @@
+# Gece sağlık taraması: lint/typecheck/test/pipeline/i18n + expo-doctor + npm audit + Playwright UX turu.
+# Rapor docs/health/<tarih>.md dosyasına yazılır ve health/<tarih> dalında PR açılır.
+# Sorun varsa Claude aynı dalda kök neden analizi ve düşük riskli düzeltme yapar (maliyet: yalnızca sorun varsa çalışır).
+name: Nightly health
+
+on:
+  schedule:
+    - cron: '0 3 * * *' # her gün 03:00 UTC
+  workflow_dispatch:
+    inputs:
+      run_claude:
+        description: 'Sorun olmasa da Claude analiz adımını çalıştır'
+        type: boolean
+        default: false
+
+concurrency:
+  group: nightly-health
+  cancel-in-progress: true
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      id-token: write
+      actions: read
+    env:
+      GH_TOKEN: ${{ secrets.CLAUDE_GH_TOKEN || secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.CLAUDE_GH_TOKEN || secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Sağlık taraması (lint · typecheck · test · pipeline · i18n · expo-doctor · audit)
+        id: health
+        continue-on-error: true
+        run: node agents/devops/health.mjs --out docs/health
+
+      - name: Bağımlılık uyumu (expo install --check)
+        continue-on-error: true
+        run: npx expo install --check
+
+      - name: Playwright kurulumu
+        id: pw
+        continue-on-error: true
+        run: |
+          npm i --no-save playwright@1
+          npx playwright install --with-deps chromium
+
+      - name: Web sunucusunu başlat (expo start --web, CI modu)
+        if: steps.pw.outcome == 'success'
+        continue-on-error: true
+        run: |
+          CI=1 nohup npx expo start --web --port 8081 > /tmp/expo-web.log 2>&1 &
+          echo $! > /tmp/expo-web.pid
+          for i in $(seq 1 90); do
+            if curl -sf http://localhost:8081 >/dev/null; then echo "hazır ($i)"; exit 0; fi
+            sleep 2
+          done
+          echo "web sunucusu 180 sn içinde yanıt vermedi"; tail -n 50 /tmp/expo-web.log; exit 1
+
+      - name: UX turu (Playwright)
+        id: ux
+        if: steps.pw.outcome == 'success'
+        continue-on-error: true
+        run: node tools/ux-audit/drive.js
+        env:
+          OUT: tools/ux-audit/out
+
+      - name: Web sunucusunu durdur
+        if: always()
+        continue-on-error: true
+        run: |
+          [ -f /tmp/expo-web.pid ] && kill "$(cat /tmp/expo-web.pid)" 2>/dev/null || true
+          pkill -f "expo start" 2>/dev/null || true
+
+      - name: UX raporunu docs/health altına kopyala
+        if: always()
+        continue-on-error: true
+        run: |
+          if [ -f tools/ux-audit/out/report.md ]; then
+            cp tools/ux-audit/out/report.md "docs/health/$(date -u +%F)-ux.md"
+          fi
+
+      - name: Artefaktlar (rapor + ekran görüntüleri)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: health-${{ github.run_id }}
+          path: |
+            docs/health/
+            tools/ux-audit/out/
+          retention-days: 14
+          if-no-files-found: ignore
+
+      - name: Rapor dalı ve PR
+        id: pr
+        if: always()
+        run: |
+          set -e
+          DATE=$(date -u +%F)
+          BRANCH="health/$DATE"
+          git config user.name "zirve-health-bot"
+          git config user.email "health-bot@users.noreply.github.com"
+          npx prettier --write "docs/health/*.md" >/dev/null 2>&1 || true
+          git checkout -B "$BRANCH"
+          git add docs/health
+          if git diff --cached --quiet; then
+            echo "değişiklik yok"; echo "created=false" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          git commit -m "chore(health): $DATE sağlık raporu [skip claude]"
+          git push -f origin "$BRANCH"
+          STATUS="${{ steps.health.outcome }}"; UX="${{ steps.ux.outcome }}"
+          BODY="Gece sağlık taraması: sağlık adımı **$STATUS**, UX turu **${UX:-atlandı}**. Rapor: \`docs/health/$DATE.md\`. Artefakt: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          if gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number' | grep -q .; then
+            gh pr comment "$BRANCH" --body "$BODY"
+          else
+            gh pr create --head "$BRANCH" --base "${{ github.event.repository.default_branch }}" \
+              --title "chore(health): $DATE sağlık raporu" --body "$BODY" --label health || \
+            gh pr create --head "$BRANCH" --base "${{ github.event.repository.default_branch }}" \
+              --title "chore(health): $DATE sağlık raporu" --body "$BODY"
+          fi
+          echo "created=true" >> "$GITHUB_OUTPUT"
+          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+
+      - name: Claude — bulguları analiz et ve düşük riskli düzeltmeleri uygula
+        if: always() && steps.pr.outputs.created == 'true' && (steps.health.outcome == 'failure' || steps.ux.outcome == 'failure' || inputs.run_claude == true)
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.CLAUDE_GH_TOKEN || secrets.GITHUB_TOKEN }}
+          additional_permissions: |
+            actions: read
+          prompt: |
+            Dal `${{ steps.pr.outputs.branch }}` üzerindesin; bugünkü sağlık raporu `docs/health/` altında (`latest.json` makine okunur, `<tarih>.md` ve varsa `<tarih>-ux.md`). Sağlık adımı: ${{ steps.health.outcome }}, UX turu: ${{ steps.ux.outcome }}.
+            `.claude/agents/infra-doctor.md` talimatlarına göre:
+            1. Raporun "Bulgular" bölümünü kök neden, önem ve önerilen düzeltmelerle doldur (Metro/Hermes/React Compiler tuzak grep'lerini de çalıştır).
+            2. Yalnızca düşük riskli düzeltmeleri uygula (lint/typecheck/i18n/yer tutucu/kırık betik). Majör sürüm yükseltme, native modül ve `src/domain` davranış değişikliği YAPMA; raporda öner. Test atlama/yumuşatma yasak.
+            3. Düzeltme yaptıysan `npm run lint && npm run typecheck && npm test` geçmeli; `npx prettier --write` uygula.
+            4. Değişiklikleri Türkçe conventional commit ile bu dala at ve push et; PR'a 5 satırlık özet yorumu yaz (`gh pr comment ${{ steps.pr.outputs.branch }}`). main dalına asla push etme.
+          claude_args: |
+            --max-turns 40
+            --allowedTools "Read,Edit,Write,Grep,Glob,Bash(npm run lint*),Bash(npm run typecheck),Bash(npm test*),Bash(npm run test:pipeline),Bash(npx prettier*),Bash(npx tsc*),Bash(npx eslint*),Bash(npx jest*),Bash(npx expo install --check),Bash(node agents/devops/*),Bash(grep*),Bash(git add*),Bash(git commit*),Bash(git push*),Bash(git status*),Bash(git diff*),Bash(git log*),Bash(gh pr comment*),Bash(gh pr list*)"

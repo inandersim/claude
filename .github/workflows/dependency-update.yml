@@ -1,0 +1,74 @@
+# Haftalık bağımlılık raporu: expo install --check + npm outdated + npm audit → tek bir açık issue
+# (varsa güncellenir, yoksa açılır). Claude gerekmez; ücretsiz Actions dakikası dışında maliyeti yok.
+name: Dependency report
+
+on:
+  schedule:
+    - cron: '0 6 * * 1' # Pazartesi 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Raporu oluştur
+        id: report
+        run: |
+          set +e
+          DATE=$(date -u +%F)
+          {
+            echo "# Bağımlılık raporu — $DATE"
+            echo
+            echo "Otomatik haftalık rapor (\`.github/workflows/dependency-update.yml\`). Güncelleme için: \`npx expo install --fix\` (Expo paketleri) ve \`npm update\`; sonra \`npm run lint && npm run typecheck && npm test\`."
+            echo
+            echo "## expo install --check"
+            echo
+            echo '```text'
+            npx expo install --check 2>&1 | tail -n 60
+            echo '```'
+            echo
+            echo "## npm outdated"
+            echo
+            echo '```text'
+            npm outdated 2>&1 | head -n 80
+            echo '```'
+            echo
+            echo "## npm audit --omit=dev"
+            echo
+            echo '```text'
+            npm audit --omit=dev 2>&1 | tail -n 40
+            echo '```'
+            echo
+            echo "_Bu issue her hafta üzerine yazılır. Ele almak için bir PR açın ve yorumda \`@claude\` ile Claude'dan yardım isteyin._"
+          } > /tmp/dependency-report.md
+          echo "date=$DATE" >> "$GITHUB_OUTPUT"
+
+      - name: Issue aç / güncelle
+        run: |
+          set -e
+          TITLE="Bağımlılık raporu (haftalık)"
+          gh label create dependencies --description "Bağımlılık güncellemeleri" --color 0366d6 2>/dev/null || true
+          NUMBER=$(gh issue list --label dependencies --state open --search "\"$TITLE\" in:title" --json number --jq '.[0].number')
+          if [ -n "$NUMBER" ]; then
+            gh issue edit "$NUMBER" --body-file /tmp/dependency-report.md
+            gh issue comment "$NUMBER" --body "Rapor ${{ steps.report.outputs.date }} tarihinde güncellendi."
+          else
+            gh issue create --title "$TITLE" --label dependencies --body-file /tmp/dependency-report.md
+          fi

@@ -17,7 +17,12 @@
     "doctor": "npx expo-doctor",
     "icons": "node scripts/generate-icons.js",
     "test:pipeline": "node --test tools/data-pipeline/test/*.test.js",
-    "data": "node tools/data-pipeline/cli.js"
+    "data": "node tools/data-pipeline/cli.js",
+    "health": "node agents/devops/health.mjs",
+    "i18n:check": "node agents/devops/i18n-check.mjs",
+    "release-notes": "node agents/devops/release-notes.mjs",
+    "bundle-size": "node agents/devops/bundle-size.mjs",
+    "ux-audit": "node tools/ux-audit/drive.js"
   },
   "dependencies": {
     "@expo-google-fonts/manrope": "^0.4.2",
