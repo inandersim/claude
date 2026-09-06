@@ -7,9 +7,11 @@ import { rescue_ru } from './locales/ru/rescue';
 import { rescue_it } from './locales/it/rescue';
 import { rescue_zh } from './locales/zh/rescue';
 import { rescue_hi } from './locales/hi/rescue';
+import { rescue_ne } from './locales/ne/rescue';
 import { localeSet } from './shared';
 import { rescue_ja } from './locales/ja/rescue';
 import { rescue_ko } from './locales/ko/rescue';
+import { rescue_nb } from './locales/nb/rescue';
 
 const tr = {
   title: 'Ülke kurtarma dizini',
@@ -183,4 +185,6 @@ export const rescueI18n = localeSet(tr, en, {
   it: rescue_it,
   zh: rescue_zh,
   hi: rescue_hi,
+  ne: rescue_ne,
+  nb: rescue_nb,
 });

@@ -9,6 +9,8 @@ import { fun_ru } from './locales/ru/fun';
 import { fun_zh } from './locales/zh/fun';
 import { fun_ko } from './locales/ko/fun';
 import { fun_hi } from './locales/hi/fun';
+import { fun_ne } from './locales/ne/fun';
+import { fun_nb } from './locales/nb/fun';
 import { localeSet } from './shared';
 
 const tr = {
@@ -421,4 +423,6 @@ export const funI18n = localeSet(tr, en, {
   ru: fun_ru,
   zh: fun_zh,
   hi: fun_hi,
+  ne: fun_ne,
+  nb: fun_nb,
 });

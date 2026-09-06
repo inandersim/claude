@@ -7,9 +7,11 @@ import { tv_ru } from './locales/ru/tv';
 import { tv_it } from './locales/it/tv';
 import { tv_zh } from './locales/zh/tv';
 import { tv_hi } from './locales/hi/tv';
+import { tv_ne } from './locales/ne/tv';
 import { localeSet } from './shared';
 import { tv_ja } from './locales/ja/tv';
 import { tv_ko } from './locales/ko/tv';
+import { tv_nb } from './locales/nb/tv';
 
 const tr = {
   title: 'Zirtan TV',
@@ -315,4 +317,6 @@ export const tvI18n = localeSet(tr, en, {
   it: tv_it,
   zh: tv_zh,
   hi: tv_hi,
+  ne: tv_ne,
+  nb: tv_nb,
 });

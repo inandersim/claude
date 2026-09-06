@@ -94,8 +94,7 @@ export const countries_sv: CountriesI18nShape = {
   satelliteLink: 'Satellitmeddelanden och SOS',
   satelliteLinkHint: 'Håll kontakten utan nät',
   askAi: 'Fråga Zirtan AI',
-  askAiPrompt:
-    'Vad bör jag tänka på i {{country}}? Sammanfatta etikett, säkerhet och visum.',
+  askAiPrompt: 'Vad bör jag tänka på i {{country}}? Sammanfatta etikett, säkerhet och visum.',
   checklist: {
     title: 'Checklista',
     subtitle: 'Dokument för {{country}}',

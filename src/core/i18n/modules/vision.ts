@@ -7,9 +7,11 @@ import { vision_ru } from './locales/ru/vision';
 import { vision_it } from './locales/it/vision';
 import { vision_zh } from './locales/zh/vision';
 import { vision_hi } from './locales/hi/vision';
+import { vision_ne } from './locales/ne/vision';
 import { localeSet } from './shared';
 import { vision_ja } from './locales/ja/vision';
 import { vision_ko } from './locales/ko/vision';
+import { vision_nb } from './locales/nb/vision';
 
 const tr = {
   title: 'Kamera ile sor',
@@ -207,4 +209,6 @@ export const visionI18n = localeSet(tr, en, {
   it: vision_it,
   zh: vision_zh,
   hi: vision_hi,
+  ne: vision_ne,
+  nb: vision_nb,
 });

@@ -7,9 +7,11 @@ import { countries_ru } from './locales/ru/countries';
 import { countries_it } from './locales/it/countries';
 import { countries_zh } from './locales/zh/countries';
 import { countries_hi } from './locales/hi/countries';
+import { countries_ne } from './locales/ne/countries';
 import { localeSet } from './shared';
 import { countries_ja } from './locales/ja/countries';
 import { countries_ko } from './locales/ko/countries';
+import { countries_nb } from './locales/nb/countries';
 
 const tr = {
   title: 'Ülke rehberi',
@@ -344,4 +346,6 @@ export const countriesI18n = localeSet(tr, en, {
   it: countries_it,
   zh: countries_zh,
   hi: countries_hi,
+  ne: countries_ne,
+  nb: countries_nb,
 });

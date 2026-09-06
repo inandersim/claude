@@ -7,9 +7,11 @@ import { telemed_ru } from './locales/ru/telemed';
 import { telemed_it } from './locales/it/telemed';
 import { telemed_zh } from './locales/zh/telemed';
 import { telemed_hi } from './locales/hi/telemed';
+import { telemed_ne } from './locales/ne/telemed';
 import { localeSet } from './shared';
 import { telemed_ja } from './locales/ja/telemed';
 import { telemed_ko } from './locales/ko/telemed';
+import { telemed_nb } from './locales/nb/telemed';
 
 const tr = {
   title: 'Çevrimiçi doktor',
@@ -341,4 +343,6 @@ export const telemedI18n = localeSet(tr, en, {
   it: telemed_it,
   zh: telemed_zh,
   hi: telemed_hi,
+  ne: telemed_ne,
+  nb: telemed_nb,
 });

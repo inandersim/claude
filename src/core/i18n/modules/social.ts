@@ -7,9 +7,11 @@ import { social_ru } from './locales/ru/social';
 import { social_it } from './locales/it/social';
 import { social_zh } from './locales/zh/social';
 import { social_hi } from './locales/hi/social';
+import { social_ne } from './locales/ne/social';
 import { localeSet } from './shared';
 import { social_ja } from './locales/ja/social';
 import { social_ko } from './locales/ko/social';
+import { social_nb } from './locales/nb/social';
 
 const tr = {
   title: 'Topluluk',
@@ -233,4 +235,6 @@ export const socialI18n = localeSet(tr, en, {
   it: social_it,
   zh: social_zh,
   hi: social_hi,
+  ne: social_ne,
+  nb: social_nb,
 });

@@ -7,9 +7,11 @@ import { destinations_ru } from './locales/ru/destinations';
 import { destinations_it } from './locales/it/destinations';
 import { destinations_zh } from './locales/zh/destinations';
 import { destinations_hi } from './locales/hi/destinations';
+import { destinations_ne } from './locales/ne/destinations';
 import { localeSet } from './shared';
 import { destinations_ja } from './locales/ja/destinations';
 import { destinations_ko } from './locales/ko/destinations';
+import { destinations_nb } from './locales/nb/destinations';
 
 const tr = {
   title: 'Destinasyonlar',
@@ -610,4 +612,6 @@ export const destinationsI18n = localeSet(tr, en, {
   it: destinations_it,
   zh: destinations_zh,
   hi: destinations_hi,
+  ne: destinations_ne,
+  nb: destinations_nb,
 });

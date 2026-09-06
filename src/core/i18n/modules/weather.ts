@@ -7,9 +7,11 @@ import { weather_ru } from './locales/ru/weather';
 import { weather_it } from './locales/it/weather';
 import { weather_zh } from './locales/zh/weather';
 import { weather_hi } from './locales/hi/weather';
+import { weather_ne } from './locales/ne/weather';
 import { localeSet } from './shared';
 import { weather_ja } from './locales/ja/weather';
 import { weather_ko } from './locales/ko/weather';
+import { weather_nb } from './locales/nb/weather';
 
 const tr = {
   title: 'Hava & çığ',
@@ -385,4 +387,6 @@ export const weatherI18n = localeSet(tr, en, {
   it: weather_it,
   zh: weather_zh,
   hi: weather_hi,
+  ne: weather_ne,
+  nb: weather_nb,
 });

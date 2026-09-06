@@ -9,6 +9,8 @@ import { ai_ru } from './locales/ru/ai';
 import { ai_zh } from './locales/zh/ai';
 import { ai_ko } from './locales/ko/ai';
 import { ai_hi } from './locales/hi/ai';
+import { ai_ne } from './locales/ne/ai';
+import { ai_nb } from './locales/nb/ai';
 import { localeSet } from './shared';
 
 const tr = {
@@ -141,4 +143,6 @@ export const aiI18n = localeSet(tr, en, {
   ru: ai_ru,
   zh: ai_zh,
   hi: ai_hi,
+  ne: ai_ne,
+  nb: ai_nb,
 });

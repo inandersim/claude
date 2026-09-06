@@ -7,9 +7,11 @@ import { courses_ru } from './locales/ru/courses';
 import { courses_it } from './locales/it/courses';
 import { courses_zh } from './locales/zh/courses';
 import { courses_hi } from './locales/hi/courses';
+import { courses_ne } from './locales/ne/courses';
 import { localeSet } from './shared';
 import { courses_ja } from './locales/ja/courses';
 import { courses_ko } from './locales/ko/courses';
+import { courses_nb } from './locales/nb/courses';
 
 const tr = {
   title: 'Eğitimler',
@@ -410,4 +412,6 @@ export const coursesI18n = localeSet(tr, en, {
   it: courses_it,
   zh: courses_zh,
   hi: courses_hi,
+  ne: courses_ne,
+  nb: courses_nb,
 });

@@ -67,8 +67,7 @@ export const articles_nb: ArticlesI18nShape = {
     submitted: 'Søknaden er mottatt',
     statusTitle: 'Søknadsstatus',
     pending: 'Under vurdering',
-    pendingDescription:
-      'Teamet vårt vurderer søknaden din; du får beskjed når den er godkjent.',
+    pendingDescription: 'Teamet vårt vurderer søknaden din; du får beskjed når den er godkjent.',
     approved: 'Godkjent',
     approvedDescription: 'Du kan publisere artikler nå. Hva med å skrive den første?',
     demoNote: 'I demoen godkjennes søknader umiddelbart.',

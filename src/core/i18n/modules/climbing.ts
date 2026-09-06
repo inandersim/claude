@@ -9,6 +9,8 @@ import { climbing_ru } from './locales/ru/climbing';
 import { climbing_zh } from './locales/zh/climbing';
 import { climbing_ko } from './locales/ko/climbing';
 import { climbing_hi } from './locales/hi/climbing';
+import { climbing_ne } from './locales/ne/climbing';
+import { climbing_nb } from './locales/nb/climbing';
 import { localeSet } from './shared';
 
 const tr = {
@@ -297,4 +299,6 @@ export const climbingI18n = localeSet(tr, en, {
   ru: climbing_ru,
   zh: climbing_zh,
   hi: climbing_hi,
+  ne: climbing_ne,
+  nb: climbing_nb,
 });

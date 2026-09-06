@@ -7,9 +7,11 @@ import { tracks_ru } from './locales/ru/tracks';
 import { tracks_it } from './locales/it/tracks';
 import { tracks_zh } from './locales/zh/tracks';
 import { tracks_hi } from './locales/hi/tracks';
+import { tracks_ne } from './locales/ne/tracks';
 import { localeSet } from './shared';
 import { tracks_ja } from './locales/ja/tracks';
 import { tracks_ko } from './locales/ko/tracks';
+import { tracks_nb } from './locales/nb/tracks';
 
 const tr = {
   title: 'Topluluk rotaları',
@@ -490,4 +492,6 @@ export const tracksI18n = localeSet(tr, en, {
   it: tracks_it,
   zh: tracks_zh,
   hi: tracks_hi,
+  ne: tracks_ne,
+  nb: tracks_nb,
 });

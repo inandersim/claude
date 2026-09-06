@@ -7,9 +7,11 @@ import { kids_ru } from './locales/ru/kids';
 import { kids_it } from './locales/it/kids';
 import { kids_zh } from './locales/zh/kids';
 import { kids_hi } from './locales/hi/kids';
+import { kids_ne } from './locales/ne/kids';
 import { localeSet } from './shared';
 import { kids_ja } from './locales/ja/kids';
 import { kids_ko } from './locales/ko/kids';
+import { kids_nb } from './locales/nb/kids';
 
 const tr = {
   title: 'Çocuk',
@@ -347,4 +349,6 @@ export const kidsI18n = localeSet(tr, en, {
   it: kids_it,
   zh: kids_zh,
   hi: kids_hi,
+  ne: kids_ne,
+  nb: kids_nb,
 });

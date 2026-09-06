@@ -7,9 +7,11 @@ import { groups_ru } from './locales/ru/groups';
 import { groups_it } from './locales/it/groups';
 import { groups_zh } from './locales/zh/groups';
 import { groups_hi } from './locales/hi/groups';
+import { groups_ne } from './locales/ne/groups';
 import { localeSet } from './shared';
 import { groups_ja } from './locales/ja/groups';
 import { groups_ko } from './locales/ko/groups';
+import { groups_nb } from './locales/nb/groups';
 
 const tr = {
   title: 'Gruplar',
@@ -359,4 +361,6 @@ export const groupsI18n = localeSet(tr, en, {
   it: groups_it,
   zh: groups_zh,
   hi: groups_hi,
+  ne: groups_ne,
+  nb: groups_nb,
 });

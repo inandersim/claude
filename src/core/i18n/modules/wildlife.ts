@@ -7,9 +7,11 @@ import { wildlife_ru } from './locales/ru/wildlife';
 import { wildlife_it } from './locales/it/wildlife';
 import { wildlife_zh } from './locales/zh/wildlife';
 import { wildlife_hi } from './locales/hi/wildlife';
+import { wildlife_ne } from './locales/ne/wildlife';
 import { localeSet } from './shared';
 import { wildlife_ja } from './locales/ja/wildlife';
 import { wildlife_ko } from './locales/ko/wildlife';
+import { wildlife_nb } from './locales/nb/wildlife';
 
 const tr = {
   title: 'Canlı tanıma & güvenlik',
@@ -487,4 +489,6 @@ export const wildlifeI18n = localeSet(tr, en, {
   it: wildlife_it,
   zh: wildlife_zh,
   hi: wildlife_hi,
+  ne: wildlife_ne,
+  nb: wildlife_nb,
 });

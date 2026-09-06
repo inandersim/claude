@@ -132,8 +132,7 @@ export const countries_cs: CountriesI18nShape = {
     soon: 'Požádejte o vízum nyní',
     soonHint: 'Doba vyřízení + 7denní rezerva se blíží datu vaší cesty.',
     late: 'S vízem můžete být pozdě',
-    lateHint:
-      'Doba vyřízení přesahuje datum vaší cesty; zvažte expresní vyřízení nebo změnu data.',
+    lateHint: 'Doba vyřízení přesahuje datum vaší cesty; zvažte expresní vyřízení nebo změnu data.',
     noVisa: 'Žádost o vízum není potřeba',
     visaDone: 'Vízum připraveno',
   },

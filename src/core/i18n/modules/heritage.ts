@@ -7,9 +7,11 @@ import { heritage_ru } from './locales/ru/heritage';
 import { heritage_it } from './locales/it/heritage';
 import { heritage_zh } from './locales/zh/heritage';
 import { heritage_hi } from './locales/hi/heritage';
+import { heritage_ne } from './locales/ne/heritage';
 import { localeSet } from './shared';
 import { heritage_ja } from './locales/ja/heritage';
 import { heritage_ko } from './locales/ko/heritage';
+import { heritage_nb } from './locales/nb/heritage';
 
 const tr = {
   title: 'Tarihi alanlar',
@@ -369,4 +371,6 @@ export const heritageI18n = localeSet(tr, en, {
   it: heritage_it,
   zh: heritage_zh,
   hi: heritage_hi,
+  ne: heritage_ne,
+  nb: heritage_nb,
 });
