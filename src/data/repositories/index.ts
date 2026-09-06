@@ -715,6 +715,12 @@ export interface TelemedRepository {
     steps: string[];
     firstAidSlug: string | null;
     callEmergency: boolean;
+    /**
+     * Sonucun gerçekte nereden geldiği. Ağ geçidi tanımlı olsa bile istek
+     * başarısız olursa yerele düşülür; arayüz bu alana bakmalı, ortam
+     * değişkenine değil (tıbbi bağlamda yanlış "yapay zekâ" iddiası olmasın).
+     */
+    source: 'local' | 'remote';
   }>;
 }
 

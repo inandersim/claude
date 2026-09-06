@@ -126,42 +126,42 @@ export default function ChatScreen() {
           />
         )}
         {notFound ? null : (
-        <View
-          style={[
-            styles.composer,
-            {
-              backgroundColor: colors.surface,
-              borderTopColor: colors.border,
-              paddingBottom: Math.max(insets.bottom, spacing.md),
-            },
-          ]}
-        >
           <View
             style={[
-              styles.inputWrap,
-              { backgroundColor: colors.surfaceMuted, borderColor: colors.border },
+              styles.composer,
+              {
+                backgroundColor: colors.surface,
+                borderTopColor: colors.border,
+                paddingBottom: Math.max(insets.bottom, spacing.md),
+              },
             ]}
           >
-            <TextInput
-              value={draft}
-              onChangeText={setDraft}
-              placeholder={t('chat.placeholder')}
-              placeholderTextColor={colors.textSubtle}
-              style={[styles.input, { color: colors.text, fontFamily: fontFamily.medium }]}
-              multiline
-              maxLength={1000}
-              accessibilityLabel={t('chat.placeholder')}
+            <View
+              style={[
+                styles.inputWrap,
+                { backgroundColor: colors.surfaceMuted, borderColor: colors.border },
+              ]}
+            >
+              <TextInput
+                value={draft}
+                onChangeText={setDraft}
+                placeholder={t('chat.placeholder')}
+                placeholderTextColor={colors.textSubtle}
+                style={[styles.input, { color: colors.text, fontFamily: fontFamily.medium }]}
+                multiline
+                maxLength={1000}
+                accessibilityLabel={t('chat.placeholder')}
+              />
+            </View>
+            <IconButton
+              icon="send"
+              onPress={submit}
+              disabled={!draft.trim()}
+              color={colors.onPrimary}
+              style={{ backgroundColor: colors.primary }}
+              accessibilityLabel={t('common.send')}
             />
           </View>
-          <IconButton
-            icon="send"
-            onPress={submit}
-            disabled={!draft.trim()}
-            color={colors.onPrimary}
-            style={{ backgroundColor: colors.primary }}
-            accessibilityLabel={t('common.send')}
-          />
-        </View>
         )}
       </KeyboardAvoidingView>
     </Screen>

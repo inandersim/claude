@@ -207,25 +207,28 @@ export function BarChart({
   formatValue?: (value: number) => string;
 }) {
   const max = niceMax(Math.max(1, ...data.map((d) => d.value)));
-  const innerH = height - 34;
-  const barW = data.length ? (W - PAD.left) / data.length : 0;
+  const top = 18;
+  const bottom = 26;
+  const innerH = height - top - bottom;
+  const slot = data.length ? (W - PAD.left * 2) / data.length : 0;
+  const width = Math.min(88, slot * 0.68);
   const fmt = formatValue ?? formatNumber;
 
   return (
     <figure style={{ margin: 0 }}>
-      <svg viewBox={`0 0 ${W} ${height}`} width="100%" height={height} role="img" aria-label={label} preserveAspectRatio="none">
+      <svg viewBox={`0 0 ${W} ${height}`} width="100%" height={height} role="img" aria-label={label}>
         {data.map((item, i) => {
           const barHeight = (item.value / max) * innerH;
-          const x = PAD.left + i * barW + barW * 0.16;
-          const width = barW * 0.68;
+          const center = PAD.left + i * slot + slot / 2;
+          const x = center - width / 2;
           return (
             <g key={item.label}>
               <title>{`${item.label}: ${fmt(item.value)}`}</title>
-              <rect x={x} y={14 + innerH - barHeight} width={width} height={Math.max(2, barHeight)} rx={5} fill={color} />
-              <text x={x + width / 2} y={height - 16} textAnchor="middle" fontSize={10} fill="var(--c-text-subtle)">
-                {item.label.length > 12 ? `${item.label.slice(0, 11)}…` : item.label}
+              <rect x={x} y={top + innerH - barHeight} width={width} height={Math.max(2, barHeight)} rx={5} fill={color} />
+              <text x={center} y={height - 8} textAnchor="middle" fontSize={10} fill="var(--c-text-subtle)">
+                {item.label.length > 14 ? `${item.label.slice(0, 13)}…` : item.label}
               </text>
-              <text x={x + width / 2} y={8 + innerH - barHeight} textAnchor="middle" fontSize={10} fill="var(--c-text-muted)">
+              <text x={center} y={top + innerH - barHeight - 5} textAnchor="middle" fontSize={10} fill="var(--c-text-muted)">
                 {fmt(item.value)}
               </text>
             </g>

@@ -19,7 +19,6 @@ import {
   type ConsultUrgency,
   type DoctorSpecialty,
 } from '@/domain';
-import { isRemoteAiConfigured } from '@/data/ai/remoteAi';
 import { useCurrentUser } from '@/features/auth/session.store';
 import { DisclaimerBanner } from '@/features/telemed/components/DisclaimerBanner';
 import { SpecialtyChips } from '@/features/telemed/components/SpecialtyChips';
@@ -58,7 +57,7 @@ export default function RequestConsultScreen() {
   const speciesId = params.speciesId || null;
   const triage = useTriage();
   const request = useRequestConsult();
-  const [hasGateway] = useState(() => isRemoteAiConfigured());
+
   const ready = complaint.trim().length >= MIN_COMPLAINT;
 
   // Yazdıkça (debounce) ön triyaj; gateway varsa uzaktan, yoksa yerel
@@ -78,7 +77,9 @@ export default function RequestConsultScreen() {
     [complaint, locale, ready],
   );
   // Ağ geçidi yoksa repo yerel sonucu döner; "yapay zekâ destekli" demek yanıltıcı olur
-  const remote = hasGateway && triage.data && triage.isSuccess ? triage.data : null;
+  // Sonucun kaynağı repo tarafından bildirilir; ağ geçidi tanımlı olup istek
+  // düşerse yerele inilir ve etiket doğru kalır.
+  const remote = triage.data?.source === 'remote' ? triage.data : null;
   const shown = remote ?? local;
   const suggestedUrgency = shown?.urgency ?? null;
   const effectiveUrgency: ConsultUrgency = urgency ?? suggestedUrgency ?? 'medium';

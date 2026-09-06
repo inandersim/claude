@@ -343,7 +343,11 @@ export function createTelemedRepository(ctx: MockContext): TelemedRepository {
     async triage(input) {
       const t = await ctx.db.load();
       const hint = speciesHint(t, input.speciesId);
-      const local = localTriage(input.complaint, input.locale, hint);
+      // Yerel sonuç her zaman hazır: ağ geçidi yoksa ya da başarısız olursa bu döner.
+      const local = {
+        ...localTriage(input.complaint, input.locale, hint),
+        source: 'local' as const,
+      };
       const baseUrl = process.env.EXPO_PUBLIC_AI_GATEWAY_URL?.trim();
       if (!baseUrl || typeof fetch !== 'function') return local;
 
@@ -370,7 +374,7 @@ export function createTelemedRepository(ctx: MockContext): TelemedRepository {
         });
         if (!res.ok) return local;
         const remote = parseRemoteTriage(await res.json());
-        return remote ?? local;
+        return remote ? { ...remote, source: 'remote' as const } : local;
       } catch {
         return local;
       } finally {

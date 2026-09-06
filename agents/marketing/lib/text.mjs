@@ -107,11 +107,12 @@ export function num(n, lang = 'tr') {
   return new Intl.NumberFormat(locale).format(Math.round(Number(n) || 0));
 }
 
-/** Yüzde (0.0345 → "%3,5" / "3.5%"). */
+/** Yüzde (0.0345 → "%3,5" / "3.5%"; negatifte Türkçe "-%3,5"). */
 export function pct(value, lang = 'tr', digits = 1) {
   const v = (Number(value) || 0) * 100;
-  const s = v.toFixed(digits).replace('.', lang === 'en' ? '.' : ',');
-  return lang === 'tr' ? `%${s}` : `${s}%`;
+  const sign = v < 0 ? '-' : '';
+  const s = Math.abs(v).toFixed(digits).replace('.', lang === 'en' ? '.' : ',');
+  return lang === 'tr' ? `${sign}%${s}` : `${sign}${s}%`;
 }
 
 /** Dakika → "4 sa 20 dk" / "4h 20m". */

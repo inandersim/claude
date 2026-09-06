@@ -33,6 +33,7 @@ import {
   useTvChannels,
   useTvPrograms,
   useTvSchedule,
+  useWatchLater,
 } from '@/features/tv/hooks';
 
 const KIND_TABS = ['all', 'documentary', 'news', 'series', 'short', 'tutorial'] as const;
@@ -59,6 +60,7 @@ export default function TvScreen() {
   const grid = useTvPrograms({ query, channelId, kind: kind === 'all' ? null : kind });
   const continueWatching = useContinueWatching();
   const news = useNews();
+  const watchLater = useWatchLater();
   const live = useLiveNow();
   const schedule = useTvSchedule(today);
 
@@ -103,6 +105,16 @@ export default function TvScreen() {
           <View style={styles.section}>
             <SectionHeader title={t('tv.continueWatching')} />
             <ContinueRow programs={continueWatching.data} />
+          </View>
+        ) : null}
+
+        {watchLater.data && watchLater.data.length > 0 ? (
+          <View style={styles.section}>
+            <SectionHeader
+              title={t('tv.watchLater')}
+              subtitle={t('tv.results', { count: watchLater.data.length })}
+            />
+            <ContinueRow programs={watchLater.data} />
           </View>
         ) : null}
 

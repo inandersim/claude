@@ -9,7 +9,15 @@ import Animated, {
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { AdventureImage, Avatar, EmptyState, Icon, IconButton, Screen, Text } from '@/components/ui';
+import {
+  AdventureImage,
+  Avatar,
+  EmptyState,
+  Icon,
+  IconButton,
+  Screen,
+  Text,
+} from '@/components/ui';
 import { useT } from '@/core/i18n';
 import { goBack } from '@/core/navigation';
 import { radius, spacing, useTheme } from '@/core/theme';

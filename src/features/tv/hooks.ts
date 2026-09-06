@@ -133,6 +133,18 @@ export function useContinueWatching() {
   });
 }
 
+/** "Sonra izle" işaretli programlar; işaretleme değişince tazelenir. */
+export function useWatchLater() {
+  const me = useCurrentUser();
+  return useQuery({
+    queryKey: [...queryKeys.tv.all, 'watchLater', me.id] as const,
+    queryFn: async () => {
+      const list = await getDataProvider().tv.programs(me.id, {});
+      return list.filter((p) => p.watchLater);
+    },
+  });
+}
+
 export function useToggleWatchLater() {
   const me = useCurrentUser();
   const qc = useQueryClient();

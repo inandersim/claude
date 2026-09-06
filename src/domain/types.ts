@@ -2309,6 +2309,8 @@ export interface ConsultationWithDetails extends Consultation {
 
 export interface RequestConsultInput {
   complaint: string;
+  /** Belirli bir hekim seçildiyse; `null` ise en uygun hekim eşleştirilir. */
+  doctorId?: ID | null;
   urgency: ConsultUrgency;
   specialty: DoctorSpecialty | null;
   firstAidSlug: string | null;
