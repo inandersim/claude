@@ -1,4 +1,4 @@
-# Zirve — proje notları
+# Zirtan — proje notları
 
 Expo SDK 57 / React Native 0.86 / TypeScript strict / Expo Router (typed routes).
 

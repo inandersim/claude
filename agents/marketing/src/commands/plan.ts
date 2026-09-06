@@ -60,7 +60,7 @@ export async function runPlan(options: PlanOptions): Promise<Plan> {
 
   weeks.sort((a, b) => a.week - b.week);
   const plan: Plan = {
-    title: title || `Zirve ${options.weeks} haftalık büyüme planı`,
+    title: title || `Zirtan ${options.weeks} haftalık büyüme planı`,
     startDate,
     weeks,
   };

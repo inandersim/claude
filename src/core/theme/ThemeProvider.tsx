@@ -86,7 +86,7 @@ function useAmbientScheme(enabled: boolean): {
   return { scheme: clockScheme, source: 'clock', lux: null };
 }
 
-const STORAGE_KEY = 'zirve.theme.preference';
+const STORAGE_KEY = 'zirtan.theme.preference';
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 

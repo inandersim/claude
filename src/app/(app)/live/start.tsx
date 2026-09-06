@@ -187,7 +187,7 @@ export default function StartStreamScreen() {
                   {t('drone.rtmpUrl')}
                 </Text>
                 <Text variant="caption" weight="bold" color="#FFFFFF" selectable>
-                  rtmp://ingest.zirve.app/live/{liveId}
+                  rtmp://ingest.zirtan.app/live/{liveId}
                 </Text>
               </View>
             ) : null}

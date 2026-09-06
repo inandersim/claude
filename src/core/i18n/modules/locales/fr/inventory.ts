@@ -46,8 +46,8 @@ export const inventory_fr: InventoryI18nShape = {
     season: 'Saison',
   },
   escrow: {
-    title: 'Séquestre Zirve',
-    description: 'Ton paiement est conservé sous séquestre Zirve jusqu’à ton arrivée.',
+    title: 'Séquestre Zirtan',
+    description: 'Ton paiement est conservé sous séquestre Zirtan jusqu’à ton arrivée.',
     hint: 'Les fonds sont versés à l’hôte 24 heures après l’arrivée ; en cas de problème, nous lançons la procédure de remboursement.',
   },
   paymentStatus: {
@@ -62,7 +62,7 @@ export const inventory_fr: InventoryI18nShape = {
     title: 'Paiement',
     provider: 'Moyen de paiement',
     providerHint:
-      'Tes données de carte ne transitent jamais par les serveurs Zirve ; vérification par 3D Secure.',
+      'Tes données de carte ne transitent jamais par les serveurs Zirtan ; vérification par 3D Secure.',
     payWithEscrow: 'Payer sous séquestre',
     success: 'Réservation créée, ton paiement est sous séquestre.',
     timeline: 'Parcours du paiement',

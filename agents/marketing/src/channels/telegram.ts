@@ -27,7 +27,7 @@ export const spec: ChannelSpec = {
   rules: [
     'Fotoğraflı mesajda açıklama 1024 karakter; uzun metin için önce metin, sonra görsel.',
     'Düz metin gönder (parse_mode yok) — özel karakter hataları olmaz.',
-    'Kanal: günde 1–2 mesaj; şehir grupları (Zirve İstanbul / Ankara / İzmir / Antalya) etkinlik odaklı.',
+    'Kanal: günde 1–2 mesaj; şehir grupları (Zirtan İstanbul / Ankara / İzmir / Antalya) etkinlik odaklı.',
     'Anketler (poll) katılımı 3–5 kat artırır; haftalık "hafta sonu nereye?" anketi.',
     'Bağlantıya UTM ekle (utm_source=telegram).',
   ],

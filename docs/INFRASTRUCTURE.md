@@ -1,4 +1,4 @@
-# Zirve — altyapı durum değerlendirmesi ve üretim mimarisi
+# Zirtan — altyapı durum değerlendirmesi ve üretim mimarisi
 
 Bu belge dürüst bir envanterdir: neyin gerçek, neyin simülasyon olduğu ve üretime çıkmak için neyin gerektiği.
 

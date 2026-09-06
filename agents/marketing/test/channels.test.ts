@@ -48,10 +48,10 @@ test('instagram: hashtag sınırı, bio bağlantı notu, ilk satır uyarısı', 
 });
 
 test('reddit: hashtag yok, bağlantı metinde, başlıkta CTA uyarısı', () => {
-  const out = formatPost(withChannel(ig, 'reddit', { title: 'Zirve indir!' }));
+  const out = formatPost(withChannel(ig, 'reddit', { title: 'Zirtan indir!' }));
   assert.equal(out.hashtags.length, 0);
   assert.ok(!out.text.includes('#'));
-  assert.ok(out.text.includes('https://zirve.app'));
+  assert.ok(out.text.includes('https://zirtan.app'));
   assert.ok(out.warnings.some((w) => w.includes('ban riski')));
 });
 
@@ -79,8 +79,8 @@ test('compose: platform sınırı aşılınca gövde kısaltılır, CTA ve hasht
 });
 
 test('yardımcılar: dedupeHashtags, truncate', () => {
-  assert.deepEqual(dedupeHashtags(['#Zirve', 'zirve', '#doğa', '  ', '#doğa '], 10), [
-    '#Zirve',
+  assert.deepEqual(dedupeHashtags(['#Zirtan', 'zirtan', '#doğa', '  ', '#doğa '], 10), [
+    '#Zirtan',
     '#doğa',
   ]);
   assert.deepEqual(dedupeHashtags(['#a', '#b', '#c'], 2), ['#a', '#b']);

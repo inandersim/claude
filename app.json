@@ -1,18 +1,18 @@
 {
   "expo": {
-    "name": "Zirve",
-    "slug": "zirve",
+    "name": "Zirtan",
+    "slug": "zirtan",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "zirve",
+    "scheme": "zirtan",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "backgroundColor": "#10201B",
     "primaryColor": "#5EE39B",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.zirve.app",
+      "bundleIdentifier": "com.zirtan.app",
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "Yakınındaki maceraperestleri bulmak ve rota önerileri sunmak için konumuna ihtiyacımız var.",
         "NSPhotoLibraryUsageDescription": "Macera fotoğraflarını paylaşabilmen için galerine erişmemiz gerekiyor.",
@@ -22,7 +22,7 @@
       }
     },
     "android": {
-      "package": "com.zirve.app",
+      "package": "com.zirtan.app",
       "adaptiveIcon": {
         "backgroundColor": "#10201B",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
@@ -44,7 +44,7 @@
           "data": [
             {
               "scheme": "https",
-              "host": "zirve.app",
+              "host": "zirtan.app",
               "pathPrefix": "/"
             }
           ],

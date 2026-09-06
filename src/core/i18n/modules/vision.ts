@@ -5,7 +5,7 @@ const tr = {
   subtitle: 'Fotoğrafla, durumu seç, tavsiye al',
   permission: {
     title: 'Kamera izni gerekiyor',
-    body: 'Sahadaki manzarayı, ekipmanı ya da yarayı fotoğraflayıp Zirve AI’dan tavsiye almak için kameraya erişmemiz gerekiyor.',
+    body: 'Sahadaki manzarayı, ekipmanı ya da yarayı fotoğraflayıp Zirtan AI’dan tavsiye almak için kameraya erişmemiz gerekiyor.',
     grant: 'Kameraya izin ver',
     denied:
       'Kamera izni verilmedi. Ayarlardan izin verebilir ya da galeriden fotoğraf seçebilirsin.',
@@ -50,7 +50,7 @@ const tr = {
   analyze: 'Analiz et',
   analyzing: 'Görüntü değerlendiriliyor…',
   retake: 'Yeniden çek',
-  continueInChat: 'Zirve AI’da devam et',
+  continueInChat: 'Zirtan AI’da devam et',
   history: 'Geçmiş',
   captureError: 'Fotoğraf çekilemedi',
   analyzeError: 'Analiz yapılamadı',
@@ -98,7 +98,7 @@ const en: VisionI18nShape = {
   subtitle: 'Snap a photo, pick the situation, get advice',
   permission: {
     title: 'Camera permission needed',
-    body: 'To photograph the terrain, gear or an injury and get advice from Zirve AI we need access to your camera.',
+    body: 'To photograph the terrain, gear or an injury and get advice from Zirtan AI we need access to your camera.',
     grant: 'Allow camera',
     denied:
       'Camera permission was not granted. You can allow it in Settings or pick a photo from your gallery.',
@@ -143,7 +143,7 @@ const en: VisionI18nShape = {
   analyze: 'Analyze',
   analyzing: 'Assessing the image…',
   retake: 'Retake',
-  continueInChat: 'Continue in Zirve AI',
+  continueInChat: 'Continue in Zirtan AI',
   history: 'History',
   captureError: 'Could not take the photo',
   analyzeError: 'Analysis failed',

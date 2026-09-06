@@ -4,7 +4,7 @@ Ton: deneyimli arkadaş; güvenlik konusunda ciddi, kısa; asla tıbbi tavsiye v
 
 ## Yorum — övgü
 
-"Teşekkürler! Rotayı Zirve'de kaydettiysen bize etiketle, hafta sonu öne çıkaralım."
+"Teşekkürler! Rotayı Zirtan'de kaydettiysen bize etiketle, hafta sonu öne çıkaralım."
 
 ## Yorum — özellik sorusu
 
@@ -16,17 +16,17 @@ Ton: deneyimli arkadaş; güvenlik konusunda ciddi, kısa; asla tıbbi tavsiye v
 
 ## Yorum — güvenlik / acil ima
 
-"Şu an tehlikedeysen hemen 112'yi ara. Sonra Zirve'de tehlike bildir ki diğerleri görsün. Durumun nasıl, haber ver."
+"Şu an tehlikedeysen hemen 112'yi ara. Sonra Zirtan'de tehlike bildir ki diğerleri görsün. Durumun nasıl, haber ver."
 Ekibe: `escalate=true`, 15 dk içinde insan kontrolü.
 
 ## DM — kulüp iş birliği
 
-"Merhaba [kulüp]! Zirve'de kulübünüzün sayfası ve etkinlik RSVP'si ücretsiz; öğrenci doğrulaması .edu ile. İlk etkinliğinizi birlikte duyuralım mı? [link]"
+"Merhaba [kulüp]! Zirtan'de kulübünüzün sayfası ve etkinlik RSVP'si ücretsiz; öğrenci doğrulaması .edu ile. İlk etkinliğinizi birlikte duyuralım mı? [link]"
 
 ## DM — rehber / eğitmen
 
-"Merhaba [ad], Zirve'de Pro Guide profiliyle rezervasyon alıyor, %5 komisyonla çalışıyorsunuz. İlk 3 ay ücretsiz deneme için davet kodunuz: [kod]."
+"Merhaba [ad], Zirtan'de Pro Guide profiliyle rezervasyon alıyor, %5 komisyonla çalışıyorsunuz. İlk 3 ay ücretsiz deneme için davet kodunuz: [kod]."
 
 ## DM — UGC izni
 
-"Merhaba! [Yer] fotoğrafın harika. Zirve hesabında @seni etiketleyerek paylaşabilir miyiz? 'Evet' yazman yeterli; istediğinde kaldırırız."
+"Merhaba! [Yer] fotoğrafın harika. Zirtan hesabında @seni etiketleyerek paylaşabilir miyiz? 'Evet' yazman yeterli; istediğinde kaldırırız."

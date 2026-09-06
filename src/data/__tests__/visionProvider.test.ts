@@ -77,7 +77,7 @@ describe('RemoteVisionClient', () => {
     ).toThrow(/büyük/);
   });
 
-  it('gateway yanıtını VisionAdvice olarak döner ve x-zirve-key gönderir', async () => {
+  it('gateway yanıtını VisionAdvice olarak döner ve x-zirtan-key gönderir', async () => {
     const calls: { url: string; init: RequestInit }[] = [];
     const fetchImpl = (async (url: string | URL | Request, init?: RequestInit) => {
       calls.push({ url: String(url), init: init ?? {} });
@@ -96,7 +96,7 @@ describe('RemoteVisionClient', () => {
     const client = new RemoteVisionClient({ baseUrl: 'http://gw/', apiKey: 'k1', fetchImpl });
     const advice = await client.analyze({ ...input, imageBase64: png }, new Date(0));
     expect(calls[0]?.url).toBe('http://gw/v1/vision');
-    expect((calls[0]?.init.headers as Record<string, string>)['x-zirve-key']).toBe('k1');
+    expect((calls[0]?.init.headers as Record<string, string>)['x-zirtan-key']).toBe('k1');
     const sent = JSON.parse(String(calls[0]?.init.body)) as { imageBase64: string; locale: string };
     expect(sent.imageBase64).toBe(png);
     expect(sent.locale).toBe('tr');

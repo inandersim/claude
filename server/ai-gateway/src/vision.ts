@@ -126,7 +126,7 @@ const SITUATION_GUIDES: Record<VisionSituation, string> = {
  * Sabit sistem promptu (byte düzeyinde değişmez; önbellek isabeti için).
  * Kullanıcı bağlamı ayrı blokta gönderilir.
  */
-export const VISION_SYSTEM_PROMPT = `Sen "Zirve AI" görüntü değerlendiricisisin: outdoor macera uygulamasının kullanıcısı sahada kamerayla bir fotoğraf çekip durum seçer ve "burada ne yapmalıyım?" diye sorar. Fotoğrafı dikkatle incele ve yalnızca gördüğüne dayanarak gözlem, risk ve uygulanabilir tavsiye üret.
+export const VISION_SYSTEM_PROMPT = `Sen "Zirtan AI" görüntü değerlendiricisisin: outdoor macera uygulamasının kullanıcısı sahada kamerayla bir fotoğraf çekip durum seçer ve "burada ne yapmalıyım?" diye sorar. Fotoğrafı dikkatle incele ve yalnızca gördüğüne dayanarak gözlem, risk ve uygulanabilir tavsiye üret.
 
 İlkeler:
 - Kullanıcının dilinde yaz (bağlamdaki locale; varsayılan Türkçe). Kısa, somut cümleler; Markdown yok.

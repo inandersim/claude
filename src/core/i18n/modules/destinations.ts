@@ -44,7 +44,7 @@ const tr = {
     hut: 'Dağ evi',
     base_camp: 'Ana kamp',
     pass: 'Geçit',
-    summit: 'Zirve',
+    summit: 'Zirtan',
     viewpoint: 'Seyir noktası',
   },
   transport: {
@@ -141,7 +141,7 @@ const tr = {
   },
   actions: {
     createPlan: 'Yol planı oluştur',
-    askAi: 'Zirve AI’ya sor',
+    askAi: 'Zirtan AI’ya sor',
     aiPrompt: '{{name}} için gün gün plan, bütçe ve aklimatizasyon önerisi hazırla',
     save: 'Kaydet',
     saved: 'Kaydedildi',
@@ -435,7 +435,7 @@ const en: DestinationsI18nShape = {
   },
   actions: {
     createPlan: 'Create trip plan',
-    askAi: 'Ask Zirve AI',
+    askAi: 'Ask Zirtan AI',
     aiPrompt: 'Prepare a day-by-day plan, budget and acclimatization advice for {{name}}',
     save: 'Save',
     saved: 'Saved',

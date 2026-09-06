@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 /* AsyncStorage tabanlı TTL önbellek                                    */
 /* ------------------------------------------------------------------ */
 
-const PREFIX = 'zirve.ext.cache.v1:';
+const PREFIX = 'zirtan.ext.cache.v1:';
 
 /** Sık kullanılan TTL değerleri (ms). */
 export const CACHE_TTL = {

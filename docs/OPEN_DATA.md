@@ -1,6 +1,6 @@
 # Açık veri kaynakları, lisanslar ve veri politikası
 
-Bu belge Zirve'nin kullandığı ücretsiz/açık veri kaynaklarını, atıf yükümlülüklerini, oran
+Bu belge Zirtan'nin kullandığı ücretsiz/açık veri kaynaklarını, atıf yükümlülüklerini, oran
 sınırlarını ve önbellek stratejisini; ayrıca rakip uygulamalardan veri **çekmeme** kararının
 gerekçesini anlatır. `weather` modülü (`src/data/external/*`) bu kuralların ilk uygulamasıdır.
 
@@ -12,7 +12,7 @@ gerekçesini anlatır. `weather` modülü (`src/data/external/*`) bu kuralların
 | Open-Meteo Elevation API (Copernicus DEM GLO-90)                                            | Nokta yüksekliği (rota noktaları, konum)                      | CC BY 4.0; DEM verisi Copernicus lisansı                                     | Aynı Open-Meteo atfı                                                                                  | İstek başına 100 nokta; 30 gün önbellek                                                            |
 | [EAWS](https://www.avalanches.org) / [avalanche.report](https://avalanche.report) (Euregio) | Çığ bülteni (CAAML v6 JSON)                                   | CC BY 4.0 (Euregio bültenleri); diğer ulusal servisler kendi şartlarına tabi | "Kaynak: avalanche.report / EAWS" + bültene bağlantı (`AvalancheCard`)                                | Bülten günde 1–2 kez yayınlanır; 2 saat önbellek yeterli. Diğer bölgeler için yalnız bağlantı      |
 | OpenStreetMap (Overpass / Nominatim)                                                        | Yer adları, zirveler, patikalar, kulübeler (`library` modülü) | ODbL 1.0                                                                     | "© OpenStreetMap contributors" — türev veri tabanı da ODbL ile paylaşılmalı                           | Overpass: makul kullanım (~2 istek/sn); Nominatim: 1 istek/sn, uygulama tanımlayan User-Agent      |
-| Wikidata                                                                                    | Zirve yükseklikleri, çok dilli adlar, kimlikler               | CC0 1.0                                                                      | Zorunlu değil; iyi niyetle "Wikidata" belirtilir                                                      | SPARQL uç noktası: 60 sn sorgu limiti, User-Agent zorunlu                                          |
+| Wikidata                                                                                    | Zirtan yükseklikleri, çok dilli adlar, kimlikler               | CC0 1.0                                                                      | Zorunlu değil; iyi niyetle "Wikidata" belirtilir                                                      | SPARQL uç noktası: 60 sn sorgu limiti, User-Agent zorunlu                                          |
 | Wikivoyage                                                                                  | Bölge açıklamaları, ulaşım ipuçları (`destinations`)          | CC BY-SA 4.0                                                                 | Yazar/lisans bağlantısı + türevlerin aynı lisansla paylaşılması                                       | MediaWiki API: makul kullanım; içerik önbelleğe alınır                                             |
 | Open-Elevation / SRTM (NASA)                                                                | Yedek yükseklik kaynağı (Open-Meteo yanıt vermezse)           | SRTM kamu malı; Open-Elevation GPL-2.0 (sunucu yazılımı, veri değil)         | "Elevation data: NASA SRTM"                                                                           | Kamu örneği yavaş; kendi örneğini barındır ya da Open-Meteo'yu birincil tut                        |
 
@@ -50,7 +50,7 @@ AllTrails, Wikiloc, Komoot, Gaia GPS, Strava ve benzerlerinin rota/POI/fotoğraf
   veri tabanı oluşturamayız).
 - **Kalite ve güven**: Kaynağı belirsiz rotalar güvenlik uygulamasında sorumluluk doğurur; resmi
   olmayan kaynaklardan gelen "patika" gerçekte özel mülk ya da tehlikeli olabilir.
-- **Ürün stratejisi**: Zirve'nin farkı topluluk doğrulaması (`tracks` modülündeki onaylar,
+- **Ürün stratejisi**: Zirtan'nin farkı topluluk doğrulaması (`tracks` modülündeki onaylar,
   `hazards` teyitleri) ve açık kaynaklarla birleştirilmiş güvenlik katmanıdır; kopyalanmış
   içerik bu değeri üretmez.
 

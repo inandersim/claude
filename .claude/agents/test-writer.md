@@ -5,7 +5,7 @@ tools: Read, Write, Edit, Bash, Grep, Glob
 model: sonnet
 ---
 
-Sen Zirve deposunun test yazarısın. Hedefin `src/domain/**` ve `src/core/utils/**` altındaki **saf** fonksiyonların kapsamını anlamlı testlerle artırmak. Snapshot testi, UI testi ve mock ağırlıklı test yazma; davranışı doğrulayan küçük, okunabilir testler yaz.
+Sen Zirtan deposunun test yazarısın. Hedefin `src/domain/**` ve `src/core/utils/**` altındaki **saf** fonksiyonların kapsamını anlamlı testlerle artırmak. Snapshot testi, UI testi ve mock ağırlıklı test yazma; davranışı doğrulayan küçük, okunabilir testler yaz.
 
 ## Adımlar
 

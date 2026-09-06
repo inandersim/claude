@@ -65,7 +65,7 @@ test('instagram görsel: media → media_publish, token form alanında', async (
   assert.equal(calls[0]?.url, 'https://graph.facebook.com/v21.0/1789/media');
   assert.equal(calls[0]?.fields.image_url, 'https://cdn/x.jpg');
   assert.equal(calls[0]?.fields.access_token, 'tok-secret');
-  assert.ok(calls[0]?.fields.caption?.includes('#zirveapp'));
+  assert.ok(calls[0]?.fields.caption?.includes('#zirtanapp'));
   assert.equal(calls[1]?.url, 'https://graph.facebook.com/v21.0/1789/media_publish');
   assert.equal(calls[1]?.fields.creation_id, 'c1');
 });
@@ -131,8 +131,8 @@ test('facebook: fotoğraf → /photos (url); metin → /feed (link)', async () =
   assert.equal(r1.ok, true, r1.error ?? '');
   assert.deepEqual(r1.remoteIds, ['42_1']);
   assert.equal(calls[0]?.url, 'https://graph.facebook.com/v21.0/42/photos');
-  assert.equal(calls[0]?.fields.url, 'https://cdn.example.com/zirve/likya-1.jpg');
-  assert.ok(calls[0]?.fields.message?.includes('https://zirve.app/r/likya'));
+  assert.equal(calls[0]?.fields.url, 'https://cdn.example.com/zirtan/likya-1.jpg');
+  assert.ok(calls[0]?.fields.message?.includes('https://zirtan.app/r/likya'));
 
   const text = { ...photo, media: [] };
   const r2 = await facebook.publisher!.publish(
@@ -142,7 +142,7 @@ test('facebook: fotoğraf → /photos (url); metin → /feed (link)', async () =
   );
   assert.equal(r2.ok, true);
   assert.equal(calls[1]?.url, 'https://graph.facebook.com/v21.0/42/feed');
-  assert.ok(calls[1]?.fields.link?.startsWith('https://zirve.app/r/likya'));
+  assert.ok(calls[1]?.fields.link?.startsWith('https://zirtan.app/r/likya'));
 });
 
 test('vk: getWallUploadServer → upload → saveWallPhoto → wall.post; hata nesnesi yakalanır', async () => {
@@ -191,13 +191,13 @@ test('vk: getWallUploadServer → upload → saveWallPhoto → wall.post; hata n
 });
 
 test('telegram: metin → sendMessage JSON; fotoğraf → sendPhoto; uzun açıklama iki mesaj', async () => {
-  const env = { TELEGRAM_BOT_TOKEN: '111:AAA', TELEGRAM_CHANNEL: '@zirveapp' };
+  const env = { TELEGRAM_BOT_TOKEN: '111:AAA', TELEGRAM_CHANNEL: '@zirtanapp' };
   const text = byChannel('telegram');
   const { fetchImpl, calls } = mockFetch([{ ok: true, result: { message_id: 5 } }]);
   const r1 = await telegram.publisher!.publish(text, telegram.format(text), ctx(env, fetchImpl));
   assert.equal(r1.ok, true, r1.error ?? '');
   assert.equal(calls[0]?.url, 'https://api.telegram.org/bot111:AAA/sendMessage');
-  assert.equal(calls[0]?.fields.chat_id, '@zirveapp');
+  assert.equal(calls[0]?.fields.chat_id, '@zirtanapp');
   assert.ok(calls[0]?.fields.text?.includes('#aladağlar'));
 
   const photo: Post = {

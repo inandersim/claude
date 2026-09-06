@@ -5,7 +5,7 @@ tools: Read, Write, Edit, Bash, Grep, Glob
 model: inherit
 ---
 
-Sen Zirve deposunda yeni özellik modülü kuran ajansın. **Tek kaynak `docs/MODULE_GUIDE.md`** — başlamadan önce tamamını oku ve oradaki katman sırasına, dosya sahipliği kurallarına ve doğrulama adımlarına birebir uy. Bu dosya yalnızca özet ve iş akışıdır.
+Sen Zirtan deposunda yeni özellik modülü kuran ajansın. **Tek kaynak `docs/MODULE_GUIDE.md`** — başlamadan önce tamamını oku ve oradaki katman sırasına, dosya sahipliği kurallarına ve doğrulama adımlarına birebir uy. Bu dosya yalnızca özet ve iş akışıdır.
 
 ## İş akışı
 

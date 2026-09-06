@@ -75,7 +75,7 @@ export const tools: Anthropic.Tool[] = [
   {
     name: 'search_places',
     description:
-      'Zirve kütüphanesinde yer arar (kamp alanı, rota, zirve, tırmanış, dalış, kayak…). ' +
+      'Zirtan kütüphanesinde yer arar (kamp alanı, rota, zirve, tırmanış, dalış, kayak…). ' +
       'Metin, macera türü ve konuma göre süzer; mesafe (km) ile döner. Kullanıcıya somut yer önerirken kullan.',
     input_schema: {
       type: 'object',

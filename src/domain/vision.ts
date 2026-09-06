@@ -1013,8 +1013,8 @@ function otherAdvice(c: Ctx, bag: Bag): void {
     ),
     L(
       c,
-      'Şüphede kaldığında Zirve AI sohbetinde durumu yazarak sor.',
-      'If in doubt, describe the situation in the Zirve AI chat.',
+      'Şüphede kaldığında Zirtan AI sohbetinde durumu yazarak sor.',
+      'If in doubt, describe the situation in the Zirtan AI chat.',
     ),
   );
   bag.avoid.push(

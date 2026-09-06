@@ -13,7 +13,7 @@ describe('Groups', () => {
       'g_ebc',
       'g_ist_hike',
       'g_kackar',
-      'g_zirve_news',
+      'g_zirtan_news',
     ]);
     // Üyelikler listenin başında
     expect(all.slice(0, mine.length).every((g) => g.membership !== null)).toBe(true);
@@ -110,16 +110,16 @@ describe('Groups', () => {
     );
     // Kanalda üye yazamaz, yönetici yazabilir; sessize alan bildirim almaz
     await expect(
-      p.groups.send(CURRENT_USER_ID, 'g_zirve_news', { type: 'text', text: 'deneme' }),
+      p.groups.send(CURRENT_USER_ID, 'g_zirtan_news', { type: 'text', text: 'deneme' }),
     ).rejects.toThrow();
-    await p.groups.send('u_can', 'g_zirve_news', { type: 'text', text: 'Duyuru' });
+    await p.groups.send('u_can', 'g_zirtan_news', { type: 'text', text: 'Duyuru' });
     const meNotifs = await p.notifications.list(CURRENT_USER_ID);
-    expect(meNotifs.some((n) => n.type === 'group_message' && n.targetId === 'g_zirve_news')).toBe(
+    expect(meNotifs.some((n) => n.type === 'group_message' && n.targetId === 'g_zirtan_news')).toBe(
       true,
     );
     const mertNotifs = await p.notifications.list('u_mert');
     expect(
-      mertNotifs.some((n) => n.type === 'group_message' && n.targetId === 'g_zirve_news'),
+      mertNotifs.some((n) => n.type === 'group_message' && n.targetId === 'g_zirtan_news'),
     ).toBe(false);
     // Sayfalama: eski→yeni, `before` ile geriye
     const page = await p.groups.messages(CURRENT_USER_ID, 'g_kackar', null, 5);

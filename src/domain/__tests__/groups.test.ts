@@ -246,7 +246,7 @@ describe('filterGroups', () => {
     group({ id: 'g1', name: 'Kaçkar ekibi', kind: 'group', adventureTypes: ['hiking'] }),
     group({
       id: 'g2',
-      name: 'Zirve Duyurular',
+      name: 'Zirtan Duyurular',
       kind: 'channel',
       adventureTypes: ['skiing'],
       city: null,

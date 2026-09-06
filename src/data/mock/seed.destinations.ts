@@ -838,7 +838,7 @@ const kiliStages = stagesOf(KILI_ID, [
     min: 210,
     facilities: ['ranger post', 'certificate', 'transport'],
     net: '4g',
-    note: 'Zirve sertifikası (Uhuru altın, Stella yeşil). Bahşiş töreni genelde burada.',
+    note: 'Zirtan sertifikası (Uhuru altın, Stella yeşil). Bahşiş töreni genelde burada.',
   },
 ]);
 
@@ -3573,7 +3573,7 @@ Konaklama
 Ayder pansiyon ve kaplıca tesisleri; Yukarı Kavrun yayla pansiyonları (ev yemeği, sınırlı sıcak su). Dilberdüzü ve Deniz Gölü çadır. Rehber ya da katırcı Kavrun’da bulunur.
 
 Aklimatizasyon
-2300 m’den 3400 m’ye iki günde çıkılır; AMS nadirdir ama zirve gecesi kampında baş ağrısı görülür. Dilberdüzü’nde bir gece klasik. Zirve son bölümü kar-kaya (UIAA I–II); Temmuz’da mikro krampon işe yarar.
+2300 m’den 3400 m’ye iki günde çıkılır; AMS nadirdir ama zirve gecesi kampında baş ağrısı görülür. Dilberdüzü’nde bir gece klasik. Zirtan son bölümü kar-kaya (UIAA I–II); Temmuz’da mikro krampon işe yarar.
 
 Bütçe
 Uçuş 4.000–7.000 ₺, transfer 1.000–2.000 ₺, pansiyon 1.500 ₺/gece, rehber 3.000–5.000 ₺/gün. Toplam 8.000–25.000 ₺.

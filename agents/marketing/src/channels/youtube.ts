@@ -17,7 +17,7 @@ export const spec: ChannelSpec = {
     'Açıklama: ilk 2 satır özet + bağlantı; bölüm zaman damgaları; 3 hashtag.',
     'Uzun video 8–15 dk: rota, ulaşım, konaklama, güvenlik, maliyet; blog yazısına dönüştür (SEO landing).',
     'Shorts: dikey, ≤ 60 sn, başlıkta #Shorts.',
-    'Yorumlara sabitlenmiş "Zirve’de rota" bağlantısı.',
+    'Yorumlara sabitlenmiş "Zirtan’de rota" bağlantısı.',
   ],
   canPublish: false,
 };

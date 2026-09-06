@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Zirve pazarlama ajanları — CLI.
+ * Zirtan pazarlama ajanları — CLI.
  *   plan | generate | reply | analyze | post
  * Claude API'ye giden komutlar ANTHROPIC_API_KEY ister; `post` yalnızca kanal token'ları ister.
  */
@@ -16,9 +16,9 @@ import { runReply } from './commands/reply.js';
 import type { Lang } from './brand.js';
 import { loadEnv } from './util/env.js';
 
-const HELP = `Zirve pazarlama ajanları (Claude API)
+const HELP = `Zirtan pazarlama ajanları (Claude API)
 
-Kullanım: zirve-marketing <komut> [seçenekler]
+Kullanım: zirtan-marketing <komut> [seçenekler]
 
 Komutlar
   plan      --weeks 12 --lang tr --channels instagram,vk,... [--start YYYY-MM-DD] [--out content/plan.json]

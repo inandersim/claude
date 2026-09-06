@@ -163,7 +163,7 @@ export const fun_ru: FunI18nShape = {
     surprise: 'Сюрприз! Сегодня твой маршрут — {{name}}.',
   },
   passport: {
-    title: 'Паспорт Zirve',
+    title: 'Паспорт Zirtan',
     subtitle: 'Места, где ты поставил штамп',
     stamps: 'Штампы',
     countries: 'Страны',

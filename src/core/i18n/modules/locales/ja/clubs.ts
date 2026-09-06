@@ -118,7 +118,7 @@ export const clubs_ja: ClubsI18nShape = {
     benefitsTitle: 'あなたの特典',
     benefits: {
       discount: 'クラブイベントが20%オフ',
-      plan: 'Zirve 学生プラン — 年間 499 ₺',
+      plan: 'Zirtan 学生プラン — 年間 499 ₺',
       priority: '認証済みクラブへの優先入会',
       gear: '装備マーケットでの学生バッジ',
     },

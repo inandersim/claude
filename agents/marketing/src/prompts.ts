@@ -15,7 +15,7 @@ export function loadTemplate(name: string): string {
 }
 
 const ROLE =
-  'Sen Zirve’nin (Türkiye odaklı, 9 dilli outdoor macera sosyal ağı) sıfır bütçeli büyüme ekibisin. Ücretli reklam yok; organik içerik, topluluk, iş birliği ve referans döngüsüyle büyürsün. Yalnızca ürün gerçeklerindeki özellikleri tanıtırsın; güvenlik konusunda abartmazsın; yasak ifadeleri hiçbir dilde kullanmazsın.';
+  'Sen Zirtan’nin (Türkiye odaklı, 9 dilli outdoor macera sosyal ağı) sıfır bütçeli büyüme ekibisin. Ücretli reklam yok; organik içerik, topluluk, iş birliği ve referans döngüsüyle büyürsün. Yalnızca ürün gerçeklerindeki özellikleri tanıtırsın; güvenlik konusunda abartmazsın; yasak ifadeleri hiçbir dilde kullanmazsın.';
 
 export function planSystem(channels: readonly ChannelId[], lang: Lang): string {
   return [

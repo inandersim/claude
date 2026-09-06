@@ -1,14 +1,14 @@
 {
-  "name": "@zirve/marketing-agents",
+  "name": "@zirtan/marketing-agents",
   "version": "0.1.0",
   "private": true,
-  "description": "Zirve — Claude API tabanlı sıfır bütçeli pazarlama ajanları (plan, içerik üretimi, yanıt, analiz, yayınlama)",
+  "description": "Zirtan — Claude API tabanlı sıfır bütçeli pazarlama ajanları (plan, içerik üretimi, yanıt, analiz, yayınlama)",
   "type": "module",
   "engines": {
     "node": ">=22"
   },
   "bin": {
-    "zirve-marketing": "dist/src/cli.js"
+    "zirtan-marketing": "dist/src/cli.js"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",

@@ -36,7 +36,7 @@ const place = (o: Partial<LibraryPlace> & Pick<LibraryPlace, 'id' | 'name'>): Li
 const places: LibraryPlace[] = [
   place({
     id: 'cur:hike:kackar',
-    name: 'Kaçkar Zirve Rotası',
+    name: 'Kaçkar Zirtan Rotası',
     kind: 'hiking_route',
     lat: 40.8608,
     lng: 41.1594,

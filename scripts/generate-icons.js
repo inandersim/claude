@@ -1,6 +1,6 @@
 /* eslint-env node */
 /**
- * Zirve uygulama ikonlarını üretir (pngjs ile, harici araç gerektirmez).
+ * Zirtan uygulama ikonlarını üretir (pngjs ile, harici araç gerektirmez).
  *   node scripts/generate-icons.js
  * Üretilenler: assets/images/{icon,splash-icon,favicon,android-icon-*}.png
  */

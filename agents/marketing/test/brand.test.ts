@@ -10,11 +10,11 @@ import {
 } from '../src/brand.js';
 
 test('yasak ifadeler üç dilde yakalanır', () => {
-  assert.equal(checkBrandCompliance('Zirve ile asla kaybolmazsın!').length, 1);
-  assert.equal(checkBrandCompliance('With Zirve you never get lost.').length, 1);
-  assert.equal(checkBrandCompliance('С Zirve ты никогда не потеряешься').length, 1);
+  assert.equal(checkBrandCompliance('Zirtan ile asla kaybolmazsın!').length, 1);
+  assert.equal(checkBrandCompliance('With Zirtan you never get lost.').length, 1);
+  assert.equal(checkBrandCompliance('С Zirtan ты никогда не потеряешься').length, 1);
   assert.equal(checkBrandCompliance('SOS düğmesi kurtarma garantisi verir').length, 1);
-  assert.ok(checkBrandCompliance('AllTrails çöp, Zirve indir')[0]?.reason.includes('karalama'));
+  assert.ok(checkBrandCompliance('AllTrails çöp, Zirtan indir')[0]?.reason.includes('karalama'));
 });
 
 test('temiz metin geçer', () => {

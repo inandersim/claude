@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="assets/images/icon.png" width="120" alt="Zirve logosu" />
+  <img src="assets/images/icon.png" width="120" alt="Zirtan logosu" />
 </p>
 
-<h1 align="center">Zirve</h1>
+<h1 align="center">Zirtan</h1>
 
 <p align="center">
   Doğayı birlikte keşfet — outdoor macera sosyal ağı.<br/>
@@ -40,13 +40,13 @@
 
 **Konaklama & İşletmeler:** Otel, pansiyon, kamp alanı, glamping, ekipman mağazası, kiralama, tur operatörü ve dalış merkezi profilleri; puan, olanaklar, iletişim; konaklama rezervasyonu (gece hesabı + hizmet bedeli); işletme kaydı.
 
-**Zirve Pro (gelir modeli):** Kâşif (ücretsiz), Pro (₺149/ay), Pro Guide (₺399/ay — eğitmen/rehber ücretli modu, %5 komisyon, drone yayını), Business (₺799/ay). Aylık/yıllık paket, kazanç özeti (brüt/komisyon/net). Üretimde RevenueCat + iyzico Marketplace ile bağlanır.
+**Zirtan Pro (gelir modeli):** Kâşif (ücretsiz), Pro (₺149/ay), Pro Guide (₺399/ay — eğitmen/rehber ücretli modu, %5 komisyon, drone yayını), Business (₺799/ay). Aylık/yıllık paket, kazanç özeti (brüt/komisyon/net). Üretimde RevenueCat + iyzico Marketplace ile bağlanır.
 
 **Drone yayını:** Yayın kaynağı kamera/drone; DJI Fly / Mobile SDK için RTMP adresi; telemetri (irtifa, hız, pil, yön, pilota uzaklık) oynatıcı üstünde; Pro Guide/Business kapısı.
 
 **İlk yardım & SOS:** Basılı tutmalı SOS düğmesi (112 arama + acil kişilere konum + SOS modunda canlı konum), en yakın hastane/ambulans/dağ kurtarma/eczane listesi (mesafe, tahmini varış, yol tarifi), 12 çevrimdışı ilk yardım rehberi (CPR, kanama, kırık, hipotermi, sıcak çarpması, irtifa hastalığı, yılan ısırması, anafilaksi, boğulma, yanık, yıldırım, çığ), acil kişi yönetimi.
 
-**Zirve AI (v1.2):** Macera asistanı — gezi planı, yer önerisi, güvenlik özeti, paketleme listesi, ilk yardım adımları; uygulama içi yerel bilgi tabanı (çevrimdışı) ve isteğe bağlı Claude tabanlı `server/ai-gateway` (araç kullanımı, SSE akışı, prompt önbelleği). Yanıtlar uygulama içi bağlantılar (kütüphane, tehlike, rehber, rota planlayıcı) içerir.
+**Zirtan AI (v1.2):** Macera asistanı — gezi planı, yer önerisi, güvenlik özeti, paketleme listesi, ilk yardım adımları; uygulama içi yerel bilgi tabanı (çevrimdışı) ve isteğe bağlı Claude tabanlı `server/ai-gateway` (araç kullanımı, SSE akışı, prompt önbelleği). Yanıtlar uygulama içi bağlantılar (kütüphane, tehlike, rehber, rota planlayıcı) içerir.
 
 **Çevrimdışı haritalar & rota motoru (v1.2):** PMTiles vektör harita paketleri (indirme yöneticisi, sürüm/güncelleme), trail grafı üzerinde A\* rota planlama (yürüyüş, patika koşusu, dağ bisikleti, gravel, kayak turu profilleri; Tobler süre modeli, yüzey ve teknik kısıtları), yükseklik profili, zorluk, GPX içe/dışa aktarma, kayıtlı rotalar. Demo grafları: Kaçkar, Likya Yolu, Kapadokya, Aladağlar.
 
@@ -69,7 +69,7 @@ Ek olarak: karşılama + giriş + kayıt akışı, yeni macera paylaşma (fotoğ
 ## Teknoloji
 
 - **Expo SDK 57 · React Native 0.86 · React 19 · TypeScript (strict)**
-- **Expo Router** — dosya tabanlı navigasyon, tip güvenli rotalar, derin bağlantı (`zirve://`, `https://zirve.app`), korumalı rota grupları (`Stack.Protected`)
+- **Expo Router** — dosya tabanlı navigasyon, tip güvenli rotalar, derin bağlantı (`zirtan://`, `https://zirtan.app`), korumalı rota grupları (`Stack.Protected`)
 - **TanStack Query** (sunucu durumu, iyimser güncellemeler) + **Zustand** (oturum, dil, toast)
 - **Reanimated 4** + Gesture Handler (mikro animasyonlar, yüzen sekme çubuğu)
 - **expo-image**, **expo-location**, **expo-image-picker**, **expo-haptics**, **expo-blur**, **expo-video**, **expo-camera**, **react-native-svg**
@@ -163,8 +163,8 @@ Ayrıntılar için [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 npm run data -- import-osm --region TR --kinds campsite,climbing,diving,hiking_route,rafting,paragliding,ski,peak --out data/library
 npm run data -- import-wikidata --country TR --out data/library
 npm run data -- build-sqlite --in data/library
-npm run data -- enrich-images --db data/library/zirve-library.sqlite --limit 500
-npm run data -- export-app-seed --db data/library/zirve-library.sqlite --limit 300
+npm run data -- enrich-images --db data/library/zirtan-library.sqlite --limit 500
+npm run data -- export-app-seed --db data/library/zirtan-library.sqlite --limit 300
 ```
 
 `--region world` ile dünya karo karo çekilir ve kaldığı yerden devam eder; büyük ölçek için planet extract + `osmium tags-filter` önerilir. Ayrıntılar: [tools/data-pipeline/README.md](tools/data-pipeline/README.md). Pazar analizi ve gelir stratejisi: [docs/STRATEGY.md](docs/STRATEGY.md).
@@ -189,7 +189,7 @@ cp .env.example .env   # ANTHROPIC_API_KEY, ZIRVE_GATEWAY_KEY
 npm run build && npm start
 ```
 
-Uygulama tarafında `EXPO_PUBLIC_AI_GATEWAY_URL` ve `EXPO_PUBLIC_AI_GATEWAY_KEY` ayarlanırsa Zirve AI yanıtları gateway'den (SSE akışı) gelir; ayarlanmazsa yerel bilgi tabanı çevrimdışı yanıt üretir. Ayrıntı: `server/ai-gateway/README.md`.
+Uygulama tarafında `EXPO_PUBLIC_AI_GATEWAY_URL` ve `EXPO_PUBLIC_AI_GATEWAY_KEY` ayarlanırsa Zirtan AI yanıtları gateway'den (SSE akışı) gelir; ayarlanmazsa yerel bilgi tabanı çevrimdışı yanıt üretir. Ayrıntı: `server/ai-gateway/README.md`.
 
 ## Canlı yayın altyapısı
 

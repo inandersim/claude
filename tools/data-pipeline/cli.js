@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Zirve veri hattı komut satırı. Kullanım: node tools/data-pipeline/cli.js <komut> [--seçenek değer]
+// Zirtan veri hattı komut satırı. Kullanım: node tools/data-pipeline/cli.js <komut> [--seçenek değer]
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -118,7 +118,7 @@ const commands = {
 
   async 'build-sqlite'() {
     const dir = args.in ?? 'data/library';
-    const dbFile = args.db ?? path.join(dir, 'zirve-library.sqlite');
+    const dbFile = args.db ?? path.join(dir, 'zirtan-library.sqlite');
     const db = new LibraryDb(dbFile);
     let total = 0;
     for (const file of fs.readdirSync(dir).filter((f) => f.endsWith('.ndjson'))) {
@@ -143,7 +143,7 @@ const commands = {
   },
 
   async 'enrich-images'() {
-    const dbFile = args.db ?? path.join(args.in ?? 'data/library', 'zirve-library.sqlite');
+    const dbFile = args.db ?? path.join(args.in ?? 'data/library', 'zirtan-library.sqlite');
     const db = new LibraryDb(dbFile);
     const rows = db.needingImages(Number(args.limit ?? 200));
     console.log(`▶ ${rows.length} kayıt için Commons görseli`);
@@ -167,7 +167,7 @@ const commands = {
   },
 
   async 'export-app-seed'() {
-    const dbFile = args.db ?? 'data/library/zirve-library.sqlite';
+    const dbFile = args.db ?? 'data/library/zirtan-library.sqlite';
     const outFile = args.out ?? 'src/data/library/seed.generated.json';
     const db = new LibraryDb(dbFile);
     const places = db.all({ limit: Number(args.limit ?? 300) });
@@ -178,7 +178,7 @@ const commands = {
   },
 
   async 'export-csv'() {
-    const db = new LibraryDb(args.db ?? 'data/library/zirve-library.sqlite');
+    const db = new LibraryDb(args.db ?? 'data/library/zirtan-library.sqlite');
     const rows = db.db.prepare('SELECT * FROM places').all();
     const cols = Object.keys(rows[0] ?? {});
     const esc = (v) => (v === null || v === undefined ? '' : `"${String(v).replace(/"/g, '""')}"`);
@@ -191,7 +191,7 @@ const commands = {
   },
 
   async search() {
-    const db = new LibraryDb(args.db ?? 'data/library/zirve-library.sqlite');
+    const db = new LibraryDb(args.db ?? 'data/library/zirtan-library.sqlite');
     const q = args._[1];
     const results = q
       ? db.search(q, { kind: args.kind, limit: 20 })

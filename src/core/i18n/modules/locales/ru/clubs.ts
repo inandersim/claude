@@ -118,7 +118,7 @@ export const clubs_ru: ClubsI18nShape = {
     benefitsTitle: 'Твои бонусы',
     benefits: {
       discount: 'Скидка 20% на события клубов',
-      plan: 'Студенческий план Zirve — 499 ₺ в год',
+      plan: 'Студенческий план Zirtan — 499 ₺ в год',
       priority: 'Быстрое вступление в проверенные клубы',
       gear: 'Студенческий значок на рынке снаряжения',
     },

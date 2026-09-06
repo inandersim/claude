@@ -118,7 +118,7 @@ export const clubs_fr: ClubsI18nShape = {
     benefitsTitle: 'Tes avantages',
     benefits: {
       discount: '20 % de réduction sur les événements des clubs',
-      plan: 'Forfait étudiant Zirve — 499 ₺ / an',
+      plan: 'Forfait étudiant Zirtan — 499 ₺ / an',
       priority: 'Adhésion accélérée aux clubs vérifiés',
       gear: 'Badge étudiant sur le marché du matériel',
     },

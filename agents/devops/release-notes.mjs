@@ -86,7 +86,7 @@ const item = (c) => `- ${c.scope ? `**${c.scope}:** ` : ''}${humanize(c.subject)
 
 export function renderNotes(commits, { version, date, from, to }) {
   const lines = [];
-  lines.push(`## Zirve v${version} — ${date}`);
+  lines.push(`## Zirtan v${version} — ${date}`);
   lines.push('');
   const rangeText = from ? `\`${from}..${to}\`` : `\`${to}\` (tüm geçmiş)`;
   lines.push(

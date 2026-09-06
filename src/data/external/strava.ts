@@ -53,7 +53,7 @@ export function isStravaConfigured(): boolean {
   );
 }
 
-/** OAuth dönüş bağlantısı: `zirve://strava` (deep link) */
+/** OAuth dönüş bağlantısı: `zirtan://strava` (deep link) */
 export function stravaRedirectUrl(): string {
   return Linking.createURL('strava');
 }
@@ -74,7 +74,7 @@ export class StravaClient {
 
   private headers(extra: Record<string, string> = {}): Record<string, string> {
     const headers: Record<string, string> = { accept: 'application/json', ...extra };
-    if (this.apiKey) headers['x-zirve-key'] = this.apiKey;
+    if (this.apiKey) headers['x-zirtan-key'] = this.apiKey;
     return headers;
   }
 
@@ -135,7 +135,7 @@ export class StravaClient {
   }
 
   /**
-   * OAuth akışı: `expo-web-browser` ile yetki sayfası açılır, `zirve://strava?code=…` dönüşü
+   * OAuth akışı: `expo-web-browser` ile yetki sayfası açılır, `zirtan://strava?code=…` dönüşü
    * yakalanır; başarısızsa `Linking.openURL` ile açılır ve `null` döner (deep link dinlenmeli).
    */
   async connect(): Promise<StravaTokens | null> {

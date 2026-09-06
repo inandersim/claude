@@ -1,7 +1,7 @@
 # Ödeme & emanet (escrow) mimarisi
 
-Zirve'de konaklama ödemesi **misafir → platform → işletme** şeklinde akar. Misafirin parası giriş
-yapılana kadar platformda tutulur ("Zirve Emaneti"), girişten 24 saat sonra işletmeye aktarılır.
+Zirtan'de konaklama ödemesi **misafir → platform → işletme** şeklinde akar. Misafirin parası giriş
+yapılana kadar platformda tutulur ("Zirtan Emaneti"), girişten 24 saat sonra işletmeye aktarılır.
 Bu belge sağlayıcı seçimini, güvenlik kapsamını ve iade akışını özetler. Mock katmanı
 (`src/data/mock/repos/inventory.ts`) aynı durum makinesini (`src/domain/inventory.ts`) çalıştırır.
 
@@ -46,7 +46,7 @@ Yurt dışı işletmeler ve çoklu para birimi için **Stripe Connect (Express h
 ## PCI kapsamı
 
 - Kart verisi **uygulamaya girmez**. Ödeme formu sağlayıcının hosted/SDK bileşeninde açılır;
-  uygulamaya yalnızca token ve sonuç döner. Bu sayede Zirve **SAQ A** kapsamında kalır.
+  uygulamaya yalnızca token ve sonuç döner. Bu sayede Zirtan **SAQ A** kapsamında kalır.
 - Kart numarası, CVV veya son kullanma tarihi hiçbir zaman loglanmaz, AsyncStorage'a yazılmaz,
   analitik olaylarına eklenmez.
 - Uygulama, sağlayıcı callback'lerini imza doğrulamalı backend üzerinden alır; istemciden gelen
@@ -66,7 +66,7 @@ Yurt dışı işletmeler ve çoklu para birimi için **Stripe Connect (Express h
 
 - Ödeme verisi işleme amacı "sözleşmenin ifası"; açık rıza gerekmez ama aydınlatma metni gösterilir.
 - Kimlik/adres doğrulama belgeleri (`HostVerificationLevel`) sağlayıcının KYC servisinde tutulur,
-  Zirve yalnızca seviye bilgisini saklar.
+  Zirtan yalnızca seviye bilgisini saklar.
 - IBAN yalnızca maskelenmiş biçimde (`TR** **** 26`) istemciye döner; tam değer backend'de.
 - Saklama süresi: mali kayıtlar 10 yıl (VUK), pazarlama amaçlı hiçbir ödeme verisi tutulmaz.
 - Veri sahibi talebinde (silme) ödeme kayıtları anonimleştirilir, muhasebe kaydı korunur.

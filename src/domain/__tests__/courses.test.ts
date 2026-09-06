@@ -72,7 +72,7 @@ const course = (partial: Partial<Course>): Course => ({
   description: '',
   imageUrl: null,
   instructorId: null,
-  provider: 'Zirve',
+  provider: 'Zirtan',
   certificateName: null,
   validityMonths: null,
   priceTry: 0,

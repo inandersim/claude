@@ -149,7 +149,7 @@ export const seedBadges: Badge[] = [
   },
   {
     id: 'b_five_summits',
-    name: 'Zirve Koleksiyoncusu',
+    name: 'Zirtan Koleksiyoncusu',
     description: 'Beş zirveye ulaştın.',
     tier: 'gold',
     icon: 'bird',

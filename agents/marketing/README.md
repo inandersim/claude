@@ -1,4 +1,4 @@
-# Zirve pazarlama ajanları
+# Zirtan pazarlama ajanları
 
 Claude API tabanlı, **sıfır bütçeli** büyüme için komut satırı ajanları. Oyun kitabı [`docs/GROWTH.md`](../../docs/GROWTH.md); bu paket onu her hafta koşturan otomasyondur:
 
@@ -91,7 +91,7 @@ Uzun planlar 4'er hafta, gönderiler 6'şar öğe, yanıtlar 20'şer halinde ür
 
 1. [dev.vk.com](https://dev.vk.com) → **Создать приложение** → tür _Standalone_ (Мини-приложение değil).
 2. Implicit Flow ile kullanıcı token'ı: `https://oauth.vk.com/authorize?client_id=APP_ID&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=wall,photos,groups,offline&response_type=token&v=5.199` → adres çubuğundaki `access_token` (`offline` kapsamı ile süresiz).
-3. `VK_GROUP_ID`: topluluk adresindeki sayısal id (`vk.com/club123456` → `123456`; ekran adı varsa `groups.getById?group_id=zirveapp`). Token sahibi toplulukta yönetici olmalı.
+3. `VK_GROUP_ID`: topluluk adresindeki sayısal id (`vk.com/club123456` → `123456`; ekran adı varsa `groups.getById?group_id=zirtanapp`). Token sahibi toplulukta yönetici olmalı.
 4. Sınırlar: **saniyede 3 istek**, günde 50 duvar gönderisi; yanıt HTTP 200 içinde `error` nesnesiyle döner (paket bunu hataya çevirir).
 
 ### Telegram — BotFather

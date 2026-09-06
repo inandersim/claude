@@ -1,6 +1,6 @@
 # Ajan ekosistemi
 
-Zirve'nin altyapı bakımı, düşük bütçeyle **GitHub'ın ücretsiz katmanı + Claude Code** üzerinde çalışan bir ajan kümesine devredilmiştir. Ajanlar kod yazar, test eder, rapor üretir ve PR açar; **birleştirme kararı her zaman insana aittir**.
+Zirtan'nin altyapı bakımı, düşük bütçeyle **GitHub'ın ücretsiz katmanı + Claude Code** üzerinde çalışan bir ajan kümesine devredilmiştir. Ajanlar kod yazar, test eder, rapor üretir ve PR açar; **birleştirme kararı her zaman insana aittir**.
 
 ## 1. Şema — kim, neyi, ne zaman
 

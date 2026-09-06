@@ -1,11 +1,11 @@
-# Zirve AI Gateway
+# Zirtan AI Gateway
 
 Uygulamanın Claude API anahtarını **bündüllememesi** için araya giren küçük bir Node 22 + TypeScript servisi.
-Mobil/web istemci yalnızca bu servise (`x-zirve-key` ile) konuşur; servis `@anthropic-ai/sdk` ile modeli çağırır,
+Mobil/web istemci yalnızca bu servise (`x-zirtan-key` ile) konuşur; servis `@anthropic-ai/sdk` ile modeli çağırır,
 araçları (kütüphane araması, acil merkezler, rota/hava stub'ları) çalıştırır ve yanıtı SSE olarak akıtır.
 
 ```
-Uygulama ──POST /v1/chat (x-zirve-key)──▶ ai-gateway ──@anthropic-ai/sdk──▶ Claude API
+Uygulama ──POST /v1/chat (x-zirtan-key)──▶ ai-gateway ──@anthropic-ai/sdk──▶ Claude API
    ▲                                          │
    └────────── SSE: delta / tool / done ◀─────┘
 ```
@@ -30,7 +30,7 @@ Node ≥ 22 gerekir. `npm run build` `tsc` ile `dist/` üretir; `npm start` onu 
 | --- | --- | --- |
 | `ANTHROPIC_API_KEY` | — | SDK tarafından ortamdan okunur; **zorunlu** |
 | `PORT` | `8787` | Dinlenecek port |
-| `ZIRVE_GATEWAY_KEYS` | (boş) | Virgülle ayrılmış istemci anahtarları (`x-zirve-key`). Boşsa geliştirme modu: kimlik doğrulama yok, IP başına hız sınırı |
+| `ZIRVE_GATEWAY_KEYS` | (boş) | Virgülle ayrılmış istemci anahtarları (`x-zirtan-key`). Boşsa geliştirme modu: kimlik doğrulama yok, IP başına hız sınırı |
 | `RATE_LIMIT_PER_MIN` | `30` | Anahtar (ya da IP) başına dakikalık istek sınırı |
 | `CORS_ORIGIN` | `*` | `Access-Control-Allow-Origin` |
 | `ZIRVE_AI_MODEL` | `claude-opus-5` | Model kimliği |
@@ -65,12 +65,12 @@ Olaylar:
 | `done` | `{ "content", "intent", "actions", "tools", "usage", "model" }` | Tamamlandı; `actions` uygulama içi rotalar (`/library/<id>`, `/first-aid/<slug>`, `/hazards/<id>`, `/maps/planner`, `/satellite`, `/climbing`, …) |
 | `error` | `{ "code", "message" }` | Hata (`upstream_rate_limited`, `gateway_misconfigured`, `upstream_error`, …) |
 
-Model, yanıtın sonuna `---ZIRVE-META---` işaretiyle tek satır JSON (`intent`, `actions`) ekler; gateway bu bloğu akıştan
+Model, yanıtın sonuna `---ZIRTAN-META---` işaretiyle tek satır JSON (`intent`, `actions`) ekler; gateway bu bloğu akıştan
 ayıklar (`MetaSplitter`) ve `done` olayında yapılandırılmış olarak verir. İstemciye işaret hiçbir zaman sızmaz.
 
 ```bash
 curl -N http://localhost:8787/v1/chat \
-  -H 'content-type: application/json' -H 'x-zirve-key: dev-key' \
+  -H 'content-type: application/json' -H 'x-zirtan-key: dev-key' \
   -d '{"messages":[{"role":"user","content":"Yakınımda kamp alanı öner"}],"context":{"locale":"tr","coords":{"latitude":41,"longitude":29}}}'
 ```
 
@@ -131,7 +131,7 @@ Yanıt:
 
 ```bash
 curl http://localhost:8787/v1/vision \
-  -H 'content-type: application/json' -H 'x-zirve-key: dev-key' \
+  -H 'content-type: application/json' -H 'x-zirtan-key: dev-key' \
   -d "{\"imageBase64\":\"$(base64 -w0 photo.jpg)\",\"mediaType\":\"image/jpeg\",\"situation\":\"weather\",\"question\":\"Fırtına yaklaşıyor mu?\",\"locale\":\"tr\"}"
 ```
 
@@ -166,6 +166,6 @@ EXPO_PUBLIC_AI_GATEWAY_URL=http://localhost:8787 EXPO_PUBLIC_AI_GATEWAY_KEY=dev-
 ## Güvenlik notları
 
 - API anahtarı yalnızca bu servisin ortamında bulunur; istemciye asla verilmez.
-- `x-zirve-key` anahtarları uygulama sürümüne gömülü olsa da yalnızca bu servise erişim sağlar; sızarsa döndürülür (`ZIRVE_GATEWAY_KEYS`).
+- `x-zirtan-key` anahtarları uygulama sürümüne gömülü olsa da yalnızca bu servise erişim sağlar; sızarsa döndürülür (`ZIRVE_GATEWAY_KEYS`).
 - İstek gövdesi 256 KB (`/v1/vision` için 8 MB, görüntü 5 MB), sohbet geçmişi 40 mesaj / 8000 karakter ile sınırlıdır.
 - Modelin ürettiği `actions.href` değerleri izin verilen rota önekleriyle süzülür.

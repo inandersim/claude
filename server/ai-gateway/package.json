@@ -1,8 +1,8 @@
 {
-  "name": "@zirve/ai-gateway",
+  "name": "@zirtan/ai-gateway",
   "version": "0.1.0",
   "private": true,
-  "description": "Zirve AI — Claude API gateway (uygulama API anahtarını bündüllemez)",
+  "description": "Zirtan AI — Claude API gateway (uygulama API anahtarını bündüllemez)",
   "type": "module",
   "engines": {
     "node": ">=22"

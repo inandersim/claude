@@ -22,7 +22,7 @@ import type { Translations } from './tr';
 
 export const es: Translations = {
   common: {
-    appName: 'Zirve',
+    appName: 'Zirtan',
     tagline: 'Explora la naturaleza juntos',
     loading: 'Cargando…',
     retry: 'Reintentar',
@@ -624,12 +624,12 @@ export const es: Translations = {
     reviews: 'reseñas',
     about: 'Acerca de',
     suitableFor: 'Actividades adecuadas',
-    partnerCta: '¿Tienes un hotel, camping o tienda? Publícalo en Zirve y llega a los aventureros.',
+    partnerCta: '¿Tienes un hotel, camping o tienda? Publícalo en Zirtan y llega a los aventureros.',
     dateHint: 'A partir de hoy',
     days: 'días después',
   },
   plans: {
-    title: 'Zirve Pro',
+    title: 'Zirtan Pro',
     subtitle: 'Aventuras más seguras, más amplias y sin anuncios',
     monthly: 'Mensual',
     yearly: 'Anual',

@@ -21,7 +21,7 @@ export const AI_INTENTS = [
 export type AiIntent = (typeof AI_INTENTS)[number];
 
 /** Yanıt sonunda meta bloğunu ayıran işaret; akışta istemciye iletilmez. */
-export const META_MARKER = '\n---ZIRVE-META---\n';
+export const META_MARKER = '\n---ZIRTAN-META---\n';
 
 /** Uygulamada var olan rotalar; model yalnızca bunlara bağlantı üretir. */
 export const ALLOWED_ROUTES = [
@@ -59,7 +59,7 @@ export const FIRST_AID_SLUGS = [
  * Sabit sistem promptu. Byte düzeyinde değişmez tutulur (tarih, kimlik, konum yok)
  * ki prompt önbelleği her istekte isabet etsin. Değişken bağlam ayrı blokta gönderilir.
  */
-export const SYSTEM_PROMPT = `Sen "Zirve AI"sın: Zirve outdoor macera uygulamasının asistanı. Yürüyüş, tırmanış, dalış, kayak, bisiklet, yamaç paraşütü, rafting ve kano konularında gezi planlama, yer önerisi, güvenlik brifingi, paketleme listesi, ekipman tavsiyesi, ilk yardım adımları ve hava değerlendirmesi yaparsın.
+export const SYSTEM_PROMPT = `Sen "Zirtan AI"sın: Zirtan outdoor macera uygulamasının asistanı. Yürüyüş, tırmanış, dalış, kayak, bisiklet, yamaç paraşütü, rafting ve kano konularında gezi planlama, yer önerisi, güvenlik brifingi, paketleme listesi, ekipman tavsiyesi, ilk yardım adımları ve hava değerlendirmesi yaparsın.
 
 İlkeler:
 - Kullanıcının dilinde yanıt ver (bağlamdaki locale). Varsayılan Türkçe.
@@ -120,7 +120,7 @@ export const TRIP_PLAN_SCHEMA = {
   required: ['title', 'adventureType', 'days', 'packing', 'safety'],
 } as const;
 
-export const PLAN_SYSTEM_PROMPT = `Sen Zirve AI gezi planlayıcısısın. Kullanıcının isteğinden macera türü, gün sayısı ve seviyeyi çıkar; gerçekçi günlük etaplar (mesafe km, tırmanış m, kısa not), mevsime uygun paketleme listesi ve güvenlik notları üret. Yer adlarını uydurma; emin değilsen bölge adı kullan. Kullanıcının dilinde yaz (varsayılan Türkçe). Yalnızca şemaya uyan JSON döndür.`;
+export const PLAN_SYSTEM_PROMPT = `Sen Zirtan AI gezi planlayıcısısın. Kullanıcının isteğinden macera türü, gün sayısı ve seviyeyi çıkar; gerçekçi günlük etaplar (mesafe km, tırmanış m, kısa not), mevsime uygun paketleme listesi ve güvenlik notları üret. Yer adlarını uydurma; emin değilsen bölge adı kullan. Kullanıcının dilinde yaz (varsayılan Türkçe). Yalnızca şemaya uyan JSON döndür.`;
 
 function describeContext(ctx: GatewayContext): string {
   const lines: string[] = ['Kullanıcı bağlamı:'];
@@ -236,7 +236,7 @@ export class MetaSplitter {
   finish(): { flushed: string; visible: string; meta: ParsedMeta } {
     let flushed = '';
     if (!this.metaStarted && this.buffer) {
-      // İşaret hiç gelmedi ama kısmi işaret kalmış olabilir (örn. "\n---ZIRVE"); temizle.
+      // İşaret hiç gelmedi ama kısmi işaret kalmış olabilir (örn. "\n---ZIRTAN"); temizle.
       const partial = this.buffer.indexOf('\n---');
       flushed = partial === -1 ? this.buffer : this.buffer.slice(0, partial);
       this.visible += flushed;

@@ -67,7 +67,7 @@ const tr = {
   noSavedRoutesDescription: 'Planlayıcıda bir rota oluştur ve kaydet.',
   saveRoute: 'Rotayı kaydet',
   routeName: 'Rota adı',
-  routeNamePlaceholder: 'ör. Olgunlar → Zirve',
+  routeNamePlaceholder: 'ör. Olgunlar → Zirtan',
   routeSaved: 'Rota kaydedildi',
   routeDeleted: 'Rota silindi',
   deleteRoute: 'Rotayı sil',

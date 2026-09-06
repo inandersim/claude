@@ -1,5 +1,5 @@
 /**
- * Zirve tasarım sistemi — temel tasarım token'ları.
+ * Zirtan tasarım sistemi — temel tasarım token'ları.
  * Renkler, tipografi, boşluk ve köşe yarıçapı burada tek kaynaktan yönetilir.
  */
 

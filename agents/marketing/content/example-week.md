@@ -14,7 +14,7 @@
 # Kaçkar’da 3 gün — 1. gün: Ayder → Yukarı Kavrun
 
 - Kanal: **instagram** · Biçim: **reel** · Dil: **tr** · Tarih: **2026-09-08** · Saat: **19:30**
-- Bağlantı: https://zirve.app/r/kackar?utm_source=instagram&utm_medium=organic&utm_campaign=w01
+- Bağlantı: https://zirtan.app/r/kackar?utm_source=instagram&utm_medium=organic&utm_campaign=w01
 - Uyarılar: bağlantı metinde tıklanmaz; bio bağlantısını güncelle
 
 ## Yayın metni
@@ -24,13 +24,13 @@ Sabah 5, sis, önümüzde 3 gün.
 
 İlk gün en uzun etap: Ayder’den Yukarı Kavrun’a 14 km, +900 m. Suyu Kavrun’da doldur; sonrasında 2 saat kaynak yok.
 
-Biri iki gün önce Zirve’de heyelan işaretlemiş — rotayı üstten aldık. Acil durumda 112.
+Biri iki gün önce Zirtan’de heyelan işaretlemiş — rotayı üstten aldık. Acil durumda 112.
 
-3 günün rotası ve GPX’i Zirve’de — bağlantı bio’da.
+3 günün rotası ve GPX’i Zirtan’de — bağlantı bio’da.
 
 Bağlantı bio’da.
 
-#zirveapp #kaçkar #trekking #doğayürüyüşü #karadeniz #kamp #dağcılık
+#zirtanapp #kaçkar #trekking #doğayürüyüşü #karadeniz #kamp #dağcılık
 ```
 
 ## Senaryo (sahne sahne)
@@ -39,7 +39,7 @@ Bağlantı bio’da.
 | --- | ---- | ------------------------------------------------------------ | -------------------------------------- | ------------------------------------------------------------ |
 | 1   | 1.5s | Ayder’de çadır kapağı açılır, sis                            | Kaçkar — 1. gün                        | Sabah 5, sis, 3 gün önümüzde.                                |
 | 2   | 4s   | POV patika, hızlandırılmış                                   | Ayder → Yukarı Kavrun · 14 km · +900 m | İlk gün en uzun etap. Suyu Kavrun’da doldur.                 |
-| 3   | 4s   | Telefonda Zirve tehlike haritası, yakınlarda heyelan işareti | Topluluk tehlike haritası              | Biri iki gün önce heyelan işaretlemiş — rotayı üstten aldık. |
+| 3   | 4s   | Telefonda Zirtan tehlike haritası, yakınlarda heyelan işareti | Topluluk tehlike haritası              | Biri iki gün önce heyelan işaretlemiş — rotayı üstten aldık. |
 | 4   | 5s   | Kamp, ocak, yıldız time-lapse                                | Gece: 4 °C                             | Ateş yasak, ocak var. Uyku tulumu -5 konfor.                 |
 | 5   | 3s   | Sabah zirve silüeti                                          | 2. gün → yarın                         | Yarın: göller. Takip et.                                     |
 
@@ -49,7 +49,7 @@ Dikey 9:16, telefon; ilk karede büyük metin; altyazı zorunlu. Tehlike haritas
 
 ## Medya
 
-- video: https://cdn.example.com/zirve/kackar-gun1.mp4 — Sisli Ayder yaylasında çadırdan çıkan yürüyüşçü, arkada Kaçkar sırtları
+- video: https://cdn.example.com/zirtan/kackar-gun1.mp4 — Sisli Ayder yaylasında çadırdan çıkan yürüyüşçü, arkada Kaçkar sırtları
 
 ## Notlar
 
@@ -60,7 +60,7 @@ reuse: TikTok ve Shorts’a filigransız yükle.
 # Likya Yolu’nda yeni başlayanların 5 hatası
 
 - Kanal: **facebook** · Biçim: **carousel** · Dil: **tr** · Tarih: **2026-09-09** · Saat: **20:30**
-- Bağlantı: https://zirve.app/r/likya?utm_source=facebook&utm_medium=organic&utm_campaign=w01
+- Bağlantı: https://zirtan.app/r/likya?utm_source=facebook&utm_medium=organic&utm_campaign=w01
 - Uyarılar: metin 636 karakter; önerilen ≤ 600
 
 ## Yayın metni
@@ -71,16 +71,16 @@ Likya Yolu’na ilk kez çıkacaksan bu 5 hatayı önceden bil:
 1) Ekimde bile 3 litre su az gelir — Fethiye–Ölüdeniz etabında çeşme yok.
 2) Pamuklu tişört: terler, akşam üşütür. Sentetik ya da merinos.
 3) Gün batımına 1 saat kala hâlâ yürümek — patika işaretleri karanlıkta görünmez.
-4) Kamp yerini önceden bakmamak — Zirve kütüphanesinde kamp alanları ve su noktaları açık veriyle işaretli.
+4) Kamp yerini önceden bakmamak — Zirtan kütüphanesinde kamp alanları ve su noktaları açık veriyle işaretli.
 5) Kimseye haber vermemek — canlı konumu bir arkadaşınla paylaş.
 
 Acil durumda 112.
 
-Rotayı Zirve’de planla, tehlike haritasına bak, sonra çık.
+Rotayı Zirtan’de planla, tehlike haritasına bak, sonra çık.
 
-https://zirve.app/r/likya?utm_source=facebook&utm_medium=organic&utm_campaign=w01
+https://zirtan.app/r/likya?utm_source=facebook&utm_medium=organic&utm_campaign=w01
 
-#likyayolu #zirveapp
+#likyayolu #zirtanapp
 ```
 
 ## Kareler
@@ -89,7 +89,7 @@ https://zirve.app/r/likya?utm_source=facebook&utm_medium=organic&utm_campaign=w0
 2. 1 · Su: 3 litre + tuz tableti
 3. 2 · Kıyafet: pamuk yok
 4. 3 · Zaman: gün batımından 1 saat önce kampta ol
-5. 4 · Kamp yeri: Zirve kütüphanesi ekran görüntüsü (© OpenStreetMap katkıcıları)
+5. 4 · Kamp yeri: Zirtan kütüphanesi ekran görüntüsü (© OpenStreetMap katkıcıları)
 6. 5 · Haber ver: canlı konum paylaşımı
 7. Kapanış: Sen ne eklerdin? Yorumla.
 
@@ -99,15 +99,15 @@ Karusel 1080×1350; her karede büyük numara; son kare soru.
 
 ## Medya
 
-- image: https://cdn.example.com/zirve/likya-1.jpg — Babadağ’dan Ölüdeniz manzarası, ön planda patika işareti
-- image: https://cdn.example.com/zirve/likya-2.jpg — Kamp alanı ve su noktası işaretli harita ekranı
+- image: https://cdn.example.com/zirtan/likya-1.jpg — Babadağ’dan Ölüdeniz manzarası, ön planda patika işareti
+- image: https://cdn.example.com/zirtan/likya-2.jpg — Kamp alanı ve su noktası işaretli harita ekranı
 
 ---
 
 # Ликийская тропа за 4 дня: Фетхие → Олюдениз → Кабак
 
 - Kanal: **vk** · Biçim: **single_image** · Dil: **ru** · Tarih: **2026-09-10** · Saat: **19:00**
-- Bağlantı: https://zirve.app/ru/r/likya?utm_source=vk&utm_medium=organic&utm_campaign=w01
+- Bağlantı: https://zirtan.app/ru/r/likya?utm_source=vk&utm_medium=organic&utm_campaign=w01
 
 ## Yayın metni
 
@@ -119,13 +119,13 @@ Karusel 1080×1350; her karede büyük numara; son kare soru.
 День 3–4: Кабак → Алынджа → Гей, виды на Бабадаг.
 
 Сезон: октябрь–апрель. Летом жара выше 35 °C.
-В Zirve есть карта опасностей от сообщества и кемпинги из открытых данных. В экстренной ситуации — 112.
+В Zirtan есть карта опасностей от сообщества и кемпинги из открытых данных. В экстренной ситуации — 112.
 
-Маршрут и GPX — в Zirve.
+Маршрут и GPX — в Zirtan.
 
-https://zirve.app/ru/r/likya?utm_source=vk&utm_medium=organic&utm_campaign=w01
+https://zirtan.app/ru/r/likya?utm_source=vk&utm_medium=organic&utm_campaign=w01
 
-#ликийскаятропа #турция #поход #треккинг #zirveapp
+#ликийскаятропа #турция #поход #треккинг #zirtanapp
 ```
 
 ## Görsel brief
@@ -145,7 +145,7 @@ https://zirve.app/ru/r/likya?utm_source=vk&utm_medium=organic&utm_campaign=w01
 # Bugün nereye? — Aladağlar, Emli Vadisi
 
 - Kanal: **telegram** · Biçim: **text** · Dil: **tr** · Tarih: **2026-09-11** · Saat: **08:00**
-- Bağlantı: https://zirve.app/r/aladaglar?utm_source=telegram&utm_medium=organic&utm_campaign=w01
+- Bağlantı: https://zirtan.app/r/aladaglar?utm_source=telegram&utm_medium=organic&utm_campaign=w01
 
 ## Yayın metni
 
@@ -158,9 +158,9 @@ Topluluk notu: patikanın son 1 km’si taşlık, bastonu çıkar. Acil durumda 
 
 Yakınında kim çıkıyor? ZMatch’e bak.
 
-https://zirve.app/r/aladaglar?utm_source=telegram&utm_medium=organic&utm_campaign=w01
+https://zirtan.app/r/aladaglar?utm_source=telegram&utm_medium=organic&utm_campaign=w01
 
-#aladağlar #zirveapp
+#aladağlar #zirtanapp
 ```
 
 ## Notlar

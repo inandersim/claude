@@ -1,4 +1,4 @@
-# Zirve — Sıfır Bütçeli Büyüme Oyun Kitabı
+# Zirtan — Sıfır Bütçeli Büyüme Oyun Kitabı
 
 > Eylül 2026. Hedef: reklam harcaması olmadan, tek kişilik bir ekiple ilk 90 günde **5.000 kurulum, 1.500 haftalık aktif kullanıcı, 40 kulüp/rehber ortağı**. Otomasyon için `agents/marketing/` (Claude API tabanlı plan / üretim / yanıt / analiz / yayın ajanları) kullanılır; bu belge _ne_ ve _neden_, ajanlar _nasıl_ sorusuna cevap verir.
 
@@ -42,7 +42,7 @@ Rakiplerin hiçbirinde bir arada olmayan dört fark (bkz. [STRATEGY.md](STRATEGY
 
 ### 3.1 Instagram (ana vitrin)
 
-**Profil:** kullanıcı adı `@zirveapp`; bio'da 3 satır (ne, kim için, CTA) + tek bağlantı (Linktree yerine kendi `zirve.app/ig` yönlendirmesi, UTM'li). Öne çıkan hikâyeler: _Nasıl çalışır · Güvenlik · Rotalar · Kulüpler · Rusça_.
+**Profil:** kullanıcı adı `@zirtanapp`; bio'da 3 satır (ne, kim için, CTA) + tek bağlantı (Linktree yerine kendi `zirtan.app/ig` yönlendirmesi, UTM'li). Öne çıkan hikâyeler: _Nasıl çalışır · Güvenlik · Rotalar · Kulüpler · Rusça_.
 
 **Haftalık ritim (tek kişi için gerçekçi):** 2 Reel + 1 karusel + 1 tek görsel + her gün 1–3 story + 1 iş birliği gönderisi (Collab).
 
@@ -56,11 +56,11 @@ Rakiplerin hiçbirinde bir arada olmayan dört fark (bkz. [STRATEGY.md](STRATEGY
 
 **Hashtag setleri** (`brand.ts` → `HASHTAGS`; gönderi başına 8–12: 3 çekirdek + 4 niş + 3 yerel):
 
-- TR çekirdek: `#zirve #zirveapp #doğa #outdoor #kamp #trekking #dağcılık` · niş: `#tırmanış #dalış #yamaçparaşütü #patikakoşusu #solotrekking` · yerel: `#kaçkar #likyayolu #kapadokya #aladağlar #ağrıdağı #geyikbayırı #olimpos`
-- EN çekirdek: `#zirveapp #hiking #outdoors #camping #trekking #adventure` · niş: `#climbing #scubadiving #paragliding #trailrunning #solohiking` · yerel: `#turkey #lycianway #cappadocia #kackar #kalymnos`
+- TR çekirdek: `#zirve #zirtanapp #doğa #outdoor #kamp #trekking #dağcılık` · niş: `#tırmanış #dalış #yamaçparaşütü #patikakoşusu #solotrekking` · yerel: `#kaçkar #likyayolu #kapadokya #aladağlar #ağrıdağı #geyikbayırı #olimpos`
+- EN çekirdek: `#zirtanapp #hiking #outdoors #camping #trekking #adventure` · niş: `#climbing #scubadiving #paragliding #trailrunning #solohiking` · yerel: `#turkey #lycianway #cappadocia #kackar #kalymnos`
 - Hashtag'ler açıklamanın sonunda; `#keşfet #fyp` gibi genel etiketler kullanılmaz (niş erişimi düşürür).
 
-**UGC yeniden paylaşım:** `#zirveapp` ve konum etiketlerini günlük tara; DM ile izin iste (şablon: `templates/community-scripts.md`), izin ekran görüntüsünü sakla, gönderide `@atıf` + "izinle paylaşıldı". Haftada 2 UGC gönderisi hedef.
+**UGC yeniden paylaşım:** `#zirtanapp` ve konum etiketlerini günlük tara; DM ile izin iste (şablon: `templates/community-scripts.md`), izin ekran görüntüsünü sakla, gönderide `@atıf` + "izinle paylaşıldı". Haftada 2 UGC gönderisi hedef.
 
 **Hikâye şablonları** (`templates/story-templates.md`): günlük "Bugün nereye?" (anket sticker), anlık tehlike uyarısı (emoji yok, kırmızı şerit, 112), UGC, kulüp etkinliği geri sayımı, Pazar haftalık özeti.
 
@@ -76,7 +76,7 @@ Türkiye'de kamp/doğa kitlesi hâlâ Facebook gruplarında. Grup türleri: kamp
 
 1. Gruba gir, kuralları oku (çoğunda link/reklam yasak). İlk 2 hafta yalnızca yorum: rota sorularına somut cevap (etap, su, mevsim).
 2. 3. haftadan itibaren haftada 1 gönderi: trip report (fotoğraf + etap tablosu + güvenlik notu). Uygulama yalnızca sorulursa ya da "tehlike haritasında işaretledim" gibi doğal bağlamda.
-3. Grup yöneticileriyle DM: "grubunuz için Zirve'de özel etkinlik sayfası / kulüp profili açalım" — yöneticiye moderatör rozeti ve tehlike bildirimlerini onaylama yetkisi.
+3. Grup yöneticileriyle DM: "grubunuz için Zirtan'de özel etkinlik sayfası / kulüp profili açalım" — yöneticiye moderatör rozeti ve tehlike bildirimlerini onaylama yetkisi.
 4. Sayfa: haftada 2 gönderi (karusel + uzun metin), yorumlara ilk 1 saatte yanıt. Hashtag en fazla 3, bağlantı UTM'li metnin sonunda.
 5. Facebook'ta en iyi biçim: **fotoğraf albümü** (3–6 kare, ilk kare manzara) ve **anket**.
 
@@ -84,8 +84,8 @@ Türkiye'de kamp/doğa kitlesi hâlâ Facebook gruplarında. Grup türleri: kamp
 
 Neden: Kafkasya (Gürcistan, Ermenistan, Dağıstan), Kırgızistan/Kazakistan trekking topluluğu ve Türkiye'de yaşayan/tatil yapan Rusça konuşanlar için AllTrails/Komoot Rusça içerikte zayıf; VK reklamsız erişimde hâlâ cömert.
 
-- **Topluluk (сообщество)** aç: "Zirve — походы и приключения в Турции". Kapak, kısa açıklama, "Ссылка в приложение" düğmesi, tartışma başlıkları (Ликийская тропа, Каппадокия, Качкар, Дайвинг в Каше).
-- **İçerik:** Rusça uzun gönderi (VK'da uzun metin sorun değil): "Ликийская тропа за 4 дня" etap etap, ulaşım (Antalya havalimanı → Fethiye otobüs), fiyatlar (TL ve RUB), sezon, su, kamp. 5–8 Rusça hashtag (`#ликийскаятропа #турция #поход #треккинг #zirveapp`).
+- **Topluluk (сообщество)** aç: "Zirtan — походы и приключения в Турции". Kapak, kısa açıklama, "Ссылка в приложение" düğmesi, tartışma başlıkları (Ликийская тропа, Каппадокия, Качкар, Дайвинг в Каше).
+- **İçerik:** Rusça uzun gönderi (VK'da uzun metin sorun değil): "Ликийская тропа за 4 дня" etap etap, ulaşım (Antalya havalimanı → Fethiye otobüs), fiyatlar (TL ve RUB), sezon, su, kamp. 5–8 Rusça hashtag (`#ликийскаятропа #турция #поход #треккинг #zirtanapp`).
 - **VK Clips:** Reel'lerin Rusça altyazılı sürümü.
 - **"Предложить новость":** büyük походы/треккинг topluluklarına haftada 1 içerik öner (spam değil, tam trip report).
 - **Rus dilli Telegram/VK "Анталия/Аланья" yerleşik toplulukları:** hafta sonu yürüyüş etkinlikleri (ZMatch + kulüp etkinliği) — yerel Rusça konuşan bir gönüllü "elçi" bul (Pro 1 yıl ücretsiz karşılığı).
@@ -94,17 +94,17 @@ Neden: Kafkasya (Gürcistan, Ermenistan, Dağıstan), Kırgızistan/Kazakistan t
 ### 3.4 TikTok ve YouTube Shorts
 
 - Aynı dikey video üç yere: TikTok → Shorts → Reels (CapCut'tan filigransız dışa aktar).
-- TikTok'ta açıklama 1–2 cümle + 3–5 niş hashtag; 1.000 takipçi altında link yok → "Zirve'yi ara" de.
+- TikTok'ta açıklama 1–2 cümle + 3–5 niş hashtag; 1.000 takipçi altında link yok → "Zirtan'yi ara" de.
 - **Seri mantığı** algoritmanın sevdiği şey: "Bunu yapma #1…#10", "3 gün / 3 bölüm". Yorumlara **video ile yanıt** — en ucuz ikinci içerik.
 - Shorts: başlıkta `#Shorts`, uzun videolara "bölüm" olarak bağla; sabitlenmiş yorumda UTM'li bağlantı.
 - Haftada 3 TikTok, 2 Shorts (TikTok tekrarları). Ölçüm: izlenme tamamlama oranı > %40 ve paylaşım/izlenme > %1 olan kalıp tekrarlanır.
 
-### 3.5 Telegram — kanal + Zirve grupları
+### 3.5 Telegram — kanal + Zirtan grupları
 
-- **Kanal `@zirveapp`:** günde 1–2 kısa kart: "Bugün nereye?" (yer, km, süre, hava, su, topluluk notu), anlık tehlike uyarıları (tehlike haritasından, onaylı olanlar), hafta sonu rota anketi (Pazar), haftalık özet. Bot API ile `post --channel telegram` otomatik yayınlar.
-- **Şehir grupları:** Zirve İstanbul / Ankara / İzmir / Antalya (+ Rusça Zirve Анталия). Kural: etkinlik odaklı, her hafta sonu en az bir "birlikte çıkalım" başlığı; grup yöneticisi = o şehirdeki gönüllü elçi.
+- **Kanal `@zirtanapp`:** günde 1–2 kısa kart: "Bugün nereye?" (yer, km, süre, hava, su, topluluk notu), anlık tehlike uyarıları (tehlike haritasından, onaylı olanlar), hafta sonu rota anketi (Pazar), haftalık özet. Bot API ile `post --channel telegram` otomatik yayınlar.
+- **Şehir grupları:** Zirtan İstanbul / Ankara / İzmir / Antalya (+ Rusça Zirtan Анталия). Kural: etkinlik odaklı, her hafta sonu en az bir "birlikte çıkalım" başlığı; grup yöneticisi = o şehirdeki gönüllü elçi.
 - Anketler katılımı 3–5 kat artırır; her kanal gönderisine emoji tepki açık.
-- Telegram'dan uygulamaya geçiş: derin bağlantı `zirve://` + UTM.
+- Telegram'dan uygulamaya geçiş: derin bağlantı `zirtan://` + UTM.
 
 ### 3.6 Reddit
 
@@ -116,7 +116,7 @@ Reddit'te "reklam kokan her şey banlanır". Hesap 30 gün / 200 karma olmadan g
 | r/Turkey, r/TurkeyTravel                | Seyahat sorularına cevap                  | "Türkiye'de trekking nereden başlanır?" tarzı sorulara kapsamlı yanıt; profilde bağlantı                 |
 | r/climbing, r/scuba, r/Ultralight       | Soru–cevap, ekipman                       | Geyikbayırı sezonu, Kaş dalış noktaları; deneyim paylaşımı                                               |
 | r/SideProject, r/androidapps, r/iosapps | Kendi projeni tanıtmak serbest            | "I built an outdoor safety + partner-matching app for Türkiye — feedback?" (AMA tonu, açık yol haritası) |
-| r/zirveapp (kendi topluluğun)           | —                                         | Sürüm notları, özellik oylaması, hata bildirimleri                                                       |
+| r/zirtanapp (kendi topluluğun)           | —                                         | Sürüm notları, özellik oylaması, hata bildirimleri                                                       |
 
 Hashtag yok; başlık spesifik; bağlantı gövdenin sonunda; eleştiriye "haklısın, ekledik" ile dön. Haftada 1 kaliteli gönderi + günde 10 dk yorum.
 
@@ -133,7 +133,7 @@ Hashtag yok; başlık spesifik; bağlantı gövdenin sonunda; eleştiriye "hakl�
 
 Ücretsiz ve kalıcı en büyük kurulum kaynağı. Anahtar kelimeler (TR / EN); başlıkta 1, alt başlıkta 2, açıklamada doğal tekrar:
 
-- **Başlık:** "Zirve: Doğa, Kamp & Trekking" / "Zirve: Hiking, Camping & Climbing"
+- **Başlık:** "Zirtan: Doğa, Kamp & Trekking" / "Zirtan: Hiking, Camping & Climbing"
 - **Alt başlık (iOS) / kısa açıklama (Play):** "Yürüyüş arkadaşı bul, tehlike haritası, SOS" / "Find hiking partners, hazard map, SOS"
 - **Anahtar kelimeler (iOS 100 karakter):** TR `kamp,trekking,dağcılık,tırmanış,dalış,rota,gps,yürüyüş,doğa,kamp alanı,sos,ilk yardım,kaçkar,likya` · EN `hiking,trail,camping,climbing,scuba,trekking,gps,offline map,sos,first aid,turkey,lycian way`
 - **Ekran görüntüleri:** 1) ZMatch 2) tehlike haritası radar 3) canlı yayın telemetri 4) SOS + ilk yardım 5) kütüphane/rota 6) kulüpler. Her görselde tek cümle başlık, TR/EN/RU yerelleştirme (ASO'da 9 dilin hepsine en azından başlık/alt başlık).
@@ -142,7 +142,7 @@ Hashtag yok; başlık spesifik; bağlantı gövdenin sonunda; eleştiriye "hakl�
 
 ### 3.9 SEO landing sayfaları (destinasyon rehberleri)
 
-`zirve.app/rehber/<destinasyon>` altında statik sayfalar (Expo web export ya da ayrı statik site; ücretsiz barındırma: GitHub Pages / Cloudflare Pages). Her sayfa: özet, etaplar tablosu, ulaşım, mevsim, su, güvenlik (tehlike haritası kesiti), kamp/konaklama (kütüphaneden), SSS (FAQ schema), "Zirve'de aç" derin bağlantısı.
+`zirtan.app/rehber/<destinasyon>` altında statik sayfalar (Expo web export ya da ayrı statik site; ücretsiz barındırma: GitHub Pages / Cloudflare Pages). Her sayfa: özet, etaplar tablosu, ulaşım, mevsim, su, güvenlik (tehlike haritası kesiti), kamp/konaklama (kütüphaneden), SSS (FAQ schema), "Zirtan'de aç" derin bağlantısı.
 
 İlk 12 sayfa: Kaçkar Dağları · Likya Yolu · Kapadokya yürüyüş vadileri · Aladağlar · Ağrı Dağı tırmanışı · Geyikbayırı · Olympos · Kaş dalış noktaları · Uludağ kış · Erciyes · **"Everest Base Camp nasıl gidilir"** (Türkçe'de rakipsiz) · **"Kilimanjaro tırmanışı Türkiye'den"**. EN sürümleri: "Lycian Way complete guide", "Kaçkar trekking guide", "Cappadocia hiking valleys". RU: "Ликийская тропа: полный гид".
 
@@ -167,7 +167,7 @@ YouTube videosu + blog + Reddit gönderisi + Pinterest pini aynı içeriğin dö
 
 Uygulamada 14 kulüp dizini zaten var (ODTÜ, Boğaziçi, İTÜ, Hacettepe, Ege, Bilkent, KTÜ, Akdeniz, Sabancı, Ankara, Dokuz Eylül, YTÜ, ETH Zürich, Edinburgh).
 
-**Paket (ücretsiz):** kulüp profili + etkinlik RSVP + .edu doğrulama + kulüp sıralaması + üyelere 1 ay Pro. **Karşılığı:** kulüp Instagram'ında 1 Collab gönderi, etkinlikte "Zirve ile RSVP", gezi sonrası UGC.
+**Paket (ücretsiz):** kulüp profili + etkinlik RSVP + .edu doğrulama + kulüp sıralaması + üyelere 1 ay Pro. **Karşılığı:** kulüp Instagram'ında 1 Collab gönderi, etkinlikte "Zirtan ile RSVP", gezi sonrası UGC.
 
 - Dönem başı (Eylül–Ekim) kulüp tanıtım günleri: QR'lı A5 afiş (Canva), 2 dakikalık demo.
 - Ortak etkinlik: "Güvenli dağ günü" — 2 saat ilk yardım/tehlike haritası atölyesi (uygulamadaki 12 rehber üzerinden) + kısa yürüyüş; her etkinlik 1 Reel + 1 karusel + Telegram duyurusu.
@@ -184,7 +184,7 @@ Uygulamada 14 kulüp dizini zaten var (ODTÜ, Boğaziçi, İTÜ, Hacettepe, Ege,
 
 - Liste: Türkçe doğa/gezi blogları ve siteleri (doğa yürüyüşü rehber siteleri, kamp/karavan blogları, dağcılık dergileri), İngilizce Türkiye seyahat blogları (Lycian Way odaklı), Rusça Türkiye gezi kanalları, üniversite gazeteleri, teknoloji basını (yerli uygulama hikâyesi).
 - Açı: "Türkiye'nin ilk topluluk kaynaklı tehlike haritası", "açık veriyle 10 ülke, 10 tür lokasyon kütüphanesi", "üniversite kulüplerini tek uygulamada birleştiren öğrenci ağı", sezonluk "Kaçkar'da güvenli trekking için 10 kural" (hazır içerik ver, uygulama bir cümle).
-- Basın kiti (`zirve.app/basin`): logo, ekran görüntüleri, kurucu fotoğrafı, 3 paragraf, rakamlar (yalnızca gerçek olanlar).
+- Basın kiti (`zirtan.app/basin`): logo, ekran görüntüleri, kurucu fotoğrafı, 3 paragraf, rakamlar (yalnızca gerçek olanlar).
 - Konuk yazı: blog sahibine hazır, SEO uyumlu, orijinal fotoğraflı rehber (karşılığında bir bağlantı). Ayda 2.
 
 ## 4. 90 günlük takvim
@@ -193,7 +193,7 @@ Başlangıç: ilk Pazartesi (`plan --start`). Haftalık hacim: IG 4–5 + story,
 
 | Hafta | Tema                                      | Odak kanal                 | İçerik türü                                                                | KPI (hafta sonu)                                    |
 | ----- | ----------------------------------------- | -------------------------- | -------------------------------------------------------------------------- | --------------------------------------------------- |
-| 1     | Temel: profiller, bio, ilk 9 gönderi      | IG, TG, VK                 | "Zirve nedir" karuseli, 3 tanıtım Reel'i, Telegram kanalı, VK topluluğu    | IG 300 takipçi, TG 100, VK 100                      |
+| 1     | Temel: profiller, bio, ilk 9 gönderi      | IG, TG, VK                 | "Zirtan nedir" karuseli, 3 tanıtım Reel'i, Telegram kanalı, VK topluluğu    | IG 300 takipçi, TG 100, VK 100                      |
 | 2     | Güvenlik #1: "Bunu yapma" 1–3             | IG, TikTok, Shorts         | 3 kısa video, ilk UGC izni, ASO metinleri yayında                          | 10K görüntülenme, 150 kurulum                       |
 | 3     | "Kaçkar'da 3 gün" serisi                  | IG, TikTok, YT, Reddit     | 3 bölüm Reel + uzun YT video + r/hiking trip report + Kaçkar landing       | Reel erişim 1.500, kaydetme 40, landing 300 ziyaret |
 | 4     | Kulüp dönemi başlıyor                     | IG, TG, kampüs             | 5 kulüp Collab, "Güvenli dağ günü" duyurusu, kulüp ligi                    | 8 kulüp, 300 öğrenci                                |
@@ -209,7 +209,7 @@ Başlangıç: ilk Pazartesi (`plan --start`). Haftalık hacim: IG 4–5 + story,
 
 ## 5. Ölçüm
 
-**UTM şeması:** `utm_source=<kanal>` (instagram, ig_story, tiktok, shorts, youtube, facebook, fb_group, vk, telegram, reddit, ph, blog) · `utm_medium=organic|collab|referral|press` · `utm_campaign=w<hafta>` ya da `<seri-adı>` · `utm_content=<gönderi-id>`. Tüm bağlantılar `zirve.app/r/<kısa>` yönlendirmesinden geçer (ücretsiz: Cloudflare Redirect Rules).
+**UTM şeması:** `utm_source=<kanal>` (instagram, ig_story, tiktok, shorts, youtube, facebook, fb_group, vk, telegram, reddit, ph, blog) · `utm_medium=organic|collab|referral|press` · `utm_campaign=w<hafta>` ya da `<seri-adı>` · `utm_content=<gönderi-id>`. Tüm bağlantılar `zirtan.app/r/<kısa>` yönlendirmesinden geçer (ücretsiz: Cloudflare Redirect Rules).
 
 **Kaynaklar:** App Store Connect (kaynak/ülke bazında kurulum, arama dönüşümü), Play Console (mağaza listesi dönüşümü, anahtar kelime), Meta Business Suite Insights (erişim, kaydetme, paylaşım, profil ziyareti; CSV dışa aktarım), TikTok Analytics, YouTube Studio, VK Статистика (`stats.get`), Telegram kanal istatistiği, Reddit gönderi istatistikleri, uygulama içi olaylar (kurulum → kayıt → ilk eşleşme/rota → 7. gün geri dönüş).
 
@@ -250,6 +250,6 @@ Reklamı ölçmek için aynı UTM şeması + kurulum başına maliyet (CPI) < �
 | Çarşamba   | Yayın (`post` + Meta Business Suite zamanlama), Facebook grup yorumları (30 dk), Reddit (15 dk) |
 | Perşembe   | Kulüp/rehber DM'leri (10), UGC izinleri, Collab koordinasyonu                                   |
 | Cuma       | VK/RU içerik, Telegram hafta sonu anketi, `reply` ile yorum/DM taslakları                       |
-| Hafta sonu | Etkinlik (kulüp gezisi / Zirve şehir grubu) → UGC ham malzeme; günlük story                     |
+| Hafta sonu | Etkinlik (kulüp gezisi / Zirtan şehir grubu) → UGC ham malzeme; günlük story                     |
 
 Ajan komutlarının ayrıntısı: [`agents/marketing/README.md`](../agents/marketing/README.md).

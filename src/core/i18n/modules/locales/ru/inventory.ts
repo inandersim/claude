@@ -46,8 +46,8 @@ export const inventory_ru: InventoryI18nShape = {
     season: 'Сезон',
   },
   escrow: {
-    title: 'Депозит Zirve',
-    description: 'Твой платёж хранится на депозите Zirve до заезда.',
+    title: 'Депозит Zirtan',
+    description: 'Твой платёж хранится на депозите Zirtan до заезда.',
     hint: 'Через 24 часа после заезда сумма переводится объекту; при проблемах мы запустим возврат.',
   },
   paymentStatus: {
@@ -61,7 +61,7 @@ export const inventory_ru: InventoryI18nShape = {
   payment: {
     title: 'Оплата',
     provider: 'Способ оплаты',
-    providerHint: 'Данные карты не попадают на серверы Zirve; подтверждение через 3D Secure.',
+    providerHint: 'Данные карты не попадают на серверы Zirtan; подтверждение через 3D Secure.',
     payWithEscrow: 'Оплатить через депозит',
     success: 'Бронирование создано, платёж на депозите.',
     timeline: 'Путь платежа',

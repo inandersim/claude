@@ -1,4 +1,4 @@
--- Zirve kütüphanesi — PostgreSQL + PostGIS şeması
+-- Zirtan kütüphanesi — PostgreSQL + PostGIS şeması
 CREATE EXTENSION IF NOT EXISTS postgis;
 CREATE EXTENSION IF NOT EXISTS pg_trgm;
 

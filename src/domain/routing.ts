@@ -433,7 +433,7 @@ function unescapeXml(value: string): string {
 }
 
 /** Planlanan rotayı GPX 1.1 belgesine çevirir (trk/trkseg/trkpt + ele). */
-export function toGpx(planned: PlannedRoute, name: string, creator = 'Zirve'): string {
+export function toGpx(planned: PlannedRoute, name: string, creator = 'Zirtan'): string {
   const trkpts = planned.points
     .map((p, i) => {
       const ele = planned.profile[i]?.[1];

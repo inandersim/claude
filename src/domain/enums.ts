@@ -506,7 +506,7 @@ export const CANCELLATION_POLICIES = ['flexible', 'moderate', 'strict'] as const
 export type CancellationPolicy = (typeof CANCELLATION_POLICIES)[number];
 
 /**
- * authorized: kart bloke · escrow: Zirve emanetinde · released: giriş sonrası
+ * authorized: kart bloke · escrow: Zirtan emanetinde · released: giriş sonrası
  * işletmeye aktarıldı · refunded: iade edildi
  */
 export const PAYMENT_STATUSES = [

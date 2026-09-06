@@ -1,5 +1,5 @@
 /**
- * Zirve marka sesi, ürün gerçekleri, yasak ifadeler ve yasal notlar.
+ * Zirtan marka sesi, ürün gerçekleri, yasak ifadeler ve yasal notlar.
  * Tüm ajanlar (plan / generate / reply / analyze / post) bu dosyayı sistem
  * istemine gömer; `post` komutu yayın öncesi `checkBrandCompliance` ile denetler.
  */
@@ -9,9 +9,9 @@ export type Lang = 'tr' | 'en' | 'ru';
 export const LANGS: readonly Lang[] = ['tr', 'en', 'ru'];
 
 export const BRAND = {
-  name: 'Zirve',
-  handle: '@zirveapp',
-  site: 'https://zirve.app',
+  name: 'Zirtan',
+  handle: '@zirtanapp',
+  site: 'https://zirtan.app',
   tagline: {
     tr: 'Doğayı birlikte keşfet.',
     en: 'Explore the outdoors, together.',
@@ -91,7 +91,7 @@ export const PRODUCT_FACTS: readonly string[] = [
   'Eğitmenler ve rehberler: sertifikalı profiller, ders talebi/rezervasyon; Pro Guide planı ile ücretli rezervasyon ve %5 komisyon.',
   'Üniversite kulüpleri: doğa sporları kulüpleri dizini (ODTÜ, Boğaziçi, İTÜ, Hacettepe, Ege, Bilkent, KTÜ, Akdeniz, Sabancı, Ankara, Dokuz Eylül, YTÜ, ETH Zürich, Edinburgh), etkinlik & RSVP, .edu e-postayla öğrenci doğrulama, kulüp sıralaması.',
   'Oyunlaştırma: XP/seviye, 20 rozet, haftalık/aylık görevler, liderlik tablosu, günün outdoor yarışması, macera ruleti, zirve pasaportu, seri.',
-  'Zirve AI: gezi planı, yer önerisi, güvenlik özeti, paketleme listesi, ilk yardım adımları (çevrimdışı yerel bilgi tabanı + isteğe bağlı Claude API tabanlı sunucu).',
+  'Zirtan AI: gezi planı, yer önerisi, güvenlik özeti, paketleme listesi, ilk yardım adımları (çevrimdışı yerel bilgi tabanı + isteğe bağlı Claude API tabanlı sunucu).',
   'Planlar: Kâşif (ücretsiz), Pro ₺149/ay, Pro Guide ₺399/ay, Business ₺799/ay.',
   'Diller: Türkçe, İngilizce, Almanca, Fransızca, İspanyolca, İtalyanca, Japonca, Portekizce, Rusça.',
   'Platform: iOS ve Android (Expo). Mevcut sürüm demo veri ile çalışır; gerçek backend v1.3 yol haritasında — "milyonlarca kullanıcı" gibi sayılar verme.',
@@ -164,7 +164,7 @@ export const AUDIENCES: readonly { id: string; label: string; painPoint: string;
 /** Kanal-bağımsız hashtag setleri. Kanal biçimlendiricileri sayı sınırını uygular. */
 export const HASHTAGS: Record<Lang, { core: string[]; niche: string[]; local: string[] }> = {
   tr: {
-    core: ['#zirve', '#zirveapp', '#doğa', '#outdoor', '#kamp', '#trekking', '#dağcılık'],
+    core: ['#zirve', '#zirtanapp', '#doğa', '#outdoor', '#kamp', '#trekking', '#dağcılık'],
     niche: [
       '#tırmanış',
       '#dalış',
@@ -190,7 +190,7 @@ export const HASHTAGS: Record<Lang, { core: string[]; niche: string[]; local: st
     ],
   },
   en: {
-    core: ['#zirveapp', '#hiking', '#outdoors', '#camping', '#trekking', '#adventure'],
+    core: ['#zirtanapp', '#hiking', '#outdoors', '#camping', '#trekking', '#adventure'],
     niche: [
       '#climbing',
       '#scubadiving',
@@ -213,7 +213,7 @@ export const HASHTAGS: Record<Lang, { core: string[]; niche: string[]; local: st
     ],
   },
   ru: {
-    core: ['#zirveapp', '#поход', '#горы', '#треккинг', '#кемпинг', '#туризм'],
+    core: ['#zirtanapp', '#поход', '#горы', '#треккинг', '#кемпинг', '#туризм'],
     niche: ['#скалолазание', '#дайвинг', '#параплан', '#трейлраннинг', '#соловпоход', '#альпинизм'],
     local: [
       '#турция',
@@ -231,21 +231,21 @@ export const HASHTAGS: Record<Lang, { core: string[]; niche: string[]; local: st
 /** Çağrı (CTA) kalıpları — kanala göre ajan seçer. */
 export const CTAS: Record<Lang, string[]> = {
   tr: [
-    'Zirve’yi indir, yakınındaki maceraperestlerle eşleş.',
-    'Rotanı Zirve’de planla, tehlike haritasına bak, sonra çık.',
+    'Zirtan’yi indir, yakınındaki maceraperestlerle eşleş.',
+    'Rotanı Zirtan’de planla, tehlike haritasına bak, sonra çık.',
     'Sen de tehlike bildir: bir işaret bir hayat kurtarabilir mi bilmiyoruz ama işini kolaylaştırır.',
-    'Kulübünü Zirve’ye ekle, etkinliğini duyur.',
+    'Kulübünü Zirtan’ye ekle, etkinliğini duyur.',
     'Davet kodunla arkadaşını getir, ikiniz de Pro günü kazanın.',
   ],
   en: [
-    'Get Zirve and match with verified adventurers near you.',
-    'Plan the route in Zirve, check the hazard map, then go.',
-    'Add your club to Zirve and post your next trip.',
+    'Get Zirtan and match with verified adventurers near you.',
+    'Plan the route in Zirtan, check the hazard map, then go.',
+    'Add your club to Zirtan and post your next trip.',
     'Invite a friend with your code — you both get Pro days.',
   ],
   ru: [
-    'Скачай Zirve и найди проверенных попутчиков рядом.',
-    'Спланируй маршрут в Zirve, посмотри карту опасностей — и в путь.',
+    'Скачай Zirtan и найди проверенных попутчиков рядом.',
+    'Спланируй маршрут в Zirtan, посмотри карту опасностей — и в путь.',
     'Пригласи друга по коду — оба получите дни Pro.',
   ],
 };

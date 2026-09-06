@@ -15,7 +15,7 @@ export const spec: ChannelSpec = {
   rules: [
     'Hashtag yok. Başlık ≤ 300 karakter, spesifik ("Kaçkar Dağları 3 gün: Ayder–Kavrun–Yukarı Kavrun, rota + maliyet").',
     'r/hiking: kendi ürününü tanıtma yasak; trip report ver. r/CampingandHiking: self-promo %10 kuralı. r/Turkey ve r/TurkeyTravel: seyahat sorularına cevap ver. r/climbing, r/scuba: soru–cevap.',
-    'Kendi subreddit’in (r/zirveapp) + "I built an outdoor safety app for Türkiye, AMA" tarzı r/SideProject / r/androidapps gönderileri.',
+    'Kendi subreddit’in (r/zirtanapp) + "I built an outdoor safety app for Türkiye, AMA" tarzı r/SideProject / r/androidapps gönderileri.',
     'Yorumlarda savunma yapma; eleştiriye "haklısın, ekledik" ile dön.',
     'Bağlantıyı gövdenin sonuna, UTM ile; başlıkta asla.',
   ],

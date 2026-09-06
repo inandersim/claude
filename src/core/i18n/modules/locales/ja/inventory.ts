@@ -46,8 +46,8 @@ export const inventory_ja: InventoryI18nShape = {
     season: 'シーズン',
   },
   escrow: {
-    title: 'Zirve エスクロー',
-    description: 'お支払いはチェックインまで Zirve のエスクローで保管されます。',
+    title: 'Zirtan エスクロー',
+    description: 'お支払いはチェックインまで Zirtan のエスクローで保管されます。',
     hint: 'チェックインの24時間後に施設へ送金されます。問題があれば返金手続きを開始します。',
   },
   paymentStatus: {
@@ -61,7 +61,7 @@ export const inventory_ja: InventoryI18nShape = {
   payment: {
     title: 'お支払い',
     provider: '支払い方法',
-    providerHint: 'カード情報は Zirve のサーバーを経由せず、3D セキュアで認証されます。',
+    providerHint: 'カード情報は Zirtan のサーバーを経由せず、3D セキュアで認証されます。',
     payWithEscrow: 'エスクローで支払う',
     success: '予約を作成しました。お支払いはエスクローで保管中です。',
     timeline: '支払いの流れ',

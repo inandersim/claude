@@ -1,6 +1,6 @@
 # Mimari
 
-Zirve, **özellik odaklı katmanlı mimari** ile yazılmıştır. Bağımlılık yönü her zaman aşağı doğrudur:
+Zirtan, **özellik odaklı katmanlı mimari** ile yazılmıştır. Bağımlılık yönü her zaman aşağı doğrudur:
 
 ```
 app (ekranlar) → features (hook + bileşen) → data (repository) → domain (saf mantık)
@@ -44,7 +44,7 @@ Expo Router ile dosya tabanlı yapı:
 - `(app)/(tabs)`: Özel `AppTabBar` (yüzen, bulanık, animasyonlu, bildirim rozetli).
 - Modal ekranlar (`post/new`, `match/request`) `presentation: 'modal'` ile açılır.
 - `experiments.typedRoutes` açık: `router.push({ pathname: '/post/[id]', params: { id } })` çağrıları derleme zamanında doğrulanır.
-- Derin bağlantı: `zirve://post/p1`, `https://zirve.app/user/u_elif` gibi adresler doğrudan ilgili ekrana açılır.
+- Derin bağlantı: `zirtan://post/p1`, `https://zirtan.app/user/u_elif` gibi adresler doğrudan ilgili ekrana açılır.
 
 ## Yeni özellik modülleri
 
@@ -72,7 +72,7 @@ Her modül kendi dosyalarında yaşar; ortak dosyalar (`enums.ts`, `types.ts`, `
 
 | Modül         | Domain                                                                                 | Repository            | Notlar                                                                                                                                                                                 |
 | ------------- | -------------------------------------------------------------------------------------- | --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Zirve AI**  | `classifyIntent`, `answerLocally`, `buildTripPlan`                                     | `AiRepository`        | Yerel bilgi tabanı (kütüphane, tehlike, acil merkez, rehberler) → çevrimdışı yanıt; `EXPO_PUBLIC_AI_GATEWAY_URL` varsa `RemoteAiClient` (SSE) → `server/ai-gateway` (Claude, araçlar). |
+| **Zirtan AI**  | `classifyIntent`, `answerLocally`, `buildTripPlan`                                     | `AiRepository`        | Yerel bilgi tabanı (kütüphane, tehlike, acil merkez, rehberler) → çevrimdışı yanıt; `EXPO_PUBLIC_AI_GATEWAY_URL` varsa `RemoteAiClient` (SSE) → `server/ai-gateway` (Claude, araçlar). |
 | **Haritalar** | `planRoute` (A\*), `routeStats` (Tobler), `toGpx`/`fromGpx`, `simplifyPoints`          | `MapsRepository`      | Trail grafı `TrailGraph`; harita paketleri PMTiles (indirme simülasyonu); üretimde MapLibre + Protomaps (`docs/MAPS.md`).                                                              |
 | **Tırmanış**  | `convertGrade`, `verificationOf`, `canConfirm`, `pyramidOf`                            | `ClimbingRepository`  | Ortak zorluk puanı (10–66) ile sistemler arası dönüşüm; doğrulama: 3 bağımsız onay → community, moderatör/kulüp → verified (`docs/CLIMBING.md`).                                       |
 | **Uydu**      | `chooseLink`, `encodeSatMessage`, `queuePolicy`, `advanceSosStage`                     | `SatelliteRepository` | 160 karakter sıkıştırma sözlüğü, sakla-ilet kuyruğu, SOS aşama makinesi; gerçek entegrasyon yolu `docs/SATELLITE.md`.                                                                  |

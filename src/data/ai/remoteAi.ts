@@ -108,7 +108,7 @@ export interface RemoteAiClientOptions {
 
 /**
  * `server/ai-gateway` ile konuşan istemci. API anahtarı uygulamada tutulmaz;
- * yalnızca gateway'in kendi `x-zirve-key` anahtarı gönderilir.
+ * yalnızca gateway'in kendi `x-zirtan-key` anahtarı gönderilir.
  */
 export class RemoteAiClient {
   private readonly baseUrl: string;
@@ -125,7 +125,7 @@ export class RemoteAiClient {
 
   private headers(accept: string): Record<string, string> {
     const h: Record<string, string> = { 'content-type': 'application/json', accept };
-    if (this.apiKey) h['x-zirve-key'] = this.apiKey;
+    if (this.apiKey) h['x-zirtan-key'] = this.apiKey;
     return h;
   }
 

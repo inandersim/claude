@@ -1,12 +1,12 @@
 import type { AiI18nShape } from '../../ai';
 
 export const ai_fr: AiI18nShape = {
-  title: 'Zirve AI',
+  title: 'Zirtan AI',
   subtitle: 'Ton assistant d’aventure — fonctionne aussi hors ligne',
   welcomeTitle: 'On va où ?',
   welcomeBody:
     'Demande un plan de sortie, des idées de lieux, un briefing sécurité, une liste de matériel ou les gestes de premiers secours.',
-  placeholder: 'Demande à Zirve AI…',
+  placeholder: 'Demande à Zirtan AI…',
   send: 'Envoyer',
   quickTitle: 'Commandes rapides',
   history: 'Conversations passées',
@@ -19,12 +19,12 @@ export const ai_fr: AiI18nShape = {
   planTrip: 'Planifier une sortie',
   planning: 'Préparation du plan…',
   planError: 'Impossible de créer le plan',
-  thinking: 'Zirve AI écrit…',
+  thinking: 'Zirtan AI écrit…',
   you: 'Toi',
-  assistant: 'Zirve AI',
+  assistant: 'Zirtan AI',
   disclaimer: 'Les informations sont indicatives ; fais ta propre évaluation sur le terrain.',
   offlineMode: 'Mode hors ligne — réponses générées à partir des données locales',
-  onlineMode: 'Mode cloud — réponses fournies par la passerelle Zirve AI',
+  onlineMode: 'Mode cloud — réponses fournies par la passerelle Zirtan AI',
   sendError: 'Impossible d’envoyer le message',
   loadError: 'Impossible de charger la conversation',
   threadNotFound: 'Conversation introuvable',

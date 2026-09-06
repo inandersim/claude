@@ -1,6 +1,6 @@
 # Modül geliştirme rehberi
 
-Zirve'de yeni bir özellik modülü **katmanlı** yazılır: `domain → data → features → app`, yanında `i18n` ve `tests`. Bu rehber hem insan geliştiriciler hem de `module-builder` ajanı (`/new-module`) için tek kaynaktır. Mimari arka plan: `docs/ARCHITECTURE.md`; genel kurallar: `CLAUDE.md`.
+Zirtan'de yeni bir özellik modülü **katmanlı** yazılır: `domain → data → features → app`, yanında `i18n` ve `tests`. Bu rehber hem insan geliştiriciler hem de `module-builder` ajanı (`/new-module`) için tek kaynaktır. Mimari arka plan: `docs/ARCHITECTURE.md`; genel kurallar: `CLAUDE.md`.
 
 Stack: Expo SDK 57, React Native 0.86, React 19, TypeScript strict (`noUncheckedIndexedAccess`), Expo Router typed routes, TanStack Query, Zustand, Reanimated 4, React Compiler lint kuralları. Uygulama Türkçe odaklı, 9 dil destekli.
 

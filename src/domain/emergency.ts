@@ -64,6 +64,6 @@ export function estimateEtaMin(distanceKmValue: number): number {
 export function sosMessage(name: string, coords: GeoPoint, locale = 'tr'): string {
   const link = `https://maps.google.com/?q=${coords.latitude.toFixed(5)},${coords.longitude.toFixed(5)}`;
   return locale === 'tr'
-    ? `ACİL DURUM — ${name} yardım istiyor. Konum: ${link} (Zirve SOS)`
-    : `EMERGENCY — ${name} needs help. Location: ${link} (Zirve SOS)`;
+    ? `ACİL DURUM — ${name} yardım istiyor. Konum: ${link} (Zirtan SOS)`
+    : `EMERGENCY — ${name} needs help. Location: ${link} (Zirtan SOS)`;
 }

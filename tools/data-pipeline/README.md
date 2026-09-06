@@ -1,4 +1,4 @@
-# Zirve Veri Hattı — Dünya Outdoor Lokasyon Kütüphanesi
+# Zirtan Veri Hattı — Dünya Outdoor Lokasyon Kütüphanesi
 
 Kamp alanları, tırmanış bölgeleri, dalış noktaları, trekking rotaları, rafting/kano parkurları, kayak merkezleri,
 yamaç paraşütü kalkış noktaları, zirveler, mağaralar ve acil durum merkezlerini **açık veri** kaynaklarından toplar,
@@ -31,10 +31,10 @@ node tools/data-pipeline/cli.js import-wikidata --country TR --out data/library
 node tools/data-pipeline/cli.js enrich-images --in data/library --limit 500
 
 # 4) Tek dosya SQLite kütüphanesi (FTS5 tam metin arama dahil)
-node tools/data-pipeline/cli.js build-sqlite --in data/library --db data/library/zirve-library.sqlite
+node tools/data-pipeline/cli.js build-sqlite --in data/library --db data/library/zirtan-library.sqlite
 
 # 5) Uygulama için örnek tohum (src/data/library/seed.json)
-node tools/data-pipeline/cli.js export-app-seed --db data/library/zirve-library.sqlite --limit 200
+node tools/data-pipeline/cli.js export-app-seed --db data/library/zirtan-library.sqlite --limit 200
 ```
 
 ```bash
@@ -60,7 +60,7 @@ SQLite dosyası doğrudan uygulamaya (`expo-sqlite`) paketlenebilir ya da sunucu
 
 ```bash
 psql zirve < tools/data-pipeline/schema.postgis.sql
-node tools/data-pipeline/cli.js export-csv --db data/library/zirve-library.sqlite --out data/library/places.csv
+node tools/data-pipeline/cli.js export-csv --db data/library/zirtan-library.sqlite --out data/library/places.csv
 psql zirve -c "\copy places FROM 'data/library/places.csv' CSV HEADER"
 ```
 

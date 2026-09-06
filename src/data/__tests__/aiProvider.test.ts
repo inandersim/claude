@@ -102,7 +102,7 @@ describe('RemoteAiClient', () => {
     expect(result.actions).toEqual([{ label: 'Planlayıcı', href: '/maps/planner', icon: 'route' }]);
     expect(deltas.join('')).toBe('Kaçkar için plan.');
     expect(calls[0]?.url).toBe('http://gw/v1/chat');
-    expect((calls[0]?.init?.headers as Record<string, string>)['x-zirve-key']).toBe('k');
+    expect((calls[0]?.init?.headers as Record<string, string>)['x-zirtan-key']).toBe('k');
   });
 
   it('hata durumunda RemoteAiError fırlatır', async () => {

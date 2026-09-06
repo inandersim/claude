@@ -7,7 +7,7 @@ describe('MockProvider — auth', () => {
   it('başlangıçta oturum yoktur, giriş sonrası demo kullanıcı döner', async () => {
     const p = makeProvider();
     expect(await p.auth.getSession()).toBeNull();
-    const user = await p.auth.signIn({ email: 'deniz@zirve.app', password: '123456' });
+    const user = await p.auth.signIn({ email: 'deniz@zirtan.app', password: '123456' });
     expect(user.id).toBe(CURRENT_USER_ID);
     expect((await p.auth.getSession())?.id).toBe(CURRENT_USER_ID);
     await p.auth.signOut();

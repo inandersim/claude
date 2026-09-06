@@ -51,7 +51,7 @@ class HttpError extends Error {
 function setCors(res: ServerResponse): void {
   res.setHeader('access-control-allow-origin', CORS_ORIGIN);
   res.setHeader('access-control-allow-methods', 'GET, POST, OPTIONS');
-  res.setHeader('access-control-allow-headers', 'content-type, x-zirve-key, accept');
+  res.setHeader('access-control-allow-headers', 'content-type, x-zirtan-key, accept');
   res.setHeader('access-control-max-age', '600');
 }
 
@@ -92,13 +92,13 @@ async function readJson(req: IncomingMessage): Promise<Record<string, unknown>> 
 /* ------------------------------------------------------------------ */
 
 function authenticate(req: IncomingMessage): string {
-  const header = req.headers['x-zirve-key'];
+  const header = req.headers['x-zirtan-key'];
   const key = Array.isArray(header) ? header[0] : header;
   if (API_KEYS.size === 0) {
     // Geliştirme modu: anahtar yok; IP'ye göre sınırlama uygulanır.
     return `anon:${req.socket.remoteAddress ?? 'unknown'}`;
   }
-  if (!key || !API_KEYS.has(key)) throw new HttpError(401, 'Geçersiz ya da eksik x-zirve-key');
+  if (!key || !API_KEYS.has(key)) throw new HttpError(401, 'Geçersiz ya da eksik x-zirtan-key');
   return `key:${key}`;
 }
 
@@ -216,7 +216,7 @@ async function handleChat(req: IncomingMessage, res: ServerResponse): Promise<vo
     connection: 'keep-alive',
     'x-accel-buffering': 'no',
   });
-  res.write(': zirve-ai\n\n');
+  res.write(': zirtan-ai\n\n');
 
   const abort = new AbortController();
   res.on('close', () => abort.abort());

@@ -14,7 +14,7 @@ const BODY_LIMIT_BYTES = 16 * 1024;
 const STRAVA_TIMEOUT_MS = 15_000;
 
 /** Uygulamanın dönüş bağlantıları — açık liste dışındaki redirect reddedilir. */
-const ALLOWED_REDIRECT_PREFIXES = ['zirve://', 'exp://', 'http://localhost', 'https://'];
+const ALLOWED_REDIRECT_PREFIXES = ['zirtan://', 'exp://', 'http://localhost', 'https://'];
 
 /* ------------------------------------------------------------------ */
 /* Tipler                                                               */
@@ -163,7 +163,7 @@ export function toGatewayActivity(
 /* ------------------------------------------------------------------ */
 
 /**
- * `GET /v1/strava/auth-url?redirect=zirve://strava` → `{ url }`
+ * `GET /v1/strava/auth-url?redirect=zirtan://strava` → `{ url }`
  * Uygulama bu adresi tarayıcıda açar; Strava `redirect?code=…` ile döner.
  */
 export async function handleStravaAuthUrl(

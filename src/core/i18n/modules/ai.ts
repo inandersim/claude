@@ -8,12 +8,12 @@ import { ai_ru } from './locales/ru/ai';
 import { localeSet } from './shared';
 
 const tr = {
-  title: 'Zirve AI',
+  title: 'Zirtan AI',
   subtitle: 'Macera asistanın — çevrimdışı da çalışır',
   welcomeTitle: 'Nereye gidiyoruz?',
   welcomeBody:
     'Gezi planı, yer önerisi, güvenlik brifingi, paketleme listesi ve ilk yardım adımları için sor.',
-  placeholder: 'Zirve AI’ya sor…',
+  placeholder: 'Zirtan AI’ya sor…',
   send: 'Gönder',
   quickTitle: 'Hızlı komutlar',
   history: 'Geçmiş sohbetler',
@@ -26,12 +26,12 @@ const tr = {
   planTrip: 'Gezi planla',
   planning: 'Plan hazırlanıyor…',
   planError: 'Plan oluşturulamadı',
-  thinking: 'Zirve AI yazıyor…',
+  thinking: 'Zirtan AI yazıyor…',
   you: 'Sen',
-  assistant: 'Zirve AI',
+  assistant: 'Zirtan AI',
   disclaimer: 'Bilgiler yol göstericidir; sahada kendi değerlendirmeni yap.',
   offlineMode: 'Çevrimdışı mod — yanıtlar yerel verilerden üretiliyor',
-  onlineMode: 'Bulut modu — yanıtlar Zirve AI ağ geçidinden geliyor',
+  onlineMode: 'Bulut modu — yanıtlar Zirtan AI ağ geçidinden geliyor',
   sendError: 'Mesaj gönderilemedi',
   loadError: 'Sohbet yüklenemedi',
   threadNotFound: 'Sohbet bulunamadı',
@@ -68,12 +68,12 @@ const tr = {
 export type AiI18nShape = typeof tr;
 
 const en: AiI18nShape = {
-  title: 'Zirve AI',
+  title: 'Zirtan AI',
   subtitle: 'Your adventure assistant — works offline too',
   welcomeTitle: 'Where are we heading?',
   welcomeBody:
     'Ask for a trip plan, place picks, a safety brief, a packing list or first aid steps.',
-  placeholder: 'Ask Zirve AI…',
+  placeholder: 'Ask Zirtan AI…',
   send: 'Send',
   quickTitle: 'Quick prompts',
   history: 'Past chats',
@@ -86,12 +86,12 @@ const en: AiI18nShape = {
   planTrip: 'Plan trip',
   planning: 'Building your plan…',
   planError: 'Could not build the plan',
-  thinking: 'Zirve AI is typing…',
+  thinking: 'Zirtan AI is typing…',
   you: 'You',
-  assistant: 'Zirve AI',
+  assistant: 'Zirtan AI',
   disclaimer: 'Information is indicative; make your own assessment in the field.',
   offlineMode: 'Offline mode — answers come from local data',
-  onlineMode: 'Cloud mode — answers come from the Zirve AI gateway',
+  onlineMode: 'Cloud mode — answers come from the Zirtan AI gateway',
   sendError: 'Message could not be sent',
   loadError: 'Chat could not be loaded',
   threadNotFound: 'Chat not found',

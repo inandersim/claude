@@ -14,7 +14,7 @@ export const spec: ChannelSpec = {
   tone: 'Ham, telefonla çekilmiş, ilk 1 sn kanca ("Bunu Kaçkar’da yapma"), 15–35 sn, altyazı büyük; ses trendine bin ama sessiz de anlaşılsın.',
   rules: [
     'Açıklama 1–2 cümle + 3–5 hashtag; #keşfet #fyp yerine niş etiket (#trekking #kaçkar).',
-    'Bağlantı yok (1000 takipçi altı) → profil bio; "profildeki link" deme, "Zirve’yi ara" de.',
+    'Bağlantı yok (1000 takipçi altı) → profil bio; "profildeki link" deme, "Zirtan’yi ara" de.',
     'Seri mantığı: "3 gün / 3 bölüm", "bunu yapma #1..#10" — izleyici bir sonrakini bekler.',
     'Yorumlara video ile yanıt ver (reply-with-video) — en ucuz ikinci içerik.',
     'Aynı videoyu Reels ve Shorts’a filigransız yükle (CapCut’tan dışa aktar).',

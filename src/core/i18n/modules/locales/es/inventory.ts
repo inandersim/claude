@@ -46,8 +46,8 @@ export const inventory_es: InventoryI18nShape = {
     season: 'Temporada',
   },
   escrow: {
-    title: 'Depósito Zirve',
-    description: 'Tu pago se retiene en el depósito de Zirve hasta que hagas el check-in.',
+    title: 'Depósito Zirtan',
+    description: 'Tu pago se retiene en el depósito de Zirtan hasta que hagas el check-in.',
     hint: '24 horas después de la entrada, el importe se transfiere al negocio; si hay algún problema, iniciamos el reembolso.',
   },
   paymentStatus: {
@@ -62,7 +62,7 @@ export const inventory_es: InventoryI18nShape = {
     title: 'Pago',
     provider: 'Método de pago',
     providerHint:
-      'Los datos de tu tarjeta no pasan por los servidores de Zirve; se verifican con 3D Secure.',
+      'Los datos de tu tarjeta no pasan por los servidores de Zirtan; se verifican con 3D Secure.',
     payWithEscrow: 'Pagar con depósito',
     success: 'Reserva creada, tu pago está en depósito.',
     timeline: 'Recorrido del pago',

@@ -46,8 +46,8 @@ export const inventory_pt: InventoryI18nShape = {
     season: 'Temporada',
   },
   escrow: {
-    title: 'Custódia Zirve',
-    description: 'Seu pagamento fica em custódia na Zirve até o check-in.',
+    title: 'Custódia Zirtan',
+    description: 'Seu pagamento fica em custódia na Zirtan até o check-in.',
     hint: 'O valor é liberado ao anfitrião 24 horas após o check-in; se algo der errado, iniciamos o processo de reembolso.',
   },
   paymentStatus: {
@@ -62,7 +62,7 @@ export const inventory_pt: InventoryI18nShape = {
     title: 'Pagamento',
     provider: 'Forma de pagamento',
     providerHint:
-      'Os dados do cartão nunca passam pelos servidores da Zirve; verificado com 3D Secure.',
+      'Os dados do cartão nunca passam pelos servidores da Zirtan; verificado com 3D Secure.',
     payWithEscrow: 'Pagar com custódia',
     success: 'Reserva criada, seu pagamento está em custódia.',
     timeline: 'Trajeto do pagamento',

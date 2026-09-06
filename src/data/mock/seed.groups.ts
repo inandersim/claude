@@ -13,7 +13,7 @@ import {
  * Gruplar & kanallar demo verisi. Tarihler "şimdi"ye göreli üretilir (son 10 gün).
  *
  * `u_me` dört grupta üyedir (Kaçkar ekibi — yönetici, İstanbul yürüyüşleri,
- * Zirve Duyurular kanalı, Everest Base Camp). ODTÜ DAK grubuna bekleyen bir daveti
+ * Zirtan Duyurular kanalı, Everest Base Camp). ODTÜ DAK grubuna bekleyen bir daveti
  * vardır (`joinedAt: ''`), böylece özel gruba "davetle katılma" akışı denenebilir.
  */
 
@@ -198,8 +198,8 @@ export const seedGroups: Group[] = [
     createdAt: ago(9, 20),
   }),
   group({
-    id: 'g_zirve_news',
-    name: 'Zirve Duyurular',
+    id: 'g_zirtan_news',
+    name: 'Zirtan Duyurular',
     kind: 'channel',
     privacy: 'public',
     description:
@@ -349,12 +349,12 @@ export const seedGroupMembers: GroupMember[] = [
   member('g_kas_dive', 'u_lale', 'owner', ago(9, 20)),
   member('g_kas_dive', 'u_nil', 'member', ago(8, 8)),
   member('g_kas_dive', 'u_zeynep', 'member', ago(7, 4)),
-  // Zirve Duyurular (kanal)
-  member('g_zirve_news', 'u_can', 'owner', ago(10, 4)),
-  member('g_zirve_news', 'u_elif', 'admin', ago(10, 3)),
-  member('g_zirve_news', 'u_me', 'member', ago(9, 0), { lastReadAt: ago(3, 0) }),
-  member('g_zirve_news', 'u_mert', 'member', ago(8, 0), { muted: true }),
-  member('g_zirve_news', 'u_kerem', 'member', ago(7, 0)),
+  // Zirtan Duyurular (kanal)
+  member('g_zirtan_news', 'u_can', 'owner', ago(10, 4)),
+  member('g_zirtan_news', 'u_elif', 'admin', ago(10, 3)),
+  member('g_zirtan_news', 'u_me', 'member', ago(9, 0), { lastReadAt: ago(3, 0) }),
+  member('g_zirtan_news', 'u_mert', 'member', ago(8, 0), { muted: true }),
+  member('g_zirtan_news', 'u_kerem', 'member', ago(7, 0)),
   // Çığ bülteni (kanal)
   member('g_avalanche', 'u_mert', 'owner', ago(10, 1)),
   member('g_avalanche', 'u_zeynep', 'member', ago(9, 0)),
@@ -422,7 +422,7 @@ const kackar: GroupMessage[] = [
   msg(
     'g_kackar',
     'u_elif',
-    'Zirve rotası bu. Kavron yaylasından Dilber Düzü kampına, ertesi sabah 04:00’te zirve.',
+    'Zirtan rotası bu. Kavron yaylasından Dilber Düzü kampına, ertesi sabah 04:00’te zirve.',
     ago(8, 22, 10),
     { routeId: 'r_kackar' },
   ),
@@ -657,33 +657,33 @@ const kas: GroupMessage[] = [
 ];
 
 const zirveNews: GroupMessage[] = [
-  sys('g_zirve_news', 'u_can', 'created', ago(10, 4)),
+  sys('g_zirtan_news', 'u_can', 'created', ago(10, 4)),
   msg(
-    'g_zirve_news',
+    'g_zirtan_news',
     'u_can',
-    '📣 Zirve Duyurular kanalına hoş geldiniz! Burada uygulama güncellemelerini, topluluk etkinliklerini ve güvenlik uyarılarını paylaşacağız.',
+    '📣 Zirtan Duyurular kanalına hoş geldiniz! Burada uygulama güncellemelerini, topluluk etkinliklerini ve güvenlik uyarılarını paylaşacağız.',
     ago(10, 3),
   ),
   msg(
-    'g_zirve_news',
+    'g_zirtan_news',
     'u_elif',
     '🆕 Gruplar & kanallar yayında! Artık ekibinle rota, konum ve anket paylaşabilirsin. Geri bildirimlerinizi bekliyoruz.',
     ago(8, 9),
   ),
   msg(
-    'g_zirve_news',
+    'g_zirtan_news',
     'u_can',
     '⚠️ Güvenlik: Aladağlar bölgesinde bu hafta yoğun sağanak bekleniyor. Kanyon rotalarını erteleyin.',
     ago(6, 7),
   ),
   msg(
-    'g_zirve_news',
+    'g_zirtan_news',
     'u_elif',
     'Topluluk buluşması 📍 İstanbul, 28 Eylül. Kayıt bağlantısı yakında.',
     ago(5, 11),
     { imageUrl: unsplash('1519681393784-d120267933ba') },
   ),
-  msg('g_zirve_news', 'u_can', 'Bir sonraki topluluk yürüyüşü nerede olsun?', ago(3, 10), {
+  msg('g_zirtan_news', 'u_can', 'Bir sonraki topluluk yürüyüşü nerede olsun?', ago(3, 10), {
     poll: {
       question: 'Ekim topluluk yürüyüşü nerede olsun?',
       multi: true,
@@ -696,25 +696,25 @@ const zirveNews: GroupMessage[] = [
     },
   }),
   msg(
-    'g_zirve_news',
+    'g_zirtan_news',
     'u_elif',
     '🛰 Uydu mesajlaşma eklentisi artık Pro Guide planında. Kapsama dışı bölgelerde SOS ve konum paylaşımı.',
     ago(2, 8),
   ),
   msg(
-    'g_zirve_news',
+    'g_zirtan_news',
     'u_can',
     '📊 Bu hafta 1.240 yeni rota paylaşıldı, 86 tehlike bildirimi doğrulandı. Teşekkürler topluluk!',
     ago(1, 9),
   ),
   msg(
-    'g_zirve_news',
+    'g_zirtan_news',
     'u_can',
     '🔧 Sürüm 1.3: sohbetlerde yanıtlama ve sabitleme, kanal bildirimleri, karanlık mod iyileştirmeleri.',
     ago(0, 7),
   ),
   msg(
-    'g_zirve_news',
+    'g_zirtan_news',
     'u_elif',
     'Hafta sonu hava: Marmara güneşli, Karadeniz sağanak, Akdeniz 33°C. Suyunuzu alın 💧',
     ago(0, 1, 15),

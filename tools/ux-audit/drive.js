@@ -90,7 +90,7 @@ const ROUTES = (process.env.ROUTES || '')
   .filter(Boolean);
 const routes = ROUTES.length ? ROUTES : DEFAULT_ROUTES;
 const SETTLE_MS = Number(process.env.SETTLE_MS || 3000);
-const EMAIL = process.env.AUDIT_EMAIL || 'audit@zirve.app';
+const EMAIL = process.env.AUDIT_EMAIL || 'audit@zirtan.app';
 const PASSWORD = process.env.AUDIT_PASSWORD || 'audit123';
 
 const IGNORED = [/ERR_TUNNEL/, /favicon\.ico/, /Download the React DevTools/];

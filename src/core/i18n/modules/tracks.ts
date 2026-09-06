@@ -81,7 +81,7 @@ const tr = {
       shelter: 'Barınak',
       danger: 'Tehlike',
       junction: 'Kavşak',
-      summit: 'Zirve',
+      summit: 'Zirtan',
       parking: 'Otopark',
       food: 'Yemek',
       trailhead: 'Patika başı',
@@ -156,7 +156,7 @@ const tr = {
     stravaImport: 'Etkinliği içe aktar',
     stravaFailed: 'Strava bağlantısı kurulamadı',
     stravaRedirectHint:
-      'Yetki sonrası uygulamaya dönmek için zirve://strava bağlantısı kullanılır.',
+      'Yetki sonrası uygulamaya dönmek için zirtan://strava bağlantısı kullanılır.',
     guideTitle: 'GPX nasıl dışa aktarılır?',
     guide: {
       strava: 'Etkinlik → ⋯ menüsü → "GPX dışa aktar". Web sürümünde çalışır.',
@@ -390,7 +390,7 @@ const en: TracksI18nShape = {
     stravaActivities: 'Strava activities',
     stravaImport: 'Import activity',
     stravaFailed: 'Could not connect to Strava',
-    stravaRedirectHint: 'The zirve://strava link returns you to the app after authorization.',
+    stravaRedirectHint: 'The zirtan://strava link returns you to the app after authorization.',
     guideTitle: 'How to export GPX?',
     guide: {
       strava: 'Activity → ⋯ menu → "Export GPX". Works on the web version.',

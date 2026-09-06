@@ -28,7 +28,7 @@ export const spec: ChannelSpec = {
   },
   tone: 'Görsel önce; ilk satır kanca (125 karakterden önce), kısa paragraflar, satır boşluğu bol. Reel senaryosu 7–30 sn, ilk 1,5 sn kanca.',
   rules: [
-    'Hashtag 8–12: 3 çekirdek (#zirveapp …) + 4 niş + 3 yerel; hepsi açıklamanın sonunda.',
+    'Hashtag 8–12: 3 çekirdek (#zirtanapp …) + 4 niş + 3 yerel; hepsi açıklamanın sonunda.',
     'Bağlantı tıklanmaz → "bağlantı bio’da" de; Story’de link sticker kullan.',
     'Reels: dikey 9:16, altyazı zorunlu (sessiz izleme), ilk karede metin.',
     'Karusel: 5–8 kare, son kare CTA; kaydet/paylaş çağrısı.',

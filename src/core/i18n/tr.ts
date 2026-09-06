@@ -20,7 +20,7 @@ import { telemedI18n } from './modules/telemed';
 
 export const tr = {
   common: {
-    appName: 'Zirve',
+    appName: 'Zirtan',
     tagline: 'Doğayı birlikte keşfet',
     loading: 'Yükleniyor…',
     retry: 'Tekrar dene',
@@ -489,7 +489,7 @@ export const tr = {
     canoe: 'Kano / kayak',
     paragliding: 'Yamaç paraşütü kalkışı',
     ski: 'Kayak merkezi',
-    peak: 'Zirve',
+    peak: 'Zirtan',
     cave: 'Mağara',
     viewpoint: 'Seyir noktası',
     shelter: 'Dağ evi / sığınak',
@@ -618,12 +618,12 @@ export const tr = {
     about: 'Hakkında',
     suitableFor: 'Uygun aktiviteler',
     partnerCta:
-      "Otelin, kamp alanın ya da mağazan mı var? Zirve'de listelen, maceraperestlere ulaş.",
+      "Otelin, kamp alanın ya da mağazan mı var? Zirtan'de listelen, maceraperestlere ulaş.",
     dateHint: 'Bugünden itibaren',
     days: 'gün sonra',
   },
   plans: {
-    title: 'Zirve Pro',
+    title: 'Zirtan Pro',
     subtitle: 'Daha güvenli, daha geniş, reklamsız macera',
     monthly: 'Aylık',
     yearly: 'Yıllık',

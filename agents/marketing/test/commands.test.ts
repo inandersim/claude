@@ -67,7 +67,7 @@ test('dedupeIds ve flagCompliance', () => {
   );
   const clean = flagCompliance(p);
   assert.equal(clean.notes, p.notes);
-  const flagged = flagCompliance({ ...p, body: 'Zirve ile asla kaybolmazsın' });
+  const flagged = flagCompliance({ ...p, body: 'Zirtan ile asla kaybolmazsın' });
   assert.ok(flagged.notes.startsWith('[marka-uyarı]'));
 });
 

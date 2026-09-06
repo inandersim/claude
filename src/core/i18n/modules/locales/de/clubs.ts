@@ -118,7 +118,7 @@ export const clubs_de: ClubsI18nShape = {
     benefitsTitle: 'Deine Vorteile',
     benefits: {
       discount: '20 % Rabatt auf Club-Events',
-      plan: 'Zirve Studierenden-Tarif — 499 ₺ pro Jahr',
+      plan: 'Zirtan Studierenden-Tarif — 499 ₺ pro Jahr',
       priority: 'Schnelle Aufnahme in verifizierte Clubs',
       gear: 'Studierenden-Abzeichen im Ausrüstungsmarkt',
     },

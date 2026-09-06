@@ -125,7 +125,7 @@ const tr = {
     benefitsTitle: 'Avantajların',
     benefits: {
       discount: 'Kulüp etkinliklerinde %20 indirim',
-      plan: 'Zirve öğrenci planı — yılda 499 ₺',
+      plan: 'Zirtan öğrenci planı — yılda 499 ₺',
       priority: 'Doğrulanmış kulüplere hızlı üyelik',
       gear: 'Ekipman pazarında öğrenci rozeti',
     },
@@ -277,7 +277,7 @@ const en: ClubsI18nShape = {
     benefitsTitle: 'Your perks',
     benefits: {
       discount: '20% off club events',
-      plan: 'Zirve student plan — ₺499 / year',
+      plan: 'Zirtan student plan — ₺499 / year',
       priority: 'Fast-track membership in verified clubs',
       gear: 'Student badge in the gear market',
     },

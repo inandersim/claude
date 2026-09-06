@@ -102,5 +102,5 @@ kaydedilmez; ekranda "Anlarından N nokta türettik — onayla" banner'ı ile su
   (`community_trail_id`, `version`) yeterlidir.
 - Strava: gizli anahtar yalnızca ağ geçidinde (`server/ai-gateway/src/strava.ts`,
   `STRAVA_CLIENT_ID/SECRET`); uygulama `EXPO_PUBLIC_STRAVA_ENABLED=1` ile bağlantı düğmesini açar,
-  OAuth dönüşü `zirve://strava?code=…`. Kapsam yalnızca `read,activity:read`.
+  OAuth dönüşü `zirtan://strava?code=…`. Kapsam yalnızca `read,activity:read`.
 - Yükseklik eksik GPX'ler için `WeatherRepository.elevation(points)` ile DEM örneklemesi.

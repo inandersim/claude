@@ -46,8 +46,8 @@ export const inventory_de: InventoryI18nShape = {
     season: 'Saison',
   },
   escrow: {
-    title: 'Zirve Treuhand',
-    description: 'Deine Zahlung bleibt bis zu deiner Anreise in der Zirve-Treuhand.',
+    title: 'Zirtan Treuhand',
+    description: 'Deine Zahlung bleibt bis zu deiner Anreise in der Zirtan-Treuhand.',
     hint: '24 Stunden nach der Anreise wird der Betrag an den Betrieb ausgezahlt; bei Problemen starten wir die Rückerstattung.',
   },
   paymentStatus: {
@@ -61,7 +61,7 @@ export const inventory_de: InventoryI18nShape = {
   payment: {
     title: 'Zahlung',
     provider: 'Zahlungsmethode',
-    providerHint: 'Deine Kartendaten erreichen nie die Zirve-Server; Prüfung per 3D Secure.',
+    providerHint: 'Deine Kartendaten erreichen nie die Zirtan-Server; Prüfung per 3D Secure.',
     payWithEscrow: 'Mit Treuhand bezahlen',
     success: 'Buchung erstellt, deine Zahlung liegt in der Treuhand.',
     timeline: 'Zahlungsverlauf',

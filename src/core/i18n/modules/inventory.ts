@@ -53,8 +53,8 @@ const tr = {
     season: 'Sezon',
   },
   escrow: {
-    title: 'Zirve Emaneti',
-    description: 'Ödemen giriş yapana kadar Zirve emanetinde tutulur.',
+    title: 'Zirtan Emaneti',
+    description: 'Ödemen giriş yapana kadar Zirtan emanetinde tutulur.',
     hint: 'Girişten 24 saat sonra tutar işletmeye aktarılır; sorun olursa iade sürecini başlatırız.',
   },
   paymentStatus: {
@@ -68,7 +68,7 @@ const tr = {
   payment: {
     title: 'Ödeme',
     provider: 'Ödeme yöntemi',
-    providerHint: 'Kart bilgilerin Zirve sunucularına girmez; 3D Secure ile doğrulanır.',
+    providerHint: 'Kart bilgilerin Zirtan sunucularına girmez; 3D Secure ile doğrulanır.',
     payWithEscrow: 'Emanetle öde',
     success: 'Rezervasyon oluşturuldu, ödemen emanette.',
     timeline: 'Ödeme yolculuğu',
@@ -305,8 +305,8 @@ const en: InventoryI18nShape = {
     season: 'Season',
   },
   escrow: {
-    title: 'Zirve Escrow',
-    description: 'Your payment is held in Zirve escrow until you check in.',
+    title: 'Zirtan Escrow',
+    description: 'Your payment is held in Zirtan escrow until you check in.',
     hint: 'Funds are released to the host 24 hours after check-in; if something goes wrong we start the refund process.',
   },
   paymentStatus: {
@@ -320,7 +320,7 @@ const en: InventoryI18nShape = {
   payment: {
     title: 'Payment',
     provider: 'Payment method',
-    providerHint: 'Card details never touch Zirve servers; verified with 3D Secure.',
+    providerHint: 'Card details never touch Zirtan servers; verified with 3D Secure.',
     payWithEscrow: 'Pay with escrow',
     success: 'Booking created, your payment is in escrow.',
     timeline: 'Payment journey',

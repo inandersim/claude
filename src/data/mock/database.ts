@@ -309,7 +309,7 @@ export interface Tables {
   sessionUserId: string | null;
 }
 
-const STORAGE_KEY = 'zirve.mockdb.v7';
+const STORAGE_KEY = 'zirtan.mockdb.v7';
 
 function seedTables(): Tables {
   return {

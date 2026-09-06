@@ -19,7 +19,7 @@ import { useCurrentUser } from '@/features/auth/session.store';
 /* Derece sistemi tercihi                                              */
 /* ------------------------------------------------------------------ */
 
-const GRADE_SYSTEM_KEY = 'zirve.climbing.gradeSystem';
+const GRADE_SYSTEM_KEY = 'zirtan.climbing.gradeSystem';
 
 interface GradeSystemState {
   system: GradeSystem;

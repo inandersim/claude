@@ -1,4 +1,4 @@
-# Zirve — Pazar Analizi, Farklılaşma ve Gelir Stratejisi
+# Zirtan — Pazar Analizi, Farklılaşma ve Gelir Stratejisi
 
 > Eylül 2026. Kaynaklar dokümanın sonunda; rakamlar kamuya açık bilgilerden derlendi.
 
@@ -16,7 +16,7 @@ Kısa cevap: **parça parça var, bütün olarak yok.** Pazar dikey uygulamalara
 | Partner bulma       | Outdoor Duo, Wild, Adventurist, Meetup                                                                                                            | İlgi alanına göre eşleşme, grup etkinlikleri                                              | Doğrulanmış profil ve güven skoru zayıf; veri/rota katmanı yok                       |
 | Güvenlik            | **Garmin inReach** (uydu SOS, yılda 3 000+ SOS olayı; 2026'da askıya alınmış planda da SOS), what3words, AKUT/Ulusal 112 uygulamaları             | Uydu üzerinden SOS, konum takibi                                                          | Uygulama içi ilk yardım rehberi + topluluk tehlike verisi + sosyal katman yok        |
 
-**Sonuç:** AllTrails "rota", Strava "performans", Hipcamp "kamp rezervasyonu", theCrag "tırmanış verisi", Garmin "SOS" alanlarında güçlü. Hiçbiri **çok sporlu + sosyal eşleştirme + canlı yayın + topluluk güvenliği + pazar yeri + eğitmen ekonomisini** tek üründe birleştirmiyor. Zirve'nin konumu: _"outdoor için süper uygulama"_.
+**Sonuç:** AllTrails "rota", Strava "performans", Hipcamp "kamp rezervasyonu", theCrag "tırmanış verisi", Garmin "SOS" alanlarında güçlü. Hiçbiri **çok sporlu + sosyal eşleştirme + canlı yayın + topluluk güvenliği + pazar yeri + eğitmen ekonomisini** tek üründe birleştirmiyor. Zirtan'nin konumu: _"outdoor için süper uygulama"_.
 
 ## 2. Rakiplerin bizden üstün olduğu noktalar (dürüst liste)
 
@@ -24,7 +24,7 @@ Kısa cevap: **parça parça var, bütün olarak yok.** Pazar dikey uygulamalara
 2. **Çevrimdışı topografik haritalar ve navigasyon** — Komoot/Gaia'nın en güçlü yanı. v1.2 ile rota motoru (A\*, Tobler süre modeli, yükseklik profili, GPX) ve PMTiles harita paketleri eklendi; üretimde MapLibre ile vektör karo render'ı gerekir.
 3. **Giyilebilir entegrasyonu** — Garmin/Suunto/Apple Watch senkronu (AllTrails Wear OS 1 M+ indirme).
 4. **Uydu SOS** — Garmin donanım + operasyon merkezi. v1.2 ile cihaz eşleştirme (inReach/Zoleo/iPhone uydu/Starlink Mini), dar bant mesaj sıkıştırma, sakla-ilet kuyruğu ve SOS aşama makinesi eklendi; gerçek iletim için Garmin Explore/Zoleo API köprüsü gerekir.
-5. **AI rota üretimi ve hava tahmini** — 2026'da Komoot/Outdooractive/AllTrails Peak standardı. v1.2 ile Zirve AI (uygulama içi yerel asistan + Claude tabanlı `server/ai-gateway`) eklendi.
+5. **AI rota üretimi ve hava tahmini** — 2026'da Komoot/Outdooractive/AllTrails Peak standardı. v1.2 ile Zirtan AI (uygulama içi yerel asistan + Claude tabanlı `server/ai-gateway`) eklendi.
 6. **Marka ve ağ etkisi** — 10+ yıllık topluluklar.
 
 ## 3. Bize özgü yetenekler ve farklar
@@ -44,13 +44,13 @@ Kısa cevap: **parça parça var, bütün olarak yok.** Pazar dikey uygulamalara
 
 ### 3b. v1.2 — rakiplerin güçlü yanlarını kapatan modüller
 
-| Rakip avantajı                          | Zirve v1.2 karşılığı                                                                                                                                 |
+| Rakip avantajı                          | Zirtan v1.2 karşılığı                                                                                                                                 |
 | --------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Komoot: çevrimdışı vektör harita + rota | `maps` modülü: PMTiles harita paketleri (indirme yöneticisi), trail grafı üzerinde A\* rota planlama, Tobler süre modeli, yükseklik profili, GPX     |
 | theCrag: doğrulanmış tırmanış verisi    | `climbing` modülü: kaya → sektör → rota, 5 derece sistemi arası dönüşüm, logbook, topluluk (3 onay) + moderatör doğrulama                            |
 | Garmin: uydu SOS donanımı               | `satellite` modülü: cihaz eşleştirme, bağlantı katmanı seçimi, 160 karakter sıkıştırılmış mesaj, kuyruk, SOS aşama makinesi, en yakın kurtarma       |
 | Hipcamp: envanter + ödeme güveni        | `inventory` modülü: birim envanteri, müsaitlik takvimi, sezon fiyatı, emanet (escrow) ödeme akışı, iptal politikaları, ev sahibi doğrulama, yorumlar |
-| AllTrails/Komoot: AI planlama           | `ai` modülü: Zirve AI sohbet, gezi planı, güvenlik özeti, paketleme listesi; Claude tabanlı gateway (araç kullanımı, akış)                           |
+| AllTrails/Komoot: AI planlama           | `ai` modülü: Zirtan AI sohbet, gezi planı, güvenlik özeti, paketleme listesi; Claude tabanlı gateway (araç kullanımı, akış)                           |
 | Strava: topluluk ve oyunlaştırma        | `fun` modülü: XP/seviye, rozetler, görevler, liderlik tablosu, günlük yarışma, macera ruleti, zirve pasaportu                                        |
 | —                                       | `clubs` modülü: üniversite doğa sporları kulüpleri dizini, üyelik, etkinlik & RSVP, öğrenci doğrulama, kulüp sıralaması (rakiplerde yok)             |
 
@@ -64,7 +64,7 @@ Yürüyüş katılım oranları: Yeni Zelanda ~%70, Japonya %68, Almanya %45, Ka
 
 | Kaynak                                                 | Mekanizma                                                                                                                | Kıyas                                                     |
 | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------- |
-| **Zirve Pro** (bireysel)                               | ₺149/ay veya ₺1.190/yıl: çevrimdışı harita paketleri, sınırsız canlı konum, gelişmiş tehlike uyarıları, reklamsız, rozet | AllTrails Plus 36 $/yıl, Peak 80 $/yıl; Strava ~80 $/yıl  |
+| **Zirtan Pro** (bireysel)                               | ₺149/ay veya ₺1.190/yıl: çevrimdışı harita paketleri, sınırsız canlı konum, gelişmiş tehlike uyarıları, reklamsız, rozet | AllTrails Plus 36 $/yıl, Peak 80 $/yıl; Strava ~80 $/yıl  |
 | **Pro Guide** (eğitmen/rehber)                         | ₺399/ay: ücretli rezervasyon alma, komisyon %15 → %5, öne çıkan profil, drone yayını, takvim/analitik                    | Airbnb Experiences ~%20 komisyon                          |
 | **Business** (otel, kamp alanı, mağaza, tur operatörü) | ₺799/ay + rezervasyon başına %8–12 komisyon; öne çıkan ilan                                                              | Hipcamp değişken servis ücreti (min. 3 $); Booking %15–18 |
 | **Market** (C2C ekipman)                               | Ücretsiz ilan; öne çıkarma ₺49; güvenli ödeme (escrow) %5                                                                | Letgo/Sahibinden modeli                                   |
@@ -96,7 +96,7 @@ Depolama: yerel diskte **SQLite** (tek dosya, telefona da paketlenebilir) ve sun
 | Aşama               | Kapsam                                                                                                                                                                                             |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Şimdi (v1.1)**    | Canlı konum, Anlar, Konaklama & işletme pazarı, Pro planlar, drone yayını, ilk yardım & SOS, 9 dil, veri hattı + Kütüphane modülü                                                                  |
-| **v1.2 (bu sürüm)** | Zirve AI + AI gateway, çevrimdışı harita paketleri + rota motoru, doğrulanmış tırmanış veritabanı, uydu bağlantısı & SOS, rezervasyon envanteri & emanet ödeme, üniversite kulüpleri, oyunlaştırma |
+| **v1.2 (bu sürüm)** | Zirtan AI + AI gateway, çevrimdışı harita paketleri + rota motoru, doğrulanmış tırmanış veritabanı, uydu bağlantısı & SOS, rezervasyon envanteri & emanet ödeme, üniversite kulüpleri, oyunlaştırma |
 | **v1.3**            | Gerçek backend (Supabase/PostGIS), kimlik doğrulama, push bildirim, RevenueCat + iyzico ödemeleri, LiveKit canlı yayın, MapLibre render                                                            |
 | **v1.4**            | Hava & çığ bülteni entegrasyonu, Garmin/Zoleo API köprüsü, giyilebilir senkron, aktivite kaydı                                                                                                     |
 | **v2.0**            | Rafting/kano/mağara/kite gibi yeni sporlar, kurumsal veri API'si, çoklu para birimi                                                                                                                |

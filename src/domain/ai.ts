@@ -1154,8 +1154,8 @@ export function answerLocally(text: string, ctx: AiContext, kb: LocalKnowledge):
     default: {
       lines.push(
         tr
-          ? 'Merhaba! Ben Zirve AI. Sana şu konularda yardımcı olabilirim:'
-          : "Hi! I'm Zirve AI. Here is what I can help with:",
+          ? 'Merhaba! Ben Zirtan AI. Sana şu konularda yardımcı olabilirim:'
+          : "Hi! I'm Zirtan AI. Here is what I can help with:",
         tr
           ? '• Gezi planı: "Kaçkar için 3 günlük plan yap"'
           : '• Trip plans: "Plan a 3-day trip to Kaçkar"',

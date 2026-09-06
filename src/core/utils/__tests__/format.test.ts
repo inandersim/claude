@@ -37,7 +37,7 @@ describe('initials', () => {
 
 describe('isValidEmail', () => {
   it.each([
-    ['deniz@zirve.app', true],
+    ['deniz@zirtan.app', true],
     ['a@b.co', true],
     ['gecersiz', false],
     ['a@b', false],

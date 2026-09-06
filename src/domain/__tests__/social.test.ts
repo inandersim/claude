@@ -51,7 +51,7 @@ const users = [
 
 describe('parseHashtags', () => {
   it('Türkçe karakterli etiketleri küçük harfle ve tekil döner', () => {
-    expect(parseHashtags('Zirve #Kaçkar #KAMPATEŞİ #kaçkar ve #Çığ_riski!')).toEqual([
+    expect(parseHashtags('Zirtan #Kaçkar #KAMPATEŞİ #kaçkar ve #Çığ_riski!')).toEqual([
       'kaçkar',
       'kampateşi',
       'çığ_riski',

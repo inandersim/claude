@@ -180,12 +180,12 @@ describe('routeStats / profil / zorluk', () => {
 describe('GPX', () => {
   it('gidiş-dönüş: toGpx → fromGpx koordinat ve yükseklikleri korur, adı kaçışlar', () => {
     const planned = planRoute(graph, 'A', 'C', 'hike')!;
-    const xml = toGpx(planned, 'Zirve & "Test" <rota>');
+    const xml = toGpx(planned, 'Zirtan & "Test" <rota>');
     expect(xml).toContain('<gpx version="1.1"');
     expect(xml).toContain('&amp;');
     expect(xml).not.toContain('<rota>');
     const parsed = fromGpx(xml);
-    expect(parsed.name).toBe('Zirve & "Test" <rota>');
+    expect(parsed.name).toBe('Zirtan & "Test" <rota>');
     expect(parsed.points).toHaveLength(3);
     expect(parsed.points[0]).toEqual({ latitude: 40, longitude: 30, elevationM: 1000 });
     expect(parsed.points[2]!.elevationM).toBe(1100);

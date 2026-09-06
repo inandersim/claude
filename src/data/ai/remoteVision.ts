@@ -62,7 +62,7 @@ export function toRemoteVisionBody(input: VisionRequest): RemoteVisionBody {
 
 /**
  * `server/ai-gateway` `/v1/vision` uç noktasıyla konuşan istemci. API anahtarı uygulamada
- * tutulmaz; yalnızca gateway'in kendi `x-zirve-key` anahtarı gönderilir.
+ * tutulmaz; yalnızca gateway'in kendi `x-zirtan-key` anahtarı gönderilir.
  */
 export class RemoteVisionClient {
   private readonly baseUrl: string;
@@ -89,7 +89,7 @@ export class RemoteVisionClient {
       'content-type': 'application/json',
       accept: 'application/json',
     };
-    if (this.apiKey) headers['x-zirve-key'] = this.apiKey;
+    if (this.apiKey) headers['x-zirtan-key'] = this.apiKey;
 
     const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
     const timer = controller ? setTimeout(() => controller.abort(), this.timeoutMs) : null;

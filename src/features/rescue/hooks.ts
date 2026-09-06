@@ -16,8 +16,8 @@ import {
 /* Son bilinen ülke deposu                                             */
 /* ------------------------------------------------------------------ */
 
-const LAST_COUNTRY_KEY = 'zirve.rescue.lastCountry';
-const MANUAL_COUNTRY_KEY = 'zirve.rescue.manualCountry';
+const LAST_COUNTRY_KEY = 'zirtan.rescue.lastCountry';
+const MANUAL_COUNTRY_KEY = 'zirtan.rescue.manualCountry';
 
 export type CountrySource = 'geocode' | 'bbox' | 'fallback' | 'manual';
 

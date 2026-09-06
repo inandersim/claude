@@ -33,7 +33,7 @@ import { zh } from './zh';
 export type { Locale };
 export { LANGUAGE_META, LOCALES, isRtl };
 
-const STORAGE_KEY = 'zirve.locale';
+const STORAGE_KEY = 'zirtan.locale';
 
 export const i18n = new I18n({
   tr,

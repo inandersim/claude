@@ -1,5 +1,5 @@
 // Kategori tanımları: OSM Overpass filtreleri ve uygulama macera türü eşlemesi.
-export const USER_AGENT = 'ZirveDataPipeline/1.0 (+https://zirve.app; contact dev@zirve.app)';
+export const USER_AGENT = 'ZirtanDataPipeline/1.0 (+https://zirtan.app; contact dev@zirtan.app)';
 
 /** @typedef {'campsite'|'climbing'|'diving'|'dive_centre'|'hiking_route'|'rafting'|'canoe'|'paragliding'|'ski'|'peak'|'cave'|'viewpoint'|'shelter'|'hospital'|'ambulance'|'mountain_rescue'|'pharmacy'} PlaceKind */
 
