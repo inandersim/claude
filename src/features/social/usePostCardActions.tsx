@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Alert, Platform } from 'react-native';
+import { Platform } from 'react-native';
 
 import { useToast } from '@/core/hooks/useToast';
 import { confirmDialog } from '@/core/utils/confirm';

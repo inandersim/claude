@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { Alert, Linking, Platform, Share, StyleSheet, View } from 'react-native';
+import { Linking, Platform, Share, StyleSheet, View } from 'react-native';
 
 import {
   Button,

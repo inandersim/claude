@@ -161,6 +161,8 @@ export const queryKeys = {
     plan: (regionId: ID, from: ID | null, to: ID | null, profile: RouteProfile) =>
       ['maps', 'plan', regionId, from, to, profile] as const,
     saved: (meId: ID) => ['maps', 'saved', meId] as const,
+    /** Karo sunucusundaki (EXPO_PUBLIC_TILES_URL) hazır paketler */
+    tileServer: ['maps', 'tile-server'] as const,
   },
   climbing: {
     all: ['climbing'] as const,

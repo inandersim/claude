@@ -1,6 +1,6 @@
 import { useRouter, type Href } from 'expo-router';
 import React, { useState } from 'react';
-import { Alert, FlatList, Platform, StyleSheet, View } from 'react-native';
+import { FlatList, Platform, StyleSheet, View } from 'react-native';
 
 import {
   EmptyState,

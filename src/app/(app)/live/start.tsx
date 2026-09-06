@@ -3,7 +3,7 @@ import { useRouter } from 'expo-router';
 import { goBack } from '@/core/navigation';
 import { confirmDialog } from '@/core/utils/confirm';
 import React, { useState } from 'react';
-import { Alert, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Button, Chip, Icon, IconButton, Input, Text } from '@/components/ui';
