@@ -124,7 +124,12 @@ describe('reactionSummary', () => {
     expect(reactionSummary(null).total).toBe(0);
   });
   it('applyReactionChange iyimser sayaçları günceller', () => {
-    const base = { myReaction: null, reactionCounts: { like: 2 }, likesCount: 2, likedByMe: false };
+    const base: Pick<FeedPost, 'myReaction' | 'reactionCounts' | 'likesCount' | 'likedByMe'> = {
+      myReaction: null,
+      reactionCounts: { like: 2 },
+      likesCount: 2,
+      likedByMe: false,
+    };
     const fired = applyReactionChange(base, 'fire');
     expect(fired.likesCount).toBe(3);
     expect(fired.reactionCounts?.fire).toBe(1);

@@ -812,6 +812,9 @@ export interface DataProvider {
   articles: ArticleRepository;
   wildlife: WildlifeRepository;
   telemed: TelemedRepository;
+  tv: TvRepository;
+  heritage: HeritageRepository;
+  kids: KidsRepository;
   /** Demo verilerini sıfırlar (yalnızca mock sağlayıcı için anlamlı) */
   reset(): Promise<void>;
 }
