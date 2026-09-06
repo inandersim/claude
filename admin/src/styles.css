@@ -562,3 +562,11 @@ table.table {
 .log-line:last-child { border-bottom: none; }
 
 .body-scroll-lock { overflow: hidden; }
+
+.clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

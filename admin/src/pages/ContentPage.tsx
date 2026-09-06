@@ -132,10 +132,11 @@ export function ContentPage() {
       key: 'title',
       header: t('content.col.title'),
       sortable: true,
+      width: '32%',
       render: (row) => (
-        <div className="stack-sm" style={{ maxWidth: 420 }}>
+        <div className="stack-sm">
           <strong className="small">{row.title}</strong>
-          <span className="small muted">{row.subtitle}</span>
+          <span className="small muted clamp-2">{row.subtitle}</span>
         </div>
       ),
     },

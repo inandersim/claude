@@ -82,6 +82,8 @@ export default function SignInScreen() {
               haptic="selection"
               style={{ alignSelf: 'flex-end' }}
               accessibilityRole="button"
+              accessibilityLabel={t('auth.forgotPassword')}
+              onPress={() => toast(t('auth.demoHint'), 'info')}
             >
               <Text variant="caption" weight="bold" color="primary">
                 {t('auth.forgotPassword')}

@@ -88,13 +88,14 @@ export function ModerationPage() {
     {
       key: 'content',
       header: t('moderation.col.content'),
+      width: '30%',
       render: (row) => (
-        <div className="stack-sm" style={{ maxWidth: 420 }}>
+        <div className="stack-sm">
           <div className="row-tight">
             <Badge tone="info">{t(`moderation.kind.${row.targetKind}` as AdminTranslationKey)}</Badge>
             <span className="small subtle mono">{row.targetId}</span>
           </div>
-          <span className="small">{row.excerpt}</span>
+          <span className="small clamp-2">{row.excerpt}</span>
           <span className="small subtle">{row.locationName}</span>
         </div>
       ),

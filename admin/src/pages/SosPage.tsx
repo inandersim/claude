@@ -167,10 +167,11 @@ export function SosPage() {
     {
       key: 'title',
       header: t('sos.hazard.col.title'),
+      width: '34%',
       render: (row) => (
-        <div className="stack-sm" style={{ maxWidth: 380 }}>
+        <div className="stack-sm">
           <strong className="small">{row.title}</strong>
-          <span className="small muted">{row.description}</span>
+          <span className="small muted clamp-2">{row.description}</span>
           <span className="small subtle">
             {row.locationName} · {row.radiusM} m
           </span>

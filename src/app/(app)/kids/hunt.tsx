@@ -41,7 +41,7 @@ type GridSize = '3' | '4';
 
 /** Seçili çocuk için kart, çıkartma rafı ve sıfırlama. */
 function HuntBoard({ child, size }: { child: ChildProfile; size: 3 | 4 }) {
-  const { t, locale } = useT();
+  const { t } = useT();
   const { colors } = useTheme();
   const toast = useToast();
   const tasks = useHuntTasks(child.ageBand);
