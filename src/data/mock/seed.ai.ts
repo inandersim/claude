@@ -35,9 +35,9 @@ export const seedAiMessages: AiMessage[] = [
     threadId: 'ait_kackar',
     role: 'assistant',
     content: [
-      'Kaçkar Zirtan Rotası — 3 günlük yürüyüş planı',
+      'Kaçkar Zirve Rotası — 3 günlük yürüyüş planı',
       '',
-      'Gün 1: Kaçkar Zirtan Rotası — yaklaşım ve kamp — 11 km / +600 m',
+      'Gün 1: Kaçkar Zirve Rotası — yaklaşım ve kamp — 11 km / +600 m',
       'Gün 2: Dilberdüzü Kamp Yeri — ana etap — 15 km / +830 m',
       'Gün 3: Kaçkar Dağı — zirve denemesi ve dönüş — 13 km / +680 m',
       '',
@@ -45,7 +45,7 @@ export const seedAiMessages: AiMessage[] = [
     ].join('\n'),
     intent: 'plan_trip',
     actions: [
-      { label: 'Kaçkar Zirtan Rotası', href: '/library/cur:hike:kackar', icon: 'map-pin' },
+      { label: 'Kaçkar Zirve Rotası', href: '/library/cur:hike:kackar', icon: 'map-pin' },
       { label: 'Rota planlayıcı', href: '/maps/planner', icon: 'route' },
       { label: 'Tehlike bölgeleri', href: '/hazards', icon: 'triangle-alert' },
     ],
@@ -65,7 +65,7 @@ export const seedAiMessages: AiMessage[] = [
     threadId: 'ait_kackar',
     role: 'assistant',
     content: [
-      'Kaçkar Zirtan Rotası — 3 günlük yürüyüş planı için paketleme listesi:',
+      'Kaçkar Zirve Rotası — 3 günlük yürüyüş planı için paketleme listesi:',
       '',
       '• Su (en az 2 L) ve filtre/tablet',
       '• Yüksek enerjili atıştırmalık',
@@ -84,7 +84,7 @@ export const seedAiMessages: AiMessage[] = [
     ].join('\n'),
     intent: 'packing_list',
     actions: [
-      { label: 'Kaçkar Zirtan Rotası', href: '/library/cur:hike:kackar', icon: 'map-pin' },
+      { label: 'Kaçkar Zirve Rotası', href: '/library/cur:hike:kackar', icon: 'map-pin' },
       { label: 'Pazar yeri', href: '/market', icon: 'shopping-bag' },
     ],
     createdAt: '2026-08-28T18:06:10.000Z',

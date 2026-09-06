@@ -47,3 +47,6 @@ coverage/
 
 # IDE
 .idea/
+
+# Harita hattı çıktıları (yeniden üretilebilir)
+out/

@@ -1,0 +1,142 @@
+#!/usr/bin/env node
+/**
+ * Yerel PMTiles / graf sunucusu — geliştirme içindir.
+ *
+ *   node tools/tiles/serve.mjs --port 8090
+ *
+ * PMTiles tek dosyadır ve istemci **HTTP Range** istekleriyle yalnızca gereken
+ * karo baytlarını çeker; bu sunucu o davranışı yerelde taklit eder. Üretimde
+ * dosyayı bir CDN'e (Cloudflare R2, S3 + CloudFront) koymak yeterlidir —
+ * ayrı bir karo sunucusu gerekmez.
+ *
+ * Uçlar:
+ *   GET /health
+ *   GET /packs                      → mevcut paketler (uygulamadaki MapPack listesiyle eşleşir)
+ *   GET /tiles/<bölge>.pmtiles      → Range destekli karo dosyası
+ *   GET /graphs/<bölge>.json        → yönlendirme grafı (TrailGraph)
+ */
+
+import { createReadStream, existsSync, readdirSync, statSync } from 'node:fs';
+import { createServer } from 'node:http';
+import { extname, resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
+const TILES_DIR = resolve(ROOT, 'out/tiles');
+const GRAPHS_DIR = resolve(ROOT, 'out/graphs');
+
+const MIME = {
+  '.pmtiles': 'application/octet-stream',
+  '.json': 'application/json; charset=utf-8',
+  '.geojson': 'application/geo+json; charset=utf-8',
+};
+
+const listPacks = () => {
+  if (!existsSync(TILES_DIR)) return [];
+  return readdirSync(TILES_DIR)
+    .filter((f) => f.endsWith('.pmtiles'))
+    .map((f) => {
+      const { size, mtime } = statSync(resolve(TILES_DIR, f));
+      const id = f.replace(/\.pmtiles$/, '');
+      return {
+        id,
+        format: 'pmtiles',
+        sizeMb: Number((size / 1024 / 1024).toFixed(1)),
+        updatedAt: mtime.toISOString(),
+        url: `/tiles/${f}`,
+        graphUrl: existsSync(resolve(GRAPHS_DIR, `${id}.json`)) ? `/graphs/${id}.json` : null,
+      };
+    });
+};
+
+/** Range başlığını çözer; geçersizse null döner. */
+export function parseRange(header, size) {
+  const m = /^bytes=(\d*)-(\d*)$/.exec(header ?? '');
+  if (!m) return null;
+  const [, rawStart, rawEnd] = m;
+  let start = rawStart === '' ? null : Number(rawStart);
+  let end = rawEnd === '' ? null : Number(rawEnd);
+  if (start === null && end === null) return null;
+  if (start === null) {
+    // son N bayt
+    start = Math.max(0, size - end);
+    end = size - 1;
+  } else if (end === null || end >= size) {
+    end = size - 1;
+  }
+  if (start > end || start >= size) return null;
+  return { start, end };
+}
+
+function sendFile(req, res, path) {
+  const { size } = statSync(path);
+  const type = MIME[extname(path)] ?? 'application/octet-stream';
+  const range = parseRange(req.headers.range, size);
+  const headers = {
+    'Content-Type': type,
+    'Accept-Ranges': 'bytes',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Range',
+    'Access-Control-Expose-Headers': 'Content-Range, Content-Length, Accept-Ranges',
+    'Cache-Control': 'public, max-age=3600',
+  };
+  if (range) {
+    res.writeHead(206, {
+      ...headers,
+      'Content-Range': `bytes ${range.start}-${range.end}/${size}`,
+      'Content-Length': range.end - range.start + 1,
+    });
+    createReadStream(path, range).pipe(res);
+  } else {
+    res.writeHead(200, { ...headers, 'Content-Length': size });
+    createReadStream(path).pipe(res);
+  }
+}
+
+const json = (res, code, body) => {
+  const payload = JSON.stringify(body, null, 2);
+  res.writeHead(code, {
+    'Content-Type': 'application/json; charset=utf-8',
+    'Access-Control-Allow-Origin': '*',
+    'Content-Length': Buffer.byteLength(payload),
+  });
+  res.end(payload);
+};
+
+export function createTileServer() {
+  return createServer((req, res) => {
+    const url = new URL(req.url, 'http://localhost');
+    const path = decodeURIComponent(url.pathname);
+
+    if (req.method === 'OPTIONS') {
+      res.writeHead(204, {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Range',
+        'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS',
+      });
+      return res.end();
+    }
+    if (path === '/health') return json(res, 200, { ok: true, packs: listPacks().length });
+    if (path === '/packs') return json(res, 200, listPacks());
+
+    // Yol geçişi (path traversal) engeli: yalnızca düz dosya adı kabul edilir.
+    const m = /^\/(tiles|graphs)\/([A-Za-z0-9_-]+\.(?:pmtiles|json|geojson))$/.exec(path);
+    if (!m) return json(res, 404, { error: 'bulunamadı' });
+    const dir = m[1] === 'tiles' ? TILES_DIR : GRAPHS_DIR;
+    const file = resolve(dir, m[2]);
+    if (!file.startsWith(dir) || !existsSync(file)) return json(res, 404, { error: 'dosya yok' });
+    return sendFile(req, res, file);
+  });
+}
+
+if (import.meta.url === `file://${process.argv[1]}`) {
+  const portArg = process.argv.indexOf('--port');
+  const port = portArg > -1 ? Number(process.argv[portArg + 1]) : 8090;
+  createTileServer().listen(port, () => {
+    const packs = listPacks();
+    console.log(`Karo sunucusu: http://localhost:${port}`);
+    console.log(`  ${packs.length} paket · ${TILES_DIR}`);
+    for (const p of packs) console.log(`  · ${p.id} (${p.sizeMb} MB)`);
+    if (!packs.length) console.log('  (önce: node tools/tiles/build-tiles.mjs --region likya)');
+  });
+}

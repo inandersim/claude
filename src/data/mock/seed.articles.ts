@@ -868,7 +868,7 @@ KPAP önerisi (grup başına, gün başına):
 - Yükünüzü hafif tutun. 15 kg yerine 10 kg — bir kişi az taşınır.
 - Tırmanış sonrası KPAP anketini doldurun; denetim buna dayanıyor.
 
-> Zirtan fotoğrafı, sizi oraya taşıyan on kişinin sırtından çekilmiş bir kare. O on kişinin adını bilmiyorsanız fotoğraf eksiktir.
+> Zirve fotoğrafı, sizi oraya taşıyan on kişinin sırtından çekilmiş bir kare. O on kişinin adını bilmiyorsanız fotoğraf eksiktir.
 
 Bu yazı sadece Kilimanjaro'yu anlatıyor ama aynı sorun Nepal'de, Peru'da, Fas'ta var. Sorumlu tur seçmek pahalı değil; ucuzun bedelini başkasına ödetmemek.
 `,

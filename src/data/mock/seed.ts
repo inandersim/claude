@@ -556,7 +556,7 @@ export const seedPosts: Post[] = [
     authorId: CURRENT_USER_ID,
     imageUrl: unsplash('1464822759023-fed622ff2c3b'),
     caption:
-      'Uludağ Zirtan — Bursa’dan sabah çıkıp akşam döndük. Rüzgar sert ama manzara her şeye değer.',
+      'Uludağ Zirve — Bursa’dan sabah çıkıp akşam döndük. Rüzgar sert ama manzara her şeye değer.',
     adventureType: 'hiking',
     difficulty: 'moderate',
     altitudeM: 2543,
@@ -1157,7 +1157,7 @@ export const seedHazards: HazardZone[] = [
     status: 'active',
     title: 'Uludağ zirve — fırtına uyarısı',
     description:
-      'Meteoroloji 2 gün boyunca 90 km/s rüzgar bekliyor. Zirtan platosuna çıkmayın; teleferik üstü kapalı.',
+      'Meteoroloji 2 gün boyunca 90 km/s rüzgar bekliyor. Zirve platosuna çıkmayın; teleferik üstü kapalı.',
     locationName: 'Uludağ, Bursa',
     coords: { latitude: 40.07, longitude: 29.22 },
     radiusM: 3000,
@@ -1450,7 +1450,7 @@ export const seedStreamMessages: StreamMessage[] = [
     id: 'sm5',
     streamId: 's1',
     authorId: CURRENT_USER_ID,
-    content: 'Bol şans Kerem! Zirtan fotoğrafını bekliyoruz 🏔️',
+    content: 'Bol şans Kerem! Zirve fotoğrafını bekliyoruz 🏔️',
     createdAt: minutesAgo(3),
   },
   {

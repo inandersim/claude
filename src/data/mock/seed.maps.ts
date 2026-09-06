@@ -94,7 +94,7 @@ export const seedMapRegions: { id: ID; name: string; countryCode: string; center
 ];
 
 /* ------------------------------------------------------------------ */
-/* Kaçkar — Ayder / Kavrun / Dilberdüzü / Zirtan                        */
+/* Kaçkar — Ayder / Kavrun / Dilberdüzü / Zirve                        */
 /* ------------------------------------------------------------------ */
 
 const kackar = buildGraph(

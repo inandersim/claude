@@ -589,7 +589,7 @@ export const seedClubEvents: ClubEvent[] = [
   {
     id: 'ce_ktu_kackar',
     clubId: 'c_ktu',
-    title: 'Kaçkar Zirtan (3937 m) Güz Tırmanışı',
+    title: 'Kaçkar Zirve (3937 m) Güz Tırmanışı',
     kind: 'trip',
     adventureType: 'climbing',
     description: 'Yukarı Kavrun–Dilberdüzü–Zirve. 3 gün. Yerel rehber eşliğinde.',

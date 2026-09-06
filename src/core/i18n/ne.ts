@@ -493,7 +493,7 @@ export const ne: Translations = {
     canoe: 'क्यानु / कायाक',
     paragliding: 'प्याराग्लाइडिङ उडान स्थल',
     ski: 'स्की रिसोर्ट',
-    peak: 'Zirtan',
+    peak: 'शिखर',
     cave: 'गुफा',
     viewpoint: 'दृश्य बिन्दु',
     shelter: 'पहाडी झुपडी / आश्रय',

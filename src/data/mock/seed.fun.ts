@@ -416,7 +416,7 @@ const ev = (
 
 export const seedXpEvents: XpEvent[] = [
   // u_me — son 5 gün ardışık (bugün dahil)
-  ev(ME, 'quiz', 25, 3, 'Günün yarışması: 5/5'),
+  ev(ME, 'quiz', 25, 27, 'Günün yarışması: 5/5'),
   ev(ME, 'post', 10, 6, 'Aydos Ormanı sabah yürüyüşü'),
   ev(ME, 'streak', 10, 26, '5 günlük seri bonusu'),
   ev(ME, 'route', 25, 30, 'Polonezköy döngüsü'),

@@ -443,7 +443,7 @@ export const seedLibrary: LibraryPlace[] = [
   place({
     id: 'cur:hike:kackar',
     kind: 'hiking_route',
-    name: 'Kaçkar Zirtan Rotası',
+    name: 'Kaçkar Zirve Rotası',
     adventureTypes: ['hiking'],
     lat: 40.8608,
     lng: 41.1594,

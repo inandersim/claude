@@ -2,6 +2,7 @@ import { generateId } from '@/core/utils/format';
 import type { ClimbingRepository } from '@/data/repositories';
 import {
   canConfirm,
+  compareGrades,
   cragVerificationOf,
   distanceKm,
   filterCrags,
@@ -72,9 +73,10 @@ export function createClimbingRepository(ctx: MockContext): ClimbingRepository {
     async routes(cragId, sectorId = null) {
       await wait();
       const t = await db.load();
+      // Kolaydan zora: sistemler karışık olabildiği için ortak zorluk puanına göre sırala
       return t.climbingRoutes
         .filter((r) => r.cragId === cragId && (!sectorId || r.sectorId === sectorId))
-        .sort((a, b) => gradeIndex(a.grade, a.gradeSystem) - gradeIndex(b.grade, b.gradeSystem));
+        .sort((a, b) => compareGrades(a.grade, a.gradeSystem, b.grade, b.gradeSystem));
     },
 
     async route(id) {

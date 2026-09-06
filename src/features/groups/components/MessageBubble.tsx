@@ -201,12 +201,14 @@ export function MessageBubble({
         animationType="fade"
         onRequestClose={() => setMenuOpen(false)}
       >
+        {/* Arka plan ile sayfa kardeş durur: iç içe <button> oluşmaz (erişilebilirlik). */}
         <Pressable
           style={[styles.backdrop, { backgroundColor: colors.overlay }]}
           onPress={() => setMenuOpen(false)}
           accessibilityRole="button"
           accessibilityLabel={t('common.close')}
-        >
+        />
+        <View style={styles.sheetWrap} pointerEvents="box-none">
           <View style={[styles.sheet, { backgroundColor: colors.surfaceElevated }]}>
             <Text variant="caption" color="textMuted" numberOfLines={2} style={styles.sheetPreview}>
               {message.text || t(`groups.preview.${quoteKind(message.type)}`)}
@@ -230,7 +232,7 @@ export function MessageBubble({
               </Tappable>
             ))}
           </View>
-        </Pressable>
+        </View>
       </Modal>
     </View>
   );
@@ -516,7 +518,8 @@ const styles = StyleSheet.create({
   meta: { flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', gap: 3 },
   systemRow: { alignItems: 'center', marginVertical: spacing.sm, paddingHorizontal: spacing.lg },
   systemPill: { paddingHorizontal: spacing.md, paddingVertical: 4, borderRadius: radius.full },
-  backdrop: { flex: 1, justifyContent: 'flex-end' },
+  backdrop: { ...StyleSheet.absoluteFill },
+  sheetWrap: { flex: 1, justifyContent: 'flex-end' },
   sheet: {
     borderTopLeftRadius: radius.xl,
     borderTopRightRadius: radius.xl,

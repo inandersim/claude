@@ -492,7 +492,7 @@ export const tr = {
     canoe: 'Kano / kayak',
     paragliding: 'Yamaç paraşütü kalkışı',
     ski: 'Kayak merkezi',
-    peak: 'Zirtan',
+    peak: 'Zirve',
     cave: 'Mağara',
     viewpoint: 'Seyir noktası',
     shelter: 'Dağ evi / sığınak',
