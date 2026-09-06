@@ -1,4 +1,5 @@
 import {
+  type FeedPost,
   activeToken,
   applyFeedFilter,
   applyReactionChange,

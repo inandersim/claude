@@ -150,7 +150,7 @@ export function CountryPicker({ visible, value, onSelect, onAuto, onClose }: Pro
 }
 
 const styles = StyleSheet.create({
-  backdrop: { ...StyleSheet.absoluteFillObject },
+  backdrop: { ...StyleSheet.absoluteFill },
   wrap: { flex: 1, justifyContent: 'flex-end' },
   sheet: {
     borderTopLeftRadius: radius.xxl,
