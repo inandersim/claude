@@ -6,6 +6,7 @@ import { destinations_de } from './locales/de/destinations';
 import { destinations_ru } from './locales/ru/destinations';
 import { destinations_it } from './locales/it/destinations';
 import { destinations_zh } from './locales/zh/destinations';
+import { destinations_hi } from './locales/hi/destinations';
 import { localeSet } from './shared';
 import { destinations_ja } from './locales/ja/destinations';
 import { destinations_ko } from './locales/ko/destinations';
@@ -608,4 +609,5 @@ export const destinationsI18n = localeSet(tr, en, {
   pt: destinations_pt,
   it: destinations_it,
   zh: destinations_zh,
+  hi: destinations_hi,
 });

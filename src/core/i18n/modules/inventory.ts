@@ -8,6 +8,7 @@ import { inventory_pt } from './locales/pt/inventory';
 import { inventory_ru } from './locales/ru/inventory';
 import { inventory_zh } from './locales/zh/inventory';
 import { inventory_ko } from './locales/ko/inventory';
+import { inventory_hi } from './locales/hi/inventory';
 import { localeSet } from './shared';
 
 const tr = {
@@ -523,4 +524,5 @@ export const inventoryI18n = localeSet(tr, en, {
   pt: inventory_pt,
   ru: inventory_ru,
   zh: inventory_zh,
+  hi: inventory_hi,
 });

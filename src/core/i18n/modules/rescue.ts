@@ -6,6 +6,7 @@ import { rescue_de } from './locales/de/rescue';
 import { rescue_ru } from './locales/ru/rescue';
 import { rescue_it } from './locales/it/rescue';
 import { rescue_zh } from './locales/zh/rescue';
+import { rescue_hi } from './locales/hi/rescue';
 import { localeSet } from './shared';
 import { rescue_ja } from './locales/ja/rescue';
 import { rescue_ko } from './locales/ko/rescue';
@@ -181,4 +182,5 @@ export const rescueI18n = localeSet(tr, en, {
   pt: rescue_pt,
   it: rescue_it,
   zh: rescue_zh,
+  hi: rescue_hi,
 });

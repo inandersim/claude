@@ -6,6 +6,7 @@ import { heritage_de } from './locales/de/heritage';
 import { heritage_ru } from './locales/ru/heritage';
 import { heritage_it } from './locales/it/heritage';
 import { heritage_zh } from './locales/zh/heritage';
+import { heritage_hi } from './locales/hi/heritage';
 import { localeSet } from './shared';
 import { heritage_ja } from './locales/ja/heritage';
 import { heritage_ko } from './locales/ko/heritage';
@@ -367,4 +368,5 @@ export const heritageI18n = localeSet(tr, en, {
   pt: heritage_pt,
   it: heritage_it,
   zh: heritage_zh,
+  hi: heritage_hi,
 });

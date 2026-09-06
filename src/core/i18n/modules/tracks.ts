@@ -6,6 +6,7 @@ import { tracks_de } from './locales/de/tracks';
 import { tracks_ru } from './locales/ru/tracks';
 import { tracks_it } from './locales/it/tracks';
 import { tracks_zh } from './locales/zh/tracks';
+import { tracks_hi } from './locales/hi/tracks';
 import { localeSet } from './shared';
 import { tracks_ja } from './locales/ja/tracks';
 import { tracks_ko } from './locales/ko/tracks';
@@ -488,4 +489,5 @@ export const tracksI18n = localeSet(tr, en, {
   pt: tracks_pt,
   it: tracks_it,
   zh: tracks_zh,
+  hi: tracks_hi,
 });

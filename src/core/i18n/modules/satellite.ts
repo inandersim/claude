@@ -8,6 +8,7 @@ import { satellite_pt } from './locales/pt/satellite';
 import { satellite_ru } from './locales/ru/satellite';
 import { satellite_zh } from './locales/zh/satellite';
 import { satellite_ko } from './locales/ko/satellite';
+import { satellite_hi } from './locales/hi/satellite';
 import { localeSet } from './shared';
 
 const tr = {
@@ -303,4 +304,5 @@ export const satelliteI18n = localeSet(tr, en, {
   pt: satellite_pt,
   ru: satellite_ru,
   zh: satellite_zh,
+  hi: satellite_hi,
 });

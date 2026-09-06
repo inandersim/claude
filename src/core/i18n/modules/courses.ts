@@ -6,6 +6,7 @@ import { courses_de } from './locales/de/courses';
 import { courses_ru } from './locales/ru/courses';
 import { courses_it } from './locales/it/courses';
 import { courses_zh } from './locales/zh/courses';
+import { courses_hi } from './locales/hi/courses';
 import { localeSet } from './shared';
 import { courses_ja } from './locales/ja/courses';
 import { courses_ko } from './locales/ko/courses';
@@ -408,4 +409,5 @@ export const coursesI18n = localeSet(tr, en, {
   pt: courses_pt,
   it: courses_it,
   zh: courses_zh,
+  hi: courses_hi,
 });

@@ -8,6 +8,7 @@ import { maps_pt } from './locales/pt/maps';
 import { maps_ru } from './locales/ru/maps';
 import { maps_zh } from './locales/zh/maps';
 import { maps_ko } from './locales/ko/maps';
+import { maps_hi } from './locales/hi/maps';
 import { localeSet } from './shared';
 
 const tr = {
@@ -213,4 +214,5 @@ export const mapsI18n = localeSet(tr, en, {
   pt: maps_pt,
   ru: maps_ru,
   zh: maps_zh,
+  hi: maps_hi,
 });

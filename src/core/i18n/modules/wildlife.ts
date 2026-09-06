@@ -6,6 +6,7 @@ import { wildlife_de } from './locales/de/wildlife';
 import { wildlife_ru } from './locales/ru/wildlife';
 import { wildlife_it } from './locales/it/wildlife';
 import { wildlife_zh } from './locales/zh/wildlife';
+import { wildlife_hi } from './locales/hi/wildlife';
 import { localeSet } from './shared';
 import { wildlife_ja } from './locales/ja/wildlife';
 import { wildlife_ko } from './locales/ko/wildlife';
@@ -485,4 +486,5 @@ export const wildlifeI18n = localeSet(tr, en, {
   pt: wildlife_pt,
   it: wildlife_it,
   zh: wildlife_zh,
+  hi: wildlife_hi,
 });

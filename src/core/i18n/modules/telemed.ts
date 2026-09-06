@@ -6,6 +6,7 @@ import { telemed_de } from './locales/de/telemed';
 import { telemed_ru } from './locales/ru/telemed';
 import { telemed_it } from './locales/it/telemed';
 import { telemed_zh } from './locales/zh/telemed';
+import { telemed_hi } from './locales/hi/telemed';
 import { localeSet } from './shared';
 import { telemed_ja } from './locales/ja/telemed';
 import { telemed_ko } from './locales/ko/telemed';
@@ -339,4 +340,5 @@ export const telemedI18n = localeSet(tr, en, {
   pt: telemed_pt,
   it: telemed_it,
   zh: telemed_zh,
+  hi: telemed_hi,
 });
