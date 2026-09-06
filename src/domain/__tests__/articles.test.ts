@@ -93,7 +93,7 @@ describe('parseArticleBody', () => {
       { type: 'li', text: 'madde bir' },
       { type: 'li', text: 'madde iki' },
       { type: 'quote', text: 'alıntı bir alıntı iki' },
-      { type: 'img', text: 'Zirve', url: 'https://example.com/a.jpg' },
+      { type: 'img', text: 'Zirtan', url: 'https://example.com/a.jpg' },
       { type: 'p', text: 'Son paragraf' },
     ]);
   });

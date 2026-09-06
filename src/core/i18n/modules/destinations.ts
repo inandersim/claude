@@ -1,4 +1,11 @@
+import { destinations_pt } from './locales/pt/destinations';
+import { destinations_es } from './locales/es/destinations';
+import { destinations_fr } from './locales/fr/destinations';
+import { destinations_de } from './locales/de/destinations';
+import { destinations_ru } from './locales/ru/destinations';
+import { destinations_it } from './locales/it/destinations';
 import { localeSet } from './shared';
+import { destinations_ja } from './locales/ja/destinations';
 
 const tr = {
   title: 'Destinasyonlar',
@@ -44,7 +51,7 @@ const tr = {
     hut: 'Dağ evi',
     base_camp: 'Ana kamp',
     pass: 'Geçit',
-    summit: 'Zirtan',
+    summit: 'Zirve',
     viewpoint: 'Seyir noktası',
   },
   transport: {
@@ -587,4 +594,12 @@ const en: DestinationsI18nShape = {
 };
 
 /** destinations modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
-export const destinationsI18n = localeSet(tr, en);
+export const destinationsI18n = localeSet(tr, en, {
+  ru: destinations_ru,
+  ja: destinations_ja,
+  de: destinations_de,
+  fr: destinations_fr,
+  es: destinations_es,
+  pt: destinations_pt,
+  it: destinations_it,
+});

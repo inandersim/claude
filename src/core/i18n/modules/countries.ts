@@ -1,4 +1,11 @@
+import { countries_pt } from './locales/pt/countries';
+import { countries_es } from './locales/es/countries';
+import { countries_fr } from './locales/fr/countries';
+import { countries_de } from './locales/de/countries';
+import { countries_ru } from './locales/ru/countries';
+import { countries_it } from './locales/it/countries';
 import { localeSet } from './shared';
+import { countries_ja } from './locales/ja/countries';
 
 const tr = {
   title: 'Ülke rehberi',
@@ -93,7 +100,7 @@ const tr = {
   rescueLinkHint: 'Ülke kurtarma dizini ve büyükelçilik',
   satelliteLink: 'Uydu mesajı ve SOS',
   satelliteLinkHint: 'Şebeke yokken iletişim',
-  askAi: "Zirve AI'ya sor",
+  askAi: "Zirtan AI'ya sor",
   askAiPrompt: "{{country}}'da nelere dikkat etmeliyim? Görgü, güvenlik ve vize açısından özetle.",
   checklist: {
     title: 'Kontrol listesi',
@@ -254,7 +261,7 @@ const en: CountriesI18nShape = {
   rescueLinkHint: 'Country rescue directory and embassy',
   satelliteLink: 'Satellite messaging and SOS',
   satelliteLinkHint: 'Stay in touch without network',
-  askAi: 'Ask Zirve AI',
+  askAi: 'Ask Zirtan AI',
   askAiPrompt:
     'What should I watch out for in {{country}}? Summarize etiquette, safety and visa points.',
   checklist: {
@@ -321,4 +328,12 @@ const en: CountriesI18nShape = {
 };
 
 /** countries modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
-export const countriesI18n = localeSet(tr, en);
+export const countriesI18n = localeSet(tr, en, {
+  ru: countries_ru,
+  ja: countries_ja,
+  de: countries_de,
+  fr: countries_fr,
+  es: countries_es,
+  pt: countries_pt,
+  it: countries_it,
+});

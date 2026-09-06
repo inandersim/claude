@@ -1,4 +1,11 @@
+import { tracks_pt } from './locales/pt/tracks';
+import { tracks_es } from './locales/es/tracks';
+import { tracks_fr } from './locales/fr/tracks';
+import { tracks_de } from './locales/de/tracks';
+import { tracks_ru } from './locales/ru/tracks';
+import { tracks_it } from './locales/it/tracks';
 import { localeSet } from './shared';
+import { tracks_ja } from './locales/ja/tracks';
 
 const tr = {
   title: 'Topluluk rotaları',
@@ -81,7 +88,7 @@ const tr = {
       shelter: 'Barınak',
       danger: 'Tehlike',
       junction: 'Kavşak',
-      summit: 'Zirtan',
+      summit: 'Zirve',
       parking: 'Otopark',
       food: 'Yemek',
       trailhead: 'Patika başı',
@@ -467,4 +474,12 @@ const en: TracksI18nShape = {
 };
 
 /** tracks modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
-export const tracksI18n = localeSet(tr, en);
+export const tracksI18n = localeSet(tr, en, {
+  ru: tracks_ru,
+  ja: tracks_ja,
+  de: tracks_de,
+  fr: tracks_fr,
+  es: tracks_es,
+  pt: tracks_pt,
+  it: tracks_it,
+});
