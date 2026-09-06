@@ -27,6 +27,8 @@ export const destinations_es: DestinationsI18nShape = {
   emptyDescription: 'Prueba a relajar los filtros o busca otro nombre.',
   savedEmpty: 'Aún no hay guardados',
   savedEmptyDescription: 'Marca las rutas que te gusten; se quedarán aquí como guía sin conexión.',
+  notFound: 'Destination not found',
+  notFoundDescription: 'This destination may have been removed or the link is incorrect.',
   type: {
     trek: 'Trekking',
     expedition: 'Expedición',

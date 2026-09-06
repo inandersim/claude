@@ -62,7 +62,8 @@ export function StepList({ steps, activeIndex = -1, limit = 0 }: Props) {
                 {t(instruction.key, instruction.params)}
               </Text>
               <Text variant="caption" color="textSubtle">
-                {roundedDistanceLabel(step.cumulativeM, locale)}
+                {/* Başlangıç adımı için "0 m"; roundedDistanceLabel alt sınırı 10 m'dir */}
+                {step.cumulativeM > 0 ? roundedDistanceLabel(step.cumulativeM, locale) : '0 m'}
                 {step.poiName ? ` · ${step.poiName}` : ''}
               </Text>
             </View>

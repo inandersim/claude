@@ -28,6 +28,8 @@ export const destinations_de: DestinationsI18nShape = {
   savedEmpty: 'Noch nichts gespeichert',
   savedEmptyDescription:
     'Setze Lesezeichen auf Routen, die dir gefallen – sie bleiben hier als Offline-Guide.',
+  notFound: 'Destination not found',
+  notFoundDescription: 'This destination may have been removed or the link is incorrect.',
   type: {
     trek: 'Trek',
     expedition: 'Expedition',

@@ -148,4 +148,5 @@ export const clubs_ka: ClubsI18nShape = {
   seeAllMembers: 'ყველა',
   eventCount: '{{count}} მომავალი ღონისძიება',
   clubEvents: 'კლუბის ღონისძიებები',
+  memberOnlyCreate: 'You need to join the club before creating an event.',
 };

@@ -1,0 +1,28 @@
+{
+  "note": "Performans bütçeleri. Aşım = bulgu. Değerler insan kararıdır; self-heal hattı bu dosyayı değiştiremez (agents/selfheal/** DENY listesinde).",
+  "bundle": {
+    "jsGzipKb": 1200,
+    "totalGzipKb": 2000,
+    "artiSapmaYuzde": 5
+  },
+  "screens": {
+    "varsayilan": { "p75Ms": 1200, "queries": 5 },
+    "ozel": {
+      "/(app)/satellite/sos": {
+        "p75Ms": 800,
+        "queries": 2,
+        "gerekce": "Can güvenliği akışı: SOS ekranı her koşulda hızlı açılmalı"
+      },
+      "/(app)/explore": {
+        "p75Ms": 1500,
+        "queries": 8,
+        "gerekce": "Harita ve öneri listesi birlikte yükleniyor"
+      },
+      "/(app)/tracks/[id]": {
+        "p75Ms": 1400,
+        "queries": 6,
+        "gerekce": "Yükseklik grafiği ve iz geometrisi"
+      }
+    }
+  }
+}

@@ -134,6 +134,7 @@ export const heritage_pl: HeritageI18nShape = {
   visitedEmpty: 'Brak zapisanych odwiedzin',
   visitedEmptyDescription: 'Po zwiedzeniu miejsca dotknij „Odwiedziłem”, aby zdobyć XP.',
   notFound: 'Nie znaleziono miejsca',
+  notFoundDescription: 'This site may have been removed or the link is incorrect.',
   tour: {
     title: 'Moje zwiedzania',
     subtitle: 'Połącz kilka miejsc w plan jedno- lub wielodniowy',

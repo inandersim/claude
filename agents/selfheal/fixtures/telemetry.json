@@ -1,0 +1,210 @@
+{
+  "window": {
+    "from": "2026-09-05T00:00:00Z",
+    "to": "2026-09-06T00:00:00Z",
+    "totalSessions": 41280,
+    "source": "fixture"
+  },
+  "events": [
+    {
+      "id": "crash-deepclone-zmatch",
+      "ts": "2026-09-05T21:14:02Z",
+      "kind": "crash",
+      "app": { "version": "1.0.0", "runtimeVersion": "57.0.0", "channel": "production" },
+      "platform": "android",
+      "locale": "tr",
+      "route": "/(app)/zmatch",
+      "count": 812,
+      "sessions": 604,
+      "detail": {
+        "message": "TypeError: structuredClone is not a function",
+        "stack": "TypeError: structuredClone is not a function\n    at cloneFilters (src/features/zmatch/hooks/useMatchFilters.ts:48:19)\n    at useMatchFilters (src/features/zmatch/hooks/useMatchFilters.ts:63:5)\n    at MatchScreen (src/app/(app)/zmatch/index.tsx:27:31)",
+        "screen": "/(app)/zmatch",
+        "fatal": true,
+        "jsEngine": "hermes"
+      }
+    },
+    {
+      "id": "crash-sos-hold",
+      "ts": "2026-09-05T18:40:11Z",
+      "kind": "crash",
+      "app": { "version": "1.0.0", "runtimeVersion": "57.0.0", "channel": "production" },
+      "platform": "ios",
+      "locale": "tr",
+      "route": "/(app)/satellite/sos",
+      "count": 37,
+      "sessions": 31,
+      "detail": {
+        "message": "TypeError: Cannot read property 'value' of undefined",
+        "stack": "TypeError: Cannot read property 'value' of undefined\n    at HoldSosButton (src/features/satellite/components/HoldSosButton.tsx:71:28)\n    at SosScreen (src/app/(app)/satellite/sos.tsx:44:12)",
+        "screen": "/(app)/satellite/sos",
+        "fatal": true,
+        "jsEngine": "hermes"
+      }
+    },
+    {
+      "id": "error-reanimated-tracks",
+      "ts": "2026-09-05T11:02:44Z",
+      "kind": "error",
+      "app": { "version": "1.0.0", "channel": "production" },
+      "platform": "ios",
+      "locale": "en",
+      "route": "/(app)/tracks/[id]",
+      "count": 1934,
+      "sessions": 1180,
+      "detail": {
+        "message": "Reading from `value` during component render. Use `.get()` instead.",
+        "stack": "Error: Reading from `value` during component render\n    at TrackElevationChart (src/features/tracks/components/TrackElevationChart.tsx:112:22)",
+        "screen": "/(app)/tracks/[id]",
+        "handledBy": "ErrorBoundary(TrackDetail)"
+      }
+    },
+    {
+      "id": "slow-explore",
+      "ts": "2026-09-05T09:30:00Z",
+      "kind": "slow_screen",
+      "app": { "version": "1.0.0", "channel": "production" },
+      "platform": "android",
+      "locale": "tr",
+      "route": "/(app)/explore",
+      "count": 6120,
+      "sessions": 5240,
+      "detail": { "screen": "/(app)/explore", "ms": 2680, "budgetMs": 1200, "queries": 11 }
+    },
+    {
+      "id": "slow-destinations",
+      "ts": "2026-09-05T09:31:00Z",
+      "kind": "slow_screen",
+      "app": { "version": "1.0.0", "channel": "production" },
+      "platform": "ios",
+      "locale": "tr",
+      "route": "/(app)/destinations/[id]",
+      "count": 2210,
+      "sessions": 1980,
+      "detail": { "screen": "/(app)/destinations/[id]", "ms": 1490, "budgetMs": 1200, "queries": 6 }
+    },
+    {
+      "id": "req-ai-summarize-503",
+      "ts": "2026-09-05T14:12:09Z",
+      "kind": "failed_request",
+      "app": { "version": "1.0.0", "channel": "production" },
+      "platform": "android",
+      "locale": "tr",
+      "route": "/(app)/ai",
+      "count": 3410,
+      "sessions": 2260,
+      "detail": {
+        "endpoint": "/ai/summarize",
+        "status": 503,
+        "method": "POST",
+        "ms": 9800,
+        "errorCode": "gateway_upstream_unavailable"
+      }
+    },
+    {
+      "id": "req-weather-timeout",
+      "ts": "2026-09-05T07:55:00Z",
+      "kind": "failed_request",
+      "app": { "version": "1.0.0", "channel": "production" },
+      "platform": "ios",
+      "locale": "en",
+      "route": "/(app)/weather",
+      "count": 640,
+      "sessions": 520,
+      "detail": { "endpoint": "/weather/forecast", "status": 0, "method": "GET", "ms": 15000, "errorCode": "network_timeout" }
+    },
+    {
+      "id": "flow-booking-payment",
+      "ts": "2026-09-05T16:20:00Z",
+      "kind": "flow_abandon",
+      "app": { "version": "1.0.0", "channel": "production" },
+      "platform": "android",
+      "locale": "tr",
+      "route": "/(app)/courses/[id]/book",
+      "count": 1470,
+      "sessions": 1470,
+      "detail": {
+        "flow": "booking",
+        "step": "payment",
+        "stepIndex": 3,
+        "totalSteps": 4,
+        "completions": 430
+      }
+    },
+    {
+      "id": "flow-onboarding-permissions",
+      "ts": "2026-09-05T08:05:00Z",
+      "kind": "flow_abandon",
+      "app": { "version": "1.0.0", "channel": "production" },
+      "platform": "ios",
+      "locale": "en",
+      "route": "/(auth)/onboarding",
+      "count": 980,
+      "sessions": 980,
+      "detail": {
+        "flow": "onboarding",
+        "step": "location_permission",
+        "stepIndex": 2,
+        "totalSteps": 5,
+        "completions": 3120
+      }
+    },
+    {
+      "id": "empty-clubs",
+      "ts": "2026-09-05T13:00:00Z",
+      "kind": "empty_screen",
+      "app": { "version": "1.0.0", "channel": "production" },
+      "platform": "android",
+      "locale": "tr",
+      "route": "/(app)/clubs",
+      "count": 2740,
+      "sessions": 2410,
+      "detail": { "screen": "/(app)/clubs", "reason": "filter_empty", "hasEmptyState": false }
+    },
+    {
+      "id": "empty-market",
+      "ts": "2026-09-05T13:10:00Z",
+      "kind": "empty_screen",
+      "app": { "version": "1.0.0", "channel": "production" },
+      "platform": "web",
+      "locale": "de",
+      "route": "/(app)/market",
+      "count": 310,
+      "sessions": 280,
+      "detail": { "screen": "/(app)/market", "reason": "no_data", "hasEmptyState": true }
+    },
+    {
+      "id": "i18n-zmatch-filters-de",
+      "ts": "2026-09-05T10:00:00Z",
+      "kind": "i18n_missing",
+      "app": { "version": "1.0.0", "channel": "production" },
+      "platform": "web",
+      "locale": "de",
+      "route": "/(app)/zmatch",
+      "count": 1180,
+      "sessions": 690,
+      "detail": { "key": "zmatch.filters.title", "locale": "de", "screen": "/(app)/zmatch" }
+    },
+    {
+      "id": "i18n-rescue-cta-ru",
+      "ts": "2026-09-05T10:05:00Z",
+      "kind": "i18n_missing",
+      "app": { "version": "1.0.0", "channel": "production" },
+      "platform": "android",
+      "locale": "ru",
+      "route": "/(app)/rescue",
+      "count": 420,
+      "sessions": 260,
+      "detail": { "key": "rescue.cta.callTeam", "locale": "ru", "screen": "/(app)/rescue" }
+    },
+    {
+      "id": "bozuk-olay-ornegi",
+      "ts": "2026-09-05T10:07:00Z",
+      "kind": "error",
+      "app": { "version": "1.0.0" },
+      "platform": "symbian",
+      "count": 3,
+      "detail": { "message": "beklenmedik platform" }
+    }
+  ]
+}

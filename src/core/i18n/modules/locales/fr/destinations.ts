@@ -28,6 +28,8 @@ export const destinations_fr: DestinationsI18nShape = {
   savedEmpty: 'Rien d’enregistré pour l’instant',
   savedEmptyDescription:
     'Ajoute tes itinéraires favoris aux marque-pages ; ils resteront ici comme guide hors ligne.',
+  notFound: 'Destination not found',
+  notFoundDescription: 'This destination may have been removed or the link is incorrect.',
   type: {
     trek: 'Trek',
     expedition: 'Expédition',

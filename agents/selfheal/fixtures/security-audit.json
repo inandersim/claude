@@ -1,0 +1,22 @@
+{
+  "note": "`npm audit --json --omit=dev` çıktısının analiz için gereken alt kümesi. Ağ varsa analyze.mjs --live gerçeğini çalıştırır.",
+  "metadata": {
+    "vulnerabilities": { "info": 0, "low": 2, "moderate": 3, "high": 1, "critical": 0, "total": 6 }
+  },
+  "vulnerabilities": {
+    "tar-fs": {
+      "name": "tar-fs",
+      "severity": "high",
+      "isDirect": false,
+      "via": [{ "title": "Path traversal in tar-fs", "url": "https://github.com/advisories/GHSA-xxxx", "severity": "high" }],
+      "fixAvailable": { "name": "tar-fs", "version": "3.0.9", "isSemVerMajor": false }
+    },
+    "semver": {
+      "name": "semver",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [{ "title": "ReDoS in semver range parsing", "url": "https://github.com/advisories/GHSA-yyyy", "severity": "moderate" }],
+      "fixAvailable": true
+    }
+  }
+}

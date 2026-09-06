@@ -20,6 +20,7 @@ import { useToast } from '@/core/hooks/useToast';
 import { useT } from '@/core/i18n';
 import { goBack } from '@/core/navigation';
 import { radius, spacing, useTheme } from '@/core/theme';
+import { formatAltitude } from '@/core/utils/format';
 import { formatDate } from '@/core/utils/time';
 import { ADVENTURE_TYPE_META, formatDistance } from '@/domain';
 import { VERIFY_THRESHOLD, verifyThreshold } from '@/domain/tracks';
@@ -99,7 +100,7 @@ export default function CommunityTrailScreen() {
               <StatTile
                 icon="trending-up"
                 label={t('tracks.stats.ascent')}
-                value={`${data.ascentM} m`}
+                value={formatAltitude(data.ascentM, locale)}
                 color={colors.success}
                 style={styles.tile}
               />

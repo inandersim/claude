@@ -28,6 +28,8 @@ export const destinations_ja: DestinationsI18nShape = {
   savedEmpty: 'まだ保存がありません',
   savedEmptyDescription:
     '気に入ったルートをブックマークすると、オフラインガイドとしてここに残ります。',
+  notFound: 'Destination not found',
+  notFoundDescription: 'This destination may have been removed or the link is incorrect.',
   type: {
     trek: 'トレッキング',
     expedition: '遠征',

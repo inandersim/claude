@@ -135,6 +135,7 @@ export const heritage_sv: HeritageI18nShape = {
   visitedEmptyDescription:
     'Tryck på "Jag har besökt" efter att du utforskat en plats för att tjäna XP.',
   notFound: 'Platsen hittades inte',
+  notFoundDescription: 'This site may have been removed or the link is incorrect.',
   tour: {
     title: 'Mina turer',
     subtitle: 'Gör flera platser till en endags- eller flerdagsplan',

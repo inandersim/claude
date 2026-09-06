@@ -155,6 +155,7 @@ const tr = {
   visitedEmpty: 'Henüz ziyaret kaydı yok',
   visitedEmptyDescription: 'Bir alanı gezdiğinde “Ziyaret ettim” diyerek XP kazan.',
   notFound: 'Alan bulunamadı',
+  notFoundDescription: 'Bu alan kaldırılmış ya da bağlantı hatalı olabilir.',
   tour: {
     title: 'Turlarım',
     subtitle: 'Birden fazla alanı tek günlük ya da çok günlük plana dönüştür',
@@ -329,6 +330,7 @@ const en: HeritageI18nShape = {
   visitedEmpty: 'No visits recorded yet',
   visitedEmptyDescription: 'Tap “I visited” after exploring a site to earn XP.',
   notFound: 'Site not found',
+  notFoundDescription: 'This site may have been removed or the link is incorrect.',
   tour: {
     title: 'My tours',
     subtitle: 'Turn several sites into a one-day or multi-day plan',

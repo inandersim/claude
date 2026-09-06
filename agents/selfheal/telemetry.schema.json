@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://zirtan.app/schemas/telemetry.v1.json",
+  "title": "Zirtan telemetri olayı (v1)",
+  "description": "Uygulamadan self-heal hattına akan tek bir olayın sözleşmesi. Kişisel veri taşınmaz: kullanıcı kimliği yalnızca geri döndürülemez `sessionHash` olarak, serbest metin yalnızca `message`/`stack` alanlarında ve yollar gizlenmiş biçimde bulunur. Doğrulayıcı: agents/selfheal/lib/telemetry.mjs",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "ts", "kind", "app", "platform"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_.:-]{4,80}$",
+      "description": "Olay kimliği. Sunucu tarafında toplulaştırılmış olaylar için kararlı (aynı imza → aynı id)."
+    },
+    "ts": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Olayın (ya da toplulaştırma penceresinin sonunun) ISO-8601 zaman damgası."
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "crash",
+        "error",
+        "slow_screen",
+        "failed_request",
+        "flow_abandon",
+        "empty_screen",
+        "i18n_missing"
+      ],
+      "description": "Olay türü. Her tür için `detail` şekli $defs.detail_<kind> ile tanımlıdır."
+    },
+    "app": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version"],
+      "properties": {
+        "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+" },
+        "runtimeVersion": { "type": "string", "maxLength": 40 },
+        "channel": { "type": "string", "enum": ["development", "preview", "production"] },
+        "updateId": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "OTA güncelleme kimliği; kanarya değerlendirmesi bunu kullanır."
+        }
+      }
+    },
+    "platform": { "type": "string", "enum": ["ios", "android", "web"] },
+    "locale": {
+      "type": "string",
+      "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
+      "description": "Cihaz dili. i18n bulguları için gerekli."
+    },
+    "route": {
+      "type": "string",
+      "maxLength": 120,
+      "description": "Expo Router yolu (`/(app)/satellite/sos`). Dinamik parça `[id]` olarak maskelenir — gerçek kimlik yazılmaz."
+    },
+    "sessionHash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{16}$",
+      "description": "Oturumun geri döndürülemez özeti. Kullanıcıyı tanımlamaz; yalnızca 'kaç ayrı oturum etkilendi' sayımı için."
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 1,
+      "default": 1,
+      "description": "Toplulaştırılmış olay sayısı (sunucu aynı imzayı tek satırda birleştirebilir)."
+    },
+    "sessions": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Bu imzadan etkilenen ayrı oturum sayısı. Etki hesabında paydadır."
+    },
+    "detail": {
+      "type": "object",
+      "description": "Türe özgü alanlar; $defs.detail_<kind> ile doğrulanır."
+    }
+  },
+  "$defs": {
+    "window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["from", "to", "totalSessions"],
+      "description": "Olay listesini saran zarf. `totalSessions` sıklık normalizasyonunun paydasıdır.",
+      "properties": {
+        "from": { "type": "string", "format": "date-time" },
+        "to": { "type": "string", "format": "date-time" },
+        "totalSessions": { "type": "integer", "minimum": 1 },
+        "source": { "type": "string", "enum": ["fixture", "http"] }
+      }
+    },
+    "detail_crash": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["message"],
+      "properties": {
+        "message": { "type": "string", "maxLength": 400 },
+        "stack": { "type": "string", "maxLength": 4000 },
+        "screen": { "type": "string", "maxLength": 120 },
+        "fatal": { "type": "boolean" },
+        "jsEngine": { "type": "string", "enum": ["hermes", "jsc", "v8"] }
+      }
+    },
+    "detail_error": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["message"],
+      "properties": {
+        "message": { "type": "string", "maxLength": 400 },
+        "stack": { "type": "string", "maxLength": 4000 },
+        "screen": { "type": "string", "maxLength": 120 },
+        "handledBy": {
+          "type": "string",
+          "maxLength": 120,
+          "description": "Hatayı yakalayan sınır (ErrorBoundary adı, query key, vb.)."
+        }
+      }
+    },
+    "detail_slow_screen": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["screen", "ms"],
+      "properties": {
+        "screen": { "type": "string", "maxLength": 120 },
+        "ms": { "type": "number", "minimum": 0, "description": "Ölçülen açılış süresi (p75 önerilir)." },
+        "budgetMs": { "type": "number", "minimum": 0 },
+        "queries": { "type": "integer", "minimum": 0, "description": "Ekran açılırken atılan sorgu sayısı." }
+      }
+    },
+    "detail_failed_request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["endpoint", "status"],
+      "properties": {
+        "endpoint": {
+          "type": "string",
+          "maxLength": 200,
+          "description": "Yol şablonu (`/ai/summarize`). Sorgu dizesi ve kimlikler kırpılır."
+        },
+        "status": { "type": "integer", "minimum": 0, "maximum": 599 },
+        "method": { "type": "string", "enum": ["GET", "POST", "PUT", "PATCH", "DELETE"] },
+        "ms": { "type": "number", "minimum": 0 },
+        "errorCode": { "type": "string", "maxLength": 80 }
+      }
+    },
+    "detail_flow_abandon": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["flow", "step"],
+      "properties": {
+        "flow": { "type": "string", "maxLength": 80, "description": "Akış adı (`onboarding`, `booking`, `sos`)." },
+        "step": { "type": "string", "maxLength": 80, "description": "Terk edilen adım." },
+        "stepIndex": { "type": "integer", "minimum": 0 },
+        "totalSteps": { "type": "integer", "minimum": 1 },
+        "completions": { "type": "integer", "minimum": 0, "description": "Aynı pencerede akışı tamamlayan oturum sayısı." }
+      }
+    },
+    "detail_empty_screen": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["screen"],
+      "properties": {
+        "screen": { "type": "string", "maxLength": 120 },
+        "reason": {
+          "type": "string",
+          "enum": ["no_data", "filter_empty", "fetch_failed", "unknown"]
+        },
+        "hasEmptyState": {
+          "type": "boolean",
+          "description": "Ekranda tasarlanmış bir boş durum bileşeni gösterildi mi. false → UX bulgusu."
+        }
+      }
+    },
+    "detail_i18n_missing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["key", "locale"],
+      "properties": {
+        "key": { "type": "string", "maxLength": 160, "description": "`modul.alt.anahtar` biçiminde i18n anahtarı." },
+        "locale": { "type": "string", "pattern": "^[a-z]{2}(-[A-Z]{2})?$" },
+        "screen": { "type": "string", "maxLength": 120 }
+      }
+    }
+  }
+}

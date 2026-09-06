@@ -134,6 +134,7 @@ export const heritage_zh: HeritageI18nShape = {
   visitedEmpty: '还没有参观记录',
   visitedEmptyDescription: '参观一处遗址后点击"我去过"即可获得 XP。',
   notFound: '找不到遗址',
+  notFoundDescription: 'This site may have been removed or the link is incorrect.',
   tour: {
     title: '我的行程',
     subtitle: '将多处遗址组合成一日或多日计划',

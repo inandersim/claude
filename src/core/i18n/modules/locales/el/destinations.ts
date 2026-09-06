@@ -27,6 +27,8 @@ export const destinations_el: DestinationsI18nShape = {
   emptyDescription: 'Δοκιμάστε να χαλαρώσετε τα φίλτρα ή να αναζητήσετε διαφορετικό όνομα.',
   savedEmpty: 'Τίποτα αποθηκευμένο ακόμα',
   savedEmptyDescription: 'Αποθηκεύστε διαδρομές που σας αρέσουν· μένουν εδώ ως οδηγός offline.',
+  notFound: 'Destination not found',
+  notFoundDescription: 'This destination may have been removed or the link is incorrect.',
   type: {
     trek: 'Trek',
     expedition: 'Αποστολή',

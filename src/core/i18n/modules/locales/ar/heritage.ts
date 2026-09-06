@@ -134,6 +134,7 @@ export const heritage_ar: HeritageI18nShape = {
   visitedEmpty: 'لا سجلات زيارة بعد',
   visitedEmptyDescription: 'عند زيارة موقع اضغط "زرته" واكسب XP.',
   notFound: 'الموقع غير موجود',
+  notFoundDescription: 'This site may have been removed or the link is incorrect.',
   tour: {
     title: 'جولاتي',
     subtitle: 'حوّل عدة مواقع إلى خطة ليوم واحد أو عدة أيام',

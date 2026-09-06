@@ -135,6 +135,7 @@ export const heritage_es: HeritageI18nShape = {
   visitedEmpty: 'Aún no hay visitas registradas',
   visitedEmptyDescription: 'Cuando visites un sitio, pulsa "Lo he visitado" y gana XP.',
   notFound: 'Sitio no encontrado',
+  notFoundDescription: 'This site may have been removed or the link is incorrect.',
   tour: {
     title: 'Mis tours',
     subtitle: 'Convierte varios sitios en un plan de uno o varios días',

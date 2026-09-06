@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
   Button,
   Chip,
+  EmptyState,
   Header,
   Icon,
   IconButton,
@@ -66,6 +67,8 @@ export default function NewClubEventScreen() {
 
   const titleError = submitted && !title.trim() ? t('clubs.form.titleRequired') : null;
   const locationError = submitted && !location.trim() ? t('clubs.form.locationRequired') : null;
+  // Kulüp kimliği yoksa/kulüp bulunamadıysa ya da üye değilsen form kullanılamaz.
+  const blocked = !club.isLoading && club.data?.membership !== 'member';
 
   const submit = () => {
     setSubmitted(true);
@@ -119,6 +122,30 @@ export default function NewClubEventScreen() {
       >
         {club.isLoading ? (
           <Skeleton height={60} style={{ borderRadius: radius.xl }} />
+        ) : !club.data ? (
+          <EmptyState
+            icon="school"
+            title={t('clubs.notFound')}
+            description={t('notFound.description')}
+            action={{
+              label: t('clubs.discover'),
+              icon: 'search',
+              variant: 'secondary',
+              onPress: () => router.replace('/clubs'),
+            }}
+          />
+        ) : blocked ? (
+          <EmptyState
+            icon="lock"
+            title={t('clubs.memberOnlyCreate')}
+            description={club.data.name}
+            action={{
+              label: t('clubs.join'),
+              icon: 'users',
+              onPress: () =>
+                router.replace({ pathname: '/clubs/[id]', params: { id: club.data!.id } }),
+            }}
+          />
         ) : (
           <>
             <Input
@@ -254,26 +281,28 @@ export default function NewClubEventScreen() {
           </>
         )}
       </ScrollView>
-      <View
-        style={[
-          styles.footer,
-          {
-            backgroundColor: colors.background,
-            borderTopColor: colors.border,
-            paddingBottom: Math.max(insets.bottom, spacing.md),
-          },
-        ]}
-      >
-        <Button
-          label={t('clubs.form.submit')}
-          icon="calendar-plus"
-          size="lg"
-          fullWidth
-          loading={create.isPending}
-          disabled={!club.data || club.data.membership !== 'member'}
-          onPress={submit}
-        />
-      </View>
+      {blocked ? null : (
+        <View
+          style={[
+            styles.footer,
+            {
+              backgroundColor: colors.background,
+              borderTopColor: colors.border,
+              paddingBottom: Math.max(insets.bottom, spacing.md),
+            },
+          ]}
+        >
+          <Button
+            label={t('clubs.form.submit')}
+            icon="calendar-plus"
+            size="lg"
+            fullWidth
+            loading={create.isPending}
+            disabled={club.isLoading}
+            onPress={submit}
+          />
+        </View>
+      )}
     </Screen>
   );
 }

@@ -135,6 +135,7 @@ export const heritage_nl: HeritageI18nShape = {
   visitedEmptyDescription:
     'Tik na het verkennen van een locatie op “Ik ben hier geweest” om XP te verdienen.',
   notFound: 'Locatie niet gevonden',
+  notFoundDescription: 'This site may have been removed or the link is incorrect.',
   tour: {
     title: 'Mijn tours',
     subtitle: 'Maak van meerdere locaties een plan voor één of meerdere dagen',

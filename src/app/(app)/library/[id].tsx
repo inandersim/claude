@@ -1,6 +1,6 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
-import { Linking, ScrollView, StyleSheet, View } from 'react-native';
+import { Linking, ScrollView, Share, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import {
@@ -76,6 +76,14 @@ export default function LibraryPlaceScreen() {
   const hazards = useHazards(origin, 40);
   const name = data ? localizedPlaceName(data, locale) : '';
 
+  /** Yeri harita bağlantısı ve kaynak atfıyla paylaşır. */
+  const onShare = () => {
+    if (!data) return;
+    Share.share({
+      message: `${name} — ${mapsUrl(data.lat, data.lng, name)}\n${t('library.source')}: ${data.attribution}`,
+    }).catch(() => undefined);
+  };
+
   return (
     <Screen edges={[]}>
       <View style={[styles.topActions, { top: insets.top + spacing.sm }]}>
@@ -85,7 +93,13 @@ export default function LibraryPlaceScreen() {
           onPress={() => (router.canGoBack() ? router.back() : router.replace('/library'))}
           accessibilityLabel={t('common.back')}
         />
-        <IconButton icon="share" variant="blur" accessibilityLabel={t('common.share')} />
+        <IconButton
+          icon="share"
+          variant="blur"
+          onPress={onShare}
+          disabled={!data}
+          accessibilityLabel={t('common.share')}
+        />
       </View>
       <ScrollView
         contentContainerStyle={{ paddingBottom: insets.bottom + 100 }}

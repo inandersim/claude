@@ -1,0 +1,12 @@
+{
+  "note": "Ölçüm kaynakları: bundle → docs/health/bundle-size.json (bundle-size.mjs), screens/queries → telemetri slow_screen olayları. Gerçek dosyalar varsa perf.mjs onları tercih eder.",
+  "date": "2026-09-06",
+  "bundle": { "jsGzipBytes": 1390000, "totalGzipBytes": 2180000, "files": 148 },
+  "screens": [
+    { "screen": "/(app)/explore", "p75Ms": 2680, "queries": 11 },
+    { "screen": "/(app)/destinations/[id]", "p75Ms": 1490, "queries": 6 },
+    { "screen": "/(app)/tracks/[id]", "p75Ms": 1180, "queries": 4 },
+    { "screen": "/(app)/zmatch", "p75Ms": 940, "queries": 3 },
+    { "screen": "/(app)/satellite/sos", "p75Ms": 610, "queries": 1 }
+  ]
+}

@@ -130,6 +130,12 @@ export const inventory_fr: InventoryI18nShape = {
     code: 'N° de réservation',
     details: 'Détails',
   },
+  business: {
+    notFound: 'Business not found',
+    notFoundDescription: 'This business may have been removed or the link is wrong.',
+    noStay: 'This business does not offer stays',
+    noStayDescription: 'Shops and tour operators take requests over the phone or chat.',
+  },
   status: {
     pending: 'En attente',
     confirmed: 'Confirmée',

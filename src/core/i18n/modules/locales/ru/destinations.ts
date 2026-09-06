@@ -28,6 +28,8 @@ export const destinations_ru: DestinationsI18nShape = {
   savedEmpty: 'Пока ничего не сохранено',
   savedEmptyDescription:
     'Добавляй понравившиеся маршруты в закладки — они останутся здесь как офлайн-гид.',
+  notFound: 'Destination not found',
+  notFoundDescription: 'This destination may have been removed or the link is incorrect.',
   type: {
     trek: 'Трек',
     expedition: 'Экспедиция',

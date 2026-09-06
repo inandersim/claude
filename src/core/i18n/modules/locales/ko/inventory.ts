@@ -128,6 +128,12 @@ export const inventory_ko: InventoryI18nShape = {
     code: '예약 번호',
     details: '상세 정보',
   },
+  business: {
+    notFound: 'Business not found',
+    notFoundDescription: 'This business may have been removed or the link is wrong.',
+    noStay: 'This business does not offer stays',
+    noStayDescription: 'Shops and tour operators take requests over the phone or chat.',
+  },
   status: {
     pending: '대기 중',
     confirmed: '확정',

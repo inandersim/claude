@@ -128,6 +128,12 @@ export const inventory_ja: InventoryI18nShape = {
     code: '予約番号',
     details: '詳細',
   },
+  business: {
+    notFound: 'Business not found',
+    notFoundDescription: 'This business may have been removed or the link is wrong.',
+    noStay: 'This business does not offer stays',
+    noStayDescription: 'Shops and tour operators take requests over the phone or chat.',
+  },
   status: {
     pending: '保留中',
     confirmed: '確定',

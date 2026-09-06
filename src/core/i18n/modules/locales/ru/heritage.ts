@@ -134,6 +134,7 @@ export const heritage_ru: HeritageI18nShape = {
   visitedEmpty: 'Записей о посещениях пока нет',
   visitedEmptyDescription: 'Посетив место, нажми «Я здесь был» и получи XP.',
   notFound: 'Место не найдено',
+  notFoundDescription: 'This site may have been removed or the link is incorrect.',
   tour: {
     title: 'Мои туры',
     subtitle: 'Объедини несколько мест в план на день или несколько дней',

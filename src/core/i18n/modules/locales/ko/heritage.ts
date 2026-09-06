@@ -134,6 +134,7 @@ export const heritage_ko: HeritageI18nShape = {
   visitedEmpty: '아직 방문 기록이 없어요',
   visitedEmptyDescription: '유적지를 둘러본 후 "방문했어요"를 눌러 XP를 얻으세요.',
   notFound: '유적지를 찾을 수 없어요',
+  notFoundDescription: 'This site may have been removed or the link is incorrect.',
   tour: {
     title: '내 투어',
     subtitle: '여러 유적지를 하루 또는 며칠 계획으로 만드세요',

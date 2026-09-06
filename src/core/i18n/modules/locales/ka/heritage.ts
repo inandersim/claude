@@ -134,6 +134,7 @@ export const heritage_ka: HeritageI18nShape = {
   visitedEmpty: 'ჯერ ვიზიტის ჩანაწერები არ არის',
   visitedEmptyDescription: 'ძეგლის მონახულებისას დააჭირე „მოვინახულე" და მოიპოვე XP.',
   notFound: 'ძეგლი ვერ მოიძებნა',
+  notFoundDescription: 'This site may have been removed or the link is incorrect.',
   tour: {
     title: 'ჩემი ტურები',
     subtitle: 'გადააქციე რამდენიმე ძეგლი ერთდღიან ან მრავალდღიან გეგმად',

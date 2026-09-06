@@ -49,6 +49,8 @@ const tr = {
   savedEmpty: 'Henüz kaydedilen yok',
   savedEmptyDescription:
     'Beğendiğin rotaları yer imine ekle; çevrimdışı rehber olarak burada dursun.',
+  notFound: 'Destinasyon bulunamadı',
+  notFoundDescription: 'Bu destinasyon kaldırılmış ya da bağlantı hatalı olabilir.',
   type: {
     trek: 'Trek',
     expedition: 'Ekspedisyon',
@@ -343,6 +345,8 @@ const en: DestinationsI18nShape = {
   emptyDescription: 'Try loosening the filters or searching a different name.',
   savedEmpty: 'Nothing saved yet',
   savedEmptyDescription: 'Bookmark routes you like; they stay here as an offline guide.',
+  notFound: 'Destination not found',
+  notFoundDescription: 'This destination may have been removed or the link is incorrect.',
   type: {
     trek: 'Trek',
     expedition: 'Expedition',

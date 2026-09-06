@@ -27,6 +27,8 @@ export const destinations_th: DestinationsI18nShape = {
   emptyDescription: 'ลองผ่อนตัวกรองหรือค้นหาด้วยชื่ออื่น',
   savedEmpty: 'ยังไม่มีรายการที่บันทึก',
   savedEmptyDescription: 'บุ๊กมาร์กเส้นทางที่คุณชอบ จะเก็บไว้ที่นี่เป็นคู่มือออฟไลน์',
+  notFound: 'Destination not found',
+  notFoundDescription: 'This destination may have been removed or the link is incorrect.',
   type: {
     trek: 'เทรกกิ้ง',
     expedition: 'การสำรวจ',

@@ -28,6 +28,8 @@ export const destinations_ka: DestinationsI18nShape = {
   savedEmpty: 'ჯერ შენახული არაფერია',
   savedEmptyDescription:
     'დაამატე მოწონებული მარშრუტები სანიშნეებში; ოფლაინ გზამკვლევად აქ დარჩება.',
+  notFound: 'Destination not found',
+  notFoundDescription: 'This destination may have been removed or the link is incorrect.',
   type: {
     trek: 'ტრეკი',
     expedition: 'ექსპედიცია',

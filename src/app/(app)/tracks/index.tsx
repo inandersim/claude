@@ -43,6 +43,9 @@ import {
 
 type Tab = 'community' | 'mine' | 'pois';
 
+/** Topluluk rotaları için yarıçap seçenekleri; `null` = tüm bölgeler */
+const TRAIL_RADII: (number | null)[] = [50, 250, 1000, null];
+
 export default function TracksScreen() {
   const router = useRouter();
   const { t } = useT();
@@ -55,8 +58,10 @@ export default function TracksScreen() {
   const [query, setQuery] = useState('');
   const [type, setType] = useState<AdventureType | null>(null);
   const [poiKind, setPoiKind] = useState<PoiKind | null>(null);
+  const [trailRadiusKm, setTrailRadiusKm] = useState<number | null>(null);
 
-  const trails = useCommunityTrails(location.coords, null);
+  // radiusKm null → repo varsayılanı (150 km) devreye girmesin diye çok geniş bir yarıçap
+  const trails = useCommunityTrails(location.coords, trailRadiusKm ?? 40_000);
   const mine = useTracks({ mineOnly: true, query, adventureType: type });
   const pois = usePoisNear(location.coords, 300, poiKind);
   const suggested = useSuggestedPois(location.coords);
@@ -131,7 +136,28 @@ export default function TracksScreen() {
 
         {tab === 'community' ? (
           <View style={styles.section}>
-            <SectionHeader title={t('tracks.nearbyTrails')} />
+            <SectionHeader
+              title={t('tracks.nearbyTrails')}
+              subtitle={
+                trailRadiusKm ? t('tracks.poi.radius', { km: trailRadiusKm }) : t('common.all')
+              }
+            />
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.chips}
+              style={{ marginHorizontal: -spacing.lg }}
+            >
+              {TRAIL_RADII.map((km) => (
+                <Chip
+                  key={km ?? 'all'}
+                  label={km ? `${km} km` : t('common.all')}
+                  selected={trailRadiusKm === km}
+                  onPress={() => setTrailRadiusKm(km)}
+                  size="sm"
+                />
+              ))}
+            </ScrollView>
             {trails.isError ? (
               <ErrorState onRetry={() => trails.refetch()} />
             ) : trails.isLoading ? (

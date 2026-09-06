@@ -28,6 +28,8 @@ export const destinations_ar: DestinationsI18nShape = {
   savedEmpty: 'لا محفوظات بعد',
   savedEmptyDescription:
     'أضف المسارات التي تعجبك إلى الإشارات المرجعية؛ لتبقى هنا كدليل بلا اتصال.',
+  notFound: 'Destination not found',
+  notFoundDescription: 'This destination may have been removed or the link is incorrect.',
   type: {
     trek: 'رحلة مشي',
     expedition: 'بعثة',

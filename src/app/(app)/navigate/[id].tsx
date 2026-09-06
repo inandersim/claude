@@ -51,7 +51,9 @@ export default function NavigateScreen() {
   const nextPoi =
     steps.find((s) => s.index > (progress?.stepIndex ?? -1) && s.poiName)?.poiName ?? null;
   const isLoading = source.isLoading || nav.isLoading;
-  const isError = source.isError || nav.isError;
+  // Kaynak yüklendi ama kayıt yoksa: geçersiz derin bağlantı → "bulunamadı"
+  const notFound = !id || (source.isSuccess && !source.data);
+  const isError = !notFound && (source.isError || nav.isError);
 
   return (
     <Screen edges={['top', 'bottom']}>
@@ -70,7 +72,17 @@ export default function NavigateScreen() {
         }
       />
       <ScrollView contentContainerStyle={styles.content}>
-        {isError ? (
+        {notFound ? (
+          <EmptyState
+            icon="map-pin-off"
+            title={kind === 'community' ? t('tracks.trailNotFound') : t('tracks.notFound')}
+            action={{
+              label: t('tracks.title'),
+              variant: 'secondary',
+              onPress: () => goBack(router, '/'),
+            }}
+          />
+        ) : isError ? (
           <ErrorState
             onRetry={() => {
               void source.refetch();

@@ -1,0 +1,20 @@
+{
+  "note": "Kanarya değerlendirmesi için örnek ölçüm. Gerçekte telemetri ucundan `?updateId=...&stage=...` ile çekilir.",
+  "updateId": "u-2026-09-06-a1",
+  "stage": "yuzde5",
+  "observedMinutes": 65,
+  "canary": {
+    "sessions": 2140,
+    "crashFreeSessionsPct": 99.31,
+    "errorRatePct": 1.9,
+    "flowCompletionPct": 71.2,
+    "p75ScreenMs": 1310
+  },
+  "baseline": {
+    "sessions": 39140,
+    "crashFreeSessionsPct": 99.62,
+    "errorRatePct": 1.4,
+    "flowCompletionPct": 73.5,
+    "p75ScreenMs": 1240
+  }
+}

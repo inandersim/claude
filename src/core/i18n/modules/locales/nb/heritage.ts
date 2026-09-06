@@ -134,6 +134,7 @@ export const heritage_nb: HeritageI18nShape = {
   visitedEmpty: 'Ingen besøk registrert ennå',
   visitedEmptyDescription: 'Trykk «Jeg har besøkt» etter å ha utforsket et sted for å få XP.',
   notFound: 'Fant ikke stedet',
+  notFoundDescription: 'This site may have been removed or the link is incorrect.',
   tour: {
     title: 'Mine turer',
     subtitle: 'Gjør flere steder om til en plan for én eller flere dager',

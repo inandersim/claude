@@ -4,6 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import { Icon, Text } from '@/components/ui';
 import { useT } from '@/core/i18n';
 import { radius, spacing, useTheme } from '@/core/theme';
+import { formatNumber } from '@/core/utils/format';
 import { formatTime } from '@/core/utils/time';
 import { shortDayName, wmoCodeMeta, type BestWindow } from '@/domain';
 
@@ -65,10 +66,10 @@ export function BestWindowCard({ window: win, hours = 6 }: Props) {
       </View>
       <View style={styles.score}>
         <Text variant="label" color="textSubtle">
-          {t('weather.riskScore').toLocaleUpperCase()}
+          {t('weather.riskScore').toLocaleUpperCase(locale === 'tr' ? 'tr-TR' : 'en-US')}
         </Text>
         <Text variant="h3" weight="extrabold" color={tint}>
-          {win.score.toFixed(1)}
+          {formatNumber(win.score, locale, 1)}
         </Text>
       </View>
     </View>

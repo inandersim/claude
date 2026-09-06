@@ -134,6 +134,7 @@ export const heritage_ja: HeritageI18nShape = {
   visitedEmpty: 'まだ訪問記録はありません',
   visitedEmptyDescription: '史跡を訪れたら「訪問した」でXPを獲得しよう。',
   notFound: '史跡が見つかりません',
+  notFoundDescription: 'This site may have been removed or the link is incorrect.',
   tour: {
     title: 'マイツアー',
     subtitle: '複数の史跡を日帰りや数日のプランに',

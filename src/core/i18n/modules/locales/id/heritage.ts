@@ -135,6 +135,7 @@ export const heritage_id: HeritageI18nShape = {
   visitedEmptyDescription:
     'Ketuk "Saya sudah berkunjung" setelah menjelajahi situs untuk mendapat XP.',
   notFound: 'Situs tidak ditemukan',
+  notFoundDescription: 'This site may have been removed or the link is incorrect.',
   tour: {
     title: 'Tur saya',
     subtitle: 'Ubah beberapa situs menjadi rencana sehari atau beberapa hari',

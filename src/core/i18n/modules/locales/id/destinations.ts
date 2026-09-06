@@ -28,6 +28,8 @@ export const destinations_id: DestinationsI18nShape = {
   savedEmpty: 'Belum ada yang disimpan',
   savedEmptyDescription:
     'Tandai rute yang kamu suka; rute itu tetap di sini sebagai panduan offline.',
+  notFound: 'Destination not found',
+  notFoundDescription: 'This destination may have been removed or the link is incorrect.',
   type: {
     trek: 'Trek',
     expedition: 'Ekspedisi',

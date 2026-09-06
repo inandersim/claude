@@ -147,4 +147,5 @@ export const clubs_zh: ClubsI18nShape = {
   seeAllMembers: '全部',
   eventCount: '{{count}} 个即将举行的活动',
   clubEvents: '社团活动',
+  memberOnlyCreate: 'You need to join the club before creating an event.',
 };

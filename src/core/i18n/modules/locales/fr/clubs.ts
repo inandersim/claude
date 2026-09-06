@@ -148,4 +148,5 @@ export const clubs_fr: ClubsI18nShape = {
   seeAllMembers: 'Tous',
   eventCount: '{{count}} événements à venir',
   clubEvents: 'Événements du club',
+  memberOnlyCreate: 'You need to join the club before creating an event.',
 };

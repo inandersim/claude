@@ -78,21 +78,28 @@ export default function StartStreamScreen() {
     );
   };
 
+  const finish = (id: string) =>
+    end.mutate(id, {
+      onSuccess: () => {
+        toast(t('live.endedToast'), 'info');
+        goBack(router, '/live');
+      },
+      onError: () => toast(t('common.error'), 'error'),
+    });
+
   const onEnd = () => {
-    if (!liveId) return goBack(router);
+    if (!liveId) return goBack(router, '/live');
+    // `Alert` web'de sessizce yok sayılır; orada tarayıcı onayı kullanılır.
+    if (Platform.OS === 'web') {
+      const ok =
+        typeof window === 'undefined' ||
+        window.confirm(`${t('live.endStream')}\n${t('live.endConfirm')}`);
+      if (ok) finish(liveId);
+      return;
+    }
     Alert.alert(t('live.endStream'), t('live.endConfirm'), [
       { text: t('common.cancel'), style: 'cancel' },
-      {
-        text: t('live.endStream'),
-        style: 'destructive',
-        onPress: () =>
-          end.mutate(liveId, {
-            onSuccess: () => {
-              toast(t('live.endedToast'), 'info');
-              goBack(router);
-            },
-          }),
-      },
+      { text: t('live.endStream'), style: 'destructive', onPress: () => finish(liveId) },
     ]);
   };
 
@@ -141,7 +148,7 @@ export default function StartStreamScreen() {
         <IconButton
           icon="x"
           variant="blur"
-          onPress={liveId ? onEnd : () => goBack(router)}
+          onPress={liveId ? onEnd : () => goBack(router, '/live')}
           accessibilityLabel={t('common.close')}
         />
         {liveId ? (
@@ -207,7 +214,11 @@ export default function StartStreamScreen() {
             keyboardShouldPersistTaps="handled"
             contentContainerStyle={[
               styles.sheet,
-              { paddingBottom: insets.bottom + spacing.lg, backgroundColor: 'rgba(11,18,16,0.88)' },
+              {
+                paddingTop: insets.top + 42 + spacing.lg + spacing.sm,
+                paddingBottom: insets.bottom + spacing.lg,
+                backgroundColor: 'rgba(11,18,16,0.88)',
+              },
             ]}
           >
             <Text variant="h2" color="#FFFFFF">

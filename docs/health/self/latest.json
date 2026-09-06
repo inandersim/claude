@@ -1,0 +1,924 @@
+{
+  "schema": "zirtan.selfheal.analysis/1",
+  "date": "2026-09-06",
+  "generatedAt": "2026-09-06T19:23:08.470Z",
+  "gitRef": "f285391",
+  "node": "v22.22.2",
+  "live": false,
+  "sources": {
+    "telemetri": "fixture:/home/user/claude/agents/selfheal/fixtures/telemetry.json",
+    "ci": "fixture:agents/selfheal/fixtures/ci-history.json",
+    "kapsam": "fixture:agents/selfheal/fixtures/coverage-summary.json",
+    "performans": "bundle:fixture · ekranlar:telemetri (41280 oturum)",
+    "i18n": "agents/devops/i18n-check.mjs (canlı)",
+    "guvenlik": "fixture:agents/selfheal/fixtures/security-audit.json"
+  },
+  "telemetry": {
+    "window": {
+      "from": "2026-09-05T00:00:00Z",
+      "to": "2026-09-06T00:00:00Z",
+      "totalSessions": 41280,
+      "source": "fixture",
+      "errors": []
+    },
+    "valid": 13,
+    "invalid": 1,
+    "invalidDetail": [
+      {
+        "index": 13,
+        "id": "bozuk-olay-ornegi",
+        "errors": [
+          "$.platform: 'symbian' izinli değerlerden biri değil (ios, android, web)"
+        ]
+      }
+    ],
+    "signatures": 13
+  },
+  "summary": {
+    "total": 22,
+    "bySeverity": {
+      "kritik": 5,
+      "yuksek": 8,
+      "orta": 6,
+      "dusuk": 3
+    },
+    "overall": "kırmızı",
+    "autoFixable": 10,
+    "needsHuman": 5,
+    "topScore": 27.9
+  },
+  "findings": [
+    {
+      "id": "tel-crash-src-features-zmatch-hooks-usematchfilters-ts-48",
+      "source": "telemetri",
+      "kind": "crash",
+      "files": [
+        "src/features/zmatch/hooks/useMatchFilters.ts"
+      ],
+      "metrics": {
+        "count": 812,
+        "sessions": 604,
+        "totalSessions": 41280,
+        "platforms": [
+          "android"
+        ],
+        "routes": [
+          "/(app)/zmatch"
+        ]
+      },
+      "evidence": {
+        "signature": "crash:src/features/zmatch/hooks/useMatchFilters.ts:48",
+        "frame": "src/features/zmatch/hooks/useMatchFilters.ts:48",
+        "sampleEventId": "crash-deepclone-zmatch"
+      },
+      "title": "Çökme: TypeError: structuredClone is not a function",
+      "detail": "812 çökme / 604 oturum · /(app)/zmatch · android",
+      "suggestedFix": "src/features/zmatch/hooks/useMatchFilters.ts:48 konumundaki çağrıyı incele; yığın izi tek bir kareyi gösteriyor.",
+      "impact": 1,
+      "frequency": 0.398,
+      "ease": 0.7,
+      "urgency": 0.398,
+      "score": 27.9,
+      "severity": "kritik",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true
+    },
+    {
+      "id": "guvenlik-tar-fs",
+      "source": "guvenlik",
+      "kind": "vulnerability",
+      "title": "Yüksek açık: tar-fs",
+      "detail": "Path traversal in tar-fs · geçişli bağımlılık · tar-fs@3.0.9",
+      "files": [],
+      "metrics": {
+        "count": 1,
+        "sessions": 0
+      },
+      "evidence": {
+        "severity": "high",
+        "fixAvailable": {
+          "name": "tar-fs",
+          "version": "3.0.9",
+          "isSemVerMajor": false
+        },
+        "via": [
+          {
+            "title": "Path traversal in tar-fs",
+            "url": "https://github.com/advisories/GHSA-xxxx",
+            "severity": "high"
+          }
+        ]
+      },
+      "suggestedFix": "Yamayı `npm audit fix` ile uygula; kilit dosyası değişikliği insan onayına gider (package-lock.json DENY listesinde).",
+      "impactOverride": 0.8,
+      "frequencyOverride": 0.6,
+      "autoFixable": false,
+      "impact": 0.8,
+      "frequency": 0.6,
+      "ease": 0.56,
+      "urgency": 0.48,
+      "score": 26.9,
+      "severity": "kritik",
+      "risky": false,
+      "riskCategories": []
+    },
+    {
+      "id": "perf-acilis-app-explore",
+      "subject": "ekran-acilis:/(app)/explore",
+      "source": "performans",
+      "kind": "perf_budget",
+      "title": "Açılış bütçesi aşıldı: /(app)/explore 2680 ms > 1500 ms",
+      "detail": "p75 açılış süresi bütçeyi %79 aşıyor (özel bütçe: Harita ve öneri listesi birlikte yükleniyor).",
+      "files": [
+        "src/features/explore/"
+      ],
+      "metrics": {
+        "count": 2680,
+        "sessions": 5240,
+        "budget": 1500,
+        "actual": 2680,
+        "asimYuzde": 78.7
+      },
+      "evidence": {
+        "olcum": {
+          "screen": "/(app)/explore",
+          "p75Ms": 2680,
+          "queries": 11,
+          "sessions": 5240
+        },
+        "butce": {
+          "p75Ms": 1500,
+          "queries": 8,
+          "gerekce": "Harita ve öneri listesi birlikte yükleniyor",
+          "ozel": true
+        }
+      },
+      "suggestedFix": "Ekranın ilk boyamasını ölç: ağır alt bileşenleri `Suspense`/ertelemeli yükleme ile ayır, liste sanallaştırmasını (FlashList) doğrula.",
+      "frequencyOverride": 0.7866666666666666,
+      "impact": 0.45,
+      "frequency": 0.787,
+      "ease": 0.55,
+      "urgency": 0.354,
+      "score": 19.5,
+      "severity": "kritik",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true,
+      "corroboratedBy": [
+        {
+          "id": "tel-slow-screen-app-explore",
+          "source": "telemetri",
+          "title": "Yavaş ekran: /(app)/explore (2680 ms)"
+        }
+      ]
+    },
+    {
+      "id": "tel-error-src-features-tracks-components-trackelevationchart-tsx-112",
+      "source": "telemetri",
+      "kind": "error",
+      "files": [
+        "src/features/tracks/components/TrackElevationChart.tsx"
+      ],
+      "metrics": {
+        "count": 1934,
+        "sessions": 1180,
+        "totalSessions": 41280,
+        "platforms": [
+          "ios"
+        ],
+        "routes": [
+          "/(app)/tracks/[id]"
+        ]
+      },
+      "evidence": {
+        "signature": "error:src/features/tracks/components/TrackElevationChart.tsx:112",
+        "frame": "src/features/tracks/components/TrackElevationChart.tsx:112",
+        "sampleEventId": "error-reanimated-tracks"
+      },
+      "title": "Yakalanan hata: Reading from `value` during component render. Use `.get()` instead.",
+      "detail": "1934 olay / 1180 oturum · ErrorBoundary(TrackDetail)",
+      "suggestedFix": "src/features/tracks/components/TrackElevationChart.tsx:112 konumunu düzelt.",
+      "impact": 0.55,
+      "frequency": 0.49,
+      "ease": 0.65,
+      "urgency": 0.27,
+      "score": 17.5,
+      "severity": "yuksek",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true
+    },
+    {
+      "id": "tel-failed-request-post-ai-summarize-503",
+      "source": "telemetri",
+      "kind": "failed_request",
+      "files": [
+        "src/features/ai/"
+      ],
+      "metrics": {
+        "count": 3410,
+        "sessions": 2260,
+        "totalSessions": 41280,
+        "platforms": [
+          "android"
+        ],
+        "routes": [
+          "/(app)/ai"
+        ]
+      },
+      "evidence": {
+        "signature": "failed_request:POST /ai/summarize:503",
+        "frame": null,
+        "sampleEventId": "req-ai-summarize-503"
+      },
+      "title": "Başarısız istek: POST /ai/summarize → 503",
+      "detail": "3410 istek / 2260 oturum · gateway_upstream_unavailable · ort. 9800 ms",
+      "suggestedFix": "Sunucu/ağ kaynaklı: geri çekilmeli yeniden deneme ve kullanıcıya görünür hata durumu ekle.",
+      "autoFixable": false,
+      "impact": 0.7,
+      "frequency": 0.582,
+      "ease": 0.4,
+      "urgency": 0.407,
+      "score": 16.3,
+      "severity": "kritik",
+      "risky": false,
+      "riskCategories": []
+    },
+    {
+      "id": "tel-empty-screen-app-clubs",
+      "source": "telemetri",
+      "kind": "empty_screen",
+      "files": [
+        "src/features/clubs/"
+      ],
+      "metrics": {
+        "count": 2740,
+        "sessions": 2410,
+        "totalSessions": 41280,
+        "platforms": [
+          "android"
+        ],
+        "routes": [
+          "/(app)/clubs"
+        ]
+      },
+      "evidence": {
+        "signature": "empty_screen:/(app)/clubs",
+        "frame": null,
+        "sampleEventId": "empty-clubs"
+      },
+      "title": "Boş ekran: /(app)/clubs (boş durum bileşeni yok)",
+      "detail": "2410 oturum · sebep: filter_empty",
+      "suggestedFix": "Tasarlanmış boş durum bileşeni ekle (başlık, açıklama, eylem).",
+      "impact": 0.35,
+      "frequency": 0.591,
+      "ease": 0.6,
+      "urgency": 0.207,
+      "score": 12.4,
+      "severity": "yuksek",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true
+    },
+    {
+      "id": "tel-i18n-missing-zmatch-filters-title-de",
+      "source": "telemetri",
+      "kind": "i18n_missing",
+      "files": [
+        "src/core/i18n/modules/locales/de/zmatch.ts"
+      ],
+      "metrics": {
+        "count": 1180,
+        "sessions": 690,
+        "totalSessions": 41280,
+        "platforms": [
+          "web"
+        ],
+        "routes": [
+          "/(app)/zmatch"
+        ]
+      },
+      "evidence": {
+        "signature": "i18n_missing:zmatch.filters.title@de",
+        "frame": null,
+        "sampleEventId": "i18n-zmatch-filters-de"
+      },
+      "title": "Eksik çeviri: zmatch.filters.title (de)",
+      "detail": "1180 kez gösterildi · 690 oturum",
+      "suggestedFix": "`zmatch.filters.title` anahtarını de diline ekle; `node agents/devops/i18n-check.mjs` ile doğrula.",
+      "impact": 0.3,
+      "frequency": 0.416,
+      "ease": 0.95,
+      "urgency": 0.125,
+      "score": 11.9,
+      "severity": "orta",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true
+    },
+    {
+      "id": "tel-slow-screen-app-destinations-id",
+      "source": "telemetri",
+      "kind": "slow_screen",
+      "files": [
+        "src/features/destinations/"
+      ],
+      "metrics": {
+        "count": 2210,
+        "sessions": 1980,
+        "totalSessions": 41280,
+        "platforms": [
+          "ios"
+        ],
+        "routes": [
+          "/(app)/destinations/[id]"
+        ]
+      },
+      "evidence": {
+        "signature": "slow_screen:/(app)/destinations/[id]",
+        "frame": null,
+        "sampleEventId": "slow-destinations"
+      },
+      "subject": "ekran-acilis:/(app)/destinations/[id]",
+      "title": "Yavaş ekran: /(app)/destinations/[id] (1490 ms)",
+      "detail": "p75 1490 ms, bütçe 1200 ms, 6 sorgu · 1980 oturum",
+      "suggestedFix": "Sorgu sayısı yüksek: istekleri birleştir ya da React Query önbelleğini paylaştır.",
+      "impact": 0.5,
+      "frequency": 0.563,
+      "ease": 0.4,
+      "urgency": 0.282,
+      "score": 11.3,
+      "severity": "yuksek",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true,
+      "corroboratedBy": [
+        {
+          "id": "perf-acilis-app-destinations-id",
+          "source": "performans",
+          "title": "Açılış bütçesi aşıldı: /(app)/destinations/[id] 1490 ms > 1200 ms"
+        }
+      ]
+    },
+    {
+      "id": "tel-failed-request-get-weather-forecast-0",
+      "source": "telemetri",
+      "kind": "failed_request",
+      "files": [
+        "src/features/weather/"
+      ],
+      "metrics": {
+        "count": 640,
+        "sessions": 520,
+        "totalSessions": 41280,
+        "platforms": [
+          "ios"
+        ],
+        "routes": [
+          "/(app)/weather"
+        ]
+      },
+      "evidence": {
+        "signature": "failed_request:GET /weather/forecast:0",
+        "frame": null,
+        "sampleEventId": "req-weather-timeout"
+      },
+      "title": "Başarısız istek: GET /weather/forecast → 0",
+      "detail": "640 istek / 520 oturum · network_timeout · ort. 15000 ms",
+      "suggestedFix": "Sunucu/ağ kaynaklı: geri çekilmeli yeniden deneme ve kullanıcıya görünür hata durumu ekle.",
+      "autoFixable": false,
+      "impact": 0.7,
+      "frequency": 0.378,
+      "ease": 0.4,
+      "urgency": 0.264,
+      "score": 10.6,
+      "severity": "yuksek",
+      "risky": false,
+      "riskCategories": []
+    },
+    {
+      "id": "kapsam-src-domain-pricing-ts",
+      "source": "kapsam",
+      "kind": "coverage_gap",
+      "title": "Düşük test kapsamı: src/domain/pricing.ts (%36 satır)",
+      "detail": "61/168 satır, %27 dal · RİSKLİ ALAN (odeme)",
+      "files": [
+        "src/domain/pricing.ts"
+      ],
+      "metrics": {
+        "count": 107,
+        "sessions": 0,
+        "pct": 36.3
+      },
+      "evidence": {
+        "lines": {
+          "total": 168,
+          "covered": 61,
+          "pct": 36.3
+        },
+        "branches": {
+          "total": 74,
+          "covered": 20,
+          "pct": 27.03
+        }
+      },
+      "suggestedFix": "`src/domain/pricing.ts` için saf domain testi yaz (test-writer ajanı). Kapsanmayan dalları önce listele.",
+      "frequencyOverride": 0.3950000000000001,
+      "impact": 0.55,
+      "frequency": 0.395,
+      "ease": 0.42,
+      "urgency": 0.217,
+      "score": 9.1,
+      "severity": "yuksek",
+      "risky": true,
+      "riskCategories": [
+        "odeme"
+      ],
+      "autoFixable": false
+    },
+    {
+      "id": "ci-basarisizlik-orani",
+      "source": "ci",
+      "kind": "ci_instability",
+      "title": "CI başarısızlık oranı %50",
+      "detail": "10 koşudan 5 tanesi kırmızı. Adım dağılımı: test (3), lint (1), typecheck (1)",
+      "files": [],
+      "metrics": {
+        "count": 5,
+        "sessions": 0,
+        "failRate": 0.5,
+        "byStep": {
+          "test": 3,
+          "lint": 1,
+          "typecheck": 1
+        }
+      },
+      "evidence": {
+        "runs": [
+          {
+            "id": 5002,
+            "branch": "feat/zmatch-filters",
+            "step": "test"
+          },
+          {
+            "id": 5003,
+            "branch": "feat/zmatch-filters",
+            "step": "test"
+          },
+          {
+            "id": 5005,
+            "branch": "fix/tracks-chart",
+            "step": "lint"
+          },
+          {
+            "id": 5007,
+            "branch": "chore/deps",
+            "step": "test"
+          },
+          {
+            "id": 5010,
+            "branch": "feat/clubs-empty",
+            "step": "typecheck"
+          }
+        ]
+      },
+      "suggestedFix": "En sık kırılan adım: `test`. Kırmızı koşuların günlüğünü `gh run view` ile oku; steward ajanı kök nedeni düzeltir.",
+      "frequencyOverride": 0.5,
+      "autoFixable": false,
+      "impact": 0.5,
+      "frequency": 0.5,
+      "ease": 0.35,
+      "urgency": 0.25,
+      "score": 8.8,
+      "severity": "yuksek",
+      "risky": false,
+      "riskCategories": []
+    },
+    {
+      "id": "tel-flow-abandon-onboarding-location-permission",
+      "source": "telemetri",
+      "kind": "flow_abandon",
+      "files": [
+        "src/features/onboarding/"
+      ],
+      "metrics": {
+        "count": 980,
+        "sessions": 980,
+        "totalSessions": 41280,
+        "platforms": [
+          "ios"
+        ],
+        "routes": [
+          "/(auth)/onboarding"
+        ]
+      },
+      "evidence": {
+        "signature": "flow_abandon:onboarding/location_permission",
+        "frame": null,
+        "sampleEventId": "flow-onboarding-permissions"
+      },
+      "title": "Terk edilen akış: onboarding → location_permission",
+      "detail": "980 terk / 4100 giriş (%23.9) · adım 2/5",
+      "suggestedFix": "Ürün kararı gerektirir: adımdaki sürtünmeyi ölç (izin metni, ödeme formu, hata mesajı). Otomatik düzeltme yok.",
+      "autoFixable": false,
+      "impact": 0.75,
+      "frequency": 0.464,
+      "ease": 0.25,
+      "urgency": 0.348,
+      "score": 8.7,
+      "severity": "yuksek",
+      "risky": false,
+      "riskCategories": []
+    },
+    {
+      "id": "tel-i18n-missing-rescue-cta-callteam-ru",
+      "source": "telemetri",
+      "kind": "i18n_missing",
+      "files": [
+        "src/core/i18n/modules/locales/ru/rescue.ts"
+      ],
+      "metrics": {
+        "count": 420,
+        "sessions": 260,
+        "totalSessions": 41280,
+        "platforms": [
+          "android"
+        ],
+        "routes": [
+          "/(app)/rescue"
+        ]
+      },
+      "evidence": {
+        "signature": "i18n_missing:rescue.cta.callTeam@ru",
+        "frame": null,
+        "sampleEventId": "i18n-rescue-cta-ru"
+      },
+      "title": "Eksik çeviri: rescue.cta.callTeam (ru)",
+      "detail": "420 kez gösterildi · 260 oturum",
+      "suggestedFix": "`rescue.cta.callTeam` anahtarını ru diline ekle; `node agents/devops/i18n-check.mjs` ile doğrula.",
+      "impact": 0.3,
+      "frequency": 0.288,
+      "ease": 0.95,
+      "urgency": 0.086,
+      "score": 8.2,
+      "severity": "orta",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true
+    },
+    {
+      "id": "perf-sorgu-app-explore",
+      "subject": "ekran-sorgu:/(app)/explore",
+      "source": "performans",
+      "kind": "perf_budget",
+      "title": "Sorgu bütçesi aşıldı: /(app)/explore 11 sorgu > 8",
+      "detail": "Ekran açılışında 3 fazla istek atılıyor.",
+      "files": [
+        "src/features/explore/"
+      ],
+      "metrics": {
+        "count": 11,
+        "sessions": 5240,
+        "budget": 8,
+        "actual": 11,
+        "fazla": 3
+      },
+      "evidence": {
+        "olcum": {
+          "screen": "/(app)/explore",
+          "p75Ms": 2680,
+          "queries": 11,
+          "sessions": 5240
+        },
+        "butce": {
+          "p75Ms": 1500,
+          "queries": 8,
+          "gerekce": "Harita ve öneri listesi birlikte yükleniyor",
+          "ozel": true
+        }
+      },
+      "suggestedFix": "İstekleri tek bir React Query anahtarında birleştir ya da `staleTime` ile paylaşılan önbelleğe al; N+1 sorgu desenini ara.",
+      "frequencyOverride": 0.3,
+      "impact": 0.45,
+      "frequency": 0.3,
+      "ease": 0.55,
+      "urgency": 0.135,
+      "score": 7.4,
+      "severity": "orta",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true
+    },
+    {
+      "id": "tel-flow-abandon-booking-payment",
+      "source": "telemetri",
+      "kind": "flow_abandon",
+      "files": [
+        "src/features/courses/"
+      ],
+      "metrics": {
+        "count": 1470,
+        "sessions": 1470,
+        "totalSessions": 41280,
+        "platforms": [
+          "android"
+        ],
+        "routes": [
+          "/(app)/courses/[id]/book"
+        ]
+      },
+      "evidence": {
+        "signature": "flow_abandon:booking/payment",
+        "frame": null,
+        "sampleEventId": "flow-booking-payment"
+      },
+      "title": "Terk edilen akış: booking → payment",
+      "detail": "1470 terk / 1900 giriş (%77.4) · adım 3/4",
+      "suggestedFix": "Ürün kararı gerektirir: adımdaki sürtünmeyi ölç (izin metni, ödeme formu, hata mesajı). Otomatik düzeltme yok.",
+      "autoFixable": false,
+      "impact": 0.9,
+      "frequency": 0.521,
+      "ease": 0.15,
+      "urgency": 0.469,
+      "score": 7,
+      "severity": "kritik",
+      "risky": true,
+      "riskCategories": [
+        "odeme"
+      ]
+    },
+    {
+      "id": "kapsam-src-domain-emergency-ts",
+      "source": "kapsam",
+      "kind": "coverage_gap",
+      "title": "Düşük test kapsamı: src/domain/emergency.ts (%42 satır)",
+      "detail": "88/210 satır, %32 dal · RİSKLİ ALAN (sos)",
+      "files": [
+        "src/domain/emergency.ts"
+      ],
+      "metrics": {
+        "count": 122,
+        "sessions": 0,
+        "pct": 41.9
+      },
+      "evidence": {
+        "lines": {
+          "total": 210,
+          "covered": 88,
+          "pct": 41.9
+        },
+        "branches": {
+          "total": 96,
+          "covered": 31,
+          "pct": 32.29
+        }
+      },
+      "suggestedFix": "`src/domain/emergency.ts` için saf domain testi yaz (test-writer ajanı). Kapsanmayan dalları önce listele.",
+      "frequencyOverride": 0.3016666666666667,
+      "impact": 0.55,
+      "frequency": 0.302,
+      "ease": 0.42,
+      "urgency": 0.166,
+      "score": 7,
+      "severity": "orta",
+      "risky": true,
+      "riskCategories": [
+        "sos"
+      ],
+      "autoFixable": false
+    },
+    {
+      "id": "tel-empty-screen-app-market",
+      "source": "telemetri",
+      "kind": "empty_screen",
+      "files": [
+        "src/features/market/"
+      ],
+      "metrics": {
+        "count": 310,
+        "sessions": 280,
+        "totalSessions": 41280,
+        "platforms": [
+          "web"
+        ],
+        "routes": [
+          "/(app)/market"
+        ]
+      },
+      "evidence": {
+        "signature": "empty_screen:/(app)/market",
+        "frame": null,
+        "sampleEventId": "empty-market"
+      },
+      "title": "Boş ekran: /(app)/market",
+      "detail": "280 oturum · sebep: no_data",
+      "suggestedFix": "Boş durum var; veri kaynağının neden boş döndüğünü incele.",
+      "impact": 0.5,
+      "frequency": 0.297,
+      "ease": 0.36,
+      "urgency": 0.149,
+      "score": 5.3,
+      "severity": "orta",
+      "risky": true,
+      "riskCategories": [
+        "odeme"
+      ],
+      "autoFixable": false
+    },
+    {
+      "id": "perf-paket-js-gzip",
+      "source": "performans",
+      "kind": "perf_budget",
+      "title": "Paket bütçesi aşıldı: JS gzip 1357 KB > 1200 KB",
+      "detail": "Bütçe %13.1 aşıldı (1357.4 KB gzip, 148 dosya).",
+      "files": [],
+      "metrics": {
+        "count": 1357,
+        "sessions": 0,
+        "budget": 1200,
+        "actual": 1357.4,
+        "asimYuzde": 13.1
+      },
+      "evidence": {
+        "olcum": {
+          "jsGzipBytes": 1390000,
+          "totalGzipBytes": 2180000,
+          "files": 148
+        },
+        "butce": {
+          "jsGzipKb": 1200,
+          "totalGzipKb": 2000,
+          "artiSapmaYuzde": 5
+        }
+      },
+      "suggestedFix": "En büyük modülleri `node agents/devops/bundle-size.mjs` ile listele; ağır bağımlılıkları ertelemeli içe aktar (dynamic import) ya da daha küçük bir alternatifle değiştir.",
+      "frequencyOverride": 0.2623697916666667,
+      "autoFixable": false,
+      "impact": 0.45,
+      "frequency": 0.262,
+      "ease": 0.385,
+      "urgency": 0.118,
+      "score": 4.5,
+      "severity": "orta",
+      "risky": false,
+      "riskCategories": []
+    },
+    {
+      "id": "kapsam-src-domain-routing-ts",
+      "source": "kapsam",
+      "kind": "coverage_gap",
+      "title": "Düşük test kapsamı: src/domain/routing.ts (%52 satır)",
+      "detail": "158/305 satır, %44 dal",
+      "files": [
+        "src/domain/routing.ts"
+      ],
+      "metrics": {
+        "count": 147,
+        "sessions": 0,
+        "pct": 51.8
+      },
+      "evidence": {
+        "lines": {
+          "total": 305,
+          "covered": 158,
+          "pct": 51.8
+        },
+        "branches": {
+          "total": 132,
+          "covered": 58,
+          "pct": 43.94
+        }
+      },
+      "suggestedFix": "`src/domain/routing.ts` için saf domain testi yaz (test-writer ajanı). Kapsanmayan dalları önce listele.",
+      "frequencyOverride": 0.13666666666666671,
+      "impact": 0.4,
+      "frequency": 0.137,
+      "ease": 0.7,
+      "urgency": 0.055,
+      "score": 3.8,
+      "severity": "dusuk",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true
+    },
+    {
+      "id": "tel-crash-src-features-satellite-components-holdsosbutton-tsx-71",
+      "source": "telemetri",
+      "kind": "crash",
+      "files": [
+        "src/features/satellite/components/HoldSosButton.tsx"
+      ],
+      "metrics": {
+        "count": 37,
+        "sessions": 31,
+        "totalSessions": 41280,
+        "platforms": [
+          "ios"
+        ],
+        "routes": [
+          "/(app)/satellite/sos"
+        ]
+      },
+      "evidence": {
+        "signature": "crash:src/features/satellite/components/HoldSosButton.tsx:71",
+        "frame": "src/features/satellite/components/HoldSosButton.tsx:71",
+        "sampleEventId": "crash-sos-hold"
+      },
+      "title": "Çökme: TypeError: Cannot read property 'value' of undefined",
+      "detail": "37 çökme / 31 oturum · /(app)/satellite/sos · ios",
+      "suggestedFix": "src/features/satellite/components/HoldSosButton.tsx:71 konumundaki çağrıyı incele; yığın izi tek bir kareyi gösteriyor.",
+      "impact": 1,
+      "frequency": 0.081,
+      "ease": 0.42,
+      "urgency": 0.081,
+      "score": 3.4,
+      "severity": "yuksek",
+      "risky": true,
+      "riskCategories": [
+        "sos"
+      ],
+      "autoFixable": false
+    },
+    {
+      "id": "perf-sorgu-app-destinations-id",
+      "subject": "ekran-sorgu:/(app)/destinations/[id]",
+      "source": "performans",
+      "kind": "perf_budget",
+      "title": "Sorgu bütçesi aşıldı: /(app)/destinations/[id] 6 sorgu > 5",
+      "detail": "Ekran açılışında 1 fazla istek atılıyor.",
+      "files": [
+        "src/features/destinations/"
+      ],
+      "metrics": {
+        "count": 6,
+        "sessions": 1980,
+        "budget": 5,
+        "actual": 6,
+        "fazla": 1
+      },
+      "evidence": {
+        "olcum": {
+          "screen": "/(app)/destinations/[id]",
+          "p75Ms": 1490,
+          "queries": 6,
+          "sessions": 1980
+        },
+        "butce": {
+          "p75Ms": 1200,
+          "queries": 5,
+          "ozel": false
+        }
+      },
+      "suggestedFix": "İstekleri tek bir React Query anahtarında birleştir ya da `staleTime` ile paylaşılan önbelleğe al; N+1 sorgu desenini ara.",
+      "frequencyOverride": 0.1,
+      "impact": 0.45,
+      "frequency": 0.1,
+      "ease": 0.55,
+      "urgency": 0.045,
+      "score": 2.5,
+      "severity": "dusuk",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true
+    },
+    {
+      "id": "perf-paket-toplam-gzip",
+      "source": "performans",
+      "kind": "perf_budget",
+      "title": "Paket bütçesi aşıldı: toplam gzip 2129 KB > 2000 KB",
+      "detail": "Bütçe %6.4 aşıldı.",
+      "files": [],
+      "metrics": {
+        "count": 2129,
+        "sessions": 0,
+        "budget": 2000,
+        "actual": 2128.9,
+        "asimYuzde": 6.4
+      },
+      "evidence": {
+        "olcum": {
+          "jsGzipBytes": 1390000,
+          "totalGzipBytes": 2180000,
+          "files": 148
+        },
+        "butce": {
+          "jsGzipKb": 1200,
+          "totalGzipKb": 2000,
+          "artiSapmaYuzde": 5
+        }
+      },
+      "suggestedFix": "Varlıkları (font, görsel) ve kaynak haritalarını gözden geçir.",
+      "frequencyOverride": 0.12890625,
+      "autoFixable": false,
+      "impact": 0.45,
+      "frequency": 0.129,
+      "ease": 0.385,
+      "urgency": 0.058,
+      "score": 2.2,
+      "severity": "dusuk",
+      "risky": false,
+      "riskCategories": []
+    }
+  ]
+}

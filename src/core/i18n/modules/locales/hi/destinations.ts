@@ -27,6 +27,8 @@ export const destinations_hi: DestinationsI18nShape = {
   emptyDescription: 'फ़िल्टर ढीले करें या कोई और नाम खोजें।',
   savedEmpty: 'अभी कुछ सहेजा नहीं',
   savedEmptyDescription: 'पसंदीदा मार्ग बुकमार्क करें; वे यहाँ ऑफ़लाइन गाइड की तरह रहेंगे।',
+  notFound: 'Destination not found',
+  notFoundDescription: 'This destination may have been removed or the link is incorrect.',
   type: {
     trek: 'ट्रेक',
     expedition: 'अभियान',

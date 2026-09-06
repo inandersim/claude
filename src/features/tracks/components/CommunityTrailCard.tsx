@@ -4,6 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import { Avatar, Badge, Card, Icon, Text } from '@/components/ui';
 import { useT } from '@/core/i18n';
 import { spacing, useTheme } from '@/core/theme';
+import { formatAltitude } from '@/core/utils/format';
 import { ADVENTURE_TYPE_META, formatDistance, type CommunityTrailWithDetails } from '@/domain';
 import { verifyThreshold } from '@/domain/tracks';
 
@@ -43,7 +44,7 @@ export function CommunityTrailCard({ trail, onPress }: Props) {
 
       <View style={styles.stats}>
         <Stat icon="ruler" value={formatDistance(trail.distanceKm, locale)} />
-        <Stat icon="trending-up" value={`${trail.ascentM} m`} />
+        <Stat icon="trending-up" value={formatAltitude(trail.ascentM, locale)} />
         <Stat icon="map-pin" value={t('tracks.poiCount', { count: trail.pois.length })} />
         <Stat
           icon="check-check"

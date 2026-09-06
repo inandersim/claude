@@ -128,6 +128,12 @@ export const inventory_zh: InventoryI18nShape = {
     code: '预订号',
     details: '详情',
   },
+  business: {
+    notFound: 'Business not found',
+    notFoundDescription: 'This business may have been removed or the link is wrong.',
+    noStay: 'This business does not offer stays',
+    noStayDescription: 'Shops and tour operators take requests over the phone or chat.',
+  },
   status: {
     pending: '待确认',
     confirmed: '已确认',

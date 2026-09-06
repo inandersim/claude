@@ -147,4 +147,5 @@ export const clubs_ar: ClubsI18nShape = {
   seeAllMembers: 'الكل',
   eventCount: '{{count}} فعالية قادمة',
   clubEvents: 'فعاليات النادي',
+  memberOnlyCreate: 'You need to join the club before creating an event.',
 };

@@ -169,6 +169,7 @@ const tr = {
   seeAllMembers: 'Tümü',
   eventCount: '{{count}} yaklaşan etkinlik',
   clubEvents: 'Kulüp etkinlikleri',
+  memberOnlyCreate: 'Etkinlik oluşturmak için önce kulübe üye olmalısın.',
 };
 
 /** Diğer dillerin uyması gereken şekil. */
@@ -321,6 +322,7 @@ const en: ClubsI18nShape = {
   seeAllMembers: 'All',
   eventCount: '{{count}} upcoming events',
   clubEvents: 'Club events',
+  memberOnlyCreate: 'You need to join the club before creating an event.',
 };
 
 /** clubs modülü çevirileri — tr kaynak, en zorunlu; diğer diller aşağıya eklenir. */

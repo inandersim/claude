@@ -4,6 +4,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { Button, IconButton, Input, Text } from '@/components/ui';
 import { useT } from '@/core/i18n';
 import { radius, spacing, useTheme } from '@/core/theme';
+import { formatAltitude } from '@/core/utils/format';
 import { formatDistance, POI_KINDS, type PoiKind } from '@/domain';
 import type { TrackRecorder } from '@/features/tracks/hooks';
 
@@ -72,12 +73,12 @@ export function RecorderPanel({ recorder, onFinish }: Props) {
           label={t('tracks.stats.distance')}
           value={formatDistance(stats.distanceKm, locale)}
         />
-        <BigStat label={t('tracks.stats.ascent')} value={`${stats.ascentM} m`} />
+        <BigStat label={t('tracks.stats.ascent')} value={formatAltitude(stats.ascentM, locale)} />
         <BigStat
           label={t('tracks.stats.maxAlt')}
           value={
             current?.elevationM !== null && current?.elevationM !== undefined
-              ? `${Math.round(current.elevationM)} m`
+              ? formatAltitude(Math.round(current.elevationM), locale)
               : '—'
           }
         />

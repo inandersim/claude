@@ -135,6 +135,7 @@ export const heritage_de: HeritageI18nShape = {
   visitedEmpty: 'Noch keine Besuche',
   visitedEmptyDescription: 'Tippe nach einem Besuch auf „Ich war hier“ und sammle XP.',
   notFound: 'Stätte nicht gefunden',
+  notFoundDescription: 'This site may have been removed or the link is incorrect.',
   tour: {
     title: 'Meine Touren',
     subtitle: 'Mehrere Stätten zu einem Tages- oder Mehrtagesplan verbinden',

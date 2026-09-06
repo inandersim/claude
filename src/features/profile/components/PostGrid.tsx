@@ -4,7 +4,7 @@ import { StyleSheet, View, useWindowDimensions } from 'react-native';
 
 import { AdventureImage, Icon, Tappable, Text } from '@/components/ui';
 import { radius, spacing } from '@/core/theme';
-import { ADVENTURE_TYPE_META, type FeedPost } from '@/domain';
+import { ADVENTURE_TYPE_META, isSocialPost, postImages, type FeedPost } from '@/domain';
 
 export function PostGrid({ posts }: { posts: FeedPost[] }) {
   const router = useRouter();
@@ -17,6 +17,9 @@ export function PostGrid({ posts }: { posts: FeedPost[] }) {
     <View style={[styles.grid, { gap }]}>
       {posts.map((post) => {
         const meta = ADVENTURE_TYPE_META[post.adventureType];
+        // Durum/fotoğraf gönderilerinde rakım anlamsızdır (hep 0); metin önizlemesi gösterilir.
+        const social = isSocialPost(post);
+        const cover = postImages(post)[0] ?? null;
         return (
           <Tappable
             key={post.id}
@@ -26,19 +29,30 @@ export function PostGrid({ posts }: { posts: FeedPost[] }) {
             accessibilityRole="imagebutton"
             accessibilityLabel={post.caption}
           >
-            <AdventureImage
-              uri={post.imageUrl}
-              adventureType={post.adventureType}
-              style={styles.cell}
-            >
+            <AdventureImage uri={cover} adventureType={post.adventureType} style={styles.cell}>
               <View style={[styles.typeDot, { backgroundColor: meta.color }]}>
-                <Icon name={meta.icon} size={10} color="#06120B" strokeWidth={2.8} />
+                <Icon
+                  name={social && !cover ? 'message-square' : meta.icon}
+                  size={10}
+                  color="#06120B"
+                  strokeWidth={2.8}
+                />
               </View>
-              <View style={styles.altitude}>
-                <Text variant="label" weight="extrabold" color="#FFFFFF">
-                  {post.altitudeM} m
-                </Text>
-              </View>
+              {social ? (
+                !cover && post.caption ? (
+                  <View style={styles.captionWrap}>
+                    <Text variant="label" weight="bold" color="#FFFFFF" numberOfLines={4}>
+                      {post.caption}
+                    </Text>
+                  </View>
+                ) : null
+              ) : (
+                <View style={styles.altitude}>
+                  <Text variant="label" weight="extrabold" color="#FFFFFF">
+                    {post.altitudeM} m
+                  </Text>
+                </View>
+              )}
             </AdventureImage>
           </Tappable>
         );
@@ -59,6 +73,14 @@ const styles = StyleSheet.create({
     borderRadius: 9,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  captionWrap: {
+    position: 'absolute',
+    left: 6,
+    right: 6,
+    bottom: 6,
+    top: 26,
+    justifyContent: 'flex-end',
   },
   altitude: {
     position: 'absolute',

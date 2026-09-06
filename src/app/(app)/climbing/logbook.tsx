@@ -15,7 +15,7 @@ import {
 } from '@/components/ui';
 import { useT } from '@/core/i18n';
 import { layout, radius, spacing, useTheme } from '@/core/theme';
-import { ascentStats, gradeColor, pyramidOf } from '@/domain';
+import { ascentStats, convertGrade, effectiveSystem, gradeColor, pyramidOf } from '@/domain';
 import { AscentRow } from '@/features/climbing/components/AscentRow';
 import { GradeBadge } from '@/features/climbing/components/GradeBadge';
 import { GradeSystemPicker } from '@/features/climbing/components/GradeSystemPicker';
@@ -35,6 +35,15 @@ export default function LogbookScreen() {
     [ascents.data, routes, system],
   );
   const maxCount = Math.max(1, ...pyramid.map((r) => r.count));
+  // "En zor" rozeti de seçilen derece sistemine çevrilir (piramitle tutarlı olsun)
+  const hardest = useMemo(() => {
+    if (!stats.hardest) return null;
+    const target = effectiveSystem(stats.hardest.system, system);
+    const grade = convertGrade(stats.hardest.grade, stats.hardest.system, target);
+    return grade
+      ? { grade, system: target }
+      : { grade: stats.hardest.grade, system: stats.hardest.system };
+  }, [stats.hardest, system]);
 
   return (
     <Screen edges={['top', 'bottom']}>
@@ -79,10 +88,8 @@ export default function LogbookScreen() {
               <StatTile
                 icon="trending-up"
                 label={t('climbing.stats.hardest')}
-                value={stats.hardest ? stats.hardest.grade : '–'}
-                color={
-                  stats.hardest ? gradeColor(stats.hardest.grade, stats.hardest.system) : undefined
-                }
+                value={hardest ? hardest.grade : '–'}
+                color={hardest ? gradeColor(hardest.grade, hardest.system) : undefined}
                 style={styles.tile}
               />
               <StatTile

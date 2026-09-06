@@ -86,20 +86,36 @@ export default function LiveStreamScreen() {
     end.mutate(id, {
       onSuccess: () => {
         toast(t('live.endedToast'), 'info');
-        goBack(router);
+        goBack(router, '/live');
       },
       onError: () => toast(t('common.error'), 'error'),
     });
   };
 
+  const goHome = () => (router.canGoBack() ? router.back() : router.replace('/live'));
+
   return (
     <View style={[styles.root, { backgroundColor: colors.background }]}>
       {stream.isError ? (
         <View style={{ paddingTop: insets.top }}>
+          <View style={styles.fallbackTop}>
+            <IconButton
+              icon="chevron-left"
+              onPress={goHome}
+              accessibilityLabel={t('common.back')}
+            />
+          </View>
           <ErrorState onRetry={() => stream.refetch()} />
         </View>
       ) : stream.isLoading ? (
         <View style={{ paddingTop: insets.top, gap: spacing.md }}>
+          <View style={styles.fallbackTop}>
+            <IconButton
+              icon="chevron-left"
+              onPress={goHome}
+              accessibilityLabel={t('common.back')}
+            />
+          </View>
           <Skeleton height={220} style={{ borderRadius: 0 }} />
           <View style={{ paddingHorizontal: spacing.lg, gap: spacing.sm }}>
             <Skeleton width="70%" height={22} />
@@ -118,7 +134,7 @@ export default function LiveStreamScreen() {
                 <IconButton
                   icon="chevron-left"
                   variant="blur"
-                  onPress={() => (router.canGoBack() ? router.back() : router.replace('/live'))}
+                  onPress={goHome}
                   accessibilityLabel={t('common.back')}
                 />
                 {data.status === 'live' ? <LiveBadge /> : null}
@@ -343,6 +359,13 @@ export default function LiveStreamScreen() {
         </KeyboardAvoidingView>
       ) : (
         <View style={{ paddingTop: insets.top }}>
+          <View style={styles.fallbackTop}>
+            <IconButton
+              icon="chevron-left"
+              onPress={goHome}
+              accessibilityLabel={t('common.back')}
+            />
+          </View>
           <EmptyState
             icon="video-off"
             title={t('notFound.title')}
@@ -356,6 +379,7 @@ export default function LiveStreamScreen() {
 
 const styles = StyleSheet.create({
   root: { flex: 1 },
+  fallbackTop: { paddingHorizontal: spacing.md, paddingTop: spacing.sm, alignItems: 'flex-start' },
   playerWrap: { width: '100%' },
   playerTop: {
     position: 'absolute',

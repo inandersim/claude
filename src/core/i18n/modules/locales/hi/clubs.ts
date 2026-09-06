@@ -148,4 +148,5 @@ export const clubs_hi: ClubsI18nShape = {
   seeAllMembers: 'सभी',
   eventCount: '{{count}} आगामी आयोजन',
   clubEvents: 'क्लब आयोजन',
+  memberOnlyCreate: 'You need to join the club before creating an event.',
 };

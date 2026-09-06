@@ -27,6 +27,8 @@ export const destinations_zh: DestinationsI18nShape = {
   emptyDescription: '试试放宽筛选条件或搜索其他名称。',
   savedEmpty: '还没有收藏',
   savedEmptyDescription: '收藏你喜欢的路线，作为离线指南保存在这里。',
+  notFound: 'Destination not found',
+  notFoundDescription: 'This destination may have been removed or the link is incorrect.',
   type: {
     trek: '徒步穿越',
     expedition: '远征',

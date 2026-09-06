@@ -149,6 +149,12 @@ const tr = {
     code: 'Rezervasyon no',
     details: 'Detay',
   },
+  business: {
+    notFound: 'İşletme bulunamadı',
+    notFoundDescription: 'Bu işletme kaldırılmış ya da bağlantı hatalı olabilir.',
+    noStay: 'Bu işletme konaklama sunmuyor',
+    noStayDescription: 'Mağaza ve tur operatörleri talepleri telefon ya da mesajla alır.',
+  },
   status: {
     pending: 'Bekliyor',
     confirmed: 'Onaylandı',
@@ -400,6 +406,12 @@ const en: InventoryI18nShape = {
     viewBusiness: 'View business',
     code: 'Booking ref',
     details: 'Details',
+  },
+  business: {
+    notFound: 'Business not found',
+    notFoundDescription: 'This business may have been removed or the link is wrong.',
+    noStay: 'This business does not offer stays',
+    noStayDescription: 'Shops and tour operators take requests over the phone or chat.',
   },
   status: {
     pending: 'Pending',

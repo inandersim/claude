@@ -27,6 +27,8 @@ export const destinations_ko: DestinationsI18nShape = {
   emptyDescription: '필터를 완화하거나 다른 이름으로 검색해 보세요.',
   savedEmpty: '아직 저장된 항목이 없어요',
   savedEmptyDescription: '마음에 드는 루트를 북마크하세요. 오프라인 가이드로 여기에 남아요.',
+  notFound: 'Destination not found',
+  notFoundDescription: 'This destination may have been removed or the link is incorrect.',
   type: {
     trek: '트레킹',
     expedition: '원정',

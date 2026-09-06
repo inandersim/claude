@@ -27,6 +27,8 @@ export const destinations_nb: DestinationsI18nShape = {
   emptyDescription: 'Prøv å løsne på filtrene eller søk etter et annet navn.',
   savedEmpty: 'Ingenting lagret ennå',
   savedEmptyDescription: 'Bokmerk ruter du liker; de blir her som en frakoblet guide.',
+  notFound: 'Destination not found',
+  notFoundDescription: 'This destination may have been removed or the link is incorrect.',
   type: {
     trek: 'Trekking',
     expedition: 'Ekspedisjon',

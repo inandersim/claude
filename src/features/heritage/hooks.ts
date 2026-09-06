@@ -55,7 +55,8 @@ export function useMarkVisited() {
     mutationFn: (siteId: ID) => getDataProvider().heritage.markVisited(me.id, siteId),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: queryKeys.heritage.all });
-      qc.invalidateQueries({ queryKey: ['gamification'] });
+      // Ziyaret XP olayı yazar; XP/rozet/sıralama sorguları `fun` altında yaşıyor.
+      qc.invalidateQueries({ queryKey: queryKeys.fun.all });
     },
   });
 }

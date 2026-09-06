@@ -65,13 +65,10 @@ export default function LiveScreen() {
         <ErrorState onRetry={() => streams.refetch()} />
       ) : (
         <>
+          {/* Sayı, dile gömülü metinle değil çevrilmiş etiketle birleştirilir. */}
           <SectionHeader
             title={t('live.liveNowSection')}
-            subtitle={
-              live.length
-                ? `${live.length} ${t('live.viewers') === 'izleyici' ? 'yayın' : 'streams'}`
-                : undefined
-            }
+            subtitle={live.length ? `${live.length} · ${t('live.liveNow')}` : undefined}
           />
           {streams.isLoading ? (
             <ScrollView

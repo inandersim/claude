@@ -71,7 +71,7 @@ const tr = {
   deleteConfirm: 'Bu parça ve noktaları kalıcı olarak silinsin mi?',
   deleted: 'Parça silindi',
   notFound: 'Parça bulunamadı',
-  trailNotFound: 'Topluluk rota bulunamadı',
+  trailNotFound: 'Topluluk rotası bulunamadı',
   draft: 'Taslak',
   public: 'Herkese açık',
   private: 'Gizli',

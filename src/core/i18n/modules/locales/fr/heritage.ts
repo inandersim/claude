@@ -136,6 +136,7 @@ export const heritage_fr: HeritageI18nShape = {
   visitedEmptyDescription:
     'Quand tu visites un site, appuie sur « J’ai visité » pour gagner des XP.',
   notFound: 'Site introuvable',
+  notFoundDescription: 'This site may have been removed or the link is incorrect.',
   tour: {
     title: 'Mes circuits',
     subtitle: 'Transforme plusieurs sites en plan d’une ou plusieurs journées',

@@ -27,6 +27,8 @@ export const destinations_nl: DestinationsI18nShape = {
   emptyDescription: 'Versoepel de filters of zoek op een andere naam.',
   savedEmpty: 'Nog niets opgeslagen',
   savedEmptyDescription: 'Sla routes op die je leuk vindt; ze blijven hier als offline gids.',
+  notFound: 'Destination not found',
+  notFoundDescription: 'This destination may have been removed or the link is incorrect.',
   type: {
     trek: 'Trektocht',
     expedition: 'Expeditie',

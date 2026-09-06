@@ -15,6 +15,7 @@ import {
   Avatar,
   Button,
   Chip,
+  EmptyState,
   Header,
   Icon,
   IconButton,
@@ -52,6 +53,8 @@ export default function MatchRequestScreen() {
   const [now] = useState(() => Date.now());
 
   const effectiveType = adventureType ?? shared[0] ?? other.data?.favoriteTypes[0] ?? 'hiking';
+  /** userId parametresi yoksa ya da kullanıcı bulunamadıysa form gösterilmez. */
+  const missing = !userId || (!other.isLoading && !other.data);
 
   const submit = () => {
     if (!userId) return;
@@ -94,130 +97,144 @@ export default function MatchRequestScreen() {
           />
         }
       />
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        style={{ flex: 1 }}
-      >
-        <ScrollView
-          contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + 120 }]}
-          keyboardShouldPersistTaps="handled"
+      {missing ? (
+        <EmptyState
+          icon="users"
+          title={t('notFound.title')}
+          description={t('notFound.description')}
+          action={{
+            label: t('zmatch.title'),
+            icon: 'zap',
+            variant: 'secondary',
+            onPress: () => router.replace('/zmatch'),
+          }}
+        />
+      ) : (
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+          style={{ flex: 1 }}
         >
-          {other.isLoading ? (
-            <Skeleton height={80} style={{ borderRadius: radius.xl }} />
-          ) : other.data ? (
-            <View
-              style={[
-                styles.userCard,
-                { backgroundColor: colors.surface, borderColor: colors.border },
-              ]}
-            >
-              <Avatar
-                uri={other.data.avatarUrl}
-                name={other.data.displayName}
-                size={56}
-                verified={other.data.isVerified}
-                ring
-              />
-              <View style={{ flex: 1 }}>
-                <Text variant="h3">{other.data.displayName}</Text>
-                <View style={styles.metaRow}>
-                  <Icon name="map-pin" size={12} color={colors.textSubtle} />
-                  <Text variant="caption" color="textMuted" numberOfLines={1}>
-                    {other.data.locationName}
+          <ScrollView
+            contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + 120 }]}
+            keyboardShouldPersistTaps="handled"
+          >
+            {other.isLoading ? (
+              <Skeleton height={80} style={{ borderRadius: radius.xl }} />
+            ) : other.data ? (
+              <View
+                style={[
+                  styles.userCard,
+                  { backgroundColor: colors.surface, borderColor: colors.border },
+                ]}
+              >
+                <Avatar
+                  uri={other.data.avatarUrl}
+                  name={other.data.displayName}
+                  size={56}
+                  verified={other.data.isVerified}
+                  ring
+                />
+                <View style={{ flex: 1 }}>
+                  <Text variant="h3">{other.data.displayName}</Text>
+                  <View style={styles.metaRow}>
+                    <Icon name="map-pin" size={12} color={colors.textSubtle} />
+                    <Text variant="caption" color="textMuted" numberOfLines={1}>
+                      {other.data.locationName}
+                    </Text>
+                  </View>
+                </View>
+                <View style={[styles.trust, { backgroundColor: colors.primarySoft }]}>
+                  <Icon name="shield-check" size={12} color={colors.primary} strokeWidth={2.6} />
+                  <Text variant="label" weight="extrabold" color="primary">
+                    {other.data.trustScore}
                   </Text>
                 </View>
               </View>
-              <View style={[styles.trust, { backgroundColor: colors.primarySoft }]}>
-                <Icon name="shield-check" size={12} color={colors.primary} strokeWidth={2.6} />
-                <Text variant="label" weight="extrabold" color="primary">
-                  {other.data.trustScore}
-                </Text>
+            ) : null}
+
+            <Field title={t('zmatch.preferredType')}>
+              <View style={styles.chips}>
+                {(other.data?.favoriteTypes ?? ADVENTURE_TYPES).map((type) => {
+                  const meta = ADVENTURE_TYPE_META[type];
+                  return (
+                    <Chip
+                      key={type}
+                      label={t(meta.labelKey)}
+                      icon={meta.icon}
+                      color={meta.color}
+                      selected={effectiveType === type}
+                      onPress={() => setAdventureType(type)}
+                    />
+                  );
+                })}
               </View>
-            </View>
-          ) : null}
+            </Field>
 
-          <Field title={t('zmatch.preferredType')}>
-            <View style={styles.chips}>
-              {(other.data?.favoriteTypes ?? ADVENTURE_TYPES).map((type) => {
-                const meta = ADVENTURE_TYPE_META[type];
-                return (
+            <Field title={t('zmatch.when')}>
+              <View style={styles.chips}>
+                {DATE_OPTIONS.map((days) => (
                   <Chip
-                    key={type}
-                    label={t(meta.labelKey)}
-                    icon={meta.icon}
-                    color={meta.color}
-                    selected={effectiveType === type}
-                    onPress={() => setAdventureType(type)}
+                    key={days}
+                    size="sm"
+                    label={formatOption(days)}
+                    icon="calendar"
+                    selected={daysAhead === days}
+                    onPress={() => setDaysAhead(daysAhead === days ? null : days)}
                   />
-                );
-              })}
-            </View>
-          </Field>
+                ))}
+              </View>
+            </Field>
 
-          <Field title={t('zmatch.when')}>
-            <View style={styles.chips}>
-              {DATE_OPTIONS.map((days) => (
-                <Chip
-                  key={days}
-                  size="sm"
-                  label={formatOption(days)}
-                  icon="calendar"
-                  selected={daysAhead === days}
-                  onPress={() => setDaysAhead(daysAhead === days ? null : days)}
+            <Input
+              label={t('zmatch.where')}
+              icon="map-pin"
+              value={locationName}
+              onChangeText={setLocationName}
+              placeholder={t('post.locationPlaceholder')}
+            />
+
+            <Field title={t('chat.title')}>
+              <View
+                style={[
+                  styles.messageWrap,
+                  { backgroundColor: colors.surfaceMuted, borderColor: colors.border },
+                ]}
+              >
+                <TextInput
+                  value={message}
+                  onChangeText={setMessage}
+                  placeholder={t('zmatch.matchMessagePlaceholder')}
+                  placeholderTextColor={colors.textSubtle}
+                  multiline
+                  maxLength={300}
+                  style={[styles.message, { color: colors.text, fontFamily: fontFamily.medium }]}
                 />
-              ))}
-            </View>
-          </Field>
+              </View>
+            </Field>
+          </ScrollView>
 
-          <Input
-            label={t('zmatch.where')}
-            icon="map-pin"
-            value={locationName}
-            onChangeText={setLocationName}
-            placeholder={t('post.locationPlaceholder')}
-          />
-
-          <Field title={t('chat.title')}>
-            <View
-              style={[
-                styles.messageWrap,
-                { backgroundColor: colors.surfaceMuted, borderColor: colors.border },
-              ]}
-            >
-              <TextInput
-                value={message}
-                onChangeText={setMessage}
-                placeholder={t('zmatch.matchMessagePlaceholder')}
-                placeholderTextColor={colors.textSubtle}
-                multiline
-                maxLength={300}
-                style={[styles.message, { color: colors.text, fontFamily: fontFamily.medium }]}
-              />
-            </View>
-          </Field>
-        </ScrollView>
-
-        <View
-          style={[
-            styles.footer,
-            {
-              backgroundColor: colors.background,
-              borderTopColor: colors.border,
-              paddingBottom: Math.max(insets.bottom, spacing.md),
-            },
-          ]}
-        >
-          <Button
-            label={t('zmatch.sendRequest')}
-            size="lg"
-            fullWidth
-            icon="heart-handshake"
-            loading={request.isPending}
-            disabled={!other.data}
-            onPress={submit}
-          />
-        </View>
-      </KeyboardAvoidingView>
+          <View
+            style={[
+              styles.footer,
+              {
+                backgroundColor: colors.background,
+                borderTopColor: colors.border,
+                paddingBottom: Math.max(insets.bottom, spacing.md),
+              },
+            ]}
+          >
+            <Button
+              label={t('zmatch.sendRequest')}
+              size="lg"
+              fullWidth
+              icon="heart-handshake"
+              loading={request.isPending}
+              disabled={!other.data}
+              onPress={submit}
+            />
+          </View>
+        </KeyboardAvoidingView>
+      )}
     </Screen>
   );
 }

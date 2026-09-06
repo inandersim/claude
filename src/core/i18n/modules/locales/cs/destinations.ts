@@ -27,6 +27,8 @@ export const destinations_cs: DestinationsI18nShape = {
   emptyDescription: 'Zkuste uvolnit filtry nebo hledat jiný název.',
   savedEmpty: 'Zatím nic uloženého',
   savedEmptyDescription: 'Ukládejte trasy, které se vám líbí; zůstanou zde jako offline průvodce.',
+  notFound: 'Destination not found',
+  notFoundDescription: 'This destination may have been removed or the link is incorrect.',
   type: {
     trek: 'Trek',
     expedition: 'Expedice',

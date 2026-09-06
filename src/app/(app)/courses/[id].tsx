@@ -167,11 +167,25 @@ export default function CourseDetailScreen() {
       </View>
       {course.isError ? (
         <ErrorState onRetry={() => course.refetch()} />
-      ) : course.isLoading || !data ? (
+      ) : course.isLoading ? (
         <View style={{ padding: spacing.lg, gap: spacing.md, paddingTop: insets.top + 64 }}>
           <Skeleton height={220} style={{ borderRadius: radius.xl }} />
           <Skeleton height={28} />
           <Skeleton height={80} />
+        </View>
+      ) : !data ? (
+        <View style={{ paddingTop: insets.top + 64 }}>
+          <EmptyState
+            icon="graduation-cap"
+            title={t('courses.empty')}
+            description={t('notFound.description')}
+            action={{
+              label: t('courses.catalog'),
+              icon: 'search',
+              variant: 'secondary',
+              onPress: () => router.replace('/courses'),
+            }}
+          />
         </View>
       ) : (
         <ScrollView contentContainerStyle={{ paddingBottom: insets.bottom + 120 }}>

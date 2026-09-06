@@ -147,4 +147,5 @@ export const clubs_th: ClubsI18nShape = {
   seeAllMembers: 'ทั้งหมด',
   eventCount: '{{count}} กิจกรรมที่กำลังจะมาถึง',
   clubEvents: 'กิจกรรมของชมรม',
+  memberOnlyCreate: 'You need to join the club before creating an event.',
 };

@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "types": ["vite/client", "node"],
+
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "exactOptionalPropertyTypes": false,
+    "forceConsistentCasingInFileNames": true,
+
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "@/core/i18n": ["./src/shims/i18n.ts"],
+      "@/core/*": ["../src/core/*"],
+      "@/components/ui/Icon": ["./src/shims/icon.ts"],
+      "@/domain": ["../src/domain/index.ts"],
+      "@/domain/*": ["../src/domain/*"],
+      "@/data/*": ["../src/data/*"]
+    }
+  },
+  "include": ["src", "vite.config.ts"]
+}

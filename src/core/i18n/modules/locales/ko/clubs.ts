@@ -147,4 +147,5 @@ export const clubs_ko: ClubsI18nShape = {
   seeAllMembers: '전체',
   eventCount: '예정 이벤트 {{count}}개',
   clubEvents: '동아리 이벤트',
+  memberOnlyCreate: 'You need to join the club before creating an event.',
 };

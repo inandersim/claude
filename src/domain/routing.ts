@@ -62,7 +62,8 @@ const MAX_SPEED_KMH: Record<RouteProfile, number> = {
   hike: 6,
   trail_run: 9.6,
   mtb: 24,
-  gravel: 28,
+  // gravel iniş hızı 18 × 1,6 = 28,8 km/sa'ya çıkabilir; sezgisel kabul edilebilir kalmalı
+  gravel: 28.8,
   ski_tour: 14,
 };
 

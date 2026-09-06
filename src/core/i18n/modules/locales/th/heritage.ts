@@ -134,6 +134,7 @@ export const heritage_th: HeritageI18nShape = {
   visitedEmpty: 'ยังไม่มีบันทึกการเยี่ยมชม',
   visitedEmptyDescription: 'แตะ "ฉันไปมาแล้ว" หลังสำรวจแหล่งเพื่อรับ XP',
   notFound: 'ไม่พบแหล่ง',
+  notFoundDescription: 'This site may have been removed or the link is incorrect.',
   tour: {
     title: 'ทัวร์ของฉัน',
     subtitle: 'รวมหลายแหล่งเป็นแผนหนึ่งวันหรือหลายวัน',

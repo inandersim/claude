@@ -28,6 +28,8 @@ export const destinations_it: DestinationsI18nShape = {
   savedEmpty: 'Nessuna destinazione salvata',
   savedEmptyDescription:
     'Aggiungi ai segnalibri gli itinerari che ti piacciono; resteranno qui come guida offline.',
+  notFound: 'Destination not found',
+  notFoundDescription: 'This destination may have been removed or the link is incorrect.',
   type: {
     trek: 'Trek',
     expedition: 'Spedizione',

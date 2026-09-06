@@ -31,6 +31,15 @@ function buildStart(base: number, day: DayChoice, hour: number): Date {
   return d;
 }
 
+/**
+ * Bugün için hâlâ ileride olan saatler. Geçmiş bir saat seçilirse plan doğduğu anda
+ * "gecikti" sayılır ve acil kişilere boş yere uyarı gider; bu yüzden hiç sunulmaz.
+ */
+function hoursLeftToday(base: number): number[] {
+  const next = new Date(base).getHours() + 1;
+  return HOURS.filter((h) => h >= next);
+}
+
 export default function NewReturnPlanScreen() {
   const { destinationId: initialDestination } = useLocalSearchParams<{ destinationId?: string }>();
   const router = useRouter();
@@ -48,19 +57,24 @@ export default function NewReturnPlanScreen() {
     [destinations.data, initialDestination],
   );
 
+  const todayHours = useMemo(() => hoursLeftToday(base), [base]);
   const [title, setTitle] = useState('');
   const [destinationId, setDestinationId] = useState<ID | null>(initialDestination ?? null);
   const [type, setType] = useState<AdventureType>('hiking');
-  const [day, setDay] = useState<DayChoice>('today');
-  const [hour, setHour] = useState(() => {
-    const h = new Date(base).getHours() + 1;
-    return HOURS.find((x) => x >= h) ?? HOURS[0]!;
-  });
+  const [day, setDay] = useState<DayChoice>(todayHours.length > 0 ? 'today' : 'tomorrow');
+  const [hour, setHour] = useState(() => todayHours[0] ?? HOURS[0]!);
   const [durationMin, setDurationMin] = useState(480);
   const [graceMin, setGraceMin] = useState(60);
   const [route, setRoute] = useState('');
   const [companions, setCompanions] = useState('');
   const [error, setError] = useState<string | null>(null);
+
+  const hourOptions = day === 'today' ? todayHours : HOURS;
+  const selectDay = (next: DayChoice) => {
+    setDay(next);
+    const options = next === 'today' ? todayHours : HOURS;
+    if (!options.includes(hour)) setHour(options[0] ?? HOURS[0]!);
+  };
 
   const startAt = useMemo(() => buildStart(base, day, hour), [base, day, hour]);
   const returnAt = useMemo(
@@ -168,16 +182,18 @@ export default function NewReturnPlanScreen() {
 
         <Field label={t('destinations.plan.form.start')}>
           <View style={styles.wrap}>
-            <Chip
-              label={t('destinations.plan.form.today')}
-              selected={day === 'today'}
-              onPress={() => setDay('today')}
-              size="sm"
-            />
+            {todayHours.length > 0 ? (
+              <Chip
+                label={t('destinations.plan.form.today')}
+                selected={day === 'today'}
+                onPress={() => selectDay('today')}
+                size="sm"
+              />
+            ) : null}
             <Chip
               label={t('destinations.plan.form.tomorrow')}
               selected={day === 'tomorrow'}
-              onPress={() => setDay('tomorrow')}
+              onPress={() => selectDay('tomorrow')}
               size="sm"
             />
           </View>
@@ -186,7 +202,7 @@ export default function NewReturnPlanScreen() {
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.chipRow}
           >
-            {HOURS.map((h) => (
+            {hourOptions.map((h) => (
               <Chip
                 key={h}
                 label={`${String(h).padStart(2, '0')}:00`}

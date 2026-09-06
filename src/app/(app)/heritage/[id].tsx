@@ -6,6 +6,7 @@ import {
   AdventureImage,
   Badge,
   Button,
+  EmptyState,
   ErrorState,
   Header,
   Icon,
@@ -133,7 +134,16 @@ export default function HeritageDetailScreen() {
             <Skeleton height={200} style={{ borderRadius: radius.xl }} />
           </SkeletonGroup>
         ) : !data ? (
-          <ErrorState onRetry={() => site.refetch()} />
+          <EmptyState
+            icon="landmark"
+            title={t('heritage.notFound')}
+            description={t('heritage.notFoundDescription')}
+            action={{
+              label: t('heritage.tabs.explore'),
+              icon: 'compass',
+              onPress: () => router.replace('/heritage'),
+            }}
+          />
         ) : (
           <>
             <AdventureImage

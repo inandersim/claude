@@ -4,6 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import { Avatar, Badge, Card, Icon, Text } from '@/components/ui';
 import { useT } from '@/core/i18n';
 import { spacing, useTheme } from '@/core/theme';
+import { formatAltitude } from '@/core/utils/format';
 import { formatDuration } from '@/core/utils/time';
 import { ADVENTURE_TYPE_META, formatDistance, type TrackWithUser } from '@/domain';
 
@@ -42,7 +43,7 @@ export function TrackCard({ track, onPress }: Props) {
 
       <View style={styles.stats}>
         <Stat icon="ruler" value={formatDistance(track.distanceKm, locale)} />
-        <Stat icon="trending-up" value={`${track.ascentM} m`} />
+        <Stat icon="trending-up" value={formatAltitude(track.ascentM, locale)} />
         <Stat icon="timer" value={formatDuration(track.durationMin, locale)} />
         {track.poiCount > 0 ? (
           <Stat icon="map-pin" value={t('tracks.poiCount', { count: track.poiCount })} />

@@ -27,6 +27,8 @@ export const destinations_sv: DestinationsI18nShape = {
   emptyDescription: 'Prova att lätta på filtren eller sök på ett annat namn.',
   savedEmpty: 'Inget sparat ännu',
   savedEmptyDescription: 'Bokmärk rutter du gillar; de finns kvar här som offlineguide.',
+  notFound: 'Destination not found',
+  notFoundDescription: 'This destination may have been removed or the link is incorrect.',
   type: {
     trek: 'Trek',
     expedition: 'Expedition',

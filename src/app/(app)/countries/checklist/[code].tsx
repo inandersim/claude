@@ -72,14 +72,7 @@ export default function CountryChecklistScreen() {
             : router.replace({ pathname: '/countries/[code]', params: { code: countryCode } })
         }
       />
-      {isError ? (
-        <ErrorState
-          onRetry={() => {
-            country.refetch();
-            checklist.refetch();
-          }}
-        />
-      ) : isLoading ? (
+      {isLoading ? (
         <View style={styles.content}>
           <SkeletonGroup>
             <Skeleton height={180} style={{ borderRadius: radius.xl }} />
@@ -88,8 +81,25 @@ export default function CountryChecklistScreen() {
             <Skeleton height={64} style={{ borderRadius: radius.lg }} />
           </SkeletonGroup>
         </View>
-      ) : !guide || !list ? (
-        <EmptyState icon="globe" title={t('countries.errors.notFound')} />
+      ) : /* Rehberi olmayan kod (ör. /countries/checklist/XX) hata değil, "bulunamadı"dır;
+            kontrol listesi sorgusu da o kodda hata verdiği için önce bunu kontrol ediyoruz. */
+      !guide ? (
+        <EmptyState
+          icon="globe"
+          title={t('countries.errors.notFound')}
+          action={{
+            label: t('countries.title'),
+            icon: 'compass',
+            onPress: () => router.replace('/countries'),
+          }}
+        />
+      ) : isError || !list ? (
+        <ErrorState
+          onRetry={() => {
+            country.refetch();
+            checklist.refetch();
+          }}
+        />
       ) : (
         <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
           <TripCountdown

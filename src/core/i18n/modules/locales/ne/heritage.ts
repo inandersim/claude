@@ -134,6 +134,7 @@ export const heritage_ne: HeritageI18nShape = {
   visitedEmpty: 'अहिलेसम्म कुनै भ्रमण रेकर्ड छैन',
   visitedEmptyDescription: 'स्थल घुमेपछि "मैले घुमेँ" भनेर XP कमाउनुहोस्।',
   notFound: 'स्थल भेटिएन',
+  notFoundDescription: 'This site may have been removed or the link is incorrect.',
   tour: {
     title: 'मेरा टुरहरू',
     subtitle: 'धेरै स्थललाई एक दिन वा बहु-दिनको योजनामा बदल्नुहोस्',

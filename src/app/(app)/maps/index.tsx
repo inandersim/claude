@@ -18,6 +18,7 @@ import {
 import { useToast } from '@/core/hooks/useToast';
 import { useT } from '@/core/i18n';
 import { layout, radius, spacing, useTheme } from '@/core/theme';
+import { formatAltitude } from '@/core/utils/format';
 import { formatDuration } from '@/core/utils/time';
 import { difficultyOf, formatDistance, type MapPack, type SavedRoute } from '@/domain';
 import { PackCard } from '@/features/maps/components/PackCard';
@@ -175,7 +176,8 @@ function SavedRouteRow({ route, onPress }: { route: SavedRoute; onPress: () => v
           {route.name}
         </Text>
         <Text variant="caption" color="textMuted" numberOfLines={1}>
-          {formatDistance(route.planned.distanceKm, locale)} · ↑{route.planned.ascentM} m ·{' '}
+          {formatDistance(route.planned.distanceKm, locale)} · ↑
+          {formatAltitude(route.planned.ascentM, locale)} ·{' '}
           {formatDuration(route.planned.durationMin, locale)}
         </Text>
       </View>

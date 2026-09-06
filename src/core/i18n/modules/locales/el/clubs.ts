@@ -149,4 +149,5 @@ export const clubs_el: ClubsI18nShape = {
   seeAllMembers: 'Όλα',
   eventCount: '{{count}} επερχόμενες εκδηλώσεις',
   clubEvents: 'Εκδηλώσεις συλλόγου',
+  memberOnlyCreate: 'You need to join the club before creating an event.',
 };

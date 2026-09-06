@@ -54,6 +54,7 @@ import {
   useClimbingRoute,
   useConfirmRoute,
   useGradeSystem,
+  useHasConfirmedRoute,
   useLogAscent,
 } from '@/features/climbing/hooks';
 import {
@@ -82,8 +83,11 @@ export default function RouteDetailScreen() {
     () => (data ? gradeVariants(data.grade, data.gradeSystem) : null),
     [data],
   );
-  // Onay listesi repo tarafında tutulur; ikinci onay denemesi hata mesajıyla reddedilir.
-  const mayConfirm = data ? canConfirm(data, me.id, []) : false;
+  // Repo onay listesini geri döndürmediği için kendi onayımız cihazda tutulur
+  const confirmedByMe = useHasConfirmedRoute(id ?? '');
+  const myConfirmations = confirmedByMe && id ? [{ userId: me.id, routeId: id }] : [];
+  const mayConfirm = data ? canConfirm(data, me.id, myConfirmations) : false;
+  const alreadyConfirmed = confirmedByMe || confirm.isSuccess;
   const isMine = data?.submittedBy === me.id;
 
   return (
@@ -246,22 +250,26 @@ export default function RouteDetailScreen() {
               {data.verification !== 'verified' ? (
                 <>
                   <Button
-                    label={confirm.isSuccess ? t('climbing.confirmed') : t('climbing.confirm')}
-                    icon={confirm.isSuccess ? 'check-check' : 'shield-check'}
+                    label={alreadyConfirmed ? t('climbing.confirmed') : t('climbing.confirm')}
+                    icon={alreadyConfirmed ? 'check-check' : 'shield-check'}
                     variant="secondary"
                     size="lg"
                     fullWidth
-                    disabled={!mayConfirm || confirm.isSuccess}
+                    disabled={!mayConfirm || alreadyConfirmed}
                     loading={confirm.isPending}
                     onPress={() =>
                       confirm.mutate(data.id, {
                         onSuccess: () => toast(t('climbing.confirmedToast'), 'success'),
-                        onError: (e) => toast(e.message || t('common.error'), 'error'),
+                        onError: () => toast(t('common.error'), 'error'),
                       })
                     }
                   />
                   <Text variant="caption" color="textSubtle" align="center">
-                    {isMine ? t('climbing.cannotConfirm') : t('climbing.confirmHint')}
+                    {isMine
+                      ? t('climbing.cannotConfirm')
+                      : alreadyConfirmed
+                        ? t('climbing.confirmedToast')
+                        : t('climbing.confirmHint')}
                   </Text>
                 </>
               ) : null}

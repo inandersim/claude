@@ -135,6 +135,7 @@ export const heritage_el: HeritageI18nShape = {
   visitedEmptyDescription:
     'Πατήστε «Το επισκέφθηκα» αφού εξερευνήσετε έναν χώρο για να κερδίσετε XP.',
   notFound: 'Ο χώρος δεν βρέθηκε',
+  notFoundDescription: 'This site may have been removed or the link is incorrect.',
   tour: {
     title: 'Οι περιηγήσεις μου',
     subtitle: 'Μετατρέψτε πολλούς χώρους σε πλάνο μίας ή περισσότερων ημερών',

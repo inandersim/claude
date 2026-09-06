@@ -1,6 +1,6 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Share, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import {
@@ -18,7 +18,7 @@ import {
 import { useT } from '@/core/i18n';
 import { layout, radius, spacing, useTheme } from '@/core/theme';
 import { formatCompact } from '@/core/utils/format';
-import { ADVENTURE_TYPE_META, DIFFICULTY_META } from '@/domain';
+import { ADVENTURE_TYPE_META, DIFFICULTY_META, mapsUrl } from '@/domain';
 import { RecentAdventureRow } from '@/features/explore/components/RecentAdventureRow';
 import { useLocationDetail } from '@/features/explore/hooks';
 import { DifficultyBadge } from '@/features/feed/components/DifficultyBadge';
@@ -36,6 +36,15 @@ export default function LocationDetailScreen() {
   const posts = usePostsByLocation(location.data?.name.split(' ')[0] ?? '');
   const hazards = useHazards(location.data?.coords ?? null, 30);
 
+  /** Lokasyonu harita bağlantısıyla paylaşır. */
+  const onShare = () => {
+    const data = location.data;
+    if (!data) return;
+    Share.share({
+      message: `${data.name} · ${data.region} — ${mapsUrl(data.coords.latitude, data.coords.longitude, data.name)}`,
+    }).catch(() => undefined);
+  };
+
   return (
     <Screen scroll edges={[]}>
       <View style={[styles.topActions, { top: insets.top + spacing.sm }]}>
@@ -45,7 +54,13 @@ export default function LocationDetailScreen() {
           onPress={() => (router.canGoBack() ? router.back() : router.replace('/explore'))}
           accessibilityLabel={t('common.back')}
         />
-        <IconButton icon="bookmark" variant="blur" accessibilityLabel={t('common.save')} />
+        <IconButton
+          icon="share"
+          variant="blur"
+          onPress={onShare}
+          disabled={!location.data}
+          accessibilityLabel={t('common.share')}
+        />
       </View>
 
       {location.isError ? (

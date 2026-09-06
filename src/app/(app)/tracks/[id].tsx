@@ -19,6 +19,7 @@ import { useToast } from '@/core/hooks/useToast';
 import { useT } from '@/core/i18n';
 import { goBack } from '@/core/navigation';
 import { radius, spacing, useTheme } from '@/core/theme';
+import { formatAltitude } from '@/core/utils/format';
 import { formatDate, formatDuration } from '@/core/utils/time';
 import { ADVENTURE_TYPE_META, formatDistance } from '@/domain';
 import { useCurrentUser } from '@/features/auth/session.store';
@@ -151,7 +152,7 @@ export default function TrackDetailScreen() {
               <StatTile
                 icon="trending-up"
                 label={t('tracks.stats.ascent')}
-                value={`${data.ascentM} m`}
+                value={formatAltitude(data.ascentM, locale)}
                 color={colors.success}
                 style={styles.tile}
               />
@@ -165,7 +166,9 @@ export default function TrackDetailScreen() {
               <StatTile
                 icon="mountain-snow"
                 label={t('tracks.stats.maxAlt')}
-                value={data.maxElevationM !== null ? `${data.maxElevationM} m` : '—'}
+                value={
+                  data.maxElevationM !== null ? formatAltitude(data.maxElevationM, locale) : '—'
+                }
                 color={colors.accent}
                 style={styles.tile}
               />

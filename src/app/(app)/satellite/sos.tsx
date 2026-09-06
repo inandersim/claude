@@ -19,7 +19,7 @@ import { useLocation } from '@/core/hooks/useLocation';
 import { useToast } from '@/core/hooks/useToast';
 import { useT } from '@/core/i18n';
 import { layout, radius, spacing, useTheme } from '@/core/theme';
-import { formatTime } from '@/core/utils/time';
+import { formatDuration, formatTime } from '@/core/utils/time';
 import {
   buildSosPayload,
   EMERGENCY_CENTER_META,
@@ -240,7 +240,7 @@ export default function SatelliteSosScreen() {
               <Text variant="caption" color="textMuted" numberOfLines={2}>
                 {t(EMERGENCY_CENTER_META[rescue.type].labelKey)} ·{' '}
                 {formatDistance(rescue.distanceKm, locale)} · {t('satellite.sos.eta')}{' '}
-                {estimatedRescueEtaMin(origin, rescue.coords)} dk
+                {formatDuration(estimatedRescueEtaMin(origin, rescue.coords), locale)}
               </Text>
             </View>
             <Button

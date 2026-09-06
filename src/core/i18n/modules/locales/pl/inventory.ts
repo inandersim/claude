@@ -128,6 +128,12 @@ export const inventory_pl: InventoryI18nShape = {
     code: 'Nr rezerwacji',
     details: 'Szczegóły',
   },
+  business: {
+    notFound: 'Business not found',
+    notFoundDescription: 'This business may have been removed or the link is wrong.',
+    noStay: 'This business does not offer stays',
+    noStayDescription: 'Shops and tour operators take requests over the phone or chat.',
+  },
   status: {
     pending: 'Oczekuje',
     confirmed: 'Potwierdzona',

@@ -6,6 +6,7 @@ import {
   AdventureImage,
   Badge,
   Button,
+  EmptyState,
   ErrorState,
   Header,
   Icon,
@@ -111,12 +112,23 @@ export default function DestinationDetailScreen() {
       <View style={styles.content}>
         {dest.isError ? (
           <ErrorState onRetry={() => dest.refetch()} />
-        ) : dest.isLoading || !data ? (
+        ) : dest.isLoading ? (
           <SkeletonGroup>
             <Skeleton height={220} style={{ borderRadius: radius.xl }} />
             <Skeleton height={90} style={{ borderRadius: radius.xl }} />
             <Skeleton height={200} style={{ borderRadius: radius.xl }} />
           </SkeletonGroup>
+        ) : !data ? (
+          <EmptyState
+            icon="compass"
+            title={t('destinations.notFound')}
+            description={t('destinations.notFoundDescription')}
+            action={{
+              label: t('destinations.title'),
+              icon: 'compass',
+              onPress: () => router.replace('/destinations'),
+            }}
+          />
         ) : (
           <>
             <AdventureImage

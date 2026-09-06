@@ -1,0 +1,16 @@
+{
+  "source": "fixture",
+  "note": "Gerçekte `gh run list --workflow=ci.yml --json ...` çıktısıyla aynı şekil. analyze.mjs --live verildiğinde gh varsa canlı okunur.",
+  "runs": [
+    { "id": 5001, "workflow": "ci.yml", "branch": "main", "conclusion": "success", "createdAt": "2026-09-05T06:00:00Z", "durationSec": 512, "failedStep": null },
+    { "id": 5002, "workflow": "ci.yml", "branch": "feat/zmatch-filters", "conclusion": "failure", "createdAt": "2026-09-05T08:20:00Z", "durationSec": 388, "failedStep": "test" },
+    { "id": 5003, "workflow": "ci.yml", "branch": "feat/zmatch-filters", "conclusion": "failure", "createdAt": "2026-09-05T09:05:00Z", "durationSec": 401, "failedStep": "test" },
+    { "id": 5004, "workflow": "ci.yml", "branch": "main", "conclusion": "success", "createdAt": "2026-09-05T11:00:00Z", "durationSec": 498, "failedStep": null },
+    { "id": 5005, "workflow": "ci.yml", "branch": "fix/tracks-chart", "conclusion": "failure", "createdAt": "2026-09-05T13:40:00Z", "durationSec": 372, "failedStep": "lint" },
+    { "id": 5006, "workflow": "ci.yml", "branch": "main", "conclusion": "success", "createdAt": "2026-09-05T15:10:00Z", "durationSec": 545, "failedStep": null },
+    { "id": 5007, "workflow": "ci.yml", "branch": "chore/deps", "conclusion": "failure", "createdAt": "2026-09-05T17:30:00Z", "durationSec": 356, "failedStep": "test" },
+    { "id": 5008, "workflow": "ci.yml", "branch": "main", "conclusion": "success", "createdAt": "2026-09-05T19:00:00Z", "durationSec": 523, "failedStep": null },
+    { "id": 5009, "workflow": "ci.yml", "branch": "main", "conclusion": "success", "createdAt": "2026-09-06T06:00:00Z", "durationSec": 531, "failedStep": null },
+    { "id": 5010, "workflow": "ci.yml", "branch": "feat/clubs-empty", "conclusion": "failure", "createdAt": "2026-09-06T07:15:00Z", "durationSec": 366, "failedStep": "typecheck" }
+  ]
+}

@@ -4,6 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import { Badge, Button, Chip, Icon, Text } from '@/components/ui';
 import { useT } from '@/core/i18n';
 import { radius, spacing, useTheme } from '@/core/theme';
+import { formatAltitude } from '@/core/utils/format';
 import { formatDistance, type PoiKind, type TrackPoi, type TrackPoiWithDistance } from '@/domain';
 
 import { POI_COLOR, POI_ICON } from './meta';
@@ -71,7 +72,7 @@ export function PoiRow({ poi, onConfirm, confirming = false, actionLabel, onActi
           {' · '}
           {t('tracks.poi.confirmations', { count: poi.confirmations })}
           {distance !== null ? ` · ${formatDistance(distance, locale)}` : ''}
-          {poi.elevationM !== null ? ` · ${poi.elevationM} m` : ''}
+          {poi.elevationM !== null ? ` · ${formatAltitude(poi.elevationM, locale)}` : ''}
         </Text>
       </View>
       {onAction && actionLabel ? (

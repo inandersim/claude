@@ -134,6 +134,7 @@ export const heritage_cs: HeritageI18nShape = {
   visitedEmpty: 'Zatím žádné zaznamenané návštěvy',
   visitedEmptyDescription: 'Po prohlídce památky klepněte na „Navštívil(a) jsem“ a získejte XP.',
   notFound: 'Památka nenalezena',
+  notFoundDescription: 'This site may have been removed or the link is incorrect.',
   tour: {
     title: 'Moje prohlídky',
     subtitle: 'Spojte několik památek do jednodenního nebo vícedenního plánu',

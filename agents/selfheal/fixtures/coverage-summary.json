@@ -1,0 +1,39 @@
+{
+  "note": "jest --coverage --coverageReporters=json-summary çıktısıyla aynı şekil (coverage/coverage-summary.json). Gerçek dosya varsa analyze.mjs onu tercih eder.",
+  "total": {
+    "lines": { "total": 4120, "covered": 2884, "pct": 70.0 },
+    "statements": { "total": 4260, "covered": 2939, "pct": 69.0 },
+    "functions": { "total": 705, "covered": 458, "pct": 64.96 },
+    "branches": { "total": 1580, "covered": 903, "pct": 57.15 }
+  },
+  "src/domain/emergency.ts": {
+    "lines": { "total": 210, "covered": 88, "pct": 41.9 },
+    "functions": { "total": 34, "covered": 12, "pct": 35.29 },
+    "branches": { "total": 96, "covered": 31, "pct": 32.29 },
+    "statements": { "total": 214, "covered": 90, "pct": 42.06 }
+  },
+  "src/domain/pricing.ts": {
+    "lines": { "total": 168, "covered": 61, "pct": 36.3 },
+    "functions": { "total": 27, "covered": 9, "pct": 33.33 },
+    "branches": { "total": 74, "covered": 20, "pct": 27.03 },
+    "statements": { "total": 170, "covered": 62, "pct": 36.47 }
+  },
+  "src/domain/matching.ts": {
+    "lines": { "total": 240, "covered": 214, "pct": 89.2 },
+    "functions": { "total": 38, "covered": 34, "pct": 89.47 },
+    "branches": { "total": 110, "covered": 92, "pct": 83.64 },
+    "statements": { "total": 244, "covered": 217, "pct": 88.93 }
+  },
+  "src/domain/routing.ts": {
+    "lines": { "total": 305, "covered": 158, "pct": 51.8 },
+    "functions": { "total": 44, "covered": 21, "pct": 47.73 },
+    "branches": { "total": 132, "covered": 58, "pct": 43.94 },
+    "statements": { "total": 310, "covered": 160, "pct": 51.61 }
+  },
+  "src/data/repositories.ts": {
+    "lines": { "total": 190, "covered": 171, "pct": 90.0 },
+    "functions": { "total": 30, "covered": 27, "pct": 90.0 },
+    "branches": { "total": 60, "covered": 51, "pct": 85.0 },
+    "statements": { "total": 192, "covered": 173, "pct": 90.1 }
+  }
+}

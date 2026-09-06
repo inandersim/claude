@@ -28,6 +28,8 @@ export const destinations_pl: DestinationsI18nShape = {
   savedEmpty: 'Nic nie zapisano',
   savedEmptyDescription:
     'Zapisuj trasy, które Ci się podobają; zostaną tu jako przewodnik offline.',
+  notFound: 'Destination not found',
+  notFoundDescription: 'This destination may have been removed or the link is incorrect.',
   type: {
     trek: 'Trekking',
     expedition: 'Ekspedycja',
