@@ -1,3 +1,4 @@
+import { courses_ar } from './locales/ar/courses';
 import { courses_pt } from './locales/pt/courses';
 import { courses_es } from './locales/es/courses';
 import { courses_fr } from './locales/fr/courses';
@@ -7,6 +8,7 @@ import { courses_it } from './locales/it/courses';
 import { courses_zh } from './locales/zh/courses';
 import { localeSet } from './shared';
 import { courses_ja } from './locales/ja/courses';
+import { courses_ko } from './locales/ko/courses';
 
 const tr = {
   title: 'Eğitimler',
@@ -396,6 +398,8 @@ const en: CoursesI18nShape = {
 
 /** courses modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
 export const coursesI18n = localeSet(tr, en, {
+  ko: courses_ko,
+  ar: courses_ar,
   ru: courses_ru,
   ja: courses_ja,
   de: courses_de,

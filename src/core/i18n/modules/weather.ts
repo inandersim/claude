@@ -1,3 +1,4 @@
+import { weather_ar } from './locales/ar/weather';
 import { weather_pt } from './locales/pt/weather';
 import { weather_es } from './locales/es/weather';
 import { weather_fr } from './locales/fr/weather';
@@ -7,6 +8,7 @@ import { weather_it } from './locales/it/weather';
 import { weather_zh } from './locales/zh/weather';
 import { localeSet } from './shared';
 import { weather_ja } from './locales/ja/weather';
+import { weather_ko } from './locales/ko/weather';
 
 const tr = {
   title: 'Hava & çığ',
@@ -371,6 +373,8 @@ const en: WeatherI18nShape = {
 
 /** weather modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
 export const weatherI18n = localeSet(tr, en, {
+  ko: weather_ko,
+  ar: weather_ar,
   ru: weather_ru,
   ja: weather_ja,
   de: weather_de,

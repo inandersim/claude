@@ -1,3 +1,4 @@
+import { wildlife_ar } from './locales/ar/wildlife';
 import { wildlife_pt } from './locales/pt/wildlife';
 import { wildlife_es } from './locales/es/wildlife';
 import { wildlife_fr } from './locales/fr/wildlife';
@@ -7,6 +8,7 @@ import { wildlife_it } from './locales/it/wildlife';
 import { wildlife_zh } from './locales/zh/wildlife';
 import { localeSet } from './shared';
 import { wildlife_ja } from './locales/ja/wildlife';
+import { wildlife_ko } from './locales/ko/wildlife';
 
 const tr = {
   title: 'Canlı tanıma & güvenlik',
@@ -473,6 +475,8 @@ const en: WildlifeI18nShape = {
 
 /** wildlife modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
 export const wildlifeI18n = localeSet(tr, en, {
+  ko: wildlife_ko,
+  ar: wildlife_ar,
   ru: wildlife_ru,
   ja: wildlife_ja,
   de: wildlife_de,

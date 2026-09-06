@@ -1,3 +1,4 @@
+import { heritage_ar } from './locales/ar/heritage';
 import { heritage_pt } from './locales/pt/heritage';
 import { heritage_es } from './locales/es/heritage';
 import { heritage_fr } from './locales/fr/heritage';
@@ -7,6 +8,7 @@ import { heritage_it } from './locales/it/heritage';
 import { heritage_zh } from './locales/zh/heritage';
 import { localeSet } from './shared';
 import { heritage_ja } from './locales/ja/heritage';
+import { heritage_ko } from './locales/ko/heritage';
 
 const tr = {
   title: 'Tarihi alanlar',
@@ -355,6 +357,8 @@ const en: HeritageI18nShape = {
 
 /** heritage modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
 export const heritageI18n = localeSet(tr, en, {
+  ko: heritage_ko,
+  ar: heritage_ar,
   ru: heritage_ru,
   ja: heritage_ja,
   de: heritage_de,

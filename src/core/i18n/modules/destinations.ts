@@ -1,3 +1,4 @@
+import { destinations_ar } from './locales/ar/destinations';
 import { destinations_pt } from './locales/pt/destinations';
 import { destinations_es } from './locales/es/destinations';
 import { destinations_fr } from './locales/fr/destinations';
@@ -7,6 +8,7 @@ import { destinations_it } from './locales/it/destinations';
 import { destinations_zh } from './locales/zh/destinations';
 import { localeSet } from './shared';
 import { destinations_ja } from './locales/ja/destinations';
+import { destinations_ko } from './locales/ko/destinations';
 
 const tr = {
   title: 'Destinasyonlar',
@@ -596,6 +598,8 @@ const en: DestinationsI18nShape = {
 
 /** destinations modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
 export const destinationsI18n = localeSet(tr, en, {
+  ko: destinations_ko,
+  ar: destinations_ar,
   ru: destinations_ru,
   ja: destinations_ja,
   de: destinations_de,

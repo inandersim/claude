@@ -1,3 +1,4 @@
+import { countries_ar } from './locales/ar/countries';
 import { countries_pt } from './locales/pt/countries';
 import { countries_es } from './locales/es/countries';
 import { countries_fr } from './locales/fr/countries';
@@ -7,6 +8,7 @@ import { countries_it } from './locales/it/countries';
 import { countries_zh } from './locales/zh/countries';
 import { localeSet } from './shared';
 import { countries_ja } from './locales/ja/countries';
+import { countries_ko } from './locales/ko/countries';
 
 const tr = {
   title: 'Ülke rehberi',
@@ -330,6 +332,8 @@ const en: CountriesI18nShape = {
 
 /** countries modülü çevirileri — tr kaynak, en zorunlu; diğer diller sonra bağlanır. */
 export const countriesI18n = localeSet(tr, en, {
+  ko: countries_ko,
+  ar: countries_ar,
   ru: countries_ru,
   ja: countries_ja,
   de: countries_de,

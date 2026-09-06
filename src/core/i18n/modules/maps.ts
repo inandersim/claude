@@ -1,3 +1,4 @@
+import { maps_ar } from './locales/ar/maps';
 import { maps_de } from './locales/de/maps';
 import { maps_fr } from './locales/fr/maps';
 import { maps_es } from './locales/es/maps';
@@ -6,6 +7,7 @@ import { maps_ja } from './locales/ja/maps';
 import { maps_pt } from './locales/pt/maps';
 import { maps_ru } from './locales/ru/maps';
 import { maps_zh } from './locales/zh/maps';
+import { maps_ko } from './locales/ko/maps';
 import { localeSet } from './shared';
 
 const tr = {
@@ -201,6 +203,8 @@ const en: MapsI18nShape = {
 
 /** maps modülü çevirileri — tr kaynak, en zorunlu; diğer diller aşağıya eklenir. */
 export const mapsI18n = localeSet(tr, en, {
+  ko: maps_ko,
+  ar: maps_ar,
   de: maps_de,
   fr: maps_fr,
   es: maps_es,
