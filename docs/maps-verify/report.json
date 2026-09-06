@@ -1,0 +1,239 @@
+{
+  "base": "http://localhost:8081",
+  "results": [
+    {
+      "route": "/maps",
+      "screenshot": "01-maps.png",
+      "map": {
+        "present": false
+      }
+    },
+    {
+      "route": "/maps",
+      "screenshot": "02-maps-indirme.png",
+      "map": {
+        "present": false
+      },
+      "note": "pack_uludag gerçek indirme sonrası",
+      "cardText": "🇹🇷\nUludağ & Bursa\n0 MB · Sürüm 2026.09 · PMTILES\nÇevrimdışı hazır\nhttp://localhost:8090/tiles/uludag.pmtiles"
+    },
+    {
+      "route": "/maps/planner",
+      "screenshot": "03-planner.png",
+      "map": {
+        "present": true,
+        "styleLoaded": true,
+        "zoom": 9.67,
+        "center": [
+          41.12,
+          40.8925
+        ],
+        "layers": [
+          "background",
+          "trail-track",
+          "trail-path",
+          "trail-demanding",
+          "trail-steps",
+          "zirtan-ov-markers"
+        ],
+        "renderedFeatures": 28,
+        "errors": []
+      }
+    },
+    {
+      "route": "/maps/planner",
+      "screenshot": "04-planner-rota.png",
+      "map": {
+        "present": true,
+        "styleLoaded": true,
+        "zoom": 9.87,
+        "center": [
+          41.1603,
+          40.8828
+        ],
+        "layers": [
+          "background",
+          "trail-track",
+          "trail-path",
+          "trail-demanding",
+          "trail-steps",
+          "zirtan-ov-route-halo",
+          "zirtan-ov-route",
+          "zirtan-ov-markers"
+        ],
+        "renderedFeatures": 30,
+        "errors": []
+      },
+      "note": "iki düğüme tıklayarak planlanan rota"
+    },
+    {
+      "route": "/navigate/trk_uludag_selin",
+      "screenshot": "06-navigate.png",
+      "map": {
+        "present": true,
+        "styleLoaded": true,
+        "zoom": 14,
+        "center": [
+          29.1502,
+          40.1004
+        ],
+        "layers": [
+          "background",
+          "landuse-forest",
+          "landuse-scrub",
+          "landuse-rock",
+          "landuse-glacier",
+          "water-fill",
+          "water-line",
+          "road-casing",
+          "road-fill",
+          "trail-track",
+          "trail-path",
+          "trail-demanding",
+          "trail-steps",
+          "poi-peak",
+          "poi-shelter",
+          "poi-camp",
+          "poi-spring",
+          "poi-viewpoint",
+          "zirtan-ov-track",
+          "zirtan-ov-route-done",
+          "zirtan-ov-markers",
+          "zirtan-ov-user-halo",
+          "zirtan-ov-user"
+        ],
+        "renderedFeatures": 11,
+        "errors": []
+      }
+    },
+    {
+      "route": "/navigate/trk_uludag_selin",
+      "screenshot": "07-navigate-ilerleme.png",
+      "map": {
+        "present": true,
+        "styleLoaded": true,
+        "zoom": 14,
+        "center": [
+          29.1598,
+          40.0972
+        ],
+        "layers": [
+          "background",
+          "landuse-forest",
+          "landuse-scrub",
+          "landuse-rock",
+          "landuse-glacier",
+          "water-fill",
+          "water-line",
+          "road-casing",
+          "road-fill",
+          "trail-track",
+          "trail-path",
+          "trail-demanding",
+          "trail-steps",
+          "poi-peak",
+          "poi-shelter",
+          "poi-camp",
+          "poi-spring",
+          "poi-viewpoint",
+          "zirtan-ov-track",
+          "zirtan-ov-route-done",
+          "zirtan-ov-markers",
+          "zirtan-ov-user-halo",
+          "zirtan-ov-user"
+        ],
+        "renderedFeatures": 9,
+        "errors": []
+      },
+      "note": "demo ile konum ilerletildi"
+    },
+    {
+      "route": "/maps/route/<id>",
+      "screenshot": "08-kayitli-rota.png",
+      "map": {
+        "present": true,
+        "styleLoaded": true,
+        "zoom": 12.21,
+        "center": [
+          29.132,
+          36.487
+        ],
+        "layers": [
+          "background",
+          "trail-track",
+          "trail-path",
+          "trail-demanding",
+          "trail-steps",
+          "zirtan-ov-route-halo",
+          "zirtan-ov-route",
+          "zirtan-ov-markers"
+        ],
+        "renderedFeatures": 13,
+        "errors": []
+      }
+    },
+    {
+      "route": "/tracks/trk_ayder_kavrun_me",
+      "screenshot": "09-zarif-dusus.png",
+      "map": {
+        "present": false
+      },
+      "note": "Kaçkar parçası — karo paketi yok, SVG görünümüne düşüldü",
+      "fallbackShown": 1,
+      "canvas": 0
+    }
+  ],
+  "log": [],
+  "tiles": [
+    {
+      "url": "/packs",
+      "status": 200,
+      "range": null
+    },
+    {
+      "url": "/tiles/uludag.pmtiles",
+      "status": 200,
+      "range": null
+    },
+    {
+      "url": "/packs",
+      "status": 200,
+      "range": null
+    },
+    {
+      "url": "/packs",
+      "status": 200,
+      "range": null
+    },
+    {
+      "url": "/tiles/uludag.pmtiles",
+      "status": 206,
+      "range": "bytes=0-16383"
+    },
+    {
+      "url": "/tiles/uludag.pmtiles",
+      "status": 206,
+      "range": "bytes=7784-8071"
+    },
+    {
+      "url": "/tiles/uludag.pmtiles",
+      "status": 206,
+      "range": "bytes=7397-7783"
+    },
+    {
+      "url": "/tiles/uludag.pmtiles",
+      "status": 206,
+      "range": "bytes=6913-7238"
+    },
+    {
+      "url": "/packs",
+      "status": 200,
+      "range": null
+    },
+    {
+      "url": "/packs",
+      "status": 200,
+      "range": null
+    }
+  ]
+}
