@@ -110,12 +110,45 @@ npm install
 npm run dev         # http://localhost:5173
 ```
 
+## 5b. Güncel kalmak
+
+**Uygulama kendi kendini güncellemez.** Yeni bir sürüm çıktığında yerel kopyanın
+haberi olmaz; güncellemeyi sen başlatırsın:
+
+```powershell
+npm run guncelle
+```
+
+Betik güvenli tarafta durur: kaydedilmemiş değişikliğin varsa **hiçbir şey
+yapmaz**, yalnızca ileri sarma yapar (birleştirme çatışması üretmez), bağımlılık
+dosyası değişmediyse `npm install` adımını atlar ve sonunda tip denetimi + test
+çalıştırır.
+
+| Seçenek    | Ne yapar                                    |
+| ---------- | ------------------------------------------- |
+| `--hizli`  | Tip denetimi ve testleri atlar              |
+| `--sessiz` | Yalnızca değişiklik varsa konuşur           |
+
+Otomatik olsun istersen Windows Zamanlanmış Görevi kur — oturum açılışında ve
+her gün 09:00'da çalışır:
+
+```powershell
+.\scripts\guncelle.ps1 -Zamanla
+.\scripts\guncelle.ps1 -ZamanlamayiKaldir   # vazgeçersen
+```
+
+Görev de aynı güvenlik kurallarına uyar: yarım kalmış işini asla ezmez, sessizce
+güncelleme yapıp susmaz (değişiklik varsa ekrana yazar).
+
+`scripts\guncelle.bat` dosyasına çift tıklamak da aynı işi yapar.
+
 ## 6. Diğer komutlar
 
 | Komut                                     | Ne yapar                                            |
 | ----------------------------------------- | --------------------------------------------------- |
 | `npm run format`                          | Kodu Prettier ile biçimlendirir                     |
 | `npm run i18n:check`                      | 23 dilde eksik çeviri var mı denetler               |
+| `npm run guncelle`                        | Yerel kopyayı günceller (bkz. 5b)                   |
 | `npm run health`                          | Altyapı sağlık taraması, `docs/health` altına rapor |
 | `npm run test:tiles`                      | Harita karo hattı testleri                          |
 | `npm run test:selfheal`                   | Kendi kendini geliştirme altyapısı testleri         |

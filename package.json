@@ -28,7 +28,8 @@
     "test:selfheal": "node --test agents/selfheal/*.test.mjs",
     "test:tiles": "node --test tools/tiles/test/*.test.mjs",
     "test:cto": "node --test agents/cto/*.test.mjs",
-    "cto": "node agents/cto/intake.mjs"
+    "cto": "node agents/cto/intake.mjs",
+    "guncelle": "node scripts/guncelle.mjs"
   },
   "dependencies": {
     "@expo-google-fonts/manrope": "^0.4.2",
