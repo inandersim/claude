@@ -20,9 +20,37 @@ Depo `inandersim/claude`, geliştirme dalı `claude/outdoor-adventure-social-app
 | Android Studio       | Android geliştirme derlemesi (gerçek harita motoru)    |
 | Xcode (yalnızca Mac) | iOS derlemesi — Windows'ta yapılamaz                   |
 
-## 2. Projeyi indir
+## 2. Tek komutla kurulum (önerilen)
 
-**PowerShell** aç ve şunu çalıştır:
+**PowerShell** aç ve şu satırı yapıştır. Depoyu indirir, dört paketin
+bağımlılıklarını kurar, Git ayarlarını yapar ve kurulumu doğrular:
+
+```powershell
+iwr -useb https://raw.githubusercontent.com/inandersim/claude/claude/outdoor-adventure-social-app-du8h5t/scripts/kurulum.ps1 | iex
+```
+
+Kurulum bitince uygulamayı hemen açmak istersen, projeyi indirdikten sonra:
+
+```powershell
+cd "$env:USERPROFILE\Desktop\travel zirtan"
+.\scripts\kurulum.ps1 -Baslat
+```
+
+Betik **tekrar tekrar çalıştırılabilir**: var olan kurulumu bozmaz, eksik olanı
+tamamlar, kaydedilmemiş değişikliklerin varsa güncellemeyi atlar.
+
+| Seçenek | Ne yapar |
+| --- | --- |
+| `-Baslat` | Kurulum bitince uygulamayı tarayıcıda açar |
+| `-Klasor "D:\zirtan"` | Başka bir klasöre kurar |
+| `-AtlaDogrulama` | Tip denetimi ve testleri atlar (daha hızlı) |
+
+Komut satırıyla uğraşmak istemiyorsan proje indikten sonra
+`scripts\kurulum.bat` dosyasına **çift tıklamak** da yeterli.
+
+## 2b. Elle kurulum
+
+Betik yerine adımları tek tek yapmak istersen — **PowerShell** aç ve şunu çalıştır:
 
 ```powershell
 cd "$env:USERPROFILE\Desktop"
@@ -39,10 +67,12 @@ ancak komut yazarken yolu **tırnak içinde** vermeyi unutma.
 > üretip parola yerine onu gir. Ya da [GitHub Desktop](https://desktop.github.com)
 > ile grafik arayüzden klonla.
 
-## 3. Bağımlılıkları kur
+Sonra bağımlılıkları kur:
 
 ```powershell
-npm install
+npm install                       # ana uygulama
+cd admin; npm install; cd ..      # yönetim paneli
+cd server\ai-gateway; npm install; cd ..\..    # yapay zekâ ağ geçidi
 ```
 
 İlk kurulum birkaç dakika sürer. Bittiğinde her şeyin yerinde olduğunu doğrula:
