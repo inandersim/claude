@@ -10,7 +10,7 @@
   Betik tekrar tekrar çalıştırılabilir: var olanı bozmaz, eksik olanı tamamlar.
 
 .PARAMETER Klasor
-  Projenin kurulacağı klasör. Varsayılan: Masaüstünde "travel zirtan".
+  Projenin kurulacağı klasör. Varsayılan: C:\projects\zirtan
 
 .PARAMETER Dal
   Çalışılacak git dalı.
@@ -28,7 +28,14 @@
 #>
 
 param(
-  [string] $Klasor = (Join-Path ([Environment]::GetFolderPath('Desktop')) 'travel zirtan'),
+  # Varsayılan C:\projects\zirtan — kısa ve boşluksuz yol, Windows'un 260 karakter
+  # sınırına takılmayı önler (node_modules derin klasörler üretir). C: yazılabilir
+  # değilse masaüstüne düşer.
+  [string] $Klasor = $(
+    $kok = 'C:\projects'
+    if (Test-Path 'C:\') { Join-Path $kok 'zirtan' }
+    else { Join-Path ([Environment]::GetFolderPath('Desktop')) 'zirtan' }
+  ),
   [string] $Depo = 'https://github.com/inandersim/claude.git',
   [string] $Dal = 'claude/outdoor-adventure-social-app-du8h5t',
   [switch] $Baslat,
@@ -154,6 +161,11 @@ if (Test-Path $gitKlasoru) {
     Yaz-Hata "Klasör var ve boş değil ama git deposu değil: $Klasor"
     Yaz-Bilgi 'Başka bir klasör seç: .\kurulum.ps1 -Klasor "D:\zirtan"'
     return
+  }
+  $ustDizin = Split-Path -Parent $Klasor
+  if ($ustDizin -and -not (Test-Path $ustDizin)) {
+    New-Item -ItemType Directory -Path $ustDizin -Force | Out-Null
+    Yaz-Bilgi "Klasor olusturuldu: $ustDizin"
   }
   Yaz-Bilgi "Indiriliyor: $Klasor"
   git clone --branch $Dal $Depo $Klasor

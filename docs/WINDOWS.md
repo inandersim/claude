@@ -26,11 +26,15 @@ Git kurulu olduğu için en güvenilir yol doğrudan klonlamaktır.
 **PowerShell** aç ve şu dört satırı sırayla çalıştır:
 
 ```powershell
-cd "$env:USERPROFILE\Desktop"
-git clone -b claude/outdoor-adventure-social-app-du8h5t https://github.com/inandersim/claude.git "travel zirtan"
-cd "travel zirtan"
+cd C:\projects
+git clone -b claude/outdoor-adventure-social-app-du8h5t https://github.com/inandersim/claude.git zirtan
+cd zirtan
 npm install
 ```
+
+> **Neden `C:\projects`?** Yol kısa ve boşluk içermiyor. `node_modules` çok derin
+> klasörler ürettiği için masaüstü gibi uzun yollarda Windows'un 260 karakter
+> sınırına takılma riski var; kısa kök bunu baştan çözer.
 
 Sonra çalıştır:
 
