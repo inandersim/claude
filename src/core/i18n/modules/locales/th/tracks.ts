@@ -106,6 +106,8 @@ export const tracks_th: TracksI18nShape = {
     nameRequired: 'จำเป็นต้องกรอกชื่อจุด',
   },
   recorder: {
+    backgroundTitle: 'Zirtan — บันทึกเส้นทาง',
+    backgroundBody: 'กำลังบันทึก เส้นทางของคุณถูกบันทึกแม้ปิดหน้าจอ',
     title: 'บันทึกแทร็ก',
     idle: 'พร้อมบันทึก',
     recording: 'กำลังบันทึก',

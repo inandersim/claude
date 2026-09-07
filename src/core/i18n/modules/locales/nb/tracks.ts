@@ -106,6 +106,8 @@ export const tracks_nb: TracksI18nShape = {
     nameRequired: 'Punktnavn er påkrevd',
   },
   recorder: {
+    backgroundTitle: 'Zirtan — sporopptak',
+    backgroundBody: 'Opptak pågår. Ruten din registreres også med skjermen av.',
     title: 'Sporopptak',
     idle: 'Klar til opptak',
     recording: 'Tar opp',

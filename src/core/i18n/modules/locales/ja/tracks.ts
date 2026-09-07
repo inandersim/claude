@@ -107,6 +107,8 @@ export const tracks_ja: TracksI18nShape = {
     nameRequired: 'ポイント名は必須です',
   },
   recorder: {
+    backgroundTitle: 'Zirtan — トラック記録',
+    backgroundBody: '記録中です。画面が消えていてもルートを記録します。',
     title: 'トラック記録',
     idle: '記録の準備完了',
     recording: '記録中',

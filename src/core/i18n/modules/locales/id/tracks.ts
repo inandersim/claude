@@ -109,6 +109,8 @@ export const tracks_id: TracksI18nShape = {
     nameRequired: 'Nama titik wajib diisi',
   },
   recorder: {
+    backgroundTitle: 'Zirtan — perekaman jejak',
+    backgroundBody: 'Sedang merekam. Rutemu tetap tercatat meski layar mati.',
     title: 'Perekaman jejak',
     idle: 'Siap merekam',
     recording: 'Merekam',

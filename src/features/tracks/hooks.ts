@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import * as Location from 'expo-location';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Platform } from 'react-native';
+import { AppState, Platform } from 'react-native';
 
 import { haptics } from '@/core/hooks/useHaptics';
 import { queryKeys } from '@/core/query/keys';
@@ -27,6 +27,13 @@ import {
   voiceLine,
 } from '@/domain/tracks';
 import { useCurrentUser } from '@/features/auth/session.store';
+
+import {
+  arkaPlaniBaslat,
+  arkaPlaniDurdur,
+} from './recorder-background';
+import { mergePoints } from './recorder-buffer';
+import { createFileBuffer } from './recorder-store';
 
 /* ------------------------------------------------------------------ */
 /* Sorgular                                                            */
@@ -197,6 +204,13 @@ interface RecorderOptions {
   simulate?: TrackPoint[] | null;
   /** Simülasyon adımı (ms) */
   simulateIntervalMs?: number;
+  /**
+   * Ekran kapalıyken görünen kalıcı bildirimin metni. Ekran `t('tracks.recorder.
+   * backgroundTitle')` / `backgroundBody` geçirir. Verilmezse arka plan kaydı
+   * **açılmaz**: kullanıcıya ne olduğunu anlatmayan bir konum servisi
+   * başlatmaktansa ön planda kalmak doğru.
+   */
+  backgroundNotice?: { title: string; body: string } | null;
 }
 
 const EMPTY_STATS: TrackStats = {
@@ -230,6 +244,32 @@ export function useTrackRecorder(options: RecorderOptions = {}): TrackRecorder {
   const isSimulated = Platform.OS === 'web' || Boolean(options.simulate);
   const simulate = options.simulate ?? null;
   const simulateIntervalMs = options.simulateIntervalMs ?? 400;
+  const backgroundNotice = options.backgroundNotice ?? null;
+
+  /**
+   * Arka plan görevi ayrı bir JS bağlamında çalıştığı için noktaları React
+   * durumuna değil diske yazar. Uygulama öne döndüğünde biriken noktalar
+   * buradan alınıp mevcut dizilime katılır.
+   */
+  const tamponuBosalt = useCallback(() => {
+    if (isSimulated) return;
+    try {
+      const bekleyen = createFileBuffer().readAll();
+      if (!bekleyen.length) return;
+      setPoints((prev) => mergePoints(prev, bekleyen));
+    } catch {
+      // Tampon okunamadı: ön planda toplanan noktalar duruyor, kayıt sürüyor.
+    }
+  }, [isSimulated]);
+
+  // Öne dönüşte devir: ekran kapalıyken toplananlar bu anda katılır.
+  useEffect(() => {
+    if (isSimulated) return;
+    const abone = AppState.addEventListener('change', (durum) => {
+      if (durum === 'active') tamponuBosalt();
+    });
+    return () => abone.remove();
+  }, [isSimulated, tamponuBosalt]);
 
   const setStatusBoth = (next: RecorderStatus) => {
     statusRef.current = next;
@@ -301,6 +341,12 @@ export function useTrackRecorder(options: RecorderOptions = {}): TrackRecorder {
         setError('permission');
         return;
       }
+      // Önceki kaydın artıkları yeni ize karışmasın.
+      try {
+        createFileBuffer().clear();
+      } catch {
+        /* tampon yoksa sorun değil */
+      }
       setStatusBoth('recording');
       startTick();
       subscription.current = await Location.watchPositionAsync(
@@ -314,12 +360,28 @@ export function useTrackRecorder(options: RecorderOptions = {}): TrackRecorder {
           });
         },
       );
+
+      // Ekran kapanınca `watchPositionAsync` susar; kalıcı bildirimli ön plan
+      // servisi kaydı sürdürür. İzin verilmezse ya da servis açılmazsa kayıt
+      // bugünkü ön plan davranışıyla devam eder — hata sayılmaz.
+      if (backgroundNotice) {
+        // İzin kararı platforma göre değişiyor ve `recorder-background` içinde
+        // veriliyor; burada yalnızca sonucu umursamıyoruz.
+        try {
+          await arkaPlaniBaslat({
+            baslik: backgroundNotice.title,
+            govde: backgroundNotice.body,
+          });
+        } catch {
+          /* arka plan yok: ön planda sürüyor */
+        }
+      }
     } catch {
       setError('unavailable');
       setStatusBoth('idle');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSimulated, simulate, simulateIntervalMs]);
+  }, [isSimulated, simulate, simulateIntervalMs, backgroundNotice]);
 
   const pause = useCallback(() => {
     if (statusRef.current === 'recording') setStatusBoth('paused');
@@ -333,10 +395,19 @@ export function useTrackRecorder(options: RecorderOptions = {}): TrackRecorder {
     if (statusRef.current === 'idle') return;
     setStatusBoth('stopped');
     clearTimers();
-  }, []);
+    // Sıra önemli: önce servis durur, sonra tampon okunur — aksi hâlde
+    // okuma ile durdurma arasında gelen nokta kaybolur.
+    void arkaPlaniDurdur().then(tamponuBosalt);
+  }, [tamponuBosalt]);
 
   const reset = useCallback(() => {
     clearTimers();
+    void arkaPlaniDurdur();
+    try {
+      createFileBuffer().clear();
+    } catch {
+      /* tampon yoksa sorun değil */
+    }
     simIndex.current = 0;
     simOffset.current = 0;
     setPoints([]);

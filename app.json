@@ -18,7 +18,10 @@
         "NSPhotoLibraryUsageDescription": "Macera fotoğraflarını paylaşabilmen için galerine erişmemiz gerekiyor.",
         "NSCameraUsageDescription": "Macera anlarını doğrudan fotoğraflayabilmen için kameraya erişmemiz gerekiyor.",
         "ITSAppUsesNonExemptEncryption": false,
-        "NSMicrophoneUsageDescription": "Canlı yayında sesini iletebilmek için mikrofona erişmemiz gerekiyor."
+        "NSMicrophoneUsageDescription": "Canlı yayında sesini iletebilmek için mikrofona erişmemiz gerekiyor.",
+        "UIBackgroundModes": [
+          "location"
+        ]
       }
     },
     "android": {
@@ -29,13 +32,14 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": true,
       "permissions": [
         "android.permission.ACCESS_COARSE_LOCATION",
         "android.permission.ACCESS_FINE_LOCATION",
         "android.permission.CAMERA",
-        "android.permission.RECORD_AUDIO"
+        "android.permission.RECORD_AUDIO",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.FOREGROUND_SERVICE_LOCATION"
       ],
       "intentFilters": [
         {
@@ -53,6 +57,9 @@
             "DEFAULT"
           ]
         }
+      ],
+      "blockedPermissions": [
+        "android.permission.SYSTEM_ALERT_WINDOW"
       ]
     },
     "web": {
@@ -77,7 +84,9 @@
       [
         "expo-location",
         {
-          "locationWhenInUsePermission": "Yakınındaki maceraperestleri bulmak için konumuna ihtiyacımız var."
+          "locationWhenInUsePermission": "Yakınındaki maceraperestleri bulmak için konumuna ihtiyacımız var.",
+          "isAndroidForegroundServiceEnabled": true,
+          "locationAlwaysAndWhenInUsePermission": "İz kaydı sırasında ekran kapalıyken de rotanı çizebilmek için konumuna ihtiyacımız var. Kayıt bittiğinde konum takibi durur."
         }
       ],
       [
@@ -99,7 +108,9 @@
       [
         "@maplibre/maplibre-react-native",
         {
-          "android": { "nativeVariant": "opengl" }
+          "android": {
+            "nativeVariant": "opengl"
+          }
         }
       ]
     ],

@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Platform, ScrollView, StyleSheet, Switch, View } from 'react-native';
 
 import { Button, Chip, Header, Input, Screen, Text } from '@/components/ui';
@@ -31,7 +31,16 @@ export default function RecordTrackScreen() {
       ? (demoSource.data?.find((x) => x.points.length >= 40)?.points ?? null)
       : null;
 
-  const recorder = useTrackRecorder({ simulate: demoPoints });
+  // Kalıcı bildirim metni ekrandan geçiyor: kanca i18n'e bağlı değil ve
+  // metin verilmezse arka plan kaydı hiç açılmıyor (bkz. `backgroundNotice`).
+  const backgroundNotice = useMemo(
+    () => ({
+      title: t('tracks.recorder.backgroundTitle'),
+      body: t('tracks.recorder.backgroundBody'),
+    }),
+    [t],
+  );
+  const recorder = useTrackRecorder({ simulate: demoPoints, backgroundNotice });
   const save = useSaveTrack();
 
   const [name, setName] = useState('');

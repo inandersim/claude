@@ -106,6 +106,8 @@ export const tracks_ar: TracksI18nShape = {
     nameRequired: 'اسم النقطة مطلوب',
   },
   recorder: {
+    backgroundTitle: 'Zirtan — تسجيل المسار',
+    backgroundBody: 'التسجيل جارٍ. يُرسم مسارك حتى عند إطفاء الشاشة.',
     title: 'تسجيل المقطع',
     idle: 'جاهز للتسجيل',
     recording: 'جارٍ التسجيل',

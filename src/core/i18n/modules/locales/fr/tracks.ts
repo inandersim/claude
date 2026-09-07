@@ -109,6 +109,8 @@ export const tracks_fr: TracksI18nShape = {
     nameRequired: 'Le nom du point est requis',
   },
   recorder: {
+    backgroundTitle: 'Zirtan — enregistrement de trace',
+    backgroundBody: 'Enregistrement en cours. Votre itinéraire est tracé même écran éteint.',
     title: 'Enregistrement de trace',
     idle: 'Prêt à enregistrer',
     recording: 'Enregistrement',

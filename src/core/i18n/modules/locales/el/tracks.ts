@@ -108,6 +108,8 @@ export const tracks_el: TracksI18nShape = {
     nameRequired: 'Το όνομα σημείου είναι υποχρεωτικό',
   },
   recorder: {
+    backgroundTitle: 'Zirtan — καταγραφή διαδρομής',
+    backgroundBody: 'Καταγραφή σε εξέλιξη. Η διαδρομή σου καταγράφεται ακόμη και με σβηστή οθόνη.',
     title: 'Καταγραφή διαδρομής',
     idle: 'Έτοιμο για καταγραφή',
     recording: 'Καταγραφή',

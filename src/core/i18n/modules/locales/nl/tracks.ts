@@ -108,6 +108,8 @@ export const tracks_nl: TracksI18nShape = {
     nameRequired: 'Naam van het punt is verplicht',
   },
   recorder: {
+    backgroundTitle: 'Zirtan — trackopname',
+    backgroundBody: 'Opname loopt. Je route wordt ook met het scherm uit vastgelegd.',
     title: 'Trackopname',
     idle: 'Klaar om op te nemen',
     recording: 'Opnemen',

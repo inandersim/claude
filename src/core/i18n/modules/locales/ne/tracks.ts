@@ -106,6 +106,8 @@ export const tracks_ne: TracksI18nShape = {
     nameRequired: 'बिन्दुको नाम आवश्यक छ',
   },
   recorder: {
+    backgroundTitle: 'Zirtan — ट्र्याक रेकर्डिङ',
+    backgroundBody: 'रेकर्डिङ जारी छ। स्क्रिन बन्द हुँदा पनि तपाईंको मार्ग रेकर्ड हुन्छ।',
     title: 'ट्र्याक रेकर्डिङ',
     idle: 'रेकर्ड गर्न तयार',
     recording: 'रेकर्ड हुँदैछ',

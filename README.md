@@ -114,6 +114,10 @@ npm start
 Git Bash gerektiren komutlar ve sık karşılaşılan sorunlar için
 **[`docs/WINDOWS.md`](docs/WINDOWS.md)**.
 
+**Native (iOS/Android) derleme** ilk kez üretildiğinde ortaya çıkan bulgular ve
+açık kalan tek madde: **[`docs/NATIVE_READINESS.md`](docs/NATIVE_READINESS.md)**.
+Native klasörler depoda tutulmaz; `npx expo prebuild` ile üretilir.
+
 ### Diğer komutlar
 
 ```bash

@@ -108,6 +108,8 @@ export const tracks_ru: TracksI18nShape = {
     nameRequired: 'Нужно название точки',
   },
   recorder: {
+    backgroundTitle: 'Zirtan — запись трека',
+    backgroundBody: 'Идёт запись. Маршрут записывается даже при выключенном экране.',
     title: 'Запись трека',
     idle: 'Готов к записи',
     recording: 'Идёт запись',
