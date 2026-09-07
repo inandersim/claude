@@ -40,6 +40,7 @@ export const NAV_ITEMS: NavItem[] = [
   { path: '/sos', labelKey: 'nav.sos', icon: '⛑', permission: 'sos.view', group: 'nav.group.trust', badge: 'sos' },
   { path: '/content', labelKey: 'nav.content', icon: '✎', permission: 'content.view', group: 'nav.group.growth' },
   { path: '/marketing', labelKey: 'nav.marketing', icon: '📣', permission: 'marketing.view', group: 'nav.group.growth' },
+  { path: '/ai-cto', labelKey: 'nav.cto', icon: '◈', permission: 'cto.view', group: 'nav.group.system' },
   { path: '/agents', labelKey: 'nav.agents', icon: '⚙', permission: 'agents.view', group: 'nav.group.system' },
   { path: '/settings', labelKey: 'nav.settings', icon: '⚑', permission: 'settings.view', group: 'nav.group.system' },
   { path: '/audit', labelKey: 'nav.audit', icon: '≡', permission: 'audit.view', group: 'nav.group.system' },

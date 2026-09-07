@@ -7,6 +7,7 @@ import { Card } from './components/ui';
 import { useT } from './i18n';
 import { AppShell } from './layout/AppShell';
 import { AgentsPage } from './pages/AgentsPage';
+import { AiCtoPage } from './pages/AiCtoPage';
 import { AuditPage } from './pages/AuditPage';
 import { BookingsPage } from './pages/BookingsPage';
 import { ContentPage } from './pages/ContentPage';
@@ -128,6 +129,14 @@ export function App() {
           element={
             <RequirePermission permission="marketing.view">
               <MarketingPage />
+            </RequirePermission>
+          }
+        />
+        <Route
+          path="ai-cto"
+          element={
+            <RequirePermission permission="cto.view">
+              <AiCtoPage />
             </RequirePermission>
           }
         />

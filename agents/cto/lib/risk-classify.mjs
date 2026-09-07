@@ -7,8 +7,11 @@
  *
  * Sebep: risk sınıfı bütün kapıları belirliyor. Bunu modele bırakmak, kapının
  * anahtarını kapıdan geçecek olana vermek olurdu.
+ *
+ * Politika **parametre olarak** geçirilir; bu dosya dosya sistemine dokunmaz ve
+ * tarayıcıdaki yönetim paneli tarafından da içe aktarılır.
  */
-import { loadPolicy, matchPath } from './policy.mjs';
+import { matchPath } from './policy-core.mjs';
 
 const ORDER = ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL'];
 
@@ -23,7 +26,7 @@ const normalize = (s) => s.toLocaleLowerCase('tr-TR').replace(/\s+/g, ' ').trim(
  * @param {{ text?: string, paths?: string[] }} input
  * @returns {{ level: string, reasons: Array<{level: string, kind: 'path'|'keyword', value: string}> }}
  */
-export function classify({ text = '', paths = [] } = {}, policy = loadPolicy()) {
+export function classify({ text = '', paths = [] } = {}, policy) {
   const hay = normalize(text);
   const reasons = [];
   let level = null;
@@ -64,7 +67,7 @@ export function escalateTo(current, proposed) {
  * Risk seviyesinden bağımsızdır: LOW riskli bir "hesap silme metnini değiştir"
  * talebi bile kişisel veri kategorisine girer.
  */
-export function approvalsRequired({ text = '', paths = [] } = {}, policy = loadPolicy()) {
+export function approvalsRequired({ text = '', paths = [] } = {}, policy) {
   const hay = normalize(text);
   const hits = [];
   for (const rule of policy.humanApprovalRequired) {
@@ -78,7 +81,7 @@ export function approvalsRequired({ text = '', paths = [] } = {}, policy = loadP
 }
 
 /** Risk seviyesine göre hangi model kullanılmalı. */
-export function modelFor(step, level, policy = loadPolicy()) {
+export function modelFor(step, level, policy) {
   const escalated = policy.models.escalation?.byRisk?.[level];
   if (escalated) return escalated;
   for (const [model, steps] of Object.entries(policy.models)) {

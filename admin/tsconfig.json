@@ -29,7 +29,8 @@
       "@/components/ui/Icon": ["./src/shims/icon.ts"],
       "@/domain": ["../src/domain/index.ts"],
       "@/domain/*": ["../src/domain/*"],
-      "@/data/*": ["../src/data/*"]
+      "@/data/*": ["../src/data/*"],
+      "@cto/*": ["../agents/cto/*"]
     }
   },
   "include": ["src", "vite.config.ts"]

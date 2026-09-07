@@ -9,8 +9,6 @@
  * `fastPath.skip` listesindeyse atlanır. `neverSkip` listesindekiler hiçbir
  * koşulda atlanamaz; kod bunu politikadan okur, kendi kopyasını tutmaz.
  */
-import { loadPolicy } from './policy.mjs';
-
 export const PENDING = 'pending';
 export const RUNNING = 'running';
 export const PASSED = 'passed';
@@ -19,7 +17,7 @@ export const SKIPPED = 'skipped';
 export const BLOCKED = 'blocked';
 
 /** Talep için başlangıç adım durumları. */
-export function initialSteps(risk, policy = loadPolicy()) {
+export function initialSteps(risk, policy) {
   const fast = policy.pipeline.fastPath;
   const canSkip = fast && risk === fast.risk;
   return policy.pipeline.steps.map((step) => ({
@@ -55,7 +53,7 @@ export function isComplete(steps) {
  * @param {string} id
  * @param {{ status: string, evidence?: string|null, note?: string|null, at?: string }} result
  */
-export function applyResult(steps, id, result, policy = loadPolicy()) {
+export function applyResult(steps, id, result, policy) {
   const index = steps.findIndex((s) => s.id === id);
   if (index === -1) throw new Error(`Bilinmeyen adım: ${id}`);
 

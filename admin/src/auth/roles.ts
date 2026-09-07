@@ -32,6 +32,9 @@ export type Permission =
   | 'marketing.act'
   | 'agents.view'
   | 'agents.rollback'
+  | 'cto.view'
+  | 'cto.submit'
+  | 'cto.approve'
   | 'settings.view'
   | 'settings.edit'
   | 'audit.view';
@@ -63,6 +66,9 @@ const ROLE_PERMISSIONS: Record<AdminRole, Permission[]> = {
     'marketing.act',
     'agents.view',
     'agents.rollback',
+    'cto.view',
+    'cto.submit',
+    'cto.approve',
     'settings.view',
     'settings.edit',
     'audit.view',

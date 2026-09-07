@@ -33,7 +33,7 @@ kasıtlıdır; sözleşme sapması derleme zamanında yakalanır.
 
 `admin/src/data/adminApi.ts` tek bir `AdminApi` arayüzü tanımlar
 (metrikler, kullanıcılar, moderasyon, doğrulama, rezervasyon/ödeme, SOS,
-içerik, pazarlama, ajanlar, ayarlar, denetim). İki uygulaması vardır:
+içerik, pazarlama, ajanlar, AI CTO, ayarlar, denetim). İki uygulaması vardır:
 
 - `mockAdminApi` — tohum veriden türetilmiş, deterministik (mulberry32) demo
   verisi; gerçekçi ağ gecikmesi taklidi; tüm mutasyonlar bellekte kalıcı.
@@ -45,6 +45,31 @@ Sunucu ekibi için uç nokta listesi `admin/README.md` içindedir.
 Uygulama tarafındaki `DataProvider` (`src/data/repositories/index.ts`) son
 kullanıcı işlemlerini modellerken, `AdminApi` aynı varlıkların **yönetimsel**
 görünümünü ve eylemlerini modeller. İkisi çakışmaz; birbirini tamamlar.
+
+## AI Geliştirme Komuta Merkezi (`/ai-cto`)
+
+Panelin en yeni ekranı, doğal dildeki bir geliştirme talebini **kod olarak
+yorumlanmadan önce** analiz eder: ne anlaşıldı, hangi modüller ve tablolar
+etkilenir, risk seviyesi ne, insan onayı gerekiyor mu, 13 adımlı boru hattının
+neresindeyiz.
+
+Üç şey bu ekranı bir "sohbet kutusu"ndan ayırır:
+
+1. **Ekran kod yazmaz.** Talebi kaydeder ve ajanlara devreder; kodu Claude Code
+   ajanları yazar, CI doğrular, insan onaylar (`docs/AI_CTO.md` §0).
+2. **Kural motoru panelde değil.** Risk sınıflandırması, kapılar ve onay
+   kategorileri `agents/cto/lib/*.mjs` içindedir ve panel onları **doğrudan içe
+   aktarır** (`@cto/*` takma adı); politika `agents/cto/policy.json`. Panelde
+   gördüğün karar, `node agents/cto/intake.mjs` çıktısıyla aynıdır.
+3. **Onay kanıt ister.** Kanıt alanı boşken onay düğmesi kapalıdır; onay
+   yalnızca bekleyen adımı açar, geçilmemiş kapıları geçmiş saymaz.
+
+Modül listesi elle yazılmaz: `vite.config.ts` içindeki `virtual:zirtan-modules`
+eklentisi derleme sırasında `src/features/*` ve `src/domain/*.ts` adlarını okur.
+(`import.meta.glob` kullanılmaz — o, özellik dosyalarını paket grafiğine sokar
+ve React Native paneldeki derlemeye sızar.)
+
+İzinler: `cto.view` · `cto.submit` · `cto.approve` (şu an yalnızca `admin`).
 
 ## Yetkilendirme
 

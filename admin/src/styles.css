@@ -570,3 +570,95 @@ table.table {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* ---------------------------------------------------------------- */
+/* AI Geliştirme Komuta Merkezi                                      */
+/* ---------------------------------------------------------------- */
+
+.cto-request {
+  font-size: 14px;
+  line-height: 1.55;
+  padding: 10px 12px;
+  border-left: 3px solid var(--c-accent);
+  background: var(--c-surface-muted);
+  border-radius: var(--r-sm);
+  margin: 0 0 14px;
+}
+
+.cto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+.cto-grid h4,
+.cto-approvals h4,
+.cto-questions h4 {
+  margin: 0 0 6px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--c-text-muted);
+}
+.cto-grid ul,
+.cto-approvals ul,
+.cto-questions ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
+.cto-approvals,
+.cto-questions {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--c-border);
+}
+
+/* Boru hattı: sol tarafta durum işareti, sağda kapı ve kanıt */
+.cto-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: cto-step;
+}
+.cto-step {
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--c-border);
+}
+.cto-step:last-child { border-bottom: none; }
+.cto-step__mark {
+  font-size: 16px;
+  line-height: 1.2;
+  text-align: center;
+  color: var(--c-text-subtle);
+}
+.cto-step--passed .cto-step__mark { color: var(--c-success); }
+.cto-step--failed .cto-step__mark { color: var(--c-danger); }
+.cto-step--blocked .cto-step__mark { color: var(--c-warning); }
+.cto-step__body { min-width: 0; }
+.cto-step__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 2px;
+}
+.cto-step__body p { margin: 2px 0; word-break: break-word; }
+/* Atlanan adım geçen adımla karışmasın: soluk ama görünür kalır */
+.cto-step--skipped .cto-step__body { opacity: 0.6; }
+
+.warning-text { color: var(--c-warning); }
+
+.linklike {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: var(--c-accent);
+  cursor: pointer;
+  text-align: left;
+}
+.linklike:hover { text-decoration: underline; }
+
+.row.gap { gap: 10px; margin-top: 12px; }

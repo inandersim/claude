@@ -584,6 +584,87 @@ export interface ReleaseInfo {
 }
 
 /* ------------------------------------------------------------------ */
+/* 9b — AI CTO: geliştirme komuta merkezi                              */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Bu bölümün tipleri `agents/cto/lib/types.d.ts` ile aynı şekli taşır; kural
+ * motoru orada, panel onu içe aktarır (bkz. `@cto/lib/*`). Burada yalnızca
+ * panelin gördüğü kayıt biçimi tanımlıdır.
+ *
+ * Önemli sınır: panel **kod yazmaz**. Talebi analiz eder, kaydeder, kapıların
+ * durumunu gösterir ve insan onayını toplar; kodu Claude Code ajanları yazar
+ * (bkz. `docs/AI_CTO.md` §0).
+ */
+
+export type CtoRiskLevel = 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
+
+export type CtoStepStatus = 'pending' | 'running' | 'passed' | 'failed' | 'skipped' | 'blocked';
+
+export interface CtoStep {
+  id: string;
+  label: string;
+  gate: string;
+  status: CtoStepStatus;
+  evidence: string | null;
+  note: string | null;
+  at: ISODate | null;
+}
+
+export interface CtoRiskReason {
+  level: CtoRiskLevel;
+  kind: 'path' | 'keyword';
+  value: string;
+}
+
+export interface CtoApproval {
+  id: string;
+  label: string;
+  because: string;
+  kind: 'path' | 'keyword';
+}
+
+export interface CtoRequest {
+  id: ID;
+  createdAt: ISODate;
+  request: string;
+  /** Etkin otonomi seviyesi (L0–L4) — talep alındığı andaki değer */
+  autonomy: string;
+  status: 'open' | 'done' | 'cancelled';
+  understanding: { matched: { module: string; term: string }[]; questions: string[] };
+  impact: { modules: string[]; tables: string[]; paths: string[]; unresolved: boolean };
+  risk: { level: CtoRiskLevel; reasons: CtoRiskReason[] };
+  approvals: CtoApproval[];
+  models: { architecture: string; implement: string; review: string };
+  steps: CtoStep[];
+  approval: { by: string; at: ISODate; evidence: string } | null;
+  /** Ajanların devraldığı görev kaydı (gerçek sunucuda GitHub issue) */
+  issueUrl: string | null;
+  prUrl: string | null;
+}
+
+/** Panelin politikadan gösterdiği özet — kurallar `agents/cto/policy.json`'da. */
+export interface CtoPolicySummary {
+  version: number;
+  autonomy: string;
+  autonomyName: string;
+  canDeployStaging: boolean;
+  canDeployProduction: boolean;
+  humanApproval: { id: string; label: string }[];
+  neverSkip: string[];
+  steps: { id: string; label: string; gate: string }[];
+}
+
+export interface CtoAuditEntry {
+  at: ISODate;
+  agent: string;
+  requestId: ID | null;
+  action: string;
+  step: string | null;
+  evidence: string | null;
+}
+
+/* ------------------------------------------------------------------ */
 /* 10 — Ayarlar                                                        */
 /* ------------------------------------------------------------------ */
 
@@ -747,6 +828,21 @@ export interface AdminApi {
     health(): Promise<SystemHealth>;
     releases(): Promise<ReleaseInfo[]>;
     rollback(version: string, reason: string): Promise<ReleaseInfo[]>;
+  };
+
+  cto: {
+    /** Politikanın panelde gösterilen özeti (kurallar `agents/cto/policy.json`) */
+    policy(): Promise<CtoPolicySummary>;
+    /** Talebi **kaydetmeden** analiz eder — ekranda önizleme için */
+    analyze(text: string): Promise<CtoRequest>;
+    /** Talebi kaydeder ve ajanlara devreder */
+    submit(text: string): Promise<CtoRequest>;
+    list(query: PageQuery): Promise<Paged<CtoRequest>>;
+    get(id: ID): Promise<CtoRequest | null>;
+    /** İnsan onayı: yalnızca bekleyen adımı açar, kapıları geçmiş saymaz */
+    approve(id: ID, evidence: string): Promise<CtoRequest>;
+    cancel(id: ID, reason: string): Promise<CtoRequest>;
+    audit(query: PageQuery): Promise<Paged<CtoAuditEntry>>;
   };
 
   settings: {

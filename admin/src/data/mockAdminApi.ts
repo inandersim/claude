@@ -35,6 +35,7 @@ import type {
   VerificationRequest,
   VerificationStatusAdmin,
 } from './adminApi';
+import { mockCto } from './mockCto';
 import { buildSeries, getStore, rescueOptions } from './mockStore';
 
 /* ------------------------------------------------------------------ */
@@ -851,6 +852,8 @@ export const mockAdminApi: AdminApi = {
       return delay(store.releases, 1);
     },
   },
+
+  cto: mockCto,
 
   settings: {
     async get() {

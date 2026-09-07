@@ -354,7 +354,7 @@ imkânı.
 ## 18. Bir talep nasıl verilir
 
 Yönetim panelinde **AI Geliştirme Komuta Merkezi** (`/ai-cto`) ekranına doğal
-dilde yazılır. Örnek:
+dilde yazılır (ekran ayrıntısı: `docs/ADMIN.md`). Örnek:
 
 > Karadeniz'de 3 günlük trekking rotaları için yeni bir özellik ekle. Kullanıcı
 > başlangıç ve bitiş noktasını seçsin, zorluk seviyesini belirlesin; hava

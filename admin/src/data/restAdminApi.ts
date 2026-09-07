@@ -10,7 +10,12 @@
  *   POST /users/:id/status        { status, reason, days }
  *   POST /moderation/act          { ids, action, reason }
  *   POST /bookings/:id/refund     { amountTry, reason }
+ *   POST /cto/requests            { text }        → talep alımı (adım 1–6)
+ *   POST /cto/requests/:id/approve { evidence }   → insan onayı
  *   …
+ *
+ * `cto/*` uçları sunucuda `agents/cto` betiklerini çalıştırır; kural motoru
+ * orada tektir (bkz. `docs/AI_CTO.md` §0).
  */
 import type {
   AdminApi,
@@ -21,6 +26,7 @@ import type {
   AdminUserRow,
   ContentDetail,
   ContentRow,
+  CtoRequest,
   Dispute,
   ReleaseInfo,
   SocialPostItem,
@@ -166,6 +172,17 @@ export function createRestAdminApi(config: RestConfig): AdminApi {
       health: () => get('/system/health'),
       releases: () => get('/system/releases'),
       rollback: (version, reason) => post<ReleaseInfo[]>('/system/rollback', { version, reason }),
+    },
+
+    cto: {
+      policy: () => get('/cto/policy'),
+      analyze: (text) => post<CtoRequest>('/cto/analyze', { text }),
+      submit: (text) => post<CtoRequest>('/cto/requests', { text }),
+      list: (query) => get('/cto/requests', pageParams({ ...query })),
+      get: (id) => get<CtoRequest | null>(`/cto/requests/${id}`),
+      approve: (id, evidence) => post<CtoRequest>(`/cto/requests/${id}/approve`, { evidence }),
+      cancel: (id, reason) => post<CtoRequest>(`/cto/requests/${id}/cancel`, { reason }),
+      audit: (query) => get('/cto/audit', pageParams({ ...query })),
     },
 
     settings: {
