@@ -144,7 +144,8 @@ export function createFunRepository(ctx: RemoteContext): FunRepository {
   const awardBadges = async (meId: ID, now: number): Promise<ID[]> => {
     const [earnedRows, badgeRows] = await Promise.all([
       rows(db.from('earned_badges').select('badge_id').eq('user_id', meId), 'rozetler okunamadı'),
-      rows(db.from('badges').select('id, code').limit(500), 'rozet listesi okunamadı'),
+      // Rozet kataloğu sabit ve küçük; tamamı gerekiyor.
+      rows(db.from('badges').select('id, code'), 'rozet listesi okunamadı', { limit: 500 }),
     ]);
     const known = new Set(badgeRows.map((row) => String(row.id)));
     const earned = earnedRows.map((row) => String(row.badge_id));

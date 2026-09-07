@@ -948,9 +948,9 @@ export function createWeatherRepository(ctx: RemoteContext): WeatherRepository {
           .select('*')
           .eq('region_code', region.code)
           .gte('valid_to', new Date().toISOString())
-          .order('valid_from', { ascending: false })
-          .limit(1),
+          .order('valid_from', { ascending: false }),
         'çığ bülteni okunamadı',
+        { limit: 1 },
       );
       if (row) return toAvalancheBulletin(row);
       if (region.official && region.caamlUrl) {

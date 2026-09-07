@@ -173,7 +173,7 @@ export function createTelemedRepository(ctx: RemoteContext): TelemedRepository {
   const persistableSlug = async (slug: string | null): Promise<string | null> => {
     if (!slug) return null;
     const row = await maybeRow(
-      db.from('first_aid_guides').select('slug').eq('slug', slug).limit(1),
+      db.from('first_aid_guides').select('slug').eq('slug', slug),
       'ilk yardım rehberi okunamadı',
     );
     return row ? slug : null;

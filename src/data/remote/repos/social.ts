@@ -467,13 +467,14 @@ export function createSocialRepository(ctx: RemoteContext): SocialRepository {
             db
               .from('profiles')
               .select(PROFILE_SELECT)
-              .or(`username.ilike.*${q}*,display_name.ilike.*${q}*`)
-              .limit(50),
+              .or(`username.ilike.*${q}*,display_name.ilike.*${q}*`),
             'kullanıcı araması başarısız',
+            { limit: 50 },
           )
         : await rows(
-            db.from('profiles').select(PROFILE_SELECT).limit(50),
+            db.from('profiles').select(PROFILE_SELECT),
             'kullanıcılar okunamadı',
+            { limit: 50 },
           );
       return matchUsers(data.map(toUser), query, 8);
     },

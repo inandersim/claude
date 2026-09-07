@@ -360,10 +360,9 @@ export function createGroupRepository(ctx: RemoteContext): GroupRepository {
         .from('group_messages')
         .select('*')
         .eq('group_id', groupId)
-        .order('created_at', { ascending: false })
-        .limit(limit);
+        .order('created_at', { ascending: false });
       if (before) query = query.lt('created_at', before);
-      const data = await rows(query, 'mesajlar okunamadı');
+      const data = await rows(query, 'mesajlar okunamadı', { limit });
       const page = data.map(toGroupMessage).reverse();
       return await enrich(page, meId);
     },

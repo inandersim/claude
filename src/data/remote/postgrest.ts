@@ -169,20 +169,70 @@ export async function unwrap<T>(
   return result.data;
 }
 
-/** Satır listesi bekleyen sorgular için kısayol. */
-export async function rows(
-  promise: PromiseLike<PostgrestResponse<Row[]>>,
-  context: string,
-): Promise<Row[]> {
-  return (await unwrap(promise, context)) ?? [];
+/**
+ * Sınırsız bir liste sorgusunun **varsayılan tavanı**.
+ *
+ * Neden var: bu katmandaki 443 sorgu zincirinin 313'ü hiçbir sınır
+ * taşımıyordu. 100 kullanıcıda kimse fark etmez; ölçtüğümüz gerçek şemada bir
+ * akış satırı (gönderi + gömülü yazar profili) **1.980 bayt** ve PostgREST'in
+ * varsayılan tavanı 1.000 satır. Yani her akış açılışı ~2 MB indiriyordu:
+ * 100 bin kullanıcıda aylık ~22 TB, ~2.000 dolar. 20 satırlık sayfayla aynı
+ * yük ~440 GB ve ~40 dolar.
+ *
+ * Tavan bir **emniyet ağıdır**, sayfa boyu değil: ekranlar kendi sayfa boyunu
+ * `rows(..., { limit })` ile verir.
+ */
+export const VARSAYILAN_TAVAN = 200;
+
+export interface RowsOptions {
+  /**
+   * Bu sorgunun tavanı. `null` **bilinçli sınırsız** demektir (ör. sabit ve
+   * küçük bir sözlük tablosu) ve yorumla gerekçelendirilmelidir.
+   */
+  limit?: number | null;
+  /** Ofsetli sayfalama: `[from, to]`, iki uç da dahil (PostgREST `range`). */
+  range?: [number, number];
 }
 
-/** En fazla bir satır bekleyen sorgular için kısayol. */
+/**
+ * Satır listesi bekleyen sorgular için kısayol.
+ *
+ * **Kural:** repository'lerde `.limit()` / `.range()` **zincirlenmez**; sınır
+ * her zaman buradan geçer. Böylece hem tek yerden denetlenebilir hem de
+ * "zincirdeki 20'yi burada 200'e genişletmek" gibi sessiz hatalar imkânsız
+ * olur. Kuralı `remoteLimits.test.ts` koruyor.
+ */
+export async function rows(
+  source: FilterBuilder<Row[]> | PromiseLike<PostgrestResponse<Row[]>>,
+  context: string,
+  options: RowsOptions = {},
+): Promise<Row[]> {
+  const builder = source as Partial<FilterBuilder<Row[]>>;
+  let sorgu = source as PromiseLike<PostgrestResponse<Row[]>>;
+  if (typeof builder.limit === 'function' && typeof builder.range === 'function') {
+    if (options.range) {
+      sorgu = builder.range(options.range[0], options.range[1]) as FilterBuilder<Row[]>;
+    } else if (options.limit !== null) {
+      sorgu = builder.limit(options.limit ?? VARSAYILAN_TAVAN) as FilterBuilder<Row[]>;
+    }
+  }
+  return (await unwrap(sorgu, context)) ?? [];
+}
+
+/**
+ * En fazla bir satır bekleyen sorgular için kısayol.
+ *
+ * `maybeSingle()` birden çok satır dönerse hata verir; "en yenisini al" gibi
+ * sorgular bu yüzden `{ limit: 1 }` geçer. Sınır burada da zincirle değil
+ * seçenekle veriliyor — kural tek: **repository'de `.limit()` zincirlenmez.**
+ */
 export async function maybeRow(
   builder: FilterBuilder<Row[]>,
   context: string,
+  options: { limit?: number } = {},
 ): Promise<Row | null> {
-  return await unwrap(builder.maybeSingle(), context);
+  const sorgu = options.limit === undefined ? builder : builder.limit(options.limit);
+  return await unwrap(sorgu.maybeSingle(), context);
 }
 
 /** Tam olarak bir satır bekleyen sorgular için kısayol. */

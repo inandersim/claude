@@ -241,6 +241,13 @@ export function createUserRepository(ctx: RemoteContext): UserRepository {
 
 const POST_SELECT = `*, author:profiles!author_id(${PROFILE_SELECT})`;
 
+/**
+ * Akış sayfası. Ekran sonsuz kaydırma yapmıyor; 40 gönderi bir oturumun
+ * göreceğinden fazlası. Büyütmeden önce `docs/SCALE.md` içindeki egress
+ * hesabına bakılmalı.
+ */
+const AKIS_SAYFASI = 40;
+
 export function createFeedRepository(ctx: RemoteContext): FeedRepository {
   const { db } = ctx;
 
@@ -315,7 +322,9 @@ export function createFeedRepository(ctx: RemoteContext): FeedRepository {
       if (filter.locationName) {
         query = query.ilike('location_name', `*${safeQuery(filter.locationName)}*`);
       }
-      const data = await rows(query, 'akış okunamadı');
+      // Ölçülen: bu satır (gönderi + gömülü yazar profili) ~2 KB. Tavan
+      // olmadan PostgREST 1.000 satır dönüyor, yani her açılışta ~2 MB.
+      const data = await rows(query, 'akış okunamadı', { limit: AKIS_SAYFASI });
       return await toFeedPosts(data, viewerId);
     },
 
@@ -584,8 +593,9 @@ export function createMatchRepository(ctx: RemoteContext): MatchRepository {
             `and(requester_id.eq.${meId},receiver_id.eq.${input.receiverId}),` +
               `and(requester_id.eq.${input.receiverId},receiver_id.eq.${meId})`,
           )
-          .limit(1),
+          ,
         'eşleşme okunamadı',
+        { limit: 1 },
       );
       const existing = pending[0];
       if (existing) return await one(toMatch(existing));
@@ -1979,9 +1989,9 @@ export function createEmergencyRepository(ctx: RemoteContext): EmergencyReposito
           .select('*')
           .eq('user_id', meId)
           .is('resolved_at', null)
-          .order('created_at', { ascending: false })
-          .limit(1),
+          .order('created_at', { ascending: false }),
         'SOS okunamadı',
+        { limit: 1 },
       );
       return row ? toSosEvent(row) : null;
     },

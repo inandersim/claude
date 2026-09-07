@@ -118,6 +118,9 @@ Git Bash gerektiren komutlar ve sık karşılaşılan sorunlar için
 açık kalan tek madde: **[`docs/NATIVE_READINESS.md`](docs/NATIVE_READINESS.md)**.
 Native klasörler depoda tutulmaz; `npx expo prebuild` ile üretilir.
 
+**Ölçek ve maliyet** — kullanıcı başına ölçülmüş egress, kırılma noktaları ve
+harcama planı: **[`docs/SCALE.md`](docs/SCALE.md)**.
+
 ### Diğer komutlar
 
 ```bash
