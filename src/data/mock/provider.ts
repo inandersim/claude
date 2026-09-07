@@ -65,6 +65,7 @@ import {
   type ZMatch,
   type ZMatchWithUsers,
 } from '@/domain';
+import { gecerliOlcum } from '@/domain/altitude';
 import { tokenCikar, tokenEkle } from '@/domain/push';
 
 import type {
@@ -404,6 +405,12 @@ export function createMockProvider(options: Options = {}): DataProvider {
       const t = await db.load();
       const user = requireUser(t.users, id);
       Object.assign(user, patch);
+      if (patch.baselineRestingHr !== undefined) {
+        // Uzak sağlayıcıyla aynı kural: sınır dışı değer kırpılmaz, düşürülür.
+        // Uydurma bir bazal, bazal olmamasından kötüdür — nabız sapmasını
+        // sistematik olarak yanıltır.
+        user.baselineRestingHr = gecerliOlcum('restingHr', patch.baselineRestingHr);
+      }
       db.markDirty();
       return user;
     },

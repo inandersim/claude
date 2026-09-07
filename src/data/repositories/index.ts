@@ -242,7 +242,9 @@ export interface UserRepository {
   toggleFollow(followerId: ID, followingId: ID): Promise<{ following: boolean }>;
   updateProfile(
     id: ID,
-    patch: Partial<Pick<User, 'displayName' | 'bio' | 'locationName' | 'favoriteTypes'>>,
+    patch: Partial<
+      Pick<User, 'displayName' | 'bio' | 'locationName' | 'favoriteTypes' | 'baselineRestingHr'>
+    >,
   ): Promise<User>;
 }
 

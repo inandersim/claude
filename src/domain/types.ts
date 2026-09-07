@@ -117,6 +117,15 @@ export interface User {
   plan: Plan;
   /** Acil durumda canlı konumun paylaşılacağı kişiler */
   emergencyContacts: EmergencyContact[];
+  /**
+   * Deniz seviyesindeki dinlenme nabzı (atım/dk).
+   *
+   * İrtifadaki sapma buna göre okunur; mutlak nabız anlamsızdır (55 atımlık
+   * bir sporcuda 70 ciddi bir sapma, 75 atımlık birinde değil). Bilinmiyorsa
+   * motor nabız sinyalini hiç kullanmaz — uydurma bir bazal varsaymaktansa
+   * sinyali atlamak doğru.
+   */
+  baselineRestingHr?: number | null;
 }
 
 export interface EmergencyContact {

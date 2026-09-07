@@ -363,6 +363,7 @@ export function toUser(row: Row): User {
     joinedAt: iso(row.joined_at ?? row.created_at),
     plan: (str(row.plan, 'free') as User['plan']) ?? 'free',
     emergencyContacts: contacts,
+    baselineRestingHr: numOrNull(row.baseline_resting_hr),
   };
 }
 

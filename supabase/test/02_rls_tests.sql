@@ -343,6 +343,49 @@ BEGIN
   PERFORM _assert(n > 0, 'species: ilk yardım bağı korundu');
 END $$;
 
+-- =====================================================================
+-- Bazal nabız: veritabanı son savunma hattı
+--
+-- İstemci `gecerliOlcum` ile sınır dışı değeri düşürür, ama gelecekte
+-- profili başka bir yol (admin paneli, içe aktarma betiği, doğrudan SQL)
+-- güncellerse o kontrol devreye girmez. Uydurma bir bazal, irtifadaki
+-- nabız sapmasını her ölçümde sistematik olarak yanıltacağı için sınır
+-- kısıtı şemada da bulunmalı.
+-- =====================================================================
+DO $$
+DECLARE u uuid; ok boolean; onceki smallint;
+BEGIN
+  SELECT id, baseline_resting_hr INTO u, onceki FROM profiles LIMIT 1;
+
+  UPDATE profiles SET baseline_resting_hr = 54 WHERE id = u;
+  PERFORM _assert(
+    (SELECT baseline_resting_hr FROM profiles WHERE id = u) = 54,
+    'profiles.baseline_resting_hr: geçerli bazal kaydedildi');
+
+  ok := false;
+  BEGIN
+    UPDATE profiles SET baseline_resting_hr = 300 WHERE id = u;
+  EXCEPTION WHEN check_violation THEN ok := true;
+  END;
+  PERFORM _assert(ok, 'profiles.baseline_resting_hr: 300 bpm reddedildi');
+
+  ok := false;
+  BEGIN
+    UPDATE profiles SET baseline_resting_hr = 12 WHERE id = u;
+  EXCEPTION WHEN check_violation THEN ok := true;
+  END;
+  PERFORM _assert(ok, 'profiles.baseline_resting_hr: 12 bpm reddedildi');
+
+  -- NULL "bilinmiyor" demektir ve serbest kalmalı: bazalı olmayan kullanıcı
+  -- için sapma hesaplanmaz, ölçüm engellenmez.
+  UPDATE profiles SET baseline_resting_hr = NULL WHERE id = u;
+  PERFORM _assert(
+    (SELECT baseline_resting_hr FROM profiles WHERE id = u) IS NULL,
+    'profiles.baseline_resting_hr: NULL serbest (bilinmiyor)');
+
+  UPDATE profiles SET baseline_resting_hr = onceki WHERE id = u;
+END $$;
+
 DROP FUNCTION _assert(boolean, text);
 DROP FUNCTION _uid(integer);
 

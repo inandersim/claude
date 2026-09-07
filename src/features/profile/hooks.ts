@@ -51,3 +51,27 @@ export function useToggleFollow(otherId: ID) {
     },
   });
 }
+
+/**
+ * Profil güncelleme.
+ *
+ * Sözleşmede (`users.updateProfile`) baştan beri vardı ama hiçbir yerden
+ * çağrılmıyordu — profil düzenleme hattı hiç bağlanmamıştı. İlk çağıran,
+ * irtifa değerlendirmesi için gereken bazal nabız alanı.
+ *
+ * Başarıda oturum kopyası da tazelenir: `useCurrentUser` bu kopyayı okuyor ve
+ * güncellenmezse ekran eski değeri gösterirdi.
+ */
+export function useUpdateProfile() {
+  const me = useCurrentUser();
+  const qc = useQueryClient();
+  const refreshUser = useSessionStore((s) => s.refreshUser);
+  return useMutation({
+    mutationFn: (patch: Parameters<ReturnType<typeof getDataProvider>['users']['updateProfile']>[1]) =>
+      getDataProvider().users.updateProfile(me.id, patch),
+    onSuccess: async () => {
+      qc.invalidateQueries({ queryKey: queryKeys.users.detail(me.id) });
+      await refreshUser();
+    },
+  });
+}

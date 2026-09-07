@@ -32,6 +32,12 @@ export interface AmsFormValue {
   restingHr: number | null;
   systolic: number | null;
   diastolic: number | null;
+  /**
+   * Deniz seviyesindeki bazal nabız. Kontrol kaydına değil **profile** ait —
+   * kişisel bir sabit, ölçüm anına ait bir veri değil. Ekran bunu ayırıp
+   * profile yazar. Değişmediyse `undefined` gelir ve yazma yapılmaz.
+   */
+  baselineRestingHr?: number | null;
 }
 
 interface Props {
@@ -39,6 +45,8 @@ interface Props {
   initialDestinationId?: ID | null;
   initialElevationM?: number | null;
   submitting?: boolean;
+  /** Profildeki mevcut bazal nabız; alan bununla doldurulur. */
+  baselineRestingHr?: number | null;
   onSubmit: (value: AmsFormValue) => void;
 }
 
@@ -52,6 +60,7 @@ export function AmsForm({
   initialDestinationId = null,
   initialElevationM = null,
   submitting = false,
+  baselineRestingHr = null,
   onSubmit,
 }: Props) {
   const { colors } = useTheme();
@@ -70,15 +79,21 @@ export function AmsForm({
   const [error, setError] = useState<string | null>(null);
   // Ölçümler metin olarak tutulur: boş alan "ölçüm yok" demek, sıfır değil.
   const [olcum, setOlcum] = useState({ spo2: '', restingHr: '', systolic: '', diastolic: '' });
+  const [bazal, setBazal] = useState(
+    baselineRestingHr != null ? String(baselineRestingHr) : '',
+  );
 
   /** Boş alan `null`; sınır dışı değer de `null` (uydurma ölçüm üretmemek için). */
   const sayi = (alan: OlcumAlani, ham: string): number | null =>
     ham.trim() ? gecerliOlcum(alan, Number(ham.replace(',', '.'))) : null;
 
   /** Girilmiş ama sınır dışı kalan alanlar — kullanıcıya sessizce yutmak yerine söylenir. */
-  const sinirDisi = (['spo2', 'restingHr', 'systolic', 'diastolic'] as const).filter(
-    (alan) => olcum[alan].trim() !== '' && sayi(alan, olcum[alan]) === null,
-  );
+  const sinirDisi = [
+    ...(['spo2', 'restingHr', 'systolic', 'diastolic'] as const).filter(
+      (alan) => olcum[alan].trim() !== '' && sayi(alan, olcum[alan]) === null,
+    ),
+    ...(bazal.trim() !== '' && sayi('restingHr', bazal) === null ? (['bazal'] as const) : []),
+  ];
 
   const preview = lakeLouiseScore(scores.headache, scores.gi, scores.fatigue, scores.dizziness);
   const meta = AMS_SEVERITY_META[preview.severity];
@@ -104,6 +119,11 @@ export function AmsForm({
       restingHr: sayi('restingHr', olcum.restingHr),
       systolic: sayi('systolic', olcum.systolic),
       diastolic: sayi('diastolic', olcum.diastolic),
+      // Yalnızca değiştiyse gönder: her kontrolde profili boşuna yazmayalım.
+      baselineRestingHr:
+        bazal.trim() === (baselineRestingHr != null ? String(baselineRestingHr) : '')
+          ? undefined
+          : sayi('restingHr', bazal),
     });
   };
 
@@ -223,6 +243,14 @@ export function AmsForm({
       <Text variant="caption" color="textMuted">
         {t('altitude.measure.bpHint')}
       </Text>
+      <Input
+        label={t('altitude.measure.baselineHr')}
+        value={bazal}
+        onChangeText={setBazal}
+        keyboardType="number-pad"
+        maxLength={3}
+        icon="heart-pulse"
+      />
 
       <View
         style={[

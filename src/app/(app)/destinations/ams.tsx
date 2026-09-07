@@ -15,6 +15,7 @@ import {
   Text,
 } from '@/components/ui';
 import { useToast } from '@/core/hooks/useToast';
+import { useCurrentUser } from '@/features/auth/session.store';
 import { useT } from '@/core/i18n';
 import { layout, radius, spacing, useTheme } from '@/core/theme';
 import { formatAltitude } from '@/core/utils/format';
@@ -25,6 +26,7 @@ import { AmsForm } from '@/features/destinations/components/AmsForm';
 import { AmsHistoryChart } from '@/features/destinations/components/AmsHistoryChart';
 import { amsSeverityColor, amsSeveritySoft } from '@/features/destinations/components/meta';
 import { useAmsChecks, useDestinations, useLogAms } from '@/features/destinations/hooks';
+import { useUpdateProfile } from '@/features/profile/hooks';
 
 export default function AmsScreen() {
   const { destinationId, elevation } = useLocalSearchParams<{
@@ -39,6 +41,8 @@ export default function AmsScreen() {
   const checks = useAmsChecks();
   const destinations = useDestinations({});
   const logAms = useLogAms();
+  const updateProfile = useUpdateProfile();
+  const me = useCurrentUser();
 
   const options = useMemo(
     () =>
@@ -106,8 +110,7 @@ export default function AmsScreen() {
 
         {/*
           İrtifa durumu: son öz-değerlendirmenin yüksekliği, şiddeti ve
-          ölçümleri üzerinden okunur. Bazal nabız henüz saklanmıyor, o yüzden
-          nabız yükselme yüzdesi hesaplanmıyor (bkz. `nabizYukselmesi`).
+          ölçümleri + profildeki bazal nabız üzerinden okunur.
         */}
         {latest ? (
           <AltitudeStatusCard
@@ -115,6 +118,7 @@ export default function AmsScreen() {
             amsSiddeti={latest.severity}
             spo2={latest.spo2 ?? null}
             dinlenmeNabzi={latest.restingHr ?? null}
+            bazalNabiz={me.baselineRestingHr ?? null}
             kanBasinci={
               latest.systolic != null && latest.diastolic != null
                 ? { sistolik: latest.systolic, diyastolik: latest.diastolic }
@@ -128,16 +132,22 @@ export default function AmsScreen() {
           initialDestinationId={destinationId ?? null}
           initialElevationM={Number.isFinite(initialElevation) ? initialElevation : null}
           submitting={logAms.isPending}
-          onSubmit={(value) =>
-            logAms.mutate(value, {
+          baselineRestingHr={me.baselineRestingHr ?? null}
+          onSubmit={({ baselineRestingHr, ...check }) => {
+            // Bazal nabız kontrol kaydına değil **profile** ait: kişisel bir
+            // sabit, ölçüm anına ait bir veri değil. Yalnızca değiştiyse gelir.
+            if (baselineRestingHr !== undefined) {
+              updateProfile.mutate({ baselineRestingHr });
+            }
+            logAms.mutate(check, {
               onSuccess: (c) =>
                 toast(
                   `${t('destinations.ams.logged')} · ${t(AMS_SEVERITY_META[c.severity].labelKey)}`,
                   c.severity === 'severe' ? 'error' : 'success',
                 ),
               onError: (e) => toast(e.message, 'error'),
-            })
-          }
+            });
+          }}
         />
 
         <SectionHeader title={t('destinations.ams.history')} />

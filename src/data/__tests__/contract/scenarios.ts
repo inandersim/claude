@@ -156,6 +156,34 @@ export function runContractScenarios(harness: () => ContractHarness): void {
   });
 
   /* ---------------------------------------------------------------- */
+  describe('profil', () => {
+    it('bazal nabzı kaydeder; sınır dışı değeri kırpmaz, düşürür', async () => {
+      const me = await userByUsername(P(), 'kerem.aydin');
+      await signIn(me.id);
+
+      const saved = await P().users.updateProfile(me.id, { baselineRestingHr: 54 });
+      expect(saved.baselineRestingHr).toBe(54);
+      expect((await P().users.getById(me.id))!.baselineRestingHr).toBe(54);
+
+      // 300 bpm bir ölçüm değil, cihaz hatasıdır. 220'ye kırpmak uydurma bir
+      // bazal üretir ve irtifadaki nabız sapmasını her ölçümde sistematik
+      // olarak yanıltır; bu yüzden değer düşürülür.
+      await P().users.updateProfile(me.id, { baselineRestingHr: 300 });
+      expect((await P().users.getById(me.id))!.baselineRestingHr).toBeNull();
+
+      // Alan gönderilmezse dokunulmaz: profilin başka bir alanını düzenlemek
+      // bazalı silmemeli.
+      await P().users.updateProfile(me.id, { baselineRestingHr: 58 });
+      await P().users.updateProfile(me.id, { bio: 'sözleşme testi' });
+      const after = (await P().users.getById(me.id))!;
+      expect(after.bio).toBe('sözleşme testi');
+      expect(after.baselineRestingHr).toBe(58);
+
+      await P().users.updateProfile(me.id, { bio: me.bio, baselineRestingHr: null });
+    });
+  });
+
+  /* ---------------------------------------------------------------- */
   describe('grup mesajı', () => {
     it('grup kurar, üye alır, mesaj ve anket gönderir', async () => {
       const owner = await userByUsername(P(), 'deniz.kaya');

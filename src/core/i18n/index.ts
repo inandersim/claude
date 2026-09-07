@@ -63,6 +63,20 @@ export const i18n = new I18n({
 i18n.enableFallback = true;
 i18n.defaultLocale = 'tr';
 
+/**
+ * Yer tutucu yalnızca `{{ad}}` biçimidir.
+ *
+ * i18n-js'in varsayılan deseni `%{ad}` biçimini de tanır. Türkçe yüzdeyi
+ * **önüne** yazar ("deniz seviyesinin %54'i"), yani `%{{percent}}` metni
+ * varsayılan desende `%{` ile açılmış bir yer tutucu sanılır: değişken
+ * yerine `[missing "%{{percent}}" value]` basılır. Bu, İrtifa kartında ve
+ * kurs sınav skorunda gerçekten görülen bir hataydı.
+ *
+ * Bu projede `%{ad}` biçimi hiç kullanılmadığı için deseni daraltmak hem
+ * mevcut hatayı düzeltir hem de aynı tuzağı bir daha kurulamaz yapar.
+ */
+i18n.placeholder = /\{\{(.*?)\}\}/gm;
+
 function detectLocale(): Locale {
   const first = getLocales()[0]?.languageCode ?? 'tr';
   return (LOCALES as string[]).includes(first) ? (first as Locale) : 'en';

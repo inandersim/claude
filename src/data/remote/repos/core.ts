@@ -31,6 +31,7 @@ import {
   type ZMatch,
   type ZMatchWithUsers,
 } from '@/domain';
+import { gecerliOlcum } from '@/domain/altitude';
 
 import type {
   AuthRepository,
@@ -228,6 +229,11 @@ export function createUserRepository(ctx: RemoteContext): UserRepository {
       if (patch.bio !== undefined) payload.bio = patch.bio;
       if (patch.locationName !== undefined) payload.location_name = patch.locationName;
       if (patch.favoriteTypes !== undefined) payload.favorite_types = patch.favoriteTypes;
+      if (patch.baselineRestingHr !== undefined) {
+        // Sınır dışı değer kırpılmaz, düşürülür: uydurma bir bazal, bazal
+        // olmamasından kötüdür — nabız sapmasını sistematik olarak yanıltır.
+        payload.baseline_resting_hr = gecerliOlcum('restingHr', patch.baselineRestingHr);
+      }
       if (Object.keys(payload).length) {
         await rows(db.from('profiles').update(payload).eq('id', id), 'profil güncellenemedi');
       }

@@ -100,6 +100,15 @@ describe('uzak eşleyiciler', () => {
     expect(user.plan).toBe('pro');
   });
 
+  it("bazal nabzı okur; sütun boşsa null verir", () => {
+    const withBaseline = toUser({ id: 'u1', username: 'deniz', baseline_resting_hr: 54 });
+    expect(withBaseline.baselineRestingHr).toBe(54);
+    // Sütun boşken 0 dönmemeli: 0 bpm geçerli bir bazal gibi görünür ve nabız
+    // sapması hesabında sıfıra bölme üretir.
+    expect(toUser({ id: 'u1', username: 'deniz' }).baselineRestingHr).toBeNull();
+    expect(toUser({ id: 'u1', username: 'deniz', baseline_resting_hr: null }).baselineRestingHr).toBeNull();
+  });
+
   it('gönderi satırını Post\'a çevirir', () => {
     const post = toPost({
       id: 'p1',

@@ -201,3 +201,32 @@ describe('MockProvider — keşfet', () => {
     expect(upper.locations.length).toBe(result.locations.length);
   });
 });
+
+describe('MockProvider — profil', () => {
+  it('bazal nabzı kaydeder ve geri okur', async () => {
+    const p = makeProvider();
+    const updated = await p.users.updateProfile(CURRENT_USER_ID, { baselineRestingHr: 54 });
+    expect(updated.baselineRestingHr).toBe(54);
+    expect((await p.users.getById(CURRENT_USER_ID))?.baselineRestingHr).toBe(54);
+  });
+
+  it('sınır dışı bazal nabzı kırpmaz, düşürür', async () => {
+    const p = makeProvider();
+    // 300 bpm bir ölçüm değil, cihaz hatasıdır. 220'ye kırpmak uydurma bir
+    // bazal yaratır ve nabız sapmasını her ölçümde sistematik olarak yanıltır.
+    await p.users.updateProfile(CURRENT_USER_ID, { baselineRestingHr: 300 });
+    expect((await p.users.getById(CURRENT_USER_ID))?.baselineRestingHr).toBeNull();
+
+    await p.users.updateProfile(CURRENT_USER_ID, { baselineRestingHr: 12 });
+    expect((await p.users.getById(CURRENT_USER_ID))?.baselineRestingHr).toBeNull();
+  });
+
+  it('bazal nabız gönderilmezse mevcut değeri korur', async () => {
+    const p = makeProvider();
+    await p.users.updateProfile(CURRENT_USER_ID, { baselineRestingHr: 58 });
+    await p.users.updateProfile(CURRENT_USER_ID, { bio: 'yeni biyografi' });
+    const user = await p.users.getById(CURRENT_USER_ID);
+    expect(user?.bio).toBe('yeni biyografi');
+    expect(user?.baselineRestingHr).toBe(58);
+  });
+});
