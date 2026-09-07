@@ -1,0 +1,37 @@
+# Satır sonları
+#
+# Windows'ta Git varsayılan olarak checkout sırasında LF → CRLF çevirir.
+# Bu, kabuk betiklerini bozar ve herkesin deposunda gereksiz fark üretir.
+# Kural: depoda her şey LF; yalnızca Windows'a özgü dosyalar CRLF.
+
+* text=auto eol=lf
+
+# Windows toplu iş dosyaları CRLF olmak zorunda
+*.bat  text eol=crlf
+*.cmd  text eol=crlf
+*.ps1  text eol=crlf
+
+# Kabuk betikleri her platformda LF (Git Bash/WSL bunları çalıştırır)
+*.sh   text eol=lf
+
+# İkili dosyalar: Git dokunmasın
+*.png      binary
+*.jpg      binary
+*.jpeg     binary
+*.gif      binary
+*.webp     binary
+*.ico      binary
+*.woff     binary
+*.woff2    binary
+*.ttf      binary
+*.otf      binary
+*.mp4      binary
+*.mp3      binary
+*.wav      binary
+*.pdf      binary
+*.pmtiles  binary
+*.mbtiles  binary
+
+# GitHub dil istatistiklerinde üretilmiş/vendor dosyaları sayılmasın
+website/dist/**   linguist-generated
+supabase/seed/seed.sql  linguist-generated

@@ -97,17 +97,23 @@ Ek olarak: karşılama + giriş + kayıt akışı, yeni macera paylaşma (fotoğ
 
 ## Hızlı başlangıç
 
-> Gereksinimler: Node 20+, npm 10+, telefonda **Expo Go** (veya Android Studio / Xcode).
+> Gereksinimler: Node 22 LTS, npm 10+, telefonda **Expo Go** (veya Android Studio / Xcode).
 
 ```bash
-git clone https://github.com/inandersim/claude.git zirve
-cd zirve
+git clone https://github.com/inandersim/claude.git zirtan
+cd zirtan
+git checkout claude/outdoor-adventure-social-app-du8h5t
 npm install
 npm start
 ```
 
 - Telefonda **Expo Go** ile QR kodu okutun (iOS ve Android).
 - `a` → Android emülatörü, `i` → iOS simülatörü, `w` → web.
+- Demo giriş: `a@b.co` / `123456`.
+
+**Windows kullanıyorsanız** adım adım kurulum, satır sonu ve uzun yol ayarları,
+Git Bash gerektiren komutlar ve sık karşılaşılan sorunlar için
+**[`docs/WINDOWS.md`](docs/WINDOWS.md)**.
 
 ### Diğer komutlar
 
