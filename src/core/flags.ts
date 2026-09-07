@@ -46,6 +46,7 @@ export const MODULLER = [
   'live',
   'maps',
   'market',
+  'media',
   'notifications',
   'plans',
   'presence',

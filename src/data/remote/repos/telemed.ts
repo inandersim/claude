@@ -23,7 +23,7 @@ import {
 } from '@/domain';
 
 import type { TelemedRepository } from '../../repositories';
-import { PROFILE_SELECT, fetchUsers, notify, pickUser, requireUser, type RemoteContext } from '../context';
+import { fetchUsers, medyaAdresi, notify, pickUser, requireUser, PROFILE_SELECT, type RemoteContext } from '../context';
 import { fromGeoPoint, toConsultMessage, toConsultation, toDoctor, toUser } from '../mappers';
 import { maybeRow, oneRow, rows, type Row } from '../postgrest';
 
@@ -249,7 +249,9 @@ export function createTelemedRepository(ctx: RemoteContext): TelemedRepository {
         'danışma oluşturulamadı',
       );
       const consultation = toConsultation(created);
-      await pushMessage(consultation.id, meId, complaint, { imageUrl: input.imageUri ?? null });
+      await pushMessage(consultation.id, meId, complaint, {
+        imageUrl: await medyaAdresi(ctx, 'consult-media', meId, input.imageUri),
+      });
       if (best) {
         await notify(db, {
           type: 'message',
@@ -307,7 +309,7 @@ export function createTelemedRepository(ctx: RemoteContext): TelemedRepository {
       const text = content.trim();
       if (!text && !imageUri) throw new Error('Boş mesaj');
       const message = await pushMessage(consultationId, meId, text, {
-        imageUrl: imageUri,
+        imageUrl: await medyaAdresi(ctx, 'consult-media', meId, imageUri),
         isInstruction: meId === doctor?.userId,
       });
       return { ...message, sender: await requireUser(db, meId) };

@@ -35,6 +35,7 @@ export function ListingCard({ listing, onToggleFavorite, width }: Props) {
       >
         <AdventureImage
           uri={listing.imageUrls[0] ?? null}
+          kucuk
           adventureType={listing.adventureTypes[0] ?? 'hiking'}
           style={styles.image}
         >

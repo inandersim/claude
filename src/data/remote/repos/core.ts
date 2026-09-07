@@ -60,6 +60,7 @@ import {
   fetchUser,
   fetchUsers,
   followerIds,
+  medyaAdresi,
   notify,
   notifyMany,
   pickUser,
@@ -348,14 +349,17 @@ export function createFeedRepository(ctx: RemoteContext): FeedRepository {
 
     async create(authorId, input) {
       const author = await requireUser(db, authorId);
+      // Seçilen fotoğraf cihazdadır; yüklenmeden yazılırsa gönderen dışında
+      // herkes kırık görsel görür.
+      const imageUrl = await medyaAdresi(ctx, 'post-media', authorId, input.imageUri);
       const created = await oneRow(
         db
           .from('posts')
           .insert({
             author_id: authorId,
             kind: 'adventure',
-            image_url: input.imageUri,
-            images: input.imageUri ? [input.imageUri] : [],
+            image_url: imageUrl,
+            images: imageUrl ? [imageUrl] : [],
             caption: input.caption.trim(),
             adventure_type: input.adventureType,
             difficulty: input.difficulty,
@@ -1193,6 +1197,7 @@ export function createMarketRepository(ctx: RemoteContext): MarketRepository {
 
     async create(sellerId, input) {
       const seller = await requireUser(db, sellerId);
+      const listingImage = await medyaAdresi(ctx, 'listing-media', sellerId, input.imageUri);
       const created = await oneRow(
         db
           .from('listings')
@@ -1203,7 +1208,7 @@ export function createMarketRepository(ctx: RemoteContext): MarketRepository {
             price_try: Math.max(0, Math.round(input.priceTry)),
             category: input.category,
             condition: input.condition,
-            image_urls: input.imageUri ? [input.imageUri] : [],
+            image_urls: listingImage ? [listingImage] : [],
             location_name: input.locationName.trim() || seller.locationName,
             coords: fromGeoPoint(seller.coords),
             adventure_types: input.adventureTypes,
@@ -1668,7 +1673,7 @@ export function createStoryRepository(ctx: RemoteContext): StoryRepository {
           .from('stories')
           .insert({
             author_id: meId,
-            media_url: input.mediaUri,
+            media_url: await medyaAdresi(ctx, 'story-media', meId, input.mediaUri),
             media_type: 'image',
             caption: input.caption.trim(),
             adventure_type: input.adventureType,

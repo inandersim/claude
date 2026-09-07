@@ -49,7 +49,7 @@ import type {
   VisionRepository,
   WeatherRepository,
 } from '../../repositories';
-import { notifyMany, requireUser, type RemoteContext } from '../context';
+import { medyaAdresi, notifyMany, requireUser, type RemoteContext } from '../context';
 import {
   fromGeoPoint,
   num,
@@ -804,7 +804,7 @@ export function createVisionRepository(
             user_id: meId,
             situation: advice.situation,
             question: input.question.trim(),
-            thumbnail_uri: input.imageUri,
+            thumbnail_uri: await medyaAdresi(ctx, 'vision-uploads', meId, input.imageUri),
             observations: advice.observations,
             risk: advice.risk,
             advice: advice.advice,

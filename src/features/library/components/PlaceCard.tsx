@@ -74,6 +74,7 @@ export function PlaceCard({
       >
         <AdventureImage
           uri={place.image?.thumbUrl ?? null}
+          kucuk
           adventureType={place.adventureTypes[0] ?? 'hiking'}
           style={styles.rowThumb}
         >
@@ -113,6 +114,7 @@ export function PlaceCard({
     >
       <AdventureImage
         uri={place.image?.thumbUrl ?? null}
+        kucuk
         adventureType={place.adventureTypes[0] ?? 'hiking'}
         style={styles.cover}
         overlay

@@ -30,6 +30,7 @@ export function TrendingLocationCard({ location, width = 220, wide = false }: Pr
     >
       <AdventureImage
         uri={location.imageUrl}
+        kucuk
         adventureType={primaryType}
         style={styles.image}
         overlay

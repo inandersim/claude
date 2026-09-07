@@ -34,6 +34,7 @@ export function BusinessCard({ business, width }: { business: BusinessWithOwner;
     >
       <AdventureImage
         uri={business.imageUrl}
+        kucuk
         adventureType={business.adventureTypes[0] ?? 'hiking'}
         style={styles.cover}
         overlay

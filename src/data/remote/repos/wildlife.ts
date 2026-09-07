@@ -16,7 +16,7 @@ import {
 } from '@/domain';
 
 import type { WildlifeRepository } from '../../repositories';
-import { fetchUsers, notify, pickUser, requireUser, type RemoteContext } from '../context';
+import { fetchUsers, medyaAdresi, notify, pickUser, requireUser, type RemoteContext } from '../context';
 import {
   fromGeoPoint,
   toDeterrentEvent,
@@ -157,7 +157,7 @@ export function createWildlifeRepository(
           .from('species_identifications')
           .insert({
             user_id: meId,
-            image_uri: input.imageUri,
+            image_uri: await medyaAdresi(ctx, 'species-photos', meId, input.imageUri),
             candidates: result.candidates,
             advice: result.advice,
             source: result.source,

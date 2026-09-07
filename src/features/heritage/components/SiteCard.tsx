@@ -48,6 +48,7 @@ export function SiteCard({
       >
         <AdventureImage
           uri={s.imageUrl}
+          kucuk
           adventureType={s.adventureTypes[0] ?? 'hiking'}
           style={[styles.cover, compact && styles.coverCompact]}
           overlay

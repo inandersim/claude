@@ -21,6 +21,7 @@ import type { SocialRepository } from '../../repositories';
 import {
   PROFILE_SELECT,
   fetchUsers,
+  medyaAdresleri,
   notify,
   notifyMany,
   pickUser,
@@ -254,7 +255,7 @@ export function createSocialRepository(ctx: RemoteContext): SocialRepository {
 
     async createStatus(meId, input) {
       const author = await requireUser(db, meId);
-      const images = input.imageUris.filter(Boolean);
+      const images = await medyaAdresleri(ctx, 'post-media', meId, input.imageUris);
       if (!input.caption.trim() && images.length === 0) {
         throw new Error('Bir metin ya da fotoğraf gerekli');
       }

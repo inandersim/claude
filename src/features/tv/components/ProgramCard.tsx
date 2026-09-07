@@ -47,7 +47,7 @@ export function ProgramCard({ program, width, compact = false, showChannel = tru
       accessibilityRole="button"
       accessibilityLabel={`${program.title}, ${program.channel.name}`}
     >
-      <AdventureImage uri={program.thumbnailUrl} adventureType={adventureType} style={styles.thumb}>
+      <AdventureImage uri={program.thumbnailUrl} adventureType={adventureType} style={styles.thumb} kucuk>
         <View style={styles.topRow}>
           <View style={[styles.pill, { backgroundColor: kind.color }]}>
             <Icon name={kind.icon} size={11} color="#FFFFFF" strokeWidth={2.6} />

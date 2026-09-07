@@ -46,6 +46,7 @@ export function CourseCard({ course, compact = false }: Props) {
     >
       <AdventureImage
         uri={course.imageUrl}
+        kucuk
         adventureType={course.adventureTypes[0] ?? 'hiking'}
         style={compact ? styles.coverCompact : styles.cover}
         overlay

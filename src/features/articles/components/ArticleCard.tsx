@@ -44,6 +44,7 @@ export function ArticleCard({ article, variant = 'default' }: Props) {
     >
       <AdventureImage
         uri={article.coverUrl}
+        kucuk
         adventureType={article.adventureTypes[0] ?? 'hiking'}
         style={[styles.cover, featured && styles.featuredCover, compact && styles.compactCover]}
         overlay

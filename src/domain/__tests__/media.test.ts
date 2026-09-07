@@ -1,4 +1,11 @@
-import { MEDYA_CACHE_CONTROL, medyaCdnTabani, medyaUrl } from '@/domain/media';
+import {
+  MEDYA_CACHE_CONTROL,
+  MEDYA_UZUN_KENAR,
+  boyutPlani,
+  kucukBoyYolu,
+  medyaCdnTabani,
+  medyaUrl,
+} from '@/domain/media';
 
 const SUPA = 'https://abc.supabase.co/storage/v1/object/public/post-media/u1/foto.jpg';
 const CDN = 'https://cdn.zirtan.app';
@@ -60,5 +67,78 @@ describe('yapılandırma', () => {
     expect(medyaCdnTabani({ EXPO_PUBLIC_MEDIA_CDN_URL: 'https://cdn.x/' })).toBe('https://cdn.x');
     expect(medyaCdnTabani({})).toBeNull();
     expect(medyaCdnTabani({ EXPO_PUBLIC_MEDIA_CDN_URL: '  ' })).toBeNull();
+  });
+});
+
+describe('görsel boyutlandırma planı', () => {
+  it('kameranın ürettiği ölçüyü uzun kenardan sınırlar, oranı korur', () => {
+    // 4000x3000 tipik bir telefon fotoğrafı.
+    const tam = boyutPlani(4000, 3000, 'full');
+    expect(tam.width).toBe(1600);
+    expect(tam.height).toBe(1200);
+    expect(tam.olcekDegismiyor).toBe(false);
+
+    const kucuk = boyutPlani(4000, 3000, 'thumb');
+    expect(kucuk.width).toBe(400);
+    expect(kucuk.height).toBe(300);
+  });
+
+  it('dikey görselde uzun kenar yüksekliktir', () => {
+    const p = boyutPlani(3000, 4000, 'full');
+    expect(p.height).toBe(1600);
+    expect(p.width).toBe(1200);
+  });
+
+  it('küçük kaynağı büyütmez', () => {
+    // 800x600 bir görseli 1600'e şişirmek bayt harcar, ayrıntı eklemez.
+    const p = boyutPlani(800, 600, 'full');
+    expect(p).toMatchObject({ width: 800, height: 600, olcekDegismiyor: true });
+  });
+
+  it('tam sınırdaki görseli ölçeklemez', () => {
+    expect(boyutPlani(1600, 900, 'full').olcekDegismiyor).toBe(true);
+    expect(boyutPlani(1601, 900, 'full').olcekDegismiyor).toBe(false);
+  });
+
+  it('bozuk/bilinmeyen ölçüde ölçeklemeye kalkışmaz', () => {
+    // Ölçü gelmediyse yanlış bir hedef üretmektense yalnızca yeniden kodla.
+    expect(boyutPlani(0, 0, 'full').olcekDegismiyor).toBe(true);
+    expect(boyutPlani(-10, 500, 'full').olcekDegismiyor).toBe(true);
+  });
+
+  it('çok ince görselde bile en az 1 px üretir', () => {
+    const p = boyutPlani(8000, 3, 'thumb');
+    expect(p.width).toBe(400);
+    expect(p.height).toBeGreaterThanOrEqual(1);
+  });
+
+  it('küçük boy tam boydan daha agresif sıkıştırılır', () => {
+    expect(boyutPlani(4000, 3000, 'thumb').quality).toBeLessThan(
+      boyutPlani(4000, 3000, 'full').quality,
+    );
+  });
+
+  it('küçük boy her zaman tam boydan küçüktür', () => {
+    expect(MEDYA_UZUN_KENAR.thumb).toBeLessThan(MEDYA_UZUN_KENAR.full);
+  });
+});
+
+describe('küçük boy dosya adı', () => {
+  it('uzantıdan önce ek getirir', () => {
+    expect(kucukBoyYolu('post-media/u1/abc.jpg')).toBe('post-media/u1/abc_thumb.jpg');
+    expect(kucukBoyYolu('a.b/c.d/foto.webp')).toBe('a.b/c.d/foto_thumb.webp');
+  });
+
+  it('uzantısız adlarda sona ekler', () => {
+    expect(kucukBoyYolu('u1/dosya')).toBe('u1/dosya_thumb');
+  });
+
+  it('klasör adındaki noktayı uzantı sanmaz', () => {
+    // 'v1.2/foto' içinde son nokta klasörde: uzantı yok, sona eklenmeli.
+    expect(kucukBoyYolu('v1.2/foto')).toBe('v1.2/foto_thumb');
+  });
+
+  it('nokta ile başlayan dosya adını uzantı sanmaz', () => {
+    expect(kucukBoyYolu('u1/.gizli')).toBe('u1/.gizli_thumb');
   });
 });

@@ -23,7 +23,7 @@ export function RecentAdventureRow({ post }: { post: FeedPost }) {
       style={[styles.row, { backgroundColor: colors.surface, borderColor: colors.border }]}
       accessibilityRole="button"
     >
-      <AdventureImage uri={post.imageUrl} adventureType={post.adventureType} style={styles.thumb} />
+      <AdventureImage uri={post.imageUrl} adventureType={post.adventureType} style={styles.thumb} kucuk />
       <View style={styles.info}>
         <View style={styles.top}>
           <View style={[styles.typeChip, { backgroundColor: meta.softColor }]}>

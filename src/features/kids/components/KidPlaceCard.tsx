@@ -54,7 +54,7 @@ export function KidPlaceCard({ place, width }: Props) {
       accessibilityRole="button"
       accessibilityLabel={`${place.name}, ${t(kind.labelKey)}`}
     >
-      <AdventureImage uri={place.imageUrl} adventureType="hiking" style={styles.cover} overlay>
+      <AdventureImage uri={place.imageUrl} adventureType="hiking" style={styles.cover} overlay kucuk>
         <View style={styles.top}>
           <View style={[styles.pill, { backgroundColor: kind.color }]}>
             <Icon name={kind.icon as IconName} size={12} color="#FFFFFF" strokeWidth={2.4} />

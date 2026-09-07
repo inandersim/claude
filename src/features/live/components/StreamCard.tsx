@@ -36,6 +36,7 @@ export function StreamCard({ stream, width, row = false }: Props) {
       >
         <AdventureImage
           uri={stream.thumbnailUrl}
+          kucuk
           adventureType={stream.adventureType}
           style={styles.rowThumb}
         >
@@ -79,6 +80,7 @@ export function StreamCard({ stream, width, row = false }: Props) {
     >
       <AdventureImage
         uri={stream.thumbnailUrl}
+        kucuk
         adventureType={stream.adventureType}
         style={styles.cover}
         overlay

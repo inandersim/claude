@@ -1,4 +1,5 @@
 import type { ID, Notification, User } from '@/domain';
+import { yerelMedyaMi } from '@/domain/media';
 
 import { toUser } from './mappers';
 import { maybeRow, rows, type Row, type SupabaseLike } from './postgrest';
@@ -25,22 +26,80 @@ export class AuthError extends Error {
  */
 export const PROFILE_SELECT = '*, emergency_contacts!user_id(*)';
 
+/**
+ * Cihazdaki bir dosyayı yükleyip **genel adresini** döner.
+ *
+ * Veri katmanı bunu bir arayüz olarak alır, kendi uygulamasını taşımaz:
+ * gerçek uygulama küçültme ve EXIF temizleme için yerel bir modüle
+ * (`expo-image-manipulator`) ihtiyaç duyar ve `src/features/media` altında
+ * yaşar. Böylece bu katman test edilebilir kalır ve katman sırası bozulmaz.
+ */
+export type MedyaYukleyici = (girdi: {
+  bucket: string;
+  userId: ID;
+  localUri: string;
+}) => Promise<string>;
+
 export interface RemoteContext {
   db: SupabaseLike;
   /** Şu anki oturum kullanıcısı (bilinmiyorsa null) — RPC'lerde `auth.uid()`. */
   sessionUserId(): ID | null;
   setSessionUserId(id: ID | null): void;
+  /** Yerel medya yükleyici; tanımlı değilse yerel adresler olduğu gibi kalır. */
+  medyaYukleyici: MedyaYukleyici | null;
+  setMedyaYukleyici(fn: MedyaYukleyici | null): void;
 }
 
 export function createRemoteContext(db: SupabaseLike): RemoteContext {
   let sessionUserId: ID | null = null;
-  return {
+  const ctx: RemoteContext = {
     db,
     sessionUserId: () => sessionUserId,
     setSessionUserId: (id) => {
       sessionUserId = id;
     },
+    medyaYukleyici: null,
+    setMedyaYukleyici: (fn) => {
+      ctx.medyaYukleyici = fn;
+    },
   };
+  return ctx;
+}
+
+/**
+ * Yerel bir medya adresini yükleyip genel adrese çevirir.
+ *
+ * **Neden burada, ekranlarda değil:** aynı hata sekiz ayrı ekranda tekrar
+ * ediyordu — seçilen fotoğrafın `file://…` adresi doğrudan veritabanına
+ * yazılıyor, fotoğrafı gönderen dışında herkes kırık görsel görüyordu.
+ * Kararı tek bir noktaya almak hem mevcut sekiz yolu birden düzeltir hem de
+ * dokuzuncu ekranın aynı hatayı tekrarlamasını engeller.
+ *
+ * Yükleyici tanımlı değilse (testler, yükleme katmanı olmayan ortamlar)
+ * adres olduğu gibi döner: bu katman sessizce çökmez.
+ */
+export async function medyaAdresi(
+  ctx: RemoteContext,
+  bucket: string,
+  userId: ID,
+  uri: string | null | undefined,
+): Promise<string | null> {
+  const v = uri?.trim();
+  if (!v) return uri ?? null;
+  if (!yerelMedyaMi(v)) return v;
+  if (!ctx.medyaYukleyici) return v;
+  return await ctx.medyaYukleyici({ bucket, userId, localUri: v });
+}
+
+/** Birden çok adres için `medyaAdresi`; boşlar elenir. */
+export async function medyaAdresleri(
+  ctx: RemoteContext,
+  bucket: string,
+  userId: ID,
+  uris: readonly (string | null | undefined)[],
+): Promise<string[]> {
+  const out = await Promise.all(uris.map((u) => medyaAdresi(ctx, bucket, userId, u)));
+  return out.filter((u): u is string => Boolean(u));
 }
 
 /** Tek istekte birden çok profil; sıralama korunmaz, `Map` döner. */

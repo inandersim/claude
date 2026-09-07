@@ -45,7 +45,7 @@ export function DestinationCard({
         accessibilityLabel={`${d.name}, ${d.region}`}
         scaleTo={0.985}
       >
-        <AdventureImage uri={d.imageUrl} adventureType={adventureType} style={styles.cover} overlay>
+        <AdventureImage uri={d.imageUrl} adventureType={adventureType} style={styles.cover} overlay kucuk>
           <View style={styles.coverTop}>
             <Badge
               label={t(`destinations.type.${d.type}`)}

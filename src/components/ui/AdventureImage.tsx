@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 
 import { ADVENTURE_TYPE_META, type AdventureType } from '@/domain';
-import { medyaCdnTabani, medyaUrl } from '@/domain/media';
+import { kucukBoyYolu, medyaCdnTabani, medyaUrl } from '@/domain/media';
 
 import { Icon } from './Icon';
 
@@ -15,6 +15,11 @@ export interface AdventureImageProps {
   contentFit?: ImageContentFit;
   /** Görselin üzerine koyu geçiş (metin okunabilirliği için) */
   overlay?: boolean;
+  /**
+   * Küçük boy iste (liste/ızgara kartı). Tam ekranda **verme**: 400 px'lik
+   * dosya büyütülünce bulanık görünür.
+   */
+  kucuk?: boolean;
   children?: React.ReactNode;
 }
 
@@ -28,14 +33,29 @@ export function AdventureImage({
   style,
   contentFit = 'cover',
   overlay = false,
+  kucuk = false,
   children,
 }: AdventureImageProps) {
   const [failed, setFailed] = useState(false);
+  // Küçük boy 404 verirse tam boya düşülür. Bu kuraldan **önce** yüklenmiş
+  // görsellerin küçük boyu yoktur; onlar için tek doğru davranış budur ve
+  // geçmişi göç ettirmeden çalışır.
+  const [kucukYok, setKucukYok] = useState(false);
   const meta = ADVENTURE_TYPE_META[adventureType];
   // Yönlendirme çizim anında: veritabanında hâlihazırda duran adresler de
   // CDN'e gider ve CDN kapatılınca göç gerekmeden eski davranışa dönülür.
-  const kaynak = medyaUrl(uri, medyaCdnTabani());
+  const tam = medyaUrl(uri, medyaCdnTabani());
+  const kaynak = tam && kucuk && !kucukYok ? kucukBoyYolu(tam) : tam;
   const showFallback = !kaynak || failed;
+
+  // `uri` değişince hata durumu sıfırlanır: liste öğeleri geri dönüştürülür
+  // (recycle) ve eski bir hatanın yeni görseli yedeğe düşürmesi gerekmez.
+  const [oncekiUri, setOncekiUri] = useState(uri);
+  if (oncekiUri !== uri) {
+    setOncekiUri(uri);
+    setFailed(false);
+    setKucukYok(false);
+  }
 
   return (
     <View style={[styles.root, style]}>
@@ -57,7 +77,8 @@ export function AdventureImage({
           contentFit={contentFit}
           transition={300}
           cachePolicy="memory-disk"
-          onError={() => setFailed(true)}
+          // Küçük boy yoksa önce tam boya düş; o da yüklenmezse yedek görsel.
+          onError={() => (kaynak !== tam ? setKucukYok(true) : setFailed(true))}
           placeholder={{ blurhash: 'L6PZfSi_.AyE_3t7t7R**0o#DgR4' }}
         />
       )}

@@ -44,6 +44,7 @@ export function ClubCard({
       {!compact ? (
         <AdventureImage
           uri={club.coverUrl}
+          kucuk
           adventureType={club.adventureTypes[0] ?? 'hiking'}
           style={styles.cover}
           overlay

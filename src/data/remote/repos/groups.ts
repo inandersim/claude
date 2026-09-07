@@ -24,7 +24,7 @@ import {
 } from '@/domain';
 
 import type { GroupRepository } from '../../repositories';
-import { fetchUsers, notifyMany, pickUser, requireUser, type RemoteContext } from '../context';
+import { fetchUsers, medyaAdresi, notifyMany, pickUser, requireUser, type RemoteContext } from '../context';
 import { fromGeoPoint, toGroup, toGroupMember, toGroupMessage } from '../mappers';
 import { maybeRow, oneRow, rows } from '../postgrest';
 
@@ -406,6 +406,11 @@ export function createGroupRepository(ctx: RemoteContext): GroupRepository {
           )
         : null;
 
+      const groupImage =
+        input.type === 'image'
+          ? await medyaAdresi(ctx, 'post-media', meId, input.imageUri)
+          : null;
+
       const created = await oneRow(
         db
           .from('group_messages')
@@ -414,7 +419,7 @@ export function createGroupRepository(ctx: RemoteContext): GroupRepository {
             sender_id: meId,
             type: input.type,
             text,
-            image_url: input.type === 'image' ? (input.imageUri ?? null) : null,
+            image_url: input.type === 'image' ? groupImage : null,
             coords: input.type === 'location' ? fromGeoPoint(input.coords ?? null) : null,
             route_id: input.type === 'route' ? (input.routeId ?? null) : null,
             poll,

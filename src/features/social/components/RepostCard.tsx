@@ -59,7 +59,7 @@ export function RepostCard({ post, interactive = true }: Props) {
         <RichText text={post.caption} variant="bodySm" numberOfLines={3} interactive={false} />
       ) : null}
       {images.length > 0 ? (
-        <AdventureImage uri={images[0]} adventureType={post.adventureType} style={styles.image}>
+        <AdventureImage uri={images[0]} adventureType={post.adventureType} style={styles.image} kucuk>
           {images.length > 1 ? (
             <View style={styles.more}>
               <Text variant="label" weight="extrabold" color="#FFFFFF">

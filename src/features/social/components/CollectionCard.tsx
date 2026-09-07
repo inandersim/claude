@@ -36,7 +36,7 @@ export function CollectionCard({ collection, selected = false, onPress, width }:
       accessibilityLabel={collection.name}
       accessibilityState={{ selected }}
     >
-      <AdventureImage uri={collection.coverUrl} adventureType="hiking" style={styles.cover} overlay>
+      <AdventureImage uri={collection.coverUrl} adventureType="hiking" style={styles.cover} overlay kucuk>
         {!collection.coverUrl ? (
           <View style={styles.coverIcon}>
             <Icon name="bookmark" size={26} color="#FFFFFF" strokeWidth={1.8} />

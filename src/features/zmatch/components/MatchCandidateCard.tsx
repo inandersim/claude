@@ -31,7 +31,7 @@ export function MatchCandidateCard({ candidate, onRequest }: Props) {
 
   return (
     <View style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.border }]}>
-      <AdventureImage uri={user.coverUrl} adventureType={primaryType} style={styles.cover} overlay>
+      <AdventureImage uri={user.coverUrl} adventureType={primaryType} style={styles.cover} overlay kucuk>
         <View style={styles.distancePill}>
           <Icon name="navigation" size={12} color="#5EE39B" strokeWidth={2.6} />
           <Text variant="label" weight="extrabold" color="#F2F7F4">

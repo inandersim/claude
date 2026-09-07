@@ -37,7 +37,7 @@ export function CragCard({ crag, now }: CragCardProps) {
       accessibilityRole="button"
       accessibilityLabel={`${crag.name}, ${crag.locationName}, ${t('climbing.routesCount', { count: crag.routeCount })}`}
     >
-      <AdventureImage uri={crag.imageUrl} adventureType="climbing" style={styles.cover} overlay>
+      <AdventureImage uri={crag.imageUrl} adventureType="climbing" style={styles.cover} overlay kucuk>
         <View style={styles.coverTop}>
           <View style={[styles.pill, { backgroundColor: verification.color }]}>
             <Icon name={verification.icon} size={12} color="#FFFFFF" strokeWidth={2.6} />

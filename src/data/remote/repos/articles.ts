@@ -21,7 +21,7 @@ import {
 } from '@/domain';
 
 import type { ArticleRepository } from '../../repositories';
-import { PROFILE_SELECT, fetchUsers, notify, pickUser, requireUser, type RemoteContext } from '../context';
+import { fetchUsers, medyaAdresi, notify, pickUser, requireUser, PROFILE_SELECT, type RemoteContext } from '../context';
 import { toArticle, toArticleComment, toUser, toWriterProfile } from '../mappers';
 import { maybeRow, oneRow, rows, type Row } from '../postgrest';
 
@@ -205,7 +205,7 @@ export function createArticleRepository(ctx: RemoteContext): ArticleRepository {
             ),
             title: input.title.trim(),
             subtitle: input.subtitle.trim(),
-            cover_url: input.coverUri,
+            cover_url: await medyaAdresi(ctx, 'article-media', meId, input.coverUri),
             category: input.category,
             body: input.body.trim(),
             tags: normalizeTags(input.tags),
@@ -248,7 +248,9 @@ export function createArticleRepository(ctx: RemoteContext): ArticleRepository {
         );
       }
       if (input.subtitle !== undefined) patch.subtitle = input.subtitle.trim();
-      if (input.coverUri !== undefined) patch.cover_url = input.coverUri;
+      if (input.coverUri !== undefined) {
+        patch.cover_url = await medyaAdresi(ctx, 'article-media', meId, input.coverUri);
+      }
       if (input.category !== undefined) patch.category = input.category;
       if (input.body !== undefined) {
         patch.body = input.body.trim();
