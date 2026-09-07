@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 
 import { ADVENTURE_TYPE_META, type AdventureType } from '@/domain';
+import { medyaCdnTabani, medyaUrl } from '@/domain/media';
 
 import { Icon } from './Icon';
 
@@ -31,7 +32,10 @@ export function AdventureImage({
 }: AdventureImageProps) {
   const [failed, setFailed] = useState(false);
   const meta = ADVENTURE_TYPE_META[adventureType];
-  const showFallback = !uri || failed;
+  // Yönlendirme çizim anında: veritabanında hâlihazırda duran adresler de
+  // CDN'e gider ve CDN kapatılınca göç gerekmeden eski davranışa dönülür.
+  const kaynak = medyaUrl(uri, medyaCdnTabani());
+  const showFallback = !kaynak || failed;
 
   return (
     <View style={[styles.root, style]}>
@@ -48,7 +52,7 @@ export function AdventureImage({
         </LinearGradient>
       ) : (
         <Image
-          source={{ uri }}
+          source={{ uri: kaynak }}
           style={StyleSheet.absoluteFill}
           contentFit={contentFit}
           transition={300}

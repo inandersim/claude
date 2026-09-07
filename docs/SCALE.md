@@ -61,6 +61,39 @@ hatayı imkânsız kılıyor ve tüm sorguların tavanı tek yerden denetlenebil
 `src/data/__tests__/remoteLimits.test.ts` kuralı her repository dosyasında
 sınıyor; yeni bir zincir eklenirse test kırılır.
 
+## İkinci ve daha büyük kalem: fotoğraflar
+
+JSON düzeltildikten sonra en büyük kalem görseller. Varsayım: gönderi görseli
+~400 KB (istemcide sıkıştırılıyor), akışta ~24 görsel, günde 4 açılış, yerelde
+%50 önbellek.
+
+| Kullanıcı | Aylık görsel çıkışı | Supabase aşımı |
+| --- | --- | --- |
+| 1.000 | 549 GB | ~$27 |
+| 10.000 | 5.493 GB | ~$472 |
+| 100.000 | 54.932 GB | **~$4.921** |
+
+Yani görseller JSON trafiğinin **60 katı**.
+
+### Çözüm: okuma CDN'den, depolama yerinde
+
+Dosyaları R2'ye taşımak S3 imzalama istemcisi, ayrı yükleme yolu ve göç işi
+demek. Oysa maliyetin tamamı **okumada**. Depolama olduğu yerde kalıyor,
+okuma çıkışı ücretsiz bir CDN'in (Cloudflare) arkasına alınıyor: ilk okuma
+Supabase'e gider, gerisi CDN önbelleğinden. Aynı sonuç, üçte bir iş.
+
+İki değişiklik:
+
+1. **Önbellek ömrü 1 saat → 1 yıl + `immutable`.** Dosya adları her yüklemede
+   benzersiz üretiliyor, yani içerik değişmez. Bir saatlik ömür CDN'in işe
+   yaramasını engelliyordu: her saat başı kaynağa geri dönülüyordu.
+2. **Adres yazımı çizim anında** (`src/domain/media.ts`). Veritabanında
+   hâlihazırda duran adresler de yönlenir ve `EXPO_PUBLIC_MEDIA_CDN_URL`
+   kaldırılırsa uygulama göç gerektirmeden eski davranışına döner.
+
+Kurulum: Cloudflare'de `cdn.<alan>.app` için Supabase Storage genel yolunu
+önbellekleyen bir kural + `EXPO_PUBLIC_MEDIA_CDN_URL`. Maliyet **$0**.
+
 ## Ne hâlâ açık
 
 - **313 sorgunun çoğu artık 200 satırlık emniyet ağında.** Ağ faturayı 10 kat
@@ -68,9 +101,11 @@ sınıyor; yeni bir zincir eklenirse test kırılır.
   iş: en çok çağrılan 20 sorguya açık sayfa boyu.
 - **Sonsuz kaydırma yok.** Akış 40 gönderiyle sınırlı; kullanıcı daha eskisini
   göremiyor. Sayfalama arayüzü (`range`) altyapıda hazır, ekranlarda yok.
-- **Depolama ve fotoğraf egress'i hesaba katılmadı.** Kullanıcı fotoğrafları
-  Supabase Storage'da tutulursa fatura buradan da büyür; görseller CDN'e
-  (Cloudflare R2, çıkış ücretsiz) taşınmalı.
+- **Görsel boyutlandırma yok.** Aynı 400 KB'lık dosya hem küçük listede hem tam
+  ekranda kullanılıyor. Cloudflare Image Resizing (ücretli) ya da yüklemede
+  küçük boy üretmek çıkışı bir kat daha düşürür.
+- **Depolama sınırı.** Supabase ücretsiz katmanı 1 GB dosya; ~2.500 fotoğraf.
+  Bu, egress'ten **önce** dolacak sınır.
 
 ## $1.000 nasıl harcanmalı
 
@@ -98,7 +133,8 @@ sonucuna bakılarak yapılır.
 | **SMS OTP** | Bot kaydı; her denemede para. 100 bin kayıtta kolayca $750+ | v1'de **kapalı**; e-posta girişi. Açılırsa IP+cihaz başına günlük tavan ve CAPTCHA |
 | **AI ağ geçidi** | Token maliyeti kullanıcı sayısıyla doğrusal artar | v1'de **kapalı**. Açılırsa kullanıcı başına günlük kota ve aylık sabit tavan |
 
-Bu ikisi kapalıyken 100 bin kullanıcının aylık maliyeti ~$82 + $25 = **~$107**.
+Bu ikisi kapalıyken **ve medya CDN'i açıkken** 100 bin kullanıcının aylık
+maliyeti ~$82 + $25 = **~$107**. CDN olmadan aynı rakam **~$5.000**.
 
 ## Büyüme sayısı üzerine dürüst not
 

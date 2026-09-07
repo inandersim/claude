@@ -1,4 +1,5 @@
 import type { ID } from '@/domain';
+import { MEDYA_CACHE_CONTROL, medyaCdnTabani, medyaUrl } from '@/domain/media';
 
 import type { StorageFileApiLike, SupabaseLike } from './postgrest';
 
@@ -180,13 +181,21 @@ export async function uploadMedia(
   const result = await api.upload(
     path,
     input.bytes instanceof ArrayBuffer ? input.bytes : (input.bytes as Uint8Array),
-    { contentType: input.contentType, upsert: input.upsert ?? false, cacheControl: '3600' },
+    {
+      contentType: input.contentType,
+      upsert: input.upsert ?? false,
+      // Dosya adı her yüklemede benzersiz → içerik değişmez. Eski bir saatlik
+      // ömür CDN'in işe yaramasını engelliyordu: her saat kaynağa dönülüyordu.
+      cacheControl: MEDYA_CACHE_CONTROL,
+    },
   );
   if (result.error) throw new Error(`Yükleme başarısız: ${result.error.message}`);
   return {
     bucket: input.bucket,
     path,
-    publicUrl: BUCKETS[input.bucket].public ? api.getPublicUrl(path).data.publicUrl : null,
+    publicUrl: BUCKETS[input.bucket].public
+      ? medyaUrl(api.getPublicUrl(path).data.publicUrl, medyaCdnTabani())
+      : null,
   };
 }
 

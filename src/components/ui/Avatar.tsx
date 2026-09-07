@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { useTheme } from '@/core/theme';
+import { medyaCdnTabani, medyaUrl } from '@/domain/media';
 import { initials } from '@/core/utils/format';
 
 import { Icon } from './Icon';
@@ -18,6 +19,8 @@ export interface AvatarProps {
 }
 
 export function Avatar({ uri, name, size = 44, verified = false, ring = false }: AvatarProps) {
+  // Profil görselleri de CDN'den okunur (bkz. `src/domain/media.ts`).
+  const kaynak = medyaUrl(uri, medyaCdnTabani());
   const { colors, isDark } = useTheme();
   const [failed, setFailed] = useState(false);
   const badgeSize = Math.max(14, Math.round(size * 0.34));
@@ -37,9 +40,9 @@ export function Avatar({ uri, name, size = 44, verified = false, ring = false }:
           },
         ]}
       >
-        {uri && !failed ? (
+        {kaynak && !failed ? (
           <Image
-            source={{ uri }}
+            source={{ uri: kaynak }}
             style={{ width: '100%', height: '100%' }}
             contentFit="cover"
             transition={200}
