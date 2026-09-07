@@ -51,6 +51,7 @@ import type {
   StoryRepository,
   UserRepository,
 } from '../../repositories';
+import { FEED_PAGE_SIZE } from '../../repositories';
 import {
   AuthError,
   NotFoundError,
@@ -241,12 +242,7 @@ export function createUserRepository(ctx: RemoteContext): UserRepository {
 
 const POST_SELECT = `*, author:profiles!author_id(${PROFILE_SELECT})`;
 
-/**
- * Akış sayfası. Ekran sonsuz kaydırma yapmıyor; 40 gönderi bir oturumun
- * göreceğinden fazlası. Büyütmeden önce `docs/SCALE.md` içindeki egress
- * hesabına bakılmalı.
- */
-const AKIS_SAYFASI = 40;
+
 
 export function createFeedRepository(ctx: RemoteContext): FeedRepository {
   const { db } = ctx;
@@ -322,9 +318,15 @@ export function createFeedRepository(ctx: RemoteContext): FeedRepository {
       if (filter.locationName) {
         query = query.ilike('location_name', `*${safeQuery(filter.locationName)}*`);
       }
+      // Kürsör: bu tarihten eski gönderiler. Ofset değil, çünkü akışa sürekli
+      // yeni gönderi ekleniyor ve ofsetli sayfalamada araya giren bir gönderi
+      // sonraki sayfayı kaydırır — kullanıcı aynı kaydı iki kez görür.
+      if (filter.before) query = query.lt('created_at', filter.before);
       // Ölçülen: bu satır (gönderi + gömülü yazar profili) ~2 KB. Tavan
       // olmadan PostgREST 1.000 satır dönüyor, yani her açılışta ~2 MB.
-      const data = await rows(query, 'akış okunamadı', { limit: AKIS_SAYFASI });
+      const data = await rows(query, 'akış okunamadı', {
+        limit: filter.limit ?? FEED_PAGE_SIZE,
+      });
       return await toFeedPosts(data, viewerId);
     },
 

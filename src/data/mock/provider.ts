@@ -88,6 +88,7 @@ import type {
   NotificationRepository,
   UserRepository,
 } from '../repositories';
+import { FEED_PAGE_SIZE } from '../repositories';
 import type { MockContext } from './context';
 import { MockDatabase, delay } from './database';
 import { createAiRepository } from './repos/ai';
@@ -422,7 +423,9 @@ export function createMockProvider(options: Options = {}): DataProvider {
               .toLocaleLowerCase('tr-TR')
               .includes(filter.locationName.toLocaleLowerCase('tr-TR')),
         )
+        .filter((p) => !filter.before || p.createdAt < filter.before)
         .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+        .slice(0, filter.limit ?? FEED_PAGE_SIZE)
         .map((p) => toFeedPost(p, viewerId, t.users, t.likes));
     },
     async getById(viewerId, postId) {

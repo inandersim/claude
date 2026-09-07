@@ -24,7 +24,7 @@ import { useUnreadCount } from '@/features/notifications/hooks';
 import { ComposeSheet } from '@/features/social/components/ComposeSheet';
 import { FeedTabs } from '@/features/social/components/FeedTabs';
 import { HashtagChip } from '@/features/social/components/HashtagChip';
-import { useSocialFeed, useTrendingHashtags } from '@/features/social/hooks';
+import { useSocialFeedPages, useTrendingHashtags } from '@/features/social/hooks';
 import { usePostCardActions } from '@/features/social/usePostCardActions';
 import { StoriesStrip } from '@/features/stories/components/StoriesStrip';
 
@@ -45,7 +45,10 @@ export default function HomeScreen() {
   const [hashtag, setHashtag] = useState<string | null>(null);
   const [composeOpen, setComposeOpen] = useState(false);
   const filter = useMemo(() => ({ tab, hashtag }), [tab, hashtag]);
-  const feed = useSocialFeed(filter);
+  const feed = useSocialFeedPages(filter);
+  // Sayfalar tek listeye düzleştirilir; kaydırma sonunda bir sonraki sayfa
+  // istenir. "Daha var mı" kararı repository'den gelir (bkz. useSocialFeedPages).
+  const posts = useMemo(() => feed.data?.pages.flatMap((s) => s.posts) ?? [], [feed.data]);
   const trending = useTrendingHashtags(8);
   const { data: unread = 0 } = useUnreadCount();
   const actions = usePostCardActions();
@@ -167,7 +170,7 @@ export default function HomeScreen() {
         </>
       ) : (
         <FlashList
-          data={feed.isLoading ? [] : (feed.data ?? [])}
+          data={feed.isLoading ? [] : posts}
           keyExtractor={(item) => item.id}
           renderItem={renderItem}
           ListHeaderComponent={header}
@@ -201,9 +204,23 @@ export default function HomeScreen() {
           contentContainerStyle={{ paddingBottom: bottomPadding }}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
+          // Liste sonuna yaklaşınca bir sonraki sayfa istenir. `hasNextPage`
+          // repository'nin verdiği kürsöre dayanır; süzülmüş liste uzunluğuna
+          // bakmak kaydırmayı erken durdururdu.
+          onEndReachedThreshold={0.6}
+          onEndReached={() => {
+            if (feed.hasNextPage && !feed.isFetchingNextPage) void feed.fetchNextPage();
+          }}
+          ListFooterComponent={
+            feed.isFetchingNextPage ? (
+              <View style={styles.skeletons}>
+                <PostCardSkeleton />
+              </View>
+            ) : null
+          }
           refreshControl={
             <RefreshControl
-              refreshing={feed.isRefetching && !feed.isLoading}
+              refreshing={feed.isRefetching && !feed.isLoading && !feed.isFetchingNextPage}
               onRefresh={() => feed.refetch()}
               tintColor={colors.primary}
               colors={[colors.primary]}

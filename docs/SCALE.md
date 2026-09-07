@@ -99,8 +99,11 @@ Kurulum: Cloudflare'de `cdn.<alan>.app` için Supabase Storage genel yolunu
 - **313 sorgunun çoğu artık 200 satırlık emniyet ağında.** Ağ faturayı 10 kat
   düşürdü ama her ekranın kendi sayfa boyunu vermesi daha iyi olur. Sıradaki
   iş: en çok çağrılan 20 sorguya açık sayfa boyu.
-- **Sonsuz kaydırma yok.** Akış 40 gönderiyle sınırlı; kullanıcı daha eskisini
-  göremiyor. Sayfalama arayüzü (`range`) altyapıda hazır, ekranlarda yok.
+- ~~Sonsuz kaydırma yok.~~ **Kapatıldı.** Akış artık kürsör tabanlı sayfalıyor
+  (`social.feedPage`); ana sekme liste sonunda bir sonraki sayfayı istiyor.
+  Kürsör ve "daha var mı" kararı **ham** okumadan geliyor: domain süzgeci
+  ("takip", "maceralar", hashtag) sayfayı kısaltabildiği için süzülmüş liste
+  uzunluğuna bakmak kaydırmayı erken durdurup eski gönderileri gizlerdi.
 - **Görsel boyutlandırma yok.** Aynı 400 KB'lık dosya hem küçük listede hem tam
   ekranda kullanılıyor. Cloudflare Image Resizing (ücretli) ya da yüklemede
   küçük boy üretmek çıkışı bir kat daha düşürür.

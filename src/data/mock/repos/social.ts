@@ -1,4 +1,5 @@
 import { generateId } from '@/core/utils/format';
+import { FEED_PAGE_SIZE } from '@/data/repositories';
 import type { SocialRepository } from '@/data/repositories';
 import {
   applyFeedFilter,
@@ -128,6 +129,24 @@ export function createSocialRepository(ctx: MockContext): SocialRepository {
       await ctx.wait();
       const t = await ctx.db.load();
       return applyFeedFilter(t.posts, filter, t.follows, meId).map((p) => enrich(t, p, meId));
+    },
+
+    async feedPage(meId, filter) {
+      await ctx.wait();
+      const t = await ctx.db.load();
+      // Ham sayfa: kürsörden eski, tarihe göre yeniden eskiye, sayfa boyu kadar.
+      const ham = [...t.posts]
+        .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+        .filter((p) => !filter.before || p.createdAt < filter.before)
+        .slice(0, FEED_PAGE_SIZE);
+      // Kürsör **ham** listeden: domain süzgeci sayfayı kısaltabilir ve
+      // süzülmüş listeden karar vermek kaydırmayı erken durdururdu.
+      const nextCursor =
+        ham.length < FEED_PAGE_SIZE ? null : (ham[ham.length - 1]?.createdAt ?? null);
+      return {
+        posts: applyFeedFilter(ham, filter, t.follows, meId).map((p) => enrich(t, p, meId)),
+        nextCursor,
+      };
     },
 
     async createStatus(meId, input) {

@@ -16,6 +16,7 @@ import {
   type User,
 } from '@/domain';
 
+import { FEED_PAGE_SIZE } from '../../repositories';
 import type { SocialRepository } from '../../repositories';
 import {
   PROFILE_SELECT,
@@ -212,6 +213,43 @@ export function createSocialRepository(ctx: RemoteContext): SocialRepository {
         meId,
       );
       return await enrichMany(posts, meId);
+    },
+
+    async feedPage(meId, filter) {
+      // RPC zaten `before_at` ve `max_rows` alıyordu; istemci bunları hiç
+      // kullanmıyor, her açılışta 200 satır çekiyordu.
+      const ham = await rows(
+        db.rpc('feed_posts', {
+          tab: filter.tab,
+          want: null,
+          tag: filter.hashtag ? normalizeHashtag(filter.hashtag) : null,
+          before_at: filter.before ?? null,
+          max_rows: FEED_PAGE_SIZE,
+        }),
+        'akış okunamadı',
+      );
+      const follows = await rows(
+        db.from('follows').select('follower_id, following_id').eq('follower_id', meId),
+        'takipler okunamadı',
+      );
+      const hamPosts = ham.map(toPost);
+      // Kürsör **ham** okumadan: domain süzgeci ("takip", "maceralar", hashtag)
+      // sayfayı kısaltabilir; süzülmüş listeden karar vermek kaydırmayı erken
+      // durdurur ve kullanıcı eski gönderileri hiç göremez.
+      const nextCursor =
+        hamPosts.length < FEED_PAGE_SIZE
+          ? null
+          : (hamPosts[hamPosts.length - 1]?.createdAt ?? null);
+      const posts = applyFeedFilter(
+        hamPosts,
+        filter,
+        follows.map((row) => ({
+          followerId: String(row.follower_id),
+          followingId: String(row.following_id),
+        })),
+        meId,
+      );
+      return { posts: await enrichMany(posts, meId), nextCursor };
     },
 
     async createStatus(meId, input) {

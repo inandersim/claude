@@ -1,4 +1,9 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
 import { queryKeys } from '@/core/query/keys';
@@ -39,6 +44,25 @@ export function useSocialFeed(filter: SocialFilter) {
   return useQuery({
     queryKey: queryKeys.social.feed(me.id, filter),
     queryFn: () => getDataProvider().social.feed(me.id, filter),
+    placeholderData: (prev) => prev,
+  });
+}
+
+/**
+ * Sonsuz kaydırmalı akış.
+ *
+ * "Daha var mı" kararı repository'den (`nextCursor`) geliyor, dönen dizinin
+ * uzunluğundan değil: domain süzgeci sayfayı kısaltabildiği için uzunluğa
+ * bakmak kaydırmayı erken durdurur ve eski gönderiler hiç görünmez.
+ */
+export function useSocialFeedPages(filter: SocialFilter) {
+  const me = useCurrentUser();
+  return useInfiniteQuery({
+    queryKey: queryKeys.social.feed(me.id, filter),
+    initialPageParam: null as string | null,
+    queryFn: ({ pageParam }) =>
+      getDataProvider().social.feedPage(me.id, { ...filter, before: pageParam }),
+    getNextPageParam: (sonSayfa) => sonSayfa.nextCursor ?? undefined,
     placeholderData: (prev) => prev,
   });
 }

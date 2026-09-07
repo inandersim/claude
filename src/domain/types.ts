@@ -1640,6 +1640,12 @@ export interface HashtagSummary {
 export interface SocialFilter {
   tab: FeedTabValue;
   hashtag?: string | null;
+  /**
+   * Kürsör: bu `createdAt` değerinden **eski** gönderiler. Ofset değil —
+   * akışa sürekli yeni gönderi ekleniyor ve ofsetli sayfalamada araya giren
+   * bir gönderi sonraki sayfayı kaydırır; kullanıcı aynı kaydı iki kez görür.
+   */
+  before?: ISODate | null;
 }
 export type FeedTabValue = 'all' | 'following' | 'adventures' | 'status';
 

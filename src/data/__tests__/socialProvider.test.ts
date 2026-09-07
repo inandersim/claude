@@ -1,3 +1,4 @@
+import { FEED_PAGE_SIZE } from '../repositories';
 import { createMockProvider } from '../mock/provider';
 import { CURRENT_USER_ID } from '../mock/seed';
 
@@ -162,5 +163,66 @@ describe('Social — durum, repost, etiket, silme', () => {
     expect(await p.feed.getById(CURRENT_USER_ID, 's5')).toBeNull();
     const feed = await p.social.feed(CURRENT_USER_ID, { tab: 'all' });
     expect(feed.some((x) => x.id === 's5')).toBe(false);
+  });
+});
+
+describe('Social — sayfalı akış', () => {
+  it('ilk sayfa sayfa boyunu aşmaz ve kürsör verir', async () => {
+    const p = make();
+    const sayfa = await p.social.feedPage(CURRENT_USER_ID, { tab: 'all' });
+    expect(sayfa.posts.length).toBeLessThanOrEqual(FEED_PAGE_SIZE);
+    // Tohum verisi bir sayfadan az; o hâlde bu son sayfa.
+    const tumu = await p.social.feed(CURRENT_USER_ID, { tab: 'all' });
+    expect(sayfa.nextCursor).toBe(tumu.length < FEED_PAGE_SIZE ? null : expect.any(String));
+  });
+
+  it('kürsör verildiğinde yalnızca daha eski gönderiler döner', async () => {
+    const p = make();
+    const ilk = await p.social.feedPage(CURRENT_USER_ID, { tab: 'all' });
+    const sinir = ilk.posts[Math.floor(ilk.posts.length / 2)]!.createdAt;
+    const sonraki = await p.social.feedPage(CURRENT_USER_ID, { tab: 'all', before: sinir });
+    expect(sonraki.posts.length).toBeGreaterThan(0);
+    for (const gonderi of sonraki.posts) {
+      expect(gonderi.createdAt < sinir).toBe(true);
+    }
+  });
+
+  it('sayfalar birleştiğinde tek sayfalı akışla aynı sonucu verir', async () => {
+    const p = make();
+    const beklenen = await p.social.feed(CURRENT_USER_ID, { tab: 'all' });
+
+    const toplanan: string[] = [];
+    let kursor: string | null = null;
+    let tur = 0;
+    do {
+      const sayfa = await p.social.feedPage(CURRENT_USER_ID, { tab: 'all', before: kursor });
+      toplanan.push(...sayfa.posts.map((x) => x.id));
+      kursor = sayfa.nextCursor;
+      tur += 1;
+      expect(tur).toBeLessThan(50); // sonsuz döngü koruması
+    } while (kursor);
+
+    expect(toplanan).toEqual(beklenen.map((x) => x.id));
+    expect(new Set(toplanan).size).toBe(toplanan.length); // yinelenen yok
+  });
+
+  it('süzgeç sayfayı kısaltsa da kürsör ham okumadan gelir', async () => {
+    // Asıl tuzak bu: "durum" sekmesi ham sayfanın çoğunu eliyor. Kürsörü
+    // süzülmüş listeden çıkarmak kaydırmayı erken durdurur ve kullanıcı eski
+    // gönderileri hiç göremezdi.
+    const p = make();
+    const ham = await p.social.feedPage(CURRENT_USER_ID, { tab: 'all' });
+    const suzulmus = await p.social.feedPage(CURRENT_USER_ID, { tab: 'status' });
+    expect(suzulmus.posts.length).toBeLessThan(ham.posts.length);
+    // İki sekme aynı ham pencereyi okuduğu için "daha var mı" kararı da aynı.
+    expect(suzulmus.nextCursor).toBe(ham.nextCursor);
+  });
+
+  it('son sayfadan sonra kürsör null', async () => {
+    const p = make();
+    const cokEski = '1970-01-01T00:00:00.000Z';
+    const bos = await p.social.feedPage(CURRENT_USER_ID, { tab: 'all', before: cokEski });
+    expect(bos.posts).toEqual([]);
+    expect(bos.nextCursor).toBeNull();
   });
 });

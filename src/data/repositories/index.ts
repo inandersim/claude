@@ -246,10 +246,33 @@ export interface UserRepository {
   ): Promise<User>;
 }
 
+/**
+ * Akış sayfa boyu — **her iki sağlayıcı da bunu kullanır.**
+ *
+ * Mock ve remote'da ayrı ayrı yazılırsa biri değişip diğeri kalabilir; o zaman
+ * "son sayfa mı" kararı (dönen kayıt sayısı < sayfa boyu) sessizce yanlış olur
+ * ve sonsuz kaydırma ya erken durur ya hiç durmaz.
+ */
+export const FEED_PAGE_SIZE = 40;
+
+export interface FeedPage {
+  posts: FeedPost[];
+  /** Sonraki sayfanın kürsörü; `null` ise son sayfa. */
+  nextCursor: ISODate | null;
+}
+
 export interface FeedFilter {
   adventureType?: AdventureType | null;
   authorId?: ID;
   locationName?: string;
+  /**
+   * Kürsör: bu `createdAt` değerinden **eski** gönderiler. Ofset yerine kürsör
+   * çünkü akışa sürekli yeni gönderi ekleniyor; ofsetli sayfalamada araya giren
+   * bir gönderi sonraki sayfayı kaydırır ve kullanıcı aynı kaydı iki kez görür.
+   */
+  before?: ISODate | null;
+  /** Sayfa boyu. Verilmezse veri katmanının varsayılanı uygulanır. */
+  limit?: number;
 }
 
 export interface FeedRepository {
@@ -547,6 +570,16 @@ export interface VisionRepository {
 
 export interface SocialRepository {
   feed(meId: ID, filter: SocialFilter): Promise<FeedPost[]>;
+  /**
+   * Sayfalı akış — sonsuz kaydırma bunu kullanır.
+   *
+   * Neden ayrı bir metot ve neden `nextCursor` sunucudan geliyor: domain
+   * süzgeci ("takip", "maceralar", hashtag) sayfayı **kısaltabilir**. Kürsörü
+   * ve "daha var mı" kararını süzülmüş listeden çıkarmak, sayfa küçüldüğünde
+   * kaydırmayı erken durdurur ve kullanıcı eski gönderileri hiç göremez.
+   * Karar bu yüzden **ham** okuma sayısına dayanıyor ve repository'de veriliyor.
+   */
+  feedPage(meId: ID, filter: SocialFilter): Promise<FeedPage>;
   createStatus(meId: ID, input: CreateStatusPostInput): Promise<FeedPost>;
   react(meId: ID, postId: ID, type: ReactionType | null): Promise<FeedPost>;
   toggleSave(meId: ID, postId: ID, collectionId?: ID | null): Promise<FeedPost>;
