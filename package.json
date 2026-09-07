@@ -26,7 +26,9 @@
     "sounds": "node tools/sounds/generate.mjs",
     "test:sounds": "node --test tools/sounds/generate.test.mjs",
     "test:selfheal": "node --test agents/selfheal/*.test.mjs",
-    "test:tiles": "node --test tools/tiles/test/*.test.mjs"
+    "test:tiles": "node --test tools/tiles/test/*.test.mjs",
+    "test:cto": "node --test agents/cto/*.test.mjs",
+    "cto": "node agents/cto/intake.mjs"
   },
   "dependencies": {
     "@expo-google-fonts/manrope": "^0.4.2",

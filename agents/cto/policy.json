@@ -1,0 +1,135 @@
+{
+  "$schema": "./policy.schema.json",
+  "version": 1,
+  "doc": "docs/AI_CTO.md",
+  "note": "Bu dosya bağlayıcıdır: betikler ve yönetim paneli kararları buradan okur. docs/AI_CTO.md onun gerekçesidir. Ajan bu dosyayı değiştiremez (self-modification lock; bkz. denyPaths).",
+
+  "autonomy": {
+    "current": "L2",
+    "levels": [
+      { "id": "L0", "name": "Yalnızca okuma", "canWriteFiles": false, "canOpenPr": false, "canDeployStaging": false, "canDeployProduction": false },
+      { "id": "L1", "name": "Geliştirme", "canWriteFiles": true, "canOpenPr": true, "canDeployStaging": false, "canDeployProduction": false, "branchPrefix": "claude/" },
+      { "id": "L2", "name": "Otonom doğrulama", "canWriteFiles": true, "canOpenPr": true, "canRunGates": true, "canDeployStaging": false, "canDeployProduction": false, "branchPrefix": "claude/" },
+      { "id": "L3", "name": "Kontrollü yayın", "canWriteFiles": true, "canOpenPr": true, "canRunGates": true, "canDeployStaging": true, "canDeployProduction": false, "branchPrefix": "claude/" },
+      { "id": "L4", "name": "Sınırlı otonom üretim", "canWriteFiles": true, "canOpenPr": true, "canRunGates": true, "canDeployStaging": true, "canDeployProduction": true, "branchPrefix": "claude/", "onlyAllowlisted": true }
+    ]
+  },
+
+  "level4": {
+    "note": "L4 yalnızca burada sayılan değişiklik türlerinde geçerlidir. Liste ajan tarafından genişletilemez.",
+    "allowlist": [
+      { "kind": "i18n-key", "paths": ["src/core/i18n/**"], "reason": "çeviri anahtarı ekleme/düzeltme" },
+      { "kind": "docs", "paths": ["docs/**", "*.md"], "reason": "belge güncelleme" },
+      { "kind": "dependency-patch", "paths": ["package-lock.json"], "reason": "yalnızca yama sürümü (semver patch)" }
+    ]
+  },
+
+  "risk": {
+    "levels": ["LOW", "MEDIUM", "HIGH", "CRITICAL"],
+    "default": "MEDIUM",
+    "note": "Sınıflandırma deterministiktir (agents/cto/lib/risk-classify.mjs). Model seviyeyi yalnızca yükseltebilir, düşüremez.",
+    "escalate": {
+      "CRITICAL": {
+        "paths": [
+          "supabase/migrations/**",
+          "src/data/remote/**",
+          "server/**",
+          ".github/workflows/**"
+        ],
+        "keywords": [
+          "drop table", "drop column", "truncate", "delete from",
+          "rls", "policy", "security definer", "grant", "revoke",
+          "ödeme", "odeme", "payment", "iade", "refund", "fiyat", "pricing",
+          "secret", "api key", "anahtar", "token", "kimlik doğrulama", "authentication",
+          "yetki", "authorization", "üretim veritabanı", "production database"
+        ]
+      },
+      "HIGH": {
+        "paths": [
+          "src/domain/pricing.ts",
+          "src/domain/marketplace.ts",
+          "src/domain/inventory.ts",
+          "src/domain/emergency.ts",
+          "src/domain/rescue.ts",
+          "src/domain/trust.ts",
+          "src/domain/phone.ts",
+          "src/features/auth/**",
+          "src/features/rescue/**",
+          "src/features/firstaid/**",
+          "src/features/presence/**",
+          "src/core/telemetry/**",
+          "admin/src/auth/**"
+        ],
+        "keywords": [
+          "konum", "location", "gps", "canlı konum", "gizlilik", "privacy", "kvkk",
+          "sos", "acil", "emergency", "kurtarma", "rescue", "ilk yardım", "first aid",
+          "otp", "sms", "doğrulama kodu", "şifre", "password", "oturum", "session",
+          "kişisel veri", "personal data", "silme", "hesap silme", "migration", "şema", "schema"
+        ]
+      },
+      "LOW": {
+        "paths": ["docs/**", "src/core/i18n/**", "website/**"],
+        "keywords": ["metin", "yazım", "typo", "çeviri", "translation", "belge", "documentation", "renk", "boşluk"]
+      }
+    }
+  },
+
+  "humanApprovalRequired": [
+    { "id": "destructive-migration", "label": "Yıkıcı veritabanı migration'ı", "detect": { "paths": ["supabase/migrations/**"], "keywords": ["drop ", "truncate", "delete from", "alter column", "rename column"] } },
+    { "id": "auth", "label": "Kimlik doğrulama değişikliği", "detect": { "paths": ["src/features/auth/**", "src/domain/phone.ts", "supabase/migrations/*auth*"], "keywords": ["kimlik doğrulama", "authentication", "giriş", "login", "otp"] } },
+    { "id": "authz", "label": "Yetkilendirme / RLS değişikliği", "detect": { "paths": ["supabase/migrations/*rls*", "admin/src/auth/**"], "keywords": ["rls", "policy", "yetki", "authorization", "rol", "role"] } },
+    { "id": "payments", "label": "Ödeme ve fiyatlandırma", "detect": { "paths": ["src/domain/pricing.ts", "src/domain/marketplace.ts", "src/domain/inventory.ts"], "keywords": ["ödeme", "odeme", "payment", "fiyat", "abonelik", "subscription", "iade"] } },
+    { "id": "personal-data", "label": "Kişisel veri toplama/saklama/silme", "detect": { "paths": ["src/core/telemetry/**"], "keywords": ["kişisel veri", "personal data", "kvkk", "gdpr", "hesap silme", "veri silme", "toplama"] } },
+    { "id": "security-config", "label": "Güvenlik yapılandırması ve secret yönetimi", "detect": { "paths": [".github/**", "server/**"], "keywords": ["secret", "anahtar", "api key", "token", "cors", "rate limit", "oran sınırı"] } },
+    { "id": "infrastructure", "label": "Altyapı ve dağıtım yapılandırması", "detect": { "paths": [".github/workflows/**", "eas.json", "app.json", "metro.config.js"], "keywords": ["dağıtım", "deploy", "ci", "pipeline", "altyapı"] } },
+    { "id": "architecture", "label": "Majör mimari değişiklik", "detect": { "keywords": ["framework değiştir", "yeniden yaz", "rewrite", "native modül", "mimari değişiklik", "migrate to"] } },
+    { "id": "location-privacy", "label": "Konum gizliliği davranışı", "detect": { "paths": ["src/features/presence/**", "src/domain/presence.ts"], "keywords": ["konum paylaş", "canlı konum", "location share", "rota gizliliği"] } }
+  ],
+
+  "pipeline": {
+    "steps": [
+      { "id": "understand", "label": "Anlama", "gate": "Belirsizlik makul varsayımla çözülebiliyor" },
+      { "id": "impact", "label": "Etki analizi", "gate": "Etkilenen sistem listesi boş değil" },
+      { "id": "research", "label": "Araştırma", "gate": "Gerekliyse yapıldı; kaynak ve tarih kayıtlı", "skippable": true },
+      { "id": "architecture", "label": "Mimari", "gate": "Mevcut yapı tekrarlanmıyor" },
+      { "id": "risk", "label": "Risk", "gate": "Sınıflandırma kayıtlı" },
+      { "id": "plan", "label": "Plan", "gate": "İnsan onayı gerekiyorsa alındı" },
+      { "id": "implement", "label": "Uygulama", "gate": "main'e doğrudan push yok" },
+      { "id": "test", "label": "Test", "gate": "Testler yeşil (atlanan test kapı sayılmaz)" },
+      { "id": "security", "label": "Güvenlik", "gate": "Critical/High bulgu yok" },
+      { "id": "review", "label": "Kod inceleme", "gate": "Bloklayıcı bulgu kalmadı" },
+      { "id": "performance", "label": "Performans", "gate": "budgets.json aşılmadı", "skippable": true },
+      { "id": "staging", "label": "Sahne", "gate": "L3 açık ve duman testi geçti", "skippable": true },
+      { "id": "deploy", "label": "Dağıtım kararı", "gate": "İnsan onayı" }
+    ],
+    "fastPath": {
+      "note": "LOW riskli taleplerde atlanabilecek adımlar. Güvenlik ve test hiçbir koşulda atlanamaz.",
+      "risk": "LOW",
+      "skip": ["research", "performance", "staging"],
+      "neverSkip": ["test", "security", "review", "deploy"]
+    }
+  },
+
+  "models": {
+    "opus": ["architecture", "risk", "security", "review", "debug", "refactor"],
+    "sonnet": ["implement", "test", "documentation", "translation"],
+    "haiku": ["classify", "log-triage", "transform"],
+    "escalation": {
+      "note": "HIGH ve CRITICAL risk her zaman en güçlü modele yükseltilir; maliyet gerekçesiyle düşürülmez.",
+      "byRisk": { "HIGH": "opus", "CRITICAL": "opus" }
+    }
+  },
+
+  "denyPaths": [
+    { "pattern": "agents/cto/policy.json", "reason": "hat kendi politikasını değiştiremez" },
+    { "pattern": "docs/AI_CTO.md", "reason": "hat kendi tüzüğünü değiştiremez" },
+    { "pattern": "agents/selfheal/**", "reason": "self-modification lock" },
+    { "pattern": ".github/**", "reason": "CI/CD tanımı" },
+    { "pattern": ".claude/**", "reason": "ajan talimatları" }
+  ],
+
+  "securityReport": {
+    "allowedStatuses": ["Checked", "Passed", "Warning", "Vulnerability", "Not Tested"],
+    "forbiddenPhrases": ["kod güvenlidir", "kod güvenli", "güvenlik sorunu yok", "code is secure", "no security issues"]
+  }
+}

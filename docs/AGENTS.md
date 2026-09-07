@@ -2,6 +2,10 @@
 
 Zirtan'nin altyapı bakımı, düşük bütçeyle **GitHub'ın ücretsiz katmanı + Claude Code** üzerinde çalışan bir ajan kümesine devredilmiştir. Ajanlar kod yazar, test eder, rapor üretir ve PR açar; **birleştirme kararı her zaman insana aittir**.
 
+> Ajanların **anayasası** `docs/AI_CTO.md` (mühendislik tüzüğü); bağlayıcı,
+> makine okunur karşılığı `agents/cto/policy.json`. Bu belge "kim ne zaman
+> çalışır"ı, tüzük "neye izin var"ı anlatır. İkisi çelişirse politika bağlayıcıdır.
+
 ## 1. Şema — kim, neyi, ne zaman
 
 ```
@@ -34,6 +38,14 @@ Zirtan'nin altyapı bakımı, düşük bütçeyle **GitHub'ın ücretsiz katman�
 | `module-builder`         | `docs/MODULE_GUIDE.md`'ye göre modül iskeleti (domain → … → test)                                          | `/new-module <ad>`                                     | inherit |
 | `ux-auditor`             | Playwright ile web turu: ekran görüntüsü, konsol hatası, `[missing` i18n, iç içe `<button>`                | `nightly-health.yml`, `/ux-audit`                      | inherit |
 | `growth-analyst`         | `agents/marketing` + README/STRATEGY'den kısa içerik/ASO önerisi                                           | İsteğe bağlı                                           | sonnet  |
+| `ai-cto`                 | Talebi anlama→etki→risk→plan zincirinden geçirir, işi böler, sonuçları doğrular; kod yazmaz                | Kapsamı belirsiz geliştirme talepleri                  | opus    |
+| `research`               | Resmî dokümantasyon ve birincil kaynaklardan araştırma; her iddia kaynak + tarihli                        | "araştır", teknik karar öncesi                         | sonnet  |
+| `product`                | Kullanıcı hikâyesi, kabul ölçütü, uç durumlar, ekran durumları, erişilebilirlik                           | Özellik tasarımı                                       | sonnet  |
+| `architect`              | Katmanlara oturtma, yinelenen yapı engeli, ADR yazımı                                                     | "nereye koymalıyız", mimari karar                      | opus    |
+| `database`               | Migration tasarımı, RLS politikası, indeks; yıkıcı işlemde insan onayı ister                              | Şema değişikliği                                        | opus    |
+| `code-reviewer`          | Bağımsız diff incelemesi; düzeltmez, bulgu üretir                                                          | Uygulama adımından sonra                               | opus    |
+| `performance`            | Bütçe ölçümü (paket, sorgu, render); bütçeyi gevşetmez                                                    | "yavaş", bütçe aşımı                                    | sonnet  |
+| `docs-writer`            | Kod ile belgeyi karşılaştırır, çelişkiyi belge tarafında düzeltir                                        | Belge eskimesi                                          | sonnet  |
 
 Betikler (`agents/devops/`, Node 22, bağımlılıksız): `health.mjs`, `bundle-size.mjs`, `i18n-check.mjs`, `release-notes.mjs` — ajanlar kendi gözlemlerini bunların üstüne kurar; ayrıntı için `agents/devops/README.md`.
 
