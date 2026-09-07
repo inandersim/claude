@@ -67,20 +67,41 @@ function Ana-Surum($metin) {
 }
 
 <#
-  npm'i çalıştırır. Windows'ta npm bir .cmd sarmalayıcısıdır; PowerShell'in
-  `$LASTEXITCODE` değerini doğru okuyabilmesi için cmd üzerinden çağrılır.
+  npm'i çalıştırır.
+
+  İki Windows tuzağı vardır:
+  1. npm bir .cmd sarmalayıcısıdır; `$LASTEXITCODE` doğru okunsun diye cmd
+     üzerinden çağrılır.
+  2. npm **uyarılarını stderr'e** yazar (ör. "npm warn deprecated ..."). Betikte
+     `$ErrorActionPreference = 'Stop'` açıkken PowerShell yerel komutun stderr
+     satırlarını ölümcül `NativeCommandError`'a çevirir ve zararsız bir eskime
+     uyarısı kurulumu durdurur. Bu yüzden yönlendirme cmd'nin İÇİNDE yapılır
+     (PowerShell stderr akışını hiç görmez) ve çağrı boyunca tercih gevşetilir.
+     Başarı ölçütü tek şeydir: çıkış kodu.
 #>
 function Npm-Calistir {
   param([string] $Argumanlar, [string] $CalismaDizini, [string] $Aciklama)
   Push-Location $CalismaDizini
+  $oncekiTercih = $ErrorActionPreference
+  $ErrorActionPreference = 'Continue'
   try {
     Yaz-Bilgi "$Aciklama..."
-    & cmd /c "npm $Argumanlar" 2>&1 | ForEach-Object {
-      if ($_ -match 'ERR!|error ') { Write-Host "    $_" -ForegroundColor DarkRed }
+    $cikti = cmd /c "npm $Argumanlar 2>&1"
+    if ($LASTEXITCODE -ne 0) {
+      # Yalnızca gerçek hata satırlarını göster; uyarı gürültüsünü gizle.
+      $cikti | Where-Object { $_ -match 'npm error|ERR!' } |
+        Select-Object -First 20 |
+        ForEach-Object { Write-Host "    $_" -ForegroundColor DarkRed }
+      throw "npm $Argumanlar basarisiz (cikis kodu $LASTEXITCODE)"
     }
-    if ($LASTEXITCODE -ne 0) { throw "npm $Argumanlar başarısız (çıkış kodu $LASTEXITCODE)" }
-    Yaz-Tamam $Aciklama
+    $uyariSayisi = ($cikti | Where-Object { $_ -match 'npm warn' }).Count
+    if ($uyariSayisi -gt 0) {
+      Yaz-Tamam "$Aciklama ($uyariSayisi paket uyarisi - zararsiz)"
+    } else {
+      Yaz-Tamam $Aciklama
+    }
   } finally {
+    $ErrorActionPreference = $oncekiTercih
     Pop-Location
   }
 }
@@ -212,14 +233,18 @@ if ($AtlaDogrulama) {
 } else {
   Yaz-Baslik 'Kurulum doğrulanıyor'
   Push-Location $Klasor
+  # Npm-Calistir'daki ile aynı neden: yerel komutların stderr çıktısı ölümcül
+  # sayılmasın. Yönlendirmeler cmd'nin içinde yapılır.
+  $oncekiTercih = $ErrorActionPreference
+  $ErrorActionPreference = 'Continue'
   try {
     Yaz-Bilgi 'TypeScript denetimi...'
-    & cmd /c 'npm run typecheck' | Out-Null
+    cmd /c 'npm run typecheck 2>&1' | Out-Null
     if ($LASTEXITCODE -eq 0) { Yaz-Tamam 'TypeScript: 0 hata' }
     else { Yaz-Uyari 'TypeScript hata verdi. Ayrinti icin: npm run typecheck' }
 
     Yaz-Bilgi 'Testler calistiriliyor (bir dakika surebilir)...'
-    $testCikti = & cmd /c 'npm test 2>&1'
+    $testCikti = cmd /c 'npm test 2>&1'
     $testGecti = $LASTEXITCODE -eq 0
     $ozetSatiri = $testCikti | Select-String -Pattern 'Tests:' | Select-Object -Last 1
     $ozet = if ($ozetSatiri) { ($ozetSatiri.ToString() -replace '\s+', ' ').Trim() } else { '' }
@@ -228,7 +253,10 @@ if ($AtlaDogrulama) {
     } else {
       Yaz-Uyari 'Testlerde hata var. Ayrinti icin: npm test'
     }
-  } finally { Pop-Location }
+  } finally {
+    $ErrorActionPreference = $oncekiTercih
+    Pop-Location
+  }
 }
 
 # ------------------------------------------------------------------
@@ -266,7 +294,8 @@ if ($Baslat) {
   Yaz-Baslik 'Uygulama başlatılıyor'
   Yaz-Bilgi 'Durdurmak için Ctrl+C. Tarayıcı birkaç saniye içinde açılır.'
   Push-Location $Klasor
-  try { & cmd /c 'npm run web' } finally { Pop-Location }
+  $ErrorActionPreference = 'Continue'
+  try { cmd /c 'npm run web' } finally { Pop-Location }
 } else {
   Write-Host ''
   Write-Host '  İpucu: kurulumdan sonra doğrudan başlatmak için' -ForegroundColor DarkGray
