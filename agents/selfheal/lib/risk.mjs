@@ -31,6 +31,11 @@ export const DENY = [
     pattern: 'agents/selfheal/**',
     reason: 'self-heal hattının kendi kuralları (self-modification lock)',
   },
+  {
+    pattern: 'agents/cto/**',
+    reason: 'AI CTO hattının kuralları ve politikası (self-modification lock)',
+  },
+  { pattern: 'docs/AI_CTO.md', reason: 'mühendislik tüzüğü — yalnızca insan PR\'ı' },
   { pattern: 'node_modules/**', reason: 'bağımlılık kaynağı' },
   { pattern: '.git/**', reason: 'depo iç yapısı' },
   { pattern: 'server/**/node_modules/**', reason: 'bağımlılık kaynağı' },

@@ -51,6 +51,14 @@ test('self-modification lock: hat kendi kurallarını ve ajan talimatlarını de
   assert.equal(classifyPath('agents/selfheal/lib/risk.mjs').denied, true);
   assert.equal(classifyPath('agents/selfheal/budgets.json').denied, true);
   assert.equal(classifyPath('.claude/agents/root-cause.md').denied, true);
+  // AI CTO tüzüğü ve politikası da aynı kilidin altındadır: hat kendi
+  // otonomi seviyesini, risk eşiklerini ya da kapılarını yükseltemez.
+  assert.equal(classifyPath('agents/cto/policy.json').denied, true);
+  assert.equal(classifyPath('agents/cto/lib/pipeline.mjs').denied, true);
+  assert.equal(classifyPath('docs/AI_CTO.md').denied, true);
+  // Diğer belgeler kilitli değil — kilit dar tutulmalı, yoksa hat
+  // hiçbir belgeyi güncelleyemez hâle gelir.
+  assert.equal(classifyPath('docs/ARCHITECTURE.md').denied, false);
 });
 
 test('izin listesi dışı yollar reddedilir (yasak olmasalar bile)', () => {
