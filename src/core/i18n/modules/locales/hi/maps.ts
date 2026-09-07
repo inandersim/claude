@@ -86,6 +86,8 @@ export const maps_hi: MapsI18nShape = {
   edges: '{{count}} कनेक्शन',
   legend: 'संकेत',
   technicalEdge: 'तकनीकी खंड',
+  terrain3d: '3D भूभाग',
+  hillshade: 'पहाड़ी छाया',
   slope: {
     toggle: 'ढलान कोण',
     band: {

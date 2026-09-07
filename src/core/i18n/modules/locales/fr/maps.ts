@@ -86,6 +86,8 @@ export const maps_fr: MapsI18nShape = {
   edges: '{{count}} liaisons',
   legend: 'Légende',
   technicalEdge: 'Section technique',
+  terrain3d: 'Relief 3D',
+  hillshade: 'Ombrage du relief',
   slope: {
     toggle: 'Angle de pente',
     band: {

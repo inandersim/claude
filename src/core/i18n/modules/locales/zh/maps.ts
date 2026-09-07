@@ -85,6 +85,8 @@ export const maps_zh: MapsI18nShape = {
   edges: '{{count}} 条连接',
   legend: '图例',
   technicalEdge: '技术路段',
+  terrain3d: '三维地形',
+  hillshade: '山体阴影',
   slope: {
     toggle: '坡度',
     band: {

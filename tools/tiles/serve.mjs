@@ -60,10 +60,24 @@ export function readPmtilesHeader(path) {
   }
 };
 
+/**
+ * `<bölge>-dem.pmtiles` ayrı bir paket değildir: ana paketin yükseklik
+ * verisidir. Listede kendi başına görünürse kullanıcı onu indirilebilir bir
+ * harita paketi sanır ve iki kez indirir.
+ */
+export const DEM_SUFFIX = '-dem';
+export const isDemFile = (name) => name.replace(/\.pmtiles$/, '').endsWith(DEM_SUFFIX);
+export const parentOf = (name) => name.replace(/\.pmtiles$/, '').slice(0, -DEM_SUFFIX.length);
+
 const listPacks = () => {
   if (!existsSync(TILES_DIR)) return [];
-  return readdirSync(TILES_DIR)
-    .filter((f) => f.endsWith('.pmtiles'))
+  const files = readdirSync(TILES_DIR).filter((f) => f.endsWith('.pmtiles'));
+  const demByParent = new Map();
+  for (const f of files) {
+    if (isDemFile(f)) demByParent.set(parentOf(f), f);
+  }
+  return files
+    .filter((f) => !isDemFile(f))
     .map((f) => {
       const path = resolve(TILES_DIR, f);
       const { size, mtime } = statSync(path);
@@ -82,6 +96,8 @@ const listPacks = () => {
         maxzoom: header?.maxzoom ?? null,
         url: `/tiles/${f}`,
         graphUrl: existsSync(resolve(GRAPHS_DIR, `${id}.json`)) ? `/graphs/${id}.json` : null,
+        // Kabartma ve 3B arazi için yükseklik karosu (varsa).
+        demUrl: demByParent.has(id) ? `/tiles/${demByParent.get(id)}` : null,
       };
     });
 };

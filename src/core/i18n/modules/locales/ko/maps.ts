@@ -85,6 +85,8 @@ export const maps_ko: MapsI18nShape = {
   edges: '연결 {{count}}개',
   legend: '범례',
   technicalEdge: '기술 구간',
+  terrain3d: '3D 지형',
+  hillshade: '음영 기복',
   slope: {
     toggle: '경사각',
     band: {

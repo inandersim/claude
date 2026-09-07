@@ -85,6 +85,8 @@ export const maps_cs: MapsI18nShape = {
   edges: '{{count}} spojení',
   legend: 'Legenda',
   technicalEdge: 'Technický úsek',
+  terrain3d: '3D terén',
+  hillshade: 'Stínování reliéfu',
   slope: {
     toggle: 'Sklon svahu',
     band: {

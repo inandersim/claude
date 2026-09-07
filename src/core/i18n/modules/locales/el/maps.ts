@@ -86,6 +86,8 @@ export const maps_el: MapsI18nShape = {
   edges: '{{count}} συνδέσεις',
   legend: 'Υπόμνημα',
   technicalEdge: 'Τεχνικό τμήμα',
+  terrain3d: 'Τρισδιάστατο ανάγλυφο',
+  hillshade: 'Σκίαση αναγλύφου',
   slope: {
     toggle: 'Κλίση πλαγιάς',
     band: {

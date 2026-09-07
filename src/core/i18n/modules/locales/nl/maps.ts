@@ -85,6 +85,8 @@ export const maps_nl: MapsI18nShape = {
   edges: '{{count}} verbindingen',
   legend: 'Legenda',
   technicalEdge: 'Technisch stuk',
+  terrain3d: '3D-terrein',
+  hillshade: 'Reliëfschaduw',
   slope: {
     toggle: 'Hellingshoek',
     band: {

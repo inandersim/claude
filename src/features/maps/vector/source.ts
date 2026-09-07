@@ -5,7 +5,7 @@ import { packCoversPoint, type GeoPoint, type MapPack, type TrailGraph } from '@
 
 import { tilesBaseUrl } from '../pack-manager';
 import { graphToGeoJson } from './graph-source';
-import type { MapSource } from './types';
+import type { MapDemSource, MapSource } from './types';
 
 /** Karo sunucusunun `/packs` yanıtı (tools/tiles/serve.mjs ile aynı sözleşme). */
 export interface ServerPack {
@@ -19,6 +19,8 @@ export interface ServerPack {
   maxzoom: number | null;
   url: string;
   graphUrl: string | null;
+  /** Yükseklik karosu (kabartma + 3B); paket taşımıyorsa null */
+  demUrl?: string | null;
 }
 
 /** Sunucudaki paketleri listeler; `EXPO_PUBLIC_TILES_URL` yoksa boş dizi. */
@@ -105,6 +107,14 @@ export interface ResolvedSource {
   kind: MapSourceKind;
   /** Kaynakta gerçekten bulunan stil katmanları */
   availableLayers?: string[];
+  /**
+   * Yükseklik karosu — kabartma gölgelendirme ve 3B arazi için.
+   *
+   * Şimdilik yalnızca karo sunucusu yolunda dolar. İndirilmiş paketlerde DEM
+   * arşivi ayrı bir dosya olduğundan paket yöneticisinin onu da indirmesi
+   * gerekiyor; o adım henüz yok (bkz. docs/MAPS.md "bilinen sınırlar").
+   */
+  demSource?: MapDemSource | null;
 }
 
 /**
@@ -136,7 +146,19 @@ export function resolveSource(options: {
     if (baseUrl) {
       const remote = pickServerPack(serverPacks, center);
       if (remote) {
-        return { source: { kind: 'pmtiles', url: `${baseUrl}${remote.url}` }, kind: 'server' };
+        return {
+          source: { kind: 'pmtiles', url: `${baseUrl}${remote.url}` },
+          kind: 'server',
+          demSource: remote.demUrl
+            ? {
+                kind: 'pmtiles',
+                url: `${baseUrl}${remote.demUrl}`,
+                // DEM arşivi vektör paketten daha düşük zuma kadar üretilir;
+                // MapLibre üstünü büyüterek kullanır.
+                maxzoom: remote.maxzoom ?? 12,
+              }
+            : null,
+        };
       }
     }
   }

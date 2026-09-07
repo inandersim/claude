@@ -45,7 +45,10 @@
         "slope30": "rgba(247, 163, 61, 0.40)",
         "slope35": "rgba(232, 93, 60, 0.45)",
         "slope40": "rgba(198, 55, 108, 0.50)",
-        "slope45": "rgba(120, 40, 120, 0.55)"
+        "slope45": "rgba(120, 40, 120, 0.55)",
+        "hillshadeShadow": "rgba(60, 72, 60, 0.30)",
+        "hillshadeHighlight": "rgba(255, 255, 245, 0.22)",
+        "hillshadeAccent": "rgba(70, 90, 70, 0.10)"
       },
       "dark": {
         "land": "#101B17",
@@ -78,7 +81,10 @@
         "slope30": "rgba(247, 163, 61, 0.32)",
         "slope35": "rgba(232, 93, 60, 0.38)",
         "slope40": "rgba(214, 70, 124, 0.44)",
-        "slope45": "rgba(160, 66, 160, 0.50)"
+        "slope45": "rgba(160, 66, 160, 0.50)",
+        "hillshadeShadow": "rgba(0, 0, 0, 0.45)",
+        "hillshadeHighlight": "rgba(180, 210, 190, 0.12)",
+        "hillshadeAccent": "rgba(0, 0, 0, 0.15)"
       },
       "sun": {
         "land": "#FFFFFF",
@@ -111,7 +117,10 @@
         "slope30": "rgba(255, 140, 20, 0.55)",
         "slope35": "rgba(230, 50, 30, 0.60)",
         "slope40": "rgba(190, 20, 90, 0.65)",
-        "slope45": "rgba(105, 20, 105, 0.70)"
+        "slope45": "rgba(105, 20, 105, 0.70)",
+        "hillshadeShadow": "rgba(40, 35, 25, 0.40)",
+        "hillshadeHighlight": "rgba(255, 250, 230, 0.30)",
+        "hillshadeAccent": "rgba(60, 50, 30, 0.14)"
       }
     }
   },
@@ -122,6 +131,18 @@
       "type": "background",
       "paint": {
         "background-color": "@land"
+      }
+    },
+    {
+      "id": "hillshade",
+      "type": "hillshade",
+      "source": "@dem",
+      "paint": {
+        "hillshade-shadow-color": "@hillshadeShadow",
+        "hillshade-highlight-color": "@hillshadeHighlight",
+        "hillshade-accent-color": "@hillshadeAccent",
+        "hillshade-illumination-direction": 315,
+        "hillshade-exaggeration": 0.55
       }
     },
     {

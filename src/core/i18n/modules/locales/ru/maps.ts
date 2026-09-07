@@ -85,6 +85,8 @@ export const maps_ru: MapsI18nShape = {
   edges: '{{count}} связей',
   legend: 'Легенда',
   technicalEdge: 'Технический участок',
+  terrain3d: '3D-рельеф',
+  hillshade: 'Отмывка рельефа',
   slope: {
     toggle: 'Угол склона',
     band: {

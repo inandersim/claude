@@ -85,6 +85,8 @@ export const maps_ja: MapsI18nShape = {
   edges: '{{count}} 区間',
   legend: '凡例',
   technicalEdge: 'テクニカル区間',
+  terrain3d: '3D地形',
+  hillshade: '陰影起伏',
   slope: {
     toggle: '斜度',
     band: {

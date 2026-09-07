@@ -30,6 +30,17 @@ export type MapSource =
   | { kind: 'vector'; tiles: string[]; minzoom?: number; maxzoom?: number }
   | { kind: 'geojson'; data: Partial<Record<string, GeoJsonCollection>> };
 
+/**
+ * Yükseklik karosu kaynağı — kabartma gölgelendirme ve 3B arazi için.
+ *
+ * Vektör karolardan **ayrı** bir arşivdir (`<bölge>-dem.pmtiles`): kullanıcı
+ * kabartma istemiyorsa indirmez. Kodlama terrarium
+ * (`tools/tiles/lib/terrain-rgb.mjs`).
+ */
+export type MapDemSource =
+  | { kind: 'pmtiles'; url: string; maxzoom?: number }
+  | { kind: 'raster'; tiles: string[]; maxzoom?: number };
+
 /** Harita üzerindeki nokta işareti (başlangıç/bitiş, POI, adım). */
 export interface MapMarker {
   id: ID;
@@ -69,6 +80,17 @@ export interface MapViewProps {
    * Varsayılan kapalı — kışın hayat kurtarır ama yazın haritayı okunmaz yapar.
    */
   slopeShading?: boolean;
+  /** Yükseklik karosu; verilirse kabartma gölgelendirme ve 3B arazi açılabilir */
+  demSource?: MapDemSource | null;
+  /** Kabartma gölgelendirme (DEM kaynağı varsa varsayılan **açık**) */
+  hillshade?: boolean;
+  /**
+   * 3B arazi. Varsayılan kapalı: kamerayı eğmek pil ve GPU maliyeti getirir,
+   * düz haritada rota okumak da daha kolaydır.
+   */
+  terrain3d?: boolean;
+  /** 3B arazi abartma katsayısı (1 = gerçek ölçek) */
+  terrainExaggeration?: number;
   /** Planlanan/kayıtlı rota çizgisi */
   route?: GeoPoint[];
   /** Rotanın katedilmiş bölümü (navigasyonda soluk çizilir) */
@@ -109,4 +131,6 @@ export interface MapStyleSpec {
   layers: Record<string, unknown>[];
   glyphs?: string;
   sprite?: string;
+  /** 3B arazi; `source` bir `raster-dem` kaynağını göstermek zorundadır */
+  terrain?: { source: string; exaggeration?: number };
 }

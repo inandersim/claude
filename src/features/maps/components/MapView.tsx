@@ -35,6 +35,10 @@ export function MapView(props: MapViewProps) {
     variant,
     availableLayers,
     slopeShading = false,
+    demSource = null,
+    hillshade = true,
+    terrain3d = false,
+    terrainExaggeration = 1,
     route,
     routeDone,
     track,
@@ -85,11 +89,26 @@ export function MapView(props: MapViewProps) {
         attribution,
         overlay,
         slopeShading,
+        demSource,
+        hillshade,
+        terrain3d,
+        terrainExaggeration,
       });
     } catch {
       return null;
     }
-  }, [source, activeVariant, availableLayers, attribution, overlay, slopeShading]);
+  }, [
+    source,
+    activeVariant,
+    availableLayers,
+    attribution,
+    overlay,
+    slopeShading,
+    demSource,
+    hillshade,
+    terrain3d,
+    terrainExaggeration,
+  ]);
 
   const onError = useCallback(
     (reason: MapFallbackReason) => {

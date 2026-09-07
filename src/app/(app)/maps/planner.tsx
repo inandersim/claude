@@ -63,6 +63,9 @@ export default function RoutePlannerScreen() {
   // Eğim gölgelendirmesi varsayılan kapalı: kışın hayat kurtarır, yazın haritayı
   // okunmaz hâle getirir. Kullanıcı açıkça açar.
   const [slopeShading, setSlopeShading] = useState(false);
+  // 3B arazi varsayılan kapalı: kamerayı eğmek pil ve GPU maliyeti getirir,
+  // düz haritada rota okumak da daha kolaydır.
+  const [terrain3d, setTerrain3d] = useState(false);
 
   const activeRegionId = regionId ?? regions.data?.[0]?.id ?? null;
   const activeRegion = regions.data?.find((r) => r.id === activeRegionId) ?? null;
@@ -190,6 +193,7 @@ export default function RoutePlannerScreen() {
               endId={endId}
               onNodePress={onNodePress}
               slopeShading={slopeShading}
+              terrain3d={terrain3d}
             />
             <View style={styles.legend}>
               <Chip
@@ -197,6 +201,12 @@ export default function RoutePlannerScreen() {
                 icon="triangle-alert"
                 selected={slopeShading}
                 onPress={() => setSlopeShading((v) => !v)}
+              />
+              <Chip
+                label={t('maps.terrain3d')}
+                icon="mountain-snow"
+                selected={terrain3d}
+                onPress={() => setTerrain3d((v) => !v)}
               />
             </View>
             {slopeShading ? (

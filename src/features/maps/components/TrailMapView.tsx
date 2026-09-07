@@ -30,6 +30,10 @@ interface Props {
   showLabels?: boolean;
   /** Eğim açısı gölgelendirmesi (çığ bantları); paket taşımıyorsa yok sayılır */
   slopeShading?: boolean;
+  /** Kabartma gölgelendirme; yükseklik karosu yoksa yok sayılır */
+  hillshade?: boolean;
+  /** 3B arazi; yükseklik karosu yoksa yok sayılır */
+  terrain3d?: boolean;
 }
 
 
@@ -56,6 +60,8 @@ export function TrailMapView({
   height = 320,
   showLabels = true,
   slopeShading = false,
+  hillshade = true,
+  terrain3d = false,
 }: Props) {
   const { colors } = useTheme();
   const { t } = useT();
@@ -131,6 +137,9 @@ export function TrailMapView({
       source={resolved.source}
       availableLayers={resolved.availableLayers}
       slopeShading={slopeShading}
+      demSource={resolved.demSource ?? null}
+      hillshade={hillshade}
+      terrain3d={terrain3d}
       center={graphCenter}
       zoom={12}
       bounds={bounds}

@@ -86,6 +86,8 @@ export const maps_ka: MapsI18nShape = {
   edges: '{{count}} კავშირი',
   legend: 'ლეგენდა',
   technicalEdge: 'ტექნიკური მონაკვეთი',
+  terrain3d: '3D რელიეფი',
+  hillshade: 'რელიეფის დაჩრდილვა',
   slope: {
     toggle: 'ფერდობის კუთხე',
     band: {

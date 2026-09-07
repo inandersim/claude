@@ -222,3 +222,77 @@ node --test tools/tiles/test/terrain.test.mjs
 45° çıkmalı, doğu-batı yönünde yükselen yamaçta eşyükseltiler kuzey-güney
 doğrultusunda düz olmalı, tepe çevresinde kapalı halka oluşmalı, birleştirme
 hiçbir hücreyi atlamamalı ve iki kez saymamalı.
+
+## Kabartma gölgelendirme ve 3B arazi (terrain-RGB)
+
+```bash
+node tools/tiles/build-tiles.mjs --region uludag --terrain-rgb
+node tools/tiles/build-tiles.mjs --region uludag --terrain --terrain-rgb   # ikisi birden
+```
+
+`--terrain-rgb`, DEM'i **terrarium** kodlamasıyla PNG raster karolarına çevirir ve
+ayrı bir arşive yazar: `out/tiles/<bölge>-dem.pmtiles`. Tek bir karo kümesi iki
+özelliği birden açar — kabartma gölgelendirme (`hillshade` katmanı) ve 3B arazi
+(MapLibre `terrain`).
+
+**Neden ayrı dosya?** Kullanıcı kabartma istemiyorsa DEM'i indirmez. Karo
+sunucusu `-dem` sonekini tanır ve onu **ayrı bir paket olarak listelemez**; ana
+paketin `demUrl` alanına bağlar. Aksi hâlde kullanıcı listede iki "harita paketi"
+görür ve ikisini de indirir.
+
+**Kodlama** (`tools/tiles/lib/terrain-rgb.mjs`):
+
+    yükseklik = (R * 256 + G + B / 256) - 32768
+
+Mapbox'ın terrain-rgb biçimi yerine terrarium seçildi: açık biçim, 1/256 m
+çözünürlük, negatif yükseklikleri (Ölü Deniz, Hazar) doğal olarak taşıyor.
+Stil tarafındaki `encoding: 'terrarium'` ve `tileSize: 256` bu hatla **birebir**
+eşleşmek zorundadır; uyuşmazsa harita çökmez, **yanlış** arazi çizer.
+
+**PNG kodlayıcı** (`tools/tiles/lib/png.mjs`): bağımlılıksız, `node:zlib`
+üzerine ~100 satır. Yalnızca 8 bit RGB, aralıksız, tek IDAT — terrain-RGB'nin
+ihtiyacı bu. Genel amaçlı bir PNG kütüphanesi eklemek, bu iş için 100 satırı
+1 MB'lık bağımlılıkla değiştirmek olurdu. Satır filtresi `Sub`: komşu pikseller
+birbirine yakın olduğu için düz `None`dan belirgin biçimde iyi sıkışıyor.
+
+**Çözünürlük sınırı.** Izgara adımından daha ince karo üretmek yeni bilgi
+taşımaz. `terrainRange()` gerçek sınırı hesaplar ve CLI bunu raporlar
+("DEM z10'a kadar gerçek bilgi taşıyor; üstündeki zumlar ara değerdir").
+Kaba ızgarada üst sınır `minzoom`un altına düşerse aralık kenetlenir —
+eskiden bu durumda **sessizce boş** bir karo kümesi üretiliyordu.
+
+**Örnekleme** çift doğrusaldır. En yakın komşu, karo çözünürlüğü ızgaradan
+yüksek olduğunda basamaklı bir yüzey üretir ve kabartmada satranç tahtası
+deseni olarak görünür.
+
+### Uygulama tarafı
+
+| Ayar             | Varsayılan | Neden                                                        |
+| ---------------- | ---------- | ------------------------------------------------------------ |
+| `hillshade`      | **açık**   | Görsel kazancı büyük, maliyeti düşük; arazi okunur hâle gelir |
+| `terrain3d`      | kapalı     | Kamerayı eğmek pil ve GPU maliyeti getirir                    |
+| `slopeShading`   | kapalı     | Kışın hayat kurtarır, yazın haritayı okunmaz yapar            |
+
+Kabartma katmanı zeminin **üstünde**, arazi renklerinin **altında** durur; aksi
+hâlde harita gri bir kabartmaya döner. Aydınlatma kuzeybatıdan (315°) —
+kartografyada yerleşik kural; tersi "kabarık yerine çukur" yanılsaması üretir.
+
+### Doğrulama
+
+```bash
+node --test tools/tiles/test/terrain-rgb.test.mjs
+```
+
+17 test. Ölçüt **gidiş-dönüş**: kodlanan yükseklik çözüldüğünde 1/256 m içinde
+aynı değeri vermeli. Ayrıca PNG'nin kayıpsız geri okunduğu (filtre çözümü),
+karo koordinat dönüşümlerinin tersinir olduğu ve kaba ızgarada bile karo
+üretildiği doğrulanıyor.
+
+Uçtan uca tarayıcıda da denendi: sentetik bir Likya paketi + DEM arşivi karo
+sunucusundan servis edildi, uygulama `pmtiles://` üzerinden `likya-dem.pmtiles`
+arşivini çekti (başlık + karo verisi), kabartma ve 3B düğmeleri çalıştı,
+konsolda stil hatası çıkmadı.
+
+**Bilinen sınır:** 3B arazi yalnızca web motorunda doğrulandı. Yerel (iOS/Android)
+motor stil belirtimindeki `terrain` alanını okur ama geliştirme derlemesi
+gerektirdiği için burada sınanamadı.

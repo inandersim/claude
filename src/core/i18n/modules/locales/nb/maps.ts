@@ -85,6 +85,8 @@ export const maps_nb: MapsI18nShape = {
   edges: '{{count}} lenker',
   legend: 'Tegnforklaring',
   technicalEdge: 'Teknisk parti',
+  terrain3d: '3D-terreng',
+  hillshade: 'Terrengskyggelegging',
   slope: {
     toggle: 'Helningsvinkel',
     band: {

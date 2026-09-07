@@ -106,6 +106,8 @@ const tr = {
   edges: '{{count}} bağlantı',
   legend: 'Gösterim',
   technicalEdge: 'Teknik bölüm',
+  terrain3d: '3B arazi',
+  hillshade: 'Kabartma',
   slope: {
     toggle: 'Eğim açısı',
     // Çığların büyük çoğunluğu 30-45 derece yamaçlarda tetiklenir; bantlar
@@ -224,6 +226,8 @@ const en: MapsI18nShape = {
   edges: '{{count}} links',
   legend: 'Legend',
   technicalEdge: 'Technical section',
+  terrain3d: '3D terrain',
+  hillshade: 'Hillshade',
   slope: {
     toggle: 'Slope angle',
     band: {

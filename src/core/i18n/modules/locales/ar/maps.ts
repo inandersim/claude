@@ -85,6 +85,8 @@ export const maps_ar: MapsI18nShape = {
   edges: '{{count}} وصلة',
   legend: 'مفتاح الخريطة',
   technicalEdge: 'مقطع تقني',
+  terrain3d: 'تضاريس ثلاثية الأبعاد',
+  hillshade: 'تظليل التضاريس',
   slope: {
     toggle: 'زاوية الميل',
     band: {

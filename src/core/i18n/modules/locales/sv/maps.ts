@@ -86,6 +86,8 @@ export const maps_sv: MapsI18nShape = {
   edges: '{{count}} länkar',
   legend: 'Teckenförklaring',
   technicalEdge: 'Tekniskt avsnitt',
+  terrain3d: '3D-terräng',
+  hillshade: 'Terrängskuggning',
   slope: {
     toggle: 'Lutningsvinkel',
     band: {

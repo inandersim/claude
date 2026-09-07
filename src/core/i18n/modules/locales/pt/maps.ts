@@ -85,6 +85,8 @@ export const maps_pt: MapsI18nShape = {
   edges: '{{count}} conexões',
   legend: 'Legenda',
   technicalEdge: 'Trecho técnico',
+  terrain3d: 'Terreno 3D',
+  hillshade: 'Sombreamento do relevo',
   slope: {
     toggle: 'Ângulo de inclinação',
     band: {

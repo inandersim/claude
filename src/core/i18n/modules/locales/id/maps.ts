@@ -85,6 +85,8 @@ export const maps_id: MapsI18nShape = {
   edges: '{{count}} sambungan',
   legend: 'Legenda',
   technicalEdge: 'Bagian teknis',
+  terrain3d: 'Medan 3D',
+  hillshade: 'Bayangan bukit',
   slope: {
     toggle: 'Sudut kemiringan',
     band: {

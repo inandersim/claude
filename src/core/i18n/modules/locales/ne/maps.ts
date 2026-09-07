@@ -86,6 +86,8 @@ export const maps_ne: MapsI18nShape = {
   edges: '{{count}} जडान',
   legend: 'सङ्केत',
   technicalEdge: 'प्राविधिक खण्ड',
+  terrain3d: '3D भूभाग',
+  hillshade: 'पहाडी छायाँ',
   slope: {
     toggle: 'भिरालो कोण',
     band: {

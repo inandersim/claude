@@ -23,6 +23,17 @@ export const ROOT_DIR_LIMIT = 16384;
 const COMPRESSION_NONE = 1;
 const COMPRESSION_GZIP = 2;
 const TILE_TYPE_MVT = 1;
+const TILE_TYPE_PNG = 2;
+
+/**
+ * Karo türleri. PNG zaten sıkıştırılmıştır; üstüne gzip uygulamak dosyayı
+ * küçültmez ama her karo okumasına bir açma adımı ekler — bu yüzden raster
+ * karolarda iç sıkıştırma kapalıdır (biçim belirtiminin de önerisi).
+ */
+export const TILE_TYPES = {
+  mvt: { id: TILE_TYPE_MVT, compression: COMPRESSION_GZIP },
+  png: { id: TILE_TYPE_PNG, compression: COMPRESSION_NONE },
+};
 
 /* ------------------------------------------------------------------ */
 /* Varint + dizin serileştirme                                         */
@@ -112,8 +123,8 @@ export function serializeHeader(h) {
   buf.writeBigUInt64LE(BigInt(h.numTileContents), 88);
   buf.writeUInt8(1, 96); // clustered
   buf.writeUInt8(COMPRESSION_GZIP, 97); // dizin/künye sıkıştırması
-  buf.writeUInt8(COMPRESSION_GZIP, 98); // karo sıkıştırması
-  buf.writeUInt8(TILE_TYPE_MVT, 99);
+  buf.writeUInt8(h.tileCompression ?? COMPRESSION_GZIP, 98); // karo sıkıştırması
+  buf.writeUInt8(h.tileType ?? TILE_TYPE_MVT, 99);
   buf.writeUInt8(h.minZoom, 100);
   buf.writeUInt8(h.maxZoom, 101);
   buf.writeInt32LE(e7(h.minLon), 102);
@@ -185,11 +196,20 @@ export function buildTiles(layers, { minzoom = 6, maxzoom = 14, bbox, extent = 4
  * Karo eşlemesini tek dosyalık PMTiles arşivine çevirir.
  * Aynı içerikli karolar tek kopya tutulur (`numTileContents`).
  */
-export function packPmtiles(tiles, { metadata = {}, minzoom, maxzoom, bbox, center }) {
+export function packPmtiles(
+  tiles,
+  { metadata = {}, minzoom, maxzoom, bbox, center, tileType = 'mvt' },
+) {
+  const kind = TILE_TYPES[tileType];
+  if (!kind) throw new Error(`Bilinmeyen karo türü: ${tileType}`);
   const rows = [];
   for (const [key, data] of tiles) {
     const [z, x, y] = key.split('/').map(Number);
-    rows.push({ tileId: zxyToTileId(z, x, y), data: gzipSync(Buffer.from(data)) });
+    const raw = Buffer.from(data);
+    rows.push({
+      tileId: zxyToTileId(z, x, y),
+      data: kind.compression === COMPRESSION_GZIP ? gzipSync(raw) : raw,
+    });
   }
   rows.sort((a, b) => a.tileId - b.tileId);
 
@@ -247,6 +267,8 @@ export function packPmtiles(tiles, { metadata = {}, minzoom, maxzoom, bbox, cent
     centerZoom: center?.zoom ?? Math.min(maxzoom, minzoom + 6),
     centerLon: center?.lon ?? (minLon + maxLon) / 2,
     centerLat: center?.lat ?? (minLat + maxLat) / 2,
+    tileType: kind.id,
+    tileCompression: kind.compression,
   });
 
   return {

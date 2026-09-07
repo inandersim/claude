@@ -5,6 +5,7 @@ import type { GeoPoint } from '@/domain';
 import type {
   GeoJsonCollection,
   GeoJsonFeature,
+  MapDemSource,
   MapMarker,
   MapSource,
   MapStyleSpec,
@@ -13,6 +14,8 @@ import type {
 
 /** Stil içinde temel karo kaynağının adı. */
 export const SOURCE_ID = 'zirtan-outdoor';
+/** Yükseklik (DEM) kaynağının adı — kabartma ve 3B arazi bunu kullanır. */
+export const DEM_SOURCE_ID = 'zirtan-dem';
 /** Karo paketinin taşıdığı katmanlar (tools/tiles/build-tiles.mjs ile aynı). */
 export const PACK_LAYERS = ['trails', 'roads', 'water', 'landuse', 'poi'];
 
@@ -115,6 +118,35 @@ export interface ResolveOptions {
    * haritayı okunmaz hâle getirir. Kullanıcı açıkça açar.
    */
   slopeShading?: boolean;
+  /** Yükseklik karosu; yoksa kabartma ve 3B arazi katmanları atılır */
+  demSource?: MapDemSource | null;
+  /** Kabartma gölgelendirme; DEM varsa varsayılan açık */
+  hillshade?: boolean;
+  /** 3B arazi; varsayılan kapalı (pil ve GPU maliyeti) */
+  terrain3d?: boolean;
+  /** 3B abartma katsayısı (1 = gerçek ölçek) */
+  terrainExaggeration?: number;
+}
+
+/**
+ * MapLibre `raster-dem` kaynağı.
+ *
+ * `tileSize: 256` ve `encoding: 'terrarium'`, `tools/tiles/lib/terrain-rgb.mjs`
+ * ile birebir eşleşmek zorundadır: kodlama uyuşmazsa harita çöker değil,
+ * **yanlış** arazi çizer — sessiz ve tehlikeli bir hata.
+ */
+function demSourceSpec(dem: MapDemSource, attribution: string): Record<string, unknown> {
+  const base = {
+    type: 'raster-dem',
+    encoding: 'terrarium',
+    tileSize: 256,
+    // Üretilen arşiv bu zumun üstünü taşımaz; MapLibre üstünü büyüterek kullanır.
+    maxzoom: dem.maxzoom ?? 12,
+    attribution,
+  };
+  return dem.kind === 'pmtiles'
+    ? { ...base, url: `pmtiles://${dem.url}` }
+    : { ...base, tiles: dem.tiles };
 }
 
 /**
@@ -130,6 +162,10 @@ export function resolveMapStyle(options: ResolveOptions): MapStyleSpec {
     attribution = '© OpenStreetMap katkıcıları',
     overlay,
     slopeShading = false,
+    demSource = null,
+    hillshade = true,
+    terrain3d = false,
+    terrainExaggeration = 1,
   } = options;
   const base = deepClone(baseStyle as unknown as MapStyleSpec);
   const meta = base.metadata as unknown as StyleMetadata;
@@ -137,7 +173,7 @@ export function resolveMapStyle(options: ResolveOptions): MapStyleSpec {
   if (!palette) throw new Error(`Bilinmeyen stil varyantı: ${variant}`);
   // `@source` gerçek kaynak adıyla katman katman değiştirilir; burada yalnızca
   // yer tutucu olarak çözülür ki gösterge taraması tek geçişte kalsın.
-  const tokens = { ...palette, source: SOURCE_ID };
+  const tokens = { ...palette, source: SOURCE_ID, dem: DEM_SOURCE_ID };
 
   const { sources, sourceOf } = sourcesFor(source, attribution);
   const layers: Record<string, unknown>[] = [];
@@ -145,6 +181,11 @@ export function resolveMapStyle(options: ResolveOptions): MapStyleSpec {
     const layer = substitute(raw, tokens) as Record<string, unknown>;
     if (layer.type === 'background') {
       layers.push(layer);
+      continue;
+    }
+    // Kabartma katmanının `source-layer`ı yoktur; DEM kaynağına bağlıdır.
+    if (layer.type === 'hillshade') {
+      if (demSource && hillshade) layers.push(layer);
       continue;
     }
     const sourceLayer = layer['source-layer'] as string | undefined;
@@ -160,6 +201,10 @@ export function resolveMapStyle(options: ResolveOptions): MapStyleSpec {
     layers.push(layer);
   }
 
+  if (demSource) {
+    sources[DEM_SOURCE_ID] = demSourceSpec(demSource, attribution);
+  }
+
   const style: MapStyleSpec = {
     version: 8,
     name: base.name,
@@ -167,6 +212,12 @@ export function resolveMapStyle(options: ResolveOptions): MapStyleSpec {
     sources,
     layers,
   };
+
+  // 3B arazi yalnızca DEM varken açılabilir; kaynağı olmayan `terrain` bildirimi
+  // MapLibre'de stilin tamamını düşürür.
+  if (demSource && terrain3d) {
+    style.terrain = { source: DEM_SOURCE_ID, exaggeration: terrainExaggeration };
+  }
   if (overlay) applyOverlay(style, overlay, palette, variant);
   return style;
 }

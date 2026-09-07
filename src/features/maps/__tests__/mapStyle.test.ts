@@ -2,6 +2,7 @@ import rawStyle from '@/assets/map-style/zirtan-outdoor.json';
 import type { Surface, TrailGraph } from '@/domain';
 import { graphToGeoJson, nearestNode, sacScaleFor } from '@/features/maps/vector/graph-source';
 import {
+  DEM_SOURCE_ID,
   PACK_LAYERS,
   SLOPE_LAYER_IDS,
   SOURCE_ID,
@@ -72,9 +73,68 @@ describe('zirtan-outdoor stili', () => {
     const known = new Set(declared);
     for (const layer of style.layers) {
       if (layer.type === 'background') continue;
+      // Kabartma, karo paketine değil yükseklik (DEM) kaynağına bağlanır.
+      if (layer.type === 'hillshade') {
+        expect(layer.source).toBe('@dem');
+        expect(layer['source-layer']).toBeUndefined();
+        continue;
+      }
       expect(layer.source).toBe('@source');
       expect(known.has(layer['source-layer'] as string)).toBe(true);
     }
+  });
+
+  it('kabartma gölgelendirme yalnızca DEM kaynağı varken çizilir', () => {
+    const demsiz = resolveMapStyle({
+      variant: 'light',
+      source: { kind: 'pmtiles', url: 'file:///x.pmtiles' },
+    });
+    expect(demsiz.layers.some((l) => l.type === 'hillshade')).toBe(false);
+    expect(demsiz.sources[DEM_SOURCE_ID]).toBeUndefined();
+
+    const demli = resolveMapStyle({
+      variant: 'light',
+      source: { kind: 'pmtiles', url: 'file:///x.pmtiles' },
+      demSource: { kind: 'pmtiles', url: 'file:///x-dem.pmtiles' },
+    });
+    expect(demli.layers.some((l) => l.type === 'hillshade')).toBe(true);
+    // Kodlama hattakiyle birebir aynı olmalı; uyuşmazsa harita çökmez, yanlış
+    // arazi çizer — sessiz ve tehlikeli.
+    expect(demli.sources[DEM_SOURCE_ID]).toMatchObject({
+      type: 'raster-dem',
+      encoding: 'terrarium',
+      tileSize: 256,
+    });
+  });
+
+  it('kabartma kapatılabilir ama DEM kaynağı 3B için kalır', () => {
+    const style3d = resolveMapStyle({
+      variant: 'dark',
+      source: { kind: 'pmtiles', url: 'file:///x.pmtiles' },
+      demSource: { kind: 'pmtiles', url: 'file:///x-dem.pmtiles' },
+      hillshade: false,
+      terrain3d: true,
+      terrainExaggeration: 1.4,
+    });
+    expect(style3d.layers.some((l) => l.type === 'hillshade')).toBe(false);
+    expect(style3d.terrain).toEqual({ source: DEM_SOURCE_ID, exaggeration: 1.4 });
+  });
+
+  it('DEM yokken 3B arazi bildirimi yazılmaz', () => {
+    // Kaynağı olmayan `terrain`, MapLibre'de stilin tamamını düşürür.
+    const style = resolveMapStyle({
+      variant: 'light',
+      source: { kind: 'pmtiles', url: 'file:///x.pmtiles' },
+      terrain3d: true,
+    });
+    expect(style.terrain).toBeUndefined();
+  });
+
+  it('kabartma zeminin üstünde, arazi renklerinin altında kalır', () => {
+    // Kabartma arazi renklerinin üstüne binerse harita gri bir kabartmaya döner.
+    const ids = style.layers.map((l) => l.id);
+    expect(ids.indexOf('hillshade')).toBeGreaterThan(ids.indexOf('background'));
+    expect(ids.indexOf('hillshade')).toBeLessThan(ids.indexOf('landuse-forest'));
   });
 
   it('eğim bantları çığ eşiklerini eksiksiz ve tek sefer kapsar', () => {

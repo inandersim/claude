@@ -85,6 +85,8 @@ export const maps_th: MapsI18nShape = {
   edges: '{{count}} เส้นเชื่อม',
   legend: 'คำอธิบายสัญลักษณ์',
   technicalEdge: 'ช่วงเทคนิค',
+  terrain3d: 'ภูมิประเทศ 3 มิติ',
+  hillshade: 'แรเงาภูเขา',
   slope: {
     toggle: 'มุมความชัน',
     band: {

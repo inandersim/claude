@@ -7,6 +7,7 @@
  *   node tools/tiles/build-tiles.mjs --input dump.json --region uludag   # ağsız, yerel döküm
  *   node tools/tiles/build-tiles.mjs --region likya --js-tiler           # dış araçsız PMTiles
  *   node tools/tiles/build-tiles.mjs --region uludag --terrain           # + eşyükselti ve eğim
+ *   node tools/tiles/build-tiles.mjs --region uludag --terrain-rgb       # + kabartma/3B için DEM karosu
  *
  * Hat:
  *   0. (--terrain) DEM ızgarası → eşyükselti eğrileri + eğim açısı sınıfları → GeoJSON
@@ -29,6 +30,7 @@ import { contourGeoJson } from './lib/contour.mjs';
 import { buildDem, demStats } from './lib/dem.mjs';
 import { buildTiles, packPmtiles } from './lib/pmtiles-writer.mjs';
 import { slopeGeoJson, slopeStats } from './lib/slope.mjs';
+import { buildTerrainTiles, terrainRange } from './lib/terrain-rgb.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 
@@ -235,7 +237,7 @@ export const TERRAIN_LAYERS = {
  * Ağ hatası ya da eksik veri hattın tamamını düşürmemeli: arazi katmanları
  * isteğe bağlıdır, karo paketi onlarsız da geçerlidir.
  */
-async function buildTerrain(bbox, { region, geoDir, demStep, contourInterval }) {
+async function loadDem(bbox, { region, demStep }) {
   const cacheDir = resolve(ROOT, 'out/dem');
   console.log(`→ ${region}: DEM ızgarası (adım ${demStep} m)…`);
   const dem = await buildDem(bbox, {
@@ -250,7 +252,46 @@ async function buildTerrain(bbox, { region, geoDir, demStep, contourInterval }) 
     `  ${stats.cols}×${stats.rows} hücre · ${stats.minElevationM}–${stats.maxElevationM} m` +
       `${dem.cached ? ' (önbellekten)' : ''}`,
   );
+  return dem;
+}
 
+/**
+ * DEM'den terrarium raster karoları üretir ve ayrı bir PMTiles arşivine yazar.
+ * Vektör karolardan ayrı dosya: istemci kabartma/3B istemediğinde indirmez.
+ */
+function buildTerrainRgb(dem, { region, tilesDir, minzoom, maxzoom }) {
+  const range = terrainRange(dem, { minzoom, maxzoom });
+  console.log(`→ ${region}: DEM karoları z${range.minzoom}–${range.maxzoom}…`);
+  if (range.interpolatedAbove !== null) {
+    // Sessiz kalmak, kullanıcının olmayan bir çözünürlüğe güvenmesi demek.
+    console.log(
+      `  ⚠ DEM z${range.resolutionLimit}'e kadar gerçek bilgi taşıyor; ` +
+        `üstündeki zumlar ara değerdir.`,
+    );
+  }
+  const tiles = buildTerrainTiles(dem, { minzoom: range.minzoom, maxzoom: range.maxzoom });
+  const { buffer, stats } = packPmtiles(tiles, {
+    tileType: 'png',
+    minzoom: range.minzoom,
+    maxzoom: range.maxzoom,
+    bbox: dem.bbox,
+    metadata: {
+      name: `${region}-dem`,
+      format: 'png',
+      encoding: 'terrarium',
+      description: 'Terrain-RGB (terrarium) — kabartma gölgelendirme ve 3B arazi',
+      attribution: '© Copernicus DEM GLO-90 · Open-Meteo',
+    },
+  });
+  const out = resolve(tilesDir, `${region}-dem.pmtiles`);
+  writeFileSync(out, buffer);
+  console.log(
+    `  ${stats.tiles} karo · ${(buffer.length / 1024 / 1024).toFixed(2)} MB · ${out}`,
+  );
+  return out;
+}
+
+function buildTerrainVectors(dem, { geoDir, contourInterval }) {
   const out = {};
 
   const contours = contourGeoJson(dem, { interval: contourInterval });
@@ -288,6 +329,8 @@ function parseArgs(argv) {
     else if (a === '--maxzoom') args.maxzoom = Number(argv[++i]);
     else if (a === '--minzoom') args.minzoom = Number(argv[++i]);
     else if (a === '--terrain') args.terrain = true;
+    else if (a === '--terrain-rgb') args.terrainRgb = true;
+    else if (a === '--dem-maxzoom') args.demMaxzoom = Number(argv[++i]);
     else if (a === '--dem-step') args.demStep = Number(argv[++i]);
     else if (a === '--contour-interval') args.contourInterval = Number(argv[++i]);
   }
@@ -352,23 +395,24 @@ async function main() {
     bbox = lonLatBbox(bbox);
   }
 
-  if (args.terrain) {
+  // DEM iki özelliğin de kaynağı; bir kez okunur.
+  let dem = null;
+  if (args.terrain || args.terrainRgb) {
     try {
-      const terrain = await buildTerrain(bbox, {
-        region,
-        geoDir,
-        demStep: args.demStep,
-        contourInterval: args.contourInterval,
-      });
-      for (const [layer, geojson] of Object.entries(terrain)) {
-        layerFiles.push({ layer, file: resolve(geoDir, `${layer}.geojson`) });
-        layerData[layer] = geojson;
-      }
+      dem = await loadDem(bbox, { region, demStep: args.demStep });
     } catch (err) {
       // Arazi isteğe bağlıdır: yükseklik servisi ulaşılamazsa paket yine üretilir,
       // ama bu sessizce geçiştirilmez — eksik katman açıkça söylenir.
-      console.warn(`⚠ Arazi katmanları üretilemedi: ${err.message}`);
-      console.warn('  Karo paketi eşyükselti ve eğim olmadan üretilecek.');
+      console.warn(`⚠ DEM okunamadı: ${err.message}`);
+      console.warn('  Karo paketi arazi katmanları olmadan üretilecek.');
+    }
+  }
+
+  if (dem && args.terrain) {
+    const terrain = buildTerrainVectors(dem, { geoDir, contourInterval: args.contourInterval });
+    for (const [layer, geojson] of Object.entries(terrain)) {
+      layerFiles.push({ layer, file: resolve(geoDir, `${layer}.geojson`) });
+      layerData[layer] = geojson;
     }
   }
 
@@ -376,6 +420,15 @@ async function main() {
 
   const tilesDir = resolve(ROOT, 'out/tiles');
   mkdirSync(tilesDir, { recursive: true });
+
+  if (dem && args.terrainRgb) {
+    buildTerrainRgb(dem, {
+      region,
+      tilesDir,
+      minzoom: args.minzoom,
+      maxzoom: args.demMaxzoom ?? null,
+    });
+  }
 
   // Dış araçlar yoksa (ya da --js-tiler) saf JS hattı devreye girer.
   if (args.jsTiler || missing.length) {
