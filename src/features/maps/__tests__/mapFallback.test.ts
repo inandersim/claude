@@ -120,6 +120,51 @@ describe('kaynak çözümleme kademeleri', () => {
     });
   });
 
+  it('cihazdaki paketin yükseklik dosyası varsa kabartma kaynağı da döner', () => {
+    const resolved = resolveSource({
+      center,
+      localPacks: [localPack],
+      serverPacks: [],
+      graph,
+      baseUrl: null,
+      demPath: (id) => (id === localPack.id ? 'file:///packs/uludag-dem.pmtiles' : null),
+    });
+    expect(resolved.kind).toBe('pack');
+    expect(resolved.demSource).toEqual({
+      kind: 'pmtiles',
+      url: 'file:///packs/uludag-dem.pmtiles',
+    });
+  });
+
+  it('yükseklik dosyası inmemişse kabartma kaynağı boş kalır', () => {
+    // Katman sessizce yanlış çizilmektense hiç çizilmemeli.
+    const resolved = resolveSource({
+      center,
+      localPacks: [localPack],
+      serverPacks: [],
+      graph,
+      baseUrl: null,
+      demPath: () => null,
+    });
+    expect(resolved.kind).toBe('pack');
+    expect(resolved.demSource).toBeNull();
+  });
+
+  it('karo sunucusu paketi yükseklik sunuyorsa adresi çözülür', () => {
+    const resolved = resolveSource({
+      center,
+      localPacks: [],
+      serverPacks: [{ ...serverPack, demUrl: '/tiles/uludag-dem.pmtiles' }],
+      graph,
+      baseUrl: 'http://localhost:8090',
+    });
+    expect(resolved.kind).toBe('server');
+    expect(resolved.demSource).toMatchObject({
+      kind: 'pmtiles',
+      url: 'http://localhost:8090/tiles/uludag-dem.pmtiles',
+    });
+  });
+
   it('3. kademe: karo yoksa patika grafından GeoJSON üretilir', () => {
     const resolved = resolveSource({ center, graph, baseUrl: null });
     expect(resolved.kind).toBe('graph');

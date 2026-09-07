@@ -28,9 +28,51 @@ export function packMetaName(packId: ID): string {
   return `${packFileName(packId)}.json`;
 }
 
+/**
+ * Yükseklik (DEM) dosyası: `<paket>-dem.pmtiles`.
+ *
+ * Vektör karolardan ayrı tutulur — kabartma ve 3B istemeyen kullanıcı indirmez.
+ * Ad karo hattıyla aynı sözleşmeye uyar (`tools/tiles/build-tiles.mjs`).
+ */
+export function demFileName(packId: ID): string {
+  return packFileName(packId).replace(/\.pmtiles$/, '-dem.pmtiles');
+}
+
+/** DEM künyesi — vektör künyesinden ayrı, çünkü ayrı indirilip silinebilir. */
+export function demMetaName(packId: ID): string {
+  return `${demFileName(packId)}.json`;
+}
+
 /** Uzak karo adresi. `baseUrl` yoksa paket indirilemez. */
 export function packRemoteUrl(packId: ID, baseUrl = tilesBaseUrl()): string | null {
   return baseUrl ? `${baseUrl}/tiles/${packFileName(packId)}` : null;
+}
+
+/** Uzak DEM adresi. */
+export function demRemoteUrl(packId: ID, baseUrl = tilesBaseUrl()): string | null {
+  return baseUrl ? `${baseUrl}/tiles/${demFileName(packId)}` : null;
+}
+
+/**
+ * İki dosyanın ortak ilerlemesini 0..1 aralığına indirger.
+ *
+ * Boyutlar biliniyorsa bayta göre ağırlıklandırılır; bilinmiyorsa vektör
+ * paketine %80 pay verilir. Bu bir tahmindir ve **öyle olduğu görünür**:
+ * ilerleme çubuğu geri gitmez, ama DEM payı gerçekte farklıysa çubuk son
+ * dilimde hızlanır ya da yavaşlar. Alternatif (iki ayrı çubuk) ekranı
+ * karmaşıklaştırırdı.
+ */
+export function combinedProgress(
+  tileRatio: number,
+  demRatio: number,
+  sizes: { tileBytes?: number; demBytes?: number } = {},
+): number {
+  const t = Math.min(1, Math.max(0, tileRatio));
+  const d = Math.min(1, Math.max(0, demRatio));
+  const tileBytes = sizes.tileBytes ?? 0;
+  const demBytes = sizes.demBytes ?? 0;
+  const weight = tileBytes > 0 && demBytes > 0 ? tileBytes / (tileBytes + demBytes) : 0.8;
+  return Math.min(1, Math.max(0, t * weight + d * (1 - weight)));
 }
 
 /* ------------------------------------------------------------------ */
@@ -327,6 +369,17 @@ export class MapPackManager {
     return this.storage.readMeta(packMetaName(packId))?.version ?? null;
   }
 
+  /** Yükseklik dosyası cihazda mı? (kabartma ve 3B bunu ister) */
+  hasDem(packId: ID): boolean {
+    return this.storage.exists(demFileName(packId));
+  }
+
+  /** İndirilmiş DEM'in yerel adresi; yoksa null. */
+  demPath(packId: ID): string | null {
+    const name = demFileName(packId);
+    return this.storage.exists(name) ? this.storage.uri(name) : null;
+  }
+
   /** Cihazdaki paketlerin toplam boyutu (bayt). */
   diskUsageBytes(): number {
     return this.storage
@@ -368,7 +421,18 @@ export class MapPackManager {
    */
   async download(
     pack: MapPack,
-    options: { version?: string; url?: string } = {},
+    options: {
+      version?: string;
+      url?: string;
+      /**
+       * Yükseklik dosyasının adresi. Verilirse vektör paketten **sonra** indirilir
+       * ve kabartma/3B çevrimdışı da çalışır. Sunucu DEM sunmuyorsa boş bırakılır.
+       */
+      demUrl?: string | null;
+      /** İlerlemeyi bayta göre ağırlıklandırmak için sunucudan gelen boyutlar */
+      tileBytes?: number;
+      demBytes?: number;
+    } = {},
   ): Promise<MapPack> {
     const remoteVersion = options.version ?? pack.version;
     const url = options.url ?? packRemoteUrl(pack.id, this.baseUrl);
@@ -378,21 +442,54 @@ export class MapPackManager {
     const controller = new AbortController();
     this.running.set(pack.id, controller);
     const fileName = packFileName(pack.id);
+    const demName = demFileName(pack.id);
+    const sizes = { tileBytes: options.tileBytes, demBytes: options.demBytes };
+    const wantsDem = Boolean(options.demUrl);
     try {
       const bytes = await this.storage.download(url, fileName, {
         signal: controller.signal,
         onProgress: (received, total) => {
           const ratio = total > 0 ? received / total : 0;
-          this.emit(pack.id, Math.min(1, Math.max(0, ratio)));
+          this.emit(pack.id, wantsDem ? combinedProgress(ratio, 0, sizes) : ratio);
         },
       });
-      const sizeMb = Math.round((bytes / 1024 / 1024) * 10) / 10;
+
+      // DEM ikinci sırada: vektör paket olmadan harita zaten çizilemez, bu yüzden
+      // önce onu tamamlamak yarıda kesilen indirmede daha çok işe yarar.
+      let demBytes = 0;
+      if (options.demUrl) {
+        try {
+          demBytes = await this.storage.download(options.demUrl, demName, {
+            signal: controller.signal,
+            onProgress: (received, total) => {
+              const ratio = total > 0 ? received / total : 0;
+              this.emit(pack.id, combinedProgress(1, ratio, sizes));
+            },
+          });
+        } catch (demError) {
+          // İptal ise dışarıdaki catch'e devret; değilse DEM'i **sessizce**
+          // atlama: paket yine kullanılabilir ama kabartma olmaz, bu yüzden
+          // yarım dosya silinir ve kullanıcı katmanı kapalı görür.
+          if ((demError as Error)?.name === 'AbortError') throw demError;
+          this.storage.remove(demName);
+          demBytes = 0;
+        }
+      }
+
+      const sizeMb = Math.round(((bytes + demBytes) / 1024 / 1024) * 10) / 10;
       const at = new Date().toISOString();
       this.storage.writeMeta(packMetaName(pack.id), {
         version: remoteVersion,
         sizeMb,
         updatedAt: at,
       });
+      if (demBytes > 0) {
+        this.storage.writeMeta(demMetaName(pack.id), {
+          version: remoteVersion,
+          sizeMb: Math.round((demBytes / 1024 / 1024) * 10) / 10,
+          updatedAt: at,
+        });
+      }
       this.emit(pack.id, 1);
       return packReducer(pack, {
         type: 'complete',
@@ -404,6 +501,8 @@ export class MapPackManager {
     } catch (error) {
       const aborted = (error as Error)?.name === 'AbortError';
       this.storage.remove(fileName);
+      this.storage.remove(demName);
+      this.storage.remove(demMetaName(pack.id));
       return packReducer({ ...pack, status: 'downloading' }, { type: aborted ? 'cancel' : 'fail' });
     } finally {
       this.running.delete(pack.id);
@@ -424,6 +523,10 @@ export class MapPackManager {
     this.cancel(pack.id);
     this.storage.remove(packFileName(pack.id));
     this.storage.remove(packMetaName(pack.id));
+    // DEM ayrı dosyadır; silinmezse disk kullanımı yalan söyler ve kullanıcı
+    // "sildim ama yer açılmadı" der.
+    this.storage.remove(demFileName(pack.id));
+    this.storage.remove(demMetaName(pack.id));
     return packReducer(pack, { type: 'remove' });
   }
 

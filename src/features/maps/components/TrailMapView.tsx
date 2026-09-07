@@ -41,6 +41,10 @@ interface Props {
 const packInstalled = (packId: string) =>
   Platform.OS !== 'web' && getPackManager().isInstalled(packId);
 
+/** İndirilmiş paketin yükseklik dosyası (kabartma + 3B); web'de yok. */
+const packDemPath = (packId: string) =>
+  Platform.OS === 'web' ? null : getPackManager().demPath(packId);
+
 /** Düğüm sayısı bunun altındaysa hepsi işaretlenir; üstündeyse yalnızca anlamlı olanlar. */
 const MARKER_LIMIT = 80;
 
@@ -82,6 +86,7 @@ export function TrailMapView({
         localPacks: packs.data ?? [],
         serverPacks: server.data ?? [],
         isInstalled: packInstalled,
+        demPath: packDemPath,
         graph,
       }),
     [graphCenter, packs.data, server.data, graph],

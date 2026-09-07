@@ -98,6 +98,10 @@ const listPacks = () => {
         graphUrl: existsSync(resolve(GRAPHS_DIR, `${id}.json`)) ? `/graphs/${id}.json` : null,
         // Kabartma ve 3B arazi için yükseklik karosu (varsa).
         demUrl: demByParent.has(id) ? `/tiles/${demByParent.get(id)}` : null,
+        // İstemci indirme ilerlemesini bayta göre ağırlıklandırsın diye.
+        demSizeBytes: demByParent.has(id)
+          ? statSync(resolve(TILES_DIR, demByParent.get(id))).size
+          : null,
       };
     });
 };

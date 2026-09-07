@@ -293,6 +293,24 @@ sunucusundan servis edildi, uygulama `pmtiles://` üzerinden `likya-dem.pmtiles`
 arşivini çekti (başlık + karo verisi), kabartma ve 3B düğmeleri çalıştı,
 konsolda stil hatası çıkmadı.
 
+### Çevrimdışı indirme
+
+Paket yöneticisi vektör paketten sonra yükseklik dosyasını da indirir
+(`<paket>-dem.pmtiles`), böylece kabartma ve 3B **çevrimdışı** da çalışır —
+uygulamanın asıl kullanım senaryosu bu.
+
+- **Sıra:** önce vektör, sonra DEM. Vektör paket olmadan harita zaten çizilemez;
+  yarıda kesilen indirmede ilk dosyayı tamamlamış olmak daha çok işe yarar.
+- **İlerleme** iki dosya için tek çubukta birleşir. Boyutlar sunucudan geldiği
+  için (`sizeBytes`, `demSizeBytes`) ağırlık gerçek bayta göre hesaplanır;
+  bilinmiyorsa vektöre %80 pay verilir. Çubuk hiçbir koşulda geri gitmez.
+- **DEM inemezse paket yine kullanılabilir kalır.** Kabartma olmadan harita
+  çalışır; vektör paketi silmek aşırı tepki olurdu. Yarım DEM dosyası silinir ve
+  katman kapalı görünür — sessizce yanlış çizmez.
+- **Silme DEM'i de kaldırır.** Bırakılsa disk kullanımı yalan söylerdi:
+  "sildim ama yer açılmadı".
+- Bildirilen paket boyutu iki dosyanın **toplamıdır**.
+
 **Bilinen sınır:** 3B arazi yalnızca web motorunda doğrulandı. Yerel (iOS/Android)
 motor stil belirtimindeki `terrain` alanını okur ama geliştirme derlemesi
 gerektirdiği için burada sınanamadı.

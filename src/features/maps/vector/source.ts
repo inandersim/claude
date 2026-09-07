@@ -12,6 +12,8 @@ export interface ServerPack {
   id: string;
   format: 'pmtiles';
   sizeMb: number;
+  /** Ham boyut — indirme ilerlemesinin ağırlıklandırılmasında kullanılır */
+  sizeBytes?: number;
   version: string;
   /** [minLon, minLat, maxLon, maxLat] — PMTiles başlığından okunur */
   bbox: [number, number, number, number] | null;
@@ -21,6 +23,8 @@ export interface ServerPack {
   graphUrl: string | null;
   /** Yükseklik karosu (kabartma + 3B); paket taşımıyorsa null */
   demUrl?: string | null;
+  /** Yükseklik dosyasının boyutu — indirme ilerlemesi bayta göre ağırlıklandırılır */
+  demSizeBytes?: number | null;
 }
 
 /** Sunucudaki paketleri listeler; `EXPO_PUBLIC_TILES_URL` yoksa boş dizi. */
@@ -109,10 +113,8 @@ export interface ResolvedSource {
   availableLayers?: string[];
   /**
    * Yükseklik karosu — kabartma gölgelendirme ve 3B arazi için.
-   *
-   * Şimdilik yalnızca karo sunucusu yolunda dolar. İndirilmiş paketlerde DEM
-   * arşivi ayrı bir dosya olduğundan paket yöneticisinin onu da indirmesi
-   * gerekiyor; o adım henüz yok (bkz. docs/MAPS.md "bilinen sınırlar").
+   * İndirilmiş pakette yerel dosyadan, karo sunucusu yolunda uzak adresten gelir.
+   * Paket DEM taşımıyorsa null kalır ve ilgili katmanlar çizilmez.
    */
   demSource?: MapDemSource | null;
 }
@@ -134,14 +136,28 @@ export function resolveSource(options: {
   baseUrl?: string | null;
   /** Paket dosyasının cihazda gerçekten olup olmadığını söyler */
   isInstalled?: (packId: string) => boolean;
+  /** İndirilmiş paketin yükseklik dosyasının yerel adresi (yoksa null) */
+  demPath?: (packId: string) => string | null;
 }): ResolvedSource {
-  const { center, localPacks = [], serverPacks = [], graph = null, isInstalled } = options;
+  const {
+    center,
+    localPacks = [],
+    serverPacks = [],
+    graph = null,
+    isInstalled,
+    demPath,
+  } = options;
   const baseUrl = options.baseUrl ?? tilesBaseUrl();
 
   if (center) {
     const local = pickLocalPack(localPacks, center, isInstalled);
     if (local?.localPath) {
-      return { source: { kind: 'pmtiles', url: local.localPath }, kind: 'pack' };
+      const dem = demPath?.(local.id) ?? null;
+      return {
+        source: { kind: 'pmtiles', url: local.localPath },
+        kind: 'pack',
+        demSource: dem ? { kind: 'pmtiles', url: dem } : null,
+      };
     }
     if (baseUrl) {
       const remote = pickServerPack(serverPacks, center);

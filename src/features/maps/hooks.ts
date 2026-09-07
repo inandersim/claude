@@ -34,6 +34,11 @@ async function downloadPack(
   const result = await getPackManager().download(pack, {
     version: remote.version,
     url: `${tilesBaseUrl()}${remote.url}`,
+    // Sunucu yükseklik dosyası sunuyorsa onu da indir: kabartma ve 3B arazi
+    // çevrimdışı da çalışsın (uygulamanın asıl kullanım senaryosu bu).
+    demUrl: remote.demUrl ? `${tilesBaseUrl()}${remote.demUrl}` : null,
+    tileBytes: remote.sizeBytes,
+    demBytes: remote.demSizeBytes ?? undefined,
   });
   patchPack(qc, packId, () => result);
   return result;
