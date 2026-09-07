@@ -49,6 +49,17 @@ export interface Palette {
 }
 
 export const palettes: Record<ColorScheme, Palette> = {
+  // Açık tema, koyu ve güneş temalarıyla aynı okunabilirlik ölçüsüne
+  // tutulmamıştı: tarayıcıda ölçüldüğünde 20 ekranda 535 metin düğümü WCAG
+  // AA eşiğinin altındaydı — en çok da `textSubtle` (2.68:1, 193 yerde).
+  // Koyu temada aynı ölçüm temiz çıkıyor; geliştirme koyu temada yapıldığı
+  // için hata görünmemiş. Aşağıdaki değerler üç açık zemine (background,
+  // surface, surfaceMuted) karşı ≥4.5:1 verecek şekilde hesaplandı ve
+  // `tokens.test.ts` bunu her koşumda yeniden ölçüyor.
+  //
+  // Metin kademeleri arasındaki fark bilerek korundu (13.2 → 6.7 → 4.6):
+  // yalnızca eşiği tutturmak `textSubtle`'ı `textMuted`'a yapıştırıp görsel
+  // hiyerarşiyi çökertiyordu.
   light: {
     background: '#F6F3EA',
     surface: '#FFFFFF',
@@ -57,24 +68,24 @@ export const palettes: Record<ColorScheme, Palette> = {
     border: '#E3E6D8',
     borderStrong: '#C9CFBD',
     text: '#1B2A22',
-    textMuted: '#5C6B60',
-    textSubtle: '#8A978C',
+    textMuted: '#4A574E',
+    textSubtle: '#656F67',
     textInverse: '#FFFFFF',
-    primary: '#2F7D4F',
+    primary: '#2E7B4E',
     primaryStrong: '#24653F',
-    primarySoft: 'rgba(47, 125, 79, 0.12)',
+    primarySoft: 'rgba(46, 123, 78, 0.12)',
     onPrimary: '#FFFFFF',
-    accent: '#E8722A',
-    accentSoft: 'rgba(232, 114, 42, 0.14)',
+    accent: '#AA541F',
+    accentSoft: 'rgba(170, 84, 31, 0.14)',
     onAccent: '#FFFFFF',
-    danger: '#D8443C',
-    dangerSoft: 'rgba(216, 68, 60, 0.12)',
-    success: '#2F7D4F',
-    successSoft: 'rgba(47, 125, 79, 0.12)',
-    warning: '#D98A0B',
-    warningSoft: 'rgba(217, 138, 11, 0.14)',
-    info: '#3A8DDE',
-    infoSoft: 'rgba(58, 141, 222, 0.12)',
+    danger: '#C23D36',
+    dangerSoft: 'rgba(194, 61, 54, 0.12)',
+    success: '#2E7B4E',
+    successSoft: 'rgba(46, 123, 78, 0.12)',
+    warning: '#986108',
+    warningSoft: 'rgba(152, 97, 8, 0.14)',
+    info: '#2D6EAE',
+    infoSoft: 'rgba(45, 110, 174, 0.12)',
     overlay: 'rgba(20, 30, 24, 0.55)',
     skeleton: '#E9ECE0',
     skeletonHighlight: '#F4F6EE',
@@ -90,7 +101,7 @@ export const palettes: Record<ColorScheme, Palette> = {
     borderStrong: '#3B5A4D',
     text: '#F1F4EC',
     textMuted: '#A6B8AC',
-    textSubtle: '#748A7C',
+    textSubtle: '#90A196',
     textInverse: '#10201B',
     primary: '#6FD59A',
     primaryStrong: '#4CC27F',
@@ -128,7 +139,7 @@ export const palettes: Record<ColorScheme, Palette> = {
     primaryStrong: '#084F27',
     primarySoft: 'rgba(15, 107, 54, 0.16)',
     onPrimary: '#FFFFFF',
-    accent: '#C24E00',
+    accent: '#B84A00',
     accentSoft: 'rgba(194, 78, 0, 0.16)',
     onAccent: '#FFFFFF',
     danger: '#B80000',
