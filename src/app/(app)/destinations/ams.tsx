@@ -105,12 +105,22 @@ export default function AmsScreen() {
         ) : null}
 
         {/*
-          İrtifa durumu: son öz-değerlendirmenin yüksekliği ve şiddeti
-          üzerinden okunur. Ölçüm (SpO₂, dinlenme nabzı, manşonla tansiyon)
-          henüz elle girilemiyor — girilince aynı kart onları da değerlendirir.
+          İrtifa durumu: son öz-değerlendirmenin yüksekliği, şiddeti ve
+          ölçümleri üzerinden okunur. Bazal nabız henüz saklanmıyor, o yüzden
+          nabız yükselme yüzdesi hesaplanmıyor (bkz. `nabizYukselmesi`).
         */}
         {latest ? (
-          <AltitudeStatusCard irtifaM={latest.elevationM} amsSiddeti={latest.severity} />
+          <AltitudeStatusCard
+            irtifaM={latest.elevationM}
+            amsSiddeti={latest.severity}
+            spo2={latest.spo2 ?? null}
+            dinlenmeNabzi={latest.restingHr ?? null}
+            kanBasinci={
+              latest.systolic != null && latest.diastolic != null
+                ? { sistolik: latest.systolic, diyastolik: latest.diastolic }
+                : null
+            }
+          />
         ) : null}
 
         <AmsForm

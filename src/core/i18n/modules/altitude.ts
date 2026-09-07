@@ -61,6 +61,18 @@ const tr = {
     vsSeaLevel: 'deniz seviyesinin %{{percent}}’i',
   },
 
+  measure: {
+    title: 'Ölçümler (isteğe bağlı)',
+    hint: 'Cihazın varsa gir. Boş bırakırsan değerlendirme bu sinyali kullanmaz — sıfır saymaz.',
+    spo2: 'SpO₂ (%)',
+    restingHr: 'Dinlenme nabzı (atım/dk)',
+    baselineHr: 'Deniz seviyesindeki bazal nabzın',
+    systolic: 'Büyük tansiyon',
+    diastolic: 'Küçük tansiyon',
+    bpHint: 'Manşonla ölçülmüş değer. Saat ya da nabız bandı tansiyon ölçmez.',
+    outOfRange: 'Bu değer olağan aralığın dışında; ölçümü tekrar kontrol et.',
+  },
+
   disclaimer:
     'Bu bir karar desteğidir, tanı değildir. Belirtiler kötüleşiyorsa ya da şüphedeysen: in ve yardım çağır.',
 };
@@ -123,6 +135,18 @@ const en: typeof tr = {
     expectedSpo2: 'Expected SpO₂ here',
     hrRise: 'Heart rate rise',
     vsSeaLevel: '{{percent}}% of sea level',
+  },
+
+  measure: {
+    title: 'Measurements (optional)',
+    hint: 'Enter what you measured. Left blank, the assessment simply ignores that signal — it does not read it as zero.',
+    spo2: 'SpO₂ (%)',
+    restingHr: 'Resting heart rate (bpm)',
+    baselineHr: 'Your baseline heart rate at sea level',
+    systolic: 'Systolic',
+    diastolic: 'Diastolic',
+    bpHint: 'A cuff reading. A watch or chest strap does not measure blood pressure.',
+    outOfRange: 'That value is outside the usual range; check the reading again.',
   },
 
   disclaimer:

@@ -1525,6 +1525,16 @@ export interface AmsCheck {
   score: number;
   severity: 'none' | 'mild' | 'moderate' | 'severe';
   note: string;
+  /**
+   * Saha ölçümleri — hepsi isteğe bağlı. Cihazı olmayan kullanıcı kontrolü
+   * yine yapabilir; değerlendirme motoru eksik ölçümü "bilinmiyor" sayar,
+   * sıfır saymaz.
+   */
+  spo2?: number | null;
+  restingHr?: number | null;
+  /** **Manşonla ölçülmüş** büyük tansiyon; nabız sensöründen türetilmez. */
+  systolic?: number | null;
+  diastolic?: number | null;
   createdAt: ISODate;
 }
 

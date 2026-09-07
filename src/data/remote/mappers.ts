@@ -1207,6 +1207,11 @@ export function toAmsCheck(row: Row): AmsCheck {
     score: num(row.score),
     severity: str(row.severity, 'none') as AmsCheck['severity'],
     note: str(row.note),
+    // Ölçümler isteğe bağlı; yoksa `null` kalır ve motor "bilinmiyor" sayar.
+    spo2: numOrNull(row.spo2),
+    restingHr: numOrNull(row.resting_hr),
+    systolic: numOrNull(row.systolic),
+    diastolic: numOrNull(row.diastolic),
     createdAt: iso(row.created_at),
   };
 }

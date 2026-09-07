@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { Button, Chip, Icon, Input, Text } from '@/components/ui';
 import { useT } from '@/core/i18n';
+import { gecerliOlcum, type OlcumAlani } from '@/domain/altitude';
 import { radius, spacing, useTheme } from '@/core/theme';
 import {
   AMS_SEVERITY_META,
@@ -22,6 +23,15 @@ export interface AmsFormValue {
   fatigue: AmsSymptomScore;
   dizziness: AmsSymptomScore;
   note: string;
+  /**
+   * Saha ölçümleri — hepsi isteğe bağlı. Boş alan `null` gelir; değerlendirme
+   * bunu "bilinmiyor" sayar, sıfır saymaz. Sınır dışı değer de `null` olur:
+   * uydurma ölçüm üretmektense hiç ölçüm daha güvenli.
+   */
+  spo2: number | null;
+  restingHr: number | null;
+  systolic: number | null;
+  diastolic: number | null;
 }
 
 interface Props {
@@ -58,6 +68,17 @@ export function AmsForm({
   });
   const [note, setNote] = useState('');
   const [error, setError] = useState<string | null>(null);
+  // Ölçümler metin olarak tutulur: boş alan "ölçüm yok" demek, sıfır değil.
+  const [olcum, setOlcum] = useState({ spo2: '', restingHr: '', systolic: '', diastolic: '' });
+
+  /** Boş alan `null`; sınır dışı değer de `null` (uydurma ölçüm üretmemek için). */
+  const sayi = (alan: OlcumAlani, ham: string): number | null =>
+    ham.trim() ? gecerliOlcum(alan, Number(ham.replace(',', '.'))) : null;
+
+  /** Girilmiş ama sınır dışı kalan alanlar — kullanıcıya sessizce yutmak yerine söylenir. */
+  const sinirDisi = (['spo2', 'restingHr', 'systolic', 'diastolic'] as const).filter(
+    (alan) => olcum[alan].trim() !== '' && sayi(alan, olcum[alan]) === null,
+  );
 
   const preview = lakeLouiseScore(scores.headache, scores.gi, scores.fatigue, scores.dizziness);
   const meta = AMS_SEVERITY_META[preview.severity];
@@ -69,8 +90,21 @@ export function AmsForm({
       setError(t('destinations.ams.invalidElevation'));
       return;
     }
+    if (sinirDisi.length) {
+      setError(t('altitude.measure.outOfRange'));
+      return;
+    }
     setError(null);
-    onSubmit({ elevationM: Math.round(elevationM), destinationId, ...scores, note: note.trim() });
+    onSubmit({
+      elevationM: Math.round(elevationM),
+      destinationId,
+      ...scores,
+      note: note.trim(),
+      spo2: sayi('spo2', olcum.spo2),
+      restingHr: sayi('restingHr', olcum.restingHr),
+      systolic: sayi('systolic', olcum.systolic),
+      diastolic: sayi('diastolic', olcum.diastolic),
+    });
   };
 
   return (
@@ -140,6 +174,56 @@ export function AmsForm({
         </View>
       ))}
 
+      <Text variant="label" color="textSubtle">
+        {t('altitude.measure.title')}
+      </Text>
+      <Text variant="caption" color="textMuted">
+        {t('altitude.measure.hint')}
+      </Text>
+      <View style={styles.olcumSatiri}>
+        <View style={styles.olcumAlani}>
+          <Input
+            label={t('altitude.measure.spo2')}
+            value={olcum.spo2}
+            onChangeText={(v) => setOlcum((o) => ({ ...o, spo2: v }))}
+            keyboardType="number-pad"
+            maxLength={3}
+          />
+        </View>
+        <View style={styles.olcumAlani}>
+          <Input
+            label={t('altitude.measure.restingHr')}
+            value={olcum.restingHr}
+            onChangeText={(v) => setOlcum((o) => ({ ...o, restingHr: v }))}
+            keyboardType="number-pad"
+            maxLength={3}
+          />
+        </View>
+      </View>
+      <View style={styles.olcumSatiri}>
+        <View style={styles.olcumAlani}>
+          <Input
+            label={t('altitude.measure.systolic')}
+            value={olcum.systolic}
+            onChangeText={(v) => setOlcum((o) => ({ ...o, systolic: v }))}
+            keyboardType="number-pad"
+            maxLength={3}
+          />
+        </View>
+        <View style={styles.olcumAlani}>
+          <Input
+            label={t('altitude.measure.diastolic')}
+            value={olcum.diastolic}
+            onChangeText={(v) => setOlcum((o) => ({ ...o, diastolic: v }))}
+            keyboardType="number-pad"
+            maxLength={3}
+          />
+        </View>
+      </View>
+      <Text variant="caption" color="textMuted">
+        {t('altitude.measure.bpHint')}
+      </Text>
+
       <View
         style={[
           styles.preview,
@@ -184,6 +268,8 @@ export function AmsForm({
 }
 
 const styles = StyleSheet.create({
+  olcumSatiri: { flexDirection: 'row', gap: spacing.sm },
+  olcumAlani: { flex: 1 },
   root: { gap: spacing.md },
   chips: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm },
   symptom: {

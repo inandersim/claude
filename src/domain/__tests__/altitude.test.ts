@@ -1,15 +1,21 @@
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+
 import {
   DENIZ_SEVIYESI_HPA,
   GUNLUK_KAZANC_SINIRI_M,
   IRTIFA_RISKLERI,
   NABIZ_UYARI_YUZDE,
+  OLCUM_SINIRLARI,
   RISK_ESIGI_M,
   TAVSIYELER,
   basincHPa,
   beklenenSpo2,
+  gecerliOlcum,
   irtifaDegerlendir,
   kanBasinciYorumu,
   nabizYukselmesi,
+  olcumleriTemizle,
   solunanOksijenMmHg,
   type IrtifaGirdisi,
 } from '@/domain/altitude';
@@ -246,5 +252,57 @@ describe('tavsiye sırası aciliyete göre', () => {
     });
     expect(new Set(s.tavsiyeler).size).toBe(s.tavsiyeler.length);
     for (const k of s.tavsiyeler) expect(TAVSIYELER).toContain(k);
+  });
+});
+
+describe('ölçüm doğrulama', () => {
+  it('sınırlar içindeki değer yuvarlanarak kabul edilir', () => {
+    expect(gecerliOlcum('spo2', 94.4)).toBe(94);
+    expect(gecerliOlcum('restingHr', 55)).toBe(55);
+    expect(gecerliOlcum('systolic', 120)).toBe(120);
+  });
+
+  it('sınır dışı değer kırpılmaz, **düşürülür**', () => {
+    // Kırpmak (300 → 260) uydurma bir ölçüm üretir ve kullanıcıyı yanlış
+    // güvene sokar; ölçüm olmaması daha güvenli.
+    expect(gecerliOlcum('systolic', 300)).toBeNull();
+    expect(gecerliOlcum('spo2', 20)).toBeNull();
+    expect(gecerliOlcum('restingHr', 500)).toBeNull();
+  });
+
+  it('sayı olmayan girdi null', () => {
+    for (const v of [null, undefined, '95', NaN, Infinity]) {
+      expect(gecerliOlcum('spo2', v)).toBeNull();
+    }
+  });
+
+  it('tansiyon bir çift: biri geçersizse ikisi de düşer', () => {
+    const a = olcumleriTemizle({ systolic: 120, diastolic: 500 });
+    expect(a.systolic).toBeNull();
+    expect(a.diastolic).toBeNull();
+  });
+
+  it('ters girilen tansiyon kabul edilmez', () => {
+    const a = olcumleriTemizle({ systolic: 70, diastolic: 120 });
+    expect(a.systolic).toBeNull();
+    expect(a.diastolic).toBeNull();
+  });
+
+  it('geçerli çift korunur, diğer alanlar bağımsız', () => {
+    const a = olcumleriTemizle({ spo2: 92, restingHr: 5, systolic: 130, diastolic: 85 });
+    expect(a).toEqual({ spo2: 92, restingHr: null, systolic: 130, diastolic: 85 });
+  });
+
+  it('sınırlar migration 0037 ile aynı', () => {
+    // Şema CHECK'i ile kod sınırı ayrışırsa, uygulamanın kabul ettiği değer
+    // veritabanında reddedilir ve kayıt sessizce düşer.
+    const migration = readFileSync(
+      resolve(__dirname, '../../../supabase/migrations/0037_ams_measurements.sql'),
+      'utf8',
+    );
+    for (const [alan, [alt, ust]] of Object.entries(OLCUM_SINIRLARI)) {
+      const sutun = alan === 'restingHr' ? 'resting_hr' : alan;
+      expect(migration).toMatch(new RegExp(`${sutun}[^\\n]*BETWEEN ${alt} AND ${ust}`));
+    }
   });
 });

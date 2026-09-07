@@ -28,6 +28,7 @@ import {
   type ISODate,
   type ReturnPlan,
 } from '@/domain';
+import { olcumleriTemizle } from '@/domain/altitude';
 
 import type {
   CountryRepository,
@@ -185,6 +186,9 @@ export function createDestinationRepository(ctx: RemoteContext): DestinationRepo
       // `compute_ams_score` tetikleyicisi score/severity alanlarını doldurur;
       // yine de domain hesabıyla aynı olduğunu doğrulamak için gönderiyoruz.
       const { score, severity } = lakeLouiseScore(headache, gi, fatigue, dizziness);
+      // Geçersiz ölçüm kırpılmaz, **düşürülür**: 300'lük bir tansiyonu 260'a
+      // çekmek uydurma bir ölçüm üretir ve kullanıcıyı yanlış güvene sokar.
+      const olcum = olcumleriTemizle(input);
       const created = await oneRow(
         db
           .from('ams_checks')
@@ -199,6 +203,10 @@ export function createDestinationRepository(ctx: RemoteContext): DestinationRepo
             score,
             severity,
             note: input.note.trim(),
+            spo2: olcum.spo2,
+            resting_hr: olcum.restingHr,
+            systolic: olcum.systolic,
+            diastolic: olcum.diastolic,
           })
           .select('*'),
         'AMS kaydı yazılamadı',

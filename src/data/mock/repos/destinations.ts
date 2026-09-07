@@ -1,4 +1,5 @@
 import { generateId } from '@/core/utils/format';
+import { olcumleriTemizle } from '@/domain/altitude';
 import type { DestinationRepository } from '@/data/repositories';
 import {
   distanceKm,
@@ -134,6 +135,8 @@ export function createDestinationRepository(ctx: MockContext): DestinationReposi
         score,
         severity,
         note: input.note.trim(),
+        // Geçersiz ölçüm kırpılmaz, düşürülür (uzak sağlayıcıyla aynı kural).
+        ...olcumleriTemizle(input),
         createdAt: new Date().toISOString(),
       };
       t.amsChecks.unshift(check);

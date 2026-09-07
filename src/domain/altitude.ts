@@ -331,3 +331,54 @@ export function irtifaDegerlendir(girdi: IrtifaGirdisi): IrtifaDegerlendirmesi {
     nedenler,
   };
 }
+
+/* ------------------------------------------------------------------ */
+/* Ölçüm doğrulama                                                     */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Fizyolojik olarak mümkün aralıklar. Amaç doğruluk değil **saçma girdiyi
+ * durdurmak**: bozuk bir ölçüm, ölçüm olmamasından kötüdür çünkü kullanıcıyı
+ * yanlış güvene sokar. Sınırlar migration 0037'deki CHECK'lerle aynı.
+ */
+export const OLCUM_SINIRLARI = {
+  spo2: [50, 100],
+  restingHr: [30, 220],
+  systolic: [60, 260],
+  diastolic: [30, 160],
+} as const;
+
+export type OlcumAlani = keyof typeof OLCUM_SINIRLARI;
+
+/**
+ * Değeri sınırlar içindeyse döndürür, değilse `null`.
+ *
+ * `null` "ölçüm yok" demektir ve motor bunu sessizce yok sayar — kırpmak
+ * (clamp) yanlış olurdu: 300'lük bir tansiyonu 260'a çekmek uydurma bir
+ * ölçüm üretirdi.
+ */
+export function gecerliOlcum(alan: OlcumAlani, deger: unknown): number | null {
+  if (typeof deger !== 'number' || !Number.isFinite(deger)) return null;
+  const [alt, ust] = OLCUM_SINIRLARI[alan];
+  const yuvarlak = Math.round(deger);
+  return yuvarlak >= alt && yuvarlak <= ust ? yuvarlak : null;
+}
+
+/** Bir AMS kaydındaki ham ölçümleri temizler; geçersizler `null` olur. */
+export function olcumleriTemizle(girdi: {
+  spo2?: number | null;
+  restingHr?: number | null;
+  systolic?: number | null;
+  diastolic?: number | null;
+}): { spo2: number | null; restingHr: number | null; systolic: number | null; diastolic: number | null } {
+  const systolic = gecerliOlcum('systolic', girdi.systolic);
+  const diastolic = gecerliOlcum('diastolic', girdi.diastolic);
+  // Tansiyon bir çift: biri geçersizse ya da ters girildiyse ikisi de düşer.
+  const ciftGecerli = systolic !== null && diastolic !== null && systolic > diastolic;
+  return {
+    spo2: gecerliOlcum('spo2', girdi.spo2),
+    restingHr: gecerliOlcum('restingHr', girdi.restingHr),
+    systolic: ciftGecerli ? systolic : null,
+    diastolic: ciftGecerli ? diastolic : null,
+  };
+}
