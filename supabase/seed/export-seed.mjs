@@ -20,6 +20,9 @@ import { writeFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+// Mock modüllerinden önce yüklenmeli: zaman çapasını onlarla aynı anda alır.
+import { ANCHOR } from './anchor.mjs';
+
 import * as base from '@/data/mock/seed';
 import * as extra from '@/data/mock/seed.extra';
 import * as ai from '@/data/mock/seed.ai';
@@ -58,6 +61,28 @@ function uuidFor(table, id) {
 }
 
 const camelToSnake = (s) => s.replace(/([a-z0-9])([A-Z])/g, '$1_$2').toLowerCase();
+
+/**
+ * Zaman damgaları **göreli** yazılır: `now() - interval '86400 seconds'`.
+ *
+ * Mock veri zamanları `Date.now()` üzerinden üretir (3 gün önce, 2 saat sonra…).
+ * Bunları mutlak ISO metni olarak dondurmak tohumu bozar: dosya birkaç gün
+ * sonra uygulandığında hikâyeler, canlı yayınlar ve konum paylaşımları çoktan
+ * süresi geçmiş olur — RLS testleri de bu yüzden zamanla kırmızıya döner.
+ * Çapa (ANCHOR) mock modülleriyle aynı anda alınır (bkz. `anchor.mjs`), bu
+ * yüzden ofsetler tam sayıya oturur ve üretilen dosya koşumdan koşuma aynı
+ * kalır.
+ */
+const ISO_TS = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z$/;
+
+function relativeTimestamp(iso) {
+  const ms = Date.parse(iso);
+  if (!Number.isFinite(ms)) return null;
+  const seconds = Math.round((ms - ANCHOR) / 1000);
+  if (seconds === 0) return 'now()';
+  const sign = seconds < 0 ? '-' : '+';
+  return `(now() ${sign} interval '${Math.abs(seconds)} seconds')`;
+}
 const q = (s) => `'${String(s).replace(/'/g, "''")}'`;
 const qi = (s) => `"${s}"`;
 
@@ -87,7 +112,10 @@ function sqlValue(value) {
   if (value === null || value === undefined) return 'NULL';
   if (typeof value === 'boolean') return value ? 'true' : 'false';
   if (typeof value === 'number') return Number.isFinite(value) ? String(value) : 'NULL';
-  if (typeof value === 'string') return q(value);
+  if (typeof value === 'string') {
+    if (ISO_TS.test(value)) return relativeTimestamp(value) ?? q(value);
+    return q(value);
+  }
   if (isGeoPoint(value)) return `geo_point(${value.longitude}, ${value.latitude})`;
   if (Array.isArray(value)) {
     if (value.length === 0) return q('{}');

@@ -158,6 +158,28 @@ kullanır. Doluysa:
 npx expo start --web --port 8082
 ```
 
+**`EMFILE: too many open files`.** Windows'ta aynı anda açık dosya tanıtıcısı
+sayısı Linux'taki gibi yükseltilemez; Metro'nun dönüşüm işçileri sınırı aşınca
+paketleme yarıda kalır. Depodaki `metro.config.js` bunu üç şekilde önler:
+
+- yan projelerin (`admin`, `server/*`, `agents/*`, `website`) `node_modules`
+  klasörleri ve üretilmiş çıktılar taramanın dışında bırakılır,
+- Windows'ta işçi sayısı en fazla 4'e sınırlanır,
+- önbellek `%TEMP%` yerine `node_modules\.cache\metro` altına alınır.
+
+Yine de görürsen önbelleği temizleyip yeniden başlat:
+
+```powershell
+Remove-Item -Recurse -Force node_modules\.cache\metro
+npx expo start --web --clear
+```
+
+Antivirüs dışlaması da bu klasör için ayrıca işe yarar.
+
+**Veritabanı testleri.** `npm test` içindeki üç paket yerel Postgres ister;
+sunucu yoksa **atlanır** (`3 skipped, 876 passed` normaldir). Denemek istersen
+8. bölümdeki Docker adımını izle, sonra `ZIRTAN_TEST_PG=1` ile çalıştır.
+
 ## 8. Veritabanını yerelde çalıştırmak (isteğe bağlı)
 
 Şemayı denemek istersen Docker en kolay yol:
@@ -212,4 +234,6 @@ git push -u origin ozellik/yeni-bir-sey
 | "Module not found"                   | Yeni paket eklendiyse `npm install` tekrar çalıştır                               |
 | Telefonda QR okumuyor                | Aynı Wi-Fi'de misin? Değilse `npx expo start --tunnel`                            |
 | Testler yerelde farklı sonuç veriyor | `node -v` sürümünü kontrol et; 22 olmalı                                          |
+| `connect ENOENT /tmp/.s.PGSQL...`    | Eski sürüm; `git pull` yap — veritabanı testleri artık sunucu yoksa atlanır       |
+| `EMFILE: too many open files`        | 7. bölümdeki önbellek temizleme adımı; proje klasörünü antivirüsten dışla         |
 | Değişiklik ekranda görünmüyor        | Metro'yu durdurup `--clear` ile başlat                                            |

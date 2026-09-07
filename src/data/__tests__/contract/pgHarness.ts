@@ -1,3 +1,4 @@
+import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -49,11 +50,33 @@ export function readPgEnv(env: NodeJS.ProcessEnv = process.env): PgEnv {
 }
 
 /**
+ * Sunucu gerçekten yanıt veriyor mu? `pg_isready` varsa onu kullanır.
+ *
+ * Soket dosyasının varlığı yeterli değil: sunucu düzgün kapanmadıysa dosya
+ * ortalıkta kalır ve testler `ECONNREFUSED` ile düşer. `pg_isready` yoksa
+ * (ör. istemci araçları kurulu değil) karar dosya varlığına bırakılır.
+ */
+function respondsToPing(host: string, port: number): boolean {
+  try {
+    execFileSync('pg_isready', ['-h', host, '-p', String(port), '-q'], {
+      stdio: 'ignore',
+      timeout: 3_000,
+    });
+    return true;
+  } catch (err) {
+    // Komut yoksa karar veremeyiz; çıkış kodu varsa sunucu yanıt vermiyor.
+    return (err as NodeJS.ErrnoException).code === 'ENOENT';
+  }
+}
+
+/**
  * Jest `describe` seçimi için **eşzamanlı** ön kontrol.
  *
  * · `ZIRTAN_TEST_PG=1|0` açıkça belirler.
- * · PGHOST bir dizin yoluysa (unix soketi) soket dosyasına bakılır.
+ * · PGHOST bir dizin yoluysa (unix soketi) soket dosyasına + `pg_isready`e bakılır.
  * · TCP bağlantısında eşzamanlı kontrol mümkün olmadığından açık bayrak istenir.
+ *
+ * Windows'ta unix soketi yoktur; bayrak verilmedikçe paketler atlanır.
  */
 export function isPostgresLikelyAvailable(env: NodeJS.ProcessEnv = process.env): boolean {
   const flag = env.ZIRTAN_TEST_PG?.trim();
@@ -62,10 +85,11 @@ export function isPostgresLikelyAvailable(env: NodeJS.ProcessEnv = process.env):
   const cfg = readPgEnv(env);
   if (!cfg.host.startsWith('/')) return false;
   try {
-    return fs.existsSync(path.join(cfg.host, `.s.PGSQL.${cfg.port}`));
+    if (!fs.existsSync(path.join(cfg.host, `.s.PGSQL.${cfg.port}`))) return false;
   } catch {
     return false;
   }
+  return respondsToPing(cfg.host, cfg.port);
 }
 
 export interface PgHarness {
