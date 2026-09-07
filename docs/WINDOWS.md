@@ -20,44 +20,47 @@ Depo `inandersim/claude`, geliştirme dalı `claude/outdoor-adventure-social-app
 | Android Studio       | Android geliştirme derlemesi (gerçek harita motoru)    |
 | Xcode (yalnızca Mac) | iOS derlemesi — Windows'ta yapılamaz                   |
 
-## 2. Tek komutla kurulum (önerilen)
+## 2. Projeyi indir
 
-**PowerShell** aç ve şu satırı yapıştır. Depoyu indirir, dört paketin
-bağımlılıklarını kurar, Git ayarlarını yapar ve kurulumu doğrular:
-
-```powershell
-iwr -useb https://raw.githubusercontent.com/inandersim/claude/claude/outdoor-adventure-social-app-du8h5t/scripts/kurulum.ps1 | iex
-```
-
-Kurulum bitince uygulamayı hemen açmak istersen, projeyi indirdikten sonra:
-
-```powershell
-cd "$env:USERPROFILE\Desktop\travel zirtan"
-.\scripts\kurulum.ps1 -Baslat
-```
-
-Betik **tekrar tekrar çalıştırılabilir**: var olan kurulumu bozmaz, eksik olanı
-tamamlar, kaydedilmemiş değişikliklerin varsa güncellemeyi atlar.
-
-| Seçenek | Ne yapar |
-| --- | --- |
-| `-Baslat` | Kurulum bitince uygulamayı tarayıcıda açar |
-| `-Klasor "D:\zirtan"` | Başka bir klasöre kurar |
-| `-AtlaDogrulama` | Tip denetimi ve testleri atlar (daha hızlı) |
-
-Komut satırıyla uğraşmak istemiyorsan proje indikten sonra
-`scripts\kurulum.bat` dosyasına **çift tıklamak** da yeterli.
-
-## 2b. Elle kurulum
-
-Betik yerine adımları tek tek yapmak istersen — **PowerShell** aç ve şunu çalıştır:
+Git kurulu olduğu için en güvenilir yol doğrudan klonlamaktır.
+**PowerShell** aç ve şu dört satırı sırayla çalıştır:
 
 ```powershell
 cd "$env:USERPROFILE\Desktop"
-git clone https://github.com/inandersim/claude.git "travel zirtan"
+git clone -b claude/outdoor-adventure-social-app-du8h5t https://github.com/inandersim/claude.git "travel zirtan"
 cd "travel zirtan"
-git checkout claude/outdoor-adventure-social-app-du8h5t
+npm install
 ```
+
+Sonra çalıştır:
+
+```powershell
+npm run web      # tarayıcıda http://localhost:8081 açılır
+```
+
+Bu kadar. Uygulama demo veriyle çalışır; giriş `a@b.co` / `123456`.
+
+### Yardımcı kurulum betiği (isteğe bağlı)
+
+Depo indikten sonra `scripts/kurulum.ps1` betiği kalan üç paketin
+bağımlılıklarını da kurar (yönetim paneli, yapay zekâ ağ geçidi, pazarlama
+ajanları), Windows'a özgü Git ayarlarını yapar ve kurulumu doğrular:
+
+```powershell
+.\scripts\kurulum.ps1
+```
+
+PowerShell imzasız betikleri engellerse `scripts\kurulum.bat` dosyasına
+**çift tıkla** — o, kısıtı yalnızca bu çalıştırma için aşar.
+
+| Seçenek               | Ne yapar                                    |
+| --------------------- | ------------------------------------------- |
+| `-Baslat`             | Kurulum bitince uygulamayı tarayıcıda açar  |
+| `-Klasor "D:\zirtan"` | Başka bir klasöre kurar                     |
+| `-AtlaDogrulama`      | Tip denetimi ve testleri atlar (daha hızlı) |
+
+Betik tekrar tekrar çalıştırılabilir; kaydedilmemiş değişikliğin varsa
+güncellemeyi atlar.
 
 Klasör adında boşluk var (`travel zirtan`); Node ve Expo bunu sorunsuz kaldırır,
 ancak komut yazarken yolu **tırnak içinde** vermeyi unutma.
@@ -67,15 +70,9 @@ ancak komut yazarken yolu **tırnak içinde** vermeyi unutma.
 > üretip parola yerine onu gir. Ya da [GitHub Desktop](https://desktop.github.com)
 > ile grafik arayüzden klonla.
 
-Sonra bağımlılıkları kur:
+## 3. Kurulumu doğrula
 
-```powershell
-npm install                       # ana uygulama
-cd admin; npm install; cd ..      # yönetim paneli
-cd server\ai-gateway; npm install; cd ..\..    # yapay zekâ ağ geçidi
-```
-
-İlk kurulum birkaç dakika sürer. Bittiğinde her şeyin yerinde olduğunu doğrula:
+`npm install` birkaç dakika sürer. Bittiğinde her şeyin yerinde olduğunu kontrol et:
 
 ```powershell
 npm run typecheck   # TypeScript — 0 hata olmalı

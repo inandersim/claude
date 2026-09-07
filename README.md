@@ -100,9 +100,8 @@ Ek olarak: karşılama + giriş + kayıt akışı, yeni macera paylaşma (fotoğ
 > Gereksinimler: Node 22 LTS, npm 10+, telefonda **Expo Go** (veya Android Studio / Xcode).
 
 ```bash
-git clone https://github.com/inandersim/claude.git zirtan
+git clone -b claude/outdoor-adventure-social-app-du8h5t https://github.com/inandersim/claude.git zirtan
 cd zirtan
-git checkout claude/outdoor-adventure-social-app-du8h5t
 npm install
 npm start
 ```

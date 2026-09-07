@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
   Zirtan — Windows tek komut kurulumu.
 
@@ -27,7 +27,6 @@
   .\kurulum.ps1 -Klasor "D:\projeler\zirtan"
 #>
 
-[CmdletBinding()]
 param(
   [string] $Klasor = (Join-Path ([Environment]::GetFolderPath('Desktop')) 'travel zirtan'),
   [string] $Depo = 'https://github.com/inandersim/claude.git',
@@ -41,8 +40,8 @@ $script:Uyarilar = @()
 
 function Yaz-Baslik($metin) {
   Write-Host ''
-  Write-Host "── $metin " -NoNewline -ForegroundColor Cyan
-  Write-Host ('─' * [Math]::Max(0, 62 - $metin.Length)) -ForegroundColor DarkGray
+  Write-Host "-- $metin " -NoNewline -ForegroundColor Cyan
+  Write-Host ('-' * [Math]::Max(0, 62 - $metin.Length)) -ForegroundColor DarkGray
 }
 function Yaz-Tamam($m) { Write-Host "  [tamam] $m" -ForegroundColor Green }
 function Yaz-Bilgi($m)  { Write-Host "  $m" -ForegroundColor Gray }
@@ -68,7 +67,7 @@ function Npm-Calistir {
   param([string] $Argumanlar, [string] $CalismaDizini, [string] $Aciklama)
   Push-Location $CalismaDizini
   try {
-    Yaz-Bilgi "$Aciklama…"
+    Yaz-Bilgi "$Aciklama..."
     & cmd /c "npm $Argumanlar" 2>&1 | ForEach-Object {
       if ($_ -match 'ERR!|error ') { Write-Host "    $_" -ForegroundColor DarkRed }
     }
@@ -80,8 +79,8 @@ function Npm-Calistir {
 }
 
 Write-Host ''
-Write-Host '  ZIRTAN — yerel kurulum' -ForegroundColor White
-Write-Host '  Açık hava macera uygulaması · Expo + React Native' -ForegroundColor DarkGray
+Write-Host '  ZIRTAN - yerel kurulum' -ForegroundColor White
+Write-Host '  Acik hava macera uygulamasi - Expo + React Native' -ForegroundColor DarkGray
 
 # ------------------------------------------------------------------
 # 1. Gereksinimler
@@ -105,7 +104,7 @@ if ($nodeAna -lt 20) {
   return
 }
 if ($nodeAna -lt 22) {
-  Yaz-Uyari "Node $nodeSurum — proje 22 LTS ile geliştirildi. Çalışır ama 22'ye yükseltmen önerilir."
+  Yaz-Uyari "Node $nodeSurum - proje 22 LTS ile gelistirildi; 22'ye yukseltmen onerilir."
 } else {
   Yaz-Tamam "Node $nodeSurum"
 }
@@ -147,7 +146,7 @@ if (Test-Path $gitKlasoru) {
       git fetch origin $Dal --quiet
       git checkout $Dal --quiet
       git pull origin $Dal --quiet
-      Yaz-Tamam "Güncellendi → $Dal"
+      Yaz-Tamam "Guncellendi: $Dal"
     }
   } finally { Pop-Location }
 } else {
@@ -156,14 +155,14 @@ if (Test-Path $gitKlasoru) {
     Yaz-Bilgi 'Başka bir klasör seç: .\kurulum.ps1 -Klasor "D:\zirtan"'
     return
   }
-  Yaz-Bilgi "İndiriliyor → $Klasor"
+  Yaz-Bilgi "Indiriliyor: $Klasor"
   git clone --branch $Dal $Depo $Klasor
   if ($LASTEXITCODE -ne 0) {
     Yaz-Hata 'Klonlama başarısız. Depo özelse GitHub kimlik doğrulaması gerekir.'
-    Yaz-Bilgi 'Kişisel erişim jetonu: GitHub → Settings → Developer settings → Personal access tokens'
+    Yaz-Bilgi 'Kisisel erisim jetonu: GitHub > Settings > Developer settings > Personal access tokens'
     return
   }
-  Yaz-Tamam "İndirildi → $Dal"
+  Yaz-Tamam "Indirildi: $Dal"
 }
 
 # ------------------------------------------------------------------
@@ -202,20 +201,20 @@ if ($AtlaDogrulama) {
   Yaz-Baslik 'Kurulum doğrulanıyor'
   Push-Location $Klasor
   try {
-    Yaz-Bilgi 'TypeScript denetimi…'
+    Yaz-Bilgi 'TypeScript denetimi...'
     & cmd /c 'npm run typecheck' | Out-Null
     if ($LASTEXITCODE -eq 0) { Yaz-Tamam 'TypeScript: 0 hata' }
-    else { Yaz-Uyari 'TypeScript hata verdi — "npm run typecheck" ile ayrıntıya bak.' }
+    else { Yaz-Uyari 'TypeScript hata verdi. Ayrinti icin: npm run typecheck' }
 
-    Yaz-Bilgi 'Testler çalıştırılıyor (bir dakika sürebilir)…'
+    Yaz-Bilgi 'Testler calistiriliyor (bir dakika surebilir)...'
     $testCikti = & cmd /c 'npm test 2>&1'
     $testGecti = $LASTEXITCODE -eq 0
     $ozetSatiri = $testCikti | Select-String -Pattern 'Tests:' | Select-Object -Last 1
     $ozet = if ($ozetSatiri) { ($ozetSatiri.ToString() -replace '\s+', ' ').Trim() } else { '' }
     if ($testGecti) {
-      if ($ozet) { Yaz-Tamam "Testler geçti — $ozet" } else { Yaz-Tamam 'Testler geçti' }
+      if ($ozet) { Yaz-Tamam "Testler gecti: $ozet" } else { Yaz-Tamam 'Testler geçti' }
     } else {
-      Yaz-Uyari 'Testlerde hata var — "npm test" ile ayrıntıya bak.'
+      Yaz-Uyari 'Testlerde hata var. Ayrinti icin: npm test'
     }
   } finally { Pop-Location }
 }
