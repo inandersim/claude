@@ -1,5 +1,7 @@
 import type { GroupMessageWithSender, ID, LocationShareWithUser, NotificationWithSender, StreamMessageWithAuthor } from '@/domain';
 
+import type { RealtimeApi } from '../repositories';
+
 import { PROFILE_SELECT, fetchUser } from './context';
 import { toGroupMessage, toLocationShare, toNotification, toStreamMessage, toUser } from './mappers';
 import { maybeRow, type RealtimeChannelLike, type Row, type SupabaseLike } from './postgrest';
@@ -153,4 +155,33 @@ export function subscribeSosSession(
   onChange: (row: Row) => void,
 ): Unsubscribe {
   return open(client, `sos:${sessionId}`, 'sos_sessions', `id=eq.${sessionId}`, '*', onChange);
+}
+
+/* ================================================================== */
+/* Sağlayıcı sözleşmesi uyarlaması                                     */
+/* ================================================================== */
+
+/**
+ * Yukarıdaki abonelikleri `RealtimeApi` biçimine sarar.
+ *
+ * **Neden olayın içeriği taşınmıyor:** ekran tarafı olayın gövdesini değil
+ * "bir şey değişti" bilgisini istiyor; gelen satırı listeye elle eklemek,
+ * sıralama/filtre/sayfalama kurallarını ikinci bir yerde tekrarlamak demek
+ * ve iki kaynak kaçınılmaz olarak ayrışır. Onun yerine ilgili sorgu
+ * geçersiz kılınır; veri tek yoldan, sağlayıcıdan gelmeye devam eder.
+ *
+ * Maliyet farkı yine de büyük: 4 saniyelik sorgulama yerine yalnızca gerçek
+ * bir değişiklikte tek istek.
+ */
+export function createRealtimeApi(client: SupabaseLike): RealtimeApi {
+  const olay = (fn: () => void) => () => fn();
+  return {
+    groupMessages: (groupId, onEvent) => subscribeGroupMessages(client, groupId, olay(onEvent)),
+    streamMessages: (streamId, onEvent) => subscribeStreamMessages(client, streamId, olay(onEvent)),
+    directMessages: (meId, onEvent) => subscribeDirectMessages(client, meId, olay(onEvent)),
+    notifications: (meId, onEvent) => subscribeNotifications(client, meId, olay(onEvent)),
+    locationShares: (onEvent) => subscribeLocationShares(client, olay(onEvent)),
+    hazards: (onEvent) => subscribeHazards(client, olay(onEvent)),
+    sosSession: (sessionId, onEvent) => subscribeSosSession(client, sessionId, olay(onEvent)),
+  };
 }

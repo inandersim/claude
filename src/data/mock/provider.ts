@@ -1666,6 +1666,8 @@ export function createMockProvider(options: Options = {}): DataProvider {
     tv: atBoundary(createTvRepository(ctx)),
     heritage: atBoundary(createHeritageRepository(ctx)),
     kids: atBoundary(createKidsRepository(ctx)),
+    // Demo verisinde canlı bir kaynak yok; ekranlar sorgulamaya devam eder.
+    realtime: null,
     countries: atBoundary(createCountryRepository(ctx)),
     articles: atBoundary(createArticleRepository(ctx)),
     wildlife: atBoundary(createWildlifeRepository(ctx)),

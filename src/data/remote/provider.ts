@@ -1,6 +1,7 @@
 import type { DataProvider } from '../repositories';
 
 import { createRemoteContext, type RemoteContext } from './context';
+import { createRealtimeApi } from './realtime';
 import type { SupabaseLike } from './postgrest';
 import { createArticleRepository } from './repos/articles';
 import { createPhoneAuthRepository } from './repos/auth';
@@ -109,6 +110,7 @@ export function createRemoteProvider(
     tv: createTvRepository(ctx),
     heritage: createHeritageRepository(ctx),
     kids: createKidsRepository(ctx),
+    realtime: createRealtimeApi(client),
 
     /**
      * Demo verisini sıfırlama yalnızca mock sağlayıcıda anlamlıdır; gerçek

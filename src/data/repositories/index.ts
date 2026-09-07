@@ -914,6 +914,38 @@ export interface DataProvider {
   tv: TvRepository;
   heritage: HeritageRepository;
   kids: KidsRepository;
+  /**
+   * Anlık güncelleme akışı — **yalnızca gerçek arka uçta** vardır.
+   *
+   * Mock sağlayıcıda `null` döner ve ekranlar periyodik sorgulamaya
+   * (polling) devam eder; demo verisinde canlı bir kaynak yok.
+   */
+  realtime: RealtimeApi | null;
   /** Demo verilerini sıfırlar (yalnızca mock sağlayıcı için anlamlı) */
   reset(): Promise<void>;
+}
+
+/** Aboneliği kapatan fonksiyon; `useEffect` temizliğinde çağrılır. */
+export type Unsubscribe = () => Promise<void>;
+
+/**
+ * Anlık güncelleme abonelikleri.
+ *
+ * **Neden sözleşmede:** abonelikler `src/data/remote/realtime.ts` içinde
+ * baştan beri yazılıydı ama hiçbir ekrandan çağrılmıyordu; sohbet, konum
+ * paylaşımı ve SOS oturumu 4–5 saniyede bir yeniden sorgulanarak
+ * güncelleniyordu. Ekranların doğrudan Supabase istemcisine uzanmaması için
+ * erişim buradan veriliyor.
+ *
+ * Her fonksiyon bir olay geldiğinde çağrılır; ekran tarafı genellikle ilgili
+ * sorguyu geçersiz kılar (invalidate).
+ */
+export interface RealtimeApi {
+  groupMessages(groupId: ID, onEvent: () => void): Unsubscribe;
+  streamMessages(streamId: ID, onEvent: () => void): Unsubscribe;
+  directMessages(meId: ID, onEvent: () => void): Unsubscribe;
+  notifications(meId: ID, onEvent: () => void): Unsubscribe;
+  locationShares(onEvent: () => void): Unsubscribe;
+  hazards(onEvent: () => void): Unsubscribe;
+  sosSession(sessionId: ID, onEvent: () => void): Unsubscribe;
 }

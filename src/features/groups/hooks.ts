@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useMemo } from 'react';
 
+import { realtimeAralik, useRealtime } from '@/core/hooks/useRealtime';
 import { queryKeys } from '@/core/query/keys';
 import { getDataProvider } from '@/data';
 import {
@@ -17,6 +18,8 @@ import { useCurrentUser } from '@/features/auth/session.store';
 
 /** Sohbet açıkken yeni mesajları yoklama aralığı (ms). */
 const CHAT_POLL_MS = 4000;
+/** Abonelik ayaktayken yalnızca kopmaya karşı yedek ağ. */
+const CHAT_YEDEK_POLL_MS = 60_000;
 
 /** Grup/kanal listesi (filtreli). Üye olunanlar aktiviteye göre önce gelir. */
 export function useGroups(filter: GroupFilter = {}) {
@@ -96,14 +99,29 @@ export function useSetRole(groupId: ID) {
   });
 }
 
-/** Sohbet mesajları (eski → yeni). Ekran açıkken 4 sn'de bir yenilenir. */
+/**
+ * Sohbet mesajları (eski → yeni).
+ *
+ * Gerçek arka uçta anlık abonelik güncellemeyi taşır; sorgulama yalnızca
+ * abonelik koparsa devreye giren seyrek bir ağdır. Mock'ta abonelik yok, o
+ * yüzden eski 4 saniyelik aralık korunur.
+ *
+ * Aradaki fark faturaya doğrudan yazıyor: sohbeti açık 1.000 kullanıcı 4
+ * saniyelik sorgulamayla saatte 900.000 istek üretir; abonelikle yalnızca
+ * gerçekten mesaj geldiğinde istek çıkar.
+ */
 export function useGroupMessages(groupId: ID) {
   const me = useCurrentUser();
+  const key = queryKeys.groups.messages(me.id, groupId);
+  useRealtime(
+    groupId ? (api, tetikle) => api.groupMessages(groupId, tetikle) : null,
+    key,
+  );
   return useQuery({
-    queryKey: queryKeys.groups.messages(me.id, groupId),
+    queryKey: key,
     queryFn: () => getDataProvider().groups.messages(me.id, groupId),
     enabled: Boolean(groupId),
-    refetchInterval: CHAT_POLL_MS,
+    refetchInterval: realtimeAralik(CHAT_YEDEK_POLL_MS, CHAT_POLL_MS),
     refetchIntervalInBackground: false,
   });
 }

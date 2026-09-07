@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+import { useRealtime } from '@/core/hooks/useRealtime';
 import { queryKeys } from '@/core/query/keys';
 import { getDataProvider } from '@/data';
 import type { GeoPoint, ID, LinkType, PairDeviceInput, SendSatMessageInput } from '@/domain';
@@ -85,12 +86,33 @@ export function useFlushQueue() {
   });
 }
 
+/**
+ * Etkin SOS oturumu.
+ *
+ * Eskiden hiç yenilenmiyordu: oturum bir kez okunuyor, sonrası yalnızca
+ * kullanıcı bir şey yaptığında tazeleniyordu. Yani yardım yola çıktığında
+ * ya da bir kurtarma merkezi olaya bağlandığında **ekranda hiçbir şey
+ * değişmiyordu** — SOS gönderen kişi için görebileceği en önemli bilgi bu.
+ *
+ * Artık oturum açıkken anlık aboneliğe bağlanır; abonelik yoksa (mock) ya da
+ * koparsa 15 saniyelik yedek sorgulama devreye girer. Oturum yokken hiç
+ * sorgulanmaz.
+ */
 export function useSos() {
   const me = useCurrentUser();
-  return useQuery({
-    queryKey: queryKeys.satellite.sos(me.id),
+  const key = queryKeys.satellite.sos(me.id);
+  const query = useQuery({
+    queryKey: key,
     queryFn: () => getDataProvider().satellite.sos(me.id),
+    // Etkin oturum varken yedek ağ; yokken boşuna istek çıkmaz.
+    refetchInterval: (q) => (q.state.data ? 15_000 : false),
   });
+  const sessionId = query.data?.id ?? null;
+  useRealtime(
+    sessionId ? (api, tetikle) => api.sosSession(sessionId, tetikle) : null,
+    key,
+  );
+  return query;
 }
 
 function useInvalidateSos() {

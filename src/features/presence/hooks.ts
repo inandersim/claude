@@ -2,17 +2,28 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import * as Location from 'expo-location';
 import { useEffect, useRef } from 'react';
 
+import { realtimeAralik, useRealtime } from '@/core/hooks/useRealtime';
 import { queryKeys } from '@/core/query/keys';
 import { getDataProvider } from '@/data';
 import type { GeoPoint, StartShareInput } from '@/domain';
 import { useCurrentUser } from '@/features/auth/session.store';
 
+/**
+ * Görünür konum paylaşımları.
+ *
+ * Bu ekran birinin nerede olduğunu gösteriyor; 10 saniyelik gecikme kaybolma
+ * ya da yardım gereken bir durumda anlamlı bir gecikmedir. Gerçek arka uçta
+ * konum güncellemesi anında gelir; sorgulama yalnızca abonelik koparsa
+ * devreye giren yedek ağdır.
+ */
 export function useVisibleShares(origin: GeoPoint | null) {
   const me = useCurrentUser();
+  const key = queryKeys.presence.list(me.id);
+  useRealtime((api, tetikle) => api.locationShares(tetikle), key);
   return useQuery({
-    queryKey: queryKeys.presence.list(me.id),
+    queryKey: key,
     queryFn: () => getDataProvider().presence.list(me.id, origin),
-    refetchInterval: 10_000,
+    refetchInterval: realtimeAralik(60_000, 10_000),
   });
 }
 

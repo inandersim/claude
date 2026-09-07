@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
+import { realtimeAralik, useRealtime } from '@/core/hooks/useRealtime';
 import { queryKeys } from '@/core/query/keys';
 import { getDataProvider } from '@/data';
 import type { ID, LiveStreamWithHost, StartStreamInput, StreamMessageWithAuthor } from '@/domain';
@@ -37,11 +38,20 @@ export function useJoinStream(id: ID, enabled: boolean) {
   }, [id, enabled, qc]);
 }
 
+/**
+ * Yayın sohbeti. Canlı yayında 5 saniyelik gecikme sohbeti akıcı olmaktan
+ * çıkarıyordu; anlık abonelik varken mesaj geldiği anda görünür.
+ */
 export function useStreamMessages(streamId: ID) {
+  const key = queryKeys.live.messages(streamId);
+  useRealtime(
+    streamId ? (api, tetikle) => api.streamMessages(streamId, tetikle) : null,
+    key,
+  );
   return useQuery({
-    queryKey: queryKeys.live.messages(streamId),
+    queryKey: key,
     queryFn: () => getDataProvider().live.messages(streamId),
-    refetchInterval: 5_000,
+    refetchInterval: realtimeAralik(30_000, 5_000),
   });
 }
 

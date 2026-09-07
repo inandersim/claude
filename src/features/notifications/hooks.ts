@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+import { realtimeAralik, useRealtime } from '@/core/hooks/useRealtime';
 import { queryKeys } from '@/core/query/keys';
 import { getDataProvider } from '@/data';
 import type { ID, NotificationWithSender } from '@/domain';
@@ -13,12 +14,21 @@ export function useNotifications() {
   });
 }
 
+/**
+ * Okunmamış bildirim sayısı.
+ *
+ * Bildirim gelmesi seyrek bir olay; 15 saniyede bir sorup neredeyse her
+ * seferinde "değişmedi" cevabı almak boşuna trafikti. Abonelik geldiğinde
+ * tazelenir.
+ */
 export function useUnreadCount() {
   const me = useCurrentUser();
+  const key = queryKeys.notifications.unread(me.id);
+  useRealtime((api, tetikle) => api.notifications(me.id, tetikle), key);
   return useQuery({
-    queryKey: queryKeys.notifications.unread(me.id),
+    queryKey: key,
     queryFn: () => getDataProvider().notifications.unreadCount(me.id),
-    refetchInterval: 15_000,
+    refetchInterval: realtimeAralik(60_000, 15_000),
   });
 }
 
