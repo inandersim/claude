@@ -65,6 +65,7 @@ import {
   type ZMatch,
   type ZMatchWithUsers,
 } from '@/domain';
+import { tokenCikar, tokenEkle } from '@/domain/push';
 
 import type {
   AuthApi,
@@ -133,6 +134,15 @@ export class AuthError extends Error {
     this.name = 'AuthError';
   }
 }
+
+/**
+ * Cihaz bildirim adresleri — mock tarafı.
+ *
+ * Bilerek `User` nesnesine konmadı: adres profilin parçası değil (gerçek
+ * şemada da ayrı ve yalnızca sahibine açık bir tabloda, bkz. migration 0036)
+ * ve uygulama her açılışta yeniden kaydediyor. Kalıcılık gerekmiyor.
+ */
+const pushAdresleri = new Map<string, string[]>();
 
 export function createMockProvider(options: Options = {}): DataProvider {
   const db = new MockDatabase(options.persist ?? true);
@@ -669,6 +679,13 @@ export function createMockProvider(options: Options = {}): DataProvider {
         }
       }
       if (changed) db.markDirty();
+    },
+    async registerPushToken(meId, token) {
+      pushAdresleri.set(meId, tokenEkle(pushAdresleri.get(meId) ?? [], token));
+    },
+    async unregisterPushToken(meId, token) {
+      const mevcut = pushAdresleri.get(meId);
+      if (mevcut) pushAdresleri.set(meId, tokenCikar(mevcut, token));
     },
   };
 

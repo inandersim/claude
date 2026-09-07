@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 
 import { getDataProvider } from '@/data';
+import { pushTemizligiCalistir } from '@/features/notifications/push-session';
 import type {
   CompleteProfileInput,
   OtpChallenge,
@@ -73,6 +74,10 @@ export const useSessionStore = create<SessionState>((set, get) => ({
   },
 
   signOut: async () => {
+    // Bildirim adresi **oturum kapanmadan** silinmeli: adres cihaza aittir,
+    // silinmezse telefon eski hesabın bildirimlerini almaya devam eder. Oturum
+    // kapandıktan sonra denenirse RLS reddeder.
+    await pushTemizligiCalistir();
     await getDataProvider().auth.signOut();
     set({ user: null, status: 'signedOut' });
   },

@@ -143,6 +143,9 @@ CREATE POLICY profiles_update_own ON profiles FOR UPDATE TO authenticated
 
 CALL rls_join_table('follows', 'follower_id');
 CALL rls_owner_all('blocks', 'blocker_id');
+-- Cihaz bildirim adresleri: yalnızca sahibi. Profil tablosunda dururken
+-- `profiles_read_all` yüzünden `anon` dahil herkese okunabiliyordu (bkz. 0036).
+CALL rls_owner_all('push_tokens');
 CALL rls_owner_all('emergency_contacts');
 
 -- Şikâyet: kullanıcı kendi şikâyetini görür ve açar; kapatma moderatöre.

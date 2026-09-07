@@ -711,6 +711,26 @@ export function createNotificationRepository(ctx: RemoteContext): NotificationRe
         'bildirimler güncellenemedi',
       );
     },
+
+    async registerPushToken(meId, token) {
+      // Satır bazlı upsert: dizi sütunundaki oku-birleştir-yaz yarışı yok.
+      // `last_seen_at` her açılışta tazeleniyor; ölü cihazları ayıklamak
+      // isteyen bir temizlik işi buna bakabilir.
+      await rows(
+        db.from('push_tokens').upsert(
+          { user_id: meId, token, last_seen_at: new Date().toISOString() },
+          { onConflict: 'user_id,token' },
+        ),
+        'bildirim adresi kaydedilemedi',
+      );
+    },
+
+    async unregisterPushToken(meId, token) {
+      await rows(
+        db.from('push_tokens').delete().eq('user_id', meId).eq('token', token),
+        'bildirim adresi silinemedi',
+      );
+    },
   };
 }
 

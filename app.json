@@ -39,7 +39,8 @@
         "android.permission.CAMERA",
         "android.permission.RECORD_AUDIO",
         "android.permission.FOREGROUND_SERVICE",
-        "android.permission.FOREGROUND_SERVICE_LOCATION"
+        "android.permission.FOREGROUND_SERVICE_LOCATION",
+        "android.permission.POST_NOTIFICATIONS"
       ],
       "intentFilters": [
         {
@@ -111,6 +112,13 @@
           "android": {
             "nativeVariant": "opengl"
           }
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "color": "#10201B",
+          "defaultChannel": "default"
         }
       ]
     ],

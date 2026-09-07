@@ -84,6 +84,6 @@ describe('uzak sağlayıcı yüzeyi', () => {
       const repo = (remote as unknown as Record<string, Record<string, unknown>>)[key]!;
       count += Object.keys(repo).filter((m) => typeof repo[m] === 'function').length;
     }
-    expect(count).toBe(310);
+    expect(count).toBe(312);
   });
 });

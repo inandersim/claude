@@ -2,8 +2,8 @@
  * push-fanout — bildirimleri Expo Push ile cihazlara dağıtır.
  *
  * Çalışma biçimi: `notifications` tablosunda `pushed_at IS NULL` olan
- * satırları toplar, alıcıların `profiles.push_tokens` değerlerine
- * gönderir ve satırları damgalar.
+ * satırları toplar, alıcıların `push_tokens` tablosundaki cihaz adreslerine
+ * gönderir ve satırları damgalar. Geçersiz adresler silinir.
  *
  * Tetikleme: pg_cron / Supabase Scheduled Function (dakikada bir) ya da
  * doğrudan çağrı (`{ "notificationIds": [...] }`).
@@ -56,14 +56,21 @@ Deno.serve(handler(async (req) => {
   if (!notifications?.length) return json({ processed: 0, sent: 0 });
 
   const receiverIds = [...new Set(notifications.map((n) => n.receiver_id))];
-  const { data: profiles } = await db
-    .from('profiles')
-    .select('id, push_tokens, locale')
-    .in('id', receiverIds);
+  // Adresler `profiles` sütunundan ayrı bir tabloya taşındı (migration 0036):
+  // RLS satır düzeyinde olduğu için açık profil tablosunda tutmak cihaz
+  // adreslerini `anon` dahil herkese okutuyordu.
+  const { data: tokenRows } = await db
+    .from('push_tokens')
+    .select('user_id, token')
+    .in('user_id', receiverIds);
 
-  const tokensByUser = new Map<string, string[]>(
-    (profiles ?? []).map((p) => [p.id as string, (p.push_tokens as string[]) ?? []]),
-  );
+  const tokensByUser = new Map<string, string[]>();
+  for (const row of tokenRows ?? []) {
+    const key = row.user_id as string;
+    const list = tokensByUser.get(key) ?? [];
+    list.push(row.token as string);
+    tokensByUser.set(key, list);
+  }
 
   const messages: ExpoPushMessage[] = [];
   for (const n of notifications) {
@@ -88,14 +95,11 @@ Deno.serve(handler(async (req) => {
     .update({ pushed_at: new Date().toISOString() })
     .in('id', notifications.map((n) => n.id));
 
-  // Geçersiz token'ları profillerden temizle
-  for (const token of result.invalidTokens) {
-    const owner = (profiles ?? []).find((p) => ((p.push_tokens as string[]) ?? []).includes(token));
-    if (!owner) continue;
-    await db
-      .from('profiles')
-      .update({ push_tokens: ((owner.push_tokens as string[]) ?? []).filter((t) => t !== token) })
-      .eq('id', owner.id);
+  // Expo'nun "DeviceNotRegistered" dediği adresleri sil. Ayrı tabloda bu tek
+  // bir silme: sahibini aramaya, listeyi okuyup yeniden yazmaya gerek yok
+  // (dizi sütunundaki eski yol iki cihaz aynı anda yazınca birini kaybediyordu).
+  if (result.invalidTokens.length) {
+    await db.from('push_tokens').delete().in('token', result.invalidTokens);
   }
 
   return json({ processed: notifications.length, ...result });

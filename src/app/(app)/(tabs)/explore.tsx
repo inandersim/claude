@@ -14,6 +14,7 @@ import {
   Tappable,
   Text,
 } from '@/components/ui';
+import { rotaAcik } from '@/core/flags';
 import { currentLocale, useT } from '@/core/i18n';
 import { layout, radius, spacing, useTheme } from '@/core/theme';
 import { ADVENTURE_TYPES, ADVENTURE_TYPE_META, type AdventureType } from '@/domain';
@@ -58,6 +59,13 @@ const MODULE_LINKS = [
   { href: '/kids', icon: 'party-popper', labelKey: 'kids.title', color: '#FF6B9D' },
   { href: '/assistant/vision', icon: 'camera', labelKey: 'vision.title', color: '#5EE39B' },
 ] as const;
+
+/**
+ * Kapsam dışı modüller ızgarada görünmez. Bugün kapsam `full` olduğu için bu
+ * süzgeç hiçbir şeyi elemiyor; `EXPO_PUBLIC_LAUNCH_SCOPE=v1` çevrildiğinde
+ * ızgara kendiliğinden daralır (bkz. `src/core/flags.ts`).
+ */
+const acikModuller = MODULE_LINKS.filter((link) => rotaAcik(link.href));
 
 export default function ExploreScreen() {
   const { t } = useT();
@@ -271,7 +279,7 @@ export default function ExploreScreen() {
           <View style={styles.section}>
             <SectionHeader title={t('explore.modules')} subtitle={t('explore.modulesSubtitle')} />
             <View style={styles.moduleGrid}>
-              {MODULE_LINKS.map((m) => (
+              {acikModuller.map((m) => (
                 <Tappable
                   key={m.href}
                   onPress={() => router.push(m.href)}

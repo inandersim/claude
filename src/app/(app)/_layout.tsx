@@ -2,9 +2,14 @@ import { Stack } from 'expo-router';
 import React from 'react';
 
 import { useTheme } from '@/core/theme';
+import { useSessionStore } from '@/features/auth/session.store';
+import { usePushRegistration } from '@/features/notifications/usePush';
 
 export default function AppLayout() {
   const { colors } = useTheme();
+  // Oturum açıkken cihazın bildirim adresini kaydeder. Adres alınamazsa
+  // (izin yok, web, Expo Go) uygulama bildirimsiz çalışmaya devam eder.
+  usePushRegistration(useSessionStore((s) => s.user));
   return (
     <Stack
       screenOptions={{

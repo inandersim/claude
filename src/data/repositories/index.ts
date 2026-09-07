@@ -287,6 +287,16 @@ export interface NotificationRepository {
   unreadCount(meId: ID): Promise<number>;
   markRead(meId: ID, id: ID): Promise<void>;
   markAllRead(meId: ID): Promise<void>;
+  /**
+   * Cihazın anlık bildirim (push) adresini kaydeder.
+   *
+   * Dağıtım (`supabase/functions/push-fanout`) bu listeyi okur; yazılmazsa
+   * uygulama kapalıyken hiçbir uyarı kullanıcıya ulaşmaz. Aynı token birden
+   * çok kez kaydedilebilir — yinelenen ayıklanır.
+   */
+  registerPushToken(meId: ID, token: string): Promise<void>;
+  /** Çıkışta ya da cihaz devredilirken adresi düşürür. */
+  unregisterPushToken(meId: ID, token: string): Promise<void>;
 }
 
 export interface MessageRepository {
