@@ -60,6 +60,8 @@ export const tracks_el: TracksI18nShape = {
     descent: 'Κατάβαση',
     duration: 'Διάρκεια',
     maxAlt: 'Υψηλότερο',
+    minAlt: 'Χαμηλότερο',
+    difficulty: 'Δυσκολία',
     speed: 'Ταχύτητα',
     points: 'Σημεία',
   },

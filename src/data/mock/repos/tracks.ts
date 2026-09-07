@@ -203,6 +203,7 @@ export function createTrackRepository(ctx: MockContext): TrackRepository {
       descentM: stats.descentM,
       durationMin: rawStats.durationMin,
       maxElevationM: stats.maxElevationM,
+      minElevationM: stats.minElevationM,
       startedAt: firstT !== null ? new Date(firstT).toISOString() : now,
       regionName: input.regionName.trim() || '—',
       countryCode: 'TR',

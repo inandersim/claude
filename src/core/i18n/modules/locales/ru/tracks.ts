@@ -60,6 +60,8 @@ export const tracks_ru: TracksI18nShape = {
     descent: 'Спуск',
     duration: 'Время',
     maxAlt: 'Макс. высота',
+    minAlt: 'Минимум',
+    difficulty: 'Сложность',
     speed: 'Скорость',
     points: 'Точек',
   },

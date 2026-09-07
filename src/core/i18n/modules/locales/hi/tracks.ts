@@ -60,6 +60,8 @@ export const tracks_hi: TracksI18nShape = {
     descent: 'उतराई',
     duration: 'अवधि',
     maxAlt: 'अधिकतम ऊँचाई',
+    minAlt: 'न्यूनतम',
+    difficulty: 'कठिनाई',
     speed: 'गति',
     points: 'बिंदु',
   },

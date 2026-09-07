@@ -1,6 +1,13 @@
 import type { TranslationKey } from '@/core/i18n';
 
-import { ROUTE_PROFILES, type AdventureType, type NavManeuver, type PoiKind } from './enums';
+import {
+  DIFFICULTY_META,
+  ROUTE_PROFILES,
+  type AdventureType,
+  type DifficultyGrade,
+  type NavManeuver,
+  type PoiKind,
+} from './enums';
 import { distanceKm } from './geo';
 import { simplifyPoints } from './routing';
 import type {
@@ -1203,4 +1210,67 @@ export function statusFor(
 ): Track['status'] {
   if (track.status === 'draft') return 'draft';
   return trail && verifyThreshold(trail.verifiedCount) ? 'verified' : 'published';
+}
+
+/* ==================================================================
+ * Parça zorluk derecesi
+ * ================================================================== */
+
+/**
+ * Bir parçanın zorluğunu ölçülen sayılardan türetir.
+ *
+ * **Neden kullanıcıya sordurmuyoruz:** zorluk öznel bir etikettir; aynı rota
+ * için "kolay" diyen de "zor" diyen de haklıdır. Oysa mesafe, tırmanış ve
+ * irtifa zaten kayıt anında ölçülüyor. Ölçülen sayıdan türetmek hem tutarlı
+ * hem de kıyaslanabilir sonuç verir.
+ *
+ * **Neden sütunda saklamıyoruz:** türetilmiş değeri saklamak kaçınılmaz
+ * olarak kayar — eşikler değişince ya da parça yeniden hesaplanınca sütun
+ * eskir. Girdilerin (mesafe/tırmanış/irtifa) hepsi zaten `Track` üzerinde,
+ * bu yüzden her okumada yeniden hesaplamak hem bedava hem de kaymaz.
+ *
+ * **Model — "eşdeğer kilometre":** yürüyüşçülükte yerleşik kural, 100 m
+ * tırmanışın yaklaşık 1 km düzlük kadar yorduğudur (Naismith kuralının
+ * yaygın sadeleştirmesi). Buna irtifa cezası eklenir: 2.500 m üstünde
+ * seyrelen hava aynı işi ağırlaştırır (bkz. `domain/altitude.ts`).
+ *
+ * **Sınırları:** zemin cinsi, hava, kar, teknik geçişler ve kişinin
+ * kondisyonu bu hesaba girmez. Bu yüzden çıktı bir *işaret*tir, güvenlik
+ * kararı değildir — sarp bir kaya geçişi kısa ve az tırmanışlı olabilir ama
+ * hiç de kolay değildir.
+ */
+export const ZORLUK_ESIKLERI_KM = [6, 12, 22, 35] as const;
+
+/** İrtifa cezasının başladığı yükseklik — bu değerin altında hava etkisi ihmal edilir. */
+export const IRTIFA_CEZA_BASLANGICI_M = 2500;
+
+/** Ölçülen değerlerden eşdeğer kilometre. Test edilebilir olsun diye ayrı. */
+export function esdegerKilometre(
+  distanceKm: number,
+  ascentM: number,
+  maxElevationM: number | null,
+): number {
+  const taban = Math.max(0, distanceKm) + Math.max(0, ascentM) / 100;
+  const yukseklik = maxElevationM ?? 0;
+  // Her 1.000 m için %25 ceza; 2.500 m'nin altında ceza yok.
+  const carpan = 1 + (Math.max(0, yukseklik - IRTIFA_CEZA_BASLANGICI_M) / 1000) * 0.25;
+  return taban * carpan;
+}
+
+export function parcaZorlugu(
+  track: Pick<Track, 'distanceKm' | 'ascentM' | 'maxElevationM'>,
+): DifficultyGrade {
+  // 5.000 m üstü hiçbir koşulda "kolay" değildir: kısa ve az tırmanışlı bir
+  // gün bile bu yükseklikte irtifa hastalığı riski taşır. Eşdeğer kilometre
+  // bunu tek başına yakalayamaz, bu yüzden ayrı bir taban konur.
+  const taban: DifficultyGrade | null =
+    (track.maxElevationM ?? 0) >= 6000 ? 'extreme' : (track.maxElevationM ?? 0) >= 5000 ? 'hard' : null;
+
+  const km = esdegerKilometre(track.distanceKm, track.ascentM, track.maxElevationM);
+  const [a, b, c, d] = ZORLUK_ESIKLERI_KM;
+  const olculen: DifficultyGrade =
+    km < a ? 'beginner' : km < b ? 'easy' : km < c ? 'moderate' : km < d ? 'hard' : 'extreme';
+
+  if (!taban) return olculen;
+  return DIFFICULTY_META[olculen].level >= DIFFICULTY_META[taban].level ? olculen : taban;
 }

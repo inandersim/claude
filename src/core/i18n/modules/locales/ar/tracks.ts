@@ -58,6 +58,8 @@ export const tracks_ar: TracksI18nShape = {
     descent: 'الهبوط',
     duration: 'المدة',
     maxAlt: 'الأعلى',
+    minAlt: 'الأدنى',
+    difficulty: 'الصعوبة',
     speed: 'السرعة',
     points: 'نقطة',
   },

@@ -61,6 +61,8 @@ export const tracks_fr: TracksI18nShape = {
     descent: 'Dénivelé −',
     duration: 'Durée',
     maxAlt: 'Point haut',
+    minAlt: 'Le plus bas',
+    difficulty: 'Difficulté',
     speed: 'Vitesse',
     points: 'Points',
   },

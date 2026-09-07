@@ -57,6 +57,8 @@ export const tracks_zh: TracksI18nShape = {
     descent: '下降',
     duration: '时长',
     maxAlt: '最高点',
+    minAlt: '最低点',
+    difficulty: '难度',
     speed: '速度',
     points: '点数',
   },

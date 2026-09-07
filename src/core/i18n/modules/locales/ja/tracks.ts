@@ -59,6 +59,8 @@ export const tracks_ja: TracksI18nShape = {
     descent: '下り',
     duration: '時間',
     maxAlt: '最高点',
+    minAlt: '最低地点',
+    difficulty: '難易度',
     speed: '速度',
     points: 'ポイント',
   },

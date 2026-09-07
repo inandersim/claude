@@ -61,6 +61,8 @@ export const tracks_ka: TracksI18nShape = {
     descent: 'დაღმართი',
     duration: 'ხანგრძლივობა',
     maxAlt: 'მაქს. სიმაღლე',
+    minAlt: 'ყველაზე დაბალი',
+    difficulty: 'სირთულე',
     speed: 'სიჩქარე',
     points: 'წერტილი',
   },

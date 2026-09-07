@@ -58,6 +58,8 @@ export const tracks_ne: TracksI18nShape = {
     descent: 'ओरालो',
     duration: 'अवधि',
     maxAlt: 'अधिकतम',
+    minAlt: 'न्यूनतम',
+    difficulty: 'कठिनाई',
     speed: 'गति',
     points: 'बिन्दु',
   },

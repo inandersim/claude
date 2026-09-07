@@ -58,6 +58,8 @@ export const tracks_ko: TracksI18nShape = {
     descent: '하강',
     duration: '소요 시간',
     maxAlt: '최고점',
+    minAlt: '최저 고도',
+    difficulty: '난이도',
     speed: '속도',
     points: '포인트',
   },

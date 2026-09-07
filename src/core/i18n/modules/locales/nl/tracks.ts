@@ -60,6 +60,8 @@ export const tracks_nl: TracksI18nShape = {
     descent: 'Daling',
     duration: 'Duur',
     maxAlt: 'Hoogste',
+    minAlt: 'Laagste',
+    difficulty: 'Moeilijkheid',
     speed: 'Snelheid',
     points: 'Punten',
   },

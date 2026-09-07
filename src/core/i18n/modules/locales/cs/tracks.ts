@@ -60,6 +60,8 @@ export const tracks_cs: TracksI18nShape = {
     descent: 'Klesání',
     duration: 'Doba',
     maxAlt: 'Nejvyšší bod',
+    minAlt: 'Nejníže',
+    difficulty: 'Obtížnost',
     speed: 'Rychlost',
     points: 'Body',
   },

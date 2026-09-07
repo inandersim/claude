@@ -1892,6 +1892,8 @@ export interface Track {
   descentM: number;
   durationMin: number;
   maxElevationM: number | null;
+  /** En düşük yükseklik (m). `maxElevationM` ile birlikte irtifa aralığını verir. */
+  minElevationM: number | null;
   startedAt: ISODate;
   regionName: string;
   countryCode: string | null;

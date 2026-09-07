@@ -58,6 +58,8 @@ export const tracks_th: TracksI18nShape = {
     descent: 'ลงเขา',
     duration: 'ระยะเวลา',
     maxAlt: 'จุดสูงสุด',
+    minAlt: 'ต่ำสุด',
+    difficulty: 'ความยาก',
     speed: 'ความเร็ว',
     points: 'จุด',
   },

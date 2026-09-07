@@ -61,6 +61,8 @@ export const tracks_id: TracksI18nShape = {
     descent: 'Turunan',
     duration: 'Durasi',
     maxAlt: 'Tertinggi',
+    minAlt: 'Terendah',
+    difficulty: 'Kesulitan',
     speed: 'Kecepatan',
     points: 'Titik',
   },

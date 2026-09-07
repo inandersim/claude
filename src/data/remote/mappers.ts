@@ -1447,6 +1447,7 @@ export function toTrack(row: Row): Track {
     descentM: num(row.descent_m),
     durationMin: num(row.duration_min),
     maxElevationM: numOrNull(row.max_elevation_m),
+    minElevationM: numOrNull(row.min_elevation_m),
     startedAt: iso(row.started_at),
     regionName: str(row.region_name),
     countryCode: strOrNull(row.country_code),

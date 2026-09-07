@@ -293,6 +293,7 @@ export function createTrackRepository(ctx: RemoteContext): TrackRepository {
           descent_m: stats.descentM,
           duration_min: rawStats.durationMin,
           max_elevation_m: stats.maxElevationM,
+          min_elevation_m: stats.minElevationM,
           started_at: firstT !== null ? new Date(firstT).toISOString() : now,
           region_name: input.regionName.trim() || '—',
           country_code: 'TR',

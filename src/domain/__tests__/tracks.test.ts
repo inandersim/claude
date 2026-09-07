@@ -21,6 +21,8 @@ import {
   trackToGraph,
   turnAngle,
   verifyThreshold,
+  esdegerKilometre,
+  parcaZorlugu,
 } from '../tracks';
 
 /* ------------------------------------------------------------------ */
@@ -75,6 +77,7 @@ function track(id: string, points: TrackPoint[], extra: Partial<Track> = {}): Tr
     descentM: stats.descentM,
     durationMin: stats.durationMin,
     maxElevationM: stats.maxElevationM,
+    minElevationM: stats.minElevationM,
     startedAt: '2026-08-01T05:00:00.000Z',
     regionName: 'Test',
     countryCode: 'TR',
@@ -425,5 +428,56 @@ describe('GPX / Strava / graf', () => {
   it('verifyThreshold 3 doğrulamada true', () => {
     expect(verifyThreshold(2)).toBe(false);
     expect(verifyThreshold(3)).toBe(true);
+  });
+});
+
+describe('parça zorluğu', () => {
+  const p = (distanceKm: number, ascentM: number, maxElevationM: number | null = 800) => ({
+    distanceKm,
+    ascentM,
+    maxElevationM,
+  });
+
+  it('100 m tırmanışı 1 km düzlüğe eşler', () => {
+    expect(esdegerKilometre(5, 500, 800)).toBeCloseTo(10, 5);
+    expect(esdegerKilometre(10, 0, 800)).toBeCloseTo(10, 5);
+  });
+
+  it('2.500 m altında irtifa cezası uygulamaz', () => {
+    expect(esdegerKilometre(10, 0, 2500)).toBeCloseTo(10, 5);
+    expect(esdegerKilometre(10, 0, null)).toBeCloseTo(10, 5);
+  });
+
+  it('2.500 m üstünde her 1.000 m için %25 ceza uygular', () => {
+    expect(esdegerKilometre(10, 0, 3500)).toBeCloseTo(12.5, 5);
+    expect(esdegerKilometre(10, 0, 4500)).toBeCloseTo(15, 5);
+  });
+
+  it('eşdeğer kilometreye göre derecelendirir', () => {
+    expect(parcaZorlugu(p(4, 100))).toBe('beginner');
+    expect(parcaZorlugu(p(8, 200))).toBe('easy');
+    expect(parcaZorlugu(p(14, 400))).toBe('moderate');
+    expect(parcaZorlugu(p(20, 800))).toBe('hard');
+    expect(parcaZorlugu(p(30, 900))).toBe('extreme');
+  });
+
+  it('5.000 m üstü kısa bir gün bile "kolay" sayılmaz', () => {
+    // 3 km / 150 m tırmanış = 4.5 eşdeğer km: düşük irtifada "beginner".
+    // 5.200 m'de değil — o yükseklikte kısa bir gün bile irtifa hastalığı
+    // riski taşır.
+    expect(parcaZorlugu(p(3, 150, 800))).toBe('beginner');
+    expect(parcaZorlugu(p(3, 150, 5200))).toBe('hard');
+    expect(parcaZorlugu(p(3, 150, 6100))).toBe('extreme');
+  });
+
+  it('irtifa tabanı ölçülen dereceyi asla düşürmez', () => {
+    // Uzun ve çok tırmanışlı bir 5.200 m rotası "extreme" kalmalı; taban
+    // ('hard') onu aşağı çekmemeli.
+    expect(parcaZorlugu(p(40, 3000, 5200))).toBe('extreme');
+  });
+
+  it('bozuk/eksik değerlerde çökmez', () => {
+    expect(parcaZorlugu(p(0, 0, null))).toBe('beginner');
+    expect(parcaZorlugu(p(-5, -100, null))).toBe('beginner');
   });
 });

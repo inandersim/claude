@@ -60,6 +60,8 @@ export const tracks_sv: TracksI18nShape = {
     descent: 'Nedstigning',
     duration: 'Tid',
     maxAlt: 'Högsta',
+    minAlt: 'Lägsta',
+    difficulty: 'Svårighet',
     speed: 'Hastighet',
     points: 'Punkter',
   },

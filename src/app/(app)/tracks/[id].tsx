@@ -22,7 +22,7 @@ import { goBack } from '@/core/navigation';
 import { radius, spacing, useTheme } from '@/core/theme';
 import { formatAltitude } from '@/core/utils/format';
 import { formatDate, formatDuration } from '@/core/utils/time';
-import { ADVENTURE_TYPE_META, formatDistance } from '@/domain';
+import { ADVENTURE_TYPE_META, DIFFICULTY_META, formatDistance, parcaZorlugu } from '@/domain';
 import { useCurrentUser } from '@/features/auth/session.store';
 import { PoiRow } from '@/features/tracks/components/PoiRow';
 import { SourceBadge } from '@/features/tracks/components/SourceBadge';
@@ -144,6 +144,12 @@ export default function TrackDetailScreen() {
               {!data.isPublic ? (
                 <Badge label={t('tracks.private')} color={colors.textSubtle} icon="lock" soft />
               ) : null}
+              <Badge
+                label={t(DIFFICULTY_META[parcaZorlugu(data)].labelKey)}
+                color={DIFFICULTY_META[parcaZorlugu(data)].color}
+                icon="gauge"
+                soft
+              />
             </View>
 
             <View style={styles.stats}>
@@ -174,6 +180,15 @@ export default function TrackDetailScreen() {
                   data.maxElevationM !== null ? formatAltitude(data.maxElevationM, locale) : '—'
                 }
                 color={colors.accent}
+                style={styles.tile}
+              />
+              <StatTile
+                icon="trending-down"
+                label={t('tracks.stats.minAlt')}
+                value={
+                  data.minElevationM !== null ? formatAltitude(data.minElevationM, locale) : '—'
+                }
+                color={colors.info}
                 style={styles.tile}
               />
             </View>

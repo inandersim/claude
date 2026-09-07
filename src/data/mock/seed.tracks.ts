@@ -126,6 +126,7 @@ function makeTrack(spec: TrackSpec): Track {
     descentM: stats.descentM,
     durationMin: stats.durationMin,
     maxElevationM: stats.maxElevationM,
+    minElevationM: stats.minElevationM,
     startedAt: spec.startedAt,
     regionName: spec.regionName,
     countryCode: spec.countryCode,
