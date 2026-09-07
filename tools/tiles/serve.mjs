@@ -179,7 +179,7 @@ export function createTileServer() {
     if (path === '/health') return json(res, 200, { ok: true, packs: listPacks().length });
     if (path === '/packs') return json(res, 200, listPacks());
 
-    // Glyph yolu iki bölümlüdür (yığın adı boşluk içerebilir), bu yüzden ayrı
+    // Glyph yolu iki bölümlüdür (yığın adı + aralık), bu yüzden ayrı
     // desen; yine yalnızca beklenen biçim kabul edilir.
     const g = /^\/glyphs\/([A-Za-z0-9 _-]+)\/(\d+-\d+\.pbf)$/.exec(path);
     if (g) {

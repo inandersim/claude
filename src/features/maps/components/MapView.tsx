@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 
 import { Text } from '@/components/ui';
@@ -7,6 +7,7 @@ import { radius, spacing, useTheme } from '@/core/theme';
 import { tilesBaseUrl } from '../pack-manager';
 import { useMapEngine } from '../vector/engine';
 import { fallbackReason } from '../vector/fallback';
+import { bundledGlyphsUrl } from '../vector/glyphs';
 import { glyphsUrl, resolveMapStyle, type MapOverlay } from '../vector/style';
 import type {
   MapFallbackReason,
@@ -21,6 +22,30 @@ function variantOf(scheme: string): MapStyleVariant {
 }
 
 const ATTRIBUTION = '© OpenStreetMap katkıcıları';
+
+/**
+ * Metin katmanlarının glyph adresi.
+ *
+ * Yerelde glyph'ler uygulamayla gelir ama diske açılmaları bir tık sürer;
+ * hazır olana kadar uzak adres (varsa) kullanılır, hazır olunca stil yeniden
+ * çözülür. Hiçbiri yoksa `null` döner — harita metinsiz ama çalışır.
+ */
+function useGlyphs(): string | null {
+  const [bundled, setBundled] = useState<string | null>(null);
+  useEffect(() => {
+    let alive = true;
+    void bundledGlyphsUrl().then((url) => {
+      if (alive) setBundled(url);
+    });
+    return () => {
+      alive = false;
+    };
+  }, []);
+  return useMemo(
+    () => glyphsUrl({ baseUrl: tilesBaseUrl(), isWeb: Platform.OS === 'web', bundled }),
+    [bundled],
+  );
+}
 
 /**
  * Platformlar arası tek harita arayüzü.
@@ -58,10 +83,7 @@ export function MapView(props: MapViewProps) {
   const { colors, scheme } = useTheme();
   // Metin katmanları glyph olmadan çizilemez; adres yoksa harita metinsiz kalır
   // ama çalışır (bkz. `glyphsUrl`).
-  const glyphs = useMemo(
-    () => glyphsUrl({ baseUrl: tilesBaseUrl(), isWeb: Platform.OS === 'web' }),
-    [],
-  );
+  const glyphs = useGlyphs();
   const engine = useMapEngine();
   const [failure, setFailure] = useState<MapFallbackReason | null>(null);
 

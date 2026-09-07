@@ -492,6 +492,79 @@
      "lon": 29.1588
     }
    ]
+  },
+  {
+   "type": "node",
+   "id": 2001,
+   "lat": 40.115,
+   "lon": 29.16,
+   "tags": {
+    "natural": "peak",
+    "name": "Kızılkaya Zirvesi",
+    "ele": "2410"
+   }
+  },
+  {
+   "type": "node",
+   "id": 2002,
+   "lat": 40.18,
+   "lon": 29.24,
+   "tags": {
+    "natural": "peak",
+    "name": "Çobankaya Tepesi",
+    "ele": "2180"
+   }
+  },
+  {
+   "type": "node",
+   "id": 2003,
+   "lat": 40.25,
+   "lon": 29.32,
+   "tags": {
+    "natural": "peak",
+    "name": "Ilgaz Sırtı",
+    "ele": "1960"
+   }
+  },
+  {
+   "type": "node",
+   "id": 2004,
+   "lat": 40.13,
+   "lon": 29.19,
+   "tags": {
+    "natural": "spring",
+    "name": "Soğuksu Pınarı"
+   }
+  },
+  {
+   "type": "node",
+   "id": 2005,
+   "lat": 40.2,
+   "lon": 29.28,
+   "tags": {
+    "tourism": "alpine_hut",
+    "name": "Yıldırım Barınağı"
+   }
+  },
+  {
+   "type": "node",
+   "id": 2006,
+   "lat": 40.26,
+   "lon": 29.36,
+   "tags": {
+    "tourism": "viewpoint",
+    "name": "Ağaçlı Seyir Noktası"
+   }
+  },
+  {
+   "type": "node",
+   "id": 2007,
+   "lat": 40.15,
+   "lon": 29.21,
+   "tags": {
+    "amenity": "shelter",
+    "name": "Şahinkaya Sığınağı"
+   }
   }
  ]
 }

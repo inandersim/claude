@@ -318,7 +318,7 @@ gerektirdiği için burada sınanamadı.
 ## Harita metinleri (SDF glyph)
 
 ```bash
-npm run glyphs        # public/glyphs/<yığın>/<aralık>.pbf üretir
+npm run glyphs        # public/glyphs/ + assets/glyphs/ altına <yığın>/<aralık>.pbf üretir
 npm run test:glyphs
 ```
 
@@ -343,7 +343,7 @@ metni için gereken bu kadar ve depo bağımlılıksız kalıyor.
 
 | Sabit          | Değer               | Nerede eşleşmeli                          |
 | -------------- | ------------------- | ----------------------------------------- |
-| Yığın adı      | `Zirtan SemiBold`   | stildeki `text-font` ile birebir           |
+| Yığın adı      | `Zirtan-SemiBold`   | stildeki `text-font` ile birebir           |
 | Em boyu        | 24 piksel           | MapLibre glyph sözleşmesi                  |
 | Çerçeve        | 3 piksel            | protobuf'ta `width` çerçevesiz, bitmap'te dahil |
 | Yarıçap/cutoff | 8 / 0.25 → kenar 192 | MapLibre kenarı 192 alfada arar           |
@@ -356,11 +356,48 @@ zorunlu tutuyor.
 
 ### Nasıl sunuluyor
 
-Glyph'ler `public/` altındadır: Expo web derlemesi bu klasörü olduğu gibi
-çıktıya kopyalar. Adres sırası (`glyphsUrl`): açık ayar (`EXPO_PUBLIC_GLYPHS_URL`)
-→ karo sunucusu (`/glyphs/...`) → web'de `/glyphs/...`. Hiçbiri yoksa **metin
-katmanları stile hiç eklenmez**; `glyphs` alanı olmayan bir stile symbol katmanı
-koymak MapLibre'de stilin tamamını düşürür.
+Aynı içerik iki yere yazılır, çünkü iki platform glyph'i farklı yoldan okur:
+
+| Klasör          | Kim okur   | Nasıl                                              |
+| --------------- | ---------- | -------------------------------------------------- |
+| `public/glyphs` | web        | Expo bu klasörü çıktıya kopyalar, HTTP ile istenir |
+| `assets/glyphs` | iOS/Android| Metro varlığı olarak **uygulama paketine girer**   |
+
+Adres sırası (`glyphsUrl`):
+
+1. `EXPO_PUBLIC_GLYPHS_URL` — açık ayar her şeyi geçer.
+2. **Paketlenmiş glyph** (`bundled`) — ağ gerektirmez, bu yüzden karo
+   sunucusundan önce gelir.
+3. Karo sunucusu (`/glyphs/...`).
+4. Web'de `/glyphs/...`.
+
+Hiçbiri yoksa **metin katmanları stile hiç eklenmez**; `glyphs` alanı olmayan
+bir stile symbol katmanı koymak MapLibre'de stilin tamamını düşürür.
+
+### Yerelde çevrimdışı metin
+
+`src/features/maps/vector/glyphs.native.ts` uygulamayla gelen `.pbf`
+dosyalarını ilk açılışta belge klasörüne açar ve MapLibre'ye gerçek bir
+`file://…/glyphs/{fontstack}/{range}.pbf` şablonu verir.
+
+Kopyalama neden gerekiyor: paketteki varlıkların yolu öngörülemez — Metro
+dosya adlarını özet değerine çevirir (`assets/6b1c8a4b…`), Android'de varlık
+APK içindedir. MapLibre ise şablonu çalışma anında doldurduğu için **gerçek ve
+tahmin edilebilir** bir yol ister.
+
+Kopya bir kez yapılır: varlıkların özet değerlerinden bir **damga** yazılır;
+uygulama güncellenip glyph'ler değişince damga tutmaz ve dosyalar yeniden
+açılır. Damga en sonda yazıldığı için yarıda kalan bir kopyalama bir sonraki
+açılışta baştan denenir. Hata durumunda `null` döner — harita metinsiz ama
+çalışır kalır.
+
+Yığın adında **boşluk yok** (`Zirtan-SemiBold`): MapLibre `{fontstack}`
+yer tutucusunu yüzde kodlar, `file://` adreslerinde kodlanmış yolun diskteki
+klasör adıyla eşleşmesi platforma göre değişiyor. Boşluksuz ad bu belirsizliği
+tümüyle kaldırıyor.
+
+Metro'nun `.pbf` uzantısını kaynak değil **varlık** sayması gerekir; bu
+`metro.config.js` içinde `resolver.assetExts`'e eklendi.
 
 ### Katmanlar
 
@@ -376,16 +413,20 @@ kaybolur.
 
 ### Doğrulama
 
-`npm run test:glyphs` → 21 test: Türkçe karakterlerin cmap'te bulunması,
+`npm run test:glyphs` → 24 test: Türkçe karakterlerin cmap'te bulunması,
 bileşik glyph çözümü (`ğ` = `g` + breve), örtük eğri-üstü nokta kuralı,
 nonzero sarımın delik açması, SDF kenarının 192'yi kuşatması, protobuf gidiş
 dönüşü (bitmap baytı baytına), aralık hizalaması.
 
-Tarayıcıda uçtan uca sürüldü: sentetik Likya paketiyle harita açıldı,
-`0-255.pbf` ve `256-511.pbf` 200 döndü, ekranda **"Babadağ / 1969 m"** ve
-**"Kıdrak Tepesi / 1180 m"** okundu — `ğ` ve noktasız `ı` dahil.
+Tarayıcıda uçtan uca sürüldü: uygulamanın kendi çözdüğü stille (aynı
+`resolveMapStyle` çıktısı) Uludağ paketi z13.5'te açıldı, `0-255.pbf` ve
+`256-511.pbf` 200 döndü, MapLibre hiçbir glyph uyarısı basmadı ve ekranda
+**"Çobankaya Tepesi / 2180 m"** okundu — `Ç` 256-511 bloğundan geliyor.
 
-**Bilinen sınır:** yerel (iOS/Android) derlemede glyph'ler henüz cihaza
-kopyalanmıyor; native tarafta metin, karo sunucusu ya da CDN erişilebilirse
-çalışır. Çevrimdışı native metin için glyph'lerin de paketle birlikte inmesi
-gerekiyor — DEM için yapılanın aynısı.
+Paketleme ayrıca `expo export --platform android` ile doğrulandı: her iki
+`.pbf` çıktı manifestinde **varlık** olarak görünüyor (özet adlı yollarla —
+kopyalama adımının neden gerekli olduğunun kanıtı).
+
+**Bilinen sınır:** `file://` şablonunun MapLibre'nin yerel motorunda okunması
+yalnızca kod düzeyinde doğrulandı; gerçek cihazda (geliştirme derlemesi)
+sınanmadı.

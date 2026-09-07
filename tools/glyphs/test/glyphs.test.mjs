@@ -8,12 +8,12 @@
  * yerde bilinen geometriyle doğrular.
  */
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { test } from 'node:test';
 import { fileURLToPath } from 'node:url';
 
-import { DEFAULT_RANGES, buildRange, parseRange } from '../build-glyphs.mjs';
+import { DEFAULT_RANGES, DEFAULT_STACK, buildRange, parseRange } from '../build-glyphs.mjs';
 import { decodeGlyphPbf, encodeGlyphPbf, writeVarint, zigzag } from '../lib/glyph-pbf.mjs';
 import { GLYPH_BUFFER, flattenContour, glyphToSdf, rasterize } from '../lib/sdf.mjs';
 import { parseFont } from '../lib/ttf.mjs';
@@ -320,4 +320,36 @@ test('aralık üretimi yazı tipinde olmayan kodları atlar', () => {
   assert.ok(glyphs.some((g) => g.id === cp('A')));
   assert.ok(glyphs.some((g) => g.id === cp('ö')));
   assert.ok(glyphs.length > 150 && glyphs.length <= 256);
+});
+
+test('yığın adı URL güvenli — çevrimdışı file:// yolları için şart', () => {
+  // MapLibre `{fontstack}` yer tutucusunu yüzde kodlar. Uzak HTTP sunucusunda
+  // bu sorun değil ama çevrimdışı `file://` adresinde kodlanmış yolun diskteki
+  // klasör adıyla eşleşmesi platforma göre değişiyor; boşluksuz ad bu belirsizliği
+  // tümüyle kaldırır.
+  assert.equal(DEFAULT_STACK, encodeURIComponent(DEFAULT_STACK));
+  assert.ok(!/\s/.test(DEFAULT_STACK));
+});
+
+test('glyph çıktısı hem web hem yerel klasörde bulunur', () => {
+  // Web `public/` üzerinden HTTP ile okur, iOS/Android ise `assets/` altındaki
+  // dosyaları uygulama paketine gömer. Biri eksikse o platformda metin kaybolur.
+  for (const dir of ['public/glyphs', 'assets/glyphs']) {
+    for (const range of DEFAULT_RANGES) {
+      const file = resolve(ROOT, dir, DEFAULT_STACK, `${range}.pbf`);
+      assert.ok(existsSync(file), `${file} yok`);
+      const pbf = readFileSync(file);
+      const stack = decodeGlyphPbf(pbf).stacks[0];
+      assert.equal(stack.name, DEFAULT_STACK);
+      assert.equal(stack.range, range);
+    }
+  }
+});
+
+test('iki çıktı klasöründeki dosyalar birebir aynı', () => {
+  for (const range of DEFAULT_RANGES) {
+    const web = readFileSync(resolve(ROOT, 'public/glyphs', DEFAULT_STACK, `${range}.pbf`));
+    const yerel = readFileSync(resolve(ROOT, 'assets/glyphs', DEFAULT_STACK, `${range}.pbf`));
+    assert.ok(web.equals(yerel), `${range} iki klasörde farklı`);
+  }
 });

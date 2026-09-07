@@ -1000,7 +1000,7 @@
           " m"
         ],
         "text-font": [
-          "Zirtan SemiBold"
+          "Zirtan-SemiBold"
         ],
         "text-size": 10,
         "symbol-spacing": 320,
@@ -1057,7 +1057,7 @@
           ]
         ],
         "text-font": [
-          "Zirtan SemiBold"
+          "Zirtan-SemiBold"
         ],
         "text-size": [
           "interpolate",
@@ -1113,7 +1113,7 @@
           "name"
         ],
         "text-font": [
-          "Zirtan SemiBold"
+          "Zirtan-SemiBold"
         ],
         "text-size": 11,
         "text-anchor": "top",

@@ -21,19 +21,31 @@ export const DEM_SOURCE_ID = 'zirtan-dem';
  * Yazı tipi yığını — `tools/glyphs/build-glyphs.mjs` ile **birebir** aynı ad.
  * Farklı olursa MapLibre glyph'i bulamaz ve metin hiç çizilmez.
  */
-export const FONT_STACK = 'Zirtan SemiBold';
+export const FONT_STACK = 'Zirtan-SemiBold';
 
 /**
  * SDF glyph paketlerinin adresi.
  *
  * `{fontstack}` ve `{range}` MapLibre'nin yer tutucularıdır; olduğu gibi kalır.
- * Sıra: açık ayar → karo sunucusu → web'de `public/` kökü. Hiçbiri yoksa `null`
- * döner ve **metin katmanları stile hiç eklenmez** — `glyphs` alanı olmayan bir
- * stile symbol katmanı koymak MapLibre'de stilin tamamını düşürür.
+ * Sıra:
+ *
+ *   1. `EXPO_PUBLIC_GLYPHS_URL` — açık ayar her şeyi geçer.
+ *   2. `bundled` — uygulamayla gelip cihaz diskine açılan glyph'ler. Ağ
+ *      gerektirmediği için karo sunucusundan **önce** gelir; çevrimdışı
+ *      haritada metnin çizilmesini sağlayan tek kaynak budur.
+ *   3. Karo sunucusu (`/glyphs/...`).
+ *   4. Web'de `public/` kökü.
+ *
+ * Hiçbiri yoksa `null` döner ve **metin katmanları stile hiç eklenmez** —
+ * `glyphs` alanı olmayan bir stile symbol katmanı koymak MapLibre'de stilin
+ * tamamını düşürür.
  */
-export function glyphsUrl(options: { baseUrl?: string | null; isWeb?: boolean } = {}): string | null {
+export function glyphsUrl(
+  options: { baseUrl?: string | null; isWeb?: boolean; bundled?: string | null } = {},
+): string | null {
   const explicit = process.env.EXPO_PUBLIC_GLYPHS_URL?.trim();
   if (explicit) return `${explicit.replace(/\/+$/, '')}/{fontstack}/{range}.pbf`;
+  if (options.bundled) return options.bundled;
   if (options.baseUrl) return `${options.baseUrl.replace(/\/+$/, '')}/glyphs/{fontstack}/{range}.pbf`;
   return options.isWeb ? '/glyphs/{fontstack}/{range}.pbf' : null;
 }

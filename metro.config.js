@@ -12,6 +12,10 @@
 //    işçileri ile önbellek yazımları sınırı aşınca paketleme yarıda kalıyor.
 //    İşçi sayısı sınırlanır ve önbellek sistem `Temp` klasörü yerine proje
 //    içine alınır (virüs taramasından dışlaması da kolaylaşır).
+//
+// 3. **Harita glyph'leri (`.pbf`) uygulamayla gitsin.** `assets/glyphs/` altındaki
+//    SDF paketleri koddan `require` edilir; Metro tanımadığı uzantıyı kaynak
+//    dosya sanıp ayrıştırmaya çalışır ve paketleme hata verir.
 
 const os = require('node:os');
 const path = require('node:path');
@@ -53,6 +57,11 @@ const ROOT = __dirname.split(path.sep).map(escape).join(SEP);
 config.resolver.blockList = new RegExp(
   `^${ROOT}${SEP}(?:${IGNORED.map(segments).join('|')})${SEP}`,
 );
+
+// Harita yazı tipi paketleri: kaynak değil, varlık. Çevrimdışı yerel derlemede
+// metnin çizilebilmesi için bunların uygulama paketine girmesi şart
+// (bkz. src/features/maps/vector/glyphs.native.ts).
+config.resolver.assetExts = [...config.resolver.assetExts, 'pbf'];
 
 // Windows: tanıtıcı sınırı düşük olduğu için işçi sayısı sınırlanır.
 // Diğer platformlarda Expo varsayılanı (çekirdek sayısı - 1) korunur.

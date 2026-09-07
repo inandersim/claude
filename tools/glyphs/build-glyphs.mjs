@@ -6,12 +6,14 @@
  *   node tools/glyphs/build-glyphs.mjs --font <yol.ttf> --name "Zirtan Regular"
  *   node tools/glyphs/build-glyphs.mjs --ranges 0-255,256-511
  *
- * Çıktı: `public/glyphs/<yığın adı>/<başlangıç>-<bitiş>.pbf`
+ * Çıktı **iki yere birden** yazılır:
  *
- * `public/` seçildi çünkü Expo web derlemesi bu klasörü olduğu gibi çıktıya
- * kopyalar; glyph'ler `{fontstack}/{range}.pbf` şablonuyla **çalışma anında**
- * istenir, bu yüzden paketleyicinin varlık sistemine giremezler — gerçek bir
- * yol gerekiyor.
+ *   `public/glyphs/<yığın>/<aralık>.pbf`  → web (Expo bu klasörü olduğu gibi kopyalar)
+ *   `assets/glyphs/<yığın>/<aralık>.pbf`  → iOS/Android (Metro varlığı olarak paketlenir)
+ *
+ * İkisi de gerekli çünkü glyph'ler `{fontstack}/{range}.pbf` şablonuyla **çalışma
+ * anında** istenir: web'de gerçek bir HTTP yolu, yerelde ise cihaz diskinde
+ * gerçek bir dosya yolu gerekir (bkz. `src/features/maps/vector/glyphs.native.ts`).
  *
  * Neden gerekli: harita stilinde `glyphs` tanımlı olmadığı sürece MapLibre
  * **hiç metin çizmez** — ne zirve adı, ne eşyükselti rakamı. Uzak bir glyph
@@ -34,8 +36,18 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 /** Varsayılan yazı tipi: uygulamanın kendi markası (Manrope). */
 const DEFAULT_FONT = resolve(ROOT, 'admin/public/fonts/Manrope_600SemiBold.ttf');
 /** Stildeki `text-font` ile birebir aynı olmak zorunda. */
-export const DEFAULT_STACK = 'Zirtan SemiBold';
+/**
+ * Adda **boşluk yok**: MapLibre `{fontstack}` yer tutucusunu yüzde kodlar
+ * (`Zirtan%20SemiBold`). Uzak bir HTTP sunucusunda bu sorun değil ama
+ * çevrimdışı `file://` adreslerinde kodlanmış yol ile diskteki gerçek klasör
+ * adının eşleşmesi platforma göre değişir — boşluksuz ad bu riski tümüyle
+ * ortadan kaldırır.
+ */
+export const DEFAULT_STACK = 'Zirtan-SemiBold';
 export const DEFAULT_RANGES = ['0-255', '256-511'];
+
+/** Web sunumu ve yerel paketleme — ikisi de aynı içerikten beslenir. */
+const DEFAULT_OUT_DIRS = [resolve(ROOT, 'public/glyphs'), resolve(ROOT, 'assets/glyphs')];
 
 /**
  * `"0-255"` → `{ start: 0, end: 255 }`.
@@ -92,13 +104,16 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const fontPath = resolve(opt('font', DEFAULT_FONT));
   const stackName = opt('name', DEFAULT_STACK);
   const ranges = opt('ranges', DEFAULT_RANGES.join(',')).split(',').map(parseRange);
-  const outDir = resolve(opt('out', resolve(ROOT, 'public/glyphs')), stackName);
+  const custom = opt('out', null);
+  const outDirs = (custom ? [resolve(custom)] : DEFAULT_OUT_DIRS).map((dir) =>
+    resolve(dir, stackName),
+  );
 
   const font = parseFont(readFileSync(fontPath));
   console.log(`→ ${fontPath}`);
   console.log(`  em ${font.unitsPerEm} · ${font.numGlyphs} glyph · cmap ${font.cmap.size} kayıt`);
 
-  mkdirSync(outDir, { recursive: true });
+  for (const dir of outDirs) mkdirSync(dir, { recursive: true });
   let toplam = 0;
   for (const range of ranges) {
     const glyphs = buildRange(font, range);
@@ -113,10 +128,10 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       throw new Error(`${label} aralığı geri okunamadı — kodlama bozuk`);
     }
 
-    const file = resolve(outDir, `${label}.pbf`);
-    writeFileSync(file, pbf);
+    for (const dir of outDirs) writeFileSync(resolve(dir, `${label}.pbf`), pbf);
     toplam += glyphs.length;
-    console.log(`  ${label}: ${glyphs.length} glyph · ${(pbf.length / 1024).toFixed(1)} KB · ${file}`);
+    console.log(`  ${label}: ${glyphs.length} glyph · ${(pbf.length / 1024).toFixed(1)} KB`);
   }
+  for (const dir of outDirs) console.log(`  → ${dir}`);
   console.log(`✓ ${toplam} glyph · yığın "${stackName}"`);
 }
