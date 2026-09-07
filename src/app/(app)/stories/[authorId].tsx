@@ -88,13 +88,22 @@ export default function StoryViewerScreen() {
   }
 
   if (!group || !story) {
+    // Anı olmayan bir kişinin anlarına bakmak **rota hatası değildir.**
+    // Burada eskiden `notFound.*` basılıyordu: kendi avatarına dokunan
+    // kullanıcı "Aradığın rota haritada yok" görüyordu. Doğru mesaj veri
+    // durumunu anlatır; kendi profilinde ise ilk anı paylaşmaya çağırır.
+    const benim = authorId === me.id;
     return (
       <Screen edges={['top']} contentStyle={styles.center}>
         <EmptyState
           icon="camera"
-          title={t('notFound.title')}
-          description={t('notFound.description')}
-          action={{ label: t('common.back'), onPress: () => goBack(router), icon: 'arrow-left' }}
+          title={t('stories.empty')}
+          description={benim ? t('stories.emptyDescription') : undefined}
+          action={
+            benim
+              ? { label: t('stories.add'), onPress: () => router.push('/stories/create'), icon: 'plus' }
+              : { label: t('common.back'), onPress: () => goBack(router), icon: 'arrow-left' }
+          }
         />
       </Screen>
     );
