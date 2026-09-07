@@ -20,6 +20,7 @@ import { layout, radius, spacing, useTheme } from '@/core/theme';
 import { formatAltitude } from '@/core/utils/format';
 import { formatRelative } from '@/core/utils/time';
 import { AMS_SEVERITY_META } from '@/domain';
+import { AltitudeStatusCard } from '@/features/destinations/components/AltitudeStatusCard';
 import { AmsForm } from '@/features/destinations/components/AmsForm';
 import { AmsHistoryChart } from '@/features/destinations/components/AmsHistoryChart';
 import { amsSeverityColor, amsSeveritySoft } from '@/features/destinations/components/meta';
@@ -101,6 +102,15 @@ export default function AmsScreen() {
               />
             ) : null}
           </View>
+        ) : null}
+
+        {/*
+          İrtifa durumu: son öz-değerlendirmenin yüksekliği ve şiddeti
+          üzerinden okunur. Ölçüm (SpO₂, dinlenme nabzı, manşonla tansiyon)
+          henüz elle girilemiyor — girilince aynı kart onları da değerlendirir.
+        */}
+        {latest ? (
+          <AltitudeStatusCard irtifaM={latest.elevationM} amsSiddeti={latest.severity} />
         ) : null}
 
         <AmsForm

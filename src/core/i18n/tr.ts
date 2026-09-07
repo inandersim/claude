@@ -20,6 +20,7 @@ import { countriesI18n } from './modules/countries';
 import { articlesI18n } from './modules/articles';
 import { wildlifeI18n } from './modules/wildlife';
 import { telemedI18n } from './modules/telemed';
+import { altitudeI18n } from './modules/altitude';
 import { phoneAuthI18n } from './modules/phoneAuth';
 
 export const tr = {
@@ -804,6 +805,7 @@ export const tr = {
   wildlife: wildlifeI18n.tr,
   telemed: telemedI18n.tr,
   phoneAuth: phoneAuthI18n.tr,
+  altitude: altitudeI18n.tr,
 };
 
 export type Translations = typeof tr;

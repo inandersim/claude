@@ -20,6 +20,7 @@ import { countriesI18n } from './modules/countries';
 import { articlesI18n } from './modules/articles';
 import { wildlifeI18n } from './modules/wildlife';
 import { telemedI18n } from './modules/telemed';
+import { altitudeI18n } from './modules/altitude';
 import { phoneAuthI18n } from './modules/phoneAuth';
 import type { Translations } from './tr';
 
@@ -798,4 +799,5 @@ export const ko: Translations = {
   wildlife: wildlifeI18n.ko,
   telemed: telemedI18n.ko,
   phoneAuth: phoneAuthI18n.ko,
+  altitude: altitudeI18n.ko,
 };
