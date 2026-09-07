@@ -22,6 +22,7 @@ Tüzüğün tamamı: **`docs/AI_CTO.md`**. Bağlayıcı politika: **`policy.json
 | `lib/store.mjs`         | Talep kayıtları + yalnızca eklenen denetim izi                         |
 | `intake.mjs`            | Talep alımı (adım 1–6)                                                 |
 | `pipeline.mjs`          | Adım sonucu kaydı, insan onayı, durum                                  |
+| `dispatch.mjs`          | Talebi `ai-cto` etiketli GitHub issue'ya çevirir (ajana devreder)      |
 | `report.mjs`            | FEATURE / BUG / SECURITY raporları                                     |
 | `health-report.mjs`     | Mühendislik sağlık raporu (puan uydurmaz)                              |
 | `cto.test.mjs`          | 40 test (`npm run test:cto`)                                           |
@@ -35,13 +36,17 @@ Tüzüğün tamamı: **`docs/AI_CTO.md`**. Bağlayıcı politika: **`policy.json
 # 1. Talep ver — ne anlaşıldığı, etki, risk ve plan ekrana gelir
 node agents/cto/intake.mjs "Karadeniz'de 3 günlük trekking rotası önerisi ekle"
 
-# 2. Adımları ilerlet (kanıt zorunlu)
+# 2. Ajana devret (onay gerekiyorsa önce onay alınmalı)
+node agents/cto/dispatch.mjs --request <id> --dry   # gövdeyi gör
+node agents/cto/dispatch.mjs --request <id>         # issue aç → workflow devralır
+
+# 3. Adımları ilerlet (kanıt zorunlu)
 node agents/cto/pipeline.mjs pass --request <id> --step understand --evidence "kapsam netleşti"
 node agents/cto/pipeline.mjs pass --request <id> --step test --evidence "73 paket / 904 test yeşil"
 node agents/cto/pipeline.mjs block --request <id> --step deploy --note "insan onayı bekliyor"
 node agents/cto/pipeline.mjs approve --request <id> --by inan --evidence "PR #12 onaylandı"
 
-# 3. Durum ve rapor
+# 4. Durum ve rapor
 node agents/cto/pipeline.mjs status --request <id>
 node agents/cto/report.mjs feature --request <id>
 node agents/cto/health-report.mjs
@@ -55,4 +60,6 @@ node agents/cto/health-report.mjs
 - **Test ve güvenlik atlanamaz.** `policy.pipeline.fastPath.neverSkip`.
 - **Denetim izi yalnızca eklenir.** Geri alma, yeni bir kayıtla yapılır.
 - **Hat kendi kurallarını değiştiremez.** `policy.json` ve `docs/AI_CTO.md`
-  DENY listesindedir (`policy.denyPaths`).
+  DENY listesindedir (`policy.denyPaths` ve `agents/selfheal/lib/risk.mjs`).
+- **Onaysız devretme yok.** İnsan onayı gerektiren bir talep, onay kaydı
+  olmadan ajana verilemez (`dispatch.mjs`).

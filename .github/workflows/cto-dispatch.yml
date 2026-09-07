@@ -1,0 +1,149 @@
+# AI CTO — devredilen talebi uygular.
+#
+# `agents/cto/dispatch.mjs` bir talebi `ai-cto` etiketli issue'ya çevirir; bu iş
+# akışı onu görünce Claude Code'u çalıştırır ve sonucu **taslak PR** olarak açar.
+# Boru hattının uygulama adımı budur (tüzük §9 adım 7–10).
+#
+# Güvenlik: issue gövdesi bir talimat kaynağıdır, bu yüzden yalnızca depoya
+# yazma yetkisi olanların açtığı issue'lar çalıştırılır. Dışarıdan biri
+# `ai-cto` etiketli bir issue açarak ajanı yönlendiremez.
+name: AI CTO dispatch
+
+on:
+  issues:
+    types: [labeled]
+
+concurrency:
+  # Aynı issue için tek koşu; etiket iki kez eklenirse iş iki kez yapılmaz.
+  group: cto-dispatch-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  uygula:
+    # Etiket `ai-cto` olmalı VE issue'yu depoya yazabilen biri açmış olmalı.
+    if: >
+      github.event.label.name == 'ai-cto' &&
+      contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.issue.author_association)
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      id-token: write
+    env:
+      GH_TOKEN: ${{ secrets.CLAUDE_GH_TOKEN || secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.CLAUDE_GH_TOKEN || secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      # Hat kendi testlerinden geçmeden iş devretmesin: bozuk bir kapı motoru,
+      # kapısız bir hattan daha tehlikelidir (yanlış "geçti" üretir).
+      - name: CTO hattının kendi testleri
+        run: npm run test:cto
+
+      - name: Talep kimliğini issue gövdesinden oku
+        id: talep
+        run: |
+          set -euo pipefail
+          # Gövdedeki `| Kayıt | \`<id>\` |` satırı; bulunamazsa boş kalır ve
+          # ajan yine çalışır, yalnızca kayıt güncellenmez.
+          ID=$(printf '%s' "$ISSUE_BODY" | grep -oP '^\| Kayıt \| `\K[^`]+' | head -1 || true)
+          echo "id=$ID" >> "$GITHUB_OUTPUT"
+          echo "Talep kimliği: ${ID:-(yok)}"
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+
+      - name: Claude — talebi uygula
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.CLAUDE_GH_TOKEN || secrets.GITHUB_TOKEN }}
+          prompt: |
+            `#${{ github.event.issue.number }}` numaralı issue'daki talebi uygula.
+
+            Issue gövdesi görev tarifidir: analiz, beklenen dosya yolları, atlanamayan
+            kapılar ve yasaklar orada. `gh issue view ${{ github.event.issue.number }}`
+            ile oku ve **tamamına uy**.
+
+            Bağlayıcı belgeler: `docs/AI_CTO.md` (tüzük), `.claude/agents/ai-cto.md`,
+            `CLAUDE.md`, `docs/ARCHITECTURE.md`, `docs/MODULE_GUIDE.md`.
+
+            Sıra:
+            1. Issue'daki yol listesini **doğrula** — eşleşmeyle üretildi, okunarak değil.
+            2. Mevcut yapıyı kullan; aynı işi yapan ikinci bir bileşen/servis kurma.
+            3. `claude/cto-${{ github.event.issue.number }}` dalında çalış. `main`'e push yok.
+            4. Yeni davranışın testini yaz. `npm run lint && npm run typecheck && npm test`
+               üçlüsü yeşil olmadan PR açma.
+            5. Kullanıcıya görünen metinleri `src/core/i18n/tr.ts` ve `en.ts` içine ekle.
+            6. `gh pr create --draft` ile taslak PR aç; gövdesine `Closes #${{ github.event.issue.number }}`
+               ve 5 satırlık özet koy: ne yapıldı · hangi dosyalar · hangi testler ·
+               ne test edilmedi · insan kararı gereken ne var.
+
+            Kapsam büyüyorsa, kök neden bir ürün kararı gerektiriyorsa ya da issue'da
+            "insan onayı" bölümü varken onay görünmüyorsa **DUR**: kod değiştirme,
+            bulduklarını issue'ya yorum olarak yaz.
+
+            Testi atlama, beklentiyi zayıflatma, `@ts-ignore`/`eslint-disable` ekleme.
+            `agents/cto/**`, `agents/selfheal/**`, `.github/**`, `.claude/**` dosyalarına
+            dokunma — bunlar hattın kendi kurallarıdır.
+          claude_args: |
+            --max-turns 60
+            --allowedTools "Read,Edit,Write,Grep,Glob,Bash(npm run lint*),Bash(npm run typecheck),Bash(npm test*),Bash(npm run test:cto),Bash(npm run i18n:check),Bash(npx prettier*),Bash(npx tsc*),Bash(npx eslint*),Bash(npx jest*),Bash(node agents/cto/*),Bash(node agents/devops/*),Bash(grep*),Bash(git status*),Bash(git diff*),Bash(git log*),Bash(git add*),Bash(git commit*),Bash(git checkout*),Bash(git push*),Bash(gh issue view*),Bash(gh issue comment*),Bash(gh pr create*),Bash(gh pr comment*),Bash(gh pr list*)"
+
+      # Claude'dan bağımsız son kontrol: kapıları iş akışının kendisi de çalıştırır.
+      # Ajanın "testler geçti" demesi yeterli değil; ölçüm burada yapılır.
+      - name: Kapılar (bağımsız doğrulama)
+        id: kapilar
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          npm run lint
+          npm run typecheck
+          npm test -- --ci
+
+      - name: Sonucu talep kaydına işle
+        if: steps.talep.outputs.id != ''
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          if [ "${{ steps.kapilar.outcome }}" = "success" ]; then
+            node agents/cto/pipeline.mjs pass --request "${{ steps.talep.outputs.id }}" \
+              --step test --agent cto-dispatch \
+              --evidence "lint + typecheck + test yeşil (koşu ${{ github.run_id }})"
+          else
+            node agents/cto/pipeline.mjs fail --request "${{ steps.talep.outputs.id }}" \
+              --step test --agent cto-dispatch \
+              --note "kapılar kırmızı (koşu ${{ github.run_id }})"
+          fi
+
+      - name: Kapı sonucunu issue'ya yaz
+        if: always()
+        continue-on-error: true
+        run: |
+          if [ "${{ steps.kapilar.outcome }}" = "success" ]; then
+            gh issue comment ${{ github.event.issue.number }} \
+              --body "Kapılar yeşil: lint · typecheck · test. Koşu: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          else
+            gh issue comment ${{ github.event.issue.number }} \
+              --body "Kapılar **kırmızı** — PR birleştirilmemeli. Koşu: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          fi
+
+      - name: Denetim izini artefakt olarak sakla
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cto-dispatch-${{ github.run_id }}
+          path: agents/cto/out/
+          retention-days: 30
+          if-no-files-found: ignore

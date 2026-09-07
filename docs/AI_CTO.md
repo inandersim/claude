@@ -369,9 +369,33 @@ Aynı akış komut satırından da çalışır:
 
 ```bash
 node agents/cto/intake.mjs "kamp alanı keşif sistemi ekle"
+node agents/cto/dispatch.mjs --request <id> --dry    # ajana gidecek görev tarifi
+node agents/cto/dispatch.mjs --request <id>          # devret
 node agents/cto/pipeline.mjs status --request <id>
 node agents/cto/report.mjs feature --request <id>
 ```
+
+**Devretme zinciri** — talebin koda dönüştüğü yer:
+
+```
+intake.mjs            talep → analiz → kayıt
+    ↓
+dispatch.mjs          kayıt → görev tarifi → `ai-cto` etiketli GitHub issue
+    ↓                 (insan onayı gerekiyorsa burada durur)
+cto-dispatch.yml      issue → Claude Code → dal → taslak PR
+    ↓                 (kapılar iş akışında bağımsız olarak da ölçülür)
+pipeline.mjs          kapı sonucu → talep kaydı + denetim izi
+    ↓
+insan                 PR'ı okur, birleştirir
+```
+
+Zincirin iki yerinde insan vardır ve ikisi de atlanamaz: onay gerektiren bir
+talep `dispatch.mjs` tarafından reddedilir, birleştirme kararı da hiçbir zaman
+ajanın değildir.
+
+`cto-dispatch.yml` yalnızca **depoya yazma yetkisi olanların** açtığı issue'ları
+çalıştırır (`author_association`). Issue gövdesi bir talimat kaynağıdır;
+dışarıdan biri etiket koyarak ajanı yönlendirememeli.
 
 ---
 

@@ -28,6 +28,7 @@ import { appendAudit, readAudit, requestId } from './lib/store.mjs';
 import { intake, render } from './intake.mjs';
 import { approve, recordStep } from './pipeline.mjs';
 import { assertNoAbsoluteClaim, featureReport, securityReport } from './report.mjs';
+import { dispatchEdilebilir, issueBasligi, issueGovdesi } from './dispatch.mjs';
 
 const policy = loadPolicy();
 
@@ -330,4 +331,81 @@ test('güvenlik raporu izinli durumla üretilir', () => {
   const out = securityReport(record, policy);
   assert.match(out, /Medium: 1/);
   assert.match(out, /oran sınırı yok/);
+});
+
+/* ------------------------------------------------------------------ */
+/* Devretme (dispatch)                                                 */
+/* ------------------------------------------------------------------ */
+
+test('onay bekleyen talep ajana devredilemez', () => {
+  const record = intake('kimlik doğrulama akışını değiştir, otp süresini uzat');
+  assert.ok(record.approvals.length, 'bu talep onay gerektirmeli');
+  const izin = dispatchEdilebilir(record);
+  assert.equal(izin.ok, false);
+  assert.match(izin.reason, /İnsan onayı bekliyor/);
+});
+
+test('onay alınmışsa devredilebilir', () => {
+  const record = intake('kimlik doğrulama akışını değiştir, otp süresini uzat');
+  const onayli = { ...record, approval: { by: 'inan', at: new Date().toISOString(), evidence: 'ok' } };
+  assert.equal(dispatchEdilebilir(onayli).ok, true);
+});
+
+test('onay gerektirmeyen talep doğrudan devredilebilir', () => {
+  const record = intake('rota listesine mesafeye göre sıralama ekle');
+  assert.deepEqual(record.approvals, []);
+  assert.equal(dispatchEdilebilir(record).ok, true);
+});
+
+test('modülle eşleşmeyen talep devredilemez', () => {
+  const record = intake('zzz qqq wwq');
+  const izin = dispatchEdilebilir(record);
+  assert.equal(izin.ok, false);
+  assert.match(izin.reason, /eşleşmedi/);
+});
+
+test('iki kez devredilemez', () => {
+  const record = intake('rota listesine sıralama ekle');
+  const devredilmis = { ...record, issueUrl: 'https://github.com/o/r/issues/1' };
+  const izin = dispatchEdilebilir(devredilmis);
+  assert.equal(izin.ok, false);
+  assert.match(izin.reason, /Zaten devredilmiş/);
+});
+
+test('iptal edilen talep devredilemez', () => {
+  const record = { ...intake('rota listesine sıralama ekle'), status: 'cancelled' };
+  assert.equal(dispatchEdilebilir(record).ok, false);
+});
+
+test('issue gövdesi analizi ve yasakları taşır', () => {
+  const record = intake('rota listesine mesafeye göre sıralama ekle');
+  const body = issueGovdesi(record, policy);
+  assert.match(body, new RegExp(record.id));
+  assert.match(body, /## Talep/);
+  assert.match(body, /## Analiz/);
+  assert.match(body, /## Yasaklar/);
+  // Atlanamayan kapılar gövdede sayılmalı; ajan bunları issue'dan öğreniyor.
+  for (const step of policy.pipeline.fastPath.neverSkip) {
+    assert.match(body, new RegExp(`\\\`${step}\\\``), `${step} kapısı gövdede yok`);
+  }
+  assert.match(body, /agents\/cto\/\*\*/, 'hattın kendi dosyaları yasaklarda olmalı');
+});
+
+test('onay gerektiren talebin gövdesi onay durumunu gizlemez', () => {
+  const record = intake('hesap silme akışını değiştir');
+  const beklemede = issueGovdesi(record, policy);
+  assert.match(beklemede, /Onay alınmadan uygulamaya geçilemez/);
+
+  const onayli = issueGovdesi(
+    { ...record, approval: { by: 'inan', at: 'x', evidence: 'PR #1 okundu' } },
+    policy,
+  );
+  assert.match(onayli, /Onaylandı: \*\*inan\*\*/);
+});
+
+test('issue başlığı risk seviyesini taşır ve kısaltılır', () => {
+  const uzun = intake(`rota ${'x'.repeat(120)}`);
+  const baslik = issueBasligi(uzun);
+  assert.match(baslik, /^\[(LOW|MEDIUM|HIGH|CRITICAL)\]/);
+  assert.ok(baslik.length < 100, 'başlık kısaltılmalı');
 });
