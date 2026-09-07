@@ -140,6 +140,7 @@ export const clubs_ko: ClubsI18nShape = {
   emptyEvents: '예정된 이벤트가 없어요',
   emptyEventsDescription: '새 동아리 이벤트가 여기에 표시돼요.',
   notFound: '동아리를 찾을 수 없어요',
+  notFoundDescription: '이벤트를 추가하려면 먼저 클럽을 선택하세요.',
   eventNotFound: '이벤트를 찾을 수 없어요',
   discover: '동아리 발견',
   manage: '임원',

@@ -141,6 +141,7 @@ export const clubs_id: ClubsI18nShape = {
   emptyEvents: 'Tidak ada acara mendatang',
   emptyEventsDescription: 'Acara klub baru akan muncul di sini.',
   notFound: 'Klub tidak ditemukan',
+  notFoundDescription: 'Pilih klub dulu untuk menambahkan acara.',
   eventNotFound: 'Acara tidak ditemukan',
   discover: 'Temukan klub',
   manage: 'Pengurus',

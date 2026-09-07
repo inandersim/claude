@@ -126,7 +126,7 @@ export default function NewClubEventScreen() {
           <EmptyState
             icon="school"
             title={t('clubs.notFound')}
-            description={t('notFound.description')}
+            description={t('clubs.notFoundDescription')}
             action={{
               label: t('clubs.discover'),
               icon: 'search',

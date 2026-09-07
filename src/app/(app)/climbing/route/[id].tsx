@@ -298,8 +298,8 @@ export default function RouteDetailScreen() {
         ) : (
           <EmptyState
             icon="compass"
-            title={t('notFound.title')}
-            description={t('notFound.description')}
+            title={t('notFound.contentTitle')}
+            description={t('notFound.contentDescription')}
           />
         )}
       </ScrollView>

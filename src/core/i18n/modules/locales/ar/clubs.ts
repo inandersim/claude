@@ -140,6 +140,7 @@ export const clubs_ar: ClubsI18nShape = {
   emptyEvents: 'لا فعاليات قادمة',
   emptyEventsDescription: 'ستظهر هنا عندما تضيف الأندية فعاليات جديدة.',
   notFound: 'النادي غير موجود',
+  notFoundDescription: 'اختر ناديًا أولًا لإضافة فعالية.',
   eventNotFound: 'الفعالية غير موجودة',
   discover: 'استكشف الأندية',
   manage: 'مدير',

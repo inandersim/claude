@@ -219,8 +219,8 @@ export default function BusinessDetailScreen() {
         ) : (
           <EmptyState
             icon="building-2"
-            title={t('notFound.title')}
-            description={t('notFound.description')}
+            title={t('notFound.contentTitle')}
+            description={t('notFound.contentDescription')}
           />
         )}
       </ScrollView>

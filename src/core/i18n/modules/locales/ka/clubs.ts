@@ -141,6 +141,7 @@ export const clubs_ka: ClubsI18nShape = {
   emptyEvents: 'მომავალი ღონისძიებები არ არის',
   emptyEventsDescription: 'როცა კლუბები ახალ ღონისძიებას დაამატებენ, აქ გამოჩნდება.',
   notFound: 'კლუბი ვერ მოიძებნა',
+  notFoundDescription: 'ღონისძიების დასამატებლად ჯერ აირჩიე კლუბი.',
   eventNotFound: 'ღონისძიება ვერ მოიძებნა',
   discover: 'კლუბების აღმოჩენა',
   manage: 'ადმინისტრატორი',

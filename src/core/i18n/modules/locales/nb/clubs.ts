@@ -141,6 +141,7 @@ export const clubs_nb: ClubsI18nShape = {
   emptyEvents: 'Ingen kommende arrangementer',
   emptyEventsDescription: 'Nye klubbarrangementer vises her.',
   notFound: 'Fant ikke klubben',
+  notFoundDescription: 'Velg først en klubb for å legge til et arrangement.',
   eventNotFound: 'Fant ikke arrangementet',
   discover: 'Oppdag klubber',
   manage: 'Styremedlem',

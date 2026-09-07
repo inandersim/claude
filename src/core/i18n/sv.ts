@@ -150,6 +150,8 @@ export const sv: Translations = {
   },
   zmatch: {
     title: 'ZMatch',
+    requestNotFound: 'Ingen person vald',
+    requestNotFoundDescription: 'Välj en äventyrare i närheten för en förfrågan.',
     subtitle: 'Verifierade äventyrare nära dig',
     nearby: 'I närheten',
     requests: 'Förfrågningar',
@@ -442,6 +444,8 @@ export const sv: Translations = {
   },
   instructors: {
     title: 'Instruktörer',
+    notFound: 'Ingen instruktör vald',
+    notFoundDescription: 'Välj en instruktör i listan för att boka en lektion.',
     subtitle: 'Certifierade guider och instruktörer',
     searchPlaceholder: 'Sök instruktör, certifiering eller stad',
     sortRating: 'Betyg',
@@ -779,6 +783,8 @@ export const sv: Translations = {
   },
   notFound: {
     title: 'Sidan hittades inte',
+    contentTitle: 'Innehållet hittades inte',
+    contentDescription: 'Innehållet kan ha tagits bort, eller så är länken fel.',
     description: 'Rutten du letar efter finns inte på kartan.',
     goHome: 'Gå hem',
   },

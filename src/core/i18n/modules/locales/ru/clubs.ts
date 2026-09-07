@@ -141,6 +141,7 @@ export const clubs_ru: ClubsI18nShape = {
   emptyEvents: 'Предстоящих событий нет',
   emptyEventsDescription: 'Когда клубы добавят новые события, они появятся здесь.',
   notFound: 'Клуб не найден',
+  notFoundDescription: 'Сначала выберите клуб, чтобы добавить событие.',
   eventNotFound: 'Событие не найдено',
   discover: 'Найти клубы',
   manage: 'Руководитель',

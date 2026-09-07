@@ -142,6 +142,7 @@ export const clubs_el: ClubsI18nShape = {
   emptyEvents: 'Καμία επερχόμενη εκδήλωση',
   emptyEventsDescription: 'Οι νέες εκδηλώσεις συλλόγων θα εμφανίζονται εδώ.',
   notFound: 'Ο σύλλογος δεν βρέθηκε',
+  notFoundDescription: 'Διάλεξε πρώτα σύλλογο για να προσθέσεις εκδήλωση.',
   eventNotFound: 'Η εκδήλωση δεν βρέθηκε',
   discover: 'Ανακαλύψτε συλλόγους',
   manage: 'Στέλεχος',

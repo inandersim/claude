@@ -151,6 +151,8 @@ export const el: Translations = {
   },
   zmatch: {
     title: 'ZMatch',
+    requestNotFound: 'Δεν επιλέχθηκε άτομο',
+    requestNotFoundDescription: 'Διάλεξε έναν κοντινό εξερευνητή για αίτημα.',
     subtitle: 'Επαληθευμένοι περιπετειώδεις κοντά σας',
     nearby: 'Κοντά',
     requests: 'Αιτήματα',
@@ -446,6 +448,8 @@ export const el: Translations = {
   },
   instructors: {
     title: 'Εκπαιδευτές',
+    notFound: 'Δεν επιλέχθηκε εκπαιδευτής',
+    notFoundDescription: 'Διάλεξε εκπαιδευτή από τη λίστα για μάθημα.',
     subtitle: 'Πιστοποιημένοι οδηγοί και εκπαιδευτές',
     searchPlaceholder: 'Αναζήτηση εκπαιδευτή, πιστοποίησης ή πόλης',
     sortRating: 'Βαθμολογία',
@@ -788,6 +792,8 @@ export const el: Translations = {
   },
   notFound: {
     title: 'Η σελίδα δεν βρέθηκε',
+    contentTitle: 'Δεν βρέθηκε το περιεχόμενο',
+    contentDescription: 'Ίσως αφαιρέθηκε ή ο σύνδεσμος είναι λάθος.',
     description: 'Η διαδρομή που ψάχνετε δεν υπάρχει στον χάρτη.',
     goHome: 'Μετάβαση στην αρχική',
   },

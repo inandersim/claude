@@ -186,8 +186,8 @@ export default function ListingDetailScreen() {
         ) : (
           <EmptyState
             icon="store"
-            title={t('notFound.title')}
-            description={t('notFound.description')}
+            title={t('notFound.contentTitle')}
+            description={t('notFound.contentDescription')}
           />
         )}
       </ScrollView>

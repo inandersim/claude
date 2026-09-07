@@ -150,6 +150,8 @@ export const th: Translations = {
   },
   zmatch: {
     title: 'ZMatch',
+    requestNotFound: 'ยังไม่ได้เลือกบุคคล',
+    requestNotFoundDescription: 'เลือกนักผจญภัยใกล้เคียงเพื่อส่งคำขอ',
     subtitle: 'นักผจญภัยที่ยืนยันตัวตนแล้วใกล้คุณ',
     nearby: 'ใกล้เคียง',
     requests: 'คำขอ',
@@ -441,6 +443,8 @@ export const th: Translations = {
   },
   instructors: {
     title: 'ผู้ฝึกสอน',
+    notFound: 'ยังไม่ได้เลือกผู้สอน',
+    notFoundDescription: 'เลือกผู้สอนจากรายการเพื่อขอบทเรียน',
     subtitle: 'ไกด์และผู้ฝึกสอนที่ได้รับการรับรอง',
     searchPlaceholder: 'ค้นหาผู้ฝึกสอน ใบรับรอง หรือเมือง',
     sortRating: 'คะแนน',
@@ -776,6 +780,8 @@ export const th: Translations = {
   },
   notFound: {
     title: 'ไม่พบหน้า',
+    contentTitle: 'ไม่พบเนื้อหา',
+    contentDescription: 'เนื้อหานี้อาจถูกลบ หรือลิงก์ไม่ถูกต้อง',
     description: 'เส้นทางที่คุณกำลังหาไม่มีอยู่บนแผนที่',
     goHome: 'กลับหน้าหลัก',
   },

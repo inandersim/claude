@@ -85,8 +85,8 @@ export default function ReserveStayScreen() {
         ) : !data ? (
           <EmptyState
             icon="compass"
-            title={t('notFound.title')}
-            description={t('notFound.description')}
+            title={t('inventory.business.notFound')}
+            description={t('inventory.business.notFoundDescription')}
           />
         ) : noStay ? (
           <EmptyState

@@ -150,6 +150,8 @@ export const hi: Translations = {
   },
   zmatch: {
     title: 'ZMatch',
+    requestNotFound: 'कोई व्यक्ति नहीं चुना',
+    requestNotFoundDescription: 'अनुरोध भेजने के लिए पास का साहसी चुनें।',
     subtitle: 'आपके पास के सत्यापित साहसिक',
     nearby: 'आस-पास',
     requests: 'अनुरोध',
@@ -441,6 +443,8 @@ export const hi: Translations = {
   },
   instructors: {
     title: 'प्रशिक्षक',
+    notFound: 'कोई प्रशिक्षक नहीं चुना',
+    notFoundDescription: 'पाठ के लिए सूची से एक प्रशिक्षक चुनें।',
     subtitle: 'प्रमाणित गाइड और प्रशिक्षक',
     searchPlaceholder: 'प्रशिक्षक, प्रमाणपत्र या शहर खोजें',
     sortRating: 'रेटिंग',
@@ -777,6 +781,8 @@ export const hi: Translations = {
   },
   notFound: {
     title: 'पेज नहीं मिला',
+    contentTitle: 'सामग्री नहीं मिली',
+    contentDescription: 'यह सामग्री हटाई जा चुकी हो सकती है, या लिंक गलत है।',
     description: 'आप जो मार्ग खोज रहे हैं वह मानचित्र पर नहीं है।',
     goHome: 'होम पर जाएँ',
   },

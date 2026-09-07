@@ -150,6 +150,8 @@ export const tr = {
   },
   zmatch: {
     title: 'ZMatch',
+    requestNotFound: 'Kişi seçilmedi',
+    requestNotFoundDescription: 'Eşleşme isteği göndermek için yakınındaki bir maceraperest seç.',
     subtitle: 'Yakınındaki doğrulanmış maceraperestler',
     nearby: 'Yakınında',
     requests: 'İstekler',
@@ -442,6 +444,8 @@ export const tr = {
   },
   instructors: {
     title: 'Eğitmenler',
+    notFound: 'Eğitmen seçilmedi',
+    notFoundDescription: 'Ders talebi için listeden bir eğitmen seç.',
     subtitle: 'Sertifikalı rehber ve eğitmenler',
     searchPlaceholder: 'Eğitmen, sertifika veya şehir ara',
     sortRating: 'Puan',
@@ -779,6 +783,8 @@ export const tr = {
   },
   notFound: {
     title: 'Sayfa bulunamadı',
+    contentTitle: 'İçerik bulunamadı',
+    contentDescription: 'Bu içerik kaldırılmış ya da bağlantı hatalı olabilir.',
     description: 'Aradığın rota haritada yok gibi görünüyor.',
     goHome: 'Ana sayfaya dön',
   },

@@ -159,8 +159,8 @@ export default function UserProfileScreen() {
       ) : (
         <EmptyState
           icon="user"
-          title={t('notFound.title')}
-          description={t('notFound.description')}
+          title={t('notFound.contentTitle')}
+          description={t('notFound.contentDescription')}
         />
       )}
     </Screen>

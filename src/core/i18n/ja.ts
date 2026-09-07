@@ -152,6 +152,8 @@ export const ja: Translations = {
   },
   zmatch: {
     title: 'ZMatch',
+    requestNotFound: '相手が未選択です',
+    requestNotFoundDescription: 'マッチ申請を送る 近くの冒険者を選んでください。',
     subtitle: '近くの認証済みアドベンチャラー',
     nearby: '近く',
     requests: 'リクエスト',
@@ -444,6 +446,8 @@ export const ja: Translations = {
   },
   instructors: {
     title: 'インストラクター',
+    notFound: 'インストラクター未選択',
+    notFoundDescription: 'レッスンを依頼するには一覧から選んでください。',
     subtitle: '認定ガイド・インストラクター',
     searchPlaceholder: 'インストラクター、資格、都市を検索',
     sortRating: '評価順',
@@ -781,6 +785,8 @@ export const ja: Translations = {
   },
   notFound: {
     title: 'ページが見つかりません',
+    contentTitle: 'コンテンツが見つかりません',
+    contentDescription: '削除されたか、リンクが正しくない可能性があります。',
     description: '探しているルートは地図上に見当たりません。',
     goHome: 'ホームに戻る',
   },

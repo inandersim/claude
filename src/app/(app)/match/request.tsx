@@ -100,8 +100,8 @@ export default function MatchRequestScreen() {
       {missing ? (
         <EmptyState
           icon="users"
-          title={t('notFound.title')}
-          description={t('notFound.description')}
+          title={t('zmatch.requestNotFound')}
+          description={t('zmatch.requestNotFoundDescription')}
           action={{
             label: t('zmatch.title'),
             icon: 'zap',

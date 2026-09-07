@@ -203,7 +203,7 @@ export default function ClubEventScreen() {
           <EmptyState
             icon="calendar"
             title={t('clubs.eventNotFound')}
-            description={t('notFound.description')}
+            description={t('notFound.contentDescription')}
           />
         )}
       </ScrollView>

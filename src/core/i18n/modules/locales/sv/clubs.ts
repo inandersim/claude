@@ -141,6 +141,7 @@ export const clubs_sv: ClubsI18nShape = {
   emptyEvents: 'Inga kommande evenemang',
   emptyEventsDescription: 'Nya klubbevenemang visas här.',
   notFound: 'Klubben hittades inte',
+  notFoundDescription: 'Välj först en klubb för att lägga till ett event.',
   eventNotFound: 'Evenemanget hittades inte',
   discover: 'Upptäck klubbar',
   manage: 'Styrelse',

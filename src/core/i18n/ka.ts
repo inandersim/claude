@@ -150,6 +150,8 @@ export const ka: Translations = {
   },
   zmatch: {
     title: 'ZMatch',
+    requestNotFound: 'პიროვნება არჩეული არ არის',
+    requestNotFoundDescription: 'აირჩიე ახლომდებარე მოგზაური მოთხოვნისთვის.',
     subtitle: 'დადასტურებული მოგზაურები შენს ახლოს',
     nearby: 'ახლოს',
     requests: 'მოთხოვნები',
@@ -443,6 +445,8 @@ export const ka: Translations = {
   },
   instructors: {
     title: 'ინსტრუქტორები',
+    notFound: 'ინსტრუქტორი არჩეული არ არის',
+    notFoundDescription: 'აირჩიე ინსტრუქტორი სიიდან გაკვეთილისთვის.',
     subtitle: 'სერტიფიცირებული გიდები და ინსტრუქტორები',
     searchPlaceholder: 'მოძებნე ინსტრუქტორი, სერტიფიკატი ან ქალაქი',
     sortRating: 'რეიტინგი',
@@ -783,6 +787,8 @@ export const ka: Translations = {
   },
   notFound: {
     title: 'გვერდი ვერ მოიძებნა',
+    contentTitle: 'კონტენტი ვერ მოიძებნა',
+    contentDescription: 'შესაძლოა წაშლილია ან ბმული არასწორია.',
     description: 'მარშრუტი, რომელსაც ეძებ, რუკაზე არ არის.',
     goHome: 'მთავარზე დაბრუნება',
   },

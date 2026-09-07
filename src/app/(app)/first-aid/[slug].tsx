@@ -25,7 +25,7 @@ export default function FirstAidGuideScreen() {
     return (
       <Screen edges={['top']}>
         <Header showBack />
-        <EmptyState icon="compass" title={t('notFound.title')} />
+        <EmptyState icon="compass" title={t('notFound.contentTitle')} />
       </Screen>
     );
   }

@@ -151,6 +151,8 @@ export const it: Translations = {
   },
   zmatch: {
     title: 'ZMatch',
+    requestNotFound: 'Nessuna persona selezionata',
+    requestNotFoundDescription: 'Scegli un avventuriero vicino per inviare una richiesta.',
     subtitle: 'Avventurieri verificati vicino a te',
     nearby: 'Vicino a te',
     requests: 'Richieste',
@@ -447,6 +449,8 @@ export const it: Translations = {
   },
   instructors: {
     title: 'Istruttori',
+    notFound: 'Nessun istruttore selezionato',
+    notFoundDescription: 'Scegli un istruttore dalla lista per richiedere una lezione.',
     subtitle: 'Guide e istruttori certificati',
     searchPlaceholder: 'Cerca istruttore, certificazione o città',
     sortRating: 'Voto',
@@ -788,6 +792,8 @@ export const it: Translations = {
   },
   notFound: {
     title: 'Pagina non trovata',
+    contentTitle: 'Contenuto non trovato',
+    contentDescription: 'Questo contenuto potrebbe essere stato rimosso o il link è errato.',
     description: 'Il percorso che stai cercando non sembra essere sulla mappa.',
     goHome: 'Torna alla home',
   },

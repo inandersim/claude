@@ -105,7 +105,7 @@ export default function HostBusinessScreen() {
             <Skeleton height={200} style={{ borderRadius: radius.xl }} />
           </SkeletonGroup>
         ) : !business.data || !host.data ? (
-          <EmptyState icon="building-2" title={t('notFound.title')} />
+          <EmptyState icon="building-2" title={t('notFound.contentTitle')} />
         ) : (
           <>
             <View

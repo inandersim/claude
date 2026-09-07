@@ -140,6 +140,7 @@ export const clubs_th: ClubsI18nShape = {
   emptyEvents: 'ไม่มีกิจกรรมที่กำลังจะมาถึง',
   emptyEventsDescription: 'กิจกรรมชมรมใหม่จะแสดงที่นี่',
   notFound: 'ไม่พบชมรม',
+  notFoundDescription: 'เลือกชมรมก่อนเพื่อเพิ่มกิจกรรม',
   eventNotFound: 'ไม่พบกิจกรรม',
   discover: 'ค้นพบชมรม',
   manage: 'กรรมการ',

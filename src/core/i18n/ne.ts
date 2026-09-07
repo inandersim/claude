@@ -151,6 +151,8 @@ export const ne: Translations = {
   },
   zmatch: {
     title: 'ZMatch',
+    requestNotFound: 'व्यक्ति छानिएको छैन',
+    requestNotFoundDescription: 'अनुरोध पठाउन नजिकको साहसी छान्नुहोस्।',
     subtitle: 'नजिकैका प्रमाणित साहसीहरू',
     nearby: 'नजिकै',
     requests: 'अनुरोधहरू',
@@ -443,6 +445,8 @@ export const ne: Translations = {
   },
   instructors: {
     title: 'प्रशिक्षकहरू',
+    notFound: 'प्रशिक्षक छानिएको छैन',
+    notFoundDescription: 'पाठ अनुरोध गर्न सूचीबाट प्रशिक्षक छान्नुहोस्।',
     subtitle: 'प्रमाणित गाइड र प्रशिक्षकहरू',
     searchPlaceholder: 'प्रशिक्षक, प्रमाणपत्र वा सहर खोज्नुहोस्',
     sortRating: 'रेटिङ',
@@ -780,6 +784,8 @@ export const ne: Translations = {
   },
   notFound: {
     title: 'पृष्ठ भेटिएन',
+    contentTitle: 'सामग्री भेटिएन',
+    contentDescription: 'यो सामग्री हटाइएको हुन सक्छ, वा लिंक गलत छ।',
     description: 'तपाईंले खोजेको रुट नक्सामा छैन जस्तो देखिन्छ।',
     goHome: 'गृह पृष्ठमा जानुहोस्',
   },

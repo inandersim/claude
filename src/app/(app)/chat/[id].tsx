@@ -87,8 +87,8 @@ export default function ChatScreen() {
         {notFound ? (
           <EmptyState
             icon="user"
-            title={t('notFound.title')}
-            description={t('notFound.description')}
+            title={t('notFound.contentTitle')}
+            description={t('notFound.contentDescription')}
             action={{
               label: t('common.back'),
               onPress: () => goBack(router),

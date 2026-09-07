@@ -122,8 +122,8 @@ export default function GroupInfoScreen() {
         /* Geçersiz kimlik: hata değil, "bulunamadı" gösterilir. */
         <EmptyState
           icon="users"
-          title={t('notFound.title')}
-          description={t('notFound.description')}
+          title={t('notFound.contentTitle')}
+          description={t('notFound.contentDescription')}
           action={{
             label: t('groups.title'),
             onPress: () => router.replace('/groups'),

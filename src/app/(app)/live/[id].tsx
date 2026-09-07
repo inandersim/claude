@@ -368,8 +368,8 @@ export default function LiveStreamScreen() {
           </View>
           <EmptyState
             icon="video-off"
-            title={t('notFound.title')}
-            description={t('notFound.description')}
+            title={t('notFound.contentTitle')}
+            description={t('notFound.contentDescription')}
           />
         </View>
       )}

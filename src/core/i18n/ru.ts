@@ -151,6 +151,8 @@ export const ru: Translations = {
   },
   zmatch: {
     title: 'ZMatch',
+    requestNotFound: 'Человек не выбран',
+    requestNotFoundDescription: 'Выберите путешественника рядом, чтобы отправить запрос.',
     subtitle: 'Подтверждённые искатели приключений рядом',
     nearby: 'Рядом',
     requests: 'Запросы',
@@ -444,6 +446,8 @@ export const ru: Translations = {
   },
   instructors: {
     title: 'Инструкторы',
+    notFound: 'Инструктор не выбран',
+    notFoundDescription: 'Выберите инструктора из списка, чтобы запросить занятие.',
     subtitle: 'Сертифицированные гиды и инструкторы',
     searchPlaceholder: 'Ищи инструктора, сертификат или город',
     sortRating: 'Рейтинг',
@@ -784,6 +788,8 @@ export const ru: Translations = {
   },
   notFound: {
     title: 'Страница не найдена',
+    contentTitle: 'Содержимое не найдено',
+    contentDescription: 'Возможно, оно удалено или ссылка неверна.',
     description: 'Похоже, маршрут, который ты ищешь, отсутствует на карте.',
     goHome: 'На главную',
   },

@@ -151,6 +151,8 @@ export const nb: Translations = {
   },
   zmatch: {
     title: 'ZMatch',
+    requestNotFound: 'Ingen person valgt',
+    requestNotFoundDescription: 'Velg en eventyrer i nærheten for en forespørsel.',
     subtitle: 'Verifiserte eventyrere nær deg',
     nearby: 'I nærheten',
     requests: 'Forespørsler',
@@ -443,6 +445,8 @@ export const nb: Translations = {
   },
   instructors: {
     title: 'Instruktører',
+    notFound: 'Ingen instruktør valgt',
+    notFoundDescription: 'Velg en instruktør fra listen for å be om en time.',
     subtitle: 'Sertifiserte guider og instruktører',
     searchPlaceholder: 'Søk etter instruktør, sertifisering eller by',
     sortRating: 'Vurdering',
@@ -782,6 +786,8 @@ export const nb: Translations = {
   },
   notFound: {
     title: 'Siden ble ikke funnet',
+    contentTitle: 'Fant ikke innholdet',
+    contentDescription: 'Innholdet kan være fjernet, eller lenken er feil.',
     description: 'Ruten du leter etter finnes ikke på kartet.',
     goHome: 'Gå til start',
   },

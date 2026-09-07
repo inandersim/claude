@@ -140,6 +140,7 @@ export const clubs_zh: ClubsI18nShape = {
   emptyEvents: '没有即将举行的活动',
   emptyEventsDescription: '社团添加新活动后会显示在这里。',
   notFound: '找不到社团',
+  notFoundDescription: '请先选择一个俱乐部再添加活动。',
   eventNotFound: '找不到活动',
   discover: '发现社团',
   manage: '管理员',

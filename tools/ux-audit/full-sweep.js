@@ -104,7 +104,8 @@ const NESTED_BUTTON = () =>
       club: ilk('clubs'), clubEvent: ilk('clubEvents'), course: ilk('courses'),
       lesson: ilk('lessons'), cert: ilk('certificates'), destination: ilk('destinations'),
       group: ilk('groups'), hazard: ilk('hazards'), heritage: ilk('heritageSites'),
-      tour: ilk('heritageTours'), instructor: ilk('instructors'), place: ilk('library'),
+      tour: ilk('heritageTours'), instructor: ilk('instructors'),
+      place: ilk('library'), location: ilk('locations'),
       listing: ilk('listings'), match: ilk('matches'), stay: ilk('businesses'),
       booking: ilk('stayBookings'), species: ilk('species'), question: ilk('wildlifeQuestions'),
       article: ilk('articles', 'slug'), writer: ilk('writers', 'userId'),
@@ -112,7 +113,8 @@ const NESTED_BUTTON = () =>
       consult: ilk('consultations'), doctor: ilk('doctors'), tv: ilk('tvPrograms'),
       channel: ilk('tvChannels'), news: ilk('news'), kidPlace: ilk('kidPlaces'),
       chat: ilk('messages', 'conversationId'), stream: ilk('streams'),
-      guide: ilk('library', 'id'), tag: 'zirtan', mapRoute: ilk('savedRoutes'),
+      // İlk yardım rehberleri tohumda değil, statik içerikte (data/content/firstAid).
+      guide: 'cpr', tag: 'zirtan', mapRoute: ilk('savedRoutes'),
     };
   });
 
@@ -127,7 +129,7 @@ const NESTED_BUTTON = () =>
     '/groups/info/[id]': ['group'], '/hazards/[id]': ['hazard'],
     '/heritage/[id]': ['heritage'], '/heritage/guide/[id]': ['tour'],
     '/instructors/[id]': ['instructor'], '/library/[id]': ['place'],
-    '/location/[id]': ['place'], '/market/[id]': ['listing'],
+    '/location/[id]': ['location'], '/market/[id]': ['listing'],
     '/match/[id]': ['match'], '/stays/[id]': ['stay'],
     '/stays/booking/[id]': ['booking'], '/stays/host/[businessId]': ['stay'],
     '/wildlife/species/[id]': ['species'], '/wildlife/question/[id]': ['question'],

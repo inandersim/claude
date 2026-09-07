@@ -141,6 +141,7 @@ export const clubs_de: ClubsI18nShape = {
   emptyEvents: 'Keine kommenden Events',
   emptyEventsDescription: 'Neue Club-Events erscheinen hier.',
   notFound: 'Club nicht gefunden',
+  notFoundDescription: 'Wähle zuerst einen Club, um ein Event hinzuzufügen.',
   eventNotFound: 'Event nicht gefunden',
   discover: 'Clubs entdecken',
   manage: 'Vorstand',

@@ -149,6 +149,8 @@ export const zh: Translations = {
   },
   zmatch: {
     title: 'ZMatch',
+    requestNotFound: '未选择对象',
+    requestNotFoundDescription: '选择附近的一位探险者来发送匹配请求。',
     subtitle: '附近经过认证的探险者',
     nearby: '附近',
     requests: '请求',
@@ -437,6 +439,8 @@ export const zh: Translations = {
   },
   instructors: {
     title: '教练',
+    notFound: '未选择教练',
+    notFoundDescription: '从列表中选择一位教练以申请课程。',
     subtitle: '持证向导与教练',
     searchPlaceholder: '搜索教练、证书或城市',
     sortRating: '评分',
@@ -769,6 +773,8 @@ export const zh: Translations = {
   },
   notFound: {
     title: '页面不存在',
+    contentTitle: '未找到内容',
+    contentDescription: '该内容可能已被删除，或链接有误。',
     description: '你要找的路线不在地图上。',
     goHome: '回到首页',
   },

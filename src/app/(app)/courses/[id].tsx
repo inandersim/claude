@@ -178,7 +178,7 @@ export default function CourseDetailScreen() {
           <EmptyState
             icon="graduation-cap"
             title={t('courses.empty')}
-            description={t('notFound.description')}
+            description={t('notFound.contentDescription')}
             action={{
               label: t('courses.catalog'),
               icon: 'search',

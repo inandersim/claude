@@ -153,6 +153,8 @@ export const fr: Translations = {
   },
   zmatch: {
     title: 'ZMatch',
+    requestNotFound: 'Aucune personne sélectionnée',
+    requestNotFoundDescription: 'Choisis un aventurier près de toi pour envoyer une demande.',
     subtitle: 'Aventuriers vérifiés près de toi',
     nearby: 'À proximité',
     requests: 'Demandes',
@@ -447,6 +449,8 @@ export const fr: Translations = {
   },
   instructors: {
     title: 'Moniteurs',
+    notFound: 'Aucun moniteur sélectionné',
+    notFoundDescription: 'Choisis un moniteur dans la liste pour demander un cours.',
     subtitle: 'Guides et moniteurs certifiés',
     searchPlaceholder: 'Rechercher un moniteur, une certification ou une ville',
     sortRating: 'Note',
@@ -788,6 +792,8 @@ export const fr: Translations = {
   },
   notFound: {
     title: 'Page introuvable',
+    contentTitle: 'Contenu introuvable',
+    contentDescription: 'Ce contenu a peut-être été supprimé, ou le lien est incorrect.',
     description: "L'itinéraire que tu cherches ne semble pas être sur la carte.",
     goHome: "Retour à l'accueil",
   },

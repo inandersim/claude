@@ -153,6 +153,8 @@ export const de: Translations = {
   },
   zmatch: {
     title: 'ZMatch',
+    requestNotFound: 'Keine Person ausgewählt',
+    requestNotFoundDescription: 'Wähle eine:n Abenteurer:in in deiner Nähe für eine Match-Anfrage.',
     subtitle: 'Verifizierte Abenteurer in deiner Nähe',
     nearby: 'In der Nähe',
     requests: 'Anfragen',
@@ -449,6 +451,8 @@ export const de: Translations = {
   },
   instructors: {
     title: 'Trainer',
+    notFound: 'Kein Ausbilder ausgewählt',
+    notFoundDescription: 'Wähle einen Ausbilder aus der Liste, um eine Stunde anzufragen.',
     subtitle: 'Zertifizierte Guides und Trainer',
     searchPlaceholder: 'Suche nach Trainer, Zertifikat oder Stadt',
     sortRating: 'Bewertung',
@@ -790,6 +794,8 @@ export const de: Translations = {
   },
   notFound: {
     title: 'Seite nicht gefunden',
+    contentTitle: 'Inhalt nicht gefunden',
+    contentDescription: 'Dieser Inhalt wurde vielleicht entfernt oder der Link ist falsch.',
     description: 'Die gesuchte Route scheint nicht auf der Karte zu sein.',
     goHome: 'Zur Startseite',
   },

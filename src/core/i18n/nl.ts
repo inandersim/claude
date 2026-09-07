@@ -150,6 +150,8 @@ export const nl: Translations = {
   },
   zmatch: {
     title: 'ZMatch',
+    requestNotFound: 'Geen persoon gekozen',
+    requestNotFoundDescription: 'Kies een avonturier in de buurt voor een verzoek.',
     subtitle: 'Geverifieerde avonturiers bij jou in de buurt',
     nearby: 'In de buurt',
     requests: 'Verzoeken',
@@ -445,6 +447,8 @@ export const nl: Translations = {
   },
   instructors: {
     title: 'Instructeurs',
+    notFound: 'Geen instructeur gekozen',
+    notFoundDescription: 'Kies een instructeur uit de lijst voor een les.',
     subtitle: 'Gecertificeerde gidsen en instructeurs',
     searchPlaceholder: 'Zoek instructeur, certificering of stad',
     sortRating: 'Beoordeling',
@@ -784,6 +788,8 @@ export const nl: Translations = {
   },
   notFound: {
     title: 'Pagina niet gevonden',
+    contentTitle: 'Inhoud niet gevonden',
+    contentDescription: 'Deze inhoud is mogelijk verwijderd of de link klopt niet.',
     description: 'De route die je zoekt staat niet op de kaart.',
     goHome: 'Naar home',
   },

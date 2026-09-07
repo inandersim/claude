@@ -151,6 +151,8 @@ export const id: Translations = {
   },
   zmatch: {
     title: 'ZMatch',
+    requestNotFound: 'Belum memilih orang',
+    requestNotFoundDescription: 'Pilih petualang terdekat untuk mengirim permintaan.',
     subtitle: 'Petualang terverifikasi di dekatmu',
     nearby: 'Sekitar',
     requests: 'Permintaan',
@@ -444,6 +446,8 @@ export const id: Translations = {
   },
   instructors: {
     title: 'Instruktur',
+    notFound: 'Belum memilih instruktur',
+    notFoundDescription: 'Pilih instruktur dari daftar untuk meminta pelajaran.',
     subtitle: 'Pemandu dan instruktur bersertifikat',
     searchPlaceholder: 'Cari instruktur, sertifikasi, atau kota',
     sortRating: 'Rating',
@@ -783,6 +787,8 @@ export const id: Translations = {
   },
   notFound: {
     title: 'Halaman tidak ditemukan',
+    contentTitle: 'Konten tidak ditemukan',
+    contentDescription: 'Konten mungkin sudah dihapus, atau tautannya salah.',
     description: 'Rute yang kamu cari tidak ada di peta.',
     goHome: 'Ke beranda',
   },

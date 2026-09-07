@@ -149,6 +149,8 @@ export const ko: Translations = {
   },
   zmatch: {
     title: 'ZMatch',
+    requestNotFound: '상대가 선택되지 않음',
+    requestNotFoundDescription: '근처 모험가를 선택해 매칭을 요청하세요.',
     subtitle: '근처의 인증된 모험가',
     nearby: '근처',
     requests: '요청',
@@ -439,6 +441,8 @@ export const ko: Translations = {
   },
   instructors: {
     title: '강사',
+    notFound: '강사가 선택되지 않음',
+    notFoundDescription: '목록에서 강사를 선택해 레슨을 요청하세요.',
     subtitle: '인증된 가이드와 강사',
     searchPlaceholder: '강사, 자격증 또는 도시 검색',
     sortRating: '평점',
@@ -773,6 +777,8 @@ export const ko: Translations = {
   },
   notFound: {
     title: '페이지를 찾을 수 없어요',
+    contentTitle: '콘텐츠를 찾을 수 없습니다',
+    contentDescription: '삭제되었거나 링크가 잘못되었을 수 있습니다.',
     description: '찾으시는 경로가 지도에 없어요.',
     goHome: '홈으로',
   },

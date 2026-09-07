@@ -98,8 +98,10 @@ export default function BookInstructorScreen() {
           {notFound ? (
             <EmptyState
               icon="graduation-cap"
-              title={t('notFound.title')}
-              description={t('notFound.description')}
+              // Eksik olan rota değil, seçim: bu ekrana eğitmen kimliği
+              // olmadan gelinebilir (derin bağlantı, geri gezinme).
+              title={t('instructors.notFound')}
+              description={t('instructors.notFoundDescription')}
             />
           ) : (
             <>

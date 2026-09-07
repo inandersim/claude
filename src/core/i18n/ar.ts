@@ -149,6 +149,8 @@ export const ar: Translations = {
   },
   zmatch: {
     title: 'ZMatch',
+    requestNotFound: 'لم يتم اختيار شخص',
+    requestNotFoundDescription: 'اختر مغامرًا قريبًا لإرسال طلب.',
     subtitle: 'مغامرون موثّقون بالقرب منك',
     nearby: 'بالقرب',
     requests: 'الطلبات',
@@ -440,6 +442,8 @@ export const ar: Translations = {
   },
   instructors: {
     title: 'المدرّبون',
+    notFound: 'لم يتم اختيار مدرب',
+    notFoundDescription: 'اختر مدربًا من القائمة لطلب درس.',
     subtitle: 'مرشدون ومدرّبون معتمدون',
     searchPlaceholder: 'ابحث عن مدرّب أو شهادة أو مدينة',
     sortRating: 'التقييم',
@@ -774,6 +778,8 @@ export const ar: Translations = {
   },
   notFound: {
     title: 'الصفحة غير موجودة',
+    contentTitle: 'المحتوى غير موجود',
+    contentDescription: 'ربما تمت إزالة هذا المحتوى أو أن الرابط خاطئ.',
     description: 'المسار الذي تبحث عنه ليس على الخريطة.',
     goHome: 'الذهاب إلى الرئيسية',
   },

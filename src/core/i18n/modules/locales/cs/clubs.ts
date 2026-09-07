@@ -141,6 +141,7 @@ export const clubs_cs: ClubsI18nShape = {
   emptyEvents: 'Žádné nadcházející akce',
   emptyEventsDescription: 'Nové klubové akce se zobrazí zde.',
   notFound: 'Klub nenalezen',
+  notFoundDescription: 'Nejdřív vyber klub, abys mohl přidat akci.',
   eventNotFound: 'Akce nenalezena',
   discover: 'Objevovat kluby',
   manage: 'Vedoucí',

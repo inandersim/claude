@@ -141,6 +141,7 @@ export const clubs_ne: ClubsI18nShape = {
   emptyEvents: 'कुनै आगामी कार्यक्रम छैन',
   emptyEventsDescription: 'क्लबहरूले नयाँ कार्यक्रम थपेपछि यहाँ देखिनेछ।',
   notFound: 'क्लब भेटिएन',
+  notFoundDescription: 'कार्यक्रम थप्न पहिले क्लब छान्नुहोस्।',
   eventNotFound: 'कार्यक्रम भेटिएन',
   discover: 'क्लबहरू अन्वेषण गर्नुहोस्',
   manage: 'व्यवस्थापक',

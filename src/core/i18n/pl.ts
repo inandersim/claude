@@ -150,6 +150,8 @@ export const pl: Translations = {
   },
   zmatch: {
     title: 'ZMatch',
+    requestNotFound: 'Nie wybrano osoby',
+    requestNotFoundDescription: 'Wybierz pobliskiego podróżnika, aby wysłać prośbę.',
     subtitle: 'Zweryfikowani poszukiwacze przygód w pobliżu',
     nearby: 'W pobliżu',
     requests: 'Zaproszenia',
@@ -444,6 +446,8 @@ export const pl: Translations = {
   },
   instructors: {
     title: 'Instruktorzy',
+    notFound: 'Nie wybrano instruktora',
+    notFoundDescription: 'Wybierz instruktora z listy, aby poprosić o lekcję.',
     subtitle: 'Certyfikowani przewodnicy i instruktorzy',
     searchPlaceholder: 'Szukaj instruktora, certyfikatu lub miasta',
     sortRating: 'Ocena',
@@ -784,6 +788,8 @@ export const pl: Translations = {
   },
   notFound: {
     title: 'Nie znaleziono strony',
+    contentTitle: 'Nie znaleziono treści',
+    contentDescription: 'Ta treść mogła zostać usunięta lub link jest błędny.',
     description: 'Szukanej trasy nie ma na mapie.',
     goHome: 'Wróć na start',
   },

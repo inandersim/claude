@@ -333,7 +333,7 @@ export default function ClubDetailScreen() {
           <EmptyState
             icon="school"
             title={t('clubs.notFound')}
-            description={t('notFound.description')}
+            description={t('notFound.contentDescription')}
           />
         )}
       </ScrollView>

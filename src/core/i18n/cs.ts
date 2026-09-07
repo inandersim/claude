@@ -150,6 +150,8 @@ export const cs: Translations = {
   },
   zmatch: {
     title: 'ZMatch',
+    requestNotFound: 'Není vybrána osoba',
+    requestNotFoundDescription: 'Vyber dobrodruha v okolí a pošli žádost.',
     subtitle: 'Ověření dobrodruzi ve vašem okolí',
     nearby: 'Poblíž',
     requests: 'Žádosti',
@@ -443,6 +445,8 @@ export const cs: Translations = {
   },
   instructors: {
     title: 'Instruktoři',
+    notFound: 'Není vybrán instruktor',
+    notFoundDescription: 'Vyber instruktora ze seznamu a požádej o lekci.',
     subtitle: 'Certifikovaní průvodci a instruktoři',
     searchPlaceholder: 'Hledat instruktora, certifikaci nebo město',
     sortRating: 'Hodnocení',
@@ -780,6 +784,8 @@ export const cs: Translations = {
   },
   notFound: {
     title: 'Stránka nenalezena',
+    contentTitle: 'Obsah nenalezen',
+    contentDescription: 'Obsah mohl být odstraněn, nebo je odkaz chybný.',
     description: 'Trasa, kterou hledáte, na mapě není.',
     goHome: 'Domů',
   },
