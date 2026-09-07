@@ -15,5 +15,6 @@ olarak işaretlenir ve yeni bir ADR yazılır.
 | [0004](./0004-rota-veri-modeli.md)        | Rota veri modeli ve planlama motoru     | kabul    |
 | [0005](./0005-yapay-zeka-mimarisi.md)     | Yapay zekâ mimarisi ve ağ geçidi        | kabul    |
 | [0006](./0006-otonomi-ve-kapilar.md)      | Geliştirme otonomisi ve onay kapıları   | kabul    |
+| [0007](./0007-kendi-arka-uc-platformumuz.md) | Kendi arka uç platformumuzu yazmıyoruz  | kabul    |
 
 Yeni ADR: numarayı en yüksekten bir fazla al, `architect` ajanına yazdır.
