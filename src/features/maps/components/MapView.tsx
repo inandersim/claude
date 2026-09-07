@@ -1,12 +1,13 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 
 import { Text } from '@/components/ui';
 import { radius, spacing, useTheme } from '@/core/theme';
 
+import { tilesBaseUrl } from '../pack-manager';
 import { useMapEngine } from '../vector/engine';
 import { fallbackReason } from '../vector/fallback';
-import { resolveMapStyle, type MapOverlay } from '../vector/style';
+import { glyphsUrl, resolveMapStyle, type MapOverlay } from '../vector/style';
 import type {
   MapFallbackReason,
   MapStyleSpec,
@@ -55,6 +56,12 @@ export function MapView(props: MapViewProps) {
   } = props;
 
   const { colors, scheme } = useTheme();
+  // Metin katmanları glyph olmadan çizilemez; adres yoksa harita metinsiz kalır
+  // ama çalışır (bkz. `glyphsUrl`).
+  const glyphs = useMemo(
+    () => glyphsUrl({ baseUrl: tilesBaseUrl(), isWeb: Platform.OS === 'web' }),
+    [],
+  );
   const engine = useMapEngine();
   const [failure, setFailure] = useState<MapFallbackReason | null>(null);
 
@@ -93,6 +100,7 @@ export function MapView(props: MapViewProps) {
         hillshade,
         terrain3d,
         terrainExaggeration,
+        glyphs,
       });
     } catch {
       return null;
@@ -108,6 +116,7 @@ export function MapView(props: MapViewProps) {
     hillshade,
     terrain3d,
     terrainExaggeration,
+    glyphs,
   ]);
 
   const onError = useCallback(

@@ -24,11 +24,14 @@ import { fileURLToPath } from 'node:url';
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const TILES_DIR = resolve(ROOT, 'out/tiles');
 const GRAPHS_DIR = resolve(ROOT, 'out/graphs');
+/** SDF glyph paketleri (tools/glyphs/build-glyphs.mjs üretir). */
+const GLYPHS_DIR = resolve(ROOT, 'public/glyphs');
 
 const MIME = {
   '.pmtiles': 'application/octet-stream',
   '.json': 'application/json; charset=utf-8',
   '.geojson': 'application/geo+json; charset=utf-8',
+  '.pbf': 'application/x-protobuf',
 };
 
 /**
@@ -175,6 +178,17 @@ export function createTileServer() {
     }
     if (path === '/health') return json(res, 200, { ok: true, packs: listPacks().length });
     if (path === '/packs') return json(res, 200, listPacks());
+
+    // Glyph yolu iki bölümlüdür (yığın adı boşluk içerebilir), bu yüzden ayrı
+    // desen; yine yalnızca beklenen biçim kabul edilir.
+    const g = /^\/glyphs\/([A-Za-z0-9 _-]+)\/(\d+-\d+\.pbf)$/.exec(path);
+    if (g) {
+      const file = resolve(GLYPHS_DIR, g[1], g[2]);
+      if (!file.startsWith(GLYPHS_DIR) || !existsSync(file)) {
+        return json(res, 404, { error: 'glyph yok' });
+      }
+      return sendFile(req, res, file);
+    }
 
     // Yol geçişi (path traversal) engeli: yalnızca düz dosya adı kabul edilir.
     const m = /^\/(tiles|graphs)\/([A-Za-z0-9_-]+\.(?:pmtiles|json|geojson))$/.exec(path);

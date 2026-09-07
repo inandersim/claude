@@ -16,6 +16,27 @@ import type {
 export const SOURCE_ID = 'zirtan-outdoor';
 /** Yükseklik (DEM) kaynağının adı — kabartma ve 3B arazi bunu kullanır. */
 export const DEM_SOURCE_ID = 'zirtan-dem';
+
+/**
+ * Yazı tipi yığını — `tools/glyphs/build-glyphs.mjs` ile **birebir** aynı ad.
+ * Farklı olursa MapLibre glyph'i bulamaz ve metin hiç çizilmez.
+ */
+export const FONT_STACK = 'Zirtan SemiBold';
+
+/**
+ * SDF glyph paketlerinin adresi.
+ *
+ * `{fontstack}` ve `{range}` MapLibre'nin yer tutucularıdır; olduğu gibi kalır.
+ * Sıra: açık ayar → karo sunucusu → web'de `public/` kökü. Hiçbiri yoksa `null`
+ * döner ve **metin katmanları stile hiç eklenmez** — `glyphs` alanı olmayan bir
+ * stile symbol katmanı koymak MapLibre'de stilin tamamını düşürür.
+ */
+export function glyphsUrl(options: { baseUrl?: string | null; isWeb?: boolean } = {}): string | null {
+  const explicit = process.env.EXPO_PUBLIC_GLYPHS_URL?.trim();
+  if (explicit) return `${explicit.replace(/\/+$/, '')}/{fontstack}/{range}.pbf`;
+  if (options.baseUrl) return `${options.baseUrl.replace(/\/+$/, '')}/glyphs/{fontstack}/{range}.pbf`;
+  return options.isWeb ? '/glyphs/{fontstack}/{range}.pbf' : null;
+}
 /** Karo paketinin taşıdığı katmanlar (tools/tiles/build-tiles.mjs ile aynı). */
 export const PACK_LAYERS = ['trails', 'roads', 'water', 'landuse', 'poi'];
 
@@ -126,6 +147,11 @@ export interface ResolveOptions {
   terrain3d?: boolean;
   /** 3B abartma katsayısı (1 = gerçek ölçek) */
   terrainExaggeration?: number;
+  /**
+   * SDF glyph adresi. Verilmezse metin katmanları atılır — glyph'siz symbol
+   * katmanı MapLibre'de stilin tamamını düşürür.
+   */
+  glyphs?: string | null;
 }
 
 /**
@@ -166,6 +192,7 @@ export function resolveMapStyle(options: ResolveOptions): MapStyleSpec {
     hillshade = true,
     terrain3d = false,
     terrainExaggeration = 1,
+    glyphs = null,
   } = options;
   const base = deepClone(baseStyle as unknown as MapStyleSpec);
   const meta = base.metadata as unknown as StyleMetadata;
@@ -173,7 +200,7 @@ export function resolveMapStyle(options: ResolveOptions): MapStyleSpec {
   if (!palette) throw new Error(`Bilinmeyen stil varyantı: ${variant}`);
   // `@source` gerçek kaynak adıyla katman katman değiştirilir; burada yalnızca
   // yer tutucu olarak çözülür ki gösterge taraması tek geçişte kalsın.
-  const tokens = { ...palette, source: SOURCE_ID, dem: DEM_SOURCE_ID };
+  const tokens = { ...palette, source: SOURCE_ID, dem: DEM_SOURCE_ID, glyphs: glyphs ?? '' };
 
   const { sources, sourceOf } = sourcesFor(source, attribution);
   const layers: Record<string, unknown>[] = [];
@@ -183,6 +210,9 @@ export function resolveMapStyle(options: ResolveOptions): MapStyleSpec {
       layers.push(layer);
       continue;
     }
+    // Metin katmanı glyph olmadan çizilemez; stile eklenirse MapLibre stilin
+    // tamamını reddeder. Sessizce atılır, harita metinsiz ama çalışır kalır.
+    if (layer.type === 'symbol' && !glyphs) continue;
     // Kabartma katmanının `source-layer`ı yoktur; DEM kaynağına bağlıdır.
     if (layer.type === 'hillshade') {
       if (demSource && hillshade) layers.push(layer);
@@ -212,6 +242,7 @@ export function resolveMapStyle(options: ResolveOptions): MapStyleSpec {
     sources,
     layers,
   };
+  if (glyphs) style.glyphs = glyphs;
 
   // 3B arazi yalnızca DEM varken açılabilir; kaynağı olmayan `terrain` bildirimi
   // MapLibre'de stilin tamamını düşürür.

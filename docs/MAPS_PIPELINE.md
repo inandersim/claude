@@ -314,3 +314,78 @@ uygulamanın asıl kullanım senaryosu bu.
 **Bilinen sınır:** 3B arazi yalnızca web motorunda doğrulandı. Yerel (iOS/Android)
 motor stil belirtimindeki `terrain` alanını okur ama geliştirme derlemesi
 gerektirdiği için burada sınanamadı.
+
+## Harita metinleri (SDF glyph)
+
+```bash
+npm run glyphs        # public/glyphs/<yığın>/<aralık>.pbf üretir
+npm run test:glyphs
+```
+
+**Sorun:** MapLibre, stilde `glyphs` tanımlı olmadıkça **hiç metin çizmez**.
+Harita bu yüzden tamamen sessizdi: ne zirve adı, ne sığınak adı, ne eşyükselti
+rakamı. Uzak bir glyph sunucusuna bağlanmak çevrimdışı çalışmayı bozardı.
+
+**Çözüm:** yazı tipi uygulamayla birlikte geliyor. `tools/glyphs/` üç aşamalı,
+bağımlılıksız bir hat:
+
+| Dosya               | İş                                                            |
+| ------------------- | ------------------------------------------------------------- |
+| `lib/ttf.mjs`       | TrueType okuma: `cmap`, `hmtx`, `loca`, `glyf` (bileşik dahil) |
+| `lib/sdf.mjs`       | Anahat → örtü → işaretli mesafe alanı                         |
+| `lib/glyph-pbf.mjs` | MapLibre glyph protobuf kodlama/çözme                          |
+| `build-glyphs.mjs`  | CLI                                                            |
+
+Genel amaçlı bir yazı tipi kütüphanesi eklemek yerine ~500 satır yazıldı: harita
+metni için gereken bu kadar ve depo bağımlılıksız kalıyor.
+
+### Sözleşmeler — biri kayarsa metin sessizce kaybolur
+
+| Sabit          | Değer               | Nerede eşleşmeli                          |
+| -------------- | ------------------- | ----------------------------------------- |
+| Yığın adı      | `Zirtan SemiBold`   | stildeki `text-font` ile birebir           |
+| Em boyu        | 24 piksel           | MapLibre glyph sözleşmesi                  |
+| Çerçeve        | 3 piksel            | protobuf'ta `width` çerçevesiz, bitmap'te dahil |
+| Yarıçap/cutoff | 8 / 0.25 → kenar 192 | MapLibre kenarı 192 alfada arar           |
+| Aralık         | **256'lık bloklar** | MapLibre yalnızca 0-255, 256-511… ister    |
+
+Son satır gerçek bir hataydı: ilk denemede `256-383` üretildi (Latin
+Genişletilmiş-A bloğunun sınırı). Dosya geçerliydi ama MapLibre onu hiç
+istemedi — `ı ğ ş İ Ğ Ş` sessizce çizilmedi. Artık `parseRange` hizalamayı
+zorunlu tutuyor.
+
+### Nasıl sunuluyor
+
+Glyph'ler `public/` altındadır: Expo web derlemesi bu klasörü olduğu gibi
+çıktıya kopyalar. Adres sırası (`glyphsUrl`): açık ayar (`EXPO_PUBLIC_GLYPHS_URL`)
+→ karo sunucusu (`/glyphs/...`) → web'de `/glyphs/...`. Hiçbiri yoksa **metin
+katmanları stile hiç eklenmez**; `glyphs` alanı olmayan bir stile symbol katmanı
+koymak MapLibre'de stilin tamamını düşürür.
+
+### Katmanlar
+
+| Katman            | Ne yazar                       | Zum |
+| ----------------- | ------------------------------ | --- |
+| `contour-label`   | Kalın eşyükseltilerde `1900 m` | 13+ |
+| `poi-peak-label`  | Zirve adı + yükseklik          | 11+ |
+| `poi-label`       | Sığınak, kamp, su, manzara adı | 13+ |
+
+Etiketler en üstte durur; hiçbir dolgu ya da çizgi metnin üstüne binmez.
+Halka (halo) her varyantta zemin rengiyle tanımlı — halosuz metin arka planda
+kaybolur.
+
+### Doğrulama
+
+`npm run test:glyphs` → 21 test: Türkçe karakterlerin cmap'te bulunması,
+bileşik glyph çözümü (`ğ` = `g` + breve), örtük eğri-üstü nokta kuralı,
+nonzero sarımın delik açması, SDF kenarının 192'yi kuşatması, protobuf gidiş
+dönüşü (bitmap baytı baytına), aralık hizalaması.
+
+Tarayıcıda uçtan uca sürüldü: sentetik Likya paketiyle harita açıldı,
+`0-255.pbf` ve `256-511.pbf` 200 döndü, ekranda **"Babadağ / 1969 m"** ve
+**"Kıdrak Tepesi / 1180 m"** okundu — `ğ` ve noktasız `ı` dahil.
+
+**Bilinen sınır:** yerel (iOS/Android) derlemede glyph'ler henüz cihaza
+kopyalanmıyor; native tarafta metin, karo sunucusu ya da CDN erişilebilirse
+çalışır. Çevrimdışı native metin için glyph'lerin de paketle birlikte inmesi
+gerekiyor — DEM için yapılanın aynısı.

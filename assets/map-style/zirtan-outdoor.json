@@ -48,7 +48,11 @@
         "slope45": "rgba(120, 40, 120, 0.55)",
         "hillshadeShadow": "rgba(60, 72, 60, 0.30)",
         "hillshadeHighlight": "rgba(255, 255, 245, 0.22)",
-        "hillshadeAccent": "rgba(70, 90, 70, 0.10)"
+        "hillshadeAccent": "rgba(70, 90, 70, 0.10)",
+        "labelText": "#2A3A30",
+        "labelHalo": "rgba(255, 255, 250, 0.9)",
+        "contourLabel": "#7A6A50",
+        "contourLabelHalo": "rgba(255, 253, 245, 0.85)"
       },
       "dark": {
         "land": "#101B17",
@@ -84,7 +88,11 @@
         "slope45": "rgba(160, 66, 160, 0.50)",
         "hillshadeShadow": "rgba(0, 0, 0, 0.45)",
         "hillshadeHighlight": "rgba(180, 210, 190, 0.12)",
-        "hillshadeAccent": "rgba(0, 0, 0, 0.15)"
+        "hillshadeAccent": "rgba(0, 0, 0, 0.15)",
+        "labelText": "#E7EFE6",
+        "labelHalo": "rgba(11, 18, 16, 0.9)",
+        "contourLabel": "#9BB5A4",
+        "contourLabelHalo": "rgba(11, 18, 16, 0.85)"
       },
       "sun": {
         "land": "#FFFFFF",
@@ -120,7 +128,11 @@
         "slope45": "rgba(105, 20, 105, 0.70)",
         "hillshadeShadow": "rgba(40, 35, 25, 0.40)",
         "hillshadeHighlight": "rgba(255, 250, 230, 0.30)",
-        "hillshadeAccent": "rgba(60, 50, 30, 0.14)"
+        "hillshadeAccent": "rgba(60, 50, 30, 0.14)",
+        "labelText": "#1B1206",
+        "labelHalo": "rgba(255, 252, 240, 0.95)",
+        "contourLabel": "#4A3A20",
+        "contourLabelHalo": "rgba(255, 250, 235, 0.9)"
       }
     }
   },
@@ -959,6 +971,165 @@
         "circle-stroke-color": "@poiStroke",
         "circle-stroke-width": 1.5
       }
+    },
+    {
+      "id": "contour-label",
+      "type": "symbol",
+      "source": "@source",
+      "source-layer": "contours",
+      "minzoom": 13,
+      "filter": [
+        "==",
+        [
+          "get",
+          "index"
+        ],
+        1
+      ],
+      "layout": {
+        "symbol-placement": "line",
+        "text-field": [
+          "concat",
+          [
+            "to-string",
+            [
+              "get",
+              "ele"
+            ]
+          ],
+          " m"
+        ],
+        "text-font": [
+          "Zirtan SemiBold"
+        ],
+        "text-size": 10,
+        "symbol-spacing": 320,
+        "text-max-angle": 25,
+        "text-padding": 4,
+        "text-rotation-alignment": "map"
+      },
+      "paint": {
+        "text-color": "@contourLabel",
+        "text-halo-color": "@contourLabelHalo",
+        "text-halo-width": 1.2
+      }
+    },
+    {
+      "id": "poi-peak-label",
+      "type": "symbol",
+      "source": "@source",
+      "source-layer": "poi",
+      "minzoom": 11,
+      "filter": [
+        "==",
+        [
+          "get",
+          "natural"
+        ],
+        "peak"
+      ],
+      "layout": {
+        "text-field": [
+          "case",
+          [
+            "has",
+            "ele"
+          ],
+          [
+            "concat",
+            [
+              "get",
+              "name"
+            ],
+            "\n",
+            [
+              "to-string",
+              [
+                "get",
+                "ele"
+              ]
+            ],
+            " m"
+          ],
+          [
+            "get",
+            "name"
+          ]
+        ],
+        "text-font": [
+          "Zirtan SemiBold"
+        ],
+        "text-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          11,
+          10,
+          15,
+          13
+        ],
+        "text-anchor": "top",
+        "text-offset": [
+          0,
+          0.7
+        ],
+        "text-max-width": 8,
+        "text-optional": true
+      },
+      "paint": {
+        "text-color": "@labelText",
+        "text-halo-color": "@labelHalo",
+        "text-halo-width": 1.4
+      }
+    },
+    {
+      "id": "poi-label",
+      "type": "symbol",
+      "source": "@source",
+      "source-layer": "poi",
+      "minzoom": 13,
+      "filter": [
+        "all",
+        [
+          "!=",
+          [
+            "get",
+            "natural"
+          ],
+          "peak"
+        ],
+        [
+          "has",
+          "name"
+        ]
+      ],
+      "layout": {
+        "text-field": [
+          "get",
+          "name"
+        ],
+        "text-font": [
+          "Zirtan SemiBold"
+        ],
+        "text-size": 11,
+        "text-anchor": "top",
+        "text-offset": [
+          0,
+          0.6
+        ],
+        "text-max-width": 9,
+        "text-optional": true
+      },
+      "paint": {
+        "text-color": "@labelText",
+        "text-halo-color": "@labelHalo",
+        "text-halo-width": 1.2
+      }
     }
-  ]
+  ],
+  "glyphs": "@glyphs"
 }
