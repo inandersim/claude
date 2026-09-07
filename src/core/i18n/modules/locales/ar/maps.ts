@@ -85,6 +85,16 @@ export const maps_ar: MapsI18nShape = {
   edges: '{{count}} وصلة',
   legend: 'مفتاح الخريطة',
   technicalEdge: 'مقطع تقني',
+  slope: {
+    toggle: 'زاوية الميل',
+    band: {
+      moderate: '27–30°',
+      considerable: '30–35°',
+      high: '35–40°',
+      very_high: '40–45°',
+      extreme: '45°+',
+    },
+  },
   route: 'المسار',
   openPlanner: 'فتح المخطّط',
   mapOf: 'خريطة دروب {{name}}',

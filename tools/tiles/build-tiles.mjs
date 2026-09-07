@@ -6,8 +6,10 @@
  *   node tools/tiles/build-tiles.mjs --region likya --check    # yalnızca araç kontrolü
  *   node tools/tiles/build-tiles.mjs --input dump.json --region uludag   # ağsız, yerel döküm
  *   node tools/tiles/build-tiles.mjs --region likya --js-tiler           # dış araçsız PMTiles
+ *   node tools/tiles/build-tiles.mjs --region uludag --terrain           # + eşyükselti ve eğim
  *
  * Hat:
+ *   0. (--terrain) DEM ızgarası → eşyükselti eğrileri + eğim açısı sınıfları → GeoJSON
  *   1. Overpass'tan bölge verisi (yollar, su, arazi, zirveler, barınaklar) → GeoJSON
  *   2. tippecanoe → MBTiles (çok zumlu vektör karolar)
  *   3. pmtiles convert → tek dosya PMTiles (HTTP range ile parça parça okunur)
@@ -23,7 +25,10 @@ import { fileURLToPath } from 'node:url';
 
 import { fetchWithRetry } from '../data-pipeline/lib/http.js';
 import { REGIONS } from './build-graph.mjs';
+import { contourGeoJson } from './lib/contour.mjs';
+import { buildDem, demStats } from './lib/dem.mjs';
 import { buildTiles, packPmtiles } from './lib/pmtiles-writer.mjs';
+import { slopeGeoJson, slopeStats } from './lib/slope.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 
@@ -214,8 +219,64 @@ export function boundsOf(elements) {
   return [minLon, minLat, maxLon, maxLat];
 }
 
+/**
+ * Arazi katmanları OpenStreetMap'ten gelmez; DEM'den hesaplanır (`--terrain`).
+ * `minzoom` değerleri veri yoğunluğuna göre seçildi: eşyükselti eğrileri z11'in
+ * altında okunamaz hâle gelir, eğim bantları z10'un altında anlamsız bir renk
+ * yığınına döner.
+ */
+export const TERRAIN_LAYERS = {
+  contours: { minzoom: 11 },
+  slope: { minzoom: 10 },
+};
+
+/**
+ * DEM'den eşyükselti ve eğim katmanlarını üretir.
+ * Ağ hatası ya da eksik veri hattın tamamını düşürmemeli: arazi katmanları
+ * isteğe bağlıdır, karo paketi onlarsız da geçerlidir.
+ */
+async function buildTerrain(bbox, { region, geoDir, demStep, contourInterval }) {
+  const cacheDir = resolve(ROOT, 'out/dem');
+  console.log(`→ ${region}: DEM ızgarası (adım ${demStep} m)…`);
+  const dem = await buildDem(bbox, {
+    stepM: demStep,
+    cacheDir,
+    onProgress: (done, total) => {
+      if (done % 5000 === 0 || done === total) console.log(`  yükseklik ${done}/${total}`);
+    },
+  });
+  const stats = demStats(dem);
+  console.log(
+    `  ${stats.cols}×${stats.rows} hücre · ${stats.minElevationM}–${stats.maxElevationM} m` +
+      `${dem.cached ? ' (önbellekten)' : ''}`,
+  );
+
+  const out = {};
+
+  const contours = contourGeoJson(dem, { interval: contourInterval });
+  writeFileSync(resolve(geoDir, 'contours.geojson'), JSON.stringify(contours));
+  console.log(`  eşyükselti: ${contours.features.length} eğri (${contourInterval} m aralık)`);
+  if (contours.features.length) out.contours = contours;
+
+  const slope = slopeGeoJson(dem);
+  writeFileSync(resolve(geoDir, 'slope.geojson'), JSON.stringify(slope));
+  const sStats = slopeStats(dem);
+  console.log(
+    `  eğim: ${slope.features.length} alan · en dik ${sStats.maxAngle}° · ` +
+      Object.entries(sStats.counts)
+        .filter(([, n]) => n > 0)
+        .map(([id, n]) => `${id}=${n}`)
+        .join(' '),
+  );
+  if (slope.features.length) out.slope = slope;
+
+  return out;
+}
+
 function parseArgs(argv) {
-  const args = { minzoom: 6, maxzoom: 14 };
+  // DEM adımı 90 m: kaynak Copernicus GLO-90'ın kendi çözünürlüğü; daha sık
+  // örneklemek yeni bilgi getirmez, yalnızca istek sayısını artırır.
+  const args = { minzoom: 6, maxzoom: 14, demStep: 90, contourInterval: 20 };
   for (let i = 0; i < argv.length; i += 1) {
     const a = argv[i];
     if (a === '--region') args.region = argv[++i];
@@ -226,6 +287,9 @@ function parseArgs(argv) {
     else if (a === '--js-tiler') args.jsTiler = true;
     else if (a === '--maxzoom') args.maxzoom = Number(argv[++i]);
     else if (a === '--minzoom') args.minzoom = Number(argv[++i]);
+    else if (a === '--terrain') args.terrain = true;
+    else if (a === '--dem-step') args.demStep = Number(argv[++i]);
+    else if (a === '--contour-interval') args.contourInterval = Number(argv[++i]);
   }
   return args;
 }
@@ -288,6 +352,26 @@ async function main() {
     bbox = lonLatBbox(bbox);
   }
 
+  if (args.terrain) {
+    try {
+      const terrain = await buildTerrain(bbox, {
+        region,
+        geoDir,
+        demStep: args.demStep,
+        contourInterval: args.contourInterval,
+      });
+      for (const [layer, geojson] of Object.entries(terrain)) {
+        layerFiles.push({ layer, file: resolve(geoDir, `${layer}.geojson`) });
+        layerData[layer] = geojson;
+      }
+    } catch (err) {
+      // Arazi isteğe bağlıdır: yükseklik servisi ulaşılamazsa paket yine üretilir,
+      // ama bu sessizce geçiştirilmez — eksik katman açıkça söylenir.
+      console.warn(`⚠ Arazi katmanları üretilemedi: ${err.message}`);
+      console.warn('  Karo paketi eşyükselti ve eğim olmadan üretilecek.');
+    }
+  }
+
   if (args.geojsonOnly) return;
 
   const tilesDir = resolve(ROOT, 'out/tiles');
@@ -316,10 +400,11 @@ async function main() {
         type: 'baselayer',
         // Şema, veri boş olsa da tam listelenir: istemci stilinde her katman
         // tanımlıdır, aksi hâlde MapLibre "source-layer yok" uyarısı basar.
-        vector_layers: Object.keys(LAYERS).map((id) => ({
+        vector_layers: Object.keys(layerData).map((id) => ({
           id,
           description: id,
-          minzoom: Math.max(args.minzoom, LAYERS[id].minzoom),
+          // Arazi katmanları LAYERS içinde değil; ikisinden hangisi tanımlıysa o.
+          minzoom: Math.max(args.minzoom, (LAYERS[id] ?? TERRAIN_LAYERS[id]).minzoom),
           maxzoom: args.maxzoom,
           fields: {},
         })),

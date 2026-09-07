@@ -85,6 +85,16 @@ export const maps_ko: MapsI18nShape = {
   edges: '연결 {{count}}개',
   legend: '범례',
   technicalEdge: '기술 구간',
+  slope: {
+    toggle: '경사각',
+    band: {
+      moderate: '27–30°',
+      considerable: '30–35°',
+      high: '35–40°',
+      very_high: '40–45°',
+      extreme: '45°+',
+    },
+  },
   route: '경로',
   openPlanner: '플래너 열기',
   mapOf: '{{name}} 트레일 지도',

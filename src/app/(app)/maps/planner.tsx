@@ -30,7 +30,13 @@ import {
 import { ElevationProfile } from '@/features/maps/components/ElevationProfile';
 import { TrailMapView } from '@/features/maps/components/TrailMapView';
 import { RouteStats } from '@/features/maps/components/RouteStats';
-import { DIFFICULTY_COLOR, PROFILE_ICON, SURFACE_COLOR } from '@/features/maps/components/meta';
+import {
+  DIFFICULTY_COLOR,
+  PROFILE_ICON,
+  SLOPE_BAND_COLOR,
+  SLOPE_BAND_IDS,
+  SURFACE_COLOR,
+} from '@/features/maps/components/meta';
 import { shareGpx } from '@/features/maps/gpx';
 import {
   useMapPacks,
@@ -54,6 +60,9 @@ export default function RoutePlannerScreen() {
   const [endId, setEndId] = useState<ID | null>(null);
   const [name, setName] = useState('');
   const [sharing, setSharing] = useState(false);
+  // Eğim gölgelendirmesi varsayılan kapalı: kışın hayat kurtarır, yazın haritayı
+  // okunmaz hâle getirir. Kullanıcı açıkça açar.
+  const [slopeShading, setSlopeShading] = useState(false);
 
   const activeRegionId = regionId ?? regions.data?.[0]?.id ?? null;
   const activeRegion = regions.data?.find((r) => r.id === activeRegionId) ?? null;
@@ -180,7 +189,28 @@ export default function RoutePlannerScreen() {
               startId={startId}
               endId={endId}
               onNodePress={onNodePress}
+              slopeShading={slopeShading}
             />
+            <View style={styles.legend}>
+              <Chip
+                label={t('maps.slope.toggle')}
+                icon="triangle-alert"
+                selected={slopeShading}
+                onPress={() => setSlopeShading((v) => !v)}
+              />
+            </View>
+            {slopeShading ? (
+              <View style={styles.legend}>
+                {SLOPE_BAND_IDS.map((band) => (
+                  <View key={band} style={styles.legendItem}>
+                    <View style={[styles.legendSwatch, { backgroundColor: SLOPE_BAND_COLOR[band] }]} />
+                    <Text variant="caption" color="textSubtle">
+                      {t(`maps.slope.band.${band}`)}
+                    </Text>
+                  </View>
+                ))}
+              </View>
+            ) : null}
             <View style={styles.legend}>
               {(Object.keys(SURFACE_COLOR) as (keyof typeof SURFACE_COLOR)[]).map((s) => (
                 <View key={s} style={styles.legendItem}>
@@ -315,6 +345,7 @@ const styles = StyleSheet.create({
   chipRow: { paddingHorizontal: spacing.lg, gap: spacing.sm, paddingVertical: 2 },
   legend: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm, marginTop: -spacing.xs },
   legendItem: { flexDirection: 'row', alignItems: 'center', gap: spacing.xs },
+  legendSwatch: { width: 14, height: 14, borderRadius: 3 },
   legendLine: { width: 14, height: 3, borderRadius: radius.full },
   dashed: { backgroundColor: 'transparent', borderWidth: 1, borderStyle: 'dashed', height: 0 },
   selection: {

@@ -85,6 +85,16 @@ export const maps_th: MapsI18nShape = {
   edges: '{{count}} เส้นเชื่อม',
   legend: 'คำอธิบายสัญลักษณ์',
   technicalEdge: 'ช่วงเทคนิค',
+  slope: {
+    toggle: 'มุมความชัน',
+    band: {
+      moderate: '27–30°',
+      considerable: '30–35°',
+      high: '35–40°',
+      very_high: '40–45°',
+      extreme: '45°+',
+    },
+  },
   route: 'เส้นทาง',
   openPlanner: 'เปิดตัววางแผน',
   mapOf: 'แผนที่เส้นทาง {{name}}',

@@ -3,7 +3,9 @@ import type { Surface, TrailGraph } from '@/domain';
 import { graphToGeoJson, nearestNode, sacScaleFor } from '@/features/maps/vector/graph-source';
 import {
   PACK_LAYERS,
+  SLOPE_LAYER_IDS,
   SOURCE_ID,
+  TERRAIN_LAYERS,
   resolveMapStyle,
   styleVariants,
 } from '@/features/maps/vector/style';
@@ -61,11 +63,71 @@ describe('zirtan-outdoor stili', () => {
   });
 
   it('arka plan dışındaki her katman bilinen bir karo katmanına bağlanır', () => {
-    const known = new Set([...PACK_LAYERS, 'contours']);
+    // Bilinen katman listesi stil belgesinin kendi sözleşmesinden gelir; elle
+    // sayılmaz, yoksa yeni bir katman eklendiğinde test sessizce eskir.
+    const declared = (style.metadata as unknown as { 'zirtan:sourceLayers': string[] })[
+      'zirtan:sourceLayers'
+    ];
+    expect(new Set(declared)).toEqual(new Set([...PACK_LAYERS, ...TERRAIN_LAYERS]));
+    const known = new Set(declared);
     for (const layer of style.layers) {
       if (layer.type === 'background') continue;
       expect(layer.source).toBe('@source');
       expect(known.has(layer['source-layer'] as string)).toBe(true);
+    }
+  });
+
+  it('eğim bantları çığ eşiklerini eksiksiz ve tek sefer kapsar', () => {
+    const slopeLayers = style.layers.filter((l) => l['source-layer'] === 'slope');
+    expect(slopeLayers.map((l) => l.id)).toEqual([...SLOPE_LAYER_IDS]);
+    // Her katman tek bir banda bakmalı; iki katman aynı bandı boyarsa renk
+    // üst üste biner ve eşik okunamaz hâle gelir.
+    const bands = slopeLayers.map((l) => (l.filter as unknown[])[2]);
+    expect(new Set(bands).size).toBe(bands.length);
+    expect(bands).toEqual(['moderate', 'considerable', 'high', 'very_high', 'extreme']);
+  });
+
+  it('eğim gölgelendirmesi varsayılan kapalı, istenince açılır', () => {
+    const kapali = resolveMapStyle({
+      variant: 'light',
+      source: { kind: 'pmtiles', url: 'file:///x.pmtiles' },
+      availableLayers: [...PACK_LAYERS, ...TERRAIN_LAYERS],
+    });
+    const kapaliSlope = kapali.layers.filter((l) => SLOPE_LAYER_IDS.includes(l.id as never));
+    expect(kapaliSlope.length).toBe(SLOPE_LAYER_IDS.length);
+    for (const l of kapaliSlope) {
+      expect((l.layout as { visibility?: string })?.visibility).toBe('none');
+    }
+
+    const acik = resolveMapStyle({
+      variant: 'light',
+      source: { kind: 'pmtiles', url: 'file:///x.pmtiles' },
+      availableLayers: [...PACK_LAYERS, ...TERRAIN_LAYERS],
+      slopeShading: true,
+    });
+    for (const l of acik.layers.filter((x) => SLOPE_LAYER_IDS.includes(x.id as never))) {
+      expect((l.layout as { visibility?: string })?.visibility).toBe('visible');
+    }
+  });
+
+  it('eğim ve eşyükselti katmanı olmayan eski paketlerde stil yine çözülür', () => {
+    const eski = resolveMapStyle({
+      variant: 'dark',
+      source: { kind: 'pmtiles', url: 'file:///eski.pmtiles' },
+      availableLayers: PACK_LAYERS,
+      slopeShading: true,
+    });
+    expect(eski.layers.some((l) => SLOPE_LAYER_IDS.includes(l.id as never))).toBe(false);
+    expect(eski.layers.some((l) => l.id === 'contour-line')).toBe(false);
+    expect(eski.layers.length).toBeGreaterThan(5);
+  });
+
+  it('eğim katmanları patika ve yolların altında kalır', () => {
+    // Eğim dolgusu patikanın üstüne binerse rota okunamaz hâle gelir.
+    const ids = style.layers.map((l) => l.id);
+    const enUstEgim = Math.max(...SLOPE_LAYER_IDS.map((id) => ids.indexOf(id)));
+    for (const trail of ['trail-track', 'trail-path', 'road-fill']) {
+      expect(ids.indexOf(trail)).toBeGreaterThan(enUstEgim);
     }
   });
 

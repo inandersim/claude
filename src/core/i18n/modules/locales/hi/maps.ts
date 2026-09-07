@@ -86,6 +86,16 @@ export const maps_hi: MapsI18nShape = {
   edges: '{{count}} कनेक्शन',
   legend: 'संकेत',
   technicalEdge: 'तकनीकी खंड',
+  slope: {
+    toggle: 'ढलान कोण',
+    band: {
+      moderate: '27–30°',
+      considerable: '30–35°',
+      high: '35–40°',
+      very_high: '40–45°',
+      extreme: '45°+',
+    },
+  },
   route: 'मार्ग',
   openPlanner: 'योजनाकार खोलें',
   mapOf: '{{name}} पगडंडी मानचित्र',

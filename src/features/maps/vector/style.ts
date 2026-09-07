@@ -16,6 +16,22 @@ export const SOURCE_ID = 'zirtan-outdoor';
 /** Karo paketinin taşıdığı katmanlar (tools/tiles/build-tiles.mjs ile aynı). */
 export const PACK_LAYERS = ['trails', 'roads', 'water', 'landuse', 'poi'];
 
+/**
+ * Arazi katmanları: OpenStreetMap'ten değil, DEM'den hesaplanır
+ * (`tools/tiles/build-tiles.mjs --terrain`). Eski paketlerde bulunmayabilir;
+ * stil çözümleyici bulunmayan katmanı zaten atar.
+ */
+export const TERRAIN_LAYERS = ['contours', 'slope'] as const;
+
+/** Eğim gölgelendirmesinin stildeki katman kimlikleri (çığ bantları). */
+export const SLOPE_LAYER_IDS = [
+  'slope-moderate',
+  'slope-considerable',
+  'slope-high',
+  'slope-very_high',
+  'slope-extreme',
+] as const;
+
 const OVERLAY_PREFIX = 'zirtan-ov';
 
 interface StyleMetadata {
@@ -92,6 +108,13 @@ export interface ResolveOptions {
   availableLayers?: string[];
   attribution?: string;
   overlay?: MapOverlay;
+  /**
+   * Eğim açısı gölgelendirmesi (çığ bantları) açık mı?
+   *
+   * Varsayılan **kapalı**: 30–45° bantları kışın hayat kurtarır ama yazın
+   * haritayı okunmaz hâle getirir. Kullanıcı açıkça açar.
+   */
+  slopeShading?: boolean;
 }
 
 /**
@@ -106,6 +129,7 @@ export function resolveMapStyle(options: ResolveOptions): MapStyleSpec {
     availableLayers = PACK_LAYERS,
     attribution = '© OpenStreetMap katkıcıları',
     overlay,
+    slopeShading = false,
   } = options;
   const base = deepClone(baseStyle as unknown as MapStyleSpec);
   const meta = base.metadata as unknown as StyleMetadata;
@@ -129,6 +153,10 @@ export function resolveMapStyle(options: ResolveOptions): MapStyleSpec {
     if (!mapped) continue;
     layer.source = mapped;
     if (source.kind === 'geojson') delete layer['source-layer'];
+    // Eğim bantları stilde kapalı tanımlıdır; açılmasını kullanıcı ister.
+    if (sourceLayer === 'slope') {
+      layer.layout = { ...(layer.layout as object), visibility: slopeShading ? 'visible' : 'none' };
+    }
     layers.push(layer);
   }
 

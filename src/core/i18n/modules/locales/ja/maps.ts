@@ -85,6 +85,16 @@ export const maps_ja: MapsI18nShape = {
   edges: '{{count}} 区間',
   legend: '凡例',
   technicalEdge: 'テクニカル区間',
+  slope: {
+    toggle: '斜度',
+    band: {
+      moderate: '27–30°',
+      considerable: '30–35°',
+      high: '35–40°',
+      very_high: '40–45°',
+      extreme: '45°+',
+    },
+  },
   route: 'ルート',
   openPlanner: 'プランナーを開く',
   mapOf: '{{name}} のトレイル地図',

@@ -106,6 +106,18 @@ const tr = {
   edges: '{{count}} bağlantı',
   legend: 'Gösterim',
   technicalEdge: 'Teknik bölüm',
+  slope: {
+    toggle: 'Eğim açısı',
+    // Çığların büyük çoğunluğu 30-45 derece yamaçlarda tetiklenir; bantlar
+    // EAWS/SLF ölçütleriyle aynı sınırlarda.
+    band: {
+      moderate: '27–30°',
+      considerable: '30–35°',
+      high: '35–40°',
+      very_high: '40–45°',
+      extreme: '45°+',
+    },
+  },
   route: 'Rota',
   openPlanner: 'Planlayıcıyı aç',
   mapOf: '{{name}} patika haritası',
@@ -212,6 +224,16 @@ const en: MapsI18nShape = {
   edges: '{{count}} links',
   legend: 'Legend',
   technicalEdge: 'Technical section',
+  slope: {
+    toggle: 'Slope angle',
+    band: {
+      moderate: '27–30°',
+      considerable: '30–35°',
+      high: '35–40°',
+      very_high: '40–45°',
+      extreme: '45°+',
+    },
+  },
   route: 'Route',
   openPlanner: 'Open planner',
   mapOf: '{{name}} trail map',

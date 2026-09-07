@@ -86,6 +86,16 @@ export const maps_ne: MapsI18nShape = {
   edges: '{{count}} जडान',
   legend: 'सङ्केत',
   technicalEdge: 'प्राविधिक खण्ड',
+  slope: {
+    toggle: 'भिरालो कोण',
+    band: {
+      moderate: '27–30°',
+      considerable: '30–35°',
+      high: '35–40°',
+      very_high: '40–45°',
+      extreme: '45°+',
+    },
+  },
   route: 'रुट',
   openPlanner: 'योजनाकार खोल्नुहोस्',
   mapOf: '{{name}} गोरेटो नक्सा',

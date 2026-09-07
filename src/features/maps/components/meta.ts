@@ -38,3 +38,28 @@ export function formatMb(sizeMb: number, locale = 'tr'): string {
   if (sizeMb > 0 && sizeMb < 1) return '< 1 MB';
   return `${Math.round(sizeMb)} MB`;
 }
+
+/**
+ * Eğim açısı bantları — çığ değerlendirmesinin standart sınırları
+ * (EAWS / İsviçre SLF). Harita stilindeki `slope-*` katmanlarıyla **aynı**
+ * sınıflar; renkler efsanede saydamsız gösterilir ki bant ayrımı okunsun.
+ *
+ * Kaynak sınıflandırma: `tools/tiles/lib/slope.mjs` → `SLOPE_BANDS`.
+ */
+export const SLOPE_BAND_IDS = [
+  'moderate',
+  'considerable',
+  'high',
+  'very_high',
+  'extreme',
+] as const;
+
+export type SlopeBandId = (typeof SLOPE_BAND_IDS)[number];
+
+export const SLOPE_BAND_COLOR: Record<SlopeBandId, string> = {
+  moderate: '#FFD666',
+  considerable: '#F7A33D',
+  high: '#E85D3C',
+  very_high: '#C6376C',
+  extreme: '#782878',
+};

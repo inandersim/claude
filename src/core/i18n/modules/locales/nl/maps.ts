@@ -85,6 +85,16 @@ export const maps_nl: MapsI18nShape = {
   edges: '{{count}} verbindingen',
   legend: 'Legenda',
   technicalEdge: 'Technisch stuk',
+  slope: {
+    toggle: 'Hellingshoek',
+    band: {
+      moderate: '27–30°',
+      considerable: '30–35°',
+      high: '35–40°',
+      very_high: '40–45°',
+      extreme: '45°+',
+    },
+  },
   route: 'Route',
   openPlanner: 'Planner openen',
   mapOf: 'Padenkaart {{name}}',

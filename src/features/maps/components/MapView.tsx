@@ -34,6 +34,7 @@ export function MapView(props: MapViewProps) {
     source = null,
     variant,
     availableLayers,
+    slopeShading = false,
     route,
     routeDone,
     track,
@@ -83,11 +84,12 @@ export function MapView(props: MapViewProps) {
         availableLayers,
         attribution,
         overlay,
+        slopeShading,
       });
     } catch {
       return null;
     }
-  }, [source, activeVariant, availableLayers, attribution, overlay]);
+  }, [source, activeVariant, availableLayers, attribution, overlay, slopeShading]);
 
   const onError = useCallback(
     (reason: MapFallbackReason) => {

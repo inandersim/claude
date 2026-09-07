@@ -160,3 +160,65 @@ dağıtırsan aynı lisansla dağıtman gerekir.
 - Ülke ölçeğinde (yüz binlerce düğüm) hiyerarşik yönlendirmeye (contraction hierarchies)
   geçmek gerekir; bölge bazlı paketler bu ihtiyacı bugünlük ortadan kaldırır.
 - Karo paketleri bölge başına 20–200 MB. Kullanıcı yalnızca gideceği bölgeyi indirir.
+
+## Arazi katmanları — eşyükselti ve eğim
+
+```bash
+node tools/tiles/build-tiles.mjs --region uludag --terrain
+node tools/tiles/build-tiles.mjs --region uludag --terrain --dem-step 60 --contour-interval 10
+```
+
+`--terrain` verildiğinde hat, OpenStreetMap katmanlarının yanına **DEM'den
+hesaplanan** iki katman daha üretir:
+
+| Katman     | Nasıl üretilir                                          | minzoom |
+| ---------- | ------------------------------------------------------- | ------- |
+| `contours` | Marching squares, varsayılan 20 m aralık                | 11      |
+| `slope`    | Horn (1981) 3×3 eğim, çığ bantlarına sınıflandırma      | 10      |
+
+**Kaynak.** DEM, `elevation.mjs` üzerinden Open-Meteo (Copernicus DEM GLO-90) —
+yani uygulamadaki rota profiliyle **aynı** yükseklik kaynağı. İki ayrı DEM
+kullanmak, profildeki tırmanış ile haritadaki eşyükseltilerin çelişmesi demekti.
+
+**Önbellek.** Izgara `out/dem/` altına yazılır; aynı bölge yeniden derlendiğinde
+binlerce API çağrısı tekrarlanmaz. Adım açıklığı değişirse yeni önbellek üretilir.
+
+**Kaza freni.** Yanlış bir sınır kutusu yüz binlerce istek üretebilir; ızgara
+250.000 noktayı aşarsa betik çalışmadan durur ve daha büyük `--dem-step` önerir.
+
+### Eşyükselti eğrileri
+
+Marching squares, hücre köşelerinin eşiğin altında/üstünde olmasına göre 16
+durumu ayırır; kenar geçişleri doğrusal interpolasyonla bulunur ve parçalar uç
+uca eklenir. Köşegen belirsizlik (5 ve 10 numaralı durumlar) hücre ortalamasına
+göre çözülür — aksi hâlde sırtlar ve vadiler yanlış bağlanır, eğriler kesişir.
+
+Her 5. eğri (`index: 1`) kalın çizilir. **Bilinen sınır:** stil dosyasında yazı
+tipi (`glyphs`) tanımlı olmadığı için eşyükselti **etiketleri** (yükseklik
+sayıları) henüz çizilmiyor; çevrimdışı çalışması gerektiğinden uzak bir glyph
+sunucusu eklenmedi.
+
+### Eğim açısı bantları
+
+Çığların ezici çoğunluğu **30–45°** yamaçlarda tetiklenir. Bantlar EAWS ve
+İsviçre SLF ölçütleriyle aynı: 27–30 · 30–35 · 35–40 · 40–45 · 45+.
+
+Çıktı hücre başına poligon değildir: aynı sınıftaki komşu hücreler önce satır
+içinde, sonra satırlar arasında dikdörtgenlere birleştirilir. Testte 10×10'luk
+tek sınıf alan **100 poligon yerine 1** üretiyor; karo boyutu ve çizim başarımı
+arasındaki fark budur.
+
+Uygulamada katman **varsayılan kapalıdır** (`slopeShading`): kışın hayat
+kurtarır, yazın haritayı okunmaz hâle getirir. Rota planlayıcıda "Eğim açısı"
+düğmesiyle açılır ve bant efsanesi görünür.
+
+### Doğrulama
+
+```bash
+node --test tools/tiles/test/terrain.test.mjs
+```
+
+22 test; yöntem **bilinen geometriler**: 1000 m'de 1000 m yükselen düzlemin eğimi
+45° çıkmalı, doğu-batı yönünde yükselen yamaçta eşyükseltiler kuzey-güney
+doğrultusunda düz olmalı, tepe çevresinde kapalı halka oluşmalı, birleştirme
+hiçbir hücreyi atlamamalı ve iki kez saymamalı.

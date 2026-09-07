@@ -86,6 +86,16 @@ export const maps_es: MapsI18nShape = {
   edges: '{{count}} enlaces',
   legend: 'Leyenda',
   technicalEdge: 'Tramo técnico',
+  slope: {
+    toggle: 'Ángulo de pendiente',
+    band: {
+      moderate: '27–30°',
+      considerable: '30–35°',
+      high: '35–40°',
+      very_high: '40–45°',
+      extreme: '45°+',
+    },
+  },
   route: 'Ruta',
   openPlanner: 'Abrir planificador',
   mapOf: 'Mapa de senderos de {{name}}',

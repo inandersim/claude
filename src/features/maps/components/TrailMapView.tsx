@@ -28,6 +28,8 @@ interface Props {
   onNodePress?: (node: TrailNode) => void;
   height?: number;
   showLabels?: boolean;
+  /** Eğim açısı gölgelendirmesi (çığ bantları); paket taşımıyorsa yok sayılır */
+  slopeShading?: boolean;
 }
 
 
@@ -53,6 +55,7 @@ export function TrailMapView({
   onNodePress,
   height = 320,
   showLabels = true,
+  slopeShading = false,
 }: Props) {
   const { colors } = useTheme();
   const { t } = useT();
@@ -127,6 +130,7 @@ export function TrailMapView({
       height={height}
       source={resolved.source}
       availableLayers={resolved.availableLayers}
+      slopeShading={slopeShading}
       center={graphCenter}
       zoom={12}
       bounds={bounds}

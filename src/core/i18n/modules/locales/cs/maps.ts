@@ -85,6 +85,16 @@ export const maps_cs: MapsI18nShape = {
   edges: '{{count}} spojení',
   legend: 'Legenda',
   technicalEdge: 'Technický úsek',
+  slope: {
+    toggle: 'Sklon svahu',
+    band: {
+      moderate: '27–30°',
+      considerable: '30–35°',
+      high: '35–40°',
+      very_high: '40–45°',
+      extreme: '45°+',
+    },
+  },
   route: 'Trasa',
   openPlanner: 'Otevřít plánovač',
   mapOf: 'Mapa stezek {{name}}',

@@ -86,6 +86,16 @@ export const maps_sv: MapsI18nShape = {
   edges: '{{count}} länkar',
   legend: 'Teckenförklaring',
   technicalEdge: 'Tekniskt avsnitt',
+  slope: {
+    toggle: 'Lutningsvinkel',
+    band: {
+      moderate: '27–30°',
+      considerable: '30–35°',
+      high: '35–40°',
+      very_high: '40–45°',
+      extreme: '45°+',
+    },
+  },
   route: 'Rutt',
   openPlanner: 'Öppna planeraren',
   mapOf: 'Ledkarta för {{name}}',

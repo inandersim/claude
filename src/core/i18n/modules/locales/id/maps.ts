@@ -85,6 +85,16 @@ export const maps_id: MapsI18nShape = {
   edges: '{{count}} sambungan',
   legend: 'Legenda',
   technicalEdge: 'Bagian teknis',
+  slope: {
+    toggle: 'Sudut kemiringan',
+    band: {
+      moderate: '27–30°',
+      considerable: '30–35°',
+      high: '35–40°',
+      very_high: '40–45°',
+      extreme: '45°+',
+    },
+  },
   route: 'Rute',
   openPlanner: 'Buka perencana',
   mapOf: 'Peta jalur {{name}}',

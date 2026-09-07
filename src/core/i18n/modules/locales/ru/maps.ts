@@ -85,6 +85,16 @@ export const maps_ru: MapsI18nShape = {
   edges: '{{count}} связей',
   legend: 'Легенда',
   technicalEdge: 'Технический участок',
+  slope: {
+    toggle: 'Угол склона',
+    band: {
+      moderate: '27–30°',
+      considerable: '30–35°',
+      high: '35–40°',
+      very_high: '40–45°',
+      extreme: '45°+',
+    },
+  },
   route: 'Маршрут',
   openPlanner: 'Открыть планировщик',
   mapOf: 'Карта троп: {{name}}',

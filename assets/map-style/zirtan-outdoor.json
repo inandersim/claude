@@ -10,7 +10,8 @@
       "water",
       "landuse",
       "poi",
-      "contours"
+      "contours",
+      "slope"
     ],
     "zirtan:variants": {
       "light": {
@@ -39,7 +40,12 @@
         "surfPaved": "#8C9AA6",
         "surfRock": "#A8654A",
         "surfScree": "#967B69",
-        "surfSnow": "#63A8CE"
+        "surfSnow": "#63A8CE",
+        "slope27": "rgba(255, 214, 102, 0.35)",
+        "slope30": "rgba(247, 163, 61, 0.40)",
+        "slope35": "rgba(232, 93, 60, 0.45)",
+        "slope40": "rgba(198, 55, 108, 0.50)",
+        "slope45": "rgba(120, 40, 120, 0.55)"
       },
       "dark": {
         "land": "#101B17",
@@ -67,7 +73,12 @@
         "surfPaved": "#8FA3AE",
         "surfRock": "#E09A78",
         "surfScree": "#C0A491",
-        "surfSnow": "#9FD1F0"
+        "surfSnow": "#9FD1F0",
+        "slope27": "rgba(255, 214, 102, 0.28)",
+        "slope30": "rgba(247, 163, 61, 0.32)",
+        "slope35": "rgba(232, 93, 60, 0.38)",
+        "slope40": "rgba(214, 70, 124, 0.44)",
+        "slope45": "rgba(160, 66, 160, 0.50)"
       },
       "sun": {
         "land": "#FFFFFF",
@@ -95,7 +106,12 @@
         "surfPaved": "#3C4A54",
         "surfRock": "#8E2F10",
         "surfScree": "#6B4A38",
-        "surfSnow": "#0B4FA8"
+        "surfSnow": "#0B4FA8",
+        "slope27": "rgba(255, 200, 40, 0.50)",
+        "slope30": "rgba(255, 140, 20, 0.55)",
+        "slope35": "rgba(230, 50, 30, 0.60)",
+        "slope40": "rgba(190, 20, 90, 0.65)",
+        "slope45": "rgba(105, 20, 105, 0.70)"
       }
     }
   },
@@ -204,6 +220,116 @@
       ],
       "paint": {
         "fill-color": "@glacier"
+      }
+    },
+    {
+      "id": "slope-moderate",
+      "type": "fill",
+      "source": "@source",
+      "source-layer": "slope",
+      "minzoom": 10,
+      "filter": [
+        "==",
+        [
+          "get",
+          "band"
+        ],
+        "moderate"
+      ],
+      "layout": {
+        "visibility": "none"
+      },
+      "paint": {
+        "fill-color": "@slope27",
+        "fill-antialias": false
+      }
+    },
+    {
+      "id": "slope-considerable",
+      "type": "fill",
+      "source": "@source",
+      "source-layer": "slope",
+      "minzoom": 10,
+      "filter": [
+        "==",
+        [
+          "get",
+          "band"
+        ],
+        "considerable"
+      ],
+      "layout": {
+        "visibility": "none"
+      },
+      "paint": {
+        "fill-color": "@slope30",
+        "fill-antialias": false
+      }
+    },
+    {
+      "id": "slope-high",
+      "type": "fill",
+      "source": "@source",
+      "source-layer": "slope",
+      "minzoom": 10,
+      "filter": [
+        "==",
+        [
+          "get",
+          "band"
+        ],
+        "high"
+      ],
+      "layout": {
+        "visibility": "none"
+      },
+      "paint": {
+        "fill-color": "@slope35",
+        "fill-antialias": false
+      }
+    },
+    {
+      "id": "slope-very_high",
+      "type": "fill",
+      "source": "@source",
+      "source-layer": "slope",
+      "minzoom": 10,
+      "filter": [
+        "==",
+        [
+          "get",
+          "band"
+        ],
+        "very_high"
+      ],
+      "layout": {
+        "visibility": "none"
+      },
+      "paint": {
+        "fill-color": "@slope40",
+        "fill-antialias": false
+      }
+    },
+    {
+      "id": "slope-extreme",
+      "type": "fill",
+      "source": "@source",
+      "source-layer": "slope",
+      "minzoom": 10,
+      "filter": [
+        "==",
+        [
+          "get",
+          "band"
+        ],
+        "extreme"
+      ],
+      "layout": {
+        "visibility": "none"
+      },
+      "paint": {
+        "fill-color": "@slope45",
+        "fill-antialias": false
       }
     },
     {

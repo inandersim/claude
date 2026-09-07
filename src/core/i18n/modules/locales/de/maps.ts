@@ -86,6 +86,16 @@ export const maps_de: MapsI18nShape = {
   edges: '{{count}} Verbindungen',
   legend: 'Legende',
   technicalEdge: 'Technischer Abschnitt',
+  slope: {
+    toggle: 'Hangneigung',
+    band: {
+      moderate: '27–30°',
+      considerable: '30–35°',
+      high: '35–40°',
+      very_high: '40–45°',
+      extreme: '45°+',
+    },
+  },
   route: 'Route',
   openPlanner: 'Planer öffnen',
   mapOf: 'Wegekarte {{name}}',

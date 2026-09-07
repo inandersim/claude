@@ -64,6 +64,11 @@ export interface MapViewProps {
   source?: MapSource | null;
   /** Karo paketinde bulunan katmanlar; eksik olanların stil katmanları atılır */
   availableLayers?: string[];
+  /**
+   * Eğim açısı gölgelendirmesi (çığ bantları: 27–30°, 30–35°, 35–40°, 40–45°, 45°+).
+   * Varsayılan kapalı — kışın hayat kurtarır ama yazın haritayı okunmaz yapar.
+   */
+  slopeShading?: boolean;
   /** Planlanan/kayıtlı rota çizgisi */
   route?: GeoPoint[];
   /** Rotanın katedilmiş bölümü (navigasyonda soluk çizilir) */

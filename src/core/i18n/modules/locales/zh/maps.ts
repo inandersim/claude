@@ -85,6 +85,16 @@ export const maps_zh: MapsI18nShape = {
   edges: '{{count}} 条连接',
   legend: '图例',
   technicalEdge: '技术路段',
+  slope: {
+    toggle: '坡度',
+    band: {
+      moderate: '27–30°',
+      considerable: '30–35°',
+      high: '35–40°',
+      very_high: '40–45°',
+      extreme: '45°+',
+    },
+  },
   route: '路线',
   openPlanner: '打开规划器',
   mapOf: '{{name}}路径地图',

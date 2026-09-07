@@ -86,6 +86,16 @@ export const maps_ka: MapsI18nShape = {
   edges: '{{count}} კავშირი',
   legend: 'ლეგენდა',
   technicalEdge: 'ტექნიკური მონაკვეთი',
+  slope: {
+    toggle: 'ფერდობის კუთხე',
+    band: {
+      moderate: '27–30°',
+      considerable: '30–35°',
+      high: '35–40°',
+      very_high: '40–45°',
+      extreme: '45°+',
+    },
+  },
   route: 'მარშრუტი',
   openPlanner: 'დამგეგმავის გახსნა',
   mapOf: '{{name}} — ბილიკების რუკა',

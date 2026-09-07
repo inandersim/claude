@@ -85,6 +85,16 @@ export const maps_pt: MapsI18nShape = {
   edges: '{{count}} conexões',
   legend: 'Legenda',
   technicalEdge: 'Trecho técnico',
+  slope: {
+    toggle: 'Ângulo de inclinação',
+    band: {
+      moderate: '27–30°',
+      considerable: '30–35°',
+      high: '35–40°',
+      very_high: '40–45°',
+      extreme: '45°+',
+    },
+  },
   route: 'Rota',
   openPlanner: 'Abrir planejador',
   mapOf: 'Mapa de trilhas de {{name}}',

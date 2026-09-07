@@ -85,6 +85,16 @@ export const maps_nb: MapsI18nShape = {
   edges: '{{count}} lenker',
   legend: 'Tegnforklaring',
   technicalEdge: 'Teknisk parti',
+  slope: {
+    toggle: 'Helningsvinkel',
+    band: {
+      moderate: '27–30°',
+      considerable: '30–35°',
+      high: '35–40°',
+      very_high: '40–45°',
+      extreme: '45°+',
+    },
+  },
   route: 'Rute',
   openPlanner: 'Åpne planleggeren',
   mapOf: 'Stikart for {{name}}',

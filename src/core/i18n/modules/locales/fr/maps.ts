@@ -86,6 +86,16 @@ export const maps_fr: MapsI18nShape = {
   edges: '{{count}} liaisons',
   legend: 'Légende',
   technicalEdge: 'Section technique',
+  slope: {
+    toggle: 'Angle de pente',
+    band: {
+      moderate: '27–30°',
+      considerable: '30–35°',
+      high: '35–40°',
+      very_high: '40–45°',
+      extreme: '45°+',
+    },
+  },
   route: 'Itinéraire',
   openPlanner: 'Ouvrir le planificateur',
   mapOf: 'Carte des sentiers de {{name}}',
