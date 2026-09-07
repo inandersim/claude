@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 
 import { radius, spacing, useTheme } from '@/core/theme';
+import { contrastRatio, okunurRenk } from '@/domain/contrast';
 
 import { Icon, type IconName } from './Icon';
 import { Tappable } from './Tappable';
@@ -27,9 +28,23 @@ export function Chip({
   size = 'md',
   style,
 }: ChipProps) {
-  const { colors, isDark } = useTheme();
+  const { colors } = useTheme();
   const activeColor = color ?? colors.primary;
-  const fg = selected ? (isDark ? '#06120B' : '#FFFFFF') : colors.textMuted;
+
+  // Seçili çipte metin rengin **üzerine** biner. Eskiden tema koyu mu diye
+  // bakılıyordu; ama renk temadan gelmiyor, `kidAgeBandMeta` gibi sabit bir
+  // paletten geliyor. Açık temada beyaz metin `#FFB547` üzerinde 1.76:1
+  // veriyordu — tarayıcıda ölçüldü. Doğru seçim tahminle değil ölçüyle.
+  const secilenOn =
+    contrastRatio('#06120B', activeColor) >= contrastRatio('#FFFFFF', activeColor)
+      ? '#06120B'
+      : '#FFFFFF';
+
+  // Seçili olmayan çipte ikon ham palet renginde çiziliyordu; açık zeminde
+  // okunmuyordu. Zemine göre eşiği tutturana kadar koyulaşır, ton korunur.
+  const bosIkon = okunurRenk(activeColor, colors.surfaceMuted);
+
+  const fg = selected ? secilenOn : colors.textMuted;
   const height = size === 'sm' ? 30 : 36;
 
   const content = (
@@ -40,7 +55,7 @@ export function Chip({
         <Icon
           name={icon}
           size={size === 'sm' ? 14 : 16}
-          color={selected ? fg : activeColor}
+          color={selected ? fg : bosIkon}
           strokeWidth={2.4}
         />
       ) : null}
