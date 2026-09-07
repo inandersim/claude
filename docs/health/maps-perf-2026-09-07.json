@@ -1,31 +1,29 @@
 {
-  "note": "Performans bütçeleri. Aşım = bulgu. Değerler insan kararıdır; self-heal hattı bu dosyayı değiştiremez (agents/selfheal/** DENY listesinde).",
-  "bundle": {
-    "jsGzipKb": 1200,
-    "totalGzipKb": 2000,
-    "artiSapmaYuzde": 5
+  "tarih": "2026-09-07",
+  "route": "/maps/planner",
+  "bolge": "Likya Yolu",
+  "zoom": 10.161573200148812,
+  "ilkCizimMs": 790.4000000001397,
+  "kareP50Ms": 16.700000000000728,
+  "kareP95Ms": 16.799999999999272,
+  "kareEnUzunMs": 83.29999999999927,
+  "dusenYuzde": 2.5889967637540456,
+  "fps": 57.760248238218956,
+  "katman": 22,
+  "kaynak": 3,
+  "symbol": 2,
+  "karoIstek": 5,
+  "karoBayt": 164981,
+  "karoBaytKb": 161.1142578125,
+  "egimMaliyeti": {
+    "kareP95Ms": -0.06999999999898066,
+    "dusenYuzde": -0.6842348589921408
   },
-  "screens": {
-    "varsayilan": { "p75Ms": 1200, "queries": 5 },
-    "ozel": {
-      "/(app)/satellite/sos": {
-        "p75Ms": 800,
-        "queries": 2,
-        "gerekce": "Can güvenliği akışı: SOS ekranı her koşulda hızlı açılmalı"
-      },
-      "/(app)/explore": {
-        "p75Ms": 1500,
-        "queries": 8,
-        "gerekce": "Harita ve öneri listesi birlikte yükleniyor"
-      },
-      "/(app)/tracks/[id]": {
-        "p75Ms": 1400,
-        "queries": 6,
-        "gerekce": "Yükseklik grafiği ve iz geometrisi"
-      }
-    }
+  "terrainMaliyeti": {
+    "kareP95Ms": 436.500000000001,
+    "dusenYuzde": 84.64504578943746
   },
-  "maps": {
+  "butce": {
     "note": "Harita ölçümü (tools/maps/perf.mjs). `kesin` donanımdan bağımsızdır ve aşımı bulgu üretir; `gosterge` başsız tarayıcıda yazılım GL ile ölçülür, mutlak değeri gerçek cihazı temsil etmez — yalnızca koşumlar arası karşılaştırma içindir.",
     "kesin": {
       "karoIstek": 60,
@@ -45,5 +43,6 @@
       "karoBaytKb": "Aynı betikte okunan bayt. Çevrimdışı paket boyutu değil, oturum trafiği: mobil veriyle gezinen kullanıcının ödediği.",
       "katman": "Stildeki katman sayısı. Her katman ayrı bir çizim geçişi; sınırsız büyürse kare süresi cihazda önce bozulur."
     }
-  }
+  },
+  "bulgular": []
 }

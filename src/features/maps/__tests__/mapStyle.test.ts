@@ -107,6 +107,27 @@ describe('zirtan-outdoor stili', () => {
     });
   });
 
+  it('DEM zum aralığı uydurulmaz — verilmezse hiç yazılmaz', () => {
+    // Uydurulmuş bir `maxzoom`, MapLibre'yi arşivde olmayan karoyu beklemeye
+    // itiyor: kaynak hiç "yüklendi" demiyor, harita `idle` olmuyor ve kabartma
+    // çizilmiyor. `pmtiles://` protokolü gerçek aralığı arşiv başlığından
+    // bildirdiği için doğru davranış susmaktır.
+    const bilinmeyen = resolveMapStyle({
+      variant: 'light',
+      source: { kind: 'pmtiles', url: 'file:///x.pmtiles' },
+      demSource: { kind: 'pmtiles', url: 'file:///x-dem.pmtiles' },
+    });
+    expect(bilinmeyen.sources[DEM_SOURCE_ID]).not.toHaveProperty('minzoom');
+    expect(bilinmeyen.sources[DEM_SOURCE_ID]).not.toHaveProperty('maxzoom');
+
+    const bilinen = resolveMapStyle({
+      variant: 'light',
+      source: { kind: 'pmtiles', url: 'file:///x.pmtiles' },
+      demSource: { kind: 'pmtiles', url: 'file:///x-dem.pmtiles', minzoom: 9, maxzoom: 10 },
+    });
+    expect(bilinen.sources[DEM_SOURCE_ID]).toMatchObject({ minzoom: 9, maxzoom: 10 });
+  });
+
   it('kabartma kapatılabilir ama DEM kaynağı 3B için kalır', () => {
     const style3d = resolveMapStyle({
       variant: 'dark',

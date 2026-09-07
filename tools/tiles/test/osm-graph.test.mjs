@@ -189,3 +189,75 @@ test('toGeoJson: node/way/alan geometrilerini ayırır', async () => {
   assert.equal(fc.features[0].properties.layer, 'poi');
   assert.equal(fc.features[0].properties.osm_id, 1);
 });
+
+test('listPacks: DEM paketin değil, kendi zum aralığını bildirir', async () => {
+  // Gerçek hata: istemci DEM kaynağına vektör paketinin maxzoom'unu yazınca
+  // MapLibre arşivde olmayan karoyu bekliyor, kaynak hiç yüklenmiş sayılmıyor,
+  // harita `idle` olmuyor ve kabartma çizilmiyordu. Sunucu bu yüzden DEM'in
+  // kendi aralığını ayrıca bildirmek zorunda.
+  const { listPacks } = await import('../serve.mjs');
+  const { packPmtiles } = await import('../lib/pmtiles-writer.mjs');
+  const { mkdtempSync, writeFileSync, rmSync } = await import('node:fs');
+  const { tmpdir } = await import('node:os');
+  const { join } = await import('node:path');
+
+  const dir = mkdtempSync(join(tmpdir(), 'zirtan-packs-'));
+  try {
+    const vektor = packPmtiles(
+      new Map([['9/0/0', Buffer.from([1])], ['14/0/0', Buffer.from([2])]]),
+      { minzoom: 9, maxzoom: 14, bbox: [29, 36, 30, 37], center: [29.5, 36.5, 11] },
+    );
+    const dem = packPmtiles(
+      new Map([['9/0/0', Buffer.from([3])], ['10/0/0', Buffer.from([4])]]),
+      {
+        minzoom: 9,
+        maxzoom: 10,
+        bbox: [29, 36, 30, 37],
+        center: [29.5, 36.5, 10],
+        tileType: 'png',
+      },
+    );
+    writeFileSync(join(dir, 'likya.pmtiles'), vektor.buffer);
+    writeFileSync(join(dir, 'likya-dem.pmtiles'), dem.buffer);
+
+    const packs = listPacks(dir, dir);
+    assert.equal(packs.length, 1, 'DEM dosyası ayrı paket olarak listelenmemeli');
+    const [p] = packs;
+    assert.equal(p.id, 'likya');
+    assert.equal(p.maxzoom, 14);
+    assert.equal(p.demUrl, '/tiles/likya-dem.pmtiles');
+    assert.equal(p.demMinzoom, 9);
+    assert.equal(p.demMaxzoom, 10);
+    assert.notEqual(p.demMaxzoom, p.maxzoom, 'DEM aralığı paketinkinden kopyalanmamalı');
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test('listPacks: DEM yoksa alanlar null kalır', async () => {
+  const { listPacks } = await import('../serve.mjs');
+  const { packPmtiles } = await import('../lib/pmtiles-writer.mjs');
+  const { mkdtempSync, writeFileSync, rmSync } = await import('node:fs');
+  const { tmpdir } = await import('node:os');
+  const { join } = await import('node:path');
+
+  const dir = mkdtempSync(join(tmpdir(), 'zirtan-packs-'));
+  try {
+    writeFileSync(
+      join(dir, 'uludag.pmtiles'),
+      packPmtiles(new Map([['9/0/0', Buffer.from([1])]]), {
+        minzoom: 9,
+        maxzoom: 9,
+        bbox: [29, 40, 30, 41],
+        center: [29.5, 40.5, 9],
+      }).buffer,
+    );
+    const [p] = listPacks(dir, dir);
+    assert.equal(p.demUrl, null);
+    assert.equal(p.demMinzoom, null);
+    assert.equal(p.demMaxzoom, null);
+    assert.equal(p.demSizeBytes, null);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});

@@ -31,7 +31,9 @@
     "test:glyphs": "node --test tools/glyphs/test/*.test.mjs",
     "glyphs": "node tools/glyphs/build-glyphs.mjs",
     "cto": "node agents/cto/intake.mjs",
-    "guncelle": "node scripts/guncelle.mjs"
+    "guncelle": "node scripts/guncelle.mjs",
+    "perf:maps": "node tools/maps/perf.mjs",
+    "test:maps": "node --test tools/maps/test/*.test.mjs"
   },
   "dependencies": {
     "@expo-google-fonts/manrope": "^0.4.2",

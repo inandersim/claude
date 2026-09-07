@@ -72,9 +72,15 @@ export const DEM_SUFFIX = '-dem';
 export const isDemFile = (name) => name.replace(/\.pmtiles$/, '').endsWith(DEM_SUFFIX);
 export const parentOf = (name) => name.replace(/\.pmtiles$/, '').slice(0, -DEM_SUFFIX.length);
 
-const listPacks = () => {
-  if (!existsSync(TILES_DIR)) return [];
-  const files = readdirSync(TILES_DIR).filter((f) => f.endsWith('.pmtiles'));
+/**
+ * Klasördeki paketleri listeler.
+ *
+ * Klasörler parametre: test, geçici bir dizinde kendi arşivlerini kurup
+ * çıktının doğruluğunu (özellikle DEM'in **kendi** zum aralığını) doğrulayabilsin.
+ */
+export const listPacks = (tilesDir = TILES_DIR, graphsDir = GRAPHS_DIR) => {
+  if (!existsSync(tilesDir)) return [];
+  const files = readdirSync(tilesDir).filter((f) => f.endsWith('.pmtiles'));
   const demByParent = new Map();
   for (const f of files) {
     if (isDemFile(f)) demByParent.set(parentOf(f), f);
@@ -82,10 +88,17 @@ const listPacks = () => {
   return files
     .filter((f) => !isDemFile(f))
     .map((f) => {
-      const path = resolve(TILES_DIR, f);
+      const path = resolve(tilesDir, f);
       const { size, mtime } = statSync(path);
       const id = f.replace(/\.pmtiles$/, '');
       const header = readPmtilesHeader(path);
+      // DEM'in zum aralığı vektör paketininkinden **farklıdır** (yükseklik
+      // ızgarası çok daha kaba üretilir). İstemci vektör paketinin aralığını
+      // DEM'e uygularsa MapLibre var olmayan karoyu bekler ve harita hiç
+      // "idle" olmaz — kabartma da çizilmez.
+      const demFile = demByParent.get(id) ?? null;
+      const demPath = demFile ? resolve(tilesDir, demFile) : null;
+      const demHeader = demPath ? readPmtilesHeader(demPath) : null;
       return {
         id,
         format: 'pmtiles',
@@ -98,13 +111,13 @@ const listPacks = () => {
         minzoom: header?.minzoom ?? null,
         maxzoom: header?.maxzoom ?? null,
         url: `/tiles/${f}`,
-        graphUrl: existsSync(resolve(GRAPHS_DIR, `${id}.json`)) ? `/graphs/${id}.json` : null,
+        graphUrl: existsSync(resolve(graphsDir, `${id}.json`)) ? `/graphs/${id}.json` : null,
         // Kabartma ve 3B arazi için yükseklik karosu (varsa).
-        demUrl: demByParent.has(id) ? `/tiles/${demByParent.get(id)}` : null,
+        demUrl: demFile ? `/tiles/${demFile}` : null,
+        demMinzoom: demHeader?.minzoom ?? null,
+        demMaxzoom: demHeader?.maxzoom ?? null,
         // İstemci indirme ilerlemesini bayta göre ağırlıklandırsın diye.
-        demSizeBytes: demByParent.has(id)
-          ? statSync(resolve(TILES_DIR, demByParent.get(id))).size
-          : null,
+        demSizeBytes: demPath ? statSync(demPath).size : null,
       };
     });
 };

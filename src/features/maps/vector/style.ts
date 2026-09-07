@@ -178,8 +178,13 @@ function demSourceSpec(dem: MapDemSource, attribution: string): Record<string, u
     type: 'raster-dem',
     encoding: 'terrarium',
     tileSize: 256,
-    // Üretilen arşiv bu zumun üstünü taşımaz; MapLibre üstünü büyüterek kullanır.
-    maxzoom: dem.maxzoom ?? 12,
+    // Zum aralığı **tahmin edilmez**. Uydurulmuş bir `maxzoom`, MapLibre'nin
+    // arşivde olmayan karoyu istemesine ve kaynağın hiç yüklenmemiş
+    // görünmesine yol açıyor (harita `idle` olmuyor, kabartma çizilmiyor).
+    // Verilmezse `pmtiles://` protokolü arşiv başlığındaki gerçek aralığı
+    // bildirir.
+    ...(dem.minzoom != null ? { minzoom: dem.minzoom } : {}),
+    ...(dem.maxzoom != null ? { maxzoom: dem.maxzoom } : {}),
     attribution,
   };
   return dem.kind === 'pmtiles'

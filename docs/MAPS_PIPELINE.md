@@ -430,3 +430,86 @@ kopyalama adımının neden gerekli olduğunun kanıtı).
 **Bilinen sınır:** `file://` şablonunun MapLibre'nin yerel motorunda okunması
 yalnızca kod düzeyinde doğrulandı; gerçek cihazda (geliştirme derlemesi)
 sınanmadı.
+
+---
+
+## Performans ölçümü
+
+```bash
+node tools/tiles/serve.mjs --port 8090   # karo sunucusu
+npx expo start --web                     # uygulama
+npm run perf:maps                        # ölçüm → docs/health/maps-perf-<tarih>.md
+npm run test:maps                        # karar mantığının testleri
+```
+
+Ölçüm **uygulamanın kendisini** sürer: Playwright giriş yapar, rota planlama
+ekranını açar, bölgeyi seçer ve geliştirme derlemesinin açtığı
+`window.__ZIRTAN_MAPS__` üzerinden MapLibre örneğini ele geçirir. Stili elle
+kurmak ölçümü gerçek ekrandan koparırdı.
+
+Sabit bir kamera betiği sürülür (kaydırma → yakınlaştırma → kaydırma → eğme →
+uzaklaştırma). Betik `tools/maps/perf.mjs` içinde tek yerde durur; değişirse
+koşumlar karşılaştırılamaz.
+
+### İki tür metrik — biri kapı, diğeri değil
+
+| Tür | Örnek | Kapı mı |
+| --- | --- | --- |
+| **Kesin** | karo isteği, karo baytı, stil katmanı sayısı | evet, `agents/selfheal/budgets.json` → `maps.kesin` |
+| **Gösterge** | ilk çizim, kare p50/p95, düşen kare, fps | hayır — yalnızca koşumlar arası karşılaştırma |
+
+Ayrım bilinçli: başsız Chromium yazılım GL (SwiftShader) kullanır, kare
+süreleri gerçek telefon GPU'sunu temsil etmez. Zamanı kapıya bağlamak,
+ölçümün taşımadığı bir kesinliği varsaymak olurdu.
+
+### Ölçümün kendi kusurları da düzeltildi
+
+İlk koşum üç yanlış sayı üretti; üçü de ölçüm hatasıydı ve düzeltildi:
+
+| Belirti | Neden | Düzeltme |
+| --- | --- | --- |
+| Düşen kare %61, fps aynı anda 60 | eşik tam kare bütçesi (16,67 ms); 60 fps'te aralıklar bu değerin iki yanında salınıyor | eşik bütçenin **1,5 katı** — "en az bir kare atlandı"nın ölçülebilir karşılığı |
+| İlk çizim 5 ms, sonra 0 ms | ölçüm, işin çoğunu yutan bir beklemeden **sonra** başlıyordu | zaman sayfanın içinde, bölge tıklamasından itibaren tutuluyor |
+| 6 katman, 0 metin, 0 karo — "bütçe aşımı yok" | ekrandaki harita yedek stildi; hiçbir şey ölçülmediği için rapor temiz görünüyordu | stilde karo paketi yoksa ölçüm **hata verir** |
+
+### İlk ölçümün bulduğu gerçek hata
+
+Ölçüm, haritanın **hiç `idle` olmadığını** gösterdi: `zirtan-dem` kaynağı
+sonsuza kadar "yüklenmedi" durumunda kalıyordu.
+
+Kök neden: istemci DEM kaynağına **vektör paketinin** zum aralığını yazıyordu
+(`maxzoom: 15`), DEM arşivi ise z10'da bitiyor. MapLibre arşivde olmayan bir
+zumdan karo istiyor, `pmtiles://` protokolü ağa hiç çıkmadan boş dönüyor,
+kaynak hiç yüklenmiş sayılmıyor — ve **kabartma gölgelendirme hiç
+çizilmiyordu**. Hata sessizdi: konsolda tek satır yoktu.
+
+Düzeltme üç yerde:
+
+- `tools/tiles/serve.mjs` → `/packs` artık `demMinzoom` / `demMaxzoom`
+  bildiriyor (DEM arşivinin **kendi** başlığından).
+- `src/features/maps/vector/source.ts` → DEM kaynağına paketin aralığı
+  kopyalanmıyor.
+- `src/features/maps/vector/style.ts` → aralık **tahmin edilmiyor**;
+  verilmezse hiç yazılmıyor, `pmtiles://` protokolü doğrusunu bildiriyor.
+
+Düzeltmeden sonra: `isSourceLoaded('zirtan-dem')` doğru, harita `idle` oluyor,
+DEM karoları gerçekten isteniyor ve kabartma ekranda görünüyor.
+
+### İlk temel ölçüm
+
+Likya paketi, z10,2, 1280×900:
+
+| | |
+| --- | ---: |
+| Karo isteği (kamera betiği boyunca) | 5 |
+| Karo baytı | 161 KB |
+| Stil katmanı | 22 |
+| İlk çizim | 790 ms |
+| Kare p50 / p95 | 16,7 / 16,8 ms |
+| Düşen kare | %2,6 |
+| Eğim gölgelendirmenin maliyeti | ölçüm gürültüsü içinde |
+| **3B arazinin maliyeti** | **p95 +437 ms, düşen kare +85 puan** |
+
+3B arazi, yazılım GL'de haritayı kullanılamaz hâle getiriyor. Gerçek GPU'da
+çok daha ucuz olacak ama bu sayı, 3B'nin **varsayılan kapalı** tutulmasının
+gerekçesini ölçüye bağlıyor.

@@ -165,6 +165,37 @@ describe('kaynak çözümleme kademeleri', () => {
     });
   });
 
+  it('DEM zum aralığı vektör paketinden **kopyalanmaz**', () => {
+    // Gerçek hata buydu: DEM kaynağına paketin maxzoom'u (14) yazılıyordu,
+    // arşiv ise z10'da bitiyor. MapLibre var olmayan karoyu bekliyor, kaynak
+    // hiç "yüklendi" demiyor, harita `idle` olmuyor ve kabartma çizilmiyordu.
+    const resolved = resolveSource({
+      center,
+      localPacks: [],
+      serverPacks: [
+        { ...serverPack, demUrl: '/tiles/uludag-dem.pmtiles', demMinzoom: 9, demMaxzoom: 10 },
+      ],
+      graph,
+      baseUrl: 'http://localhost:8090',
+    });
+    expect(resolved.demSource).toMatchObject({ minzoom: 9, maxzoom: 10 });
+    expect(resolved.demSource).not.toMatchObject({ maxzoom: serverPack.maxzoom });
+  });
+
+  it('DEM aralığı bilinmiyorsa hiç yazılmaz — arşiv başlığı doğruyu söyler', () => {
+    // Tahmin edilmiş bir aralık, aralık olmamasından kötüdür: `pmtiles://`
+    // protokolü arşivin gerçek aralığını zaten bildiriyor.
+    const resolved = resolveSource({
+      center,
+      localPacks: [],
+      serverPacks: [{ ...serverPack, demUrl: '/tiles/uludag-dem.pmtiles' }],
+      graph,
+      baseUrl: 'http://localhost:8090',
+    });
+    expect(resolved.demSource).not.toHaveProperty('minzoom');
+    expect(resolved.demSource).not.toHaveProperty('maxzoom');
+  });
+
   it('3. kademe: karo yoksa patika grafından GeoJSON üretilir', () => {
     const resolved = resolveSource({ center, graph, baseUrl: null });
     expect(resolved.kind).toBe('graph');

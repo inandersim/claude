@@ -37,9 +37,18 @@ export type MapSource =
  * kabartma istemiyorsa indirmez. Kodlama terrarium
  * (`tools/tiles/lib/terrain-rgb.mjs`).
  */
+/**
+ * Yükseklik (DEM) kaynağı.
+ *
+ * `minzoom`/`maxzoom` **DEM arşivinin kendi** aralığıdır; vektör paketininkiyle
+ * karıştırılmamalı. Yanlış aralık MapLibre'nin arşivde olmayan karoyu
+ * beklemesine yol açar: kaynak hiç yüklenmiş sayılmaz, harita `idle` olmaz ve
+ * kabartma çizilmez. `pmtiles` için değer verilmezse protokol arşiv başlığından
+ * doğru aralığı bildirir — tahmin etmektense boş bırakmak doğrudur.
+ */
 export type MapDemSource =
-  | { kind: 'pmtiles'; url: string; maxzoom?: number }
-  | { kind: 'raster'; tiles: string[]; maxzoom?: number };
+  | { kind: 'pmtiles'; url: string; minzoom?: number; maxzoom?: number }
+  | { kind: 'raster'; tiles: string[]; minzoom?: number; maxzoom?: number };
 
 /** Harita üzerindeki nokta işareti (başlangıç/bitiş, POI, adım). */
 export interface MapMarker {

@@ -23,6 +23,13 @@ export interface ServerPack {
   graphUrl: string | null;
   /** Yükseklik karosu (kabartma + 3B); paket taşımıyorsa null */
   demUrl?: string | null;
+  /**
+   * DEM arşivinin **kendi** zum aralığı. Vektör paketinkiyle aynı değildir:
+   * yükseklik ızgarası çok daha kaba üretilir (ör. paket z15'e kadar,
+   * DEM z10'da biter).
+   */
+  demMinzoom?: number | null;
+  demMaxzoom?: number | null;
   /** Yükseklik dosyasının boyutu — indirme ilerlemesi bayta göre ağırlıklandırılır */
   demSizeBytes?: number | null;
 }
@@ -169,9 +176,14 @@ export function resolveSource(options: {
             ? {
                 kind: 'pmtiles',
                 url: `${baseUrl}${remote.demUrl}`,
-                // DEM arşivi vektör paketten daha düşük zuma kadar üretilir;
-                // MapLibre üstünü büyüterek kullanır.
-                maxzoom: remote.maxzoom ?? 12,
+                // **Paketin değil, DEM'in kendi aralığı.** Buraya vektör
+                // paketinin maxzoom'u yazıldığında MapLibre arşivde olmayan
+                // bir zumdan karo istiyor, kaynak hiç "yüklendi" demiyor,
+                // harita `idle` olmuyor ve kabartma hiç çizilmiyordu.
+                // Değer yoksa hiç yazılmaz: `pmtiles://` protokolü arşivin
+                // başlığından doğru aralığı zaten bildiriyor.
+                ...(remote.demMinzoom != null ? { minzoom: remote.demMinzoom } : {}),
+                ...(remote.demMaxzoom != null ? { maxzoom: remote.demMaxzoom } : {}),
               }
             : null,
         };
