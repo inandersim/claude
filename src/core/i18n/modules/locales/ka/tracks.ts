@@ -111,6 +111,8 @@ export const tracks_ka: TracksI18nShape = {
     nameRequired: 'წერტილის სახელი სავალდებულოა',
   },
   recorder: {
+    nearbyTitle: 'ახლოს',
+    nearbyDistance: '{{distance}} მ',
     backgroundTitle: 'Zirtan — ტრეკის ჩაწერა',
     backgroundBody: 'ჩაწერა მიმდინარეობს. მარშრუტი იწერება ეკრანის გამორთვისასაც.',
     title: 'ტრეკის ჩაწერა',

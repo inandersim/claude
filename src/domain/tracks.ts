@@ -1274,3 +1274,94 @@ export function parcaZorlugu(
   if (!taban) return olculen;
   return DIFFICULTY_META[olculen].level >= DIFFICULTY_META[taban].level ? olculen : taban;
 }
+
+/* ==================================================================
+ * Yaklaşma uyarısı
+ * ================================================================== */
+
+/**
+ * Yürürken bir noktaya yaklaşınca uyar.
+ *
+ * `nearbyPois` ve `poisAlong` baştan beri vardı ama hiçbir ekrandan
+ * çağrılmıyordu; yürüyen kişi 200 m ötedeki su kaynağını ancak haritayı açıp
+ * arayarak bulabiliyordu. Oysa asıl değer tam burada: susayan biri çeşmeyi,
+ * hava bozunca sığınağı, karanlık bastırınca kamp alanını **kendiliğinden**
+ * duymalı.
+ *
+ * ## Neden tür başına ayrı yarıçap
+ * Tek bir mesafe her nokta için yanlış olurdu. Tehlikeyi (kaya düşmesi, dik
+ * geçiş) erken duymak gerekir — dönmek ya da hazırlanmak için zaman ister.
+ * Manzara noktasını 500 m öteden duymanın anlamı yok, yanından geçerken
+ * duymak yeterli.
+ *
+ * ## Neden iki yarıçap (histerezis)
+ * Tek eşikle, sınırda duran biri GPS gürültüsü yüzünden saniyede bir uyarı
+ * alır. Uyarı `girisM` içine girince verilir; aynı nokta için yeniden
+ * verilebilmesi ancak `cikisM` dışına çıkıldıktan sonra mümkündür.
+ */
+export const YAKLASMA_YARICAP_M: Record<PoiKind, number> = {
+  danger: 500,
+  shelter: 400,
+  water: 300,
+  campsite: 300,
+  junction: 200,
+  summit: 200,
+  trailhead: 200,
+  parking: 200,
+  food: 200,
+  viewpoint: 150,
+  other: 150,
+};
+
+/** Uyarının geri alınması için gereken uzaklaşma çarpanı. */
+export const YAKLASMA_CIKIS_CARPANI = 1.6;
+
+export interface YaklasanNokta {
+  poi: TrackPoi;
+  distanceM: number;
+}
+
+export interface YaklasmaDurumu {
+  /** Şu an uyarılacak noktalar (en yakın önce). */
+  uyarilar: YaklasanNokta[];
+  /** Bir sonraki çağrıya verilecek "zaten uyarıldı" kümesi. */
+  uyarilanlar: Set<ID>;
+}
+
+/**
+ * Konum güncellendiğinde çağrılır.
+ *
+ * @param konum      şu anki konum
+ * @param pois       değerlendirilecek noktalar
+ * @param uyarilanlar önceki çağrıdan gelen küme (ilk çağrıda boş)
+ * @param yaricaplar tür başına giriş yarıçapı (testler için değiştirilebilir)
+ */
+export function yaklasmaDegerlendir(
+  konum: GeoPoint,
+  pois: readonly TrackPoi[],
+  uyarilanlar: ReadonlySet<ID> = new Set(),
+  yaricaplar: Record<PoiKind, number> = YAKLASMA_YARICAP_M,
+): YaklasmaDurumu {
+  const sonraki = new Set<ID>();
+  const uyarilar: YaklasanNokta[] = [];
+
+  for (const poi of pois) {
+    const d = distanceM(konum, poi.coords);
+    const giris = yaricaplar[poi.kind] ?? yaricaplar.other;
+    const cikis = giris * YAKLASMA_CIKIS_CARPANI;
+    const oncedenUyarildi = uyarilanlar.has(poi.id);
+
+    if (oncedenUyarildi) {
+      // Çıkış yarıçapını aşana kadar "uyarıldı" kalır; sınırda titremesin.
+      if (d <= cikis) sonraki.add(poi.id);
+      continue;
+    }
+    if (d <= giris) {
+      uyarilar.push({ poi, distanceM: Math.round(d) });
+      sonraki.add(poi.id);
+    }
+  }
+
+  uyarilar.sort((a, b) => a.distanceM - b.distanceM);
+  return { uyarilar, uyarilanlar: sonraki };
+}

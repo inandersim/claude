@@ -111,6 +111,8 @@ export const tracks_id: TracksI18nShape = {
     nameRequired: 'Nama titik wajib diisi',
   },
   recorder: {
+    nearbyTitle: 'Di dekat',
+    nearbyDistance: '{{distance}} m',
     backgroundTitle: 'Zirtan — perekaman jejak',
     backgroundBody: 'Sedang merekam. Rutemu tetap tercatat meski layar mati.',
     title: 'Perekaman jejak',

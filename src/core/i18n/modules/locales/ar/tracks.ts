@@ -108,6 +108,8 @@ export const tracks_ar: TracksI18nShape = {
     nameRequired: 'اسم النقطة مطلوب',
   },
   recorder: {
+    nearbyTitle: 'بالقرب',
+    nearbyDistance: '{{distance}} م',
     backgroundTitle: 'Zirtan — تسجيل المسار',
     backgroundBody: 'التسجيل جارٍ. يُرسم مسارك حتى عند إطفاء الشاشة.',
     title: 'تسجيل المقطع',

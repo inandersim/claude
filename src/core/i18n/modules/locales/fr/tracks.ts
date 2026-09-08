@@ -111,6 +111,8 @@ export const tracks_fr: TracksI18nShape = {
     nameRequired: 'Le nom du point est requis',
   },
   recorder: {
+    nearbyTitle: 'À proximité',
+    nearbyDistance: '{{distance}} m',
     backgroundTitle: 'Zirtan — enregistrement de trace',
     backgroundBody: 'Enregistrement en cours. Votre itinéraire est tracé même écran éteint.',
     title: 'Enregistrement de trace',

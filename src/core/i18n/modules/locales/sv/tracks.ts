@@ -110,6 +110,8 @@ export const tracks_sv: TracksI18nShape = {
     nameRequired: 'Punktens namn krävs',
   },
   recorder: {
+    nearbyTitle: 'I närheten',
+    nearbyDistance: '{{distance}} m',
     backgroundTitle: 'Zirtan — spårinspelning',
     backgroundBody: 'Inspelning pågår. Din rutt spelas in även med skärmen avstängd.',
     title: 'Spårinspelning',

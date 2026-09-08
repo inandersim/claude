@@ -131,6 +131,8 @@ const tr = {
     nameRequired: 'Nokta adı gerekli',
   },
   recorder: {
+    nearbyTitle: 'Yakınında',
+    nearbyDistance: '{{distance}} m',
     backgroundTitle: 'Zirtan — iz kaydı',
     backgroundBody: 'Kayıt sürüyor. Ekran kapalıyken de rotan çiziliyor.',
     title: 'Parça kaydı',
@@ -370,6 +372,8 @@ const en: TracksI18nShape = {
     nameRequired: 'Point name is required',
   },
   recorder: {
+    nearbyTitle: 'Nearby',
+    nearbyDistance: '{{distance}} m',
     backgroundTitle: 'Zirtan — track recording',
     backgroundBody: 'Recording. Your route is drawn even with the screen off.',
     title: 'Track recording',

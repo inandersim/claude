@@ -1,3 +1,4 @@
+import { POI_KINDS } from '../enums';
 import type { LiveStream, Post, Story, Track, TrackPoi, TrackPoint } from '../types';
 import {
   bearing,
@@ -23,6 +24,9 @@ import {
   verifyThreshold,
   esdegerKilometre,
   parcaZorlugu,
+  yaklasmaDegerlendir,
+  YAKLASMA_YARICAP_M,
+  YAKLASMA_CIKIS_CARPANI,
 } from '../tracks';
 
 /* ------------------------------------------------------------------ */
@@ -479,5 +483,102 @@ describe('parça zorluğu', () => {
   it('bozuk/eksik değerlerde çökmez', () => {
     expect(parcaZorlugu(p(0, 0, null))).toBe('beginner');
     expect(parcaZorlugu(p(-5, -100, null))).toBe('beginner');
+  });
+});
+
+describe('yaklaşma uyarısı', () => {
+  const merkez = { latitude: 41, longitude: 29 };
+  /** `merkez`'in kuzeyinde `m` metre uzaklıkta bir POI. */
+  const poi = (id: string, kind: TrackPoi['kind'], m: number): TrackPoi => ({
+    id,
+    trackId: 't1',
+    communityTrailId: null,
+    userId: 'u1',
+    kind,
+    coords: destinationPoint(merkez, 0, m),
+    elevationM: null,
+    name: id,
+    note: '',
+    photoUrl: null,
+    source: 'user',
+    mediaId: null,
+    confirmations: 0,
+    createdAt: '2026-01-01T00:00:00.000Z',
+  });
+
+  it('yarıçapa girince uyarır, dışındakini görmezden gelir', () => {
+    const { uyarilar } = yaklasmaDegerlendir(merkez, [
+      poi('yakin', 'water', 100),
+      poi('uzak', 'water', 900),
+    ]);
+    expect(uyarilar.map((u) => u.poi.id)).toEqual(['yakin']);
+    expect(uyarilar[0]!.distanceM).toBeGreaterThan(90);
+    expect(uyarilar[0]!.distanceM).toBeLessThan(110);
+  });
+
+  it('tehlikeyi manzaradan daha erken duyurur', () => {
+    // Aynı mesafede: tehlike uyarı verir, manzara vermez.
+    const m = 400;
+    expect(YAKLASMA_YARICAP_M.danger).toBeGreaterThan(YAKLASMA_YARICAP_M.viewpoint);
+    const t = yaklasmaDegerlendir(merkez, [poi('t', 'danger', m)]);
+    const v = yaklasmaDegerlendir(merkez, [poi('v', 'viewpoint', m)]);
+    expect(t.uyarilar).toHaveLength(1);
+    expect(v.uyarilar).toHaveLength(0);
+  });
+
+  it('aynı noktayı tekrar tekrar uyarmaz', () => {
+    const p = [poi('su', 'water', 100)];
+    const ilk = yaklasmaDegerlendir(merkez, p);
+    expect(ilk.uyarilar).toHaveLength(1);
+    const ikinci = yaklasmaDegerlendir(merkez, p, ilk.uyarilanlar);
+    expect(ikinci.uyarilar).toHaveLength(0);
+    // Hâlâ yakında olduğu için "uyarıldı" durumu korunur.
+    expect(ikinci.uyarilanlar.has('su')).toBe(true);
+  });
+
+  it('sınırda gidip gelmek uyarı yağmuruna yol açmaz', () => {
+    // Giriş yarıçapının hemen dışına çıkmak yetmez; çıkış yarıçapı aşılmalı.
+    const giris = YAKLASMA_YARICAP_M.water;
+    const p = (m: number) => [poi('su', 'water', m)];
+    let durum = yaklasmaDegerlendir(merkez, p(giris - 10));
+    expect(durum.uyarilar).toHaveLength(1);
+    // Giriş yarıçapının biraz dışı: hâlâ "uyarıldı" sayılır.
+    durum = yaklasmaDegerlendir(merkez, p(giris + 20), durum.uyarilanlar);
+    expect(durum.uyarilanlar.has('su')).toBe(true);
+    // Tekrar içeri girmek yeni uyarı üretmemeli.
+    durum = yaklasmaDegerlendir(merkez, p(giris - 10), durum.uyarilanlar);
+    expect(durum.uyarilar).toHaveLength(0);
+  });
+
+  it('yeterince uzaklaşınca yeniden uyarabilir', () => {
+    const giris = YAKLASMA_YARICAP_M.water;
+    const uzak = giris * YAKLASMA_CIKIS_CARPANI + 50;
+    const p = (m: number) => [poi('su', 'water', m)];
+    let durum = yaklasmaDegerlendir(merkez, p(100));
+    durum = yaklasmaDegerlendir(merkez, p(uzak), durum.uyarilanlar);
+    expect(durum.uyarilanlar.has('su')).toBe(false);
+    // Kişi geri döndü: bu gerçekten yeni bir yaklaşma.
+    durum = yaklasmaDegerlendir(merkez, p(100), durum.uyarilanlar);
+    expect(durum.uyarilar).toHaveLength(1);
+  });
+
+  it('en yakını başa alır', () => {
+    const { uyarilar } = yaklasmaDegerlendir(merkez, [
+      poi('orta', 'water', 200),
+      poi('en-yakin', 'water', 50),
+      poi('en-uzak', 'water', 280),
+    ]);
+    expect(uyarilar.map((u) => u.poi.id)).toEqual(['en-yakin', 'orta', 'en-uzak']);
+  });
+
+  it('boş listede çökmez', () => {
+    expect(yaklasmaDegerlendir(merkez, []).uyarilar).toEqual([]);
+  });
+
+  it('her POI türünün bir yarıçapı tanımlı', () => {
+    // Yeni bir tür eklenirse burada yakalanır; sessizce `other`'a düşmesin.
+    for (const kind of POI_KINDS) {
+      expect(YAKLASMA_YARICAP_M[kind]).toBeGreaterThan(0);
+    }
   });
 });

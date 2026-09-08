@@ -110,6 +110,8 @@ export const tracks_ru: TracksI18nShape = {
     nameRequired: 'Нужно название точки',
   },
   recorder: {
+    nearbyTitle: 'Рядом',
+    nearbyDistance: '{{distance}} м',
     backgroundTitle: 'Zirtan — запись трека',
     backgroundBody: 'Идёт запись. Маршрут записывается даже при выключенном экране.',
     title: 'Запись трека',

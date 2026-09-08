@@ -110,6 +110,8 @@ export const tracks_cs: TracksI18nShape = {
     nameRequired: 'Název bodu je povinný',
   },
   recorder: {
+    nearbyTitle: 'Poblíž',
+    nearbyDistance: '{{distance}} m',
     backgroundTitle: 'Zirtan — záznam trasy',
     backgroundBody: 'Probíhá záznam. Trasa se zaznamenává i při vypnuté obrazovce.',
     title: 'Nahrávání záznamu',

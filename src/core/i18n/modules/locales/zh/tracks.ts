@@ -107,6 +107,8 @@ export const tracks_zh: TracksI18nShape = {
     nameRequired: '请填写兴趣点名称',
   },
   recorder: {
+    nearbyTitle: '附近',
+    nearbyDistance: '{{distance}} 米',
     backgroundTitle: 'Zirtan — 轨迹记录',
     backgroundBody: '正在记录。即使屏幕关闭也会记录你的路线。',
     title: '轨迹记录',

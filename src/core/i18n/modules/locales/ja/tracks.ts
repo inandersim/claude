@@ -109,6 +109,8 @@ export const tracks_ja: TracksI18nShape = {
     nameRequired: 'ポイント名は必須です',
   },
   recorder: {
+    nearbyTitle: '近く',
+    nearbyDistance: '{{distance}} m',
     backgroundTitle: 'Zirtan — トラック記録',
     backgroundBody: '記録中です。画面が消えていてもルートを記録します。',
     title: 'トラック記録',

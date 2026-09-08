@@ -108,6 +108,8 @@ export const tracks_ko: TracksI18nShape = {
     nameRequired: '포인트 이름은 필수예요',
   },
   recorder: {
+    nearbyTitle: '근처',
+    nearbyDistance: '{{distance}} m',
     backgroundTitle: 'Zirtan — 트랙 기록',
     backgroundBody: '기록 중입니다. 화면이 꺼져 있어도 경로가 기록됩니다.',
     title: '트랙 기록',

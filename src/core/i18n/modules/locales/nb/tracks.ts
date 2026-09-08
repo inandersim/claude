@@ -108,6 +108,8 @@ export const tracks_nb: TracksI18nShape = {
     nameRequired: 'Punktnavn er påkrevd',
   },
   recorder: {
+    nearbyTitle: 'I nærheten',
+    nearbyDistance: '{{distance}} m',
     backgroundTitle: 'Zirtan — sporopptak',
     backgroundBody: 'Opptak pågår. Ruten din registreres også med skjermen av.',
     title: 'Sporopptak',

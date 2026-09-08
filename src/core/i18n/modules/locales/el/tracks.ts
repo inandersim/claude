@@ -110,6 +110,8 @@ export const tracks_el: TracksI18nShape = {
     nameRequired: 'Το όνομα σημείου είναι υποχρεωτικό',
   },
   recorder: {
+    nearbyTitle: 'Κοντά',
+    nearbyDistance: '{{distance}} μ',
     backgroundTitle: 'Zirtan — καταγραφή διαδρομής',
     backgroundBody: 'Καταγραφή σε εξέλιξη. Η διαδρομή σου καταγράφεται ακόμη και με σβηστή οθόνη.',
     title: 'Καταγραφή διαδρομής',

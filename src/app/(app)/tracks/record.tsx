@@ -2,7 +2,7 @@ import { useRouter } from 'expo-router';
 import React, { useMemo, useState } from 'react';
 import { Platform, ScrollView, StyleSheet, Switch, View } from 'react-native';
 
-import { Button, Chip, Header, Input, Screen, Text } from '@/components/ui';
+import { Button, Card, Chip, Header, Icon, Input, Screen, Text } from '@/components/ui';
 import { useToast } from '@/core/hooks/useToast';
 import { currentLocale, useT } from '@/core/i18n';
 import { goBack } from '@/core/navigation';
@@ -14,9 +14,11 @@ import {
   type TrackPoi,
   type TrackPoint,
 } from '@/domain';
+import { POI_COLOR, POI_ICON } from '@/features/tracks/components/meta';
 import { RecorderPanel } from '@/features/tracks/components/RecorderPanel';
 import { TrackMapView } from '@/features/tracks/components/TrackMapView';
-import { useSaveTrack, useTrackRecorder, useTracks } from '@/features/tracks/hooks';
+import { usePoisNear, useSaveTrack, useTrackRecorder, useTracks } from '@/features/tracks/hooks';
+import { useYaklasmaUyarilari } from '@/features/tracks/proximity';
 
 export default function RecordTrackScreen() {
   const router = useRouter();
@@ -42,6 +44,17 @@ export default function RecordTrackScreen() {
   );
   const recorder = useTrackRecorder({ simulate: demoPoints, backgroundNotice });
   const save = useSaveTrack();
+
+  // Yakındaki topluluk noktaları. Yalnızca kayıt sürerken sorulur: duran bir
+  // ekran için ağ trafiği harcamanın anlamı yok.
+  const kayitta = recorder.status === 'recording';
+  const konum = recorder.current ?? null;
+  const yakinNoktalar = usePoisNear(konum ?? { latitude: 0, longitude: 0 }, 1, null);
+  const uyarilar = useYaklasmaUyarilari(
+    kayitta ? konum : null,
+    yakinNoktalar.data,
+    kayitta,
+  );
 
   const [name, setName] = useState('');
   const [region, setRegion] = useState('');
@@ -105,6 +118,32 @@ export default function RecordTrackScreen() {
           name={t('tracks.recorder.title')}
           strokeColor={colors.danger}
         />
+
+        {uyarilar.length ? (
+          <Card style={styles.yakin}>
+            <Text variant="label" color="textMuted">
+              {t('tracks.recorder.nearbyTitle')}
+            </Text>
+            {uyarilar.slice(0, 3).map(({ poi, distanceM }) => {
+              return (
+                <View key={poi.id} style={styles.yakinSatir}>
+                  <Icon
+                    name={POI_ICON[poi.kind]}
+                    size={16}
+                    color={POI_COLOR[poi.kind]}
+                    strokeWidth={2.4}
+                  />
+                  <Text variant="bodySm" weight="bold" style={styles.yakinAd}>
+                    {poi.name || t(`tracks.poi.kind.${poi.kind}`)}
+                  </Text>
+                  <Text variant="caption" color="textMuted">
+                    {t('tracks.recorder.nearbyDistance', { distance: distanceM })}
+                  </Text>
+                </View>
+              );
+            })}
+          </Card>
+        ) : null}
 
         {recorder.isSimulated ? (
           <Text variant="caption" color="textSubtle" align="center">
@@ -204,5 +243,8 @@ const styles = StyleSheet.create({
     gap: spacing.md,
   },
   chips: { flexDirection: 'row', gap: spacing.sm },
+  yakin: { gap: spacing.sm },
+  yakinSatir: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
+  yakinAd: { flex: 1 },
   switchRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.md },
 });
