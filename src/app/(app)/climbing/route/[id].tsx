@@ -410,8 +410,7 @@ function LogAscentSheet({
       />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        style={styles.sheetWrap}
-        pointerEvents="box-none"
+        style={[styles.sheetWrap, { pointerEvents: 'box-none' }]}
       >
         <View
           style={[

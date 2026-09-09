@@ -143,8 +143,7 @@ export default function StartStreamScreen() {
           </View>
         )}
         <View
-          style={[StyleSheet.absoluteFill, { backgroundColor: 'rgba(4,8,6,0.35)' }]}
-          pointerEvents="none"
+          style={[StyleSheet.absoluteFill, { backgroundColor: 'rgba(4,8,6,0.35)' }, { pointerEvents: 'none' }]}
         />
       </View>
 
@@ -176,8 +175,7 @@ export default function StartStreamScreen() {
 
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        style={styles.bottomWrap}
-        pointerEvents="box-none"
+        style={[styles.bottomWrap, { pointerEvents: 'box-none' }]}
       >
         {liveId ? (
           <View

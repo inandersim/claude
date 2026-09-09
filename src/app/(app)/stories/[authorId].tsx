@@ -134,7 +134,7 @@ export default function StoryViewerScreen() {
         accessibilityLabel={t('social.storyNext')}
       />
 
-      <View style={[styles.top, { top: insets.top + spacing.sm }]} pointerEvents="box-none">
+      <View style={[styles.top, { top: insets.top + spacing.sm }, { pointerEvents: 'box-none' }]}>
         <View style={styles.bars}>
           {group.stories.map((s, i) => (
             <View key={s.id} style={styles.barTrack}>
@@ -174,8 +174,7 @@ export default function StoryViewerScreen() {
       </View>
 
       <View
-        style={[styles.bottom, { bottom: insets.bottom + spacing.lg }]}
-        pointerEvents="box-none"
+        style={[styles.bottom, { bottom: insets.bottom + spacing.lg }, { pointerEvents: 'box-none' }]}
       >
         {meta ? (
           <View style={[styles.typePill, { backgroundColor: meta.color }]}>

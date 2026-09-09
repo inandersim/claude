@@ -61,7 +61,7 @@ export function ProgramCard({ program, width, compact = false, showChannel = tru
             </View>
           ) : null}
         </View>
-        <View style={styles.playWrap} pointerEvents="none">
+        <View style={[styles.playWrap, { pointerEvents: 'none' }]}>
           <View style={styles.play}>
             <Icon name="play" size={16} color="#FFFFFF" fill="#FFFFFF" />
           </View>

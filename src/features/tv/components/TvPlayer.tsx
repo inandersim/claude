@@ -88,7 +88,7 @@ export function TvPlayer({ program, initialPositionSec = 0, next = null, onNext 
           />
         </View>
       ) : null}
-      <View style={styles.header} pointerEvents="none">
+      <View style={[styles.header, { pointerEvents: 'none' }]}>
         <View style={styles.headerText}>
           <Text variant="caption" weight="bold" color="rgba(255,255,255,0.85)" numberOfLines={1}>
             {program.channel.name}

@@ -103,8 +103,7 @@ export function RouletteWheel({ size = 280, target, spinId, onSettled }: Roulett
           return (
             <View
               key={type}
-              pointerEvents="none"
-              style={[styles.icon, { left: p.x - 14, top: p.y - 14 }]}
+              style={[styles.icon, { left: p.x - 14, top: p.y - 14 }, { pointerEvents: 'none' }]}
             >
               <Icon
                 name={ADVENTURE_TYPE_META[type].icon}

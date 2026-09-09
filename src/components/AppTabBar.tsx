@@ -32,7 +32,7 @@ export function AppTabBar({ state, descriptors, navigation, meta }: Props) {
   const bottom = Math.max(insets.bottom, spacing.md);
 
   return (
-    <View pointerEvents="box-none" style={[styles.wrap, { bottom }]}>
+    <View style={[styles.wrap, { bottom }, { pointerEvents: 'box-none' }]}>
       <View
         style={[
           styles.bar,

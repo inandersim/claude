@@ -59,7 +59,7 @@ export function CountryPicker({ visible, value, onSelect, onAuto, onClose }: Pro
         accessibilityRole="button"
         accessibilityLabel={t('rescue.close')}
       />
-      <View style={styles.wrap} pointerEvents="box-none">
+      <View style={[styles.wrap, { pointerEvents: 'box-none' }]}>
         <View
           style={[
             styles.sheet,

@@ -133,7 +133,7 @@ export function ImageCarousel({
               {index + 1}/{sources.length}
             </Text>
           </View>
-          <View style={styles.dots} pointerEvents="none">
+          <View style={[styles.dots, { pointerEvents: 'none' }]}>
             {sources.map((_, i) => (
               <View
                 key={i}
@@ -157,7 +157,7 @@ export function ImageCarousel({
       ) : null}
 
       {showHeart ? (
-        <Animated.View pointerEvents="none" style={[styles.heart, heartStyle]}>
+        <Animated.View style={[styles.heart, heartStyle, { pointerEvents: 'none' }]}>
           <Icon name="heart" size={88} color="#FFFFFF" fill="#FF6B6B" strokeWidth={1.5} />
         </Animated.View>
       ) : null}

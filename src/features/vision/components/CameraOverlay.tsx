@@ -33,7 +33,7 @@ const CORNER_WIDTH = 3;
 /** Kadraj köşeleri. */
 function Corners({ color }: { color: string }) {
   return (
-    <View pointerEvents="none" style={styles.frame}>
+    <View style={[styles.frame, { pointerEvents: 'none' }]}>
       <View style={[styles.corner, styles.tl, { borderColor: color }]} />
       <View style={[styles.corner, styles.tr, { borderColor: color }]} />
       <View style={[styles.corner, styles.bl, { borderColor: color }]} />
@@ -66,10 +66,10 @@ export function CameraOverlay({
   const disabled = capturing || !ready;
 
   return (
-    <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
+    <View style={[StyleSheet.absoluteFill, { pointerEvents: 'box-none' }]}>
       <Corners color="rgba(255,255,255,0.85)" />
 
-      <View style={[styles.top, { paddingTop: paddingTop + spacing.sm }]} pointerEvents="box-none">
+      <View style={[styles.top, { paddingTop: paddingTop + spacing.sm }, { pointerEvents: 'box-none' }]}>
         {topBar}
         <View style={styles.hint}>
           <Icon name="sparkles" size={14} color={light} />
@@ -80,8 +80,7 @@ export function CameraOverlay({
       </View>
 
       <View
-        style={[styles.bottom, { paddingBottom: paddingBottom + spacing.md }]}
-        pointerEvents="box-none"
+        style={[styles.bottom, { paddingBottom: paddingBottom + spacing.md }, { pointerEvents: 'box-none' }]}
       >
         <SituationChips
           value={situation}

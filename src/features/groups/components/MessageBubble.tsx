@@ -208,7 +208,7 @@ export function MessageBubble({
           accessibilityRole="button"
           accessibilityLabel={t('common.close')}
         />
-        <View style={styles.sheetWrap} pointerEvents="box-none">
+        <View style={[styles.sheetWrap, { pointerEvents: 'box-none' }]}>
           <View style={[styles.sheet, { backgroundColor: colors.surfaceElevated }]}>
             <Text variant="caption" color="textMuted" numberOfLines={2} style={styles.sheetPreview}>
               {message.text || t(`groups.preview.${quoteKind(message.type)}`)}

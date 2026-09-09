@@ -30,8 +30,7 @@ export function BottomSheet({ visible, onClose, title, subtitle, children }: Pro
       />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        style={styles.wrap}
-        pointerEvents="box-none"
+        style={[styles.wrap, { pointerEvents: 'box-none' }]}
       >
         <View
           style={[

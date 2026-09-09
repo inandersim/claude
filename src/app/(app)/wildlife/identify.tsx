@@ -299,10 +299,9 @@ export default function IdentifyScreen() {
         onCameraReady={markReady}
         accessibilityLabel={t('wildlife.identify.title')}
       />
-      <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
+      <View style={[StyleSheet.absoluteFill, { pointerEvents: 'box-none' }]}>
         <View
-          style={[styles.overlayTop, { paddingTop: insets.top + spacing.sm }]}
-          pointerEvents="box-none"
+          style={[styles.overlayTop, { paddingTop: insets.top + spacing.sm }, { pointerEvents: 'box-none' }]}
         >
           {topBar(true)}
           <Text variant="caption" color="#FFFFFF" weight="bold" align="center" style={styles.hint}>

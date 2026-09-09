@@ -64,8 +64,7 @@ export function PanicButton({
   return (
     <View style={styles.wrap}>
       <Animated.View
-        pointerEvents="none"
-        style={[styles.ring, { backgroundColor: colors.danger }, ring]}
+        style={[styles.ring, { backgroundColor: colors.danger }, ring, { pointerEvents: 'none' }]}
       />
       <Animated.View style={core}>
         <Tappable

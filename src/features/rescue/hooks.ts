@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Location from 'expo-location';
+import { Platform } from 'react-native';
 import { useEffect, useMemo } from 'react';
 import { create } from 'zustand';
 
@@ -85,6 +86,12 @@ const GEOCODE_TIMEOUT_MS = 4000;
  * cihazda ya da zaman aşımında `null` döner (çağıran bbox tablosuna düşer).
  */
 async function geocodeCountry(coords: GeoPoint): Promise<string | null> {
+  // Web'de ters geokodlama SDK 49'da kaldırıldı. Fonksiyon hâlâ **var**, bu
+  // yüzden `typeof` kontrolü yetmiyordu: çağrı yapılıyor, konsola her
+  // seferinde "Geocoding API has been removed" uyarısı düşüyor ve 4 saniyelik
+  // zaman aşımı yarışı boşuna bekletiyordu. Web'de doğrudan bbox tablosuna
+  // düşmek hem sessiz hem hızlı.
+  if (Platform.OS === 'web') return null;
   if (typeof Location.reverseGeocodeAsync !== 'function') return null;
   const timeout = new Promise<null>((resolve) =>
     setTimeout(() => resolve(null), GEOCODE_TIMEOUT_MS),

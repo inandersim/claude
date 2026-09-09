@@ -23,7 +23,7 @@ export function ToastHost() {
   if (toasts.length === 0) return null;
 
   return (
-    <View pointerEvents="none" style={[styles.host, { top: insets.top + spacing.sm }]}>
+    <View style={[styles.host, { top: insets.top + spacing.sm }, { pointerEvents: 'none' }]}>
       {toasts.map((toast) => {
         const tint = { success: colors.success, error: colors.danger, info: colors.info }[
           toast.kind
