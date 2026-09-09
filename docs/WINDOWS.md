@@ -97,8 +97,109 @@ npm run android     # Android emülatörü/cihaz (Android Studio gerekir)
 Demo giriş: e-posta `a@b.co`, şifre `123456`. Telefonla kayıt akışında doğrulama
 kodu **konsola yazılır** ve ekranda geliştirme rozeti olarak görünür.
 
-`npm run android` yerine `npm start` sonrası telefonda Expo Go ile QR okutmak
-en hızlı yoldur; bilgisayar ve telefon **aynı Wi-Fi ağında** olmalı.
+Telefonda denemek için bkz. **4b** — Expo Go en hızlı yol ama vektör haritayı
+göstermez, sebebi orada anlatılıyor.
+
+## 4b. Telefonda deneme
+
+Telefonda iki ayrı yol var ve **hangisini seçtiğin neyi test edebildiğini belirler.**
+
+### Hangisi neyi kanıtlar
+
+| | Expo Go | Geliştirme derlemesi |
+| --- | --- | --- |
+| Kurulum | Mağazadan indir, QR okut | Bir kez APK derlenir |
+| Gerçek GPS | ✅ | ✅ |
+| Çevrimdışı paketin diske yazılması | ✅ | ✅ |
+| Kamera, bildirim, sensörler | ✅ | ✅ |
+| **Vektör harita / 3B arazi / PMTiles** | ❌ SVG görünümüne düşer | ✅ |
+
+Sebebi: `@maplibre/maplibre-react-native` **yerel (native) bir modüldür**, Expo Go'nun
+içinde derlenmiş değildir. Uygulama bu yüzden çökmez — `loadMapLibre()` `null` döner ve
+harita basit SVG görünümüne düşer (`src/features/maps/vector/engine.native.tsx`). Yani
+Expo Go'da harita ekranları **açılır ama vektör harita göremezsin.**
+
+### Yol 1 — Expo Go (5 dakika, hiçbir şey kurmadan)
+
+1. **Telefon ve bilgisayar aynı Wi-Fi ağında olmalı.** Telefon mobil veride ise çalışmaz.
+
+2. Bilgisayarın yerel IP'sini öğren:
+
+   ```powershell
+   ipconfig
+   ```
+
+   `Wireless LAN adapter Wi-Fi` altındaki `IPv4 Address` satırı — örneğin `192.168.1.24`.
+
+3. `.env.local` içindeki karo sunucusu adresini bu IP ile değiştir. `localhost` telefonda
+   **telefonun kendisi** demektir, bilgisayarın değil:
+
+   ```
+   EXPO_PUBLIC_TILES_URL=http://192.168.1.24:8090
+   ```
+
+4. Karo sunucusunu başlat (ayrı bir PowerShell penceresinde açık kalsın):
+
+   ```powershell
+   node tools/tiles/serve.mjs --port 8090
+   ```
+
+5. Uygulamayı başlat:
+
+   ```powershell
+   npm start
+   ```
+
+6. Telefona **Expo Go** uygulamasını kur (Play Store / App Store), aç ve terminaldeki QR
+   kodu okut. iPhone'da QR'ı Kamera uygulamasıyla okutman gerekir.
+
+Bittiğinde `.env.local` dosyasını `http://localhost:8090` haline geri getir, yoksa
+tarayıcıda çalışmaz.
+
+### Yol 2 — Geliştirme derlemesi (haritayı test etmek için tek yol)
+
+Bu tek seferlik bir derlemedir; sonrasında `npm start` ile aynı hızda çalışırsın.
+
+**Bilgisayarda derlemeden (Android Studio gerekmez):**
+
+```powershell
+npx eas login
+npx eas init                                        # ilk kez: proje kimliği üretir
+npx eas build --profile development --platform android
+```
+
+Derleme Expo'nun sunucusunda yapılır; bitince bir bağlantı verir, telefondan açıp APK'yı
+kurarsın. Sonra:
+
+```powershell
+npx expo start --dev-client
+```
+
+Telefondaki Zirtan uygulaması (Expo Go değil) QR'ı okutup bağlanır.
+
+> Ücretsiz EAS hesabında aylık derleme hakkı sınırlıdır ve kuyruk bekleyebilir.
+
+**Kendi bilgisayarında derlemek (sınırsız ama kurulum ister):**
+
+Android Studio + JDK 17 gerekir, ilk derleme 15–30 dakika sürer:
+
+```powershell
+npx expo prebuild            # android/ klasörünü üretir (.gitignore'da, depoya girmez)
+npx expo run:android         # telefon USB ile bağlı ve USB hata ayıklama açık olmalı
+```
+
+### Bağlanamıyorsa
+
+- **QR okundu ama yüklenmiyor** → Windows Güvenlik Duvarı `node`u engelliyordur. İlk
+  çalıştırmada çıkan uyarıda **Özel ağlarda izin ver**i işaretle. Kaçırdıysan: Windows
+  Defender Güvenlik Duvarı → Uygulamaya izin ver → `Node.js JavaScript Runtime` → Özel.
+- **Harita boş ama uygulama çalışıyor** → `EXPO_PUBLIC_TILES_URL` hâlâ `localhost`
+  olabilir, ya da karo sunucusu kapalıdır. Telefonun tarayıcısından
+  `http://<IP>:8090/tiles/likya.pmtiles` adresini aç: indirme başlamıyorsa sorun ağdadır.
+- **Expo Go "SDK uyumsuz" diyor** → Mağazadaki Expo Go bu SDK'yı henüz desteklemiyordur;
+  Yol 2 tek seçenektir.
+- **Aynı Wi-Fi'de ama bulamıyor** → Bazı ev/otel ağları cihazları birbirinden yalıtır
+  (AP isolation). `npx expo start --tunnel` bunu aşar, sadece yavaştır.
 
 ## 5. Yönetim paneli
 

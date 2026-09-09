@@ -162,7 +162,12 @@ Geliştirme derlemesi:
 npx expo prebuild            # ios/ ve android/ üretir (eklenti burada işlenir)
 npx expo run:android         # ya da: eas build --profile development --platform android
 npx expo run:ios             # macOS + Xcode gerekir
+npx expo start --dev-client  # derlenmiş uygulamaya bağlanır (Expo Go'ya değil)
 ```
+
+`expo-dev-client` bağımlılıklarda yer alır; `eas.json`'daki `development` profili
+(`developmentClient: true`) onsuz çalışmaz. Telefonda adım adım deneme:
+[`WINDOWS.md` §4b](WINDOWS.md#4b-telefonda-deneme).
 
 Notlar:
 
