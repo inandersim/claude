@@ -22,10 +22,18 @@ import {
   type TrackPoiWithDistance,
   type TrackWithUser,
   type User,
+  uuidV4,
 } from '@/domain';
 
 import type { TrackRepository } from '../../repositories';
-import { fetchUsers, notifyMany, pickUser, requireUser, type RemoteContext } from '../context';
+import {
+  fetchUsers,
+  kuyrukluYaz,
+  notifyMany,
+  pickUser,
+  requireUser,
+  type RemoteContext,
+} from '../context';
 import {
   fromGeoPoint,
   toCommunityTrail,
@@ -36,7 +44,7 @@ import {
   toTrack,
   toTrackPoi,
 } from '../mappers';
-import { maybeRow, oneRow, rows } from '../postgrest';
+import { maybeRow, oneRow, rows, type Row } from '../postgrest';
 
 /** Yayınlanan parçaların kümelenmesi için ızgara hücresi (m) */
 const CLUSTER_CELL_M = 30;
@@ -510,26 +518,47 @@ export function createTrackRepository(ctx: RemoteContext): TrackRepository {
           communityTrailId = owner.community_trail_id ? String(owner.community_trail_id) : null;
         }
       }
-      const created = await oneRow(
-        db
-          .from('track_pois')
-          .insert({
-            track_id: input.trackId,
-            community_trail_id: communityTrailId,
-            user_id: meId,
-            kind: input.kind,
-            coords: fromGeoPoint(input.coords),
-            elevation_m: input.elevationM,
-            name,
-            note: input.note.trim(),
-            photo_url: input.photoUrl,
-            source: input.source,
-            media_id: input.mediaId,
-          })
-          .select('*'),
-        'nokta eklenemedi',
+      // Kimlik **istemcide** üretilir. Sebebi: bu yazma ağ yokken kuyruğa
+      // alınabiliyor ve kuyruğa alınan bir yazma sunucudan satır döndüremez.
+      // İstemci kimliği verince ekrana dönen nesne ile sonradan yazılacak
+      // satır aynı olur; `id` sütununun `gen_random_uuid()` varsayılanı da
+      // verilen değeri ezmez.
+      const id = uuidV4();
+      const satir = {
+        id,
+        track_id: input.trackId,
+        community_trail_id: communityTrailId,
+        user_id: meId,
+        kind: input.kind,
+        coords: fromGeoPoint(input.coords),
+        elevation_m: input.elevationM,
+        name,
+        note: input.note.trim(),
+        photo_url: input.photoUrl,
+        source: input.source,
+        media_id: input.mediaId,
+      };
+
+      // Patikada çeşme işaretleyen kişi tam da sinyalin olmadığı yerdedir.
+      // Ağ hatasında kayıt kuyruğa alınır; bağlantı gelince gönderilir.
+      let yazilan: Row | null = null;
+      await kuyrukluYaz(
+        ctx,
+        async () => {
+          yazilan = await oneRow(
+            db.from('track_pois').insert(satir).select('*'),
+            'nokta eklenemedi',
+          );
+        },
+        () => ({ kind: 'insert', target: 'track_pois', payload: satir }),
       );
-      return toTrackPoi(created);
+
+      // Kuyruğa alındıysa sunucudan satır gelmez; istemci kimliğiyle aynı
+      // nesne kurulur — kullanıcı noktasını haritada hemen görür ve bağlantı
+      // gelince aynı kayıt sunucuya gider.
+      return toTrackPoi(
+        yazilan ?? { ...satir, confirmations: 0, created_at: new Date().toISOString() },
+      );
     },
 
     async confirmPoi(meId, poiId) {

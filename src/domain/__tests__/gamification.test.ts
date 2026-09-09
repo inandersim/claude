@@ -373,3 +373,43 @@ describe('passportSummary / flagEmoji', () => {
     expect(flagEmoji('XYZ')).toBe('🏳️');
   });
 });
+
+describe('seri sayımı günün saatinden bağımsız', () => {
+  /**
+   * `seed.fun.ts` içindeki seri olayları ham saatle (6, 26, 30, 52, 74…)
+   * yerleştirilmişti. `streakDays` gün sınırını UTC'ye göre hesapladığı için
+   * bu olayların kaç ayrı güne düştüğü **testin çalıştığı saate** bağlıydı:
+   * bazı saatlerde 5, bazılarında 4 gün. Test takvime göre geçip kalıyordu.
+   *
+   * Bu paket kuralı sabitliyor: tam gün katları her saatte aynı seriyi verir.
+   */
+  const olay = (saatOnce: number, now: number): XpEvent => ({
+    id: `x${saatOnce}`,
+    userId: 'u1',
+    source: 'post',
+    amount: 10,
+    note: '',
+    createdAt: new Date(now - saatOnce * 3_600_000).toISOString(),
+  });
+
+  it('tam gün katları her saat diliminde aynı seriyi verir', () => {
+    // Günün 24 saatinin tamamı denenir; hiçbirinde sonuç değişmemeli.
+    for (let saat = 0; saat < 24; saat++) {
+      const now = Date.UTC(2026, 8, 9, saat, 30, 0);
+      const olaylar = [0, 1, 2, 3, 4].map((g) => olay(g * 24, now));
+      expect(streakDays(olaylar, now)).toBe(5);
+    }
+  });
+
+  it('ham saat kullanmak neden kırılgandı — gösterim', () => {
+    // Eski tohumun saatleri. Sonuç saate göre değişiyor: testin kırılganlığı
+    // buradan geliyordu.
+    const saatler = [6, 26, 30, 52, 74];
+    const sonuclar = new Set<number>();
+    for (let saat = 0; saat < 24; saat++) {
+      const now = Date.UTC(2026, 8, 9, saat, 30, 0);
+      sonuclar.add(streakDays(saatler.map((h) => olay(h, now)), now));
+    }
+    expect(sonuclar.size).toBeGreaterThan(1);
+  });
+});

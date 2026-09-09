@@ -87,7 +87,6 @@ const BILINEN_BORC = [
   'completeChallenge',
   'countryByDialCode',
   'createMemoryBuffer',
-  'createOfflineQueue',
   'demRemoteUrl',
   'forecastAgeMin',
   'formatE164',

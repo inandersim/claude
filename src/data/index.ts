@@ -2,7 +2,10 @@ import type { DataProvider } from './repositories';
 import { createMockProvider } from './mock/provider';
 import { asSupabaseLike, getSupabaseClient, readRemoteConfig } from './remote/client';
 import { createRemoteProvider } from './remote/provider';
+import { agVar, agiIzle } from '@/core/network';
 import { createMedyaYukleyici } from '@/features/media/upload';
+
+import { createOfflineQueue } from './remote/offline';
 
 export * from './repositories';
 export { NotFoundError, AuthError } from './mock/provider';
@@ -29,6 +32,19 @@ export function getDataProvider(): DataProvider {
       // Veri katmanı bunu arayüz olarak alır; yerel modül bağımlılığı
       // `src/features/media` altında kalır (bkz. `remote/context.ts`).
       remote.context.setMedyaYukleyici(createMedyaYukleyici(client));
+
+      // Çevrimdışı yazma kuyruğu. Dağda şebeke yoktur; ağ hatasında kaybolan
+      // bir kayıt yerine sıraya alınır ve bağlantı gelince gönderilir.
+      const kuyruk = createOfflineQueue({ isOnline: agVar });
+      remote.context.setKuyruk(kuyruk);
+      // Bağlantı geri geldiğinde bekleyenleri gönder. Dinleme uygulama ömrü
+      // boyunca açık kalır; ayrıca `onlineManager` da buradan beslenir.
+      agiIzle((cevrimici) => {
+        if (cevrimici) void kuyruk.flush(client).catch(() => undefined);
+      });
+      // Açılışta da bir kez denenir: uygulama kapalıyken bağlantı gelmiş olabilir.
+      void kuyruk.flush(client).catch(() => undefined);
+
       provider = remote;
     } else {
       // Mock'ta yükleme yok: yerel `file://` adresi zaten aynı cihazda

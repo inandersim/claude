@@ -1,7 +1,9 @@
 import type { ID, Notification, User } from '@/domain';
+import { agVar } from '@/core/network';
 import { yerelMedyaMi } from '@/domain/media';
 
 import { toUser } from './mappers';
+import type { OfflineQueue } from './offline';
 import { maybeRow, rows, type Row, type SupabaseLike } from './postgrest';
 
 /** Mock sağlayıcıdaki `NotFoundError` ile aynı sözleşme (aynı ileti biçimi). */
@@ -48,6 +50,12 @@ export interface RemoteContext {
   /** Yerel medya yükleyici; tanımlı değilse yerel adresler olduğu gibi kalır. */
   medyaYukleyici: MedyaYukleyici | null;
   setMedyaYukleyici(fn: MedyaYukleyici | null): void;
+  /**
+   * Çevrimdışı yazma kuyruğu; tanımlı değilse yazmalar doğrudan gider ve
+   * ağ yokken hata verir (eski davranış).
+   */
+  kuyruk: OfflineQueue | null;
+  setKuyruk(q: OfflineQueue | null): void;
 }
 
 export function createRemoteContext(db: SupabaseLike): RemoteContext {
@@ -62,8 +70,58 @@ export function createRemoteContext(db: SupabaseLike): RemoteContext {
     setMedyaYukleyici: (fn) => {
       ctx.medyaYukleyici = fn;
     },
+    kuyruk: null,
+    setKuyruk: (q) => {
+      ctx.kuyruk = q;
+    },
   };
   return ctx;
+}
+
+/**
+ * Ağ yokken kaybolmaması gereken bir yazmayı çalıştırır.
+ *
+ * **Neden var:** dağda şebeke yoktur. Bir kaya düşmesini bildiren ya da
+ * patikada çeşme işaretleyen kişi, tam da sinyalin olmadığı yerdedir. Eskiden
+ * bu yazmalar hata verip kayboluyordu; `createOfflineQueue` (çakışma
+ * politikası belgelenmiş, testli) bunun için yazılmıştı ama hiç
+ * bağlanmamıştı.
+ *
+ * Önce doğrudan denenir. Yalnızca **ağ kaynaklı** hatada kuyruğa alınır:
+ * yetki hatası, doğrulama hatası ya da kısıt ihlali kuyruğa girmez — onlar
+ * tekrar denenince de aynı sonucu verir ve kullanıcıya hemen söylenmelidir.
+ *
+ * @returns Doğrudan yazıldıysa `'gonderildi'`, kuyruğa alındıysa `'kuyrukta'`.
+ */
+export async function kuyrukluYaz(
+  ctx: RemoteContext,
+  dogrudan: () => Promise<void>,
+  kuyrukKaydi: () => Parameters<OfflineQueue['enqueue']>[0],
+): Promise<'gonderildi' | 'kuyrukta'> {
+  try {
+    await dogrudan();
+    return 'gonderildi';
+  } catch (err) {
+    if (!ctx.kuyruk || !agHatasiMi(err)) throw err;
+    await ctx.kuyruk.enqueue(kuyrukKaydi());
+    return 'kuyrukta';
+  }
+}
+
+/**
+ * Hata ağ kaynaklı mı?
+ *
+ * Ayrım önemli: ağ hatası yeniden denenmeye değer, mantık hatası değmez.
+ * Yanlış sınıflandırma iki yönde de kötü — geçersiz bir yazmayı kuyruğa
+ * almak onu sonsuza dek yeniden denetir; ağ hatasını hata sanmak ise
+ * kullanıcının kaydını kaybeder.
+ */
+export function agHatasiMi(err: unknown): boolean {
+  if (!agVar()) return true;
+  const m = err instanceof Error ? err.message : String(err ?? '');
+  return /network|fetch failed|failed to fetch|timeout|ETIMEDOUT|ECONNRESET|ENOTFOUND|Load failed/i.test(
+    m,
+  );
 }
 
 /**

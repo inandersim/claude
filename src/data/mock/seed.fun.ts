@@ -414,15 +414,29 @@ const ev = (
   return { id: `xp_${xpCounter}`, userId, source, amount, note, createdAt: hoursAgo(hours) };
 };
 
+/**
+ * Seriye giren olaylar **tam gün katlarına** yerleştirilir.
+ *
+ * `streakDays` gün sınırını UTC'ye göre hesaplıyor (`Math.floor(ms / DAY_MS)`).
+ * Bu olaylar ham saatle (6, 26, 30, 52, 74…) verildiğinde kaç ayrı güne
+ * düştükleri **testin çalıştığı UTC saatine** bağlı oluyordu: bazı saatlerde
+ * 5 gün, bazılarında 4. Yani test takvime göre geçip kalıyordu — saate bağlı
+ * geçen bir test, testsizlikten kötüdür.
+ *
+ * Tam 24 saatin katı çıkarmak gün indeksini her zaman tam olarak o kadar
+ * kaydırır; sonuç saatten bağımsız.
+ */
+const gunKati = (gun: number, saat = 0) => gun * 24 + saat;
+
 export const seedXpEvents: XpEvent[] = [
-  // u_me — son 5 gün ardışık (bugün dahil)
-  ev(ME, 'quiz', 25, 27, 'Günün yarışması: 5/5'),
-  ev(ME, 'post', 10, 6, 'Aydos Ormanı sabah yürüyüşü'),
-  ev(ME, 'streak', 10, 26, '5 günlük seri bonusu'),
-  ev(ME, 'route', 25, 30, 'Polonezköy döngüsü'),
-  ev(ME, 'challenge', 200, 50, 'Yukarı Doğru görevi tamamlandı'),
-  ev(ME, 'quiz', 20, 52, 'Günün yarışması: 4/5'),
-  ev(ME, 'post', 10, 74, 'Belgrad Ormanı akşam koşusu'),
+  // u_me — son 5 gün ardışık (bugün dahil): 0, 1, 2, 3, 4 gün önce
+  ev(ME, 'post', 10, gunKati(0), 'Aydos Ormanı sabah yürüyüşü'),
+  ev(ME, 'quiz', 25, gunKati(1), 'Günün yarışması: 5/5'),
+  ev(ME, 'streak', 10, gunKati(1), '5 günlük seri bonusu'),
+  ev(ME, 'route', 25, gunKati(2), 'Polonezköy döngüsü'),
+  ev(ME, 'challenge', 200, gunKati(2), 'Yukarı Doğru görevi tamamlandı'),
+  ev(ME, 'quiz', 20, gunKati(3), 'Günün yarışması: 4/5'),
+  ev(ME, 'post', 10, gunKati(4), 'Belgrad Ormanı akşam koşusu'),
   ev(ME, 'quiz', 50, 76, 'Günün yarışması: 5/5'),
   ev(ME, 'ascent', 30, 98, 'Geyikbayırı — Sarkıt 6a'),
   ev(ME, 'post', 10, 100, 'Geyikbayırı kamp'),
