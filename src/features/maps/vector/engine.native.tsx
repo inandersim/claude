@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 
 import type { GeoPoint } from '@/domain';
 
-import type { MapEngineProps, MapRegion } from './types';
+import { UC_BOYUT_EGIM, type MapEngineProps, type MapRegion } from './types';
 
 export interface MapEngineState {
   status: 'loading' | 'ready' | 'unavailable';
@@ -58,19 +58,30 @@ function NativeMap(props: MapEngineProps) {
 
   const lib = loadMapLibre();
 
+  /**
+   * 3B durumu ayrı bir prop yerine stilden okunuyor: `terrain` bildirimi
+   * yalnızca DEM varken ve 3B istendiğinde kuruluyor (bkz. `style.ts`).
+   */
+  const ucBoyutlu = Boolean((style as { terrain?: unknown } | undefined)?.terrain);
+
   const camera = useMemo(() => {
+    // 3B arazi açıkken kamera eğilmezse **hiçbir şey değişmez**: yükseklik
+    // verisi bağlanır ama tepeden bakıldığı için görünmez. Tarayıcıda
+    // ölçüldü — `terrain: true`, `pitch: 0`. 3B'yi görünür kılan eğimdir.
+    const pitch = ucBoyutlu ? UC_BOYUT_EGIM : 0;
     if (bounds) {
       return {
         bounds: { ne: [bounds[2], bounds[3]], sw: [bounds[0], bounds[1]] },
         padding: 36,
         duration: 400,
+        pitch,
       };
     }
     if (center) {
-      return { center: [center.longitude, center.latitude], zoom, duration: 400 };
+      return { center: [center.longitude, center.latitude], zoom, duration: 400, pitch };
     }
-    return { zoom };
-  }, [bounds, center, zoom]);
+    return { zoom, pitch };
+  }, [bounds, center, zoom, ucBoyutlu]);
 
   if (!lib) {
     onError('engine-unavailable');
@@ -87,7 +98,7 @@ function NativeMap(props: MapEngineProps) {
       scrollEnabled={interactive}
       zoomEnabled={interactive}
       rotateEnabled={false}
-      pitchEnabled={false}
+      pitchEnabled={ucBoyutlu}
       attributionEnabled
       logoEnabled={false}
       onPress={(event: {

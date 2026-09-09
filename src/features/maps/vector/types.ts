@@ -2,6 +2,18 @@ import type { ReactNode } from 'react';
 
 import type { GeoPoint, ID } from '@/domain';
 
+/**
+ * 3B araziyi görünür kılan kamera eğimi (derece).
+ *
+ * 0° tepeden bakıştır ve yükseklik farkı hiç görünmez: `style.terrain`
+ * bildirimi yükseklik verisini bağlar ama kamera düz kaldığı için ekranda
+ * hiçbir şey değişmez. 60° yaygın seçim — tepeler belirginleşir, ufuk
+ * çizgisi ekranı yutmaz.
+ *
+ * İki motor (web/native) aynı görünsün diye tek yerde.
+ */
+export const UC_BOYUT_EGIM = 60;
+
 /** Stil varyantları uygulamanın renk şemalarıyla birebir eşleşir. */
 export type MapStyleVariant = 'light' | 'dark' | 'sun';
 

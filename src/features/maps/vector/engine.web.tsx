@@ -9,7 +9,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import type { GeoPoint } from '@/domain';
 
-import type { MapEngineProps, MapRegion } from './types';
+import { UC_BOYUT_EGIM, type MapEngineProps, type MapRegion } from './types';
 
 import 'maplibre-gl/dist/maplibre-gl.css';
 
@@ -79,6 +79,12 @@ function WebMap(props: MapEngineProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<MapLibreMap | null>(null);
   const lastCamera = useRef('');
+
+  // 3B durumu ayrı bir prop yerine stilden okunuyor: `terrain` bildirimi
+  // yalnızca DEM varken ve 3B istendiğinde kuruluyor (bkz. `style.ts`), yani
+  // bu tam olarak aranan sinyal. Ek prop taşımak ikinci bir doğruluk kaynağı
+  // yaratırdı ve ikisi zamanla ayrışırdı.
+  const ucBoyutlu = Boolean((style as { terrain?: unknown } | undefined)?.terrain);
 
   // Olay geri çağrıları her renderda değişebilir; haritayı yeniden kurmamak için ref'te tutulur.
   // Bu efekt bilinçli olarak kurulum efektinden önce tanımlanır: bağlanma sırasında
@@ -170,6 +176,22 @@ function WebMap(props: MapEngineProps) {
       handlers.current.onError('style-error');
     }
   }, [style]);
+
+  /**
+   * 3B arazi açılınca kamerayı eğ.
+   *
+   * `style.terrain` bildirimi yükseklik verisini bağlar ama kamera tepeden
+   * bakmaya devam ederse **hiçbir şey değişmez**: kullanıcı düğmeye basıyor,
+   * harita aynı kalıyor. Tarayıcıda ölçüldü — `terrain: true`, `pitch: 0`.
+   * 3B'yi görünür kılan, yükseklik verisi değil kameranın eğimi.
+   */
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+    const hedef = ucBoyutlu ? UC_BOYUT_EGIM : 0;
+    if (Math.round(map.getPitch()) === hedef) return;
+    map.easeTo({ pitch: hedef, duration: 600 });
+  }, [ucBoyutlu]);
 
   // Kamera: yalnızca gerçekten değiştiğinde hareket eder (kullanıcı kaydırmasını bozmamak için).
   useEffect(() => {
