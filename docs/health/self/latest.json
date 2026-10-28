@@ -1,17 +1,17 @@
 {
   "schema": "zirtan.selfheal.analysis/1",
-  "date": "2026-09-06",
-  "generatedAt": "2026-09-06T19:39:10.922Z",
-  "gitRef": "19aea02",
-  "node": "v22.22.2",
-  "live": false,
+  "date": "2026-10-28",
+  "generatedAt": "2026-10-28T10:44:36.962Z",
+  "gitRef": "f3c5639",
+  "node": "v22.23.3",
+  "live": true,
   "sources": {
-    "telemetri": "fixture:/home/user/claude/agents/selfheal/fixtures/telemetry.json",
-    "ci": "fixture:agents/selfheal/fixtures/ci-history.json",
-    "kapsam": "fixture:agents/selfheal/fixtures/coverage-summary.json",
+    "telemetri": "fixture:/home/runner/work/claude/claude/agents/selfheal/fixtures/telemetry.json",
+    "ci": "gh run list (canlı)",
+    "kapsam": "coverage/coverage-summary.json",
     "performans": "bundle:fixture · ekranlar:telemetri (41280 oturum)",
     "i18n": "agents/devops/i18n-check.mjs (canlı)",
-    "guvenlik": "fixture:agents/selfheal/fixtures/security-audit.json"
+    "guvenlik": "npm audit --omit=dev (canlı)"
   },
   "telemetry": {
     "window": {
@@ -35,19 +35,115 @@
     "signatures": 13
   },
   "summary": {
-    "total": 22,
+    "total": 86,
     "bySeverity": {
-      "kritik": 5,
-      "yuksek": 8,
-      "orta": 6,
-      "dusuk": 3
+      "kritik": 22,
+      "yuksek": 35,
+      "orta": 27,
+      "dusuk": 2
     },
     "overall": "kırmızı",
-    "autoFixable": 10,
-    "needsHuman": 5,
-    "topScore": 27.9
+    "autoFixable": 30,
+    "needsHuman": 24,
+    "topScore": 50.4
   },
   "findings": [
+    {
+      "id": "guvenlik-maplibre-gl",
+      "source": "guvenlik",
+      "kind": "vulnerability",
+      "title": "Kritik açık: maplibre-gl",
+      "detail": "MapLibre GL JS: XSS Sanitizer Bypass in DOM.sanitize() via Live NamedNodeMap Removal Skip · doğrudan bağımlılık · maplibre-gl@6.16.0 (MAJÖR — insan kararı)",
+      "files": [],
+      "metrics": {
+        "count": 1,
+        "sessions": 0
+      },
+      "evidence": {
+        "severity": "critical",
+        "fixAvailable": {
+          "name": "maplibre-gl",
+          "version": "6.16.0",
+          "isSemVerMajor": true
+        },
+        "via": [
+          {
+            "source": 1193680,
+            "name": "maplibre-gl",
+            "dependency": "maplibre-gl",
+            "title": "MapLibre GL JS: XSS Sanitizer Bypass in DOM.sanitize() via Live NamedNodeMap Removal Skip",
+            "url": "https://github.com/advisories/GHSA-jrc7-96c5-q579",
+            "severity": "critical",
+            "cwe": [
+              "CWE-79"
+            ],
+            "cvss": {
+              "score": 10,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:N"
+            },
+            "range": "<=6.4.0"
+          }
+        ]
+      },
+      "suggestedFix": "Majör sürüm gerektirir: insan kararı, otomatik düzeltme yok.",
+      "impactOverride": 1,
+      "frequencyOverride": 0.9,
+      "autoFixable": false,
+      "impact": 1,
+      "frequency": 0.9,
+      "ease": 0.56,
+      "urgency": 0.9,
+      "score": 50.4,
+      "severity": "kritik",
+      "risky": false,
+      "riskCategories": []
+    },
+    {
+      "id": "guvenlik-shell-quote",
+      "source": "guvenlik",
+      "kind": "vulnerability",
+      "title": "Kritik açık: shell-quote",
+      "detail": "shell-quote: `quote()` command injection via a line terminator in a token after a `{ comment }` token · geçişli bağımlılık · yama mevcut",
+      "files": [],
+      "metrics": {
+        "count": 1,
+        "sessions": 0
+      },
+      "evidence": {
+        "severity": "critical",
+        "fixAvailable": true,
+        "via": [
+          {
+            "source": 1241332,
+            "name": "shell-quote",
+            "dependency": "shell-quote",
+            "title": "shell-quote: `quote()` command injection via a line terminator in a token after a `{ comment }` token",
+            "url": "https://github.com/advisories/GHSA-pqg4-j6r4-53mv",
+            "severity": "critical",
+            "cwe": [
+              "CWE-78"
+            ],
+            "cvss": {
+              "score": 8.1,
+              "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+            },
+            "range": ">=1.8.4 <1.11.0"
+          }
+        ]
+      },
+      "suggestedFix": "Yamayı `npm audit fix` ile uygula; kilit dosyası değişikliği insan onayına gider (package-lock.json DENY listesinde).",
+      "impactOverride": 1,
+      "frequencyOverride": 0.9,
+      "autoFixable": false,
+      "impact": 1,
+      "frequency": 0.9,
+      "ease": 0.56,
+      "urgency": 0.9,
+      "score": 50.4,
+      "severity": "kritik",
+      "risky": false,
+      "riskCategories": []
+    },
     {
       "id": "tel-crash-src-features-zmatch-hooks-usematchfilters-ts-48",
       "source": "telemetri",
@@ -85,11 +181,51 @@
       "autoFixable": true
     },
     {
-      "id": "guvenlik-tar-fs",
+      "id": "kapsam-home-runner-work-claude-claude-src-data-tests-co",
+      "source": "kapsam",
+      "kind": "coverage_gap",
+      "title": "Düşük test kapsamı: /home/runner/work/claude/claude/src/data/__tests__/contract/pgPostgrest.ts (%1 satır)",
+      "detail": "2/351 satır, %0 dal",
+      "files": [
+        "/home/runner/work/claude/claude/src/data/__tests__/contract/pgPostgrest.ts"
+      ],
+      "metrics": {
+        "count": 349,
+        "sessions": 0,
+        "pct": 0.56
+      },
+      "evidence": {
+        "lines": {
+          "total": 351,
+          "covered": 2,
+          "skipped": 0,
+          "pct": 0.56
+        },
+        "branches": {
+          "total": 265,
+          "covered": 0,
+          "skipped": 0,
+          "pct": 0
+        }
+      },
+      "suggestedFix": "`/home/runner/work/claude/claude/src/data/__tests__/contract/pgPostgrest.ts` için saf domain testi yaz (test-writer ajanı). Kapsanmayan dalları önce listele.",
+      "frequencyOverride": 0.9906666666666666,
+      "impact": 0.4,
+      "frequency": 0.991,
+      "ease": 0.7,
+      "urgency": 0.396,
+      "score": 27.7,
+      "severity": "kritik",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": false
+    },
+    {
+      "id": "guvenlik-brace-expansion",
       "source": "guvenlik",
       "kind": "vulnerability",
-      "title": "Yüksek açık: tar-fs",
-      "detail": "Path traversal in tar-fs · geçişli bağımlılık · tar-fs@3.0.9",
+      "title": "Yüksek açık: brace-expansion",
+      "detail": "brace-expansion: Quadratic-time expansion of the `{a},b}` rewrite causes CPU denial of service; brace-expansion: Quadratic-time expansion of the `{a},b}` rewrite causes CPU denial of service; brace-expansion: DoS via uncontrolled recursion on nested brace groups causing stack exhaustion; brace-expansion: DoS via uncontrolled recursion on nested brace groups causing stack exhaustion; brace-expansion: DoS via uncontrolled recursion in parseCommaParts causing stack exhaustion; brace-expansion: DoS via uncontrolled recursion in parseCommaParts causing stack exhaustion · geçişli bağımlılık · yama mevcut",
       "files": [],
       "metrics": {
         "count": 1,
@@ -97,16 +233,109 @@
       },
       "evidence": {
         "severity": "high",
-        "fixAvailable": {
-          "name": "tar-fs",
-          "version": "3.0.9",
-          "isSemVerMajor": false
-        },
+        "fixAvailable": true,
         "via": [
           {
-            "title": "Path traversal in tar-fs",
-            "url": "https://github.com/advisories/GHSA-xxxx",
-            "severity": "high"
+            "source": 1240100,
+            "name": "brace-expansion",
+            "dependency": "brace-expansion",
+            "title": "brace-expansion: Quadratic-time expansion of the `{a},b}` rewrite causes CPU denial of service",
+            "url": "https://github.com/advisories/GHSA-q2hr-2g5m-vwhr",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-400",
+              "CWE-407"
+            ],
+            "cvss": {
+              "score": 5.3,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+            },
+            "range": "<1.1.21"
+          },
+          {
+            "source": 1240103,
+            "name": "brace-expansion",
+            "dependency": "brace-expansion",
+            "title": "brace-expansion: Quadratic-time expansion of the `{a},b}` rewrite causes CPU denial of service",
+            "url": "https://github.com/advisories/GHSA-q2hr-2g5m-vwhr",
+            "severity": "moderate",
+            "cwe": [
+              "CWE-400",
+              "CWE-407"
+            ],
+            "cvss": {
+              "score": 5.3,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+            },
+            "range": ">=4.0.0 <5.0.12"
+          },
+          {
+            "source": 1240104,
+            "name": "brace-expansion",
+            "dependency": "brace-expansion",
+            "title": "brace-expansion: DoS via uncontrolled recursion on nested brace groups causing stack exhaustion",
+            "url": "https://github.com/advisories/GHSA-qhr7-859c-m2p7",
+            "severity": "high",
+            "cwe": [
+              "CWE-400",
+              "CWE-674"
+            ],
+            "cvss": {
+              "score": 7.5,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+            },
+            "range": "<1.1.20"
+          },
+          {
+            "source": 1240107,
+            "name": "brace-expansion",
+            "dependency": "brace-expansion",
+            "title": "brace-expansion: DoS via uncontrolled recursion on nested brace groups causing stack exhaustion",
+            "url": "https://github.com/advisories/GHSA-qhr7-859c-m2p7",
+            "severity": "high",
+            "cwe": [
+              "CWE-400",
+              "CWE-674"
+            ],
+            "cvss": {
+              "score": 7.5,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+            },
+            "range": ">=4.0.0 <5.0.11"
+          },
+          {
+            "source": 1240108,
+            "name": "brace-expansion",
+            "dependency": "brace-expansion",
+            "title": "brace-expansion: DoS via uncontrolled recursion in parseCommaParts causing stack exhaustion",
+            "url": "https://github.com/advisories/GHSA-6j4f-fj2g-mc7p",
+            "severity": "high",
+            "cwe": [
+              "CWE-400",
+              "CWE-674"
+            ],
+            "cvss": {
+              "score": 7.5,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+            },
+            "range": "<1.1.19"
+          },
+          {
+            "source": 1240111,
+            "name": "brace-expansion",
+            "dependency": "brace-expansion",
+            "title": "brace-expansion: DoS via uncontrolled recursion in parseCommaParts causing stack exhaustion",
+            "url": "https://github.com/advisories/GHSA-6j4f-fj2g-mc7p",
+            "severity": "high",
+            "cwe": [
+              "CWE-400",
+              "CWE-674"
+            ],
+            "cvss": {
+              "score": 7.5,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+            },
+            "range": ">=4.0.0 <5.0.10"
           }
         ]
       },
@@ -122,6 +351,871 @@
       "severity": "kritik",
       "risky": false,
       "riskCategories": []
+    },
+    {
+      "id": "guvenlik-compression",
+      "source": "guvenlik",
+      "kind": "vulnerability",
+      "title": "Yüksek açık: compression",
+      "detail": "compression vulnerable to Denial of Service via memory leak on premature response close · geçişli bağımlılık · yama mevcut",
+      "files": [],
+      "metrics": {
+        "count": 1,
+        "sessions": 0
+      },
+      "evidence": {
+        "severity": "high",
+        "fixAvailable": true,
+        "via": [
+          {
+            "source": 1241221,
+            "name": "compression",
+            "dependency": "compression",
+            "title": "compression vulnerable to Denial of Service via memory leak on premature response close",
+            "url": "https://github.com/advisories/GHSA-vc2v-76pw-4v95",
+            "severity": "high",
+            "cwe": [
+              "CWE-401",
+              "CWE-459"
+            ],
+            "cvss": {
+              "score": 7.5,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+            },
+            "range": "<1.8.2"
+          }
+        ]
+      },
+      "suggestedFix": "Yamayı `npm audit fix` ile uygula; kilit dosyası değişikliği insan onayına gider (package-lock.json DENY listesinde).",
+      "impactOverride": 0.8,
+      "frequencyOverride": 0.6,
+      "autoFixable": false,
+      "impact": 0.8,
+      "frequency": 0.6,
+      "ease": 0.56,
+      "urgency": 0.48,
+      "score": 26.9,
+      "severity": "kritik",
+      "risky": false,
+      "riskCategories": []
+    },
+    {
+      "id": "guvenlik-expo",
+      "source": "guvenlik",
+      "kind": "vulnerability",
+      "title": "Yüksek açık: expo",
+      "detail": "@expo/cli; @expo/config; @expo/local-build-cache-provider; @expo/metro-config · doğrudan bağımlılık · expo@51.0.39 (MAJÖR — insan kararı)",
+      "files": [],
+      "metrics": {
+        "count": 1,
+        "sessions": 0
+      },
+      "evidence": {
+        "severity": "high",
+        "fixAvailable": {
+          "name": "expo",
+          "version": "51.0.39",
+          "isSemVerMajor": true
+        },
+        "via": [
+          "@expo/cli",
+          "@expo/config",
+          "@expo/local-build-cache-provider",
+          "@expo/metro-config"
+        ]
+      },
+      "suggestedFix": "Majör sürüm gerektirir: insan kararı, otomatik düzeltme yok.",
+      "impactOverride": 0.8,
+      "frequencyOverride": 0.6,
+      "autoFixable": false,
+      "impact": 0.8,
+      "frequency": 0.6,
+      "ease": 0.56,
+      "urgency": 0.48,
+      "score": 26.9,
+      "severity": "kritik",
+      "risky": false,
+      "riskCategories": []
+    },
+    {
+      "id": "guvenlik-expo-cli",
+      "source": "guvenlik",
+      "kind": "vulnerability",
+      "title": "Yüksek açık: @expo/cli",
+      "detail": "@expo/config; @expo/metro-config; @expo/prebuild-config; zod · geçişli bağımlılık · expo@51.0.39 (MAJÖR — insan kararı)",
+      "files": [],
+      "metrics": {
+        "count": 1,
+        "sessions": 0
+      },
+      "evidence": {
+        "severity": "high",
+        "fixAvailable": {
+          "name": "expo",
+          "version": "51.0.39",
+          "isSemVerMajor": true
+        },
+        "via": [
+          "@expo/config",
+          "@expo/metro-config",
+          "@expo/prebuild-config",
+          "zod"
+        ]
+      },
+      "suggestedFix": "Majör sürüm gerektirir: insan kararı, otomatik düzeltme yok.",
+      "impactOverride": 0.8,
+      "frequencyOverride": 0.6,
+      "autoFixable": false,
+      "impact": 0.8,
+      "frequency": 0.6,
+      "ease": 0.56,
+      "urgency": 0.48,
+      "score": 26.9,
+      "severity": "kritik",
+      "risky": false,
+      "riskCategories": []
+    },
+    {
+      "id": "guvenlik-node-forge",
+      "source": "guvenlik",
+      "kind": "vulnerability",
+      "title": "Yüksek açık: node-forge",
+      "detail": "node-forge RSA PKCS#1 v1.5 signature verification accepts extra nested DigestAlgorithm elements · geçişli bağımlılık · yama mevcut",
+      "files": [],
+      "metrics": {
+        "count": 1,
+        "sessions": 0
+      },
+      "evidence": {
+        "severity": "high",
+        "fixAvailable": true,
+        "via": [
+          {
+            "source": 1240912,
+            "name": "node-forge",
+            "dependency": "node-forge",
+            "title": "node-forge RSA PKCS#1 v1.5 signature verification accepts extra nested DigestAlgorithm elements",
+            "url": "https://github.com/advisories/GHSA-86w9-cpqp-85rv",
+            "severity": "high",
+            "cwe": [
+              "CWE-347"
+            ],
+            "cvss": {
+              "score": 7.5,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N"
+            },
+            "range": "<=1.4.0"
+          }
+        ]
+      },
+      "suggestedFix": "Yamayı `npm audit fix` ile uygula; kilit dosyası değişikliği insan onayına gider (package-lock.json DENY listesinde).",
+      "impactOverride": 0.8,
+      "frequencyOverride": 0.6,
+      "autoFixable": false,
+      "impact": 0.8,
+      "frequency": 0.6,
+      "ease": 0.56,
+      "urgency": 0.48,
+      "score": 26.9,
+      "severity": "kritik",
+      "risky": false,
+      "riskCategories": []
+    },
+    {
+      "id": "guvenlik-source-map-js",
+      "source": "guvenlik",
+      "kind": "vulnerability",
+      "title": "Yüksek açık: source-map-js",
+      "detail": "source-map-js allows event-loop denial of service through indexed source-map section offsets · geçişli bağımlılık · yama mevcut",
+      "files": [],
+      "metrics": {
+        "count": 1,
+        "sessions": 0
+      },
+      "evidence": {
+        "severity": "high",
+        "fixAvailable": true,
+        "via": [
+          {
+            "source": 1241209,
+            "name": "source-map-js",
+            "dependency": "source-map-js",
+            "title": "source-map-js allows event-loop denial of service through indexed source-map section offsets",
+            "url": "https://github.com/advisories/GHSA-68fv-2mgg-jv7q",
+            "severity": "high",
+            "cwe": [
+              "CWE-1284"
+            ],
+            "cvss": {
+              "score": 7.5,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+            },
+            "range": ">=1.0.0 <1.2.2"
+          }
+        ]
+      },
+      "suggestedFix": "Yamayı `npm audit fix` ile uygula; kilit dosyası değişikliği insan onayına gider (package-lock.json DENY listesinde).",
+      "impactOverride": 0.8,
+      "frequencyOverride": 0.6,
+      "autoFixable": false,
+      "impact": 0.8,
+      "frequency": 0.6,
+      "ease": 0.56,
+      "urgency": 0.48,
+      "score": 26.9,
+      "severity": "kritik",
+      "risky": false,
+      "riskCategories": []
+    },
+    {
+      "id": "guvenlik-zod",
+      "source": "guvenlik",
+      "kind": "vulnerability",
+      "title": "Yüksek açık: zod",
+      "detail": "Zod can exhaust memory while validating oversized constrained collections · geçişli bağımlılık · expo@51.0.39 (MAJÖR — insan kararı)",
+      "files": [],
+      "metrics": {
+        "count": 1,
+        "sessions": 0
+      },
+      "evidence": {
+        "severity": "high",
+        "fixAvailable": {
+          "name": "expo",
+          "version": "51.0.39",
+          "isSemVerMajor": true
+        },
+        "via": [
+          {
+            "source": 1243066,
+            "name": "zod",
+            "dependency": "zod",
+            "title": "Zod can exhaust memory while validating oversized constrained collections",
+            "url": "https://github.com/advisories/GHSA-mrhx-c7xc-m3w5",
+            "severity": "high",
+            "cwe": [
+              "CWE-770"
+            ],
+            "cvss": {
+              "score": 7.5,
+              "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+            },
+            "range": "<4.6.6"
+          }
+        ]
+      },
+      "suggestedFix": "Majör sürüm gerektirir: insan kararı, otomatik düzeltme yok.",
+      "impactOverride": 0.8,
+      "frequencyOverride": 0.6,
+      "autoFixable": false,
+      "impact": 0.8,
+      "frequency": 0.6,
+      "ease": 0.56,
+      "urgency": 0.48,
+      "score": 26.9,
+      "severity": "kritik",
+      "risky": false,
+      "riskCategories": []
+    },
+    {
+      "id": "kapsam-home-runner-work-claude-claude-src-data-remote-r",
+      "source": "kapsam",
+      "kind": "coverage_gap",
+      "title": "Düşük test kapsamı: /home/runner/work/claude/claude/src/data/remote/repos/groups.ts (%5 satır)",
+      "detail": "12/221 satır, %0 dal",
+      "files": [
+        "/home/runner/work/claude/claude/src/data/remote/repos/groups.ts"
+      ],
+      "metrics": {
+        "count": 209,
+        "sessions": 0,
+        "pct": 5.42
+      },
+      "evidence": {
+        "lines": {
+          "total": 221,
+          "covered": 12,
+          "skipped": 0,
+          "pct": 5.42
+        },
+        "branches": {
+          "total": 173,
+          "covered": 0,
+          "skipped": 0,
+          "pct": 0
+        }
+      },
+      "suggestedFix": "`/home/runner/work/claude/claude/src/data/remote/repos/groups.ts` için saf domain testi yaz (test-writer ajanı). Kapsanmayan dalları önce listele.",
+      "frequencyOverride": 0.9096666666666666,
+      "impact": 0.4,
+      "frequency": 0.91,
+      "ease": 0.7,
+      "urgency": 0.364,
+      "score": 25.5,
+      "severity": "kritik",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": false
+    },
+    {
+      "id": "kapsam-home-runner-work-claude-claude-src-data-remote-r",
+      "source": "kapsam",
+      "kind": "coverage_gap",
+      "title": "Düşük test kapsamı: /home/runner/work/claude/claude/src/data/remote/repos/social.ts (%6 satır)",
+      "detail": "8/141 satır, %0 dal",
+      "files": [
+        "/home/runner/work/claude/claude/src/data/remote/repos/social.ts"
+      ],
+      "metrics": {
+        "count": 133,
+        "sessions": 0,
+        "pct": 5.67
+      },
+      "evidence": {
+        "lines": {
+          "total": 141,
+          "covered": 8,
+          "skipped": 0,
+          "pct": 5.67
+        },
+        "branches": {
+          "total": 112,
+          "covered": 0,
+          "skipped": 0,
+          "pct": 0
+        }
+      },
+      "suggestedFix": "`/home/runner/work/claude/claude/src/data/remote/repos/social.ts` için saf domain testi yaz (test-writer ajanı). Kapsanmayan dalları önce listele.",
+      "frequencyOverride": 0.9055,
+      "impact": 0.4,
+      "frequency": 0.906,
+      "ease": 0.7,
+      "urgency": 0.362,
+      "score": 25.4,
+      "severity": "kritik",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": false
+    },
+    {
+      "id": "kapsam-home-runner-work-claude-claude-src-data-remote-r",
+      "source": "kapsam",
+      "kind": "coverage_gap",
+      "title": "Düşük test kapsamı: /home/runner/work/claude/claude/src/data/remote/repos/courses.ts (%6 satır)",
+      "detail": "8/137 satır, %0 dal",
+      "files": [
+        "/home/runner/work/claude/claude/src/data/remote/repos/courses.ts"
+      ],
+      "metrics": {
+        "count": 129,
+        "sessions": 0,
+        "pct": 5.83
+      },
+      "evidence": {
+        "lines": {
+          "total": 137,
+          "covered": 8,
+          "skipped": 0,
+          "pct": 5.83
+        },
+        "branches": {
+          "total": 102,
+          "covered": 0,
+          "skipped": 0,
+          "pct": 0
+        }
+      },
+      "suggestedFix": "`/home/runner/work/claude/claude/src/data/remote/repos/courses.ts` için saf domain testi yaz (test-writer ajanı). Kapsanmayan dalları önce listele.",
+      "frequencyOverride": 0.9028333333333334,
+      "impact": 0.4,
+      "frequency": 0.903,
+      "ease": 0.7,
+      "urgency": 0.361,
+      "score": 25.3,
+      "severity": "kritik",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": false
+    },
+    {
+      "id": "kapsam-home-runner-work-claude-claude-src-data-remote-r",
+      "source": "kapsam",
+      "kind": "coverage_gap",
+      "title": "Düşük test kapsamı: /home/runner/work/claude/claude/src/data/remote/repos/articles.ts (%6 satır)",
+      "detail": "9/146 satır, %0 dal",
+      "files": [
+        "/home/runner/work/claude/claude/src/data/remote/repos/articles.ts"
+      ],
+      "metrics": {
+        "count": 137,
+        "sessions": 0,
+        "pct": 6.16
+      },
+      "evidence": {
+        "lines": {
+          "total": 146,
+          "covered": 9,
+          "skipped": 0,
+          "pct": 6.16
+        },
+        "branches": {
+          "total": 102,
+          "covered": 0,
+          "skipped": 0,
+          "pct": 0
+        }
+      },
+      "suggestedFix": "`/home/runner/work/claude/claude/src/data/remote/repos/articles.ts` için saf domain testi yaz (test-writer ajanı). Kapsanmayan dalları önce listele.",
+      "frequencyOverride": 0.8973333333333334,
+      "impact": 0.4,
+      "frequency": 0.897,
+      "ease": 0.7,
+      "urgency": 0.359,
+      "score": 25.1,
+      "severity": "kritik",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": false
+    },
+    {
+      "id": "kapsam-home-runner-work-claude-claude-src-data-remote-r",
+      "source": "kapsam",
+      "kind": "coverage_gap",
+      "title": "Düşük test kapsamı: /home/runner/work/claude/claude/src/data/remote/repos/wildlife.ts (%6 satır)",
+      "detail": "8/124 satır, %2 dal",
+      "files": [
+        "/home/runner/work/claude/claude/src/data/remote/repos/wildlife.ts"
+      ],
+      "metrics": {
+        "count": 116,
+        "sessions": 0,
+        "pct": 6.45
+      },
+      "evidence": {
+        "lines": {
+          "total": 124,
+          "covered": 8,
+          "skipped": 0,
+          "pct": 6.45
+        },
+        "branches": {
+          "total": 86,
+          "covered": 2,
+          "skipped": 0,
+          "pct": 2.32
+        }
+      },
+      "suggestedFix": "`/home/runner/work/claude/claude/src/data/remote/repos/wildlife.ts` için saf domain testi yaz (test-writer ajanı). Kapsanmayan dalları önce listele.",
+      "frequencyOverride": 0.8925,
+      "impact": 0.4,
+      "frequency": 0.893,
+      "ease": 0.7,
+      "urgency": 0.357,
+      "score": 25,
+      "severity": "kritik",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": false
+    },
+    {
+      "id": "kapsam-home-runner-work-claude-claude-src-data-remote-r",
+      "source": "kapsam",
+      "kind": "coverage_gap",
+      "title": "Düşük test kapsamı: /home/runner/work/claude/claude/src/data/remote/repos/tracks.ts (%7 satır)",
+      "detail": "16/229 satır, %0 dal",
+      "files": [
+        "/home/runner/work/claude/claude/src/data/remote/repos/tracks.ts"
+      ],
+      "metrics": {
+        "count": 213,
+        "sessions": 0,
+        "pct": 6.98
+      },
+      "evidence": {
+        "lines": {
+          "total": 229,
+          "covered": 16,
+          "skipped": 0,
+          "pct": 6.98
+        },
+        "branches": {
+          "total": 157,
+          "covered": 0,
+          "skipped": 0,
+          "pct": 0
+        }
+      },
+      "suggestedFix": "`/home/runner/work/claude/claude/src/data/remote/repos/tracks.ts` için saf domain testi yaz (test-writer ajanı). Kapsanmayan dalları önce listele.",
+      "frequencyOverride": 0.8836666666666666,
+      "impact": 0.4,
+      "frequency": 0.884,
+      "ease": 0.7,
+      "urgency": 0.353,
+      "score": 24.7,
+      "severity": "kritik",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": false
+    },
+    {
+      "id": "kapsam-home-runner-work-claude-claude-src-data-remote-r",
+      "source": "kapsam",
+      "kind": "coverage_gap",
+      "title": "Düşük test kapsamı: /home/runner/work/claude/claude/src/data/remote/repos/tv.ts (%7 satır)",
+      "detail": "8/108 satır, %0 dal",
+      "files": [
+        "/home/runner/work/claude/claude/src/data/remote/repos/tv.ts"
+      ],
+      "metrics": {
+        "count": 100,
+        "sessions": 0,
+        "pct": 7.4
+      },
+      "evidence": {
+        "lines": {
+          "total": 108,
+          "covered": 8,
+          "skipped": 0,
+          "pct": 7.4
+        },
+        "branches": {
+          "total": 54,
+          "covered": 0,
+          "skipped": 0,
+          "pct": 0
+        }
+      },
+      "suggestedFix": "`/home/runner/work/claude/claude/src/data/remote/repos/tv.ts` için saf domain testi yaz (test-writer ajanı). Kapsanmayan dalları önce listele.",
+      "frequencyOverride": 0.8766666666666667,
+      "impact": 0.4,
+      "frequency": 0.877,
+      "ease": 0.7,
+      "urgency": 0.351,
+      "score": 24.5,
+      "severity": "kritik",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": false
+    },
+    {
+      "id": "kapsam-home-runner-work-claude-claude-src-data-remote-r",
+      "source": "kapsam",
+      "kind": "coverage_gap",
+      "title": "Düşük test kapsamı: /home/runner/work/claude/claude/src/data/remote/repos/inventory.ts (%8 satır)",
+      "detail": "14/179 satır, %0 dal",
+      "files": [
+        "/home/runner/work/claude/claude/src/data/remote/repos/inventory.ts"
+      ],
+      "metrics": {
+        "count": 165,
+        "sessions": 0,
+        "pct": 7.82
+      },
+      "evidence": {
+        "lines": {
+          "total": 179,
+          "covered": 14,
+          "skipped": 0,
+          "pct": 7.82
+        },
+        "branches": {
+          "total": 107,
+          "covered": 0,
+          "skipped": 0,
+          "pct": 0
+        }
+      },
+      "suggestedFix": "`/home/runner/work/claude/claude/src/data/remote/repos/inventory.ts` için saf domain testi yaz (test-writer ajanı). Kapsanmayan dalları önce listele.",
+      "frequencyOverride": 0.8696666666666667,
+      "impact": 0.4,
+      "frequency": 0.87,
+      "ease": 0.7,
+      "urgency": 0.348,
+      "score": 24.4,
+      "severity": "yuksek",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": false
+    },
+    {
+      "id": "kapsam-home-runner-work-claude-claude-src-data-remote-r",
+      "source": "kapsam",
+      "kind": "coverage_gap",
+      "title": "Düşük test kapsamı: /home/runner/work/claude/claude/src/data/remote/repos/places.ts (%8 satır)",
+      "detail": "21/259 satır, %0 dal",
+      "files": [
+        "/home/runner/work/claude/claude/src/data/remote/repos/places.ts"
+      ],
+      "metrics": {
+        "count": 238,
+        "sessions": 0,
+        "pct": 8.1
+      },
+      "evidence": {
+        "lines": {
+          "total": 259,
+          "covered": 21,
+          "skipped": 0,
+          "pct": 8.1
+        },
+        "branches": {
+          "total": 117,
+          "covered": 0,
+          "skipped": 0,
+          "pct": 0
+        }
+      },
+      "suggestedFix": "`/home/runner/work/claude/claude/src/data/remote/repos/places.ts` için saf domain testi yaz (test-writer ajanı). Kapsanmayan dalları önce listele.",
+      "frequencyOverride": 0.865,
+      "impact": 0.4,
+      "frequency": 0.865,
+      "ease": 0.7,
+      "urgency": 0.346,
+      "score": 24.2,
+      "severity": "yuksek",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": false
+    },
+    {
+      "id": "kapsam-home-runner-work-claude-claude-src-data-remote-r",
+      "source": "kapsam",
+      "kind": "coverage_gap",
+      "title": "Düşük test kapsamı: /home/runner/work/claude/claude/src/data/remote/repos/climbing.ts (%9 satır)",
+      "detail": "7/82 satır, %0 dal",
+      "files": [
+        "/home/runner/work/claude/claude/src/data/remote/repos/climbing.ts"
+      ],
+      "metrics": {
+        "count": 75,
+        "sessions": 0,
+        "pct": 8.53
+      },
+      "evidence": {
+        "lines": {
+          "total": 82,
+          "covered": 7,
+          "skipped": 0,
+          "pct": 8.53
+        },
+        "branches": {
+          "total": 45,
+          "covered": 0,
+          "skipped": 0,
+          "pct": 0
+        }
+      },
+      "suggestedFix": "`/home/runner/work/claude/claude/src/data/remote/repos/climbing.ts` için saf domain testi yaz (test-writer ajanı). Kapsanmayan dalları önce listele.",
+      "frequencyOverride": 0.8578333333333333,
+      "impact": 0.4,
+      "frequency": 0.858,
+      "ease": 0.7,
+      "urgency": 0.343,
+      "score": 24,
+      "severity": "yuksek",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": false
+    },
+    {
+      "id": "kapsam-home-runner-work-claude-claude-src-data-remote-r",
+      "source": "kapsam",
+      "kind": "coverage_gap",
+      "title": "Düşük test kapsamı: /home/runner/work/claude/claude/src/data/remote/repos/telemed.ts (%9 satır)",
+      "detail": "12/135 satır, %0 dal",
+      "files": [
+        "/home/runner/work/claude/claude/src/data/remote/repos/telemed.ts"
+      ],
+      "metrics": {
+        "count": 123,
+        "sessions": 0,
+        "pct": 8.88
+      },
+      "evidence": {
+        "lines": {
+          "total": 135,
+          "covered": 12,
+          "skipped": 0,
+          "pct": 8.88
+        },
+        "branches": {
+          "total": 133,
+          "covered": 0,
+          "skipped": 0,
+          "pct": 0
+        }
+      },
+      "suggestedFix": "`/home/runner/work/claude/claude/src/data/remote/repos/telemed.ts` için saf domain testi yaz (test-writer ajanı). Kapsanmayan dalları önce listele.",
+      "frequencyOverride": 0.852,
+      "impact": 0.4,
+      "frequency": 0.852,
+      "ease": 0.7,
+      "urgency": 0.341,
+      "score": 23.9,
+      "severity": "yuksek",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": false
+    },
+    {
+      "id": "kapsam-home-runner-work-claude-claude-src-data-remote-r",
+      "source": "kapsam",
+      "kind": "coverage_gap",
+      "title": "Düşük test kapsamı: /home/runner/work/claude/claude/src/data/remote/repos/clubs.ts (%9 satır)",
+      "detail": "12/130 satır, %0 dal",
+      "files": [
+        "/home/runner/work/claude/claude/src/data/remote/repos/clubs.ts"
+      ],
+      "metrics": {
+        "count": 118,
+        "sessions": 0,
+        "pct": 9.23
+      },
+      "evidence": {
+        "lines": {
+          "total": 130,
+          "covered": 12,
+          "skipped": 0,
+          "pct": 9.23
+        },
+        "branches": {
+          "total": 79,
+          "covered": 0,
+          "skipped": 0,
+          "pct": 0
+        }
+      },
+      "suggestedFix": "`/home/runner/work/claude/claude/src/data/remote/repos/clubs.ts` için saf domain testi yaz (test-writer ajanı). Kapsanmayan dalları önce listele.",
+      "frequencyOverride": 0.8461666666666666,
+      "impact": 0.4,
+      "frequency": 0.846,
+      "ease": 0.7,
+      "urgency": 0.338,
+      "score": 23.7,
+      "severity": "yuksek",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": false
+    },
+    {
+      "id": "kapsam-home-runner-work-claude-claude-src-data-remote-r",
+      "source": "kapsam",
+      "kind": "coverage_gap",
+      "title": "Düşük test kapsamı: /home/runner/work/claude/claude/src/data/remote/repos/fun.ts (%9 satır)",
+      "detail": "10/108 satır, %0 dal",
+      "files": [
+        "/home/runner/work/claude/claude/src/data/remote/repos/fun.ts"
+      ],
+      "metrics": {
+        "count": 98,
+        "sessions": 0,
+        "pct": 9.25
+      },
+      "evidence": {
+        "lines": {
+          "total": 108,
+          "covered": 10,
+          "skipped": 0,
+          "pct": 9.25
+        },
+        "branches": {
+          "total": 41,
+          "covered": 0,
+          "skipped": 0,
+          "pct": 0
+        }
+      },
+      "suggestedFix": "`/home/runner/work/claude/claude/src/data/remote/repos/fun.ts` için saf domain testi yaz (test-writer ajanı). Kapsanmayan dalları önce listele.",
+      "frequencyOverride": 0.8458333333333333,
+      "impact": 0.4,
+      "frequency": 0.846,
+      "ease": 0.7,
+      "urgency": 0.338,
+      "score": 23.7,
+      "severity": "yuksek",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": false
+    },
+    {
+      "id": "kapsam-home-runner-work-claude-claude-src-data-remote-r",
+      "source": "kapsam",
+      "kind": "coverage_gap",
+      "title": "Düşük test kapsamı: /home/runner/work/claude/claude/src/data/remote/repos/core.ts (%10 satır)",
+      "detail": "51/531 satır, %0 dal",
+      "files": [
+        "/home/runner/work/claude/claude/src/data/remote/repos/core.ts"
+      ],
+      "metrics": {
+        "count": 480,
+        "sessions": 0,
+        "pct": 9.6
+      },
+      "evidence": {
+        "lines": {
+          "total": 531,
+          "covered": 51,
+          "skipped": 0,
+          "pct": 9.6
+        },
+        "branches": {
+          "total": 371,
+          "covered": 0,
+          "skipped": 0,
+          "pct": 0
+        }
+      },
+      "suggestedFix": "`/home/runner/work/claude/claude/src/data/remote/repos/core.ts` için saf domain testi yaz (test-writer ajanı). Kapsanmayan dalları önce listele.",
+      "frequencyOverride": 0.84,
+      "impact": 0.4,
+      "frequency": 0.84,
+      "ease": 0.7,
+      "urgency": 0.336,
+      "score": 23.5,
+      "severity": "yuksek",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": false
+    },
+    {
+      "id": "kapsam-home-runner-work-claude-claude-src-data-remote-r",
+      "source": "kapsam",
+      "kind": "coverage_gap",
+      "title": "Düşük test kapsamı: /home/runner/work/claude/claude/src/data/remote/repos/tools.ts (%11 satır)",
+      "detail": "29/271 satır, %3 dal",
+      "files": [
+        "/home/runner/work/claude/claude/src/data/remote/repos/tools.ts"
+      ],
+      "metrics": {
+        "count": 242,
+        "sessions": 0,
+        "pct": 10.7
+      },
+      "evidence": {
+        "lines": {
+          "total": 271,
+          "covered": 29,
+          "skipped": 0,
+          "pct": 10.7
+        },
+        "branches": {
+          "total": 147,
+          "covered": 4,
+          "skipped": 0,
+          "pct": 2.72
+        }
+      },
+      "suggestedFix": "`/home/runner/work/claude/claude/src/data/remote/repos/tools.ts` için saf domain testi yaz (test-writer ajanı). Kapsanmayan dalları önce listele.",
+      "frequencyOverride": 0.8216666666666667,
+      "impact": 0.4,
+      "frequency": 0.822,
+      "ease": 0.7,
+      "urgency": 0.329,
+      "score": 23,
+      "severity": "yuksek",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": false
     },
     {
       "id": "perf-acilis-app-explore",
@@ -172,6 +1266,62 @@
           "title": "Yavaş ekran: /(app)/explore (2680 ms)"
         }
       ]
+    },
+    {
+      "id": "ci-basarisizlik-orani",
+      "source": "ci",
+      "kind": "ci_instability",
+      "title": "CI başarısızlık oranı %100",
+      "detail": "30 koşudan 30 tanesi kırmızı. Adım dağılımı: bilinmiyor (30)",
+      "files": [],
+      "metrics": {
+        "count": 30,
+        "sessions": 0,
+        "failRate": 1,
+        "byStep": {
+          "bilinmiyor": 30
+        }
+      },
+      "evidence": {
+        "runs": [
+          {
+            "id": 34331454983,
+            "branch": "claude/outdoor-adventure-social-app-du8h5t",
+            "step": null
+          },
+          {
+            "id": 34329076556,
+            "branch": "claude/outdoor-adventure-social-app-du8h5t",
+            "step": null
+          },
+          {
+            "id": 34320520283,
+            "branch": "claude/outdoor-adventure-social-app-du8h5t",
+            "step": null
+          },
+          {
+            "id": 34317828532,
+            "branch": "claude/outdoor-adventure-social-app-du8h5t",
+            "step": null
+          },
+          {
+            "id": 34317574691,
+            "branch": "claude/outdoor-adventure-social-app-du8h5t",
+            "step": null
+          }
+        ]
+      },
+      "suggestedFix": "En sık kırılan adım: `bilinmiyor`. Kırmızı koşuların günlüğünü `gh run view` ile oku; steward ajanı kök nedeni düzeltir.",
+      "frequencyOverride": 1,
+      "autoFixable": false,
+      "impact": 0.5,
+      "frequency": 1,
+      "ease": 0.35,
+      "urgency": 0.5,
+      "score": 17.5,
+      "severity": "kritik",
+      "risky": false,
+      "riskCategories": []
     },
     {
       "id": "tel-error-src-features-tracks-components-trackelevationchart-tsx-112",
@@ -244,6 +1394,1182 @@
       "severity": "kritik",
       "risky": false,
       "riskCategories": []
+    },
+    {
+      "id": "i18n-altitude-ar",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: altitude / ar",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/ar/altitude.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate altitude` ile ar dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.3,
+      "frequency": 0.5,
+      "ease": 0.95,
+      "urgency": 0.15,
+      "score": 14.3,
+      "severity": "orta",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true
+    },
+    {
+      "id": "i18n-altitude-cs",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: altitude / cs",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/cs/altitude.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate altitude` ile cs dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.3,
+      "frequency": 0.5,
+      "ease": 0.95,
+      "urgency": 0.15,
+      "score": 14.3,
+      "severity": "orta",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true
+    },
+    {
+      "id": "i18n-altitude-de",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: altitude / de",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/de/altitude.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate altitude` ile de dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.3,
+      "frequency": 0.5,
+      "ease": 0.95,
+      "urgency": 0.15,
+      "score": 14.3,
+      "severity": "orta",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true
+    },
+    {
+      "id": "i18n-altitude-el",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: altitude / el",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/el/altitude.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate altitude` ile el dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.3,
+      "frequency": 0.5,
+      "ease": 0.95,
+      "urgency": 0.15,
+      "score": 14.3,
+      "severity": "orta",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true
+    },
+    {
+      "id": "i18n-altitude-es",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: altitude / es",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/es/altitude.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate altitude` ile es dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.3,
+      "frequency": 0.5,
+      "ease": 0.95,
+      "urgency": 0.15,
+      "score": 14.3,
+      "severity": "orta",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true
+    },
+    {
+      "id": "i18n-altitude-fr",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: altitude / fr",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/fr/altitude.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate altitude` ile fr dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.3,
+      "frequency": 0.5,
+      "ease": 0.95,
+      "urgency": 0.15,
+      "score": 14.3,
+      "severity": "orta",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true
+    },
+    {
+      "id": "i18n-altitude-hi",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: altitude / hi",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/hi/altitude.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate altitude` ile hi dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.3,
+      "frequency": 0.5,
+      "ease": 0.95,
+      "urgency": 0.15,
+      "score": 14.3,
+      "severity": "orta",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true
+    },
+    {
+      "id": "i18n-altitude-id",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: altitude / id",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/id/altitude.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate altitude` ile id dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.3,
+      "frequency": 0.5,
+      "ease": 0.95,
+      "urgency": 0.15,
+      "score": 14.3,
+      "severity": "orta",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true
+    },
+    {
+      "id": "i18n-altitude-it",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: altitude / it",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/it/altitude.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate altitude` ile it dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.3,
+      "frequency": 0.5,
+      "ease": 0.95,
+      "urgency": 0.15,
+      "score": 14.3,
+      "severity": "orta",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true
+    },
+    {
+      "id": "i18n-altitude-ja",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: altitude / ja",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/ja/altitude.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate altitude` ile ja dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.3,
+      "frequency": 0.5,
+      "ease": 0.95,
+      "urgency": 0.15,
+      "score": 14.3,
+      "severity": "orta",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true
+    },
+    {
+      "id": "i18n-altitude-ka",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: altitude / ka",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/ka/altitude.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate altitude` ile ka dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.3,
+      "frequency": 0.5,
+      "ease": 0.95,
+      "urgency": 0.15,
+      "score": 14.3,
+      "severity": "orta",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true
+    },
+    {
+      "id": "i18n-altitude-ko",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: altitude / ko",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/ko/altitude.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate altitude` ile ko dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.3,
+      "frequency": 0.5,
+      "ease": 0.95,
+      "urgency": 0.15,
+      "score": 14.3,
+      "severity": "orta",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true
+    },
+    {
+      "id": "i18n-altitude-nb",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: altitude / nb",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/nb/altitude.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate altitude` ile nb dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.3,
+      "frequency": 0.5,
+      "ease": 0.95,
+      "urgency": 0.15,
+      "score": 14.3,
+      "severity": "orta",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true
+    },
+    {
+      "id": "i18n-altitude-ne",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: altitude / ne",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/ne/altitude.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate altitude` ile ne dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.3,
+      "frequency": 0.5,
+      "ease": 0.95,
+      "urgency": 0.15,
+      "score": 14.3,
+      "severity": "orta",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true
+    },
+    {
+      "id": "i18n-altitude-nl",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: altitude / nl",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/nl/altitude.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate altitude` ile nl dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.3,
+      "frequency": 0.5,
+      "ease": 0.95,
+      "urgency": 0.15,
+      "score": 14.3,
+      "severity": "orta",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true
+    },
+    {
+      "id": "i18n-altitude-pl",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: altitude / pl",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/pl/altitude.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate altitude` ile pl dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.3,
+      "frequency": 0.5,
+      "ease": 0.95,
+      "urgency": 0.15,
+      "score": 14.3,
+      "severity": "orta",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true
+    },
+    {
+      "id": "i18n-altitude-pt",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: altitude / pt",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/pt/altitude.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate altitude` ile pt dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.3,
+      "frequency": 0.5,
+      "ease": 0.95,
+      "urgency": 0.15,
+      "score": 14.3,
+      "severity": "orta",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true
+    },
+    {
+      "id": "i18n-altitude-ru",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: altitude / ru",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/ru/altitude.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate altitude` ile ru dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.3,
+      "frequency": 0.5,
+      "ease": 0.95,
+      "urgency": 0.15,
+      "score": 14.3,
+      "severity": "orta",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true
+    },
+    {
+      "id": "i18n-altitude-sv",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: altitude / sv",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/sv/altitude.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate altitude` ile sv dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.3,
+      "frequency": 0.5,
+      "ease": 0.95,
+      "urgency": 0.15,
+      "score": 14.3,
+      "severity": "orta",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true
+    },
+    {
+      "id": "i18n-altitude-th",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: altitude / th",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/th/altitude.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate altitude` ile th dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.3,
+      "frequency": 0.5,
+      "ease": 0.95,
+      "urgency": 0.15,
+      "score": 14.3,
+      "severity": "orta",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true
+    },
+    {
+      "id": "i18n-altitude-zh",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: altitude / zh",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/zh/altitude.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate altitude` ile zh dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.3,
+      "frequency": 0.5,
+      "ease": 0.95,
+      "urgency": 0.15,
+      "score": 14.3,
+      "severity": "orta",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": true
+    },
+    {
+      "id": "i18n-phoneauth-ar",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: phoneAuth / ar",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/ar/phoneAuth.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate phoneAuth` ile ar dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.45,
+      "frequency": 0.5,
+      "ease": 0.57,
+      "urgency": 0.225,
+      "score": 12.8,
+      "severity": "yuksek",
+      "risky": true,
+      "riskCategories": [
+        "kimlik"
+      ],
+      "autoFixable": false
+    },
+    {
+      "id": "i18n-phoneauth-cs",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: phoneAuth / cs",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/cs/phoneAuth.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate phoneAuth` ile cs dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.45,
+      "frequency": 0.5,
+      "ease": 0.57,
+      "urgency": 0.225,
+      "score": 12.8,
+      "severity": "yuksek",
+      "risky": true,
+      "riskCategories": [
+        "kimlik"
+      ],
+      "autoFixable": false
+    },
+    {
+      "id": "i18n-phoneauth-de",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: phoneAuth / de",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/de/phoneAuth.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate phoneAuth` ile de dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.45,
+      "frequency": 0.5,
+      "ease": 0.57,
+      "urgency": 0.225,
+      "score": 12.8,
+      "severity": "yuksek",
+      "risky": true,
+      "riskCategories": [
+        "kimlik"
+      ],
+      "autoFixable": false
+    },
+    {
+      "id": "i18n-phoneauth-el",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: phoneAuth / el",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/el/phoneAuth.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate phoneAuth` ile el dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.45,
+      "frequency": 0.5,
+      "ease": 0.57,
+      "urgency": 0.225,
+      "score": 12.8,
+      "severity": "yuksek",
+      "risky": true,
+      "riskCategories": [
+        "kimlik"
+      ],
+      "autoFixable": false
+    },
+    {
+      "id": "i18n-phoneauth-es",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: phoneAuth / es",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/es/phoneAuth.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate phoneAuth` ile es dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.45,
+      "frequency": 0.5,
+      "ease": 0.57,
+      "urgency": 0.225,
+      "score": 12.8,
+      "severity": "yuksek",
+      "risky": true,
+      "riskCategories": [
+        "kimlik"
+      ],
+      "autoFixable": false
+    },
+    {
+      "id": "i18n-phoneauth-fr",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: phoneAuth / fr",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/fr/phoneAuth.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate phoneAuth` ile fr dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.45,
+      "frequency": 0.5,
+      "ease": 0.57,
+      "urgency": 0.225,
+      "score": 12.8,
+      "severity": "yuksek",
+      "risky": true,
+      "riskCategories": [
+        "kimlik"
+      ],
+      "autoFixable": false
+    },
+    {
+      "id": "i18n-phoneauth-hi",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: phoneAuth / hi",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/hi/phoneAuth.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate phoneAuth` ile hi dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.45,
+      "frequency": 0.5,
+      "ease": 0.57,
+      "urgency": 0.225,
+      "score": 12.8,
+      "severity": "yuksek",
+      "risky": true,
+      "riskCategories": [
+        "kimlik"
+      ],
+      "autoFixable": false
+    },
+    {
+      "id": "i18n-phoneauth-id",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: phoneAuth / id",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/id/phoneAuth.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate phoneAuth` ile id dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.45,
+      "frequency": 0.5,
+      "ease": 0.57,
+      "urgency": 0.225,
+      "score": 12.8,
+      "severity": "yuksek",
+      "risky": true,
+      "riskCategories": [
+        "kimlik"
+      ],
+      "autoFixable": false
+    },
+    {
+      "id": "i18n-phoneauth-it",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: phoneAuth / it",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/it/phoneAuth.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate phoneAuth` ile it dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.45,
+      "frequency": 0.5,
+      "ease": 0.57,
+      "urgency": 0.225,
+      "score": 12.8,
+      "severity": "yuksek",
+      "risky": true,
+      "riskCategories": [
+        "kimlik"
+      ],
+      "autoFixable": false
+    },
+    {
+      "id": "i18n-phoneauth-ja",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: phoneAuth / ja",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/ja/phoneAuth.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate phoneAuth` ile ja dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.45,
+      "frequency": 0.5,
+      "ease": 0.57,
+      "urgency": 0.225,
+      "score": 12.8,
+      "severity": "yuksek",
+      "risky": true,
+      "riskCategories": [
+        "kimlik"
+      ],
+      "autoFixable": false
+    },
+    {
+      "id": "i18n-phoneauth-ka",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: phoneAuth / ka",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/ka/phoneAuth.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate phoneAuth` ile ka dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.45,
+      "frequency": 0.5,
+      "ease": 0.57,
+      "urgency": 0.225,
+      "score": 12.8,
+      "severity": "yuksek",
+      "risky": true,
+      "riskCategories": [
+        "kimlik"
+      ],
+      "autoFixable": false
+    },
+    {
+      "id": "i18n-phoneauth-ko",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: phoneAuth / ko",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/ko/phoneAuth.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate phoneAuth` ile ko dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.45,
+      "frequency": 0.5,
+      "ease": 0.57,
+      "urgency": 0.225,
+      "score": 12.8,
+      "severity": "yuksek",
+      "risky": true,
+      "riskCategories": [
+        "kimlik"
+      ],
+      "autoFixable": false
+    },
+    {
+      "id": "i18n-phoneauth-nb",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: phoneAuth / nb",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/nb/phoneAuth.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate phoneAuth` ile nb dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.45,
+      "frequency": 0.5,
+      "ease": 0.57,
+      "urgency": 0.225,
+      "score": 12.8,
+      "severity": "yuksek",
+      "risky": true,
+      "riskCategories": [
+        "kimlik"
+      ],
+      "autoFixable": false
+    },
+    {
+      "id": "i18n-phoneauth-ne",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: phoneAuth / ne",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/ne/phoneAuth.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate phoneAuth` ile ne dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.45,
+      "frequency": 0.5,
+      "ease": 0.57,
+      "urgency": 0.225,
+      "score": 12.8,
+      "severity": "yuksek",
+      "risky": true,
+      "riskCategories": [
+        "kimlik"
+      ],
+      "autoFixable": false
+    },
+    {
+      "id": "i18n-phoneauth-nl",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: phoneAuth / nl",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/nl/phoneAuth.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate phoneAuth` ile nl dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.45,
+      "frequency": 0.5,
+      "ease": 0.57,
+      "urgency": 0.225,
+      "score": 12.8,
+      "severity": "yuksek",
+      "risky": true,
+      "riskCategories": [
+        "kimlik"
+      ],
+      "autoFixable": false
+    },
+    {
+      "id": "i18n-phoneauth-pl",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: phoneAuth / pl",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/pl/phoneAuth.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate phoneAuth` ile pl dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.45,
+      "frequency": 0.5,
+      "ease": 0.57,
+      "urgency": 0.225,
+      "score": 12.8,
+      "severity": "yuksek",
+      "risky": true,
+      "riskCategories": [
+        "kimlik"
+      ],
+      "autoFixable": false
+    },
+    {
+      "id": "i18n-phoneauth-pt",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: phoneAuth / pt",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/pt/phoneAuth.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate phoneAuth` ile pt dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.45,
+      "frequency": 0.5,
+      "ease": 0.57,
+      "urgency": 0.225,
+      "score": 12.8,
+      "severity": "yuksek",
+      "risky": true,
+      "riskCategories": [
+        "kimlik"
+      ],
+      "autoFixable": false
+    },
+    {
+      "id": "i18n-phoneauth-ru",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: phoneAuth / ru",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/ru/phoneAuth.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate phoneAuth` ile ru dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.45,
+      "frequency": 0.5,
+      "ease": 0.57,
+      "urgency": 0.225,
+      "score": 12.8,
+      "severity": "yuksek",
+      "risky": true,
+      "riskCategories": [
+        "kimlik"
+      ],
+      "autoFixable": false
+    },
+    {
+      "id": "i18n-phoneauth-sv",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: phoneAuth / sv",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/sv/phoneAuth.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate phoneAuth` ile sv dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.45,
+      "frequency": 0.5,
+      "ease": 0.57,
+      "urgency": 0.225,
+      "score": 12.8,
+      "severity": "yuksek",
+      "risky": true,
+      "riskCategories": [
+        "kimlik"
+      ],
+      "autoFixable": false
+    },
+    {
+      "id": "i18n-phoneauth-th",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: phoneAuth / th",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/th/phoneAuth.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate phoneAuth` ile th dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.45,
+      "frequency": 0.5,
+      "ease": 0.57,
+      "urgency": 0.225,
+      "score": 12.8,
+      "severity": "yuksek",
+      "risky": true,
+      "riskCategories": [
+        "kimlik"
+      ],
+      "autoFixable": false
+    },
+    {
+      "id": "i18n-phoneauth-zh",
+      "source": "i18n",
+      "kind": "i18n_missing",
+      "title": "i18n uyumsuzluğu: phoneAuth / zh",
+      "detail": "dil dosyası yok",
+      "files": [
+        "src/core/i18n/modules/locales/zh/phoneAuth.ts"
+      ],
+      "metrics": {
+        "count": 10,
+        "sessions": 0
+      },
+      "evidence": {},
+      "suggestedFix": "`/translate phoneAuth` ile zh dosyasını üret.",
+      "impactOverride": 0.3,
+      "frequencyOverride": 0.5,
+      "impact": 0.45,
+      "frequency": 0.5,
+      "ease": 0.57,
+      "urgency": 0.225,
+      "score": 12.8,
+      "severity": "yuksek",
+      "risky": true,
+      "riskCategories": [
+        "kimlik"
+      ],
+      "autoFixable": false
     },
     {
       "id": "tel-empty-screen-app-clubs",
@@ -398,104 +2724,6 @@
       "riskCategories": []
     },
     {
-      "id": "kapsam-src-domain-pricing-ts",
-      "source": "kapsam",
-      "kind": "coverage_gap",
-      "title": "Düşük test kapsamı: src/domain/pricing.ts (%36 satır)",
-      "detail": "61/168 satır, %27 dal · RİSKLİ ALAN (odeme)",
-      "files": [
-        "src/domain/pricing.ts"
-      ],
-      "metrics": {
-        "count": 107,
-        "sessions": 0,
-        "pct": 36.3
-      },
-      "evidence": {
-        "lines": {
-          "total": 168,
-          "covered": 61,
-          "pct": 36.3
-        },
-        "branches": {
-          "total": 74,
-          "covered": 20,
-          "pct": 27.03
-        }
-      },
-      "suggestedFix": "`src/domain/pricing.ts` için saf domain testi yaz (test-writer ajanı). Kapsanmayan dalları önce listele.",
-      "frequencyOverride": 0.3950000000000001,
-      "impact": 0.55,
-      "frequency": 0.395,
-      "ease": 0.42,
-      "urgency": 0.217,
-      "score": 9.1,
-      "severity": "yuksek",
-      "risky": true,
-      "riskCategories": [
-        "odeme"
-      ],
-      "autoFixable": false
-    },
-    {
-      "id": "ci-basarisizlik-orani",
-      "source": "ci",
-      "kind": "ci_instability",
-      "title": "CI başarısızlık oranı %50",
-      "detail": "10 koşudan 5 tanesi kırmızı. Adım dağılımı: test (3), lint (1), typecheck (1)",
-      "files": [],
-      "metrics": {
-        "count": 5,
-        "sessions": 0,
-        "failRate": 0.5,
-        "byStep": {
-          "test": 3,
-          "lint": 1,
-          "typecheck": 1
-        }
-      },
-      "evidence": {
-        "runs": [
-          {
-            "id": 5002,
-            "branch": "feat/zmatch-filters",
-            "step": "test"
-          },
-          {
-            "id": 5003,
-            "branch": "feat/zmatch-filters",
-            "step": "test"
-          },
-          {
-            "id": 5005,
-            "branch": "fix/tracks-chart",
-            "step": "lint"
-          },
-          {
-            "id": 5007,
-            "branch": "chore/deps",
-            "step": "test"
-          },
-          {
-            "id": 5010,
-            "branch": "feat/clubs-empty",
-            "step": "typecheck"
-          }
-        ]
-      },
-      "suggestedFix": "En sık kırılan adım: `test`. Kırmızı koşuların günlüğünü `gh run view` ile oku; steward ajanı kök nedeni düzeltir.",
-      "frequencyOverride": 0.5,
-      "autoFixable": false,
-      "impact": 0.5,
-      "frequency": 0.5,
-      "ease": 0.35,
-      "urgency": 0.25,
-      "score": 8.8,
-      "severity": "yuksek",
-      "risky": false,
-      "riskCategories": []
-    },
-    {
       "id": "tel-flow-abandon-onboarding-location-permission",
       "source": "telemetri",
       "kind": "flow_abandon",
@@ -566,6 +2794,46 @@
       "risky": false,
       "riskCategories": [],
       "autoFixable": true
+    },
+    {
+      "id": "kapsam-home-runner-work-claude-claude-src-data-remote-m",
+      "source": "kapsam",
+      "kind": "coverage_gap",
+      "title": "Düşük test kapsamı: /home/runner/work/claude/claude/src/data/remote/mappers.ts (%43 satır)",
+      "detail": "91/210 satır, %62 dal",
+      "files": [
+        "/home/runner/work/claude/claude/src/data/remote/mappers.ts"
+      ],
+      "metrics": {
+        "count": 119,
+        "sessions": 0,
+        "pct": 43.33
+      },
+      "evidence": {
+        "lines": {
+          "total": 210,
+          "covered": 91,
+          "skipped": 0,
+          "pct": 43.33
+        },
+        "branches": {
+          "total": 165,
+          "covered": 102,
+          "skipped": 0,
+          "pct": 61.81
+        }
+      },
+      "suggestedFix": "`/home/runner/work/claude/claude/src/data/remote/mappers.ts` için saf domain testi yaz (test-writer ajanı). Kapsanmayan dalları önce listele.",
+      "frequencyOverride": 0.2778333333333334,
+      "impact": 0.4,
+      "frequency": 0.278,
+      "ease": 0.7,
+      "urgency": 0.111,
+      "score": 7.8,
+      "severity": "orta",
+      "risky": false,
+      "riskCategories": [],
+      "autoFixable": false
     },
     {
       "id": "perf-sorgu-app-explore",
@@ -649,46 +2917,6 @@
       ]
     },
     {
-      "id": "kapsam-src-domain-emergency-ts",
-      "source": "kapsam",
-      "kind": "coverage_gap",
-      "title": "Düşük test kapsamı: src/domain/emergency.ts (%42 satır)",
-      "detail": "88/210 satır, %32 dal · RİSKLİ ALAN (sos)",
-      "files": [
-        "src/domain/emergency.ts"
-      ],
-      "metrics": {
-        "count": 122,
-        "sessions": 0,
-        "pct": 41.9
-      },
-      "evidence": {
-        "lines": {
-          "total": 210,
-          "covered": 88,
-          "pct": 41.9
-        },
-        "branches": {
-          "total": 96,
-          "covered": 31,
-          "pct": 32.29
-        }
-      },
-      "suggestedFix": "`src/domain/emergency.ts` için saf domain testi yaz (test-writer ajanı). Kapsanmayan dalları önce listele.",
-      "frequencyOverride": 0.3016666666666667,
-      "impact": 0.55,
-      "frequency": 0.302,
-      "ease": 0.42,
-      "urgency": 0.166,
-      "score": 7,
-      "severity": "orta",
-      "risky": true,
-      "riskCategories": [
-        "sos"
-      ],
-      "autoFixable": false
-    },
-    {
       "id": "tel-empty-screen-app-market",
       "source": "telemetri",
       "kind": "empty_screen",
@@ -763,44 +2991,6 @@
       "severity": "orta",
       "risky": false,
       "riskCategories": []
-    },
-    {
-      "id": "kapsam-src-domain-routing-ts",
-      "source": "kapsam",
-      "kind": "coverage_gap",
-      "title": "Düşük test kapsamı: src/domain/routing.ts (%52 satır)",
-      "detail": "158/305 satır, %44 dal",
-      "files": [
-        "src/domain/routing.ts"
-      ],
-      "metrics": {
-        "count": 147,
-        "sessions": 0,
-        "pct": 51.8
-      },
-      "evidence": {
-        "lines": {
-          "total": 305,
-          "covered": 158,
-          "pct": 51.8
-        },
-        "branches": {
-          "total": 132,
-          "covered": 58,
-          "pct": 43.94
-        }
-      },
-      "suggestedFix": "`src/domain/routing.ts` için saf domain testi yaz (test-writer ajanı). Kapsanmayan dalları önce listele.",
-      "frequencyOverride": 0.13666666666666671,
-      "impact": 0.4,
-      "frequency": 0.137,
-      "ease": 0.7,
-      "urgency": 0.055,
-      "score": 3.8,
-      "severity": "dusuk",
-      "risky": false,
-      "riskCategories": [],
-      "autoFixable": true
     },
     {
       "id": "tel-crash-src-features-satellite-components-holdsosbutton-tsx-71",
